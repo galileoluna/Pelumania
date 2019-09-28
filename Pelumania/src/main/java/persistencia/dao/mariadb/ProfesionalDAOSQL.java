@@ -44,7 +44,7 @@ package persistencia.dao.mariadb;
 		}			
 		return isInsertExitoso;
 	}
-		
+
 	public boolean delete(ProfesionalDTO profesional_a_eliminar)
 	{
 		PreparedStatement statement;
@@ -52,7 +52,7 @@ package persistencia.dao.mariadb;
 		boolean isdeleteExitoso = false;
 		try {
 			statement = conexion.prepareStatement(delete);
-			statement.setString(1, Integer.toString(profesional_a_eliminar.getIdProfesional()));
+			statement.setInt(1, profesional_a_eliminar.getIdProfesional());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isdeleteExitoso = true;
