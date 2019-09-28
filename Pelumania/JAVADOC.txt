@@ -1,0 +1,75 @@
+Muchacho', aca va un ejemplo de como usar JavaDoc 
+(Es para generar documentacion automaticamente en formato HTML, y ademas para poder entender mejor
+el codigo que hizo otra persona. Va a facilitar entender las cosas entre nosotros, y 
+para gali y santi que van a testear, ademas de que es una boludes, y no lleva mucho tiempo) 
+
+- Se escriben como comentarios, arrancan con /** y  terminan con */ (Si o si con 2 * al principio)
+- Si lo pones antes de la declaracion de la clase (abajo de los import) lo toma como una descripcion
+de que es lo que hace esa clase. 
+- Si lo pones antes de un metodo, lo toma como una descripcion de ese metodo. 
+- Tiene palabras reservadas, que son como clave - valor, y van despues de un @ 
+
+Tablita. 
+@author (Quien codeo eso)
+@deprecated (Indica que el metodo ya no se usa)
+@param (Definir un parametro de un metodo y su descripcion)
+@return (define lo que devuelve el metodo, si es void no hace falta)
+@see (Asocia ese metodo con algun otro metodo o clase) 
+@version (Version del metodo o la clase)
+@throws (Describe la o las excepciones que puede tirar el metodo, 1 por c/u)
+
+Ej. 1
+________________________________________________________
+    
+    /**
+     * Constructor con 4 parametros
+     * @param nombre nombre del empleado
+     * @param apellido nombre del empleado
+     * @param edad edad del empleado
+     * @param salario salario del empleado
+     */
+    public Empleado(String nombre, String apellido, int edad, double salario){
+        this.nombre=nombre;
+        this.apellido=apellido;
+        this.edad=edad;
+        this.salario=salario;
+    }
+}
+_____________________________________________________
+
+Ej. 2
+_____________________________________________________ 
+
+/**
+ * Clase Empleado
+ *
+ * Contiene informacion de cada empleado
+ *
+ * @author Fernando
+ * @version 1.0
+ * @see <a href = "http://www.google.com" /> google.com </a>
+ */
+public class Empleado { ...
+________________________________________________________
+
+Ej. 3 
+________________________________________________________
+
+ /**
+     * Suma un plus al salario del empleado si el empleado tiene mas de 40 años
+     * @param sueldoPlus
+     * @return <ul>
+     *          <li>true: se suma el plus al sueldo</li>
+     *          <li>false: no se suma el plus al sueldo</li>
+     *          </ul>
+     */
+    public boolean plus (double sueldoPlus){
+        boolean aumento=false;
+        if (edad>40 && compruebaNombre()){
+            salario+=sueldoPlus;
+            aumento=true;
+        }
+        return aumento;
+    }
+
+________________________________________________________
