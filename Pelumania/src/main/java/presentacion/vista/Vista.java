@@ -10,10 +10,12 @@ import javax.swing.JPanel;
 import com.toedter.calendar.JCalendar;
 
 import persistencia.conexion.Conexion;
+import javax.swing.JButton;
 
 public class Vista {
 	private JFrame frame;
 	private JCalendar calendario;
+	private JButton btnServicios;
 	
 	public Vista() 
 	{
@@ -24,20 +26,26 @@ public class Vista {
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 523, 451);
+		frame.setBounds(100, 100, 1011, 683);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 507, 412);
+		panel.setBounds(0, 0, 985, 633);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		calendario = new JCalendar();
 		calendario.setTodayButtonVisible(true);
-		calendario.setBounds(10, 37, 419, 301);
+		calendario.setBounds(10, 11, 578, 622);
 		panel.add(calendario);
+		
+		btnServicios = new JButton("Servicios");
+		btnServicios.setBounds(10, 362, 152, 39);
+		panel.add(btnServicios);
+		btnServicios.setVisible(true);
+		
 		calendario.setVisible(true);
 
 	}
@@ -61,4 +69,13 @@ public class Vista {
 		});
 		this.frame.setVisible(true);
 	}
+
+	public JButton getBtnServicios() {
+		return btnServicios;
+	}
+
+	public void setBtnServicios(JButton btnServicios) {
+		this.btnServicios = btnServicios;
+	}
+	
 }
