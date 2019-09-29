@@ -36,6 +36,17 @@
     <version>2.4.4</version>
 </dependency>
 
+<!-- Mysql-connector-java -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <!--<version>5.1.6</version>-->
+		    <!-- USAR LA VERSIÓN 5.1.44 SI USÁS MYSQL8 --> 
+			<!--<version>5.1.44</version> -->
+	    	<scope>runtime</scope>
+    		<version>8.0.13</version>		
+		</dependency>
+
 <!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
 <dependency>
     <groupId>com.toedter</groupId>

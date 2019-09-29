@@ -16,6 +16,7 @@ public class Vista {
 	private JFrame frame;
 	private JCalendar calendario;
 	private JButton btnServicios;
+	private JButton btnAgregarCliente;
 	
 	public Vista() 
 	{
@@ -40,14 +41,17 @@ public class Vista {
 		calendario.setTodayButtonVisible(true);
 		calendario.setBounds(10, 11, 578, 622);
 		panel.add(calendario);
-		
+		calendario.setVisible(true);
+
 		btnServicios = new JButton("Servicios");
-		btnServicios.setBounds(10, 362, 152, 39);
+		btnServicios.setBounds(682, 65, 152, 39);
 		panel.add(btnServicios);
 		btnServicios.setVisible(true);
 		
-		calendario.setVisible(true);
-
+		btnAgregarCliente = new JButton("Agregar Cliente");
+		btnAgregarCliente.setBounds(682, 138, 152, 39);
+		panel.add(btnAgregarCliente);
+		btnAgregarCliente.setVisible(true);
 	}
 	
 	public void show()
@@ -77,5 +81,7 @@ public class Vista {
 	public void setBtnServicios(JButton btnServicios) {
 		this.btnServicios = btnServicios;
 	}
-	
+	public JButton getBtnAgregarCliente () {
+		return btnAgregarCliente;
+	}
 }
