@@ -1,17 +1,19 @@
 package dto;
 
+import java.math.BigDecimal;
+
 public class ServicioDTO {
 	private int idServicio;
 	private String nombre;
-	private double precioLocal;
-	private double precioDolar;
+	private BigDecimal precioLocal;
+	private BigDecimal precioDolar;
 	private int puntos;
 	
 	public ServicioDTO(
 			int idservicio,
 			String nombre,
-			double preciolocal,
-			double preciodolar,
+			BigDecimal preciolocal,
+			BigDecimal preciodolar,
 			int puntos) {
 		
 		this.idServicio = idservicio;
@@ -37,19 +39,19 @@ public class ServicioDTO {
 		this.nombre = nombre;
 	}
 
-	public double getPrecioLocal() {
+	public BigDecimal getPrecioLocal() {
 		return precioLocal;
 	}
 
-	public void setPrecioLocal(double precioLocal) {
+	public void setPrecioLocal(BigDecimal precioLocal) {
 		this.precioLocal = precioLocal;
 	}
 
-	public double getPrecioDolar() {
+	public BigDecimal getPrecioDolar() {
 		return precioDolar;
 	}
 
-	public void setPrecioDolar(double precioDolar) {
+	public void setPrecioDolar(BigDecimal precioDolar) {
 		this.precioDolar = precioDolar;
 	}
 

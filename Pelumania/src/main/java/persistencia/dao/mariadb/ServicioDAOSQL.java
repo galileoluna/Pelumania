@@ -1,5 +1,6 @@
 package persistencia.dao.mariadb;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,8 +30,8 @@ public class ServicioDAOSQL implements ServicioDAO{
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, servicio.getIdServicio());
 			statement.setString(2, servicio.getNombre());
-			statement.setDouble(3, servicio.getPrecioLocal());
-			statement.setDouble(4, servicio.getPrecioDolar());
+			statement.setBigDecimal(3, servicio.getPrecioLocal());
+			statement.setBigDecimal(4, servicio.getPrecioDolar());
 			statement.setInt(5, servicio.getPuntos());
 			if(statement.executeUpdate() > 0)
 			{
@@ -95,8 +96,8 @@ public class ServicioDAOSQL implements ServicioDAO{
 	private ServicioDTO getServicioDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idServicio");
 		String nombre = resultSet.getString("Nombre");
-		double precioLocal = resultSet.getDouble("PrecioLocal");
-		double precioDolar =resultSet.getDouble("PrecioDolar");
+		BigDecimal precioLocal = resultSet.getBigDecimal("PrecioLocal");
+		BigDecimal precioDolar =resultSet.getBigDecimal("PrecioDolar");
 		int puntos = resultSet.getInt("Puntos");
 		
 		return new ServicioDTO(id, nombre, precioLocal, precioDolar, puntos );

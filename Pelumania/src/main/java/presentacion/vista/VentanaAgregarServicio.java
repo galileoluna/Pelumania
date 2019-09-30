@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 
 public class VentanaAgregarServicio extends JFrame 
@@ -20,6 +21,9 @@ public class VentanaAgregarServicio extends JFrame
 	private JLabel lbl_PrecioLocal;
 	private JLabel lbl_precioDolar;
 	private JLabel lbl_Puntos;
+	
+	private JButton btn_AgregarServicio;
+	private JButton btn_Cancelar;
 	
 	public static VentanaAgregarServicio getInstance()
 	{
@@ -87,22 +91,85 @@ public class VentanaAgregarServicio extends JFrame
 		lbl_Puntos.setBounds(0, 130, 124, 26);
 		panel.add(lbl_Puntos);
 		
-		JButton btn_Agregar = new JButton("Agregar");
-		btn_Agregar.setBounds(65, 182, 89, 23);
-		panel.add(btn_Agregar);
+		btn_AgregarServicio = new JButton("Agregar");
+		btn_AgregarServicio.setBounds(65, 182, 89, 23);
+		panel.add(btn_AgregarServicio);
 		
-		JButton btn_Cancelar = new JButton("Cancelar");
+		btn_Cancelar = new JButton("Cancelar");
 		btn_Cancelar.setBounds(169, 182, 89, 23);
 		panel.add(btn_Cancelar);
 		
 		this.setVisible(false);
 	}
 	
+	
+	public static VentanaAgregarServicio getINSTANCE() {
+		return INSTANCE;
+	}
+
+	public static void setINSTANCE(VentanaAgregarServicio iNSTANCE) {
+		INSTANCE = iNSTANCE;
+	}
+
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JTextField getTxtPrecioLocal() {
+		return txtPrecioLocal;
+	}
+
+	public void setTxtPrecioLocal(JTextField txtPrecioLocal) {
+		this.txtPrecioLocal = txtPrecioLocal;
+	}
+
+	public JTextField getTxtPrecioDolar() {
+		return txtPrecioDolar;
+	}
+
+	public void setTxtPrecioDolar(JTextField txtPrecioDolar) {
+		this.txtPrecioDolar = txtPrecioDolar;
+	}
+
+	public JTextField getTxtPuntos() {
+		return txtPuntos;
+	}
+
+	public void setTxtPuntos(JTextField txtPuntos) {
+		this.txtPuntos = txtPuntos;
+	}
+	
+	
+
+	public JButton getBtnAgregarServicio() {
+		return btn_AgregarServicio;
+	}
+
+	public void setBtnAgregarServicio(JButton btn_AgregarServicio) {
+		this.btn_AgregarServicio = btn_AgregarServicio;
+	}
+
+	public JButton getBtn_Cancelar() {
+		return btn_Cancelar;
+	}
+
+	public void setBtn_Cancelar(JButton btn_Cancelar) {
+		this.btn_Cancelar = btn_Cancelar;
+	}
+
 	public void mostrarVentana()
 	{
 		this.setVisible(true);
 	}
 
+	public void mostrarErrorCampos() {
+		JOptionPane.showMessageDialog(new JFrame(), "Campos ingresados inválidos", "Dialog",
+		        JOptionPane.ERROR_MESSAGE);
+	}
 
 	public void cerrar()
 	{

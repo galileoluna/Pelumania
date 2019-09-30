@@ -12,6 +12,7 @@ public class Controlador implements ActionListener {
 
 	private VentanaAgregarServicio ventanaAgregarServicio; 
 	private ControladorCliente controladorCliente; 
+	private ControladorServicio controladorServicio;
 	private Sistema sistema;
 
 	public Controlador(Vista vista, Sistema sistema)
@@ -30,7 +31,7 @@ public class Controlador implements ActionListener {
 		}
 
 	private void ventanaAgregarServicio(ActionEvent a) {
-		this.ventanaAgregarServicio.mostrarVentana();
+		this.controladorServicio = ControladorServicio.getInstance(sistema);
 	}
 	
 	public void actionPerformed(ActionEvent e) { }
