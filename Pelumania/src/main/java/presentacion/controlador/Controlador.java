@@ -31,7 +31,7 @@ public class Controlador implements ActionListener {
 		this.vista.getMnItmAgregarServicio().addActionListener(d -> ventanaAgregarServicio(d));
 
 	}
-
+ 
 	private void ventanaServicios(ActionEvent c) {
 		List<ServicioDTO> serviciosEnTabla = this.sistema.obtenerServicios();
 		ventanaServicio ventanaservicio = new ventanaServicio();
