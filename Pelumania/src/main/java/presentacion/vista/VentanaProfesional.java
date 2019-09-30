@@ -22,6 +22,7 @@ import persistencia.conexion.Conexion;
 
 public class VentanaProfesional
 {
+	private static VentanaProfesional INSTANCE;
 	private JFrame frmAgenda;
 	private JTable tablaProfesional;
 	private JButton btnAgregar;
@@ -36,7 +37,16 @@ public class VentanaProfesional
 		super();
 		initialize();
 	}
-
+	public static VentanaProfesional getInstance()
+	{
+		if(INSTANCE == null)
+		{
+			INSTANCE = new VentanaProfesional(); 	
+			return new VentanaProfesional();
+		}
+		else
+			return INSTANCE;
+	}
 
 	private void initialize() 
 	{
@@ -137,7 +147,6 @@ public class VentanaProfesional
 		}
 		
 	} 
-	
 	
 
 }
