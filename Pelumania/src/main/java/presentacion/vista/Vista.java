@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -9,14 +10,30 @@ import javax.swing.JPanel;
 
 import com.toedter.calendar.JCalendar;
 
+import dto.ServicioDTO;
 import persistencia.conexion.Conexion;
 import javax.swing.JButton;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Vista {
+	
 	private JFrame frame;
 	private JCalendar calendario;
+	
 	private JButton btnServicios;
 	private JButton btnAgregarCliente;
+	
+	private JMenu menu;
+		private JMenu mnServicio;
+			private JMenuItem mntmConsultarServicios;
+			private JMenuItem mntmAgregarServicio;
+		private JMenu mnProfesional;
+		
+		private JMenu mnCliente;
 	
 	public Vista() 
 	{
@@ -51,6 +68,31 @@ public class Vista {
 		btnAgregarCliente = new JButton("Agregar Cliente");
 		btnAgregarCliente.setBounds(682, 138, 152, 39);
 		panel.add(btnAgregarCliente);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		JMenu mnArchivo = new JMenu("Archivo");
+		menuBar.add(mnArchivo);
+		
+		mnServicio = new JMenu("Servicio");
+		menuBar.add(mnServicio);
+		
+		mntmAgregarServicio = new JMenuItem("Agregar Servicio");
+		mnServicio.add(mntmAgregarServicio);
+		
+		mntmConsultarServicios = new JMenuItem("Consultar Servicios");
+		mnServicio.add(mntmConsultarServicios);
+		
+		
+		mnProfesional = new JMenu("Profesional");
+		menuBar.add(mnProfesional);
+		
+		mnCliente = new JMenu("Cliente");
+		menuBar.add(mnCliente);
+		
+		menu = new JMenu("");
+		menuBar.add(menu);
 		btnAgregarCliente.setVisible(true);
 	}
 	
@@ -84,4 +126,13 @@ public class Vista {
 	public JButton getBtnAgregarCliente () {
 		return btnAgregarCliente;
 	}
+	
+	public JMenuItem getMnItmConsultarServicios() {
+		return mntmConsultarServicios;
+	}
+	
+	public JMenuItem getMnItmAgregarServicio() {
+		return mntmAgregarServicio;
+	}
+	
 }

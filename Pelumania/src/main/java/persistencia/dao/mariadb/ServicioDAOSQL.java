@@ -100,7 +100,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 		BigDecimal precioDolar =resultSet.getBigDecimal("PrecioDolar");
 		int puntos = resultSet.getInt("Puntos");
 		
-		return new ServicioDTO(id, nombre, precioLocal, precioDolar, puntos );
+		return new ServicioDTO(id, nombre, precioLocal, precioDolar, puntos);
 	}
 
 }
