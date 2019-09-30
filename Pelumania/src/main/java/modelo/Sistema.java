@@ -2,8 +2,10 @@ package modelo;
 
 import java.util.List;
 import dto.ClienteDTO;
+import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
+import persistencia.dao.interfaz.ProfesionalDAO;
 import persistencia.dao.interfaz.ServicioDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 
@@ -12,6 +14,7 @@ public class Sistema
 {
 	private ClienteDAO cliente;
 	private ServicioDAO servicio;
+	private ProfesionalDAO profesional;
 	
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -44,6 +47,18 @@ public class Sistema
 	
 	public List<ServicioDTO> obtenerServicios(){
 		return this.servicio.readAll();
+	}
+	
+	public void agregarProfesional(ProfesionalDTO nuevoProfesional) {
+		this.profesional.insert(nuevoProfesional);
+	}
+	
+	public void borrarProfesional(ProfesionalDTO profesional_a_eliminar) {
+		this.profesional.delete(profesional_a_eliminar);
+	}
+	
+	public List<ProfesionalDTO> obtenerProfesional(){
+		return this.profesional.readAll();
 	}
 	
 }
