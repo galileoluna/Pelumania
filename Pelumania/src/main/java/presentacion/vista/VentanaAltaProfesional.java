@@ -111,5 +111,5 @@ public class VentanaAltaProfesional extends JFrame {
 	{
 		return comboSucuTrans;
 	}
-	
+	 
 }
