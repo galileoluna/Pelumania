@@ -137,7 +137,6 @@ public class VentanaProfesional
 			String apellido = p.getApellido();
 			int SucursalOrig=p.getIdSucursalOrigen();
 			int SucursalTrans=p.getIdSucursalTransferencia();
-			System.out.println(nombre+"-"+apellido+"-"+SucursalOrig+"-"+SucursalTrans);
 			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans};
 			this.getmodelProfesional().addRow(fila);
 		}
