@@ -20,6 +20,7 @@ public class Sistema
 	{
 		this.cliente = metodo_persistencia.createClienteDAO();
 		this.servicio = metodo_persistencia.createServicioDAO();
+		this.profesional=metodo_persistencia.createProfesionalDAO();
 	}
 	
 	public void agregarCliente(ClienteDTO nuevoCliente)

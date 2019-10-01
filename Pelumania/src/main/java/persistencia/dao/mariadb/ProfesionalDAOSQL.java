@@ -21,6 +21,7 @@ package persistencia.dao.mariadb;
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
+		
 		try{
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, profesional.getIdProfesional());
@@ -28,7 +29,6 @@ package persistencia.dao.mariadb;
 			statement.setString(3, profesional.getApellido());
 			statement.setInt(4,profesional.getIdSucursalOrigen());
 			statement.setInt(5,profesional.getIdSucursalTransferencia());
-
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isInsertExitoso = true;

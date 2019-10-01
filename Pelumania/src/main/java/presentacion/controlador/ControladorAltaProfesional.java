@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import dto.ProfesionalDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaCliente;
@@ -27,11 +28,27 @@ public class ControladorAltaProfesional  implements ActionListener{
 		return INSTANCE;
 	}
 	
-	private Object guardarProfesional(ActionEvent l) {
-		// TODO Auto-generated method stub
-		return null;
+	private void guardarProfesional(ActionEvent l) {
+		
+		String nombre= this.altaProfesional.getTxtNombre().getText();
+		String apellido=this.altaProfesional.getTxtApellido().getText();
+		Integer idSucursalOrig=Integer.parseInt(this.altaProfesional.getComboOrig().getSelectedItem().toString());
+		Integer idSucursalTran=Integer.parseInt(this.altaProfesional.getComboTran().getSelectedItem().toString());
+		if(validar(nombre,apellido,idSucursalOrig,idSucursalTran)) {
+			ProfesionalDTO profesional= new ProfesionalDTO(0,nombre,apellido,idSucursalOrig,idSucursalTran);
+			this.sistema.agregarProfesional(profesional);
+			this.altaProfesional.cerrar();
+		}
 	}
 	
+	private boolean validar(String nombre,String apellido, Integer sucuOrig, Integer sucuTran) {
+		if (nombre == null || nombre.equals("") || apellido == null || apellido.equals("") || sucuOrig == null || sucuTran == null ) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
