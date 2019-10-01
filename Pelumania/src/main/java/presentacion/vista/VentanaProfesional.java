@@ -52,7 +52,7 @@ public class VentanaProfesional
 		frmProfesional = new JFrame();
 		frmProfesional.setTitle("Profesional");
 		frmProfesional.setBounds(100, 100, 822, 300);
-		frmProfesional.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmProfesional.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProfesional.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -90,7 +90,7 @@ public class VentanaProfesional
 	
 	public void show()
 	{
-		this.frmProfesional.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frmProfesional.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.frmProfesional.setVisible(true);
 	}
 	
