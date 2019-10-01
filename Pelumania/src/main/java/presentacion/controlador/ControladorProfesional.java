@@ -9,12 +9,14 @@ import dto.ProfesionalDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaCliente;
+import presentacion.vista.VentanaHorarioProfesional;
 import presentacion.vista.VentanaProfesional;
 
 public class ControladorProfesional {
 	private static ControladorProfesional INSTANCE;
 	private List<ProfesionalDTO> profesionalEnTabla;
 	private VentanaProfesional ventanaProfesional;
+	private ControladorHorarioProfesional horarioProfesional;
 	private ControladorAltaProfesional altaProfesional;
 	public int idProfesional;
 	private ControladorModificarProfesional modificarProfesional;
@@ -25,7 +27,23 @@ public class ControladorProfesional {
 		this.ventanaProfesional.getBtnAgregar().addActionListener(p ->agregarProfesional(p));
 		this.ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s));
 		this.ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
+		this.ventanaProfesional.getBtnHorario().addActionListener(k -> verHorarios(k));
 		this.sistema = sistema;
+	}
+
+
+
+	private void verHorarios(ActionEvent k) {
+		this.profesionalEnTabla=sistema.obtenerProfesional();
+		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
+       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(this.profesionalEnTabla.get(fila)!=null) {	 
+        		this.horarioProfesional= ControladorHorarioProfesional.getInstance(sistema,this.profesionalEnTabla.get(fila).getNombre(),this.profesionalEnTabla.get(fila).getApellido());
+        	}
+		}
+		
 	}
 
 
@@ -67,17 +85,16 @@ public class ControladorProfesional {
 	private void editarProfesional(ActionEvent t) {
 		this.profesionalEnTabla=sistema.obtenerProfesional();
 		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
-		       
-	        	for (int fila : filasSeleccionadas)
-	        	{
-		        	if(this.profesionalEnTabla.get(fila)!=null) {	 
-		        		this.idProfesional=this.profesionalEnTabla.get(fila).idProfesional;
-		        		
-		        		List<ProfesionalDTO>profesional=this.sistema.editarProfesional(this.profesionalEnTabla.get(fila).idProfesional);
-		        		this.modificarProfesional.getInstance(sistema,profesional,this.idProfesional);
-		        	}
-				}	
-		//this.modificarProfesional= ControladorModificarProfesional.getInstance(sistema);
+       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(this.profesionalEnTabla.get(fila)!=null) {	 
+        		this.idProfesional=this.profesionalEnTabla.get(fila).idProfesional;
+        		
+        		List<ProfesionalDTO>profesional=this.sistema.editarProfesional(this.profesionalEnTabla.get(fila).idProfesional);
+        		this.modificarProfesional.getInstance(sistema,profesional,this.idProfesional);
+        	}
+		}	
 	}
 	
 }

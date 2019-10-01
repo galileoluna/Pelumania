@@ -28,6 +28,7 @@ public class VentanaHorarioProfesional
 {
 	private static VentanaHorarioProfesional INSTANCE;
 	private JFrame frmHorario;
+	private JLabel lblNombreEmpl;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
 	private JButton btnModificar;
@@ -82,7 +83,7 @@ public class VentanaHorarioProfesional
 		lblEmpleado.setBounds(10, 11, 85, 14);
 		panel.add(lblEmpleado);
 		
-		JLabel lblNombreEmpl = new JLabel("");
+		lblNombreEmpl = new JLabel("");
 		lblNombreEmpl.setBackground(Color.RED);
 		lblNombreEmpl.setBounds(84, 10, 158, 14);
 		panel.add(lblNombreEmpl);
@@ -138,7 +139,10 @@ public class VentanaHorarioProfesional
 	{
 		return nombreColumnas;
 	}
-
+	
+	public void setNombreEmpl(String nombre) {
+		this.lblNombreEmpl.setText(nombre);
+	}
 
 	public void llenarTabla(List<HorarioDTO> HorarioEnTabla) {
 		this.getModelHorario().setRowCount(0); //Para vaciar la tabla
