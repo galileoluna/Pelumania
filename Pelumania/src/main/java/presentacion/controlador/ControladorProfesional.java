@@ -26,6 +26,11 @@ public class ControladorProfesional {
 			INSTANCE = new ControladorProfesional(sistema);
 		}
 		
+		List<ProfesionalDTO> profesionalEnTabla=sistema.obtenerProfesional();
+		VentanaProfesional ventanaProfesional1=new VentanaProfesional();
+		
+		INSTANCE.ventanaProfesional.llenarTabla(profesionalEnTabla);
+		INSTANCE.ventanaProfesional.show();
 		return INSTANCE;
 	}
 	

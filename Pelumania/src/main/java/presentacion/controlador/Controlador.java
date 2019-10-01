@@ -52,11 +52,6 @@ public class Controlador implements ActionListener {
 	
 	private void ventanaProfesional (ActionEvent b) {
 		this.controladorProfesional= ControladorProfesional.getInstance(sistema);
-		List<ProfesionalDTO> profesionalEnTabla=this.sistema.obtenerProfesional();
-		VentanaProfesional ventanaProfesional=new VentanaProfesional();
-		
-		ventanaProfesional.llenarTabla(profesionalEnTabla);
-		ventanaProfesional.show();
 	}
 	
 	public void actionPerformed(ActionEvent e) { }
