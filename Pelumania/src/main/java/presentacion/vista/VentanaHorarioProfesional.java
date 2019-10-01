@@ -32,7 +32,7 @@ public class VentanaHorarioProfesional
 	private JButton btnAgregar;
 	private JButton btnBorrar;
 	private JButton btnModificar;
-	private JTable tablaProfesional;
+	private JTable tablaHorarioProfesional;
 	private DefaultTableModel modelHorario;
 	private  String[] nombreColumnas = {"Día","Hora Entrada","Hora Salida"};
 
@@ -70,14 +70,14 @@ public class VentanaHorarioProfesional
 		panel.add(spPersonas);
 		
 		modelHorario = new DefaultTableModel(null,nombreColumnas);
-		tablaProfesional = new JTable(modelHorario);
+		tablaHorarioProfesional = new JTable(modelHorario);
 		
-		tablaProfesional.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tablaProfesional.getColumnModel().getColumn(0).setResizable(false);
-		tablaProfesional.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tablaProfesional.getColumnModel().getColumn(1).setResizable(false);
+		tablaHorarioProfesional.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaHorarioProfesional.getColumnModel().getColumn(0).setResizable(false);
+		tablaHorarioProfesional.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tablaHorarioProfesional.getColumnModel().getColumn(1).setResizable(false);
 		
-		spPersonas.setViewportView(tablaProfesional);
+		spPersonas.setViewportView(tablaHorarioProfesional);
 		
 		JLabel lblEmpleado = new JLabel("Empleado: ");
 		lblEmpleado.setBounds(10, 11, 85, 14);
@@ -130,9 +130,9 @@ public class VentanaHorarioProfesional
 		return modelHorario;
 	}
 	
-	public JTable gettablaProfesional()
+	public JTable getTablaHorarioProfesional()
 	{
-		return tablaProfesional;
+		return tablaHorarioProfesional;
 	}
 
 	public String[] getNombreColumnas() 

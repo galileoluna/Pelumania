@@ -32,22 +32,6 @@ public class ControladorProfesional {
 	}
 
 
-
-	private void verHorarios(ActionEvent k) {
-		this.profesionalEnTabla=sistema.obtenerProfesional();
-		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
-       
-    	for (int fila : filasSeleccionadas)
-    	{
-        	if(this.profesionalEnTabla.get(fila)!=null) {	 
-        		this.horarioProfesional= ControladorHorarioProfesional.getInstance(sistema,this.profesionalEnTabla.get(fila).getNombre(),this.profesionalEnTabla.get(fila).getApellido(),this.profesionalEnTabla.get(fila).getIdProfesional());
-        	}
-		}
-		
-	}
-
-
-
 	public static ControladorProfesional getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorProfesional(sistema);
@@ -95,6 +79,19 @@ public class ControladorProfesional {
         		this.modificarProfesional.getInstance(sistema,profesional,this.idProfesional);
         	}
 		}	
+	}
+	
+	private void verHorarios(ActionEvent k) {
+		this.profesionalEnTabla=sistema.obtenerProfesional();
+		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
+       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(this.profesionalEnTabla.get(fila)!=null) {	 
+        		this.horarioProfesional= ControladorHorarioProfesional.getInstance(sistema,this.profesionalEnTabla.get(fila).getNombre(),this.profesionalEnTabla.get(fila).getApellido(),this.profesionalEnTabla.get(fila).getIdProfesional());
+        	}
+		}
+		
 	}
 	
 }
