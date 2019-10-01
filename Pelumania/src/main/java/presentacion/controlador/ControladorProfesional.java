@@ -1,7 +1,9 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import java.util.List;
 
+import dto.ProfesionalDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaCliente;
@@ -22,8 +24,8 @@ public class ControladorProfesional {
 	public static ControladorProfesional getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorProfesional(sistema);
-		}	
-		INSTANCE.ventanaProfesional.show();
+		}
+		
 		return INSTANCE;
 	}
 	

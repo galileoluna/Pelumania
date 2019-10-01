@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAgregarServicio;
+import presentacion.vista.VentanaProfesional;
 import presentacion.vista.Vista;
 import presentacion.vista.ventanaServicio;
 
@@ -50,6 +52,11 @@ public class Controlador implements ActionListener {
 	
 	private void ventanaProfesional (ActionEvent b) {
 		this.controladorProfesional= ControladorProfesional.getInstance(sistema);
+		List<ProfesionalDTO> profesionalEnTabla=this.sistema.obtenerProfesional();
+		VentanaProfesional ventanaProfesional=new VentanaProfesional();
+		
+		ventanaProfesional.llenarTabla(profesionalEnTabla);
+		ventanaProfesional.show();
 	}
 	
 	public void actionPerformed(ActionEvent e) { }
