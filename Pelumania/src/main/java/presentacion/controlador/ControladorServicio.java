@@ -40,17 +40,17 @@ public class ControladorServicio implements ActionListener {
 		String S_precioDolar = this.ventanaServicio.getTxtPrecioDolar().getText();
 		String S_puntos = this.ventanaServicio.getTxtPuntos().getText();
 		
-		//validamos campos
-		/*
+		//validamos campos	
 		if ( Validador.esNombreConEspaciosValido(S_nombre) &&
 			 Validador.esPrecioValido(S_precioLocal) &&
 			 Validador.esPrecioValido(S_precioDolar) &&
 			 Validador.esPuntosValido(S_puntos)) {
-		*/
+		
 			String nombre = S_nombre;
-			BigDecimal precioLocal = new BigDecimal(S_precioLocal.toCharArray());
-			BigDecimal precioDolar = new BigDecimal(S_precioDolar.toCharArray());
+			BigDecimal precioLocal = new BigDecimal(S_precioLocal);
+			BigDecimal precioDolar = new BigDecimal(S_precioDolar);
 			int puntos = Integer.parseInt(S_puntos);
+			
 			
 		ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, puntos);
 		this.sistema.agregarServicio(nuevoServicio);
@@ -58,12 +58,12 @@ public class ControladorServicio implements ActionListener {
 		//		this.refrescarTabla(); // no se que onda aca porque quizas no mostremos la tabla de clientes 
 								// como lo hace la agenda, en el menu principal
 		this.ventanaServicio.cerrar();
-		/*
+		
 		} else {
 		
 		this.ventanaServicio.mostrarErrorCampos();
 		}
-	*/
+
 	}
 
 	@Override
