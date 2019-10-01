@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dto.HorarioDTO;
 import dto.ProfesionalDTO;
 
 import javax.swing.JButton;
@@ -138,18 +140,18 @@ public class VentanaHorarioProfesional
 	}
 
 
-	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla) {
+	public void llenarTabla(List<HorarioDTO> HorarioEnTabla) {
 		this.getModelHorario().setRowCount(0); //Para vaciar la tabla
 		this.getModelHorario().setColumnCount(0);
 		this.getModelHorario().setColumnIdentifiers(this.getNombreColumnas());
 
-		for (ProfesionalDTO p : profesionalEnTabla)
+		for (HorarioDTO p : HorarioEnTabla)
 		{ 
-			String nombre = p.getNombre();
-			String apellido = p.getApellido();
-			String SucursalOrig=p.getSucursal(p.getIdSucursalOrigen());
-			String SucursalTrans=(p.getIdSucursalTransferencia()==-1?"":p.getSucursal(p.getIdSucursalTransferencia()));
-			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans};
+			String dia = p.getDia();
+			Time horaEntrada = p.getHoraEntrada();
+			Time horaSalida=p.getHoraSalida();
+		
+			Object[] fila = {dia, horaEntrada,horaSalida};
 			this.getModelHorario().addRow(fila);
 		}
 		
