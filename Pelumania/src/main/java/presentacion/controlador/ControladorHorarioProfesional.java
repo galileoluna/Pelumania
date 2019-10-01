@@ -55,7 +55,7 @@ public class ControladorHorarioProfesional implements ActionListener{
 		        		}
 		        		this.getInstance(sistema, nombre, apellido, idProfesional);
 		        	} 
-				}	
+				}	 
 	}
 	
 	@Override
