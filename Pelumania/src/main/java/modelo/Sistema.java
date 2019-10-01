@@ -2,9 +2,11 @@ package modelo;
 
 import java.util.List;
 import dto.ClienteDTO;
+import dto.HorarioDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
+import persistencia.dao.interfaz.HorarioDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
 import persistencia.dao.interfaz.ServicioDAO;
 import persistencia.dao.interfaz.ClienteDAO;
@@ -15,12 +17,14 @@ public class Sistema
 	private ClienteDAO cliente;
 	private ServicioDAO servicio;
 	private ProfesionalDAO profesional;
+	private HorarioDAO horario;
 	
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
 		this.cliente = metodo_persistencia.createClienteDAO();
 		this.servicio = metodo_persistencia.createServicioDAO();
 		this.profesional=metodo_persistencia.createProfesionalDAO();
+		this.horario=metodo_persistencia.createHorarioDAO();
 	}
 	
 	public void agregarCliente(ClienteDTO nuevoCliente)
@@ -67,8 +71,10 @@ public class Sistema
 	}
 	
 	public void actualizarProfesional(ProfesionalDTO profesional_a_editar) {
-		System.out.println("pase en sistema");
 		this.profesional.update(profesional_a_editar);
 	}
 	
+	public List<HorarioDTO> obtenerHorario(int id){
+		return this.horario.readOne(id);
+	}
 }

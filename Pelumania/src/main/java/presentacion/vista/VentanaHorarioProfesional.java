@@ -149,8 +149,7 @@ public class VentanaHorarioProfesional
 		this.getModelHorario().setColumnCount(0);
 		this.getModelHorario().setColumnIdentifiers(this.getNombreColumnas());
 
-		for (HorarioDTO p : HorarioEnTabla)
-		{ 
+		for (HorarioDTO p : HorarioEnTabla){ 
 			String dia = p.getDia();
 			Time horaEntrada = p.getHoraEntrada();
 			Time horaSalida=p.getHoraSalida();

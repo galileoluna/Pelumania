@@ -19,7 +19,7 @@ public class HorarioDAOSQL implements HorarioDAO {
 	private static final String insert = "INSERT INTO DiasLaborales( idDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) VALUES(?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM DiasLaborales WHERE idDiasLaborales = ?";
 	private static final String readall = "SELECT * FROM DiasLaborales";
-	private static final String readone = "SELECT * FROM DiasLaborales WHERE idDiasLaborales = ? ";
+	private static final String readone = "SELECT * FROM DiasLaborales WHERE IdProfesional = ? ";
 	private static final String update = "UPDATE DiasLaborales SET Dia=? , HoraEntrada=? , HoraSalida=?  WHERE idDiasLaborales = ?";
 	
 

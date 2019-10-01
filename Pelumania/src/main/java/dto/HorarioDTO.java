@@ -22,7 +22,7 @@ public class HorarioDTO {
 	}
 	
 	public String getDia() {
-		return this.getDia();
+		return this.dia;
 	}
 	
 	public Time getHoraEntrada() {
