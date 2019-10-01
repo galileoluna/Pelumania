@@ -16,7 +16,7 @@ public class ControladorProfesional {
 	private List<ProfesionalDTO> profesionalEnTabla;
 	private VentanaProfesional ventanaProfesional;
 	private ControladorAltaProfesional altaProfesional;
-	protected int idProfesional;
+	public int idProfesional;
 	private ControladorModificarProfesional modificarProfesional;
 	private Sistema sistema;
 	
@@ -72,12 +72,12 @@ public class ControladorProfesional {
 	        	{
 		        	if(this.profesionalEnTabla.get(fila)!=null) {	 
 		        		this.idProfesional=this.profesionalEnTabla.get(fila).idProfesional;
+		        		
 		        		List<ProfesionalDTO>profesional=this.sistema.editarProfesional(this.profesionalEnTabla.get(fila).idProfesional);
-		        		this.modificarProfesional.getInstance(sistema,profesional);
+		        		this.modificarProfesional.getInstance(sistema,profesional,this.idProfesional);
 		        	}
 				}	
 		//this.modificarProfesional= ControladorModificarProfesional.getInstance(sistema);
 	}
 	
-
 }

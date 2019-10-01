@@ -12,6 +12,7 @@ import presentacion.vista.VentanaModificarProfesional;
 public class ControladorModificarProfesional implements ActionListener {
 	private VentanaModificarProfesional modificarProfesional;
 	private ControladorProfesional controlProfesional;
+	private static int idProfesional;
 	private Sistema sistema;
 	private static ControladorModificarProfesional INSTANCE;
 	
@@ -22,11 +23,12 @@ public class ControladorModificarProfesional implements ActionListener {
 	}
 	
 	
-	public static ControladorModificarProfesional getInstance(Sistema sistema, List<ProfesionalDTO> profesional) {
+	public static ControladorModificarProfesional getInstance(Sistema sistema, List<ProfesionalDTO> profesional,int id) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorModificarProfesional(sistema);
 		}
 		for (ProfesionalDTO p : profesional) {
+			idProfesional=id;
 			INSTANCE.modificarProfesional.getTxtNombre().setText(p.nombre);
 			INSTANCE.modificarProfesional.getTxtApellido().setText(p.getApellido());
 			INSTANCE.modificarProfesional.getComboOrig().setSelectedItem(p.getIdSucursalOrigen());
@@ -43,8 +45,9 @@ public class ControladorModificarProfesional implements ActionListener {
 		String apellido=this.modificarProfesional.getTxtApellido().getText();
 		Integer idSucursalOrig=Integer.parseInt(this.modificarProfesional.getComboOrig().getSelectedItem().toString());
 		Integer idSucursalTran=(this.modificarProfesional.getComboTran().getSelectedItem().toString().equals("--")?-1:Integer.parseInt(this.modificarProfesional.getComboTran().getSelectedItem().toString()));
+		
 		if(validar(nombre,apellido,idSucursalOrig,idSucursalTran)) {
-			ProfesionalDTO profesional= new ProfesionalDTO(controlProfesional.idProfesional,nombre,apellido,idSucursalOrig,idSucursalTran);
+			ProfesionalDTO profesional= new ProfesionalDTO(this.idProfesional,nombre,apellido,idSucursalOrig,idSucursalTran);
 			this.sistema.actualizarProfesional(profesional);
 			this.modificarProfesional.cerrar();
 			controlProfesional.getInstance(sistema);
