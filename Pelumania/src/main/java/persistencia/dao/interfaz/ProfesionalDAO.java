@@ -11,4 +11,6 @@ public interface ProfesionalDAO {
 	public boolean delete(ProfesionalDTO profesional_a_eliminar);
 	
 	public List<ProfesionalDTO> readAll();
+	
+	public List<ProfesionalDTO> readOne(int id);
 }

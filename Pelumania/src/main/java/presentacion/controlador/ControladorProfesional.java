@@ -16,14 +16,18 @@ public class ControladorProfesional {
 	private List<ProfesionalDTO> profesionalEnTabla;
 	private VentanaProfesional ventanaProfesional;
 	private ControladorAltaProfesional altaProfesional;
+	private ControladorModificarProfesional modificarProfesional;
 	private Sistema sistema;
 	
 	private ControladorProfesional(Sistema sistema) {
 		this.ventanaProfesional = VentanaProfesional.getInstance();
 		this.ventanaProfesional.getBtnAgregar().addActionListener(p ->agregarProfesional(p));
 		this.ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s));
+		this.ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
 		this.sistema = sistema;
 	}
+
+
 
 	public static ControladorProfesional getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
@@ -57,7 +61,21 @@ public class ControladorProfesional {
 		        		this.getInstance(sistema);
 		        	}
 				}	
-	        	
+	}
+	
+	private void editarProfesional(ActionEvent t) {
+		this.profesionalEnTabla=sistema.obtenerProfesional();
+		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
+		       
+	        	for (int fila : filasSeleccionadas)
+	        	{
+		        	if(this.profesionalEnTabla.get(fila)!=null) {	 
+		        		
+		        		List<ProfesionalDTO>profesional=this.sistema.editarProfesional(this.profesionalEnTabla.get(fila).idProfesional);
+		        		this.modificarProfesional.getInstance(sistema,profesional);
+		        	}
+				}	
+		//this.modificarProfesional= ControladorModificarProfesional.getInstance(sistema);
 	}
 	
 

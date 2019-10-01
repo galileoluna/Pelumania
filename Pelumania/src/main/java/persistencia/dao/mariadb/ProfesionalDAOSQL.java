@@ -16,6 +16,7 @@ package persistencia.dao.mariadb;
 	private static final String insert = "INSERT INTO Profesional(IdProfesional, nombre, apellido, idSucursalOrigen, idSucursalTransferencia) VALUES(?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM Profesional WHERE IdProfesional = ?";
 	private static final String readall = "SELECT * FROM Profesional";
+	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
 			
 	public boolean insert(ProfesionalDTO profesional){
 		PreparedStatement statement;
@@ -80,6 +81,30 @@ package persistencia.dao.mariadb;
 			e.printStackTrace();
 		}
 		return personas;
+	}
+	
+	public List<ProfesionalDTO> readOne(int profesional_a_editar)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		List<ProfesionalDTO> profesional = new ArrayList<ProfesionalDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readone);
+			statement.setInt(1, profesional_a_editar);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				profesional.add(getProfesionalDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return profesional;
 	}
 		
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{

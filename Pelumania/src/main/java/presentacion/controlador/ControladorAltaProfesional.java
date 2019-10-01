@@ -2,6 +2,9 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+
 import dto.ProfesionalDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAltaProfesional;
@@ -23,11 +26,11 @@ public class ControladorAltaProfesional  implements ActionListener{
 	public static ControladorAltaProfesional getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorAltaProfesional(sistema);
-		}	
+		}
 		INSTANCE.altaProfesional.mostrarVentana();
 		return INSTANCE;
 	}
-	
+
 	private void guardarProfesional(ActionEvent l) {
 		
 		String nombre= this.altaProfesional.getTxtNombre().getText();

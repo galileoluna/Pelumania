@@ -62,4 +62,8 @@ public class Sistema
 		return this.profesional.readAll();
 	}
 	
+	public List<ProfesionalDTO> editarProfesional(int id){
+		return this.profesional.readOne(id);
+	}
+	
 }
