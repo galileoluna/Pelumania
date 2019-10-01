@@ -48,7 +48,6 @@ public class ControladorProfesional {
 		       
 	        	for (int fila : filasSeleccionadas)
 	        	{
-		
 		        	if(this.profesionalEnTabla.get(fila)!=null) {	 
 		        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Profesional?","Confirmacion", JOptionPane.YES_NO_OPTION,
 		   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
