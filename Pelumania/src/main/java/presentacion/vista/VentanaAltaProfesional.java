@@ -1,88 +1,102 @@
 package presentacion.vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-public class VentanaAltaProfesional extends JFrame {
+import modelo.Sistema;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class VentanaAltaProfesional extends JFrame 
+{
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	private JComboBox comboSucuOrig;
-	private JComboBox comboSucuTrans;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAltaProfesional frame = new VentanaAltaProfesional();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private JComboBox comboSucOrig;
+	private JComboBox comboSucTran;
+	private JButton btnAgregar;
+	private static VentanaAltaProfesional INSTANCE;
+	private JComboBox comboBox_1;
+
+	
+	public static VentanaAltaProfesional getInstance( )
+	{
+		if(INSTANCE == null)
+		{
+			INSTANCE = new VentanaAltaProfesional(); 	
+			return new VentanaAltaProfesional();
+		}
+		else
+			return INSTANCE;
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public VentanaAltaProfesional() {
-		setTitle("Profesional");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+	private VentanaAltaProfesional() 
+	{
+		super();
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 410, 284);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 374, 235);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 35, 158, 14);
-		contentPane.add(lblNombre);
-		
-		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(10, 79, 158, 14);
-		contentPane.add(lblApellido);
-		
-		JLabel lblSucursalOrigen = new JLabel("Sucursal Origen");
-		lblSucursalOrigen.setBounds(10, 130, 158, 14);
-		contentPane.add(lblSucursalOrigen);
-		
-		JLabel lblSucursakTransferencia = new JLabel("Sucursal Transferencia");
-		lblSucursakTransferencia.setBounds(10, 185, 158, 14);
-		contentPane.add(lblSucursakTransferencia);
+		lblNombre.setBounds(10, 11, 113, 14);
+		panel.add(lblNombre);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(198, 32, 158, 20);
-		contentPane.add(txtNombre);
+		txtNombre.setBounds(188, 8, 164, 20);
+		panel.add(txtNombre);
 		txtNombre.setColumns(10);
+		
+		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido.setBounds(10, 56, 113, 14);
+		panel.add(lblApellido);
+
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(198, 76, 158, 20);
-		contentPane.add(txtApellido);
+		txtApellido.setBounds(188, 53, 164, 20);
+		panel.add(txtApellido);
 		
-		comboSucuTrans = new JComboBox();
-		comboSucuTrans.setBounds(198, 177, 158, 22);
-		contentPane.add(comboSucuTrans);
 		
-		comboSucuOrig = new JComboBox();
-		comboSucuOrig.setBounds(198, 126, 158, 22);
-		contentPane.add(comboSucuOrig);
+		btnAgregar= new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAgregar.setBounds(66, 191, 189, 23);
+		panel.add(btnAgregar);
 		
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(308, 227, 89, 23);
-		contentPane.add(btnAgregar);
+		JLabel labelComboOrig = new JLabel("Sucursal origen");
+		labelComboOrig.setBounds(10, 111, 113, 14);
+		panel.add(labelComboOrig);
+		
+		JLabel labeSucTran = new JLabel("Sucursal Transferencia");
+		labeSucTran.setBounds(10, 154, 164, 14);
+		panel.add(labeSucTran);
+		
+		comboSucOrig = new JComboBox();
+		comboSucOrig.setBounds(188, 107, 164, 22);
+		panel.add(comboSucOrig);
+		
+		comboSucTran = new JComboBox();
+		comboSucTran.setBounds(188, 150, 164, 22);
+		panel.add(comboSucTran);
 		
 		this.setVisible(false);
 	}
@@ -96,20 +110,36 @@ public class VentanaAltaProfesional extends JFrame {
 	{
 		return txtNombre;
 	}
-	
-	public JTextField getTxtApellido() 
-	{
+
+	public JTextField getTxtApellido() {
 		return txtApellido;
 	}
-	
-	public JComboBox getComboSucOrig() 
-	{
-		return comboSucuOrig;
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JButton getBtnAgregar() {
+		return btnAgregar;
 	}
 	
-	public JComboBox getComboSucTrans() 
-	{
-		return comboSucuTrans;
+	public JComboBox getComboOrig() {
+		return comboSucOrig;
 	}
-	 
+	
+	public JComboBox getComboTran() {
+		return comboSucTran;
+	}
+
+	public void cerrar()
+	{
+		this.txtNombre.setText(null);
+		this.txtApellido.setText(null);
+		this.dispose();
+	}
 }
+

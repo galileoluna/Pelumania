@@ -23,11 +23,10 @@ import persistencia.conexion.Conexion;
 public class VentanaProfesional
 {
 	private static VentanaProfesional INSTANCE;
-	private JFrame frmAgenda;
+	private JFrame frmProfesional;
 	private JTable tablaProfesional;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
-	private JButton btnReporte;
 	private JButton btnEditar;
 	private DefaultTableModel modelProfesional;
 	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia"};
@@ -50,15 +49,15 @@ public class VentanaProfesional
 
 	private void initialize() 
 	{
-		frmAgenda = new JFrame();
-		frmAgenda.setTitle("Agenda");
-		frmAgenda.setBounds(100, 100, 822, 300);
-		frmAgenda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAgenda.getContentPane().setLayout(null);
+		frmProfesional = new JFrame();
+		frmProfesional.setTitle("Profesional");
+		frmProfesional.setBounds(100, 100, 822, 300);
+		frmProfesional.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmProfesional.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 806, 262);
-		frmAgenda.getContentPane().add(panel);
+		frmProfesional.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
@@ -91,8 +90,8 @@ public class VentanaProfesional
 	
 	public void show()
 	{
-		this.frmAgenda.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.frmAgenda.setVisible(true);
+		this.frmProfesional.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frmProfesional.setVisible(true);
 	}
 	
 	public JButton getBtnAgregar() 
@@ -105,10 +104,6 @@ public class VentanaProfesional
 		return btnBorrar;
 	}
 	
-	public JButton getBtnReporte() 
-	{
-		return btnReporte;
-	}
 	
 	public JButton getBtnEditar() 
 	{
