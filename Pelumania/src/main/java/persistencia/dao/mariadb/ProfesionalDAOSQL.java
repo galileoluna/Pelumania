@@ -17,6 +17,7 @@ package persistencia.dao.mariadb;
 	private static final String delete = "DELETE FROM Profesional WHERE IdProfesional = ?";
 	private static final String readall = "SELECT * FROM Profesional";
 	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
+	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=? WHERE IdProfesional = ?";
 			
 	public boolean insert(ProfesionalDTO profesional){
 		PreparedStatement statement;
@@ -106,7 +107,36 @@ package persistencia.dao.mariadb;
 		
 		return profesional;
 	}
+	
+	public boolean update (ProfesionalDTO profesional_a_editar) {
 		
+		PreparedStatement statement;
+		int chequeoUpdate = 0;
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			
+			statement.setString(1, profesional_a_editar.getNombre());
+			statement.setString(2, profesional_a_editar.getApellido());
+			statement.setInt(3, profesional_a_editar.getIdSucursalOrigen());
+			statement.setInt(4, profesional_a_editar.getIdSucursalTransferencia());
+			statement.setInt(5, profesional_a_editar.getIdProfesional());
+			System.out.println(profesional_a_editar.getApellido()+"-"+profesional_a_editar.getNombre()+"-"+profesional_a_editar.getIdSucursalOrigen()+"-"+profesional_a_editar.getIdSucursalTransferencia()+"-"+profesional_a_editar.getIdProfesional()+"-"+(chequeoUpdate > 0));
+			chequeoUpdate = statement.executeUpdate();
+			conexion.getSQLConexion().commit();
+			if(chequeoUpdate > 0)
+					return true;
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("false");
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");
 		String nombre = resultSet.getString("Nombre");
@@ -116,5 +146,6 @@ package persistencia.dao.mariadb;
 		
 		return new ProfesionalDTO(id, nombre, apellido ,idSucursalOrigen, idSucursalTransferencia );
 	}
+
 }
 

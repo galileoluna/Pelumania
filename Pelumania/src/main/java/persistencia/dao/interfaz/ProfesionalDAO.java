@@ -13,4 +13,6 @@ public interface ProfesionalDAO {
 	public List<ProfesionalDTO> readAll();
 	
 	public List<ProfesionalDTO> readOne(int id);
+	
+	public  boolean update(ProfesionalDTO profesional_a_editar);
 }

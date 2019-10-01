@@ -66,4 +66,9 @@ public class Sistema
 		return this.profesional.readOne(id);
 	}
 	
+	public void actualizarProfesional(ProfesionalDTO profesional_a_editar) {
+		System.out.println("pase en sistema");
+		this.profesional.update(profesional_a_editar);
+	}
+	
 }
