@@ -15,5 +15,5 @@ public class Main {
         
         Controlador controlador = new Controlador(vista, sistema);
     }
-
+ 
 } 
