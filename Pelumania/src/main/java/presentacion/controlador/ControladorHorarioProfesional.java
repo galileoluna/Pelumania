@@ -54,7 +54,7 @@ public class ControladorHorarioProfesional implements ActionListener{
 						this.sistema.borrarHorario(this.horariolEnTabla.get(fila));
 		        		}
 		        		this.getInstance(sistema, nombre, apellido, idProfesional);
-		        	}
+		        	} 
 				}	
 	}
 	
