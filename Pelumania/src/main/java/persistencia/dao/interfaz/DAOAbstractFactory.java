@@ -7,4 +7,6 @@ public interface DAOAbstractFactory {
 	public ProfesionalDAO createProfesionalDAO();
 	
 	public ServicioDAO createServicioDAO();
+	
+	public HorarioDAO createHorarioDAO();
 }

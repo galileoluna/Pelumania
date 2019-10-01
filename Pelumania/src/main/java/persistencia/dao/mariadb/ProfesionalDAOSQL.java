@@ -122,7 +122,7 @@ package persistencia.dao.mariadb;
 			statement.setInt(3, profesional_a_editar.getIdSucursalOrigen());
 			statement.setInt(4, profesional_a_editar.getIdSucursalTransferencia());
 			statement.setInt(5, profesional_a_editar.getIdProfesional());
-			System.out.println(profesional_a_editar.getApellido()+"-"+profesional_a_editar.getNombre()+"-"+profesional_a_editar.getIdSucursalOrigen()+"-"+profesional_a_editar.getIdSucursalTransferencia()+"-"+profesional_a_editar.getIdProfesional()+"-"+(chequeoUpdate > 0));
+			
 			chequeoUpdate = statement.executeUpdate();
 			conexion.getSQLConexion().commit();
 			if(chequeoUpdate > 0)

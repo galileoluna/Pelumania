@@ -19,30 +19,31 @@ import dto.ProfesionalDTO;
 import javax.swing.JButton;
 
 import persistencia.conexion.Conexion;
+import javax.swing.JLabel;
+import java.awt.Color;
 
-public class VentanaProfesional
+public class VentanaHorarioProfesional
 {
-	private static VentanaProfesional INSTANCE;
-	private JFrame frmProfesional;
-	private JTable tablaProfesional;
+	private static VentanaHorarioProfesional INSTANCE;
+	private JFrame frmHorario;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
-	private JButton btnEditar;
-	private JButton btnHorario;
-	private DefaultTableModel modelProfesional;
-	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia"};
+	private JButton btnModificar;
+	private JTable tablaProfesional;
+	private DefaultTableModel modelHorario;
+	private  String[] nombreColumnas = {"Día","Hora Entrada","Hora Salida"};
 
-	public VentanaProfesional() 
+	public VentanaHorarioProfesional() 
 	{
 		super();
 		initialize();
 	}
-	public static VentanaProfesional getInstance()
+	public static VentanaHorarioProfesional getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaProfesional(); 	
-			return new VentanaProfesional();
+			INSTANCE = new VentanaHorarioProfesional(); 	
+			return new VentanaHorarioProfesional();
 		}
 		else
 			return INSTANCE;
@@ -50,23 +51,23 @@ public class VentanaProfesional
 
 	private void initialize() 
 	{
-		frmProfesional = new JFrame();
-		frmProfesional.setTitle("Profesional");
-		frmProfesional.setBounds(100, 100, 822, 300);
-		frmProfesional.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmProfesional.getContentPane().setLayout(null);
+		frmHorario = new JFrame();
+		frmHorario.setTitle("Horarios Laborales");
+		frmHorario.setBounds(100, 100, 644, 300);
+		frmHorario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmHorario.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 806, 262);
-		frmProfesional.getContentPane().add(panel);
+		panel.setBounds(0, 0, 628, 262);
+		frmHorario.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 786, 182);
+		spPersonas.setBounds(46, 35, 556, 165);
 		panel.add(spPersonas);
 		
-		modelProfesional = new DefaultTableModel(null,nombreColumnas);
-		tablaProfesional = new JTable(modelProfesional);
+		modelHorario = new DefaultTableModel(null,nombreColumnas);
+		tablaProfesional = new JTable(modelHorario);
 		
 		tablaProfesional.getColumnModel().getColumn(0).setPreferredWidth(103);
 		tablaProfesional.getColumnModel().getColumn(0).setResizable(false);
@@ -75,28 +76,33 @@ public class VentanaProfesional
 		
 		spPersonas.setViewportView(tablaProfesional);
 		
+		JLabel lblEmpleado = new JLabel("Empleado: ");
+		lblEmpleado.setBounds(10, 11, 85, 14);
+		panel.add(lblEmpleado);
+		
+		JLabel lblNombreEmpl = new JLabel("");
+		lblNombreEmpl.setBackground(Color.RED);
+		lblNombreEmpl.setBounds(84, 10, 158, 14);
+		panel.add(lblNombreEmpl);
+		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(144, 228, 89, 23);
+		btnAgregar.setBounds(84, 216, 89, 23);
 		panel.add(btnAgregar);
 		
-		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(292, 228, 89, 23);
-		panel.add(btnEditar);
-		
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(429, 228, 89, 23);
+		btnBorrar.setBounds(258, 216, 89, 23);
 		panel.add(btnBorrar);
 		
-		btnHorario = new JButton("Ver Horario");
-		btnHorario.setBounds(707, 228, 89, 23);
-		panel.add(btnHorario);
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(454, 216, 89, 23);
+		panel.add(btnModificar);
 		
 	}
 	
 	public void show()
 	{
-		this.frmProfesional.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.frmProfesional.setVisible(true);
+		this.frmHorario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.frmHorario.setVisible(true);
 	}
 	
 	public JButton getBtnAgregar() 
@@ -112,17 +118,13 @@ public class VentanaProfesional
 	
 	public JButton getBtnEditar() 
 	{
-		return btnEditar;
+		return btnModificar;
 	}
+
 	
-	public JButton getBtnHorario() 
+	public DefaultTableModel getModelHorario() 
 	{
-		return btnHorario;
-	}
-	
-	public DefaultTableModel getmodelProfesional() 
-	{
-		return modelProfesional;
+		return modelHorario;
 	}
 	
 	public JTable gettablaProfesional()
@@ -137,9 +139,9 @@ public class VentanaProfesional
 
 
 	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla) {
-		this.getmodelProfesional().setRowCount(0); //Para vaciar la tabla
-		this.getmodelProfesional().setColumnCount(0);
-		this.getmodelProfesional().setColumnIdentifiers(this.getNombreColumnas());
+		this.getModelHorario().setRowCount(0); //Para vaciar la tabla
+		this.getModelHorario().setColumnCount(0);
+		this.getModelHorario().setColumnIdentifiers(this.getNombreColumnas());
 
 		for (ProfesionalDTO p : profesionalEnTabla)
 		{ 
@@ -148,7 +150,7 @@ public class VentanaProfesional
 			String SucursalOrig=p.getSucursal(p.getIdSucursalOrigen());
 			String SucursalTrans=(p.getIdSucursalTransferencia()==-1?"":p.getSucursal(p.getIdSucursalTransferencia()));
 			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans};
-			this.getmodelProfesional().addRow(fila);
+			this.getModelHorario().addRow(fila);
 		}
 		
 	} 
