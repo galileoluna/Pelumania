@@ -98,7 +98,7 @@ public class VentanaProfesional
 	{
 		return btnAgregar;
 	}
-
+ 
 	public JButton getBtnBorrar() 
 	{
 		return btnBorrar;
