@@ -2,14 +2,17 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import dto.ProfesionalDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaCliente;
+import presentacion.vista.VentanaProfesional;
 
 public class ControladorAltaProfesional  implements ActionListener{
 	private VentanaAltaProfesional altaProfesional;
+	private ControladorProfesional controlProfesional;
 	private Sistema sistema;
 	private static ControladorAltaProfesional INSTANCE;
 	
@@ -38,6 +41,7 @@ public class ControladorAltaProfesional  implements ActionListener{
 			ProfesionalDTO profesional= new ProfesionalDTO(0,nombre,apellido,idSucursalOrig,idSucursalTran);
 			this.sistema.agregarProfesional(profesional);
 			this.altaProfesional.cerrar();
+			controlProfesional.getInstance(sistema);
 		}
 	}
 	

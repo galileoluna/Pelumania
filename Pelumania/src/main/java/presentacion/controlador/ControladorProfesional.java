@@ -18,6 +18,7 @@ public class ControladorProfesional {
 	private ControladorProfesional(Sistema sistema) {
 		this.ventanaProfesional = VentanaProfesional.getInstance();
 		this.ventanaProfesional.getBtnAgregar().addActionListener(p ->agregarProfesional(p));
+		
 		this.sistema = sistema;
 	}
 
@@ -27,7 +28,6 @@ public class ControladorProfesional {
 		}
 		
 		List<ProfesionalDTO> profesionalEnTabla=sistema.obtenerProfesional();
-		VentanaProfesional ventanaProfesional1=new VentanaProfesional();
 		
 		INSTANCE.ventanaProfesional.llenarTabla(profesionalEnTabla);
 		INSTANCE.ventanaProfesional.show();
@@ -36,5 +36,12 @@ public class ControladorProfesional {
 	
 	private void agregarProfesional(ActionEvent p) {
 		this.altaProfesional = ControladorAltaProfesional.getInstance(sistema);
+		
 	}
+	
+	public void refrescarTabla() {
+		List<ProfesionalDTO>personasEnTabla=sistema.obtenerProfesional();
+		this.ventanaProfesional.llenarTabla(personasEnTabla);	
+	}
+
 }
