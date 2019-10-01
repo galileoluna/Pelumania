@@ -135,8 +135,8 @@ public class VentanaProfesional
 		{ 
 			String nombre = p.getNombre();
 			String apellido = p.getApellido();
-			int SucursalOrig=p.getIdSucursalOrigen();
-			int SucursalTrans=p.getIdSucursalTransferencia();
+			String SucursalOrig=p.getSucursal(p.getIdSucursalOrigen());
+			String SucursalTrans=(p.getIdSucursalTransferencia()==-1?"":p.getSucursal(p.getIdSucursalTransferencia()));
 			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans};
 			this.getmodelProfesional().addRow(fila);
 		}

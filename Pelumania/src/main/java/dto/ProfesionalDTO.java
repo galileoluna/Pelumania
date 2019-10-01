@@ -1,5 +1,11 @@
 package dto;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import persistencia.conexion.Conexion;
+
 public class ProfesionalDTO {
 	
 	public int idProfesional;
@@ -71,10 +77,34 @@ public class ProfesionalDTO {
 		this.idSucursalTransferencia = idSucursalTransferencia;
 	}
 
-
+	public String getSucursal(int id) {
+		return getStringSucursal(id);
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 	}
 
+	public String getStringSucursal(int id) {
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		String sucursal;
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement("Select NombreSucursal FROM sucursal WHERE idSucursal = ?");
+	
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			if (resultSet.next()){
+				sucursal = resultSet.getString("NombreSucursal");
+				return sucursal;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

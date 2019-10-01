@@ -24,7 +24,6 @@ public class ControladorAltaProfesional  implements ActionListener{
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorAltaProfesional(sistema);
 		}	
-		
 		INSTANCE.altaProfesional.mostrarVentana();
 		return INSTANCE;
 	}
@@ -34,7 +33,7 @@ public class ControladorAltaProfesional  implements ActionListener{
 		String nombre= this.altaProfesional.getTxtNombre().getText();
 		String apellido=this.altaProfesional.getTxtApellido().getText();
 		Integer idSucursalOrig=Integer.parseInt(this.altaProfesional.getComboOrig().getSelectedItem().toString());
-		Integer idSucursalTran=Integer.parseInt(this.altaProfesional.getComboTran().getSelectedItem().toString());
+		Integer idSucursalTran=(this.altaProfesional.getComboTran().getSelectedItem().toString().equals("--")?-1:Integer.parseInt(this.altaProfesional.getComboTran().getSelectedItem().toString()));
 		if(validar(nombre,apellido,idSucursalOrig,idSucursalTran)) {
 			ProfesionalDTO profesional= new ProfesionalDTO(0,nombre,apellido,idSucursalOrig,idSucursalTran);
 			this.sistema.agregarProfesional(profesional);
@@ -51,6 +50,8 @@ public class ControladorAltaProfesional  implements ActionListener{
 		}
 		
 	}
+	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
