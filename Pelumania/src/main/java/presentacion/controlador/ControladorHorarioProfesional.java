@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import dto.HorarioDTO;
 import dto.ProfesionalDTO;
 import modelo.Sistema;
+import presentacion.vista.VentanaAltaHorario;
 import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaHorarioProfesional;
 
@@ -19,15 +20,20 @@ public class ControladorHorarioProfesional implements ActionListener{
 	private int idProfesional;
 	private String nombre;
 	private String apellido;
+	private ControladorAltaHorario altaHorario;
+	private ControladorAltaHorario controladorAltaHorario;
 	private static ControladorHorarioProfesional INSTANCE;
 	
 	
 	private ControladorHorarioProfesional(Sistema sistema) {
 		this.horaProfesional = VentanaHorarioProfesional.getInstance();
 		this.horaProfesional.getBtnBorrar().addActionListener(m -> borrarDia(m));
+		this.horaProfesional.getBtnAgregar().addActionListener(n -> agregarDia(n));
 		this.sistema = sistema;
 	}
 	
+	
+
 	public static ControladorHorarioProfesional getInstance(Sistema sistema, String nombre,String apellido, int id) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorHorarioProfesional(sistema);
@@ -56,6 +62,10 @@ public class ControladorHorarioProfesional implements ActionListener{
 		        		this.getInstance(sistema, nombre, apellido, idProfesional);
 		        	} 
 				}	 
+	}
+	
+	private void agregarDia(ActionEvent n) {
+		this.altaHorario= ControladorAltaHorario.getInstance(sistema);
 	}
 	
 	@Override
