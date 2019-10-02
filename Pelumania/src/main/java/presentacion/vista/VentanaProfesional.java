@@ -31,6 +31,7 @@ public class VentanaProfesional
 	private JButton btnHorario;
 	private DefaultTableModel modelProfesional;
 	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia","Estado"};
+	private JButton btnAsignarServicio;
 
 	public VentanaProfesional() 
 	{
@@ -52,12 +53,12 @@ public class VentanaProfesional
 	{
 		frmProfesional = new JFrame();
 		frmProfesional.setTitle("Profesional");
-		frmProfesional.setBounds(100, 100, 822, 300);
+		frmProfesional.setBounds(100, 100, 1001, 300);
 		frmProfesional.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProfesional.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 806, 262);
+		panel.setBounds(0, 0, 975, 262);
 		frmProfesional.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -75,21 +76,25 @@ public class VentanaProfesional
 		
 		spPersonas.setViewportView(tablaProfesional);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(144, 228, 89, 23);
+		btnAgregar = new JButton("Agregar Profesional");
+		btnAgregar.setBounds(111, 228, 153, 23);
 		panel.add(btnAgregar);
 		
-		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(292, 228, 89, 23);
+		btnEditar = new JButton("Editar Profesional");
+		btnEditar.setBounds(357, 228, 153, 23);
 		panel.add(btnEditar);
 		
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(429, 228, 89, 23);
+		btnBorrar = new JButton("Borrar Profesional");
+		btnBorrar.setBounds(608, 228, 159, 23);
 		panel.add(btnBorrar);
 		
 		btnHorario = new JButton("Ver Horario");
-		btnHorario.setBounds(668, 228, 128, 23);
+		btnHorario.setBounds(821, 61, 128, 23);
 		panel.add(btnHorario);
+		
+		btnAsignarServicio = new JButton("Asignar Servicio");
+		btnAsignarServicio.setBounds(821, 130, 128, 23);
+		panel.add(btnAsignarServicio);
 		
 	}
 	
@@ -133,7 +138,10 @@ public class VentanaProfesional
 	public String[] getNombreColumnas(){
 		return nombreColumnas;
 	}
-
+	
+	public JButton getBtnAsignar() {
+		return this.btnAsignarServicio;
+	}
 
 	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla) {
 		this.getmodelProfesional().setRowCount(0); //Para vaciar la tabla
