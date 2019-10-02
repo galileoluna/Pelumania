@@ -16,9 +16,11 @@ public class ClienteDAOSQL implements ClienteDAO
 {
 	
 	private static final String insert = "INSERT INTO Cliente( idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String delete = "DELETE FROM Cliente WHERE idCliente = ?";
+	private static final String delete = "UPDATE  Cliente SET EstadoCliente=? WHERE idCliente = ?";
 	private static final String readall = "SELECT * FROM Cliente";
-		
+	private static final String update = "UPDATE  Cliente SET Nombre=? , Apellido=? , Telefono=? , Mail=? , Puntos=? , EstadoCliente=?, Deuda=? WHERE idCliente=?";
+	private static final String ESTADO_INACTIVO = "inactivo";
+	
 	public boolean insert(ClienteDTO cliente)
 	{
 		PreparedStatement statement;
@@ -63,7 +65,8 @@ public class ClienteDAOSQL implements ClienteDAO
 		try 
 		{
 			statement = conexion.prepareStatement(delete);
-			statement.setString(1, Integer.toString(cliente_a_eliminar.getIdCliente()));
+			statement.setString(1, ESTADO_INACTIVO);
+			statement.setString(2, Integer.toString(cliente_a_eliminar.getIdCliente()));
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -112,4 +115,43 @@ public class ClienteDAOSQL implements ClienteDAO
 		
 		return new ClienteDTO(id, nombre, apellido, telefono, mail, puntos, estado, deuda);
 	}
+	
+	public boolean update(ClienteDTO cliente_a_editar) {
+		PreparedStatement statement;
+		int chequeoUpdate = 0;
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+
+			statement.setString (1, cliente_a_editar.getNombre());
+			statement.setString (2, cliente_a_editar.getApellido());
+			statement.setString (3, cliente_a_editar.getTelefono());
+			statement.setString (4, cliente_a_editar.getMail());
+			statement.setInt    (5, cliente_a_editar.getPuntos());
+			statement.setString (6, cliente_a_editar.getEstadoCliente());
+			statement.setBigDecimal (7, cliente_a_editar.getDeuda());
+			statement.setInt	(8, cliente_a_editar.getIdCliente());
+			
+			chequeoUpdate = statement.executeUpdate();
+			conexion.getSQLConexion().commit();
+			
+			if(chequeoUpdate > 0)
+					return true;
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("false");
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void editar(ClienteDTO cliente_a_editar) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

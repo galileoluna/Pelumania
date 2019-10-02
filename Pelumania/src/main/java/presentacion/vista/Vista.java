@@ -52,32 +52,9 @@ public class Vista {
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 985, 633);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-
-		calendario = new JCalendar();
-		calendario.setTodayButtonVisible(true);
-		calendario.setBounds(10, 11, 578, 622);
-		panel.add(calendario);
-		calendario.setVisible(true);
-
-		btnServicios = new JButton("Servicios");
-		btnServicios.setBounds(682, 65, 152, 39);
-		panel.add(btnServicios);
-		btnServicios.setVisible(true);
-		
-		btnAgregarCliente = new JButton("Agregar Cliente");
-		btnAgregarCliente.setBounds(682, 132, 152, 39);
-		panel.add(btnAgregarCliente);
-		
-		btnProfesional = new JButton("Ver Profesionales");
-		btnProfesional.setBounds(682, 214, 152, 32);
-		panel.add(btnProfesional);
-		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		menuBar.setBounds(0, 0, 995, 21);
+		frame.getContentPane().add(menuBar);
 		
 		JMenu mnArchivo = new JMenu("Archivo");
 		menuBar.add(mnArchivo);
@@ -106,6 +83,31 @@ public class Vista {
 		
 		menu = new JMenu("");
 		menuBar.add(menu);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 985, 633);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+
+		calendario = new JCalendar();
+		calendario.getYearChooser().getSpinner().setEnabled(false);
+		calendario.setTodayButtonVisible(true);
+		calendario.setBounds(10, 33, 578, 600);
+		panel.add(calendario);
+		calendario.setVisible(true);
+
+		btnServicios = new JButton("Servicios");
+		btnServicios.setBounds(682, 65, 152, 39);
+		panel.add(btnServicios);
+		btnServicios.setVisible(true);
+		
+		btnAgregarCliente = new JButton("Agregar Cliente");
+		btnAgregarCliente.setBounds(682, 132, 152, 39);
+		panel.add(btnAgregarCliente);
+		
+		btnProfesional = new JButton("Ver Profesionales");
+		btnProfesional.setBounds(682, 214, 152, 32);
+		panel.add(btnProfesional);
 		btnAgregarCliente.setVisible(true);
 	}
 	

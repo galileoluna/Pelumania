@@ -37,6 +37,11 @@ public class Sistema
 		this.cliente.delete(cliente_a_eliminar);
 	}
 	
+	public void editarCliente(ClienteDTO cliente_a_editar) 
+	{
+		this.cliente.update(cliente_a_editar);
+	}
+	
 	public List<ClienteDTO> obtenerClientes()
 	{
 		return this.cliente.readAll();		

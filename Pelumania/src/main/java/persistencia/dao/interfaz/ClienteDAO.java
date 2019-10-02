@@ -10,6 +10,11 @@ public interface ClienteDAO {
 
 	public boolean delete(ClienteDTO cliente_a_eliminar);
 	
+	public boolean update(ClienteDTO cliente_a_eliminar);
+
+	public void editar(ClienteDTO cliente_a_editar);
+
 	public List<ClienteDTO> readAll();
+
 
 }

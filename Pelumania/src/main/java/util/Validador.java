@@ -1,6 +1,5 @@
 package util;
 
-import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 /**
@@ -58,6 +57,7 @@ public class Validador {
 			return PUNTOS_PATTERN.matches(PUNTOS_REGEX, puntos);
 		}
 		
+		
 		@SuppressWarnings("static-access")
 		public static boolean esPrecioValido(String precio) {
 			String PRECIO_REGEX=
@@ -73,4 +73,14 @@ public class Validador {
 			}	
 			return true;
 		}
+		public static boolean esEstadoClienteValido(String estado) {
+			String[] ESTADOS = {"activo","inactivo","moroso","vip"};
+			for (String  e : ESTADOS) {
+				if (e.equals(estado)){
+					return true;
+				}
+			}
+			return false;
+		}
+
 }
