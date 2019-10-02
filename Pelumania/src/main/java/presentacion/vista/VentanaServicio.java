@@ -48,17 +48,17 @@ public class VentanaServicio{
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 742, 294);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 262);
+		panel.setBounds(10, 11, 706, 242);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spServicios = new JScrollPane();
-		spServicios.setBounds(10, 11, 414, 182);
+		spServicios.setBounds(10, 11, 686, 182);
 		panel.add(spServicios);
 
 		modelServicios = new DefaultTableModel(null,nombreColumnas);
@@ -80,15 +80,15 @@ public class VentanaServicio{
 		spServicios.setViewportView(tablaServicios);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(109, 228, 89, 23);
+		btnAgregar.setBounds(194, 204, 89, 23);
 		panel.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(208, 228, 89, 23);
+		btnEditar.setBounds(304, 204, 89, 23);
 		panel.add(btnEditar);
 		
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(307, 228, 89, 23);
+		btnBorrar.setBounds(419, 204, 89, 23);
 		panel.add(btnBorrar);
 	}
 	
@@ -157,6 +157,7 @@ public class VentanaServicio{
 			this.getModelServicios().addRow(fila);
 		}
 	}
+	
 	public void mostrar() {
 		frame.setVisible(true);
 		

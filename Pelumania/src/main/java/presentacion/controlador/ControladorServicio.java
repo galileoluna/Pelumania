@@ -6,16 +6,15 @@ import modelo.Sistema;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-import presentacion.vista.VentanaProfesional;
 import presentacion.vista.VentanaServicio;
 
 public class ControladorServicio {
 	private static ControladorServicio INSTANCE;
-	private VentanaServicio ventanaServicio;
-	private List<ServicioDTO> serviciosEnTabla;
+	private static VentanaServicio ventanaServicio;
+	private static List<ServicioDTO> serviciosEnTabla;
 	
 	private ControladorAgregarServicio controladorAgregarServicio;
-	private Sistema sistema;
+	private static Sistema sistema;
 	
 	private ControladorServicio(Sistema sistema) {
 		this.ventanaServicio = ventanaServicio.getInstance();
@@ -39,4 +38,12 @@ public class ControladorServicio {
 	private void agregarServicio(ActionEvent p) {
 		this.controladorAgregarServicio = ControladorAgregarServicio.getInstance(sistema);
 	}
+	
+	private static void refrescarTabla()
+	{
+		serviciosEnTabla = sistema.obtenerServicios();
+		ventanaServicio.llenarTabla(serviciosEnTabla);
+	}
+	
+	
 }
