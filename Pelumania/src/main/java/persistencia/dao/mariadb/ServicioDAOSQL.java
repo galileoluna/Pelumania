@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,8 @@ import persistencia.dao.interfaz.ServicioDAO;
 
 public class ServicioDAOSQL implements ServicioDAO{
 	
-	private static final String insert = "INSERT INTO servicio(idServicio,Nombre,PrecioLocal,PrecioDolar,Puntos) "
-										+ "VALUES(?,?,?,?,?)";
+	private static final String insert = "INSERT INTO servicio(idServicio,Nombre,PrecioLocal,PrecioDolar,Duracion,Puntos,Estado) "
+										+ "VALUES(?,?,?,?,?,?,?)";
 	private static final String update = "";
 	private static final String delete = "DELETE FROM servicio WHERE IdServicio = ?";
 	private static final String readall = " SELECT * FROM servicio";
@@ -32,7 +34,10 @@ public class ServicioDAOSQL implements ServicioDAO{
 			statement.setString(2, servicio.getNombre());
 			statement.setBigDecimal(3, servicio.getPrecioLocal());
 			statement.setBigDecimal(4, servicio.getPrecioDolar());
-			statement.setInt(5, servicio.getPuntos());
+			//El parametro duracion es una hora - falta modificar
+			statement.setTime(5, Time.valueOf(servicio.getDuracion()));
+			statement.setInt(6, servicio.getPuntos());
+			statement.setString(7, servicio.getEstado());	
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -98,9 +103,11 @@ public class ServicioDAOSQL implements ServicioDAO{
 		String nombre = resultSet.getString("Nombre");
 		BigDecimal precioLocal = resultSet.getBigDecimal("PrecioLocal");
 		BigDecimal precioDolar =resultSet.getBigDecimal("PrecioDolar");
+		Time duracion = resultSet.getTime("Duracion");
 		int puntos = resultSet.getInt("Puntos");
+		String estado = resultSet.getString("Estado");
 		
-		return new ServicioDTO(id, nombre, precioLocal, precioDolar, puntos);
+		return new ServicioDTO(id, nombre, precioLocal, precioDolar, duracion.toLocalTime(), puntos, estado);
 	}
 
 }

@@ -3,6 +3,8 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 import dto.ServicioDTO;
 import modelo.Sistema;
@@ -38,21 +40,29 @@ public class ControladorServicio implements ActionListener {
 		String S_nombre = this.ventanaServicio.getTxtNombre().getText();
 		String S_precioLocal = this.ventanaServicio.getTxtPrecioLocal().getText();
 		String S_precioDolar = this.ventanaServicio.getTxtPrecioDolar().getText();
+		String S_duracion = this.ventanaServicio.getTxtDuracion().getText();
 		String S_puntos = this.ventanaServicio.getTxtPuntos().getText();
 		
 		//validamos campos	
 		if ( Validador.esNombreConEspaciosValido(S_nombre) &&
 			 Validador.esPrecioValido(S_precioLocal) &&
 			 Validador.esPrecioValido(S_precioDolar) &&
+			 //Validador.esDuracionValida(S_duracion) &&
 			 Validador.esPuntosValido(S_puntos)) {
 		
 			String nombre = S_nombre;
 			BigDecimal precioLocal = new BigDecimal(S_precioLocal);
 			BigDecimal precioDolar = new BigDecimal(S_precioDolar);
 			int puntos = Integer.parseInt(S_puntos);
+			LocalTime duracion = null;
 			
-			
-		ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, puntos);
+			try {
+			duracion = LocalTime.parse(S_duracion);
+			} catch(DateTimeParseException e) {
+        	System.out.println("La hora es incorrecta!");
+    	}
+		
+		ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, duracion, puntos, "activo");
 		this.sistema.agregarServicio(nuevoServicio);
 
 		//		this.refrescarTabla(); // no se que onda aca porque quizas no mostremos la tabla de clientes 

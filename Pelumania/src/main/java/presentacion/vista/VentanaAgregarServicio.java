@@ -4,9 +4,17 @@ package presentacion.vista;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
+import util.TextPrompt;
+
+import java.awt.Font;
+import java.text.ParseException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JFormattedTextField;
 
 
 public class VentanaAgregarServicio extends JFrame 
@@ -14,16 +22,23 @@ public class VentanaAgregarServicio extends JFrame
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static VentanaAgregarServicio INSTANCE;
+	
 	private JTextField txtNombre;
 	private JTextField txtPrecioLocal;
 	private JTextField txtPrecioDolar;
 	private JTextField txtPuntos;
+	JTextField TxtDuracion;
+	
+	private JLabel lbl_Nombre;
 	private JLabel lbl_PrecioLocal;
 	private JLabel lbl_precioDolar;
 	private JLabel lbl_Puntos;
+	private JLabel lbl_Duracion;
 	
 	private JButton btn_AgregarServicio;
 	private JButton btn_Cancelar;
+	
+	private MaskFormatter HoraSinSegundos;
 	
 	public static VentanaAgregarServicio getInstance()
 	{
@@ -45,13 +60,13 @@ public class VentanaAgregarServicio extends JFrame
 		
 		setTitle("Nuevo servicio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 345, 266);
+		setBounds(100, 100, 346, 354);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 0, 309, 216);
+		panel.setBounds(10, 0, 309, 304);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -75,7 +90,7 @@ public class VentanaAgregarServicio extends JFrame
 		txtPuntos.setBounds(132, 130, 167, 26);
 		panel.add(txtPuntos);
 		
-		JLabel lbl_Nombre = new JLabel("Nombre:");
+		lbl_Nombre = new JLabel("Nombre:");
 		lbl_Nombre.setBounds(0, 19, 124, 26);
 		panel.add(lbl_Nombre);
 		
@@ -92,12 +107,31 @@ public class VentanaAgregarServicio extends JFrame
 		panel.add(lbl_Puntos);
 		
 		btn_AgregarServicio = new JButton("Agregar");
-		btn_AgregarServicio.setBounds(65, 182, 89, 23);
+		btn_AgregarServicio.setBounds(66, 270, 89, 23);
 		panel.add(btn_AgregarServicio);
 		
 		btn_Cancelar = new JButton("Cancelar");
-		btn_Cancelar.setBounds(169, 182, 89, 23);
+		btn_Cancelar.setBounds(165, 270, 89, 23);
 		panel.add(btn_Cancelar);
+		
+		lbl_Duracion = new JLabel("Duracion aproximada:");
+		lbl_Duracion.setBounds(0, 167, 124, 26);
+		panel.add(lbl_Duracion);
+		
+		
+		try {
+			HoraSinSegundos = new MaskFormatter("##:##");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		TxtDuracion = new JTextField();
+		TxtDuracion.setBounds(132, 167, 74, 29);
+		panel.add(TxtDuracion);
+		
+		TextPrompt placeholder = new TextPrompt("HH:MM", TxtDuracion);
+	    placeholder.changeAlpha(0.75f);
+	    placeholder.changeStyle(Font.ITALIC);
 		
 		this.setVisible(false);
 	}
@@ -142,8 +176,14 @@ public class VentanaAgregarServicio extends JFrame
 	public void setTxtPuntos(JTextField txtPuntos) {
 		this.txtPuntos = txtPuntos;
 	}
-	
-	
+
+	public JTextField getTxtDuracion() {
+		return TxtDuracion;
+	}
+
+	public void setTxtDuracion(JTextField txtDuracion) {
+		TxtDuracion = txtDuracion;
+	}
 
 	public JButton getBtnAgregarServicio() {
 		return btn_AgregarServicio;

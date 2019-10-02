@@ -29,11 +29,14 @@ public class Vista {
 	
 	private JMenu menu;
 		private JMenu mnServicio;
-			private JMenuItem mntmConsultarServicios;
 			private JMenuItem mntmAgregarServicio;
+			private JMenuItem mntmEditarServicios;
+			private JMenuItem mntmBorrarServicios;
+			private JMenuItem mntmConsultarServicios;
 		private JMenu mnProfesional;
 		
 		private JMenu mnCliente;
+
 	
 	public Vista() 
 	{
@@ -84,6 +87,12 @@ public class Vista {
 		
 		mntmAgregarServicio = new JMenuItem("Agregar Servicio");
 		mnServicio.add(mntmAgregarServicio);
+		
+		mntmEditarServicios = new JMenuItem("Editar Servicios");
+		mnServicio.add(mntmEditarServicios);
+		
+		mntmBorrarServicios = new JMenuItem("Borrar Servicios");
+		mnServicio.add(mntmBorrarServicios);
 		
 		mntmConsultarServicios = new JMenuItem("Consultar Servicios");
 		mnServicio.add(mntmConsultarServicios);

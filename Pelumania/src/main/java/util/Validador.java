@@ -65,4 +65,12 @@ public class Validador {
 			Pattern PRECIO_PATTERN = Pattern.compile(PRECIO_REGEX);
 			return PRECIO_PATTERN.matches(PRECIO_REGEX, precio);
 		}
+
+		public static boolean esEstadoServicioValido(String estado) {
+			String input = estado.toLowerCase();
+			if (input != "activo" || input != "inactivo") {
+				return false;
+			}	
+			return true;
+		}
 }
