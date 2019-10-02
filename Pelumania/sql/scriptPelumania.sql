@@ -1,3 +1,4 @@
+DROP DATABASE `Pelumania`;
 CREATE DATABASE `Pelumania`;
 USE Pelumania;
 

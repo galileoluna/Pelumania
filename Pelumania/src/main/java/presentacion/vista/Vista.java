@@ -29,9 +29,6 @@ public class Vista {
 	
 	private JMenu menu;
 		private JMenu mnServicio;
-			private JMenuItem mntmAgregarServicio;
-			private JMenuItem mntmEditarServicios;
-			private JMenuItem mntmBorrarServicios;
 			private JMenuItem mntmConsultarServicios;
 		private JMenu mnProfesional;
 		
@@ -61,15 +58,6 @@ public class Vista {
 		
 		mnServicio = new JMenu("Servicio");
 		menuBar.add(mnServicio);
-		
-		mntmAgregarServicio = new JMenuItem("Agregar Servicio");
-		mnServicio.add(mntmAgregarServicio);
-		
-		mntmEditarServicios = new JMenuItem("Editar Servicios");
-		mnServicio.add(mntmEditarServicios);
-		
-		mntmBorrarServicios = new JMenuItem("Borrar Servicios");
-		mnServicio.add(mntmBorrarServicios);
 		
 		mntmConsultarServicios = new JMenuItem("Consultar Servicios");
 		mnServicio.add(mntmConsultarServicios);
@@ -149,8 +137,5 @@ public class Vista {
 	public JMenuItem getMnItmConsultarServicios() {
 		return mntmConsultarServicios;
 	}
-	
-	public JMenuItem getMnItmAgregarServicio() {
-		return mntmAgregarServicio;
-	}
+ 
 }

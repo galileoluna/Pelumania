@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.EventQueue;
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,39 +14,51 @@ import javax.swing.table.DefaultTableModel;
 
 import dto.ServicioDTO;
 
-public class ventanaServicio{
+public class VentanaServicio{
 
 	JFrame frame;
+	private static VentanaServicio INSTANCE;
 	private JTable tablaServicios;
 	private DefaultTableModel modelServicios;
 	private String[] nombreColumnas = {"Nombre","Precio en $",
-	"Precio en USD","Puntos que brinda"};
+	"Precio en USD","Duracion", "Puntos que brinda", "Estado"};
 
 
 	private JButton btnAgregar;
 	private JButton btnEditar;
 	private JButton btnBorrar;
 
-	public ventanaServicio() 
+	public VentanaServicio() 
 	{
 		super();
 		initialize();
+	}
+	
+	public static VentanaServicio getInstance()
+	{
+		if(INSTANCE == null)
+		{
+			INSTANCE = new VentanaServicio(); 	
+			return new VentanaServicio();
+		}
+		else
+			return INSTANCE;
 	}
 
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 742, 294);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 262);
+		panel.setBounds(10, 11, 706, 242);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spServicios = new JScrollPane();
-		spServicios.setBounds(10, 11, 414, 182);
+		spServicios.setBounds(10, 11, 686, 182);
 		panel.add(spServicios);
 
 		modelServicios = new DefaultTableModel(null,nombreColumnas);
@@ -59,19 +72,23 @@ public class ventanaServicio{
 		tablaServicios.getColumnModel().getColumn(2).setResizable(false);
 		tablaServicios.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tablaServicios.getColumnModel().getColumn(3).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(4).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(4).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(5).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(5).setResizable(false);
 		
 		spServicios.setViewportView(tablaServicios);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(109, 228, 89, 23);
+		btnAgregar.setBounds(194, 204, 89, 23);
 		panel.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(208, 228, 89, 23);
+		btnEditar.setBounds(304, 204, 89, 23);
 		panel.add(btnEditar);
 		
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(307, 228, 89, 23);
+		btnBorrar.setBounds(419, 204, 89, 23);
 		panel.add(btnBorrar);
 	}
 	
@@ -133,13 +150,14 @@ public class ventanaServicio{
 			String nombre = s.getNombre();
 			BigDecimal precioLocal = s.getPrecioLocal();
 			BigDecimal precioDolar = s.getPrecioDolar();
+			LocalTime duracion = s.getDuracion();
 			int puntos = s.getPuntos();
-			Object[] fila = {nombre, precioLocal, precioDolar, puntos};
+			String estado = s.getEstado();
+			Object[] fila = {nombre, precioLocal, duracion, precioDolar, puntos, estado};
 			this.getModelServicios().addRow(fila);
 		}
-		
 	}
-
+	
 	public void mostrar() {
 		frame.setVisible(true);
 		

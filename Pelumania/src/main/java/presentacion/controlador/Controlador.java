@@ -10,13 +10,13 @@ import modelo.Sistema;
 import presentacion.vista.VentanaAgregarServicio;
 import presentacion.vista.VentanaProfesional;
 import presentacion.vista.Vista;
-import presentacion.vista.ventanaServicio;
+import presentacion.vista.VentanaServicio;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
 
 	private VentanaAgregarServicio ventanaAgregarServicio; 
-	private ControladorCliente controladorCliente; 
+	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	private ControladorProfesional controladorProfesional;
 	private Sistema sistema;
@@ -30,26 +30,17 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnAgregarCliente().addActionListener(a->ventanaAgregarCliente(a));
 		this.vista.getBtnProfesional().addActionListener(l->ventanaProfesional(l));
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
-		this.vista.getMnItmAgregarServicio().addActionListener(d -> ventanaAgregarServicio(d));
 
+	}
+	
+	private void ventanaServicios(ActionEvent c) {
+		this.controladorServicio = ControladorServicio.getInstance(sistema);
 	}
  
-	private void ventanaServicios(ActionEvent c) {
-		List<ServicioDTO> serviciosEnTabla = this.sistema.obtenerServicios();
-		ventanaServicio ventanaservicio = new ventanaServicio();
-		
-		ventanaservicio.llenarTabla(serviciosEnTabla);
-		ventanaservicio.mostrar();
-	}
-
 	private void ventanaAgregarCliente(ActionEvent a) {
 			this.controladorCliente = ControladorCliente.getInstance(sistema);
 		}
 
-	private void ventanaAgregarServicio(ActionEvent d) {
-		this.controladorServicio = ControladorServicio.getInstance(sistema);
-	}
-	
 	private void ventanaProfesional (ActionEvent b) {
 		this.controladorProfesional= ControladorProfesional.getInstance(sistema);
 	}
