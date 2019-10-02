@@ -8,7 +8,8 @@ package persistencia.dao.mariadb;
 	import java.util.List;
 
 	import dto.ProfesionalDTO;
-	import persistencia.conexion.Conexion;
+import dto.ServicioProfesionalDTO;
+import persistencia.conexion.Conexion;
 	import persistencia.dao.interfaz.ProfesionalDAO;
 
 	public class ProfesionalDAOSQL implements ProfesionalDAO{
@@ -18,7 +19,7 @@ package persistencia.dao.mariadb;
 	private static final String readall = "SELECT * FROM Profesional";
 	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
 	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=?, estado = ? WHERE IdProfesional = ?";
-			
+	
 	public boolean insert(ProfesionalDTO profesional){
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -138,6 +139,7 @@ package persistencia.dao.mariadb;
 		
 		return false;
 	}
+	
 	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");

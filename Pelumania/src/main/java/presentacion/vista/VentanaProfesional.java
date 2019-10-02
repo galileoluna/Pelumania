@@ -89,11 +89,11 @@ public class VentanaProfesional
 		panel.add(btnBorrar);
 		
 		btnHorario = new JButton("Ver Horario");
-		btnHorario.setBounds(821, 61, 128, 23);
+		btnHorario.setBounds(806, 61, 159, 23);
 		panel.add(btnHorario);
 		
 		btnAsignarServicio = new JButton("Asignar Servicio");
-		btnAsignarServicio.setBounds(821, 130, 128, 23);
+		btnAsignarServicio.setBounds(806, 130, 159, 23);
 		panel.add(btnAsignarServicio);
 		
 	}

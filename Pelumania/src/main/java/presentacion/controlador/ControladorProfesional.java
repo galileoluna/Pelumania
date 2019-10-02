@@ -21,6 +21,7 @@ public class ControladorProfesional {
 	public int idProfesional;
 	private ControladorModificarProfesional modificarProfesional;
 	private Sistema sistema;
+	private ControladorServicioProfesional controlServProf;
 	
 	private ControladorProfesional(Sistema sistema) {
 		this.ventanaProfesional = VentanaProfesional.getInstance();
@@ -28,9 +29,9 @@ public class ControladorProfesional {
 		this.ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s));
 		this.ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
 		this.ventanaProfesional.getBtnHorario().addActionListener(k -> verHorarios(k));
+		this.ventanaProfesional.getBtnAsignar().addActionListener(f -> asignarServ(f));
 		this.sistema = sistema;
 	}
-
 
 	public static ControladorProfesional getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
@@ -92,6 +93,20 @@ public class ControladorProfesional {
         	}
 		}
 		
+	}
+	
+
+	private void asignarServ(ActionEvent f) {
+		this.profesionalEnTabla=sistema.obtenerProfesional();
+		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
+       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(this.profesionalEnTabla.get(fila)!=null) {
+        		String nombreEmpl=this.profesionalEnTabla.get(fila).getNombre()+" "+this.profesionalEnTabla.get(fila).getApellido();
+        		this.controlServProf=ControladorServicioProfesional.getInstance(sistema,this.profesionalEnTabla.get(fila).idProfesional, nombreEmpl);
+        	}
+		}	
 	}
 	
 }
