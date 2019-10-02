@@ -6,10 +6,8 @@ package persistencia.dao.mariadb;
 	import java.sql.SQLException;
 	import java.util.ArrayList;
 	import java.util.List;
-
 	import dto.ProfesionalDTO;
-import dto.ServicioProfesionalDTO;
-import persistencia.conexion.Conexion;
+	import persistencia.conexion.Conexion;
 	import persistencia.dao.interfaz.ProfesionalDAO;
 
 	public class ProfesionalDAOSQL implements ProfesionalDAO{

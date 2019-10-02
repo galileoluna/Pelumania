@@ -32,7 +32,7 @@ public class VentanaServicioProfecional
 	private JLabel lblNombreEmpl;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
-	private JTable tablaHorarioProfesional;
+	private JTable tablaServicioProfesional;
 	private DefaultTableModel modelHorario;
 	private  String[] nombreColumnas = {"Servicio"};
 	private JLabel lblServicio;
@@ -72,13 +72,13 @@ public class VentanaServicioProfecional
 		panel.add(spPersonas);
 		
 		modelHorario = new DefaultTableModel(null,nombreColumnas);
-		tablaHorarioProfesional = new JTable(modelHorario);
+		tablaServicioProfesional = new JTable(modelHorario);
 		
-		tablaHorarioProfesional.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tablaHorarioProfesional.getColumnModel().getColumn(0).setResizable(false);
+		tablaServicioProfesional.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaServicioProfesional.getColumnModel().getColumn(0).setResizable(false);
 		
 		
-		spPersonas.setViewportView(tablaHorarioProfesional);
+		spPersonas.setViewportView(tablaServicioProfesional);
 		
 		JLabel lblEmpleado = new JLabel("Empleado: ");
 		lblEmpleado.setBounds(10, 11, 85, 14);
@@ -132,9 +132,9 @@ public class VentanaServicioProfecional
 		return comboBox;
 	}
 	
-	public JTable getTablaHorarioProfesional()
+	public JTable getTablServicioProfesional()
 	{
-		return tablaHorarioProfesional;
+		return tablaServicioProfesional;
 	}
 
 	public String[] getNombreColumnas() 
