@@ -18,7 +18,7 @@ import persistencia.dao.interfaz.HorarioDAO;
 public class HorarioDAOSQL implements HorarioDAO {
 	private static final String insert = "INSERT INTO DiasLaborales( idDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) VALUES(?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM DiasLaborales WHERE idDiasLaborales = ?";
-	private static final String readall = "SELECT * FROM DiasLaborales";
+	private static final String readall = "SELECT * FROM DiasLaborales WHERE idDiasLaborales = ? ";
 	private static final String readone = "SELECT * FROM DiasLaborales WHERE IdProfesional = ? ";
 	private static final String update = "UPDATE DiasLaborales SET Dia=? , HoraEntrada=? , HoraSalida=?  WHERE idDiasLaborales = ?";
 	
@@ -77,14 +77,15 @@ public class HorarioDAOSQL implements HorarioDAO {
 	}
 
 
-	public List<HorarioDTO> readAll() {
+	public List<HorarioDTO> readAll(int id) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<HorarioDTO> horario = new ArrayList<HorarioDTO>();
+		List<HorarioDTO> horario = new ArrayList<HorarioDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
+			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
@@ -95,6 +96,7 @@ public class HorarioDAOSQL implements HorarioDAO {
 		{
 			e.printStackTrace();
 		}
+		
 		return horario;
 	}
 
@@ -159,4 +161,6 @@ public class HorarioDAOSQL implements HorarioDAO {
 		
 		return new HorarioDTO(id, dia, horaEntrada, horaSalida, idProfesional);
 	}
+
+	
 }

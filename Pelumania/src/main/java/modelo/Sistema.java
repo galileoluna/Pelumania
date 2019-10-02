@@ -83,6 +83,9 @@ public class Sistema
 		return this.horario.readOne(id);
 	}
 	
+	public List<HorarioDTO> obtenerUnHorarios(int id){
+		return this.horario.readAll(id);
+	}
 	public void borrarHorario(HorarioDTO horario_a_eliminar) {
 		this.horario.delete(horario_a_eliminar);
 	}

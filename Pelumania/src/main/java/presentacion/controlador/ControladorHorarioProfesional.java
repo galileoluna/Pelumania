@@ -21,7 +21,8 @@ public class ControladorHorarioProfesional implements ActionListener{
 	private String nombre;
 	private String apellido;
 	private ControladorAltaHorario altaHorario;
-	private ControladorAltaHorario controladorAltaHorario;
+	private ControladorModificarHorario modificarHorario;
+	
 	private static ControladorHorarioProfesional INSTANCE;
 	
 	
@@ -29,10 +30,9 @@ public class ControladorHorarioProfesional implements ActionListener{
 		this.horaProfesional = VentanaHorarioProfesional.getInstance();
 		this.horaProfesional.getBtnBorrar().addActionListener(m -> borrarDia(m));
 		this.horaProfesional.getBtnAgregar().addActionListener(n -> agregarDia(n));
+		this.horaProfesional.getBtnEditar().addActionListener(v -> editarDia(v));
 		this.sistema = sistema;
 	}
-	
-	
 
 	public static ControladorHorarioProfesional getInstance(Sistema sistema, String nombre,String apellido, int id) {
 		if ( INSTANCE == null) {
@@ -64,8 +64,24 @@ public class ControladorHorarioProfesional implements ActionListener{
 				}	 
 	}
 	
+	private void editarDia(ActionEvent v) {
+		this.horariolEnTabla=sistema.obtenerHorario(idProfesional);
+		int[] filasSeleccionadas = this.horaProfesional.getTablaHorarioProfesional().getSelectedRows();
+       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(this.horariolEnTabla.get(fila)!=null) {	 
+        		
+        		List<HorarioDTO>horario=this.sistema.obtenerUnHorarios(this.horariolEnTabla.get(fila).idDiasLaborales);
+        		System.out.println(horario);
+        		this.modificarHorario.getInstance(sistema,horario,nombre,apellido,this.horariolEnTabla.get(fila).idDiasLaborales);
+        	}
+		}	
+	}
+
+	
 	private void agregarDia(ActionEvent n) {
-		this.altaHorario= ControladorAltaHorario.getInstance(sistema);
+		this.altaHorario= ControladorAltaHorario.getInstance(sistema,nombre,apellido,idProfesional);
 	}
 	
 	@Override

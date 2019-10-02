@@ -14,8 +14,12 @@ import presentacion.vista.VentanaAltaProfesional;
 public class ControladorAltaHorario implements ActionListener{
 	private static ControladorAltaHorario INSTANCE;
 	private Sistema sistema;
+	private String nombre;
+	private String Apellido;
+	private int id;
 	private VentanaAltaHorario altaHorario;
 	private ControladorHorarioProfesional controladorHorarioProf;
+	private ControladorHorarioProfesional controlHorario;
 	
 	private ControladorAltaHorario(Sistema sistema) {
 		this.altaHorario = VentanaAltaHorario.getInstance();
@@ -24,10 +28,14 @@ public class ControladorAltaHorario implements ActionListener{
 	}
 
 
-	public static ControladorAltaHorario getInstance(Sistema sistema) {
+	public static ControladorAltaHorario getInstance(Sistema sistema, String nombre, String apellido, int idProf) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorAltaHorario(sistema);
 		}
+		INSTANCE.nombre=nombre;
+		INSTANCE.id=idProf;
+		INSTANCE.Apellido=apellido;
+		INSTANCE.altaHorario.setLblNombre(nombre+" "+apellido);
 		INSTANCE.altaHorario.show();
 		return INSTANCE;
 	}
@@ -42,7 +50,9 @@ public class ControladorAltaHorario implements ActionListener{
 		Time entrada=new Time(Integer.parseInt(horaEntrada),Integer.parseInt(minEntrada),00);
 		Time salida= new Time(Integer.parseInt(horaSalida),Integer.parseInt(minSalida),00);
 		HorarioDTO hora=new HorarioDTO(0,dias,entrada,salida,3);
-		
+		this.sistema.agregarHorario(hora);
+		altaHorario.dispose();
+		controlHorario.getInstance(sistema, nombre, Apellido, id);
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

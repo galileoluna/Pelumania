@@ -10,7 +10,7 @@ public interface HorarioDAO {
 
 	public boolean delete(HorarioDTO horario_a_eliminar);
 	
-	public List<HorarioDTO> readAll();
+	public List<HorarioDTO> readAll(int id);
 	
 	public List<HorarioDTO> readOne(int id);
 	
