@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import lu.tudor.santec.jtimechooser.demo.JTimeChooserDemo;
-import lu.tudor.santec.jtimechooser.JTimeChooser;
 import javax.swing.JButton;
 
 public class VentanaModificarHorario extends JFrame {
