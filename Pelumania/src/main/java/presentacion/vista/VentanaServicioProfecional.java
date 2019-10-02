@@ -128,6 +128,10 @@ public class VentanaServicioProfecional
 		return modelHorario;
 	}
 	
+	public JComboBox getCombo() {
+		return comboBox;
+	}
+	
 	public JTable getTablaHorarioProfesional()
 	{
 		return tablaHorarioProfesional;
