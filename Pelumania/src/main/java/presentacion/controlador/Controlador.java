@@ -10,7 +10,7 @@ import modelo.Sistema;
 import presentacion.vista.VentanaAgregarServicio;
 import presentacion.vista.VentanaProfesional;
 import presentacion.vista.Vista;
-import presentacion.vista.ventanaServicio;
+import presentacion.vista.VentanaServicio;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
@@ -36,7 +36,7 @@ public class Controlador implements ActionListener {
  
 	private void ventanaServicios(ActionEvent c) {
 		List<ServicioDTO> serviciosEnTabla = this.sistema.obtenerServicios();
-		ventanaServicio ventanaservicio = new ventanaServicio();
+		VentanaServicio ventanaservicio = new VentanaServicio();
 		
 		ventanaservicio.llenarTabla(serviciosEnTabla);
 		ventanaservicio.mostrar();
