@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `Profesional`(
   `IdProfesional` INT(11) NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(55) NOT NULL,
   `Apellido` VARCHAR(55) NOT NULL,
+  `Estado` VARCHAR(55) NOT NULL,
   `idSucursalOrigen` int NOT NULL,
   `idSucursalTransferencia` int NULL,
 

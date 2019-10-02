@@ -37,8 +37,9 @@ public class ControladorAltaProfesional  implements ActionListener{
 		String apellido=this.altaProfesional.getTxtApellido().getText();
 		Integer idSucursalOrig=Integer.parseInt(this.altaProfesional.getComboOrig().getSelectedItem().toString());
 		Integer idSucursalTran=(this.altaProfesional.getComboTran().getSelectedItem().toString().equals("--")?-1:Integer.parseInt(this.altaProfesional.getComboTran().getSelectedItem().toString()));
+		String estado=this.altaProfesional.getEstado().getSelectedItem().toString();
 		if(validar(nombre,apellido,idSucursalOrig,idSucursalTran)) {
-			ProfesionalDTO profesional= new ProfesionalDTO(0,nombre,apellido,idSucursalOrig,idSucursalTran);
+			ProfesionalDTO profesional= new ProfesionalDTO(0,nombre,apellido,idSucursalOrig,idSucursalTran,estado);
 			this.sistema.agregarProfesional(profesional);
 			this.altaProfesional.cerrar();
 			controlProfesional.getInstance(sistema);

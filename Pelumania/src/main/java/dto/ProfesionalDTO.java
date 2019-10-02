@@ -13,18 +13,21 @@ public class ProfesionalDTO {
 	public String apellido;
 	public int idSucursalOrigen;
 	public int idSucursalTransferencia;
+	public String estado;
 	
 	public ProfesionalDTO(int idProf, 
 			String nombre, 
 			String apellido, 
 			int idSucOr,
-			int idSucTrans) {
+			int idSucTrans, 
+			String estado) {
 		
 		idProfesional=idProf;
 		this.nombre=nombre;
 		this.apellido=apellido;
 		idSucursalOrigen=idSucOr;
 		idSucursalTransferencia=idSucTrans;
+		this.estado=estado;
 	}
 	
 
@@ -62,6 +65,9 @@ public class ProfesionalDTO {
 		return idSucursalOrigen;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
 
 	public void setIdSucursalOrigen(int idSucursalOrigen) {
 		this.idSucursalOrigen = idSucursalOrigen;
@@ -75,6 +81,10 @@ public class ProfesionalDTO {
 
 	public void setIdSucursalTransferencia(int idSucursalTransferencia) {
 		this.idSucursalTransferencia = idSucursalTransferencia;
+	}
+	
+	public void setEstado(String estado) {
+		this.estado=estado;
 	}
 
 	public String getSucursal(int id) {

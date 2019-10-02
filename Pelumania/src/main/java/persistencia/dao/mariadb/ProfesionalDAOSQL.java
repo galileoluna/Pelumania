@@ -13,11 +13,11 @@ package persistencia.dao.mariadb;
 
 	public class ProfesionalDAOSQL implements ProfesionalDAO{
 
-	private static final String insert = "INSERT INTO Profesional(IdProfesional, nombre, apellido, idSucursalOrigen, idSucursalTransferencia) VALUES(?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO Profesional(IdProfesional, nombre, apellido, idSucursalOrigen, idSucursalTransferencia, estado) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM Profesional WHERE IdProfesional = ?";
 	private static final String readall = "SELECT * FROM Profesional";
 	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
-	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=? WHERE IdProfesional = ?";
+	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=?, estado = ? WHERE IdProfesional = ?";
 			
 	public boolean insert(ProfesionalDTO profesional){
 		PreparedStatement statement;
@@ -31,6 +31,7 @@ package persistencia.dao.mariadb;
 			statement.setString(3, profesional.getApellido());
 			statement.setInt(4,profesional.getIdSucursalOrigen());
 			statement.setInt(5,profesional.getIdSucursalTransferencia());
+			statement.setString(6, profesional.getEstado());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isInsertExitoso = true;
@@ -121,7 +122,8 @@ package persistencia.dao.mariadb;
 			statement.setString(2, profesional_a_editar.getApellido());
 			statement.setInt(3, profesional_a_editar.getIdSucursalOrigen());
 			statement.setInt(4, profesional_a_editar.getIdSucursalTransferencia());
-			statement.setInt(5, profesional_a_editar.getIdProfesional());
+			statement.setString(5, profesional_a_editar.getEstado());
+			statement.setInt(6, profesional_a_editar.getIdProfesional());
 			
 			chequeoUpdate = statement.executeUpdate();
 			conexion.getSQLConexion().commit();
@@ -143,8 +145,9 @@ package persistencia.dao.mariadb;
 		String apellido = resultSet.getString("apellido");
 		int idSucursalOrigen = resultSet.getInt("idSucursalOrigen");
 		int idSucursalTransferencia =resultSet.getInt("idSucursalTransferencia");
+		String estado=resultSet.getString("Estado");
 		
-		return new ProfesionalDTO(id, nombre, apellido ,idSucursalOrigen, idSucursalTransferencia );
+		return new ProfesionalDTO(id, nombre, apellido ,idSucursalOrigen, idSucursalTransferencia, estado );
 	}
 
 }

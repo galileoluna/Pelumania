@@ -30,7 +30,7 @@ public class VentanaProfesional
 	private JButton btnEditar;
 	private JButton btnHorario;
 	private DefaultTableModel modelProfesional;
-	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia"};
+	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia","Estado"};
 
 	public VentanaProfesional() 
 	{
@@ -147,7 +147,8 @@ public class VentanaProfesional
 			String apellido = p.getApellido();
 			String SucursalOrig=p.getSucursal(p.getIdSucursalOrigen());
 			String SucursalTrans=(p.getIdSucursalTransferencia()==-1?"":p.getSucursal(p.getIdSucursalTransferencia()));
-			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans};
+			String estado=p.getEstado();
+			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans,estado};
 			this.getmodelProfesional().addRow(fila);
 		}
 		

@@ -33,6 +33,7 @@ public class ControladorModificarProfesional implements ActionListener {
 			INSTANCE.modificarProfesional.getTxtApellido().setText(p.getApellido());
 			INSTANCE.modificarProfesional.getComboOrig().setSelectedItem(p.getIdSucursalOrigen());
 			INSTANCE.modificarProfesional.getComboTran().setSelectedItem((p.getIdSucursalTransferencia()==-1?"--":p.getIdSucursalTransferencia()));
+			INSTANCE.modificarProfesional.getEstado().setSelectedItem(p.getEstado());
 		}
 		
 		INSTANCE.modificarProfesional.mostrarVentana();
@@ -45,9 +46,9 @@ public class ControladorModificarProfesional implements ActionListener {
 		String apellido=this.modificarProfesional.getTxtApellido().getText();
 		Integer idSucursalOrig=Integer.parseInt(this.modificarProfesional.getComboOrig().getSelectedItem().toString());
 		Integer idSucursalTran=(this.modificarProfesional.getComboTran().getSelectedItem().toString().equals("--")?-1:Integer.parseInt(this.modificarProfesional.getComboTran().getSelectedItem().toString()));
-		
+		String estado= this.modificarProfesional.getEstado().getSelectedItem().toString();
 		if(validar(nombre,apellido,idSucursalOrig,idSucursalTran)) {
-			ProfesionalDTO profesional= new ProfesionalDTO(this.idProfesional,nombre,apellido,idSucursalOrig,idSucursalTran);
+			ProfesionalDTO profesional= new ProfesionalDTO(this.idProfesional,nombre,apellido,idSucursalOrig,idSucursalTran,estado);
 			this.sistema.actualizarProfesional(profesional);
 			this.modificarProfesional.cerrar();
 			controlProfesional.getInstance(sistema);

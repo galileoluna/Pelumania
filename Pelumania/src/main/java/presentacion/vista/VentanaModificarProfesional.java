@@ -24,7 +24,8 @@ public class VentanaModificarProfesional extends JFrame
 	private JComboBox comboSucTran;
 	private JButton btnAgregar;
 	private static VentanaModificarProfesional INSTANCE;
-	private JComboBox comboBox_1;
+	private JComboBox estado;
+	private JLabel lblEstado;
 
 	
 	public static VentanaModificarProfesional getInstance( )
@@ -44,14 +45,14 @@ public class VentanaModificarProfesional extends JFrame
 		setTitle("Editar Profesional");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 410, 284);
+		setBounds(100, 100, 410, 327);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 374, 235);
+		panel.setBounds(10, 11, 374, 266);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -80,7 +81,7 @@ public class VentanaModificarProfesional extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAgregar.setBounds(66, 191, 189, 23);
+		btnAgregar.setBounds(76, 232, 189, 23);
 		panel.add(btnAgregar);
 		
 		JLabel labelComboOrig = new JLabel("Sucursal origen");
@@ -105,6 +106,18 @@ public class VentanaModificarProfesional extends JFrame
 		comboSucTran.addItem(2);
 		comboSucTran.addItem(3);
 		panel.add(comboSucTran);
+		
+		lblEstado = new JLabel("Estado");
+		lblEstado.setBounds(10, 197, 164, 14);
+		panel.add(lblEstado);
+		
+		estado= new JComboBox();
+		estado.setBounds(188, 189, 164, 22);
+		estado.addItem("Activo");
+		estado.addItem("Inactivo");
+		panel.add(estado);
+		
+
 		
 		this.setVisible(false);
 	}
@@ -141,6 +154,10 @@ public class VentanaModificarProfesional extends JFrame
 	
 	public JComboBox getComboTran() {
 		return comboSucTran;
+	}
+	
+	public JComboBox getEstado() {
+		return estado;
 	}
 
 	public void cerrar()

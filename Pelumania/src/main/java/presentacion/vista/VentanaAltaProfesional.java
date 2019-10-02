@@ -22,6 +22,7 @@ public class VentanaAltaProfesional extends JFrame
 	private JTextField txtApellido;
 	private JComboBox comboSucOrig;
 	private JComboBox comboSucTran;
+	private JComboBox estado;
 	private JButton btnAgregar;
 	private static VentanaAltaProfesional INSTANCE;
 	private JComboBox comboBox_1;
@@ -41,16 +42,17 @@ public class VentanaAltaProfesional extends JFrame
 	private VentanaAltaProfesional() 
 	{
 		super();
+		setTitle("Alta Profesional");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 410, 284);
+		setBounds(100, 100, 410, 337);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 374, 235);
+		panel.setBounds(10, 11, 374, 276);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -79,7 +81,7 @@ public class VentanaAltaProfesional extends JFrame
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAgregar.setBounds(66, 191, 189, 23);
+		btnAgregar.setBounds(66, 242, 189, 23);
 		panel.add(btnAgregar);
 		
 		JLabel labelComboOrig = new JLabel("Sucursal origen");
@@ -104,6 +106,16 @@ public class VentanaAltaProfesional extends JFrame
 		comboSucTran.addItem(2);
 		comboSucTran.addItem(3);
 		panel.add(comboSucTran);
+		
+		estado = new JComboBox();
+		estado.setBounds(188, 197, 164, 22);
+		estado.addItem("Activo");
+		estado.addItem("Inactivo");
+		panel.add(estado);
+		
+		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setBounds(10, 201, 164, 14);
+		panel.add(lblEstado);
 		
 		this.setVisible(false);
 	}
@@ -140,6 +152,10 @@ public class VentanaAltaProfesional extends JFrame
 	
 	public JComboBox getComboTran() {
 		return comboSucTran;
+	}
+	
+	public JComboBox getEstado() {
+		return estado;
 	}
 
 	public void cerrar()
