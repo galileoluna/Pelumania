@@ -130,8 +130,7 @@ public class VentanaProfesional
 		return tablaProfesional;
 	}
 
-	public String[] getNombreColumnas() 
-	{
+	public String[] getNombreColumnas(){
 		return nombreColumnas;
 	}
 
