@@ -191,7 +191,7 @@ public class VentanaModificarHorario extends JFrame {
 	}
 	
 	private void cargarMinutos(JComboBox min) {
-		for(int i=0;i<=60;i++) {
+		for(int i=0;i<=59;i++) {
 			min.addItem(i);
 		}
 	}
