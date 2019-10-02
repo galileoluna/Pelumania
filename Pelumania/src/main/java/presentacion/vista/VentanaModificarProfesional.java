@@ -164,6 +164,8 @@ public class VentanaModificarProfesional extends JFrame
 	{
 		this.txtNombre.setText(null);
 		this.txtApellido.setText(null);
+		this.comboSucOrig.setSelectedItem(null);
+		this.comboSucTran.setSelectedItem(null);
 		this.dispose();
 	}
 }

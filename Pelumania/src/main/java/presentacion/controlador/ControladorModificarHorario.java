@@ -33,13 +33,11 @@ public class ControladorModificarHorario implements ActionListener {
 		}
 		INSTANCE.nombre=nombre;
 		INSTANCE.apellido=apellido;
-		
 		for (HorarioDTO h : horario) {	
 			INSTANCE.idDiaLaboral=h.getidDiasLaborales();
 			INSTANCE.idProfesional=h.getIdProfesional();
 			INSTANCE.modificarHorario.setLblNombre(nombre+" "+apellido);
 			INSTANCE.modificarHorario.setComboDia(h.getDia());
-			System.out.println(h.getDia()+"-"+Integer.toString(h.getHoraEntrada().getHours())+"-"+Integer.toString(h.getHoraEntrada().getMinutes())+"-"+Integer.toString(h.getHoraSalida().getHours())+"-"+Integer.toString(h.getHoraSalida().getMinutes()));
 			INSTANCE.modificarHorario.setHoraEntrada(h.getHoraEntrada().getHours());
 			INSTANCE.modificarHorario.setMinutosEntrada(h.getHoraEntrada().getMinutes());
 			INSTANCE.modificarHorario.setHoraSalida(h.getHoraSalida().getHours());
