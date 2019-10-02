@@ -195,4 +195,14 @@ public class VentanaAltaHorario extends JFrame {
 			min.addItem(i);
 		}
 	}
+	
+	public void cerrar()
+	{
+		this.comboDias.setSelectedItem(null);
+		this.horaEntrada.setSelectedItem(null);
+		this.horaSalida.setSelectedItem(null);
+		this.minutosEntrada.setSelectedItem(null);
+		this.minutosSalida.setSelectedItem(null);
+		this.frmHorario.dispose();
+	}
 }

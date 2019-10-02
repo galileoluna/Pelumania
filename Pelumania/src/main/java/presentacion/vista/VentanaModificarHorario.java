@@ -18,7 +18,7 @@ public class VentanaModificarHorario extends JFrame {
 	private JFrame frmHorario;
 	private static VentanaModificarHorario INSTANCE;
 	private JPanel contentPane;
-	private JButton btnAgregar;
+	private JButton btnActualizar;
 	private JLabel lblNombre;
 	private JComboBox minutosEntrada;
 	private JComboBox horaEntrada;
@@ -85,9 +85,9 @@ public class VentanaModificarHorario extends JFrame {
 		 comboDias.addItem("Sabado");
 		panel.add(comboDias);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(117, 195, 89, 23);
-		panel.add(btnAgregar);
+		btnActualizar = new JButton("Actualizar");
+		btnActualizar.setBounds(117, 195, 117, 23);
+		panel.add(btnActualizar);
 		
 		JLabel lblHora = new JLabel("Hora:");
 		lblHora.setBounds(10, 81, 48, 14);
@@ -140,8 +140,8 @@ public class VentanaModificarHorario extends JFrame {
 		return this.comboDias;
 	}
 		
-	public JButton getBtnAgregar() {
-		return btnAgregar;
+	public JButton getbtnActualizar() {
+		return btnActualizar;
 	}
 	
 	public void setLblNombre(String nombre) {
@@ -164,19 +164,19 @@ public class VentanaModificarHorario extends JFrame {
 		return this.minutosSalida;
 	}
 	
-	public void setHoraEntrada(String hora) {
+	public void setHoraEntrada(int hora) {
 		this.horaEntrada.setSelectedItem(hora);
 	}
 	
-	public void setHoraSalida(String hora) {
+	public void setHoraSalida(int hora) {
 		this.horaSalida.setSelectedItem(hora);
 	}
 	
-	public void setMinutosEntrada(String min) {
+	public void setMinutosEntrada(int min) {
 		this.minutosEntrada.setSelectedItem(min);
 	}
 	
-	public void setMinutosSalida(String min) {
+	public void setMinutosSalida(int min) {
 		this.minutosSalida.setSelectedItem(min);
 	}
 	
@@ -194,5 +194,15 @@ public class VentanaModificarHorario extends JFrame {
 		for(int i=0;i<=60;i++) {
 			min.addItem(i);
 		}
+	}
+	
+	public void cerrar()
+	{
+		this.comboDias.setSelectedItem(null);
+		this.horaEntrada.setSelectedItem(null);
+		this.horaSalida.setSelectedItem(null);
+		this.minutosEntrada.setSelectedItem(null);
+		this.minutosSalida.setSelectedItem(null);
+		this.frmHorario.dispose();
 	}
 }

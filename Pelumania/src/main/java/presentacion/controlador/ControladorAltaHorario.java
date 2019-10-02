@@ -18,7 +18,6 @@ public class ControladorAltaHorario implements ActionListener{
 	private String Apellido;
 	private int id;
 	private VentanaAltaHorario altaHorario;
-	private ControladorHorarioProfesional controladorHorarioProf;
 	private ControladorHorarioProfesional controlHorario;
 	
 	private ControladorAltaHorario(Sistema sistema) {
@@ -49,9 +48,9 @@ public class ControladorAltaHorario implements ActionListener{
 		String minSalida=this.altaHorario.getMinutosSalida().getSelectedItem().toString();
 		Time entrada=new Time(Integer.parseInt(horaEntrada),Integer.parseInt(minEntrada),00);
 		Time salida= new Time(Integer.parseInt(horaSalida),Integer.parseInt(minSalida),00);
-		HorarioDTO hora=new HorarioDTO(0,dias,entrada,salida,3);
+		HorarioDTO hora=new HorarioDTO(0,dias,entrada,salida,id);
 		this.sistema.agregarHorario(hora);
-		altaHorario.dispose();
+		altaHorario.cerrar();
 		controlHorario.getInstance(sistema, nombre, Apellido, id);
 	}
 	@Override

@@ -71,10 +71,8 @@ public class ControladorHorarioProfesional implements ActionListener{
     	for (int fila : filasSeleccionadas)
     	{
         	if(this.horariolEnTabla.get(fila)!=null) {	 
-        		
         		List<HorarioDTO>horario=this.sistema.obtenerUnHorarios(this.horariolEnTabla.get(fila).idDiasLaborales);
-        		System.out.println(horario);
-        		this.modificarHorario.getInstance(sistema,horario,nombre,apellido,this.horariolEnTabla.get(fila).idDiasLaborales);
+        		this.modificarHorario.getInstance(sistema,horario,nombre,apellido);
         	}
 		}	
 	}
