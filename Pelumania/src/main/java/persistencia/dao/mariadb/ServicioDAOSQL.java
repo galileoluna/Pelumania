@@ -19,9 +19,12 @@ public class ServicioDAOSQL implements ServicioDAO{
 	
 	private static final String insert = "INSERT INTO servicio(idServicio,Nombre,PrecioLocal,PrecioDolar,Duracion,Puntos,Estado) "
 										+ "VALUES(?,?,?,?,?,?,?)";
-	private static final String update = "";
-	private static final String delete = "DELETE FROM servicio WHERE IdServicio = ?";
+	private static final String update = "UPDATE  Servicio SET Nombre=?, PrecioLocal=?, PrecioDolar=?,"
+			+ " Duracion=?, Puntos=?, Estado=? WHERE IdServicio=?";
+	private static final String delete = "UPDATE  Servicio SET Estado=? WHERE idServicio = ?";
 	private static final String readall = " SELECT * FROM servicio";
+	
+	private static final String ESTADO_INACTIVO = "inactivo";
 
 	public boolean insert(ServicioDTO servicio) {
 		PreparedStatement statement;
@@ -34,7 +37,6 @@ public class ServicioDAOSQL implements ServicioDAO{
 			statement.setString(2, servicio.getNombre());
 			statement.setBigDecimal(3, servicio.getPrecioLocal());
 			statement.setBigDecimal(4, servicio.getPrecioDolar());
-			//El parametro duracion es una hora - falta modificar
 			statement.setTime(5, Time.valueOf(servicio.getDuracion()));
 			statement.setInt(6, servicio.getPuntos());
 			statement.setString(7, servicio.getEstado());	
@@ -67,7 +69,8 @@ public class ServicioDAOSQL implements ServicioDAO{
 		boolean isdeleteExitoso = false;
 		try {
 			statement = conexion.prepareStatement(delete);
-			statement.setInt(1, servicio_a_eliminar.getIdServicio());
+			statement.setString(1, ESTADO_INACTIVO);
+			statement.setInt(2, servicio_a_eliminar.getIdServicio());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isdeleteExitoso = true;
