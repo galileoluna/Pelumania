@@ -19,8 +19,11 @@ public class VentanaAltaHorario extends JFrame {
 	private static VentanaAltaHorario INSTANCE;
 	private JPanel contentPane;
 	private JButton btnAgregar;
-	private JTimeChooser timeEntrada;
-	private JTimeChooser timeSalida;
+	private JLabel lblNombre;
+	private JComboBox minutosEntrada;
+	private JComboBox horaEntrada;
+	private JComboBox minutosSalida;
+	private JComboBox horaSalida;
 	private JComboBox comboDias;
 
 	public VentanaAltaHorario() 
@@ -45,14 +48,18 @@ public class VentanaAltaHorario extends JFrame {
 		frmHorario = new JFrame();
 		frmHorario.setTitle("Alta Horario");
 		frmHorario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmHorario.setBounds(100, 100, 353, 250);
+		frmHorario.setBounds(100, 100, 353, 320);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frmHorario.getContentPane().add(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel lblEmpleado = new JLabel("Empleado: ");
+		lblEmpleado.setBounds(10, 16, 80, 14);
+		contentPane.add(lblEmpleado);
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 317, 189);
+		panel.setBounds(10, 41, 317, 229);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -61,11 +68,11 @@ public class VentanaAltaHorario extends JFrame {
 		panel.add(lblDias);
 		
 		JLabel lblHorarioEntrada = new JLabel("Horario Entrada");
-		lblHorarioEntrada.setBounds(10, 66, 132, 14);
+		lblHorarioEntrada.setBounds(73, 51, 132, 14);
 		panel.add(lblHorarioEntrada);
 		
 		JLabel lblHorarioSalida = new JLabel("Horario Salida");
-		lblHorarioSalida.setBounds(10, 116, 132, 14);
+		lblHorarioSalida.setBounds(73, 127, 132, 14);
 		panel.add(lblHorarioSalida);
 		
 		comboDias = new JComboBox();
@@ -78,17 +85,49 @@ public class VentanaAltaHorario extends JFrame {
 		 comboDias.addItem("Sabado");
 		panel.add(comboDias);
 		
-		 timeEntrada = new JTimeChooser();
-		timeEntrada.setBounds(160, 60, 63, 20);
-		panel.add(timeEntrada);
-		
-		timeSalida = new JTimeChooser();
-		timeSalida.setBounds(160, 110, 63, 20);
-		panel.add(timeSalida);
-		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(101, 155, 89, 23);
+		btnAgregar.setBounds(117, 195, 89, 23);
 		panel.add(btnAgregar);
+		
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setBounds(10, 81, 48, 14);
+		panel.add(lblHora);
+		
+		horaEntrada = new JComboBox();
+		horaEntrada.setBounds(89, 77, 53, 22);
+		cargarHora(horaEntrada);
+		panel.add(horaEntrada);
+		
+		JLabel lblMinutos = new JLabel("Minutos:");
+		lblMinutos.setBounds(162, 81, 72, 14);
+		panel.add(lblMinutos);
+		
+		minutosEntrada = new JComboBox();
+		minutosEntrada.setBounds(244, 77, 59, 22);
+		cargarMinutos(minutosEntrada);
+		panel.add(minutosEntrada);
+		
+		JLabel label = new JLabel("Hora:");
+		label.setBounds(10, 159, 48, 14);
+		panel.add(label);
+		
+		horaSalida = new JComboBox();
+		horaSalida.setBounds(89, 152, 53, 22);
+		cargarHora(horaSalida);
+		panel.add(horaSalida);
+		
+		JLabel label_1 = new JLabel("Minutos:");
+		label_1.setBounds(162, 152, 72, 14);
+		panel.add(label_1);
+		
+		minutosSalida = new JComboBox();
+		minutosSalida.setBounds(244, 150, 59, 22);
+		cargarMinutos(minutosSalida);
+		panel.add(minutosSalida);
+		
+		lblNombre = new JLabel("");
+		lblNombre.setBounds(112, 16, 139, 14);
+		contentPane.add(lblNombre);
 	}
 	
 	public void show()
@@ -100,26 +139,60 @@ public class VentanaAltaHorario extends JFrame {
 	public JComboBox getComboDia() {
 		return this.comboDias;
 	}
-	
-	public JTimeChooser getHoraEntrada() {
-		return timeEntrada;
+		
+	public JButton getBtnAgregar() {
+		return btnAgregar;
 	}
 	
-	public JTimeChooser getHoraSalida() {
-		return this.timeSalida;
+	public void setLblNombre(String nombre) {
+		this.lblNombre.setText(nombre);
+	}
+	
+	public JComboBox getHoraEntrada() {
+		return this.horaEntrada;
+	}
+	
+	public JComboBox getHoraSalida() {
+		return this.horaSalida;
+	}
+	
+	public JComboBox getMinutosEntrada() {
+		return this.minutosEntrada;
+	}
+	
+	public JComboBox getMinutosSalida() {
+		return this.minutosSalida;
+	}
+	
+	public void setHoraEntrada(String hora) {
+		this.horaEntrada.setSelectedItem(hora);
+	}
+	
+	public void setHoraSalida(String hora) {
+		this.horaSalida.setSelectedItem(hora);
+	}
+	
+	public void setMinutosEntrada(String min) {
+		this.minutosEntrada.setSelectedItem(min);
+	}
+	
+	public void setMinutosSalida(String min) {
+		this.minutosSalida.setSelectedItem(min);
 	}
 	
 	public void setComboDia(String dia) {
 		this.comboDias.setSelectedItem(dia);
 	}
 	
-	public void setHoraEntrada(Time entrada) {
-		this.timeEntrada.setTime(entrada);
+	private void cargarHora(JComboBox hora) {
+		for(int i=0;i<=23;i++) {
+			hora.addItem(i);
+		}
 	}
 	
-	public void setHoraSalida(Time salida) {
-		this.timeSalida.setTime(salida);
+	private void cargarMinutos(JComboBox min) {
+		for(int i=0;i<=60;i++) {
+			min.addItem(i);
+		}
 	}
-	
-	
 }

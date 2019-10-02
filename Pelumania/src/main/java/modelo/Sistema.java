@@ -86,4 +86,12 @@ public class Sistema
 	public void borrarHorario(HorarioDTO horario_a_eliminar) {
 		this.horario.delete(horario_a_eliminar);
 	}
+	
+	public void agregarHorario(HorarioDTO horario) {
+		this.horario.insert(horario);
+	}
+	
+	public void actualizarHorario(HorarioDTO horario_a_actualizar) {
+		this.horario.update(horario_a_actualizar);
+	}
 }
