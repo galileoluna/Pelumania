@@ -35,7 +35,9 @@ public class ControladorServicioProfesional {
 		this.sistema=sistema;
 	}
 	
-
+	// Instancia de la pantalla que muestra la lista de servicios asociados a un profesional
+	// Recibe el sistema, el id del profesional y el nombre del empleado
+	
 	public static ControladorServicioProfesional getInstance(Sistema sistema, int idProf, String nombre) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorServicioProfesional(sistema);
@@ -50,7 +52,8 @@ public class ControladorServicioProfesional {
 		INSTANCE.ventServProf.show();
 		return INSTANCE;
 	}
-	
+	// Obtiene el campo seleccionado de la pantalla (VentanaServicioProfesional) y hace el insert en la tabla
+	// es villero pero fue lo que se me ocurrio para no hacer clases que tengan tres lineas
 	private void agregarServ(ActionEvent l) {
 		String serv=this.ventServProf.getCombo().getSelectedItem().toString();
 		PreparedStatement statement;
@@ -74,9 +77,11 @@ public class ControladorServicioProfesional {
 				e1.printStackTrace();
 			}
 		}
+		// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
 		this.getInstance(sistema, idProfesional, nombre);
 	}
 	
+	//borra el servicio seleccionado, el delete lo voy a dejar porque solo borra una relacion creo que no afecta en nada si hay citas asociado a un profesional y ya no realiza este servicio tendriamos que definir que hacer
 	private void borrarServ(ActionEvent k) {
 		int[] filasSeleccionadas = this.ventServProf.getTablServicioProfesional().getSelectedRows();
        
@@ -89,6 +94,7 @@ public class ControladorServicioProfesional {
     	this.getInstance(sistema, idProfesional, nombre);
 	}
 	
+	// llena la lista de los servicios asociados a un cliente 
 	private static List<String> llenarLista(int id) {
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -96,6 +102,7 @@ public class ControladorServicioProfesional {
 		List<String> servicio = new ArrayList<String>();
 		try 
 		{
+			// que buena query 
 			statement = conexion.getSQLConexion().prepareStatement("SELECT s.Nombre FROM servicioprofesional sp JOIN profesional p USING(idProfesional) JOIN servicio s USING (idServicio) WHERE p.IdProfesional=?");
 			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
@@ -111,7 +118,8 @@ public class ControladorServicioProfesional {
 		return null;
 			
 	}
-	
+	// esta funcion hace dos cosas llena la lista con los servicios que se van a cargar en el desplegable y ademas llena una segunda lista con los indices(idServ) de dicha tabla para luego poder hacer mas facil los insert y delete
+	// la lista que recibe por parametros el la lista de los id (idServ), devuelve la lista de nombres de los servicios
 	private static List<String> llenarServ(List<Integer> id) {
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -135,7 +143,8 @@ public class ControladorServicioProfesional {
 		return null;
 			
 	}
-	
+	// llena el combo con la lista que fue cargada anteriormente
+	//recibe el combo y la lista
 	private static void llenarCombo(JComboBox combo,List<String> lista) {
 		combo.removeAllItems();
 		for (String  s : lista) {
@@ -143,7 +152,8 @@ public class ControladorServicioProfesional {
 		}
 		
 	}
-
+	// borra dde la tabla la relacion seleccionada
+	// recibe los id del servicio y del profesional
 	private void delete(int idServicio, int idProf) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();

@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import dto.HorarioDTO;
 import modelo.Sistema;
@@ -39,6 +42,7 @@ public class ControladorAltaHorario implements ActionListener{
 		return INSTANCE;
 	}
 
+	//Obtiene los datos de la ventana y hace el insert a la tabla de horarios
 	
 	private void agregarHorario(ActionEvent m) {
 		String dias=this.altaHorario.getComboDia().getSelectedItem().toString();
@@ -48,11 +52,32 @@ public class ControladorAltaHorario implements ActionListener{
 		String minSalida=this.altaHorario.getMinutosSalida().getSelectedItem().toString();
 		Time entrada=new Time(Integer.parseInt(horaEntrada),Integer.parseInt(minEntrada),00);
 		Time salida= new Time(Integer.parseInt(horaSalida),Integer.parseInt(minSalida),00);
-		HorarioDTO hora=new HorarioDTO(0,dias,entrada,salida,id);
-		this.sistema.agregarHorario(hora);
-		altaHorario.cerrar();
-		controlHorario.getInstance(sistema, nombre, Apellido, id);
+		if(validar(id,dias)) {
+			HorarioDTO hora=new HorarioDTO(0,dias,entrada,salida,id);
+			this.sistema.agregarHorario(hora);
+			altaHorario.cerrar();
+			controlHorario.getInstance(sistema, nombre, Apellido, id);
+		}else {
+			JOptionPane.showMessageDialog(null, "El profesional ya cuenta con los horarios asignados para el dia ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
+	
+	//Valido que el profesional no tenga mas de dos horarios por dia es decir turno mañana y tarde
+	private boolean validar(int id, String dia) {
+		List<HorarioDTO> horas=this.sistema.obtenerHorario(id);
+		int encontro=0;
+		for(HorarioDTO h : horas) {
+			if(h.getDia().equals(dia)) {
+				encontro++;
+			}
+		}
+		if(encontro >= 2) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

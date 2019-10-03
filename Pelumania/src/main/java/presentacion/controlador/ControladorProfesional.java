@@ -33,6 +33,8 @@ public class ControladorProfesional {
 		this.sistema = sistema;
 	}
 
+	// inicializo la intancia hago el new de la clase
+	//lleno la tabla de los profesionales agregados
 	public static ControladorProfesional getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorProfesional(sistema);
@@ -44,11 +46,13 @@ public class ControladorProfesional {
 		return INSTANCE;
 	}
 	
+	// llamo a la ventana que se encarga de el agregado de un profesional (VentanaAltaProfesional)
 	private void agregarProfesional(ActionEvent p) {
 		this.altaProfesional = ControladorAltaProfesional.getInstance(sistema);
 		
 	}
 	
+	// Cambia el estado del profesional a inactivo 
 	public void borrarProfesional(ActionEvent s)
 	{
 		this.profesionalEnTabla=sistema.obtenerProfesional();
@@ -62,11 +66,14 @@ public class ControladorProfesional {
 		        		if (confirm == 0) {
 						this.sistema.borrarProfesional(this.profesionalEnTabla.get(fila));
 		        		}
+		        		// llama a la instancia para refrescar tabla
 		        		this.getInstance(sistema);
 		        	}
 				}	
 	}
 	
+	//Obtiene el profesional seleccionado y llama a la instancia del controlador encargado de editar el profesional (ControladorModificarProfesional)
+	//a la instancia del controlador le pasa todos los campos del profesional seleccionado, sistema y el id del profesional
 	private void editarProfesional(ActionEvent t) {
 		this.profesionalEnTabla=sistema.obtenerProfesional();
 		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
@@ -82,6 +89,8 @@ public class ControladorProfesional {
 		}	
 	}
 	
+	//Obtiene el profesional seleccionado y llama a la instancia del controlador encargado de los horarios de cada profesional (ControladorHorarioProfesional)
+	//a la instancia le pasa el sistema, nombre, apellido del profesional y id del profesional
 	private void verHorarios(ActionEvent k) {
 		this.profesionalEnTabla=sistema.obtenerProfesional();
 		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
@@ -95,7 +104,8 @@ public class ControladorProfesional {
 		
 	}
 	
-
+	// Obtiene el profesional seleccionado y llama a la instancia del controlador de la relacion servicio profesional (ControladorServicioProfesional)
+	// a la instancia le pasa el sistema, id del profesional, nombre y apellido del empleado
 	private void asignarServ(ActionEvent f) {
 		this.profesionalEnTabla=sistema.obtenerProfesional();
 		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
