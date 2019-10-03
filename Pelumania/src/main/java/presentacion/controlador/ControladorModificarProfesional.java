@@ -2,18 +2,25 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
 import modelo.Sistema;
+import persistencia.conexion.Conexion;
 import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaModificarProfesional;
 
 public class ControladorModificarProfesional implements ActionListener {
 	private VentanaModificarProfesional modificarProfesional;
 	private ControladorProfesional controlProfesional;
+	private HashMap<String,Integer>sucursal;
 	private static int idProfesional;
 	private Sistema sistema;
 	private static ControladorModificarProfesional INSTANCE;
@@ -30,6 +37,9 @@ public class ControladorModificarProfesional implements ActionListener {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorModificarProfesional(sistema);
 		}
+		INSTANCE.sucursal=getSucursales();
+		llenarCombo(INSTANCE.modificarProfesional.getComboOrig(),INSTANCE.sucursal);
+		llenarCombo(INSTANCE.modificarProfesional.getComboTran(),INSTANCE.sucursal);
 		for (ProfesionalDTO p : profesional) {
 			idProfesional=id;
 			INSTANCE.modificarProfesional.getTxtNombre().setText(p.nombre);
@@ -48,8 +58,8 @@ public class ControladorModificarProfesional implements ActionListener {
 	private void guardarProfesional(ActionEvent l) {
 		String nombre= this.modificarProfesional.getTxtNombre().getText();
 		String apellido=this.modificarProfesional.getTxtApellido().getText();
-		Integer idSucursalOrig=Integer.parseInt(this.modificarProfesional.getComboOrig().getSelectedItem().toString());
-		Integer idSucursalTran=(this.modificarProfesional.getComboTran().getSelectedItem().toString().equals("--")?-1:Integer.parseInt(this.modificarProfesional.getComboTran().getSelectedItem().toString()));
+		Integer idSucursalOrig=getIdCombo(this.modificarProfesional.getComboOrig().getSelectedItem().toString());
+		Integer idSucursalTran=getIdCombo(this.modificarProfesional.getComboTran().getSelectedItem().toString().equals("--")?"-1":this.modificarProfesional.getComboTran().getSelectedItem().toString());
 		String estado= this.modificarProfesional.getEstado().getSelectedItem().toString();
 		if(validar(nombre,apellido,idSucursalOrig,idSucursalTran)) {
 			ProfesionalDTO profesional= new ProfesionalDTO(this.idProfesional,nombre,apellido,idSucursalOrig,idSucursalTran,estado);
@@ -71,8 +81,51 @@ public class ControladorModificarProfesional implements ActionListener {
 		}
 		
 	}
+	
+	//obtiene el id de la sucursal para luego hacer el insert en la tabla 
+		private Integer getIdCombo(String sucur) {
+			for (HashMap.Entry<String, Integer> datos : sucursal.entrySet()) {
+				if(datos.getKey().toString().equals(sucur)) {
+					return datos.getValue();
+				}
+			}
+			return -1;
+			
+		}
 
-
+	// lleno todo el combo de las sucursales primero lo vacio para que no lo cargue dos veces 
+		// recibe el combo y el hashmap que ya posee el nombre e id de las sucursales
+		private static void llenarCombo(JComboBox combo, HashMap<String,Integer>sucursales) {
+			combo.removeAllItems();
+			combo.addItem("--");
+			for (HashMap.Entry<String, Integer> datos : sucursales.entrySet()) {
+				combo.addItem(datos.getKey().toString());
+			}
+		}
+		
+		// obtiene el nombre y id de las  sucursales y las agrega a un hasmap que luego se usa para agregar y modificar
+		protected static HashMap<String,Integer> getSucursales(){
+			PreparedStatement statement;
+			ResultSet resultSet;
+			Conexion conexion = Conexion.getConexion();
+			HashMap<String,Integer>sucursal = new HashMap<String,Integer>();		
+			try 
+			{
+				statement = conexion.getSQLConexion().prepareStatement("SELECT idSucursal,nombreSucursal FROM sucursal;");
+				resultSet = statement.executeQuery();
+				while (resultSet.next()){
+					sucursal.put(resultSet.getString("nombreSucursal"), resultSet.getInt("idSucursal"));
+				}
+				return sucursal;
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			return null;
+				
+		}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
