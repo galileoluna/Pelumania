@@ -55,6 +55,14 @@ public class Sistema
 		this.servicio.delete(servicio_a_eliminar);
 	}
 	
+	public void editarServicio(ServicioDTO servicio_a_actualizar) {
+		this.servicio.update(servicio_a_actualizar);
+	}
+	
+	public ServicioDTO getServicioById(int id) {
+		return this.servicio.getById(id);
+	}
+	
 	public List<ServicioDTO> obtenerServicios(){
 		return this.servicio.readAll();
 	}

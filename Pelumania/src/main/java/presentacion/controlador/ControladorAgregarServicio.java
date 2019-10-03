@@ -18,6 +18,7 @@ public class ControladorAgregarServicio implements ActionListener {
 
 	private VentanaAgregarServicio ventanaAgregarServicio;
 	private Sistema sistema;
+	private ControladorServicio controladorServicio;
 	private static ControladorAgregarServicio INSTANCE;
 	
 	private ControladorAgregarServicio(Sistema sistema) {
@@ -65,6 +66,7 @@ public class ControladorAgregarServicio implements ActionListener {
 		ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, duracion, puntos, "activo");
 		this.sistema.agregarServicio(nuevoServicio);
 		this.ventanaAgregarServicio.cerrar();
+		ControladorServicio.getInstance(sistema);
 	
 		} else {
 		

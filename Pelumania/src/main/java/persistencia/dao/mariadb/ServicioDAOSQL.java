@@ -23,6 +23,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 			+ " Duracion=?, Puntos=?, Estado=? WHERE IdServicio=?";
 	private static final String delete = "UPDATE  Servicio SET Estado=? WHERE idServicio = ?";
 	private static final String readall = " SELECT * FROM servicio";
+	private static final String getById = "SELECT * FROM servicio WHERE idServicio = ?";
 	
 	private static final String ESTADO_INACTIVO = "inactivo";
 
@@ -61,6 +62,33 @@ public class ServicioDAOSQL implements ServicioDAO{
 	}
 	
 	public boolean update (ServicioDTO servicio_a_actualizar) {
+		
+		PreparedStatement statement;
+		int chequeoUpdate = 0;
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			
+			statement.setString(1, servicio_a_actualizar.getNombre());
+			statement.setBigDecimal(2, servicio_a_actualizar.getPrecioLocal());
+			statement.setBigDecimal(3, servicio_a_actualizar.getPrecioDolar());
+			statement.setTime(4, Time.valueOf(servicio_a_actualizar.getDuracion()));
+			statement.setInt(5, servicio_a_actualizar.getPuntos());
+			statement.setString(6, servicio_a_actualizar.getEstado());
+			statement.setInt(7, servicio_a_actualizar.getIdServicio());
+			
+			chequeoUpdate = statement.executeUpdate();
+			conexion.getSQLConexion().commit();
+			if(chequeoUpdate > 0)
+					return true;
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("false");
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 
@@ -100,6 +128,32 @@ public class ServicioDAOSQL implements ServicioDAO{
 			e.printStackTrace();
 		}
 		return servicios;
+	}
+	
+	public ServicioDTO getById(int idServicio)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		List<ServicioDTO> servicios = new ArrayList<ServicioDTO>();
+
+		try 
+		{
+			statement = conexion.prepareStatement(getById);
+			statement.setInt(1, idServicio);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				servicios.add(getServicioDTO(resultSet));
+			}
+	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return servicios.get(0);
 	}
 	
 	private ServicioDTO getServicioDTO(ResultSet resultSet) throws SQLException{

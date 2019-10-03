@@ -65,14 +65,19 @@ public class Validador {
 			Pattern PRECIO_PATTERN = Pattern.compile(PRECIO_REGEX);
 			return PRECIO_PATTERN.matches(PRECIO_REGEX, precio);
 		}
-
+		
 		public static boolean esEstadoServicioValido(String estado) {
 			String input = estado.toLowerCase();
-			if (input != "activo" || input != "inactivo") {
-				return false;
-			}	
-			return true;
+			String[] ESTADOS = {"activo", "inactivo"};
+			
+			for (String  e : ESTADOS) {
+				if (e.equals(estado)){
+					return true;
+				}
+			}
+			return false;
 		}
+		
 		public static boolean esEstadoClienteValido(String estado) {
 			String[] ESTADOS = {"activo","inactivo","moroso","vip"};
 			for (String  e : ESTADOS) {

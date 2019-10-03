@@ -44,7 +44,7 @@ public class Vista {
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1011, 683);
+		frame.setBounds(100, 40, 1011, 683);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);

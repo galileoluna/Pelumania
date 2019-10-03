@@ -2,12 +2,8 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
-import dto.ProfesionalDTO;
-import dto.ServicioDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaAgregarServicio;
 import presentacion.vista.VentanaProfesional;
 import presentacion.vista.Vista;
 import presentacion.vista.VentanaServicio;
@@ -15,7 +11,6 @@ import presentacion.vista.VentanaServicio;
 public class Controlador implements ActionListener {
 	private Vista vista;
 
-	private VentanaAgregarServicio ventanaAgregarServicio; 
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	private ControladorProfesional controladorProfesional;
@@ -25,7 +20,6 @@ public class Controlador implements ActionListener {
 	{
 		this.vista = vista;
 		this.sistema = sistema;
-		this.ventanaAgregarServicio = VentanaAgregarServicio.getInstance();
 		
 		this.vista.getBtnAgregarCliente().addActionListener(a->ventanaAgregarCliente(a));
 		this.vista.getBtnProfesional().addActionListener(l->ventanaProfesional(l));
