@@ -23,7 +23,6 @@ public class Vista {
 	
 	private JFrame frame;
 	private JCalendar calendario;
-	private JButton btnProfesional;
 	private JButton btnServicios;
 	private JButton btnAgregarCliente;
 	
@@ -31,7 +30,7 @@ public class Vista {
 		private JMenu mnServicio;
 			private JMenuItem mntmConsultarServicios;
 		private JMenu mnProfesional;
-		
+		private JMenuItem menuConsultarProf;
 		private JMenu mnCliente;
 
 	
@@ -67,6 +66,9 @@ public class Vista {
 		mnProfesional = new JMenu("Profesional");
 		menuBar.add(mnProfesional);
 		
+		menuConsultarProf= new JMenuItem("Consultar Profesionales");
+		mnProfesional.add(menuConsultarProf);
+		
 		mnCliente = new JMenu("Cliente");
 		menuBar.add(mnCliente);
 		
@@ -94,10 +96,6 @@ public class Vista {
 		btnAgregarCliente.setBounds(682, 132, 152, 39);
 		panel.add(btnAgregarCliente);
 		
-		btnProfesional = new JButton("Ver Profesionales");
-		btnProfesional.setBounds(682, 214, 152, 32);
-		panel.add(btnProfesional);
-		btnAgregarCliente.setVisible(true);
 	}
 	
 	public void show()
@@ -131,12 +129,13 @@ public class Vista {
 		return btnAgregarCliente;
 	}
 	
-	public JButton getBtnProfesional () {
-		return btnProfesional;
-	}
 	
 	public JMenuItem getMnItmConsultarServicios() {
 		return mntmConsultarServicios;
+	}
+	
+	public JMenuItem getMenuProfesional() {
+		return menuConsultarProf;
 	}
  
 }

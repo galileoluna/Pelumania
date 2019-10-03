@@ -22,8 +22,8 @@ public class Controlador implements ActionListener {
 		this.sistema = sistema;
 		
 		this.vista.getBtnAgregarCliente().addActionListener(a->ventanaAgregarCliente(a));
-		this.vista.getBtnProfesional().addActionListener(l->ventanaProfesional(l));
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
+		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
 
 	}
 	
