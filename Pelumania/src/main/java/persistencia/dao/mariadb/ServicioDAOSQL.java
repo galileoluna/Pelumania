@@ -25,7 +25,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 	private static final String readall = " SELECT * FROM servicio";
 	private static final String getById = "SELECT * FROM servicio WHERE idServicio = ?";
 	
-	private static final String ESTADO_INACTIVO = "inactivo";
+	private static final String ESTADO_INACTIVO = "Inactivo";
 
 
 	public boolean insert(ServicioDTO servicio) {

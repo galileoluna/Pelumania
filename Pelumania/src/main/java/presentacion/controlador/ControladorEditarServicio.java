@@ -39,7 +39,8 @@ public class ControladorEditarServicio {
 			INSTANCE.ventanaEditarServicio.getTxtDuracion().setText(servicio.getDuracion().toString());
 			INSTANCE.ventanaEditarServicio.getTxtPuntos().setText(Integer.toString(servicio.getPuntos()));
 			INSTANCE.ventanaEditarServicio.getJCBoxEstado().setSelectedItem(servicio.getEstado());
-		INSTANCE.ventanaEditarServicio.mostrarVentana();
+		
+			INSTANCE.ventanaEditarServicio.mostrarVentana();
 		return INSTANCE;
 	}
 
