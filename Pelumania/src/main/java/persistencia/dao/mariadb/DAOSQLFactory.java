@@ -5,6 +5,7 @@ import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
 import persistencia.dao.interfaz.ServicioDAO;
+import persistencia.dao.interfaz.SucursalDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
 		
@@ -28,6 +29,11 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 		
 		public HorarioDAO createHorarioDAO() {
 			return new HorarioDAOSQL();
+		}
+
+		@Override
+		public SucursalDAO createSucursalDAO() {
+			return new SucursalDAOSQL();
 		}
 
 }

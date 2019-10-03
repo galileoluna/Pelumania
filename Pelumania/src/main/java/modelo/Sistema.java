@@ -5,10 +5,12 @@ import dto.ClienteDTO;
 import dto.HorarioDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
+import dto.SucursalDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
 import persistencia.dao.interfaz.ServicioDAO;
+import persistencia.dao.interfaz.SucursalDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 
 
@@ -18,13 +20,15 @@ public class Sistema
 	private ServicioDAO servicio;
 	private ProfesionalDAO profesional;
 	private HorarioDAO horario;
-
+	private SucursalDAO sucursal;
+	
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
 		this.cliente = metodo_persistencia.createClienteDAO();
 		this.servicio = metodo_persistencia.createServicioDAO();
 		this.profesional=metodo_persistencia.createProfesionalDAO();
 		this.horario=metodo_persistencia.createHorarioDAO();
+		this.sucursal = metodo_persistencia.createSucursalDAO();
 	}
 	
 	public void agregarCliente(ClienteDTO nuevoCliente)
@@ -106,5 +110,21 @@ public class Sistema
 		this.horario.update(horario_a_actualizar);
 	}
 	
+
+	public void agregarSucursal(SucursalDTO sucursal_a_agregar) {
+		this.sucursal.insert(sucursal_a_agregar);
+	}
+
+	public void borrarSucursal(SucursalDTO sucursal_a_eliminar) {
+		this.sucursal.delete(sucursal_a_eliminar);
+	}
 	
+	public void editarSucursal(SucursalDTO sucursal_a_editar) {
+		this.sucursal.update(sucursal_a_editar);
+	}
+	
+	public List<SucursalDTO> obtenerSucursales(){
+		return this.sucursal.readAll();
+	}
+
 }

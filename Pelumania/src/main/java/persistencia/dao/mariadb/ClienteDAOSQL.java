@@ -147,11 +147,5 @@ public class ClienteDAOSQL implements ClienteDAO
 		
 		return false;
 	}
-
-	@Override
-	public void editar(ClienteDTO cliente_a_editar) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

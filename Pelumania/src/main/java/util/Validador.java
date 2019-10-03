@@ -20,8 +20,8 @@ public class Validador {
 		}
 		
 		@SuppressWarnings("static-access")
-		public static boolean esNombreConEspaciosValido(String nombre) {
-			String NOMBRE_REGEX = "[a-zA-Z0-9 ]+";
+		public static boolean esNombreConEspaciosValido(String nombre) {	
+			String NOMBRE_REGEX = "[a-zA-Z ]+";
 			Pattern NOMBRE_PATTERN = Pattern.compile(NOMBRE_REGEX);
 			return NOMBRE_PATTERN.matches(NOMBRE_REGEX, nombre);
 		}
