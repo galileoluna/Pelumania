@@ -13,7 +13,7 @@ package persistencia.dao.mariadb;
 	public class ProfesionalDAOSQL implements ProfesionalDAO{
 
 	private static final String insert = "INSERT INTO Profesional(IdProfesional, nombre, apellido, idSucursalOrigen, idSucursalTransferencia, estado) VALUES(?, ?, ?, ?, ?, ?)";
-	private static final String delete = "DELETE FROM Profesional WHERE IdProfesional = ?";
+	private static final String delete = "UPDATE Profesional SET estado='Inactivo' WHERE IdProfesional = ?";
 	private static final String readall = "SELECT * FROM Profesional";
 	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
 	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=?, estado = ? WHERE IdProfesional = ?";
