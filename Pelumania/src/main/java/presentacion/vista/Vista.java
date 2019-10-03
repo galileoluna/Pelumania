@@ -48,6 +48,7 @@ public class Vista {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
+		frame.setTitle("Hair & Head");
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 995, 21);

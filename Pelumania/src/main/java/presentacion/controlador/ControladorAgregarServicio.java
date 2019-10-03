@@ -63,7 +63,7 @@ public class ControladorAgregarServicio implements ActionListener {
         	JOptionPane.showMessageDialog(null, "El formato de la duracion debe ser HH : MM");
     	}
 		
-		ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, duracion, puntos, "activo");
+		ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, duracion, puntos, "Activo");
 		this.sistema.agregarServicio(nuevoServicio);
 		this.ventanaAgregarServicio.cerrar();
 		ControladorServicio.getInstance(sistema);

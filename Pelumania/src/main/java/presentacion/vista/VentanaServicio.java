@@ -51,6 +51,7 @@ public class VentanaServicio{
 		frame.setBounds(100, 100, 739, 406);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Manejo de Servicios");
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 713, 356);
