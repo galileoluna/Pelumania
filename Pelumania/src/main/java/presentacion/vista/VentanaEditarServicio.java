@@ -22,7 +22,8 @@ public class VentanaEditarServicio extends JFrame
 	private JTextField txtPrecioLocal;
 	private JTextField txtPrecioDolar;
 	private JTextField txtPuntos;
-	JTextField TxtDuracion;
+	private JTextField TxtDuracion;
+	private JComboBox<String> JCBoxEstado;
 	
 	private JLabel lbl_Nombre;
 	private JLabel lbl_PrecioLocal;
@@ -116,20 +117,22 @@ public class VentanaEditarServicio extends JFrame
 		panel.add(TxtDuracion);
 		
 		TextPrompt placeholder = new TextPrompt("HH:MM", TxtDuracion);
+	    placeholder.changeAlpha(0.75f);
+	    placeholder.changeStyle(Font.ITALIC);
 		
 		JLabel lbl_Estado = new JLabel("Estado");
 		lbl_Estado.setBounds(0, 204, 124, 26);
 		panel.add(lbl_Estado);
 		
-		JComboBox JCBoxEstado = new JComboBox();
+		JCBoxEstado = new JComboBox<String>();
 		JCBoxEstado.setBounds(132, 207, 167, 26);
 		panel.add(JCBoxEstado);
-	    placeholder.changeAlpha(0.75f);
-	    placeholder.changeStyle(Font.ITALIC);
 		
+		JCBoxEstado.addItem("Activo");
+		JCBoxEstado.addItem("Inactivo");
+
 		this.setVisible(false);
 	}
-	
 	
 	public static VentanaEditarServicio getINSTANCE() {
 		return INSTANCE;
@@ -193,6 +196,14 @@ public class VentanaEditarServicio extends JFrame
 
 	public void setBtn_Cancelar(JButton btn_Cancelar) {
 		this.btn_Cancelar = btn_Cancelar;
+	}
+
+	public JComboBox<String> getJCBoxEstado() {
+		return JCBoxEstado;
+	}
+
+	public void setJCBoxEstado(JComboBox<String> jCBoxEstado) {
+		JCBoxEstado = jCBoxEstado;
 	}
 
 	public void mostrarVentana()

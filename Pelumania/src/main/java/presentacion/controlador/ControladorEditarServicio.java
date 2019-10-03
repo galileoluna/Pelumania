@@ -38,7 +38,7 @@ public class ControladorEditarServicio {
 			INSTANCE.ventanaEditarServicio.getTxtPrecioDolar().setText(servicio.getPrecioDolar().toString());
 			INSTANCE.ventanaEditarServicio.getTxtDuracion().setText(servicio.getDuracion().toString());
 			INSTANCE.ventanaEditarServicio.getTxtPuntos().setText(Integer.toString(servicio.getPuntos()));
-			
+			INSTANCE.ventanaEditarServicio.getJCBoxEstado().setSelectedItem(servicio.getEstado());
 		INSTANCE.ventanaEditarServicio.mostrarVentana();
 		return INSTANCE;
 	}
@@ -50,7 +50,7 @@ public class ControladorEditarServicio {
 		String S_precioDolar = this.ventanaEditarServicio.getTxtPrecioDolar().getText();
 		String S_duracion = this.ventanaEditarServicio.getTxtDuracion().getText();
 		String S_puntos = this.ventanaEditarServicio.getTxtPuntos().getText();
-		//falta traer el estado
+		String S_estado = (String) this.ventanaEditarServicio.getJCBoxEstado().getSelectedItem();
 		
 		if ( Validador.esNombreConEspaciosValido(S_nombre) &&
 				 Validador.esPrecioValido(S_precioLocal) &&
@@ -69,7 +69,7 @@ public class ControladorEditarServicio {
 	        	JOptionPane.showMessageDialog(null, "El formato de la duracion debe ser HH : MM");
 				}
 				
-				ServicioDTO servicio_a_actualizar = new ServicioDTO(idServicio, nombre, precioLocal, precioDolar, duracion, puntos, "activo");
+				ServicioDTO servicio_a_actualizar = new ServicioDTO(idServicio, nombre, precioLocal, precioDolar, duracion, puntos, S_estado);
 				this.sistema.editarServicio(servicio_a_actualizar);
 				this.ventanaEditarServicio.cerrar();
 				ControladorServicio.getInstance(sistema);
