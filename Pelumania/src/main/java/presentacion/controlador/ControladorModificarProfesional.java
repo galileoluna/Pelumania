@@ -20,7 +20,7 @@ import presentacion.vista.VentanaModificarProfesional;
 public class ControladorModificarProfesional implements ActionListener {
 	private VentanaModificarProfesional modificarProfesional;
 	private ControladorProfesional controlProfesional;
-	private HashMap<String,Integer>sucursal;
+	private static HashMap<String,Integer>sucursal;
 	private static int idProfesional;
 	private Sistema sistema;
 	private static ControladorModificarProfesional INSTANCE;
@@ -44,8 +44,8 @@ public class ControladorModificarProfesional implements ActionListener {
 			idProfesional=id;
 			INSTANCE.modificarProfesional.getTxtNombre().setText(p.nombre);
 			INSTANCE.modificarProfesional.getTxtApellido().setText(p.getApellido());
-			INSTANCE.modificarProfesional.getComboOrig().setSelectedItem(p.getIdSucursalOrigen());
-			INSTANCE.modificarProfesional.getComboTran().setSelectedItem((p.getIdSucursalTransferencia()==-1?"--":p.getIdSucursalTransferencia()));
+			INSTANCE.modificarProfesional.getComboOrig().setSelectedItem(getNombreSucursal(p.getIdSucursalOrigen()));
+			INSTANCE.modificarProfesional.getComboTran().setSelectedItem(getNombreSucursal(p.getIdSucursalTransferencia()));
 			INSTANCE.modificarProfesional.getEstado().setSelectedItem(p.getEstado());
 		}
 		
@@ -80,6 +80,16 @@ public class ControladorModificarProfesional implements ActionListener {
 			return true;
 		}
 		
+	}
+	
+	//obtiene el nombre de la sucursal para luego Cargar el combo 
+	private static String getNombreSucursal(int idSucursalOrigen) {
+		for (HashMap.Entry<String, Integer> datos : sucursal.entrySet()) {
+			if(datos.getValue()==idSucursalOrigen) {
+				return datos.getKey();
+			}
+		}
+		return "";
 	}
 	
 	//obtiene el id de la sucursal para luego hacer el insert en la tabla 
