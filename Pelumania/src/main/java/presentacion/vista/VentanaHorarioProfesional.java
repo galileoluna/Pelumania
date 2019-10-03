@@ -1,26 +1,15 @@
 package presentacion.vista;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.sql.Time;
 import java.util.List;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import dto.HorarioDTO;
-import dto.ProfesionalDTO;
-
 import javax.swing.JButton;
-
-import persistencia.conexion.Conexion;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -90,7 +79,7 @@ public class VentanaHorarioProfesional
 		lblNombreEmpl.setBounds(84, 10, 158, 14);
 		panel.add(lblNombreEmpl);
 		
-		btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton("Agregar");	
 		btnAgregar.setBounds(84, 216, 89, 23);
 		panel.add(btnAgregar);
 		

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
 import modelo.Sistema;
@@ -56,29 +57,33 @@ public class ControladorServicioProfesional {
 	// es villero pero fue lo que se me ocurrio para no hacer clases que tengan tres lineas
 	private void agregarServ(ActionEvent l) {
 		String serv=this.ventServProf.getCombo().getSelectedItem().toString();
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isInsertExitoso = false;
-		
-		try{
-			statement = conexion.prepareStatement("INSERT INTO servicioprofesional (idServicio,idProfesional) VALUES (?,?) ");
-			statement.setInt(1, idServ.get(allServ.indexOf(serv)) );
-			statement.setInt(2, idProfesional);
-			if(statement.executeUpdate() > 0){
-				conexion.commit();
-				isInsertExitoso = true;
+		if(validar(serv)) {
+			PreparedStatement statement;
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+			boolean isInsertExitoso = false;
+			
+			try{
+				statement = conexion.prepareStatement("INSERT INTO servicioprofesional (idServicio,idProfesional) VALUES (?,?) ");
+				statement.setInt(1, idServ.get(allServ.indexOf(serv)) );
+				statement.setInt(2, idProfesional);
+				if(statement.executeUpdate() > 0){
+					conexion.commit();
+					isInsertExitoso = true;
+				}
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+				try {
+					conexion.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-			try {
-				conexion.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
+			this.getInstance(sistema, idProfesional, nombre);
+		}else {
+			JOptionPane.showMessageDialog(null, "El profesional ya tiene relacionado el servicio que intenta asociar", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
-		this.getInstance(sistema, idProfesional, nombre);
 	}
 	
 	//borra el servicio seleccionado, el delete lo voy a dejar porque solo borra una relacion creo que no afecta en nada si hay citas asociado a un profesional y ya no realiza este servicio tendriamos que definir que hacer
@@ -167,6 +172,21 @@ public class ControladorServicioProfesional {
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private boolean validar(String serv) {
+		int encontro=0;
+		for(String s : servEnTabla) {
+			if(s.equals(serv)) {
+				encontro++;
+			}
+		}
+		if(encontro==0) {
+			return true;
+		}else {
+			return false;
+	
 		}
 	}
 }
