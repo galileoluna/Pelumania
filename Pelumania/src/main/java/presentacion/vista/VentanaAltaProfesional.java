@@ -94,17 +94,11 @@ public class VentanaAltaProfesional extends JFrame
 		
 		comboSucOrig = new JComboBox();
 		comboSucOrig.setBounds(188, 107, 164, 22);
-		comboSucOrig.addItem(1);
-		comboSucOrig.addItem(2);
-		comboSucOrig.addItem(3);
 		panel.add(comboSucOrig);
 		
 		comboSucTran = new JComboBox();
 		comboSucTran.setBounds(188, 150, 164, 22);
 		comboSucTran.addItem("--");
-		comboSucTran.addItem(1);
-		comboSucTran.addItem(2);
-		comboSucTran.addItem(3);
 		panel.add(comboSucTran);
 		
 		estado = new JComboBox();

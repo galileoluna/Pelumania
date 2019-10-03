@@ -1,12 +1,19 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
 import modelo.Sistema;
+import persistencia.conexion.Conexion;
 import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaCliente;
 import presentacion.vista.VentanaHorarioProfesional;
