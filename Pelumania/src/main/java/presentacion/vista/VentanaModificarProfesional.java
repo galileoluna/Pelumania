@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import modelo.Sistema;
 
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
 public class VentanaModificarProfesional extends JFrame 
@@ -43,7 +44,7 @@ public class VentanaModificarProfesional extends JFrame
 	{
 		super();
 		setTitle("Editar Profesional");
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 410, 327);
 		contentPane = new JPanel();

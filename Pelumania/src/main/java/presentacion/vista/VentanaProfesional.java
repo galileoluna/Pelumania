@@ -19,6 +19,7 @@ import dto.ProfesionalDTO;
 import javax.swing.JButton;
 
 import persistencia.conexion.Conexion;
+import java.awt.Toolkit;
 
 public class VentanaProfesional
 {
@@ -52,6 +53,7 @@ public class VentanaProfesional
 	private void initialize() 
 	{
 		frmProfesional = new JFrame();
+		frmProfesional.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
 		frmProfesional.setTitle("Profesional");
 		frmProfesional.setBounds(100, 100, 1001, 300);
 		frmProfesional.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

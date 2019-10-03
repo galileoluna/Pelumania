@@ -23,6 +23,8 @@ import javax.swing.JButton;
 import persistencia.conexion.Conexion;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 
 public class VentanaServicioProfecional
@@ -58,6 +60,7 @@ public class VentanaServicioProfecional
 	{
 		frmServProf = new JFrame();
 		frmServProf.setTitle("Relacion Servicio Profesional");
+		frmServProf.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/servicio.png"));
 		frmServProf.setBounds(100, 100, 506, 442);
 		frmServProf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmServProf.getContentPane().setLayout(null);

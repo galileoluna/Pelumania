@@ -17,6 +17,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
 public class Vista {
@@ -44,6 +45,7 @@ public class Vista {
 	{
 		frame = new JFrame();
 		frame.setBounds(100, 40, 1011, 683);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/images.jpg"));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);

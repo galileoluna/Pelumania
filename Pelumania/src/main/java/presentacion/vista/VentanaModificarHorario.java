@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.sql.Time;
 
 import javax.swing.JFrame;
@@ -45,6 +46,7 @@ public class VentanaModificarHorario extends JFrame {
 		
 		frmHorario = new JFrame();
 		frmHorario.setTitle("Alta Horario");
+		frmHorario.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmHorario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmHorario.setBounds(100, 100, 353, 320);
 		contentPane = new JPanel();

@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import persistencia.conexion.Conexion;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class VentanaHorarioProfesional
 {
@@ -55,6 +56,7 @@ public class VentanaHorarioProfesional
 	private void initialize() 
 	{
 		frmHorario = new JFrame();
+		frmHorario.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmHorario.setTitle("Horarios Laborales");
 		frmHorario.setBounds(100, 100, 644, 300);
 		frmHorario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
