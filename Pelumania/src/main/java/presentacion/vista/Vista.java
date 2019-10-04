@@ -7,9 +7,11 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.toedter.calendar.JCalendar;
 
+import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import persistencia.conexion.Conexion;
 import javax.swing.JButton;
@@ -19,6 +21,9 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollBar;
 
 public class Vista {
 	
@@ -33,6 +38,9 @@ public class Vista {
 		private JMenu mnProfesional;
 		private JMenuItem menuConsultarProf;
 		private JMenu mnCliente;
+		private DefaultTableModel modelCita;
+		private  String[] nombreColumnas = {"Horario","Cliente","Servicio","Duracion"};
+		private JTable table;
 
 	
 	public Vista() 
@@ -44,7 +52,7 @@ public class Vista {
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 40, 1011, 683);
+		frame.setBounds(100, 40, 1065, 683);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/images.jpg"));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -77,22 +85,39 @@ public class Vista {
 		menu = new JMenu("");
 		menuBar.add(menu);
 		
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 985, 633);
+		panel.setBounds(0, 0, 1039, 633);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		calendario = new JCalendar();
+		calendario.setBounds(10, 33, 578, 600);
 		calendario.getYearChooser().getSpinner().setEnabled(false);
 		calendario.setTodayButtonVisible(true);
-		calendario.setBounds(10, 33, 578, 600);
 		panel.add(calendario);
 		calendario.setVisible(true);
 		
 		btnAgregarCliente = new JButton("Agregar Cliente");
-		btnAgregarCliente.setBounds(682, 132, 152, 39);
+		btnAgregarCliente.setBounds(684, 46, 152, 39);
 		panel.add(btnAgregarCliente);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(620, 110, 409, 512);
+		panel.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setColumnHeaderView(table);
+		
+		modelCita = new DefaultTableModel(null,nombreColumnas);
+		table = new JTable(modelCita);
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(103);
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		
+		scrollPane.setViewportView(table);
 	}
 	
 	public void show()
@@ -134,5 +159,23 @@ public class Vista {
 	public JMenuItem getMenuProfesional() {
 		return menuConsultarProf;
 	}
- 
+	
+	public String[] getNombreColumnas(){
+		return nombreColumnas;
+	}
+	
+	
+	public DefaultTableModel getmodelCita() 
+	{
+		return modelCita;
+	}
+
+	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla) {
+		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
+		this.getmodelCita().setColumnCount(0);
+		this.getmodelCita().setColumnIdentifiers(this.getNombreColumnas());
+
+		
+		
+	} 
 }
