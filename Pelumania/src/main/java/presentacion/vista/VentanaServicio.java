@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ServicioDTO;
@@ -62,8 +64,15 @@ public class VentanaServicio{
 		spServicios.setBounds(10, 11, 693, 277);
 		panel.add(spServicios);
 
-		modelServicios = new DefaultTableModel(null,nombreColumnas);
+		modelServicios = new DefaultTableModel(null,nombreColumnas) {
+			//Para que las celdas de la tabla no se puedan editar
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+	};
 		tablaServicios = new JTable(modelServicios);
+
 
 		tablaServicios.getColumnModel().getColumn(0).setPreferredWidth(103);
 		tablaServicios.getColumnModel().getColumn(0).setResizable(false);

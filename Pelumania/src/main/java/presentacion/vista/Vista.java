@@ -88,11 +88,6 @@ public class Vista {
 		calendario.setBounds(10, 33, 578, 600);
 		panel.add(calendario);
 		calendario.setVisible(true);
-
-		btnServicios = new JButton("Servicios");
-		btnServicios.setBounds(682, 65, 152, 39);
-		panel.add(btnServicios);
-		btnServicios.setVisible(true);
 		
 		btnAgregarCliente = new JButton("Agregar Cliente");
 		btnAgregarCliente.setBounds(682, 132, 152, 39);
