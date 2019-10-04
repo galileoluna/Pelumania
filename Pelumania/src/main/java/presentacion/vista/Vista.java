@@ -1,8 +1,6 @@
 package presentacion.vista;
 
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Time;
@@ -118,19 +116,20 @@ public class Vista {
 		table.getColumnModel().getColumn(1).setResizable(false);
 
 		scrollPane.setViewportView(table);
-
 		// HAY QUE BORRARLO, ES SOLO PARA PROBAR
 		//-----------------------------------------------
 		btnAgregarCita = new JButton("Agregar Cita");
+		/*
 		btnAgregarCita.addActionListener(new ActionListener() {
 			private VentanaAgregarCita ventanaAgregarCita = VentanaAgregarCita.getInstance();
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ventanaAgregarCita.mostrarVentana();
+
 			}
 		});
-
+		 */
 		btnAgregarCita.setBounds(792, 60, 152, 39);
 		panel.add(btnAgregarCita);
 	}

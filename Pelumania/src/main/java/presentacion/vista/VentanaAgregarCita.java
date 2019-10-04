@@ -83,6 +83,7 @@ public class VentanaAgregarCita extends JFrame
 		CBoxColumna = new JComboBox<String>();
 		CBoxColumna.setBounds(130, 30, 179, 23);
 		panel.add(CBoxColumna);
+		cargarDesplegables();
 
 		textField = new JTextField();
 		textField.setBounds(23, 64, 347, 23);
@@ -157,7 +158,6 @@ public class VentanaAgregarCita extends JFrame
 
 	public void mostrarVentana()
 	{
-		this.cargarDesplegables();
 		this.setVisible(true);
 	}
 
@@ -197,7 +197,7 @@ public class VentanaAgregarCita extends JFrame
 
 	public void cerrar()
 	{
-
+		this.CBoxColumna.removeAllItems();
 		this.dispose();
 	}
 }
