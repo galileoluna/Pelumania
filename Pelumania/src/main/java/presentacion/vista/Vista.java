@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Time;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JScrollPane;
 
 import com.toedter.calendar.JCalendar;
 
+import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import persistencia.conexion.Conexion;
@@ -39,7 +41,7 @@ public class Vista {
 		private JMenuItem menuConsultarProf;
 		private JMenu mnCliente;
 		private DefaultTableModel modelCita;
-		private  String[] nombreColumnas = {"Horario","Cliente","Servicio","Duracion"};
+		private  String[] nombreColumnas = {"Horario","Cliente","Estado"};
 		private JTable table;
 
 	
@@ -169,13 +171,18 @@ public class Vista {
 	{
 		return modelCita;
 	}
-
-	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla) {
+	
+	public void  llenarTabla (List<CitaDTO> CitaslEnTabla) {
 		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
 		this.getmodelCita().setColumnCount(0);
 		this.getmodelCita().setColumnIdentifiers(this.getNombreColumnas());
-
-		
-		
+		for (CitaDTO c : CitaslEnTabla) {
+			Time hora=c.getHora();
+			String cliente=c.getNombre()+" "+c.getApellido();
+			String estado=c.getEstado();
+			Object[] fila = {hora, cliente,estado};
+			this.getmodelCita().addRow(fila);
+		}
 	} 
+	
 }

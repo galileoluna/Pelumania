@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Time;
+
 public class CitaDTO{
 
     private int idCita;
@@ -11,7 +13,7 @@ public class CitaDTO{
     private int idProfesional;
     private double precioLocal;
     private double precioDolar;
-    //private time hora;
+    private Time hora;
     //private date fecha;
     private int idSucursal;
     //Falta modelar los servicios asociados del turno
@@ -35,7 +37,7 @@ public CitaDTO (int idcita,
                 int idprofesional,
                 double precioLocal,
                 double precioDolar,
-                //hora,
+                Time hora,
                 //fecha
                 int idsucursal
 ){
@@ -48,7 +50,7 @@ public CitaDTO (int idcita,
     this.idProfesional = idprofesional;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
-    //this.hora = hora;
+    this.hora = hora;
     //this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
@@ -70,7 +72,7 @@ public CitaDTO (int idcita,
                 String estado,
                 double precioLocal,
                 double precioDolar,
-                //hora,
+                Time hora,
                 //fecha
                 int idsucursal
 ){
@@ -80,7 +82,7 @@ public CitaDTO (int idcita,
     this.estado = estado;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
-    //this.hora = hora;
+    this.hora = hora;
     //this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
@@ -104,7 +106,7 @@ public CitaDTO (int idcita,
                 int idprofesional,
                 double precioLocal,
                 double precioDolar,
-                //hora,
+                Time hora,
                 //fecha
                 int idsucursal
 ){
@@ -116,7 +118,7 @@ public CitaDTO (int idcita,
     this.idProfesional = idprofesional;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
-    //this.hora = hora;
+    this.hora = hora;
     //this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
@@ -193,15 +195,15 @@ public void setPrecioDolar(double preciodolar){
     this.precioDolar = preciodolar;
 }
 
-/*
-public HORA getHora(){
-    return this.hora
+
+public Time getHora(){
+    return this.hora;
 }
 
-public void setHora( HORA hora){
-    this.Hora = hora;
+public void setHora( Time hora){
+    this.hora = hora;
 }
-*/
+
 
 /*
 public FECHa getfecha(){
