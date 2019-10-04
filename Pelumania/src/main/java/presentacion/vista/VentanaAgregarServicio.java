@@ -4,17 +4,14 @@ package presentacion.vista;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
 
 import util.TextPrompt;
 
 import java.awt.Font;
-import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JFormattedTextField;
 
 
 public class VentanaAgregarServicio extends JFrame 
@@ -38,8 +35,6 @@ public class VentanaAgregarServicio extends JFrame
 	private JButton btn_AgregarServicio;
 	private JButton btn_Cancelar;
 	
-	private MaskFormatter HoraSinSegundos;
-	
 	public static VentanaAgregarServicio getInstance()
 	{
 		if(INSTANCE == null)
@@ -51,9 +46,6 @@ public class VentanaAgregarServicio extends JFrame
 			return INSTANCE;
 	}
 
-	/**
-	 * 
-	 */
 	private VentanaAgregarServicio() 
 	{
 		super();
@@ -117,13 +109,6 @@ public class VentanaAgregarServicio extends JFrame
 		lbl_Duracion = new JLabel("Duracion aproximada:");
 		lbl_Duracion.setBounds(0, 167, 124, 26);
 		panel.add(lbl_Duracion);
-		
-		
-		try {
-			HoraSinSegundos = new MaskFormatter("##:##");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		
 		TxtDuracion = new JTextField();
 		TxtDuracion.setBounds(132, 167, 74, 29);
