@@ -27,9 +27,9 @@ import java.awt.Toolkit;
 
 import javax.swing.JComboBox;
 
-public class VentanaServicioProfecional
+public class VentanaServicioProfesional
 {
-	private static VentanaServicioProfecional INSTANCE;
+	private static VentanaServicioProfesional INSTANCE;
 	private JFrame frmServProf;
 	private JLabel lblNombreEmpl;
 	private JButton btnAgregar;
@@ -40,17 +40,17 @@ public class VentanaServicioProfecional
 	private JLabel lblServicio;
 	private JComboBox comboBox;
 
-	public VentanaServicioProfecional() 
+	public VentanaServicioProfesional() 
 	{
 		super();
 		initialize();
 	}
-	public static VentanaServicioProfecional getInstance()
+	public static VentanaServicioProfesional getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaServicioProfecional(); 	
-			return new VentanaServicioProfecional();
+			INSTANCE = new VentanaServicioProfesional(); 	
+			return new VentanaServicioProfesional();
 		}
 		else
 			return INSTANCE;
