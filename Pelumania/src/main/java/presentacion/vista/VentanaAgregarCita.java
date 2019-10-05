@@ -38,11 +38,11 @@ public class VentanaAgregarCita extends JFrame
 	private JButton btnRegistrarCliente;
 	private JComboBox<Integer> JCBoxHora;
 	private JComboBox<Integer> JCBoxMinutos;
-	private JComboBox<String> JCBoxServicio;
+	private JComboBox<ServicioDTO> JCBoxServicio;
 
 	private List<ServicioDTO> serviciosEnTabla;
 	private JLabel lblProfesional;
-	private JComboBox<String> JCBoxProfesional;
+	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -144,7 +144,7 @@ public class VentanaAgregarCita extends JFrame
 		lblServicio.setBounds(23, 208, 133, 23);
 		panel.add(lblServicio);
 
-		JCBoxServicio = new JComboBox<String>();
+		JCBoxServicio = new JComboBox<ServicioDTO>();
 		JCBoxServicio.setBounds(100, 209, 237, 23);
 		panel.add(JCBoxServicio);
 
@@ -152,7 +152,7 @@ public class VentanaAgregarCita extends JFrame
 		lblProfesional.setBounds(23, 248, 133, 23);
 		panel.add(lblProfesional);
 
-		JCBoxProfesional = new JComboBox<String>();
+		JCBoxProfesional = new JComboBox<ProfesionalDTO>();
 		JCBoxProfesional.setBounds(100, 249, 237, 23);
 		panel.add(JCBoxProfesional);
 
@@ -205,6 +205,14 @@ public class VentanaAgregarCita extends JFrame
 		this.serviciosEnTabla = serviciosEnTabla;
 	}
 
+	public JButton getBtnRegistrarCliente() {
+		return btnRegistrarCliente;
+	}
+
+	public void setBtnRegistrarCliente(JButton btnRegistrarCliente) {
+		this.btnRegistrarCliente = btnRegistrarCliente;
+	}
+
 	public void mostrarVentana()
 	{
 		this.setVisible(true);
@@ -235,13 +243,13 @@ public class VentanaAgregarCita extends JFrame
 
 	public void cargarServicios(List<ServicioDTO> serviciosEnTabla) {
 		for (ServicioDTO s : serviciosEnTabla) {
-			JCBoxServicio.addItem(s.getNombre());
+			JCBoxServicio.addItem(s);
 		}
 	}
 
 	public void cargarProfesionales(List<ProfesionalDTO> profesionalesEnTabla) {
 		for (ProfesionalDTO p : profesionalesEnTabla) {
-			JCBoxProfesional.addItem(p.getNombre());
+			JCBoxProfesional.addItem(p);
 		}
 	}
 

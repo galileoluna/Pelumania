@@ -9,13 +9,19 @@ import dto.ServicioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
+import presentacion.vista.VentanaCliente;
 
 public class ControladorAgregarCita implements ActionListener{
 
 	private VentanaAgregarCita ventanaAgregarCita;
 	private Sistema sistema;
+
 	private ControladorAgregarCita controladorCita;
 	private VentanaBuscarCliente ventanaBuscarCliente;
+
+	private ControladorCliente controladorCliente;
+	private VentanaCliente ventanaCliente;
+
 	private static ControladorAgregarCita INSTANCE;
 	private static int ANIO;
 	private static int MES;
@@ -24,6 +30,7 @@ public class ControladorAgregarCita implements ActionListener{
 	private ControladorAgregarCita(Sistema sistema) {
 		this.ventanaAgregarCita = VentanaAgregarCita.getInstance();
 		//this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarServicio(p));
+		this.ventanaAgregarCita.getBtnRegistrarCliente().addActionListener(q -> registrarCliente(q));
 		this.ventanaAgregarCita.getBtnBuscarCliente().addActionListener(r -> buscarCliente(r));
 		this.sistema = sistema;
 	}
@@ -52,6 +59,10 @@ public class ControladorAgregarCita implements ActionListener{
 		ventanaBuscarCliente = VentanaBuscarCliente.getInstance();
 		ventanaBuscarCliente.mostrarVentana();
 
+	}
+
+	public void registrarCliente(ActionEvent q) {
+		controladorCliente = ControladorCliente.getInstance(sistema);
 	}
 
 	public static int getANIO() {

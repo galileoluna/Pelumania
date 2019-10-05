@@ -71,13 +71,11 @@ public class ControladorAgregarServicio implements ActionListener {
 
 			this.ventanaAgregarServicio.mostrarErrorCampos();
 		}
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

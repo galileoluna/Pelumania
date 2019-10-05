@@ -7,21 +7,21 @@ import java.sql.SQLException;
 import persistencia.conexion.Conexion;
 
 public class ProfesionalDTO {
-	
+
 	public int idProfesional;
 	public String nombre;
 	public String apellido;
 	public int idSucursalOrigen;
 	public int idSucursalTransferencia;
 	public String estado;
-	
-	public ProfesionalDTO(int idProf, 
-			String nombre, 
-			String apellido, 
+
+	public ProfesionalDTO(int idProf,
+			String nombre,
+			String apellido,
 			int idSucOr,
-			int idSucTrans, 
+			int idSucTrans,
 			String estado) {
-		
+
 		idProfesional=idProf;
 		this.nombre=nombre;
 		this.apellido=apellido;
@@ -29,7 +29,7 @@ public class ProfesionalDTO {
 		idSucursalTransferencia=idSucTrans;
 		this.estado=estado;
 	}
-	
+
 
 	public int getIdProfesional() {
 		return idProfesional;
@@ -82,7 +82,7 @@ public class ProfesionalDTO {
 	public void setIdSucursalTransferencia(int idSucursalTransferencia) {
 		this.idSucursalTransferencia = idSucursalTransferencia;
 	}
-	
+
 	public void setEstado(String estado) {
 		this.estado=estado;
 	}
@@ -90,6 +90,12 @@ public class ProfesionalDTO {
 	public String getSucursal(int id) {
 		return getStringSucursal(id);
 	}
+
+	@Override
+	public String toString() {
+		return this.getNombre()+" "+this.getApellido();
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -100,18 +106,18 @@ public class ProfesionalDTO {
 		ResultSet resultSet;
 		Conexion conexion = Conexion.getConexion();
 		String sucursal;
-		try 
+		try
 		{
 			statement = conexion.getSQLConexion().prepareStatement("Select NombreSucursal FROM sucursal WHERE idSucursal = ?");
-	
+
 			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
 			if (resultSet.next()){
 				sucursal = resultSet.getString("NombreSucursal");
 				return sucursal;
 			}
-		} 
-		catch (SQLException e) 
+		}
+		catch (SQLException e)
 		{
 			e.printStackTrace();
 		}

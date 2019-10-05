@@ -12,7 +12,7 @@ public class ServicioDTO {
 	private int puntos;
 	private String estado;
 
-	
+
 	public ServicioDTO(
 			int idservicio,
 			String nombre,
@@ -21,8 +21,8 @@ public class ServicioDTO {
 			LocalTime duracion,
 			int puntos,
 			String estado) {
-		
-		
+
+
 		this.idServicio = idservicio;
 		this.nombre = nombre;
 		this.precioLocal = preciolocal;
@@ -86,6 +86,11 @@ public class ServicioDTO {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	@Override
+	public String toString() {
+		return this.getNombre();
 	}
 
 }
