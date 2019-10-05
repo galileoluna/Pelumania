@@ -2,11 +2,13 @@ package modelo;
 
 import java.util.List;
 
+import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.HorarioDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import dto.SucursalDTO;
+import persistencia.dao.interfaz.CitaDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
@@ -22,6 +24,7 @@ public class Sistema
 	private ProfesionalDAO profesional;
 	private HorarioDAO horario;
 	private SucursalDAO sucursal;
+	private CitaDAO cita;
 
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -30,6 +33,7 @@ public class Sistema
 		this.profesional=metodo_persistencia.createProfesionalDAO();
 		this.horario=metodo_persistencia.createHorarioDAO();
 		this.sucursal = metodo_persistencia.createSucursalDAO();
+		this.cita = metodo_persistencia.createCitaDAO();
 	}
 
 	public void agregarCliente(ClienteDTO nuevoCliente)
@@ -79,7 +83,7 @@ public class Sistema
 	public void borrarProfesional(ProfesionalDTO profesional_a_eliminar) {
 		this.profesional.delete(profesional_a_eliminar);
 	}
-	
+
 	public void borrarSanti(ProfesionalDTO profesional_a_eliminar) {
 		this.profesional.deleteSanti(profesional_a_eliminar);
 	}
@@ -136,5 +140,27 @@ public class Sistema
 		this.cliente.deleteReal(cliente_a_eliminar);
 
 	}
+
+	public void agregarCita(CitaDTO nuevaCita)
+	{
+		this.cita.insert(nuevaCita);
+	}
+
+	public void borrarcita(CitaDTO cita_a_eliminar)
+	{
+		this.cita.delete(cita_a_eliminar);
+	}
+
+	public void editarCita(CitaDTO cita_a_editar)
+	{
+		this.cita.update(cita_a_editar);
+	}
+
+	public List<CitaDTO> obtenerCitas()
+	{
+		return this.cita.readAll();
+	}
+
+
 
 }
