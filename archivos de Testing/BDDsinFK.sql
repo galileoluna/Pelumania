@@ -1,5 +1,5 @@
-CREATE DATABASE `Pelumania`;
-USE Pelumania;
+CREATE DATABASE `PelumaniaTest`;
+USE PelumaniaTest;
 
 
 CREATE TABLE IF NOT EXISTS `Sucursal`(
