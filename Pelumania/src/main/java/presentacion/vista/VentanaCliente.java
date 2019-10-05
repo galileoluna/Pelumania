@@ -159,11 +159,16 @@
 package presentacion.vista;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -173,8 +178,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import dto.ClienteDTO;
+import javax.swing.JComboBox;
 
 public class VentanaCliente extends JFrame{
 
@@ -215,16 +222,16 @@ public class VentanaCliente extends JFrame{
 
 	private void initialize()
 	{
-		this.setBounds(100, 100, 761, 509);
+		this.setBounds(100, 100, 803, 560);
 		this.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 735, 460);
+		panel.setBounds(0, 0, 787, 522);
 		this.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JScrollPane spClientes = new JScrollPane();
-		spClientes.setBounds(10, 205, 708, 182);
+		spClientes.setBounds(10, 234, 767, 218);
 		panel.add(spClientes);
 
 		modelClientes = new DefaultTableModel(null,nombreColumnas);
@@ -248,7 +255,7 @@ public class VentanaCliente extends JFrame{
 		spClientes.setViewportView(tablaClientes);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(339, 132, 89, 34);
+		btnAgregar.setBounds(338, 168, 89, 34);
 		btnAgregar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -258,12 +265,18 @@ public class VentanaCliente extends JFrame{
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(234, 401, 89, 34);
+		btnEditar.setBounds(438, 473, 129, 34);
 		panel.add(btnEditar);
 
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(382, 401, 89, 34);
+		btnBorrar.setBounds(229, 473, 129, 34);
 		panel.add(btnBorrar);
+		
+				btnBorrarReal = new JButton("Borrar 100% real NOFAKE");
+				btnBorrarReal.setForeground(Color.WHITE);
+				btnBorrarReal.setBackground(Color.RED);
+				btnBorrarReal.setBounds(10, 469, 195, 42);
+				panel.add(btnBorrarReal);
 
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(10, 11, 113, 14);
@@ -293,19 +306,34 @@ public class VentanaCliente extends JFrame{
 		panel.add(txtApellido);
 
 		JLabel lblMail = new JLabel("Mail");
-		lblMail.setBounds(10, 145, 113, 14);
+		lblMail.setBounds(10, 142, 113, 14);
 		panel.add(lblMail);
 
 		txtMail = new JTextField();
 		txtMail.setColumns(10);
 		txtMail.setBounds(133, 136, 164, 26);
 		panel.add(txtMail);
-
-		btnBorrarReal = new JButton("Borrar 100% real NOFAKE");
-		btnBorrarReal.setForeground(Color.WHITE);
-		btnBorrarReal.setBackground(Color.RED);
-		btnBorrarReal.setBounds(20, 398, 195, 42);
-		panel.add(btnBorrarReal);
+		
+		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setBounds(10, 181, 113, 14);
+		panel.add(lblEstado);
+		
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setBounds(133, 175, 164, 20);
+		comboBox.addItem("activo");
+		comboBox.addItem("vip");
+		comboBox.addItem("moroso");
+		comboBox.addItem("inactivo");
+		panel.add(comboBox);
+		
+		
+		
+		JLabel lblImagen =  new JLabel();
+		lblImagen.setBounds(518, 27, 200, 167);		
+		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/cliente.png").getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
+		lblImagen.setIcon(imageIcon);
+		panel.add(lblImagen);
+		
 	}
 
 	public JTable getTablaClientes() {
@@ -394,6 +422,15 @@ public class VentanaCliente extends JFrame{
 		this.getModelClientes().setRowCount(0); //Para vaciar la tabla
 		this.getModelClientes().setColumnCount(0);
 		this.getModelClientes().setColumnIdentifiers(this.getNombreColumnas());
+		
+		JComboBox<String> comboEstados = new JComboBox<String>();
+		comboEstados.addItem("activo");
+		comboEstados.addItem("vip");
+		comboEstados.addItem("moroso");
+		comboEstados.addItem("inactivo");
+		
+		TableColumn columnaEstados = this.tablaClientes.getColumnModel().getColumn(5);
+		columnaEstados.setCellEditor(new DefaultCellEditor(comboEstados));
 
 		for (ClienteDTO c : clientesEnTabla)
 		{
@@ -432,7 +469,16 @@ public class VentanaCliente extends JFrame{
 		JOptionPane.showMessageDialog(new JFrame(), "Debe seleccionar un cliente", "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
+	}
 
+	public void mostrarExitoEditar() {
+		JOptionPane.showMessageDialog(new JFrame(), "El cliente fue editado con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
+	public void mostrarExitoAlta() {
+		JOptionPane.showMessageDialog(new JFrame(), "El cliente fue dado de alta con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 }
 

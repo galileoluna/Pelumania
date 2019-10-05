@@ -70,7 +70,6 @@ public class Vista {
 		mntmConsultarServicios = new JMenuItem("Consultar Servicios");
 		mnServicio.add(mntmConsultarServicios);
 
-
 		mnProfesional = new JMenu("Profesional");
 		menuBar.add(mnProfesional);
 

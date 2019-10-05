@@ -76,6 +76,9 @@ public class ControladorCliente implements ActionListener {
 
 			this.ventanaCliente.mostrarErrorCamposInvalidos();
 		}
+		
+		INSTANCE.ventanaCliente.mostrarExitoAlta();
+
 	}
 
 	private void borrarCliente(ActionEvent p) {
@@ -127,6 +130,7 @@ public class ControladorCliente implements ActionListener {
 				ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, new BigDecimal(deuda.replaceAll(",", "")));
 
 				INSTANCE.sistema.editarCliente(cliente_a_modifcar);
+				INSTANCE.ventanaCliente.mostrarExitoEditar();
 
 			} else {
 				INSTANCE.ventanaCliente.mostrarErrorCamposInvalidos();
@@ -135,6 +139,7 @@ public class ControladorCliente implements ActionListener {
 		} else {
 			INSTANCE.ventanaCliente.mostrarErrorSinSeleccionar();
 		}
+		
 		INSTANCE.ventanaCliente.llenarTabla(INSTANCE.sistema.obtenerClientes());
 
 	}
