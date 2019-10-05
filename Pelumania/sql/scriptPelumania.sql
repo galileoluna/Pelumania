@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `Profesional`(
   `Estado` VARCHAR(55) NOT NULL,
   `idSucursalOrigen` int NOT NULL,
   `idSucursalTransferencia` int NULL,
+  `estado` VARCHAR(55) NOT NULL,
 
   PRIMARY KEY(`IdProfesional`),
   FOREIGN KEY (`idSucursalOrigen`) REFERENCES `Sucursal`(`idSucursal`)

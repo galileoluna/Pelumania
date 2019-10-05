@@ -4,6 +4,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -192,12 +193,20 @@ public class Vista {
 		return modelCita;
 	}
 
+	public JCalendar getCalendario() {
+		return calendario;
+	}
+
+	public void setCalendario(JCalendar calendario) {
+		this.calendario = calendario;
+	}
+
 	public void  llenarTabla (List<CitaDTO> CitaslEnTabla) {
 		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
 		this.getmodelCita().setColumnCount(0);
 		this.getmodelCita().setColumnIdentifiers(this.getNombreColumnas());
 		for (CitaDTO c : CitaslEnTabla) {
-			Time hora=c.getHora();
+			LocalTime hora=c.getHora();
 			String cliente=c.getNombre()+" "+c.getApellido();
 			String estado=c.getEstado();
 			Object[] fila = {hora, cliente,estado};

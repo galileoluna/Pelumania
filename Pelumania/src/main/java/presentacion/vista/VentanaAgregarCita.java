@@ -1,8 +1,7 @@
 package presentacion.vista;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,8 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,16 +24,18 @@ public class VentanaAgregarCita extends JFrame
 
 	private JButton btn_AgregarCita;
 	private JButton btn_Cancelar;
-	private JTextField textField;
 
 	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
 			"Mail", "Puntos", "Estado", "Deuda"};
-	private JTable tablaClientes;
 	private DefaultTableModel modelClientes;
 
-	JComboBox<String> CBoxColumna;
-
-	private static List<String> filtrosColumnas = new ArrayList<String>(Arrays.asList("ID","Nombre","Apellido","Telefono","Mail"));
+	private JLabel lblFecha;
+	private JTextField txtFecha;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	
+	private JButton btnBuscarCliente;
+	private JButton btnCargarCliente;
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -48,10 +47,7 @@ public class VentanaAgregarCita extends JFrame
 			return INSTANCE;
 		}
 	}
-
-	/**
-	 *
-	 */
+	
 	private VentanaAgregarCita()
 	{
 		super();
@@ -76,43 +72,56 @@ public class VentanaAgregarCita extends JFrame
 		btn_Cancelar.setBounds(219, 452, 89, 23);
 		panel.add(btn_Cancelar);
 
-		JLabel lblBuscarPor = new JLabel("Buscar por: ");
-		lblBuscarPor.setBounds(23, 30, 133, 23);
-		panel.add(lblBuscarPor);
-
-		CBoxColumna = new JComboBox<String>();
-		CBoxColumna.setBounds(130, 30, 179, 23);
-		panel.add(CBoxColumna);
-		cargarDesplegables();
-
-		textField = new JTextField();
-		textField.setBounds(23, 64, 347, 23);
-		panel.add(textField);
-		textField.setColumns(10);
-
-		JScrollPane spClientes = new JScrollPane();
-		spClientes.setBounds(23, 105, 347, 143);
-		panel.add(spClientes);
-
 		modelClientes = new DefaultTableModel(null,nombreColumnas);
-		tablaClientes = new JTable(modelClientes);
-
-		tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(10);
-		tablaClientes.getColumnModel().getColumn(0).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(10);
-		tablaClientes.getColumnModel().getColumn(1).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(2).setPreferredWidth(100);
-		tablaClientes.getColumnModel().getColumn(2).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(3).setPreferredWidth(10);
-		tablaClientes.getColumnModel().getColumn(3).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(4).setPreferredWidth(10);
-		tablaClientes.getColumnModel().getColumn(4).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(5).setPreferredWidth(30);
-		tablaClientes.getColumnModel().getColumn(5).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(6).setPreferredWidth(30);
-		tablaClientes.getColumnModel().getColumn(6).setResizable(false);
-
-		spClientes.setViewportView(tablaClientes);
+		
+		lblFecha = new JLabel("Fecha:");
+		lblFecha.setBounds(23, 11, 133, 23);
+		panel.add(lblFecha);
+		
+		txtFecha = new JTextField();
+		txtFecha.setEditable(false);
+		txtFecha.setBounds(129, 11, 208, 23);
+		panel.add(txtFecha);
+		txtFecha.setColumns(10);
+		
+		JLabel lblHora = new JLabel("Hora");
+		lblHora.setBounds(23, 186, 133, 23);
+		panel.add(lblHora);
+		
+		JComboBox CBoxHora = new JComboBox();
+		CBoxHora.setBounds(129, 186, 208, 23);
+		panel.add(CBoxHora);
+		
+		JLabel lblNewLabel = new JLabel("Ese horario no se encuentra disponible!");
+		lblNewLabel.setBounds(129, 205, 208, 14);
+		lblNewLabel.setVisible(false);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(23, 45, 133, 23);
+		panel.add(lblNombre);
+		
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(23, 79, 133, 23);
+		panel.add(lblApellido);
+		
+		txtNombre = new JTextField();
+		txtNombre.setColumns(10);
+		txtNombre.setBounds(129, 45, 208, 23);
+		panel.add(txtNombre);
+		
+		txtApellido = new JTextField();
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(129, 79, 208, 23);
+		panel.add(txtApellido);
+		
+		btnBuscarCliente = new JButton("Buscar Cliente");
+		btnBuscarCliente.setBounds(219, 113, 118, 23);
+		panel.add(btnBuscarCliente);
+		
+		btnCargarCliente = new JButton("Cargar Cliente");
+		btnCargarCliente.setBounds(80, 113, 118, 23);
+		panel.add(btnCargarCliente);
 
 
 		this.setVisible(false);
@@ -139,21 +148,20 @@ public class VentanaAgregarCita extends JFrame
 		this.btn_Cancelar = btn_Cancelar;
 	}
 
-
-	public JTable getTablaClientes() {
-		return tablaClientes;
-	}
-
-	public void setTablaClientes(JTable tablaClientes) {
-		this.tablaClientes = tablaClientes;
-	}
-
 	public DefaultTableModel getModelClientes() {
 		return modelClientes;
 	}
 
 	public void setModelClientes(DefaultTableModel modelClientes) {
 		this.modelClientes = modelClientes;
+	}
+
+	public JButton getBtnBuscarCliente() {
+		return btnBuscarCliente;
+	}
+
+	public void setBtnBuscarCliente(JButton btnBuscarCliente) {
+		this.btnBuscarCliente = btnBuscarCliente;
 	}
 
 	public void mostrarVentana()
@@ -166,10 +174,10 @@ public class VentanaAgregarCita extends JFrame
 				JOptionPane.ERROR_MESSAGE);
 	}
 
-	public void cargarDesplegables() {
-		for (String campo : filtrosColumnas) {
-			CBoxColumna.addItem(campo);
-		}
+	public void cargarFecha(int anio,int mes, int dia) {
+		LocalDate fecha = LocalDate.of(anio, mes, dia);
+		String S_mes = fecha.getMonth().toString();
+		txtFecha.setText(dia + " de "+ S_mes+" de "+anio);
 	}
 
 	public void llenarTabla(List<ClienteDTO> clientesEnTabla) {
@@ -197,7 +205,6 @@ public class VentanaAgregarCita extends JFrame
 
 	public void cerrar()
 	{
-		this.CBoxColumna.removeAllItems();
 		this.dispose();
 	}
 }

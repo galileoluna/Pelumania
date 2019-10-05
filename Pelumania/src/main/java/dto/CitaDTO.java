@@ -1,6 +1,7 @@
 package dto;
 
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class CitaDTO{
 
@@ -13,8 +14,8 @@ public class CitaDTO{
     private int idProfesional;
     private double precioLocal;
     private double precioDolar;
-    private Time hora;
-    //private date fecha;
+    private LocalTime hora;
+    private LocalDate fecha;
     private int idSucursal;
     //Falta modelar los servicios asociados del turno
 
@@ -37,8 +38,8 @@ public CitaDTO (int idcita,
                 int idprofesional,
                 double precioLocal,
                 double precioDolar,
-                Time hora,
-                //fecha
+                LocalTime hora,
+                LocalDate fecha,
                 int idsucursal
 ){
     this.idCita = idcita;
@@ -51,7 +52,7 @@ public CitaDTO (int idcita,
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
     this.hora = hora;
-    //this.fecha = fecha;
+    this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
 /***
@@ -72,8 +73,8 @@ public CitaDTO (int idcita,
                 String estado,
                 double precioLocal,
                 double precioDolar,
-                Time hora,
-                //fecha
+                LocalTime hora,
+                LocalDate fecha,
                 int idsucursal
 ){
     this.idCita = idcita;
@@ -83,7 +84,7 @@ public CitaDTO (int idcita,
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
     this.hora = hora;
-    //this.fecha = fecha;
+    this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
 
@@ -106,8 +107,8 @@ public CitaDTO (int idcita,
                 int idprofesional,
                 double precioLocal,
                 double precioDolar,
-                Time hora,
-                //fecha
+                LocalTime hora,
+                LocalDate fecha,
                 int idsucursal
 ){
     this.idCita = idcita;
@@ -119,7 +120,7 @@ public CitaDTO (int idcita,
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
     this.hora = hora;
-    //this.fecha = fecha;
+    this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
 public int getIdCita(){
@@ -196,24 +197,22 @@ public void setPrecioDolar(double preciodolar){
 }
 
 
-public Time getHora(){
+public LocalTime getHora(){
     return this.hora;
 }
 
-public void setHora( Time hora){
+public void setHora( LocalTime hora){
     this.hora = hora;
 }
 
 
-/*
-public FECHa getfecha(){
+public LocalDate getfecha(){
     return this.fecha;
 }
 
-public void setFecha(FECHA fecha){
+public void setFecha(LocalDate fecha){
     this.fecha = fecha;
 }
-*/ 
 
 public int getIdSucursal(){
     return this.idSucursal;

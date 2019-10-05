@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import modelo.Sistema;
 import presentacion.vista.Vista;
@@ -44,6 +45,13 @@ public class Controlador implements ActionListener {
 	}
 
 	private void ventanaAgregarCita(ActionEvent d) {
+		int dia = this.vista.getCalendario().getDayChooser().getDay();
+		int mes = this.vista.getCalendario().getMonthChooser().getMonth();
+		int anio = this.vista.getCalendario().getYearChooser().getYear();
+		
+		this.controladoragregarcita.setANIO(anio);
+		this.controladoragregarcita.setMES(mes+1);
+		this.controladoragregarcita.setDIA(dia);
 		this.controladoragregarcita = ControladorAgregarCita.getInstance(sistema);
 	}
 
