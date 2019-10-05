@@ -40,6 +40,8 @@ public class ControladorAgregarCita implements ActionListener{
 		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
 
+		INSTANCE.ventanaAgregarCita.getJCBoxServicio().removeAllItems();
+		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
 		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
 		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
 		INSTANCE.ventanaAgregarCita.cargarFecha(ANIO, MES, DIA);

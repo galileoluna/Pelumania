@@ -40,9 +40,10 @@ public class VentanaAgregarCita extends JFrame
 	private JComboBox<Integer> JCBoxMinutos;
 	private JComboBox<ServicioDTO> JCBoxServicio;
 
-	private List<ServicioDTO> serviciosEnTabla;
 	private JLabel lblProfesional;
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
+
+
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -197,20 +198,28 @@ public class VentanaAgregarCita extends JFrame
 		this.btnBuscarCliente = btnBuscarCliente;
 	}
 
-	public List<ServicioDTO> getServiciosEnTabla() {
-		return serviciosEnTabla;
-	}
-
-	public void setServiciosEnTabla(List<ServicioDTO> serviciosEnTabla) {
-		this.serviciosEnTabla = serviciosEnTabla;
-	}
-
 	public JButton getBtnRegistrarCliente() {
 		return btnRegistrarCliente;
 	}
 
 	public void setBtnRegistrarCliente(JButton btnRegistrarCliente) {
 		this.btnRegistrarCliente = btnRegistrarCliente;
+	}
+
+	public JComboBox<ServicioDTO> getJCBoxServicio() {
+		return JCBoxServicio;
+	}
+
+	public void setJCBoxServicio(JComboBox<ServicioDTO> jCBoxServicio) {
+		JCBoxServicio = jCBoxServicio;
+	}
+
+	public JComboBox<ProfesionalDTO> getJCBoxProfesional() {
+		return JCBoxProfesional;
+	}
+
+	public void setJCBoxProfesional(JComboBox<ProfesionalDTO> jCBoxProfesional) {
+		JCBoxProfesional = jCBoxProfesional;
 	}
 
 	public void mostrarVentana()
@@ -255,6 +264,8 @@ public class VentanaAgregarCita extends JFrame
 
 	public void cerrar()
 	{
-		this.dispose();
+		this.JCBoxServicio.removeAllItems();
+		this.JCBoxProfesional.removeAllItems();
+		dispose();
 	}
 }
