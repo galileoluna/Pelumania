@@ -79,6 +79,10 @@ public class Sistema
 	public void borrarProfesional(ProfesionalDTO profesional_a_eliminar) {
 		this.profesional.delete(profesional_a_eliminar);
 	}
+	
+	public void borrarSanti(ProfesionalDTO profesional_a_eliminar) {
+		this.profesional.deleteSanti(profesional_a_eliminar);
+	}
 
 	public List<ProfesionalDTO> obtenerProfesional(){
 		return this.profesional.readAll();

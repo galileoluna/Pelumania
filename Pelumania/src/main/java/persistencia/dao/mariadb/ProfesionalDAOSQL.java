@@ -14,6 +14,7 @@ package persistencia.dao.mariadb;
 
 	private static final String insert = "INSERT INTO Profesional(IdProfesional, nombre, apellido, idSucursalOrigen, idSucursalTransferencia, estado) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String delete = "UPDATE Profesional SET estado='Inactivo' WHERE IdProfesional = ?";
+	private static final String deleteSanti = "DELETE FROM Profesional WHERE IdProfesional = ?";
 	private static final String readall = "SELECT * FROM Profesional";
 	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
 	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=?, estado = ? WHERE IdProfesional = ?";
@@ -54,6 +55,25 @@ package persistencia.dao.mariadb;
 		boolean isdeleteExitoso = false;
 		try {
 			statement = conexion.prepareStatement(delete);
+			statement.setInt(1, profesional_a_eliminar.getIdProfesional());
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isdeleteExitoso;
+	}
+	
+	public boolean deleteSanti(ProfesionalDTO profesional_a_eliminar)
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		try {
+			statement = conexion.prepareStatement(deleteSanti);
 			statement.setInt(1, profesional_a_eliminar.getIdProfesional());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();

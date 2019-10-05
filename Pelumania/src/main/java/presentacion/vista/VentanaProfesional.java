@@ -30,6 +30,7 @@ public class VentanaProfesional
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private JButton btnHorario;
+	private JButton btnBorrarSanti;
 	private DefaultTableModel modelProfesional;
 	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia","Estado"};
 	private JButton btnAsignarServicio;
@@ -98,6 +99,10 @@ public class VentanaProfesional
 		btnAsignarServicio.setBounds(806, 130, 159, 23);
 		panel.add(btnAsignarServicio);
 		
+		btnBorrarSanti = new JButton("Borrar Santi");
+		btnBorrarSanti.setBounds(806, 200, 159, 23);
+		panel.add(btnBorrarSanti);
+		
 	}
 	
 	public void show()
@@ -116,6 +121,10 @@ public class VentanaProfesional
 		return btnBorrar;
 	}
 	
+	public JButton getBtnSanti() 
+	{
+		return btnBorrarSanti;
+	}
 	
 	public JButton getBtnEditar() 
 	{

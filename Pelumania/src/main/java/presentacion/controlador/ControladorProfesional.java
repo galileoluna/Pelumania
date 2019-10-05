@@ -33,7 +33,8 @@ public class ControladorProfesional {
 	private ControladorProfesional(Sistema sistema) {
 		this.ventanaProfesional = VentanaProfesional.getInstance();
 		this.ventanaProfesional.getBtnAgregar().addActionListener(p ->agregarProfesional(p));
-		this.ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s));
+		this.ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s,0));
+		this.ventanaProfesional.getBtnSanti().addActionListener(s-> borrarProfesional(s,1));
 		this.ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
 		this.ventanaProfesional.getBtnHorario().addActionListener(k -> verHorarios(k));
 		this.ventanaProfesional.getBtnAsignar().addActionListener(f -> asignarServ(f));
@@ -60,7 +61,7 @@ public class ControladorProfesional {
 	}
 	
 	// Cambia el estado del profesional a inactivo 
-	public void borrarProfesional(ActionEvent s)
+	public void borrarProfesional(ActionEvent s, int borro)
 	{
 		this.profesionalEnTabla=sistema.obtenerProfesional();
 		int[] filasSeleccionadas = this.ventanaProfesional.gettablaProfesional().getSelectedRows();
@@ -71,7 +72,12 @@ public class ControladorProfesional {
 		        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Profesional?","Confirmacion", JOptionPane.YES_NO_OPTION,
 		   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
 		        		if (confirm == 0) {
-						this.sistema.borrarProfesional(this.profesionalEnTabla.get(fila));
+		        			// if para el boton de borrado de santi
+		        			if(borro==1) {
+		        				this.sistema.borrarSanti(this.profesionalEnTabla.get(fila));
+		        			}else{
+		        				this.sistema.borrarProfesional(this.profesionalEnTabla.get(fila));
+		        			}
 		        		}
 		        		// llama a la instancia para refrescar tabla
 		        		this.getInstance(sistema);
