@@ -9,66 +9,63 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.table.DefaultTableModel;
 
 import dto.ServicioDTO;
 
-public class VentanaServicio{
+public class VentanaServicio extends JFrame{
 
-	JFrame frame;
 	private static VentanaServicio INSTANCE;
 	private JTable tablaServicios;
 	private DefaultTableModel modelServicios;
 	private String[] nombreColumnas = {"Nombre","Precio en $",
-	"Precio en USD","Duracion", "Puntos que brinda", "Estado"};
+			"Precio en USD","Duracion", "Puntos que brinda", "Estado"};
 
 
 	private JButton btnAgregar;
 	private JButton btnEditar;
 	private JButton btnBorrar;
 
-	public VentanaServicio() 
+	public VentanaServicio()
 	{
 		super();
 		initialize();
 	}
-	
+
 	public static VentanaServicio getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaServicio(); 	
+			INSTANCE = new VentanaServicio();
 			return new VentanaServicio();
-		}
-		else
+		} else {
 			return INSTANCE;
+		}
 	}
 
-	private void initialize() 
+	private void initialize()
 	{
-		frame = new JFrame();
-		frame.setBounds(100, 100, 739, 406);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setTitle("Manejo de Servicios");
-		
+		setBounds(100, 100, 739, 406);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		getContentPane().setLayout(null);
+		setTitle("Manejo de Servicios");
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 713, 356);
-		frame.getContentPane().add(panel);
+		getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		JScrollPane spServicios = new JScrollPane();
 		spServicios.setBounds(10, 11, 693, 277);
 		panel.add(spServicios);
 
 		modelServicios = new DefaultTableModel(null,nombreColumnas) {
 			//Para que las celdas de la tabla no se puedan editar
-		@Override
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		}
-	};
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		tablaServicios = new JTable(modelServicios);
 
 
@@ -84,22 +81,22 @@ public class VentanaServicio{
 		tablaServicios.getColumnModel().getColumn(4).setResizable(false);
 		tablaServicios.getColumnModel().getColumn(5).setPreferredWidth(100);
 		tablaServicios.getColumnModel().getColumn(5).setResizable(false);
-		
+
 		spServicios.setViewportView(tablaServicios);
 
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(172, 322, 89, 23);
 		panel.add(btnAgregar);
-		
+
 		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(282, 322, 89, 23);
 		panel.add(btnEditar);
-		
+
 		btnBorrar = new JButton("Borrar");
 		btnBorrar.setBounds(394, 322, 89, 23);
 		panel.add(btnBorrar);
 	}
-	
+
 	public JTable getTablaServicios() {
 		return tablaServicios;
 	}
@@ -166,7 +163,10 @@ public class VentanaServicio{
 		}
 	}
 	public void mostrar() {
-		frame.setVisible(true);
-		
+		setVisible(true);
+	}
+
+	public void cerrar() {
+		this.dispose();
 	}
 }

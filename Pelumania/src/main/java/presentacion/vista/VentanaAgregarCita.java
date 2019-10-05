@@ -1,6 +1,5 @@
 package presentacion.vista;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import dto.ClienteDTO;
+import dto.ProfesionalDTO;
+import dto.ServicioDTO;
 
 
 public class VentanaAgregarCita extends JFrame
@@ -33,9 +33,16 @@ public class VentanaAgregarCita extends JFrame
 	private JTextField txtFecha;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
-	
+
 	private JButton btnBuscarCliente;
-	private JButton btnCargarCliente;
+	private JButton btnRegistrarCliente;
+	private JComboBox<Integer> JCBoxHora;
+	private JComboBox<Integer> JCBoxMinutos;
+	private JComboBox<String> JCBoxServicio;
+
+	private List<ServicioDTO> serviciosEnTabla;
+	private JLabel lblProfesional;
+	private JComboBox<String> JCBoxProfesional;
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -47,7 +54,7 @@ public class VentanaAgregarCita extends JFrame
 			return INSTANCE;
 		}
 	}
-	
+
 	private VentanaAgregarCita()
 	{
 		super();
@@ -73,55 +80,81 @@ public class VentanaAgregarCita extends JFrame
 		panel.add(btn_Cancelar);
 
 		modelClientes = new DefaultTableModel(null,nombreColumnas);
-		
+
 		lblFecha = new JLabel("Fecha:");
 		lblFecha.setBounds(23, 11, 133, 23);
 		panel.add(lblFecha);
-		
+
 		txtFecha = new JTextField();
 		txtFecha.setEditable(false);
 		txtFecha.setBounds(129, 11, 208, 23);
 		panel.add(txtFecha);
 		txtFecha.setColumns(10);
-		
-		JLabel lblHora = new JLabel("Hora");
-		lblHora.setBounds(23, 186, 133, 23);
+
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setBounds(77, 157, 59, 23);
 		panel.add(lblHora);
-		
-		JComboBox CBoxHora = new JComboBox();
-		CBoxHora.setBounds(129, 186, 208, 23);
-		panel.add(CBoxHora);
-		
+
+		JCBoxHora = new JComboBox<Integer>();
+		JCBoxHora.setBounds(116, 157, 53, 23);
+		cargarHora(JCBoxHora);
+		panel.add(JCBoxHora);
+
+		JLabel lblMinutos = new JLabel("Minutos:");
+		lblMinutos.setBounds(180, 157, 59, 23);
+		panel.add(lblMinutos);
+
+		JCBoxMinutos = new JComboBox<Integer>();
+		JCBoxMinutos.setBounds(229, 157, 59, 23);
+		cargarMinutos(JCBoxMinutos);
+		panel.add(JCBoxMinutos);
+
 		JLabel lblNewLabel = new JLabel("Ese horario no se encuentra disponible!");
-		lblNewLabel.setBounds(129, 205, 208, 14);
+		lblNewLabel.setBounds(100, 183, 208, 14);
 		lblNewLabel.setVisible(false);
 		panel.add(lblNewLabel);
-		
+
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(23, 45, 133, 23);
 		panel.add(lblNombre);
-		
+
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setBounds(23, 79, 133, 23);
 		panel.add(lblApellido);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(129, 45, 208, 23);
 		panel.add(txtNombre);
-		
+
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
 		txtApellido.setBounds(129, 79, 208, 23);
 		panel.add(txtApellido);
-		
+
 		btnBuscarCliente = new JButton("Buscar Cliente");
-		btnBuscarCliente.setBounds(219, 113, 118, 23);
+		btnBuscarCliente.setBounds(196, 113, 141, 23);
 		panel.add(btnBuscarCliente);
-		
-		btnCargarCliente = new JButton("Cargar Cliente");
-		btnCargarCliente.setBounds(80, 113, 118, 23);
-		panel.add(btnCargarCliente);
+
+		btnRegistrarCliente = new JButton("Registrar Cliente");
+		btnRegistrarCliente.setBounds(28, 113, 141, 23);
+		panel.add(btnRegistrarCliente);
+
+		JLabel lblServicio = new JLabel("Servicio:");
+		lblServicio.setBounds(23, 208, 133, 23);
+		panel.add(lblServicio);
+
+		JCBoxServicio = new JComboBox<String>();
+		JCBoxServicio.setBounds(100, 209, 237, 23);
+		panel.add(JCBoxServicio);
+
+		lblProfesional = new JLabel("Profesional");
+		lblProfesional.setBounds(23, 248, 133, 23);
+		panel.add(lblProfesional);
+
+		JCBoxProfesional = new JComboBox<String>();
+		JCBoxProfesional.setBounds(100, 249, 237, 23);
+		panel.add(JCBoxProfesional);
 
 
 		this.setVisible(false);
@@ -164,9 +197,29 @@ public class VentanaAgregarCita extends JFrame
 		this.btnBuscarCliente = btnBuscarCliente;
 	}
 
+	public List<ServicioDTO> getServiciosEnTabla() {
+		return serviciosEnTabla;
+	}
+
+	public void setServiciosEnTabla(List<ServicioDTO> serviciosEnTabla) {
+		this.serviciosEnTabla = serviciosEnTabla;
+	}
+
 	public void mostrarVentana()
 	{
 		this.setVisible(true);
+	}
+
+	private void cargarHora(JComboBox<Integer> hora) {
+		for(int i=0;i<=23;i++) {
+			hora.addItem(i);
+		}
+	}
+
+	private void cargarMinutos(JComboBox<Integer> min) {
+		for(int i=0;i<=59;i++) {
+			min.addItem(i);
+		}
 	}
 
 	public void mostrarErrorCampos() {
@@ -180,27 +233,16 @@ public class VentanaAgregarCita extends JFrame
 		txtFecha.setText(dia + " de "+ S_mes+" de "+anio);
 	}
 
-	public void llenarTabla(List<ClienteDTO> clientesEnTabla) {
-		this.getModelClientes().setRowCount(0); //Para vaciar la tabla
-		this.getModelClientes().setColumnCount(0);
-		this.getModelClientes().setColumnIdentifiers(this.getNombreColumnas());
-
-		for (ClienteDTO c : clientesEnTabla)
-		{
-			String nombre = c.getNombre();
-			String apellido = c.getApellido();
-			String telefono = c.getTelefono();
-			String mail = c.getMail();
-			int puntos = c.getPuntos();
-			String estadoCliente = c.getEstadoCliente();
-			BigDecimal deuda = c.getDeuda();
-			Object[] fila = {nombre, apellido, telefono, mail, puntos, estadoCliente, deuda};
-			this.getModelClientes().addRow(fila);
+	public void cargarServicios(List<ServicioDTO> serviciosEnTabla) {
+		for (ServicioDTO s : serviciosEnTabla) {
+			JCBoxServicio.addItem(s.getNombre());
 		}
-
 	}
-	private String[] getNombreColumnas() {
-		return nombreColumnas;
+
+	public void cargarProfesionales(List<ProfesionalDTO> profesionalesEnTabla) {
+		for (ProfesionalDTO p : profesionalesEnTabla) {
+			JCBoxProfesional.addItem(p.getNombre());
+		}
 	}
 
 	public void cerrar()

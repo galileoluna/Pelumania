@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import dto.ClienteDTO;
+import dto.ProfesionalDTO;
+import dto.ServicioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
@@ -29,8 +30,11 @@ public class ControladorAgregarCita implements ActionListener{
 
 	private static void inicializarDatos() {
 
-		List<ClienteDTO> listaClientes = INSTANCE.sistema.obtenerClientes();
-		INSTANCE.ventanaAgregarCita.llenarTabla(listaClientes);
+		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
+		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
+
+		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
+		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
 		INSTANCE.ventanaAgregarCita.cargarFecha(ANIO, MES, DIA);
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
 	}
@@ -43,11 +47,11 @@ public class ControladorAgregarCita implements ActionListener{
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
 		return INSTANCE;
 	}
-	
+
 	public void buscarCliente(ActionEvent r) {
 		ventanaBuscarCliente = VentanaBuscarCliente.getInstance();
 		ventanaBuscarCliente.mostrarVentana();
-		
+
 	}
 
 	public static int getANIO() {
@@ -77,7 +81,7 @@ public class ControladorAgregarCita implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
