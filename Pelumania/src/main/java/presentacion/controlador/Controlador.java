@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import modelo.Sistema;
+import presentacion.vista.VentanaCliente;
 import presentacion.vista.Vista;
 
 public class Controlador implements ActionListener {
@@ -23,9 +24,9 @@ public class Controlador implements ActionListener {
 		this.vista = vista;
 		this.sistema = sistema;
 
-		this.vista.getBtnAgregarCliente().addActionListener(a->ventanaAgregarCliente(a));
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
 		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
+		this.vista.getMenuConsultaClientes().addActionListener(l -> ventanaAgregarCliente(l));
 
 		//pruebas
 		this.vista.getBtnAgregarCita().addActionListener(d -> ventanaAgregarCita(d));

@@ -3,7 +3,6 @@ package presentacion.vista;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -28,13 +27,13 @@ public class Vista {
 	private JFrame frame;
 	private JCalendar calendario;
 	private JButton btnServicios;
-	private JButton btnAgregarCliente;
 
 	private JMenu menu;
 	private JMenu mnServicio;
 	private JMenuItem mntmConsultarServicios;
 	private JMenu mnProfesional;
 	private JMenuItem menuConsultarProf;
+	private JMenuItem menuConsultaClientes;
 	private JMenu mnCliente;
 	private DefaultTableModel modelCita;
 	private  String[] nombreColumnas = {"Horario","Cliente","Estado"};
@@ -80,9 +79,9 @@ public class Vista {
 
 		mnCliente = new JMenu("Cliente");
 		menuBar.add(mnCliente);
-
-		menu = new JMenu("");
-		menuBar.add(menu);
+		
+		menuConsultaClientes = new JMenuItem("Consultar Clientes");
+		mnCliente.add(menuConsultaClientes);
 
 
 		JPanel panel = new JPanel();
@@ -96,10 +95,6 @@ public class Vista {
 		calendario.setTodayButtonVisible(true);
 		panel.add(calendario);
 		calendario.setVisible(true);
-
-		btnAgregarCliente = new JButton("Agregar Cliente");
-		btnAgregarCliente.setBounds(620, 60, 152, 39);
-		panel.add(btnAgregarCliente);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(620, 110, 409, 512);
@@ -163,10 +158,6 @@ public class Vista {
 	public void setBtnServicios(JButton btnServicios) {
 		this.btnServicios = btnServicios;
 	}
-	public JButton getBtnAgregarCliente () {
-		return btnAgregarCliente;
-	}
-
 
 	public JMenuItem getMnItmConsultarServicios() {
 		return mntmConsultarServicios;
@@ -186,6 +177,18 @@ public class Vista {
 
 	public void setBtnAgregarCita(JButton btnAgregarCita) {
 		this.btnAgregarCita = btnAgregarCita;
+	}
+
+	public JMenuItem getMenuConsultaClientes() {
+		return menuConsultaClientes;
+	}
+
+	public void setMenuConsultaClientes(JMenuItem menuConsultaClientes) {
+		this.menuConsultaClientes = menuConsultaClientes;
+	}
+
+	public JMenu getMnCliente() {
+		return mnCliente;
 	}
 
 	public DefaultTableModel getmodelCita()

@@ -16,7 +16,7 @@ import dto.ProfesionalDTO;
 import modelo.Sistema;
 import persistencia.conexion.Conexion;
 import presentacion.vista.VentanaProfesional;
-import presentacion.vista.VentanaServicioProfecional;
+import presentacion.vista.VentanaServicioProfesional;
 
 public class ControladorServicioProfesional {
 	private static ControladorServicioProfesional INSTANCE;
@@ -26,7 +26,7 @@ public class ControladorServicioProfesional {
 	private List<String> servEnTabla; 
 	private List<String> allServ;
 	private List<Integer> idServ = new ArrayList<Integer>();
-	private VentanaServicioProfecional ventServProf;
+	private VentanaServicioProfesional ventServProf;
 
 	
 	private ControladorServicioProfesional(Sistema sistema) {
