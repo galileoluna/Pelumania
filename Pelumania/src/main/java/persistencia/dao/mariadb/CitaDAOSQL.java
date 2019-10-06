@@ -30,19 +30,20 @@ public class CitaDAOSQL implements CitaDAO{
 			try
 			{
 				statement = conexion.prepareStatement(insert);
-				statement.setInt	(1, cita.getIdCita());
-				statement.setInt	(2, cita.getIdUsuario());
-				statement.setInt	(3, cita.getIdCliente());
-				statement.setString (4, cita.getNombre());
-				statement.setString (5, cita.getApellido());
-				statement.setString (6, cita.getEstado());
-				statement.setInt (7, cita.getIdProfesional());
-				statement.setInt (8, cita.getIdServicio());
+				statement.setInt	    (1, cita.getIdCita());
+				statement.setInt	    (2, cita.getIdUsuario());
+				statement.setInt	    (3, cita.getIdCliente());
+				statement.setString     (4, cita.getNombre());
+				statement.setString     (5, cita.getApellido());
+				statement.setString     (6, cita.getEstado());
+				statement.setInt        (7, cita.getIdProfesional());
+				statement.setInt        (8, cita.getIdServicio());
 				statement.setBigDecimal (9, cita.getPrecioLocal());
 				statement.setBigDecimal (10, cita.getPrecioDolar());
-				statement.setTime (11, Time.valueOf(cita.getHora()));
-				statement.setDate (12, Date.valueOf(cita.getDia()));
-				statement.setInt (13, cita.getIdSucursal());
+				statement.setTime       (11, Time.valueOf(cita.getHoraInicio()));
+				statement.setTime       (12, Time.valueOf(cita.getHoraFin()));
+				statement.setDate       (13, Date.valueOf(cita.getFecha()));
+				statement.setInt        (14, cita.getIdSucursal());
 
 				if(statement.executeUpdate() > 0)
 				{
@@ -59,9 +60,9 @@ public class CitaDAOSQL implements CitaDAO{
 					e1.printStackTrace();
 				}
 			}
-
 			return isInsertExitoso;
 		}
+	}
 	@Override
 	public boolean delete(CitaDTO cita_a_eliminar) {
 		// TODO Auto-generated method stub

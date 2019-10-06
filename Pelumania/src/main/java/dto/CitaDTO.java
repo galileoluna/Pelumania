@@ -16,7 +16,8 @@ public class CitaDTO{
     private int idServicio;
     private BigDecimal precioLocal;
     private BigDecimal precioDolar;
-    private LocalTime hora;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
     private LocalDate fecha;
     private int idSucursal;
 
@@ -38,22 +39,24 @@ public CitaDTO (int idcita,
                 String estado,
                 int idprofesional,
                 int idservicio,
-                double precioLocal,
-                double precioDolar,
-                LocalTime hora,
+                BigDecimal precioLocal,
+                BigDecimal precioDolar,
+                LocalTime horaInicio,
+                LocalTime horaFin,
                 LocalDate fecha,
                 int idsucursal
 ){
     this.idCita = idcita;
     this.idUsuario = idusuario;
     this.idCliente = idcliente;
-    //this.nombre = Cliente.GETNOMBRE();
-    //this.apellido = Cliente.GETAPELLIDO();
+    this.nombre = nombre;
+    this.apellido = apellido;
     this.estado = estado;
     this.idProfesional = idprofesional;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
-    this.hora = hora;
+    this.horaInicio = horaInicio;
+    this.horaFin = horaFin;
     this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
@@ -70,12 +73,13 @@ public CitaDTO (int idcita,
 public CitaDTO (int idcita,
                 int idusuario,                
                 int idcliente,
-                //String nombre = Cliente.GETNOMBRE();
-                //String apellido = Cliente.GETAPELLIDO();
+                String nombre,
+                String apellido,
                 String estado,
-                double precioLocal,
-                double precioDolar,
-                LocalTime hora,
+                BigDecimal precioLocal,
+                BigDecimal precioDolar,
+                LocalTime horaInicio,
+                LocalTime horaFin,
                 LocalDate fecha,
                 int idsucursal
 ){
@@ -85,7 +89,8 @@ public CitaDTO (int idcita,
     this.estado = estado;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
-    this.hora = hora;
+    this.horaInicio = horaInicio;
+    this.horaFin = horaFin;
     this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
@@ -107,9 +112,10 @@ public CitaDTO (int idcita,
                 String apellido,
                 String estado,
                 int idprofesional,
-                double precioLocal,
-                double precioDolar,
-                LocalTime hora,
+                BigDecimal precioLocal,
+                BigDecimal precioDolar,
+                LocalTime horaInicio,
+                LocalTime horaFin,
                 LocalDate fecha,
                 int idsucursal
 ){
@@ -121,7 +127,8 @@ public CitaDTO (int idcita,
     this.idProfesional = idprofesional;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
-    this.hora = hora;
+    this.horaInicio = horaInicio;
+    this.horaFin = horaFin;
     this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
@@ -182,33 +189,45 @@ public void setIdProfesional(int idProfesional){
     this.idCliente = idProfesional;
 }
 
-public double getPrecioLocal(){
+public BigDecimal getPrecioLocal(){
     return this.precioLocal;
 }
 
-public void setPrecioLocal(double preciolocal){
+public int getIdServicio() {
+	return idServicio;
+}
+public void setIdServicio(int idServicio) {
+	this.idServicio = idServicio;
+}
+public void setPrecioLocal(BigDecimal preciolocal){
     this.precioLocal = preciolocal;
 }
 
-public double getPrecioDolar(){
+public BigDecimal getPrecioDolar(){
     return this.precioDolar;
 }
 
-public void setPrecioDolar(double preciodolar){
+public void setPrecioDolar(BigDecimal preciodolar){
     this.precioDolar = preciodolar;
 }
 
 
-public LocalTime getHora(){
-    return this.hora;
+public LocalTime getHoraInicio(){
+    return this.horaInicio;
 }
 
 public void setHora( LocalTime hora){
-    this.hora = hora;
+    this.horaInicio = hora;
 }
 
+public LocalTime getHoraFin() {
+	return horaFin;
+}
+public void setHoraFin(LocalTime horaFin) {
+	this.horaFin = horaFin;
+}
 
-public LocalDate getfecha(){
+public LocalDate getFecha(){
     return this.fecha;
 }
 
