@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
 
-import dto.ClienteDTO;
 import dto.ServicioDTO;
 import modelo.Sistema;
 import persistencia.dao.mariadb.DAOSQLFactory;
@@ -39,13 +38,13 @@ public class ServiciosTest {
 		//	System.out.println(sistema.obtenerClientes().get(0).getNombre());
 			sistema.deleteRealServicio(sistema.obtenerServicios().get(0));
 		}
-	}
+	} 
 	
 	@Test
 	public void testAgregarVerNombre() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		
 		
@@ -59,7 +58,7 @@ public class ServiciosTest {
 	public void testAgregarVerSizeCon1() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.of(4, 30);
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -71,7 +70,7 @@ public class ServiciosTest {
 	public void testAgregarVerSizeCon3() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -87,7 +86,7 @@ public class ServiciosTest {
 	public void testAgregarServicioConPuntosEnNegativo() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -102,7 +101,7 @@ public class ServiciosTest {
 	public void testAgregarServicioConPuntosEnCero() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -117,7 +116,7 @@ public class ServiciosTest {
 	public void testAgregarServicioConPuntosEnPositivo() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -132,7 +131,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYEliminar() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -147,7 +146,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYEliminarDos() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -163,7 +162,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYModificarVerPuntos() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -178,7 +177,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYModificarVerPrecioDolar() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -197,7 +196,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYModificarVerPrecioPeso() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -216,16 +215,16 @@ public class ServiciosTest {
 	public void testAgregarServicioYModificarVerHora() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
 		
-		hora=LocalTime.parse("0060");
-		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
+		LocalTime hora1=LocalTime.of(4, 30);
+		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora1,10,"activo");
 		sistema.editarServicio(nuevoServicio);
 		
-		if(sistema.obtenerServicios().get(0).getDuracion().compareTo(hora)==0) 
+		if(sistema.obtenerServicios().get(0).getDuracion().compareTo(hora1)==0) 
 			assertTrue(true);
 		else assertTrue(false);
 		
@@ -235,7 +234,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYModificarVerNombre() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -250,7 +249,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYModificarEstado() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
@@ -264,7 +263,7 @@ public class ServiciosTest {
 	public void testAgregarServicioYModificarEstadoActivo() {
 		BigDecimal precioPeso=new BigDecimal(60);
 		BigDecimal precioDolar=new BigDecimal(1);
-		LocalTime hora=LocalTime.parse("0030");
+		LocalTime hora=LocalTime.now();
 		
 		nuevoServicio=new ServicioDTO(1,"corte de pelo",precioPeso,precioDolar,hora,10,"activo");
 		sistema.agregarServicio(nuevoServicio);
