@@ -5,13 +5,11 @@ import static org.junit.Assert.*;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
-import org.junit.Test;
-
-
 import org.junit.After;
 import org.junit.Before;
 
 import dto.ServicioDTO;
+import junit.framework.Test;
 import modelo.Sistema;
 import persistencia.dao.mariadb.DAOSQLFactory;
 

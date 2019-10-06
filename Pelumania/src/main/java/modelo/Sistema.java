@@ -77,7 +77,7 @@ public class Sistema
 	}
 	
 	public void deleteRealServicio(ServicioDTO servicio_a_eliminar) {
-		return this.servicio.deleteReal(servicio_a_eliminar);
+		this.servicio.deleteRealServicio(servicio_a_eliminar);
 	}
 
 	public void agregarProfesional(ProfesionalDTO nuevoProfesional) {

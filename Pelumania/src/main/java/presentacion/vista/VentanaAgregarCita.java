@@ -170,8 +170,11 @@ public class VentanaAgregarCita extends JFrame
 		INSTANCE = iNSTANCE;
 	}
 
-	public void setBtnAgregarServicio(JButton btn_AgregarServicio) {
-		this.btn_AgregarCita = btn_AgregarServicio;
+	public JButton getBtnAgregarCita () {
+		return this.btn_AgregarCita;
+	}
+	public void setBtnAgregarCita(JButton btn_AgregarCita) {
+		this.btn_AgregarCita = btn_AgregarCita;
 	}
 
 	public JButton getBtn_Cancelar() {
@@ -220,6 +223,46 @@ public class VentanaAgregarCita extends JFrame
 
 	public void setJCBoxProfesional(JComboBox<ProfesionalDTO> jCBoxProfesional) {
 		JCBoxProfesional = jCBoxProfesional;
+	}
+
+	public JTextField getTxtFecha() {
+		return txtFecha;
+	}
+
+	public void setTxtFecha(JTextField txtFecha) {
+		this.txtFecha = txtFecha;
+	}
+
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+
+	public JComboBox<Integer> getJCBoxHora() {
+		return JCBoxHora;
+	}
+
+	public void setJCBoxHora(JComboBox<Integer> jCBoxHora) {
+		JCBoxHora = jCBoxHora;
+	}
+
+	public JComboBox<Integer> getJCBoxMinutos() {
+		return JCBoxMinutos;
+	}
+
+	public void setJCBoxMinutos(JComboBox<Integer> jCBoxMinutos) {
+		JCBoxMinutos = jCBoxMinutos;
 	}
 
 	public void mostrarVentana()

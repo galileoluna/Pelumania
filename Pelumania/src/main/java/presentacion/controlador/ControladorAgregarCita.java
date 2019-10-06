@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import modelo.Sistema;
@@ -26,10 +27,12 @@ public class ControladorAgregarCita implements ActionListener{
 	private static int ANIO;
 	private static int MES;
 	private static int DIA;
+	
+	private static int idCliente;
 
 	private ControladorAgregarCita(Sistema sistema) {
 		this.ventanaAgregarCita = VentanaAgregarCita.getInstance();
-		//this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarServicio(p));
+		this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarCita(p));
 		this.ventanaAgregarCita.getBtnRegistrarCliente().addActionListener(q -> registrarCliente(q));
 		this.ventanaAgregarCita.getBtnBuscarCliente().addActionListener(r -> buscarCliente(r));
 		this.sistema = sistema;
@@ -67,6 +70,27 @@ public class ControladorAgregarCita implements ActionListener{
 		controladorCliente = ControladorCliente.getInstance(sistema);
 	}
 
+	public void guardarCita(ActionEvent p) {
+		int idcliente = idCliente;
+		String nombre = this.ventanaAgregarCita.getTxtNombre().getText();
+		String apellido = this.ventanaAgregarCita.getTxtApellido().getText();
+		String estado = "Activa";
+		ProfesionalDTO Profesional = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
+		int idProfesional = Profesional.getIdProfesional();
+		ServicioDTO Servicio = (ServicioDTO) this.ventanaAgregarCita.getJCBoxServicio().getSelectedItem();
+		int idServicio = Servicio.getIdServicio();
+		String S_precioLocal = Servicio.getPrecioLocal().toString();
+		String S_precioDolar = Servicio.getPrecioLocal().toString();
+		String S_hora = ""; 
+		String S_fecha = ""; 
+		int idSucursal = -1; 
+		
+		/*
+		CitaDTO nuevaCita = new CitaDTO();
+		this.sistema.agregarCita(nuevaCita);
+		*/
+	}
+	
 	public static int getANIO() {
 		return ANIO;
 	}
@@ -89,6 +113,14 @@ public class ControladorAgregarCita implements ActionListener{
 
 	public static void setDIA(int dIA) {
 		DIA = dIA;
+	}
+
+	public static int getIdCliente() {
+		return idCliente;
+	}
+
+	public static void setIdCliente(int idCliente) {
+		ControladorAgregarCita.idCliente = idCliente;
 	}
 
 	@Override
