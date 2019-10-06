@@ -1,5 +1,6 @@
 package dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,12 +13,12 @@ public class CitaDTO{
     private String apellido;
     private String estado;
     private int idProfesional;
-    private double precioLocal;
-    private double precioDolar;
+    private int idServicio;
+    private BigDecimal precioLocal;
+    private BigDecimal precioDolar;
     private LocalTime hora;
     private LocalDate fecha;
     private int idSucursal;
-    //Falta modelar los servicios asociados del turno
 
     /***
  * Constructor para una Cita con un Cliente registrado(Posee ID)
@@ -32,10 +33,11 @@ public class CitaDTO{
 public CitaDTO (int idcita,
                 int idusuario,                
                 int idcliente,
-                //this.nombre = Cliente.GETNOMBRE();
-                //this.apellido = Cliente.GETAPELLIDO();
+                String nombre,
+                String apellido,
                 String estado,
                 int idprofesional,
+                int idservicio,
                 double precioLocal,
                 double precioDolar,
                 LocalTime hora,
