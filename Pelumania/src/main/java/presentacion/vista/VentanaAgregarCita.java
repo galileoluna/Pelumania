@@ -36,6 +36,7 @@ public class VentanaAgregarCita extends JFrame
 
 	private JButton btnBuscarCliente;
 	private JButton btnRegistrarCliente;
+	
 	private JComboBox<Integer> JCBoxHora;
 	private JComboBox<Integer> JCBoxMinutos;
 	private JComboBox<ServicioDTO> JCBoxServicio;
@@ -43,6 +44,8 @@ public class VentanaAgregarCita extends JFrame
 	private JLabel lblProfesional;
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
+	private LocalDate fechaCita;
+	private int idCliente = -1;
 
 
 	public static VentanaAgregarCita getInstance()
@@ -265,6 +268,22 @@ public class VentanaAgregarCita extends JFrame
 		JCBoxMinutos = jCBoxMinutos;
 	}
 
+	public LocalDate getFechaCita() {
+		return fechaCita;
+	}
+
+	public void setFechaCita(LocalDate fechaCita) {
+		this.fechaCita = fechaCita;
+	}
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+
 	public void mostrarVentana()
 	{
 		this.setVisible(true);
@@ -291,6 +310,7 @@ public class VentanaAgregarCita extends JFrame
 		LocalDate fecha = LocalDate.of(anio, mes, dia);
 		String S_mes = fecha.getMonth().toString();
 		txtFecha.setText(dia + " de "+ S_mes+" de "+anio);
+		this.setFechaCita(fecha);
 	}
 
 	public void cargarServicios(List<ServicioDTO> serviciosEnTabla) {

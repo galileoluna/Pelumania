@@ -37,7 +37,7 @@ public class VentanaBuscarCliente extends JFrame
 	JComboBox<String> CBoxBuscarPor;
 
 	private static List<String> filtrosColumnas = new ArrayList<String>(Arrays.asList("ID","Nombre","Apellido","Telefono","Mail"));
-	private JButton btnCargarCliente;
+	private JButton btnSeleccionarCliente;
 
 	public static VentanaBuscarCliente getInstance()
 	{
@@ -104,10 +104,9 @@ public class VentanaBuscarCliente extends JFrame
 
 		spClientes.setViewportView(tablaClientes);
 
-		btnCargarCliente = new JButton("Cargar Cliente");
-		btnCargarCliente.setBounds(571, 233, 118, 23);
-		panel.add(btnCargarCliente);
-
+		btnSeleccionarCliente = new JButton("Seleccionar Cliente");
+		btnSeleccionarCliente.setBounds(571, 233, 118, 23);
+		panel.add(btnSeleccionarCliente);
 
 		this.setVisible(false);
 	}
@@ -118,6 +117,14 @@ public class VentanaBuscarCliente extends JFrame
 
 	public static void setINSTANCE(VentanaBuscarCliente iNSTANCE) {
 		INSTANCE = iNSTANCE;
+	}
+
+	public JButton getBtnSeleccionarCliente() {
+		return btnSeleccionarCliente;
+	}
+
+	public void setBtnSeleccionarCliente(JButton btnSeleccionarCliente) {
+		this.btnSeleccionarCliente = btnSeleccionarCliente;
 	}
 
 	public JButton getBtn_Cancelar() {
@@ -144,6 +151,7 @@ public class VentanaBuscarCliente extends JFrame
 		this.modelClientes = modelClientes;
 	}
 
+	
 	public void mostrarVentana()
 	{
 		this.setVisible(true);

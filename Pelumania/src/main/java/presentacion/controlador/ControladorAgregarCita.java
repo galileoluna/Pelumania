@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
 import java.util.List;
 
 import dto.CitaDTO;
@@ -28,7 +29,7 @@ public class ControladorAgregarCita implements ActionListener{
 	private static int MES;
 	private static int DIA;
 	
-	private static int idCliente;
+
 
 	private ControladorAgregarCita(Sistema sistema) {
 		this.ventanaAgregarCita = VentanaAgregarCita.getInstance();
@@ -61,9 +62,7 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 
 	public void buscarCliente(ActionEvent r) {
-		ventanaBuscarCliente = VentanaBuscarCliente.getInstance();
-		ventanaBuscarCliente.mostrarVentana();
-
+		ControladorBuscarCliente.getInstance(sistema, this.ventanaAgregarCita);
 	}
 
 	public void registrarCliente(ActionEvent q) {
@@ -71,7 +70,7 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 
 	public void guardarCita(ActionEvent p) {
-		int idcliente = idCliente;
+		int idcliente = this.ventanaAgregarCita.getIdCliente();
 		String nombre = this.ventanaAgregarCita.getTxtNombre().getText();
 		String apellido = this.ventanaAgregarCita.getTxtApellido().getText();
 		String estado = "Activa";
@@ -80,11 +79,26 @@ public class ControladorAgregarCita implements ActionListener{
 		ServicioDTO Servicio = (ServicioDTO) this.ventanaAgregarCita.getJCBoxServicio().getSelectedItem();
 		int idServicio = Servicio.getIdServicio();
 		String S_precioLocal = Servicio.getPrecioLocal().toString();
-		String S_precioDolar = Servicio.getPrecioLocal().toString();
-		String S_hora = ""; 
-		String S_fecha = ""; 
+		String S_precioDolar = Servicio.getPrecioDolar().toString();
+		
+		Integer hora = (Integer )this.ventanaAgregarCita.getJCBoxHora().getSelectedItem();
+		Integer minutos = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
+		LocalTime HoraCita = LocalTime.of(hora, minutos);
+		String S_hora = HoraCita.toString();
+		String S_fecha = this.ventanaAgregarCita.getFechaCita().toString(); 
 		int idSucursal = -1; 
 		
+		System.out.println(idcliente + "\n" +
+				nombre + "\n" +
+				apellido + "\n" +
+				estado + "\n" +
+				idProfesional+ "\n" +
+				idServicio + "\n" +
+				S_precioLocal + "\n" +
+				S_precioDolar + "\n" +
+				S_hora + "\n" +
+				S_fecha+ "\n" +
+				idSucursal);
 		/*
 		CitaDTO nuevaCita = new CitaDTO();
 		this.sistema.agregarCita(nuevaCita);
@@ -113,14 +127,6 @@ public class ControladorAgregarCita implements ActionListener{
 
 	public static void setDIA(int dIA) {
 		DIA = dIA;
-	}
-
-	public static int getIdCliente() {
-		return idCliente;
-	}
-
-	public static void setIdCliente(int idCliente) {
-		ControladorAgregarCita.idCliente = idCliente;
 	}
 
 	@Override
