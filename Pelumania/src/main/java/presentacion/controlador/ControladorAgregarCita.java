@@ -73,8 +73,7 @@ public class ControladorAgregarCita implements ActionListener{
 	public void guardarCita(ActionEvent p) {
 		//Levanto los datos de la ventanaCita
 		Integer idcliente = this.ventanaAgregarCita.getIdCliente();
-		if (idcliente == -1)
-			idcliente = null;
+		if (idcliente == -1);
 		
 		//HARDCODEADO IDUSUARIO
 		Integer idUsuario = -1;
@@ -121,16 +120,15 @@ public class ControladorAgregarCita implements ActionListener{
 				"Fecha " + S_fecha+ "\n" +
 				"idSucursal " + idSucursal);
 		
-		if (idcliente == -1) {
 		CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado, idProfesional, idServicio,
 				Servicio.getPrecioLocal(), Servicio.getPrecioDolar(), HoraCitaInicio, HoraCitaFin, fecha,
 				idSucursal);
+		
+		System.out.println(nuevaCita);
+		
+		if (idcliente == -1)
 		this.sistema.agregarCitaSinCliente(nuevaCita);
-		}
 		else{
-			CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado, idProfesional, idServicio,
-					Servicio.getPrecioLocal(), Servicio.getPrecioDolar(), HoraCitaInicio, HoraCitaFin, fecha,
-					idSucursal);
 			this.sistema.agregarCita(nuevaCita);
 			}
 	}
