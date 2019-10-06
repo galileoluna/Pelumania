@@ -71,13 +71,13 @@ public class ControladorCliente implements ActionListener {
 			this.listaClientes = this.sistema.obtenerClientes();
 			this.ventanaCliente.llenarTabla(listaClientes);
 			this.ventanaCliente.limpiarInputs();
+			INSTANCE.ventanaCliente.mostrarExitoAlta();
 
 		} else {
 
 			this.ventanaCliente.mostrarErrorCamposInvalidos();
 		}
 		
-		INSTANCE.ventanaCliente.mostrarExitoAlta();
 
 	}
 

@@ -11,6 +11,7 @@ import java.util.List;
 import dto.ClienteDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ClienteDAO;
+import util.Validador;
 
 public class ClienteDAOSQL implements ClienteDAO
 {
@@ -28,6 +29,7 @@ public class ClienteDAOSQL implements ClienteDAO
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
+//		if(esClienteValido(cliente)) {
 		try
 		{
 			statement = conexion.prepareStatement(insert);
@@ -55,6 +57,7 @@ public class ClienteDAOSQL implements ClienteDAO
 				e1.printStackTrace();
 			}
 		}
+//	 }
 
 		return isInsertExitoso;
 	}
@@ -65,6 +68,7 @@ public class ClienteDAOSQL implements ClienteDAO
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
+		if (esClienteValido(cliente_a_eliminar)) {
 		try
 		{
 			statement = conexion.prepareStatement(delete);
@@ -80,6 +84,7 @@ public class ClienteDAOSQL implements ClienteDAO
 		{
 			e.printStackTrace();
 		}
+	 }
 		return isdeleteExitoso;
 	}
 
@@ -125,6 +130,7 @@ public class ClienteDAOSQL implements ClienteDAO
 		PreparedStatement statement;
 		int chequeoUpdate = 0;
 		Conexion conexion = Conexion.getConexion();
+		if (esClienteValido(cliente_a_editar)) {
 		try
 		{
 			statement = conexion.getSQLConexion().prepareStatement(update);
@@ -150,7 +156,7 @@ public class ClienteDAOSQL implements ClienteDAO
 			System.out.println("false");
 			e.printStackTrace();
 		}
-
+	 }
 		return false;
 	}
 
@@ -175,5 +181,20 @@ public class ClienteDAOSQL implements ClienteDAO
 			e.printStackTrace();
 		}
 		return isdeleteExitoso;
+	}
+	
+	private boolean esClienteValido(ClienteDTO cliente){
+		if (Validador.esNombreConEspaciosValido(cliente.getNombre()) 
+			&& Validador.esNombreConEspaciosValido(cliente.getApellido())
+			&& Validador.esMail(cliente.getMail()) 
+			&& Validador.esEstadoClienteValido(cliente.getEstadoCliente()) 
+			&& Validador.esPrecioValido(String.valueOf(cliente.getDeuda()))) 
+		{
+			return true;
+		
+		} else {
+			
+		return false;
+	  } 
 	}
 }
