@@ -16,5 +16,6 @@ public interface ServicioDAO {
 	
 	public List<ServicioDTO> readAll();
 
+	public boolean deleteRealServicio(ServicioDTO servicio_a_eliminar);
 }
 

@@ -75,6 +75,10 @@ public class Sistema
 	public List<ServicioDTO> obtenerServicios(){
 		return this.servicio.readAll();
 	}
+	
+	public void deleteRealServicio(ServicioDTO servicio_a_eliminar) {
+		return this.servicio.deleteReal(servicio_a_eliminar);
+	}
 
 	public void agregarProfesional(ProfesionalDTO nuevoProfesional) {
 		this.profesional.insert(nuevoProfesional);

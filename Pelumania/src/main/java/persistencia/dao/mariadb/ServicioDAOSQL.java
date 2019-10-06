@@ -24,6 +24,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 	private static final String delete = "UPDATE  Servicio SET Estado=? WHERE idServicio = ?";
 	private static final String readall = " SELECT * FROM servicio";
 	private static final String getById = "SELECT * FROM servicio WHERE idServicio = ?";
+	private static final String deleteRealServicio = "DELETE FROM Servicio WHERE idServicio = ?";
 	
 	private static final String ESTADO_INACTIVO = "Inactivo";
 
@@ -154,6 +155,25 @@ public class ServicioDAOSQL implements ServicioDAO{
 			e.printStackTrace();
 		}
 		return servicios.get(0);
+	}
+	
+	
+	public boolean deleteRealServicio(ServicioDTO servicio_a_eliminar) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		try {
+			statement = conexion.prepareStatement(deleteRealServicio);
+			statement.setInt(1, servicio_a_eliminar.getIdServicio());
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isdeleteExitoso;
 	}
 	
 	private ServicioDTO getServicioDTO(ResultSet resultSet) throws SQLException{
