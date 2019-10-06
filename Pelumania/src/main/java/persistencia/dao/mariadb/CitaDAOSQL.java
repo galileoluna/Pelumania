@@ -15,7 +15,10 @@ public class CitaDAOSQL implements CitaDAO{
 
 	private static final String insert = "INSERT INTO Cita( idCita, idUsuario, idCliente,"
 			+ "NombreCliente, ApellidoCliente, EstadoTurno, IdProfesional, IdServicio,"
-			+ "PrecioLocal, PrecioDolar, Hora, Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insertSinRegistrar = "INSERT INTO Cita( idCita, idUsuario,"
+			+ "NombreCliente, ApellidoCliente, EstadoTurno, IdProfesional, IdServicio,"
+			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "UPDATE  Cita SET EstadoCita =? WHERE idCita = ?";
 	private static final String readall = "SELECT * FROM Cita";
 	private static final String update = "UPDATE  Cita SET ____ WHERE idCliente=?";
@@ -63,6 +66,49 @@ public class CitaDAOSQL implements CitaDAO{
 			return isInsertExitoso;
 		}
 	}
+	
+	@Override
+	public boolean insertSinRegistrar(CitaDTO cita) {
+		{
+			PreparedStatement statement;
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+			boolean isInsertExitoso = false;
+			try
+			{
+				statement = conexion.prepareStatement(insertSinRegistrar);
+				statement.setInt	    (1, cita.getIdCita());
+				statement.setInt	    (2, cita.getIdUsuario());
+				statement.setString     (3, cita.getNombre());
+				statement.setString     (4, cita.getApellido());
+				statement.setString     (5, cita.getEstado());
+				statement.setInt        (6, cita.getIdProfesional());
+				statement.setInt        (7, cita.getIdServicio());
+				statement.setBigDecimal (8, cita.getPrecioLocal());
+				statement.setBigDecimal (9, cita.getPrecioDolar());
+				statement.setTime       (10, Time.valueOf(cita.getHoraInicio()));
+				statement.setTime       (11, Time.valueOf(cita.getHoraFin()));
+				statement.setDate       (12, Date.valueOf(cita.getFecha()));
+				statement.setInt        (13, cita.getIdSucursal());
+
+				if(statement.executeUpdate() > 0)
+				{
+					conexion.commit();
+					isInsertExitoso = true;
+				}
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+				try {
+					conexion.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			return isInsertExitoso;
+		}
+	}
+	
 	@Override
 	public boolean delete(CitaDTO cita_a_eliminar) {
 		// TODO Auto-generated method stub

@@ -45,7 +45,7 @@ public class VentanaAgregarCita extends JFrame
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
 	private LocalDate fechaCita;
-	private int idCliente = -1;
+	private Integer idCliente = -1;
 
 
 	public static VentanaAgregarCita getInstance()
@@ -276,11 +276,11 @@ public class VentanaAgregarCita extends JFrame
 		this.fechaCita = fechaCita;
 	}
 
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 

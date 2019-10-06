@@ -7,6 +7,8 @@ import dto.CitaDTO;
 public interface CitaDAO {
 
 	public boolean insert(CitaDTO cita);
+	
+	public boolean insertSinRegistrar(CitaDTO cita);
 
 	public boolean delete(CitaDTO cita_a_eliminar);
 

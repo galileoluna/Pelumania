@@ -150,6 +150,11 @@ public class Sistema
 		this.cita.insert(nuevaCita);
 	}
 
+	public void agregarCitaSinCliente(CitaDTO nuevaCita)
+	{
+		this.cita.insertSinRegistrar(nuevaCita);
+	}
+	
 	public void borrarcita(CitaDTO cita_a_eliminar)
 	{
 		this.cita.delete(cita_a_eliminar);

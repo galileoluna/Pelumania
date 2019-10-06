@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -70,7 +71,14 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 
 	public void guardarCita(ActionEvent p) {
-		int idcliente = this.ventanaAgregarCita.getIdCliente();
+		//Levanto los datos de la ventanaCita
+		Integer idcliente = this.ventanaAgregarCita.getIdCliente();
+		if (idcliente == -1)
+			idcliente = null;
+		
+		//HARDCODEADO IDUSUARIO
+		Integer idUsuario = -1;
+		//---------------------
 		String nombre = this.ventanaAgregarCita.getTxtNombre().getText();
 		String apellido = this.ventanaAgregarCita.getTxtApellido().getText();
 		String estado = "Activa";
@@ -83,26 +91,48 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		Integer hora = (Integer )this.ventanaAgregarCita.getJCBoxHora().getSelectedItem();
 		Integer minutos = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
-		LocalTime HoraCita = LocalTime.of(hora, minutos);
-		String S_hora = HoraCita.toString();
-		String S_fecha = this.ventanaAgregarCita.getFechaCita().toString(); 
-		int idSucursal = -1; 
+		LocalTime HoraCitaInicio = LocalTime.of(hora, minutos);
+		String S_HoraInicio = HoraCitaInicio.toString();
+		//Obtengo la parte Hora y la parte MInutos de la duracion del servicio
+		int horaDuracionServicio = Servicio.getDuracion().getHour();
+		int minutosDuracionServicio = Servicio.getDuracion().getMinute();
+		//Le sumo la parte de las horas
+		LocalTime HoraCitaFinTemporal = HoraCitaInicio.plusHours(horaDuracionServicio);
+		//Le sumo la parte de los minutos
+		LocalTime HoraCitaFin = HoraCitaFinTemporal.plusMinutes(minutosDuracionServicio);
 		
-		System.out.println(idcliente + "\n" +
-				nombre + "\n" +
-				apellido + "\n" +
-				estado + "\n" +
-				idProfesional+ "\n" +
-				idServicio + "\n" +
-				S_precioLocal + "\n" +
-				S_precioDolar + "\n" +
-				S_hora + "\n" +
-				S_fecha+ "\n" +
+		String S_HoraFin = HoraCitaFin.toString();
+		String S_fecha = this.ventanaAgregarCita.getFechaCita().toString();
+		LocalDate fecha = this.ventanaAgregarCita.getFechaCita();
+		//HARDCODEADO
+		int idSucursal = 1; 
+		
+		System.out.println("Id Cliente " + idcliente + "\n" +
+				"IdUsuario " + idUsuario + "\n" +
+				"Nombre " + nombre + "\n" +
+				"Apellido " + apellido + "\n" +
+				"Estado " + estado + "\n" +
+				"IdProf " + idProfesional+ "\n" +
+				"IdServ " + idServicio + "\n" +
+				"PrecioLocal" + S_precioLocal + "\n" +
+				"PrecioDolar " + S_precioDolar + "\n" +
+				"horaInicio " + S_HoraInicio + "\n" +
+				"horafin " + S_HoraFin + "\n" +
+				"Fecha " + S_fecha+ "\n" +
+				"idSucursal " + idSucursal);
+		
+		if (idcliente == -1) {
+		CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado, idProfesional, idServicio,
+				Servicio.getPrecioLocal(), Servicio.getPrecioDolar(), HoraCitaInicio, HoraCitaFin, fecha,
 				idSucursal);
-		/*
-		CitaDTO nuevaCita = new CitaDTO();
-		this.sistema.agregarCita(nuevaCita);
-		*/
+		this.sistema.agregarCitaSinCliente(nuevaCita);
+		}
+		else{
+			CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado, idProfesional, idServicio,
+					Servicio.getPrecioLocal(), Servicio.getPrecioDolar(), HoraCitaInicio, HoraCitaFin, fecha,
+					idSucursal);
+			this.sistema.agregarCita(nuevaCita);
+			}
 	}
 	
 	public static int getANIO() {
