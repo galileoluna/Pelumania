@@ -24,7 +24,7 @@ public class Controlador implements ActionListener {
 
 	public Controlador(Vista vista, Sistema sistema)
 	{
-		this.vista = vista;
+		this.vista = vista; 
 		this.sistema = sistema;
 //		this.vista.getCalendario().addPropertyChangeListener(dale());
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
