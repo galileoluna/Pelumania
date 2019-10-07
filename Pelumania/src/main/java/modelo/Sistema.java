@@ -156,11 +156,18 @@ public class Sistema
 		return this.cita.insertSinRegistrar(nuevaCita);
 	}
 	
-	public void borrarcita(CitaDTO cita_a_eliminar)
+	public boolean borrarcita(CitaDTO cita_a_eliminar)
 	{
-		this.cita.delete(cita_a_eliminar);
+		return this.cita.delete(cita_a_eliminar);
+	}
+	
+	public boolean deleteReal(CitaDTO cita_a_eliminar) {
+		return this.cita.deleteReal(cita_a_eliminar);
 	}
 
+	public boolean cancelarCita(CitaDTO cita_a_cancelar) {
+		return this.cita.cancelar(cita_a_cancelar);
+	}
 	public void editarCita(CitaDTO cita_a_editar)
 	{
 		this.cita.update(cita_a_editar);

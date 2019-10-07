@@ -13,6 +13,8 @@ public interface CitaDAO {
 	public boolean delete(CitaDTO cita_a_eliminar);
 
 	public boolean update(CitaDTO cita_a_eliminar);
+	
+	public boolean cancelar(CitaDTO cita_a_cancelar);
 
 	public List<CitaDTO> readAll();
 
