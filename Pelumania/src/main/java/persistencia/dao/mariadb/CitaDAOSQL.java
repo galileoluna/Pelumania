@@ -264,7 +264,6 @@ public class CitaDAOSQL implements CitaDAO{
 		Date dia=resultSet.getDate("Dia");
 		String sucursal=resultSet.getString("s.NombreSucursal");
 		String estado=resultSet.getString("c.EstadoTurno");
-		System.out.println(estado);
 		return new CitaDTO(idCita,profesional,cliente,hora,dia,sucursal,estado);
 	}
 }

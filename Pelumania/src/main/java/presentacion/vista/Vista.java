@@ -202,12 +202,10 @@ public class Vista {
 		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
 		this.getmodelCita().setColumnCount(0);
 		this.getmodelCita().setColumnIdentifiers(this.getNombreColumnas());
-		System.out.println(CitaslEnTabla);
 		for (CitaDTO c : CitaslEnTabla) {
 			Time hora= c.getHoraTurno();
 			String cliente=c.getNombre();
 			String estado=c.getEstado();
-			System.out.println(estado);
 			Object[] fila = {hora, cliente,estado};
 			this.getmodelCita().addRow(fila);
 		}
