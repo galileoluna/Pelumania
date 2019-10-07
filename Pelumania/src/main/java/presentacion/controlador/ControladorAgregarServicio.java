@@ -30,6 +30,7 @@ public class ControladorAgregarServicio implements ActionListener {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorAgregarServicio(sistema);
 		}
+		INSTANCE.ventanaAgregarServicio.limpiarCampos();
 		INSTANCE.ventanaAgregarServicio.mostrarVentana();
 		return INSTANCE;
 	}

@@ -195,6 +195,13 @@ public class VentanaAgregarServicio extends JFrame
 				JOptionPane.ERROR_MESSAGE);
 	}
 
+	public void limpiarCampos() {
+		this.getTxtNombre().setText(null);
+		this.getTxtPrecioLocal().setText(null);
+		this.getTxtPrecioDolar().setText(null);
+		this.getTxtDuracion().setText(null);
+		this.getTxtPuntos().setText(null);
+	}
 	public void cerrar()
 	{
 		this.dispose();
