@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `Cita`(
     FOREIGN KEY (`IdProfesional`) REFERENCES `Profesional`(`IdProfesional`),
     FOREIGN KEY (`IdCliente`) REFERENCES `Cliente`(`idCliente`),
     FOREIGN KEY (`IdSucursal`) REFERENCES `Sucursal`(`idSucursal`),
-    FOREIGN KEY (`IdServicio`) REFERENCES `Servicio`(`IdServicio`)   
+    --FOREIGN KEY (`IdServicio`) REFERENCES `Servicio`(`IdServicio`)   
 );
 
 CREATE TABLE IF NOT EXISTS `Caja`(
