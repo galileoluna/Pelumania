@@ -209,7 +209,7 @@ public class Vista {
 		this.getmodelCita().setColumnIdentifiers(this.getNombreColumnas());
 		for (CitaDTO c : CitaslEnTabla) {
 			LocalTime hora= c.getHoraInicio();
-			String cliente=c.getNombre()+" "+c.getApellido();
+			String cliente=c.getNombre();
 			String estado=c.getEstado();
 			Object[] fila = {hora, cliente,estado};
 			this.getmodelCita().addRow(fila);
