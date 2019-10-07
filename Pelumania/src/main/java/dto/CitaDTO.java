@@ -20,6 +20,8 @@ public class CitaDTO{
     private LocalTime horaFin;
     private LocalDate fecha;
     private int idSucursal;
+	private String nomProfesional;
+	private String nomSucursal;
 
     /***
  * Constructor para una Cita con un Cliente registrado(Posee ID)
@@ -132,6 +134,21 @@ public CitaDTO (int idcita,
     this.fecha = fecha;
     this.idSucursal = idsucursal;
 }
+
+//Contructor para visualizacion de turno por tabla
+// se pueden agregar mas campos o sacarlos hasta que definamos bien que mostrar con esto creo que alcanza
+public CitaDTO(int idCita2, String profesional, String cliente, BigDecimal precioLocal2, BigDecimal precioDolar2,
+		LocalTime hora, LocalDate dia, String sucursal, String estado2) {
+	this.idCita=idCita2;
+	this.setNomProfesional(profesional);
+	this.nombre=cliente;
+	this.precioLocal=precioLocal2;
+	this.precioDolar=precioDolar2;
+	this.horaInicio=hora;
+	this.fecha=dia;
+	this.setNomSucursal(sucursal);
+	this.estado=estado;
+}
 public int getIdCita(){
     return this.idCita;
 }
@@ -241,6 +258,18 @@ public int getIdSucursal(){
 
 public void setIdSucursal(int idsucursal){
     this.idSucursal = idsucursal;
+}
+public String getNomProfesional() {
+	return nomProfesional;
+}
+public void setNomProfesional(String nomProfesional) {
+	this.nomProfesional = nomProfesional;
+}
+public String getNomSucursal() {
+	return nomSucursal;
+}
+public void setNomSucursal(String nomSucursal) {
+	this.nomSucursal = nomSucursal;
 }
 
 }

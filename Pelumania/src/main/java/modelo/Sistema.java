@@ -56,6 +56,7 @@ public class Sistema
 		return this.cliente.readAll();
 	}
 
+	
 	public void agregarServicio(ServicioDTO nuevoServicio) {
 		this.servicio.insert(nuevoServicio);
 	}
@@ -168,6 +169,12 @@ public class Sistema
 	public List<CitaDTO> obtenerCitas()
 	{
 		return this.cita.readAll();
+	}
+	
+	// Funcion que obtiene la lista que se va a visualizar con los turnos ocupados
+	//Recibe un string con el dia a buscar 
+	public List<CitaDTO> obtenerTablaCita( String dia ){
+		return this.cita.readCitaPorDia(dia);
 	}
 
 
