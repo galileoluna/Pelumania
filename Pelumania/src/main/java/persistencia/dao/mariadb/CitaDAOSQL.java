@@ -14,6 +14,7 @@ import java.util.List;
 
 import dto.CitaDTO;
 import dto.ClienteDTO;
+import dto.ProfesionalDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.CitaDAO;
 
@@ -30,7 +31,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String deleteReal = "DELETE FROM Cita WHERE idCita = ?";
 	private static final String cancel = "UPDATE Cita SET EstadoCita = ? WHERE idCita = ?";
 	private static final String readall = "SELECT * FROM Cita";
-	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.Hora,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
+	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal,c.idCita, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.Hora,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
 	private static final String update = "UPDATE  Cita SET ____ WHERE idCliente=?";
 	
 	private static final String DADODEBAJA = "Cerrado";
@@ -231,21 +232,39 @@ public class CitaDAOSQL implements CitaDAO{
 	}
 
 	public List<CitaDTO> readCitaPorDia (String dia_a_buscar) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		List<CitaDTO> profesional = new ArrayList<CitaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readTabla);
+			statement.setString(1, dia_a_buscar);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				profesional.add(getCitaDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return profesional;
 	}
+	
 	
 	// Este get Cita recibe los parametros necesarios para armar CitaDTO para la visualizacion del turno por tabla
 	private CitaDTO getCitaDTO(ResultSet resultSet) throws SQLException{
-		int idCita = resultSet.getInt("idCita");
-		String profesional = resultSet.getString(" p.Nombre")+" "+resultSet.getString("p.Apellido");
+		int idCita = resultSet.getInt("c.idCita");
+		String profesional = resultSet.getString("p.Nombre")+" "+resultSet.getString("p.Apellido");
 		String cliente= resultSet.getString("cl.Nombre")+" "+resultSet.getString("cl.Apellido");
-		BigDecimal precioLocal =resultSet.getBigDecimal("p.PrecioLocal");
-		BigDecimal precioDolar=resultSet.getBigDecimal("p.PrecioDolar");
-		LocalTime hora=LocalTime.parse((CharSequence) resultSet.getTime("Hora"));
-		LocalDate dia=LocalDate.parse((CharSequence) resultSet.getTime("Dia"));
+		Time hora=resultSet.getTime("hora");
+		Date dia=resultSet.getDate("Dia");
 		String sucursal=resultSet.getString("s.NombreSucursal");
 		String estado=resultSet.getString("c.EstadoTurno");
-		return new CitaDTO(idCita,profesional,cliente,precioLocal,precioDolar,hora,dia,sucursal,estado);
+		System.out.println(estado);
+		return new CitaDTO(idCita,profesional,cliente,hora,dia,sucursal,estado);
 	}
 }

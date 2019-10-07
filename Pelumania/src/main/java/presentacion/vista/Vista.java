@@ -3,6 +3,7 @@ package presentacion.vista;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -201,10 +202,12 @@ public class Vista {
 		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
 		this.getmodelCita().setColumnCount(0);
 		this.getmodelCita().setColumnIdentifiers(this.getNombreColumnas());
+		System.out.println(CitaslEnTabla);
 		for (CitaDTO c : CitaslEnTabla) {
-			LocalTime hora= c.getHoraInicio();
+			Time hora= c.getHoraTurno();
 			String cliente=c.getNombre();
 			String estado=c.getEstado();
+			System.out.println(estado);
 			Object[] fila = {hora, cliente,estado};
 			this.getmodelCita().addRow(fila);
 		}

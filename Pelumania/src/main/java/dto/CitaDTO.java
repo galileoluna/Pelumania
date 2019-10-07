@@ -1,8 +1,10 @@
 package dto;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 public class CitaDTO{
 
@@ -22,6 +24,8 @@ public class CitaDTO{
     private int idSucursal;
 	private String nomProfesional;
 	private String nomSucursal;
+	private Time horaTurno;
+	private Date diaTurno;
 
     /***
  * Constructor para una Cita con un Cliente registrado(Posee ID)
@@ -137,17 +141,14 @@ public CitaDTO (int idcita,
 
 //Contructor para visualizacion de turno por tabla
 // se pueden agregar mas campos o sacarlos hasta que definamos bien que mostrar con esto creo que alcanza
-public CitaDTO(int idCita2, String profesional, String cliente, BigDecimal precioLocal2, BigDecimal precioDolar2,
-		LocalTime hora, LocalDate dia, String sucursal, String estado2) {
+public CitaDTO(int idCita2, String profesional, String cliente, Time hora, java.sql.Date dia, String sucursal, String estado2) {
 	this.idCita=idCita2;
 	this.setNomProfesional(profesional);
 	this.nombre=cliente;
-	this.precioLocal=precioLocal2;
-	this.precioDolar=precioDolar2;
-	this.horaInicio=hora;
-	this.fecha=dia;
+	this.setHoraTurno(hora);
+	this.setDiaTurno(dia);
 	this.setNomSucursal(sucursal);
-	this.estado=estado;
+	this.estado=estado2;
 }
 public int getIdCita(){
     return this.idCita;
@@ -270,6 +271,18 @@ public String getNomSucursal() {
 }
 public void setNomSucursal(String nomSucursal) {
 	this.nomSucursal = nomSucursal;
+}
+public Date getDiaTurno() {
+	return diaTurno;
+}
+public void setDiaTurno(Date diaTurno) {
+	this.diaTurno = diaTurno;
+}
+public Time getHoraTurno() {
+	return horaTurno;
+}
+public void setHoraTurno(Time horaTurno) {
+	this.horaTurno = horaTurno;
 }
 
 }
