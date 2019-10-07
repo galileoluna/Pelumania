@@ -112,8 +112,16 @@ public class Vista {
 		scrollPane.setViewportView(table);
 
 		btnAgregarCita = new JButton("Agregar Cita");
-		btnAgregarCita.setBounds(792, 60, 152, 39);
+		btnAgregarCita.setBounds(620, 60, 117, 39);
 		panel.add(btnAgregarCita);
+		
+		JButton btnCancelarCita = new JButton("Cancelar Cita");
+		btnCancelarCita.setBounds(767, 60, 117, 39);
+		panel.add(btnCancelarCita);
+		
+		JButton btnBorrarCita = new JButton("Borrar Cita");
+		btnBorrarCita.setBounds(912, 60, 117, 39);
+		panel.add(btnBorrarCita);
 	}
 
 	public void show()
@@ -201,5 +209,4 @@ public class Vista {
 			this.getmodelCita().addRow(fila);
 		}
 	}
-
 }

@@ -130,6 +130,7 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		System.out.println(nuevaCita);
 		
+		//Diferencia si el cliente esta registrado o no.
 		if (idcliente == -1) {
 			if (this.sistema.agregarCitaSinCliente(nuevaCita)) {
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
