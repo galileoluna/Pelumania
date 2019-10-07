@@ -2,7 +2,10 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 import java.util.Date;
+
+import javax.swing.event.AncestorListener;
 
 import modelo.Sistema;
 import presentacion.vista.VentanaCliente;
@@ -23,7 +26,7 @@ public class Controlador implements ActionListener {
 	{
 		this.vista = vista;
 		this.sistema = sistema;
-
+//		this.vista.getCalendario().addPropertyChangeListener(dale());
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
 		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
 		this.vista.getMenuConsultaClientes().addActionListener(l -> ventanaAgregarCliente(l));
@@ -32,6 +35,8 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnAgregarCita().addActionListener(d -> ventanaAgregarCita(d));
 		//pruebas
 	}
+
+
 
 	private void ventanaServicios(ActionEvent c) {
 		this.controladorServicio = ControladorServicio.getInstance(sistema);
