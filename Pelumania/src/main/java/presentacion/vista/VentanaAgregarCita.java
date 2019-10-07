@@ -324,11 +324,23 @@ public class VentanaAgregarCita extends JFrame
 			JCBoxProfesional.addItem(p);
 		}
 	}
+	
+	public void limpiarCampos() {
+		this.getTxtNombre().setText(null);
+		this.getTxtApellido().setText(null);
+		
+		this.getTxtNombre().setEditable(true);
+		this.getTxtApellido().setEditable(true);
+		
+		this.getJCBoxHora().setSelectedItem(null);
+		this.getJCBoxMinutos().setSelectedItem(null);
+	}
 
 	public void cerrar()
 	{
 		this.JCBoxServicio.removeAllItems();
 		this.JCBoxProfesional.removeAllItems();
+		limpiarCampos();
 		dispose();
 	}
 }

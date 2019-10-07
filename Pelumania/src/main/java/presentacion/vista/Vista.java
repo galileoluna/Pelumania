@@ -28,7 +28,6 @@ public class Vista {
 	private JCalendar calendario;
 	private JButton btnServicios;
 
-	private JMenu menu;
 	private JMenu mnServicio;
 	private JMenuItem mntmConsultarServicios;
 	private JMenu mnProfesional;
@@ -111,24 +110,11 @@ public class Vista {
 		table.getColumnModel().getColumn(1).setResizable(false);
 
 		scrollPane.setViewportView(table);
-		// HAY QUE BORRARLO, ES SOLO PARA PROBAR
-		//-----------------------------------------------
+
 		btnAgregarCita = new JButton("Agregar Cita");
-		/*
-		btnAgregarCita.addActionListener(new ActionListener() {
-			private VentanaAgregarCita ventanaAgregarCita = VentanaAgregarCita.getInstance();
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				ventanaAgregarCita.mostrarVentana();
-
-			}
-		});
-		 */
 		btnAgregarCita.setBounds(792, 60, 152, 39);
 		panel.add(btnAgregarCita);
 	}
-	//-----------------------------------------------
 
 	public void show()
 	{

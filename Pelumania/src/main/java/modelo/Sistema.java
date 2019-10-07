@@ -146,14 +146,14 @@ public class Sistema
 
 	}
 
-	public void agregarCita(CitaDTO nuevaCita)
+	public boolean agregarCita(CitaDTO nuevaCita)
 	{
-		this.cita.insert(nuevaCita);
+		return this.cita.insert(nuevaCita);
 	}
 
-	public void agregarCitaSinCliente(CitaDTO nuevaCita)
+	public boolean agregarCitaSinCliente(CitaDTO nuevaCita)
 	{
-		this.cita.insertSinRegistrar(nuevaCita);
+		return this.cita.insertSinRegistrar(nuevaCita);
 	}
 	
 	public void borrarcita(CitaDTO cita_a_eliminar)

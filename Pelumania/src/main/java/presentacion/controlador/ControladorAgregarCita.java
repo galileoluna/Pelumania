@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
@@ -42,6 +44,8 @@ public class ControladorAgregarCita implements ActionListener{
 
 	private static void inicializarDatos() {
 
+		INSTANCE.ventanaAgregarCita.limpiarCampos();
+		
 		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
 
@@ -105,7 +109,7 @@ public class ControladorAgregarCita implements ActionListener{
 		LocalDate fecha = this.ventanaAgregarCita.getFechaCita();
 		//HARDCODEADO
 		int idSucursal = 1; 
-		
+		/*
 		System.out.println("Id Cliente " + idcliente + "\n" +
 				"IdUsuario " + idUsuario + "\n" +
 				"Nombre " + nombre + "\n" +
@@ -119,18 +123,28 @@ public class ControladorAgregarCita implements ActionListener{
 				"horafin " + S_HoraFin + "\n" +
 				"Fecha " + S_fecha+ "\n" +
 				"idSucursal " + idSucursal);
-		
+		*/
 		CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado, idProfesional, idServicio,
 				Servicio.getPrecioLocal(), Servicio.getPrecioDolar(), HoraCitaInicio, HoraCitaFin, fecha,
 				idSucursal);
 		
 		System.out.println(nuevaCita);
 		
-		if (idcliente == -1)
-		this.sistema.agregarCitaSinCliente(nuevaCita);
-		else{
-			this.sistema.agregarCita(nuevaCita);
+		if (idcliente == -1) {
+			if (this.sistema.agregarCitaSinCliente(nuevaCita)) {
+				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
+				this.ventanaAgregarCita.cerrar();
+			}else {
+				JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
 			}
+		}else{
+			if (this.sistema.agregarCita(nuevaCita)) {
+				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
+				this.ventanaAgregarCita.cerrar();
+			}else {
+				JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
+			}
+		}
 	}
 	
 	public static int getANIO() {

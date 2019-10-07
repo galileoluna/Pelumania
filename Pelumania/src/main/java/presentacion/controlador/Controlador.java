@@ -17,9 +17,8 @@ public class Controlador implements ActionListener {
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	private ControladorProfesional controladorProfesional;
-	//para pruebas
 	private ControladorAgregarCita controladoragregarcita;
-	// fin pruebas
+	
 	private Sistema sistema;
 
 	public Controlador(Vista vista, Sistema sistema)
@@ -30,13 +29,8 @@ public class Controlador implements ActionListener {
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
 		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
 		this.vista.getMenuConsultaClientes().addActionListener(l -> ventanaAgregarCliente(l));
-
-		//pruebas
 		this.vista.getBtnAgregarCita().addActionListener(d -> ventanaAgregarCita(d));
-		//pruebas
 	}
-
-
 
 	private void ventanaServicios(ActionEvent c) {
 		this.controladorServicio = ControladorServicio.getInstance(sistema);
@@ -55,9 +49,9 @@ public class Controlador implements ActionListener {
 		int mes = this.vista.getCalendario().getMonthChooser().getMonth();
 		int anio = this.vista.getCalendario().getYearChooser().getYear();
 		
-		this.controladoragregarcita.setANIO(anio);
-		this.controladoragregarcita.setMES(mes+1);
-		this.controladoragregarcita.setDIA(dia);
+		ControladorAgregarCita.setANIO(anio);
+		ControladorAgregarCita.setMES(mes+1);
+		ControladorAgregarCita.setDIA(dia);
 		this.controladoragregarcita = ControladorAgregarCita.getInstance(sistema);
 	}
 
