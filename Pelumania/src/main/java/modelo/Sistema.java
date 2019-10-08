@@ -6,6 +6,7 @@ import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.HorarioDTO;
 import dto.ProfesionalDTO;
+import dto.PromocionDTO;
 import dto.ServicioDTO;
 import dto.SucursalDTO;
 import persistencia.dao.interfaz.CitaDAO;
@@ -13,6 +14,7 @@ import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
+import persistencia.dao.interfaz.PromocionDAO;
 import persistencia.dao.interfaz.ServicioDAO;
 import persistencia.dao.interfaz.SucursalDAO;
 
@@ -25,6 +27,7 @@ public class Sistema
 	private HorarioDAO horario;
 	private SucursalDAO sucursal;
 	private CitaDAO cita;
+	private PromocionDAO promocion;
 
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -34,6 +37,7 @@ public class Sistema
 		this.horario=metodo_persistencia.createHorarioDAO();
 		this.sucursal = metodo_persistencia.createSucursalDAO();
 		this.cita = metodo_persistencia.createCitaDAO();
+		this.promocion=metodo_persistencia.createPromocionDAO();
 	}
 
 	public void agregarCliente(ClienteDTO nuevoCliente)
@@ -81,6 +85,7 @@ public class Sistema
 		this.servicio.deleteRealServicio(servicio_a_eliminar);
 	}
 
+	// ARRANCA LO QUE ES PROFESIONAL
 	public void agregarProfesional(ProfesionalDTO nuevoProfesional) {
 		this.profesional.insert(nuevoProfesional);
 	}
@@ -104,7 +109,9 @@ public class Sistema
 	public void actualizarProfesional(ProfesionalDTO profesional_a_editar) {
 		this.profesional.update(profesional_a_editar);
 	}
-
+	// FIN PROFESIONAL
+	
+	// ARRANCA HORARIOS ASOCIADOS A PROFESIONAL
 	public List<HorarioDTO> obtenerHorario(int id){
 		return this.horario.readOne(id);
 	}
@@ -123,7 +130,7 @@ public class Sistema
 	public void actualizarHorario(HorarioDTO horario_a_actualizar) {
 		this.horario.update(horario_a_actualizar);
 	}
-
+	// FIN HORARIO
 
 	public void agregarSucursal(SucursalDTO sucursal_a_agregar) {
 		this.sucursal.insert(sucursal_a_agregar);
@@ -183,7 +190,36 @@ public class Sistema
 	public List<CitaDTO> obtenerTablaCita( String dia ){
 		return this.cita.readCitaPorDia(dia);
 	}
-
+	
+	// ARRANCA TODO LO QUE SON PROMOCIONES
+	public List<PromocionDTO> obtenerPrmociones(){
+		return this.promocion.readAll();
+	}
+	
+	public List<PromocionDTO> obtenerUnaPrmociones(int id_promocion){
+		return this.promocion.readOne(id_promocion);
+	}
+	
+	public boolean insertarPromocion(PromocionDTO promo) {
+		return this.promocion.insert(promo);
+	}
+	
+	public boolean insertarServPromo(int id_promocion, int id_servicio) {
+		return this.promocion.insertServProm(id_promocion, id_servicio);
+	}
+	
+	public boolean borrarPromocion(PromocionDTO promo) {
+		return this.promocion.delete(promo);
+	}
+	
+	public boolean borrarServProm (int id_promocion, int id_servicio) {
+		return this.promocion.deleteServProm(id_promocion, id_servicio);
+	}
+	
+	public boolean editarPromocion (PromocionDTO promo) {
+		return this.promocion.update(promo);
+	}
+	// FIN PROMOCIONES
 
 
 }
