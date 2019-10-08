@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `Promocion`(
   `Descripcion` VARCHAR(200) NOT NULL,  
   `FechaInicio` DATE NOT NULL,
   `FechaFin` DATE NOT NULL,
-  `Descuento` INT(11)  NULL,
+  `Descuento` DOUBLE NULL,
   `Puntos` INT(11)  NULL,
 
  

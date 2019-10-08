@@ -1,5 +1,6 @@
 package persistencia.dao.interfaz;
 
+
 public interface DAOAbstractFactory {
 
 	public ClienteDAO createClienteDAO();
@@ -13,4 +14,6 @@ public interface DAOAbstractFactory {
 	public SucursalDAO createSucursalDAO();
 
 	public CitaDAO createCitaDAO();
+
+	public PromocionDAO createPromocionDAO();
 }
