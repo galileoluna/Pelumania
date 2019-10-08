@@ -11,7 +11,7 @@ public interface PromocionDAO {
 
 	public boolean delete(PromocionDTO promocion_a_eliminar);
 
-	public boolean update(PromocionDTO promocion_a_eliminar);
+	public boolean update(PromocionDTO promocion_a_editar);
 
 	public List<PromocionDTO> readAll();
 	
