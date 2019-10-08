@@ -17,4 +17,9 @@ public interface ProfesionalDAO {
 	public List<ProfesionalDTO> readOne(int id);
 	
 	public  boolean update(ProfesionalDTO profesional_a_editar);
+	
+	public boolean insertServProf(int idServ, int idProf);
+	
+	public boolean deleteServProf(int idServ, int idPof);
+	
 }

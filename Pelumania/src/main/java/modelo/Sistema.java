@@ -109,6 +109,14 @@ public class Sistema
 	public void actualizarProfesional(ProfesionalDTO profesional_a_editar) {
 		this.profesional.update(profesional_a_editar);
 	}
+	
+	public boolean agregarServicioProfesional( Integer idServ ,Integer idProf) {
+		return this.profesional.insertServProf(idServ, idProf);
+	}
+	
+	public boolean deleteServProfesional(Integer idServ ,Integer idProf) {
+		return this.profesional.deleteServProf(idServ, idProf);
+	}
 	// FIN PROFESIONAL
 	
 	// ARRANCA HORARIOS ASOCIADOS A PROFESIONAL

@@ -53,33 +53,13 @@ public class ControladorServicioProfesional {
 		INSTANCE.ventServProf.show();
 		return INSTANCE;
 	}
+	
 	// Obtiene el campo seleccionado de la pantalla (VentanaServicioProfesional) y hace el insert en la tabla
-	// es villero pero fue lo que se me ocurrio para no hacer clases que tengan tres lineas
 	private void agregarServ(ActionEvent l) {
 		String serv=this.ventServProf.getCombo().getSelectedItem().toString();
 		if(validar(serv)) {
-			PreparedStatement statement;
-			Connection conexion = Conexion.getConexion().getSQLConexion();
-			boolean isInsertExitoso = false;
-			
-			try{
-				statement = conexion.prepareStatement("INSERT INTO servicioprofesional (idServicio,idProfesional) VALUES (?,?) ");
-				statement.setInt(1, idServ.get(allServ.indexOf(serv)) );
-				statement.setInt(2, idProfesional);
-				if(statement.executeUpdate() > 0){
-					conexion.commit();
-					isInsertExitoso = true;
-				}
-			} 
-			catch (SQLException e) {
-				e.printStackTrace();
-				try {
-					conexion.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-			// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
+			this.sistema.agregarServicioProfesional(idServ.get(allServ.indexOf(serv)), idProfesional);
+		// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
 			this.getInstance(sistema, idProfesional, nombre);
 		}else {
 			JOptionPane.showMessageDialog(null, "El profesional ya tiene relacionado el servicio que intenta asociar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -93,7 +73,7 @@ public class ControladorServicioProfesional {
     	for (int fila : filasSeleccionadas)
     	{
         	if(this.servEnTabla.get(fila)!=null) {
-        		delete(idServ.get(allServ.indexOf(this.servEnTabla.get(fila))),idProfesional);
+        		 this.sistema.deleteServProfesional(idServ.get(allServ.indexOf(this.servEnTabla.get(fila))), idProfesional);
         	}
 		}
     	this.getInstance(sistema, idProfesional, nombre);
@@ -157,24 +137,7 @@ public class ControladorServicioProfesional {
 		}
 		
 	}
-	// borra dde la tabla la relacion seleccionada
-	// recibe los id del servicio y del profesional
-	private void delete(int idServicio, int idProf) {
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		try {
-			statement = conexion.prepareStatement("DELETE FROM servicioprofesional WHERE idServicio = ? AND idProfesional = ?");
-			statement.setInt(1, idServicio);
-			statement.setInt(2, idProf);
-			if(statement.executeUpdate() > 0){
-				conexion.commit();
-			}
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
+		
 	private boolean validar(String serv) {
 		int encontro=0;
 		for(String s : servEnTabla) {

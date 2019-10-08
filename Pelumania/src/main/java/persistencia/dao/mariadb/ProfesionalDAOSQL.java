@@ -158,6 +158,51 @@ package persistencia.dao.mariadb;
 		return false;
 	}
 	
+	public boolean insertServProf(int id_servicio, int id_profesional) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+		
+		try{
+			statement = conexion.prepareStatement("INSERT INTO servicioprofesional (idServicio,idProfesional) VALUES (?,?) ");
+			statement.setInt(1, id_servicio );
+			statement.setInt(2, id_profesional);
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isInsertExitoso;
+	}
+	
+	@Override
+	public boolean deleteServProf(int idServ, int idPof) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean deleteExitoso = false;
+		try {
+			statement = conexion.prepareStatement("DELETE FROM servicioprofesional WHERE idServicio = ? AND idProfesional = ?");
+			statement.setInt(1, idServ);
+			statement.setInt(2, idPof);
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				deleteExitoso=true;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return deleteExitoso;
+	}
+
 	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");
@@ -170,5 +215,7 @@ package persistencia.dao.mariadb;
 		return new ProfesionalDTO(id, nombre, apellido ,idSucursalOrigen, idSucursalTransferencia, estado );
 	}
 
+
+	
 }
 
