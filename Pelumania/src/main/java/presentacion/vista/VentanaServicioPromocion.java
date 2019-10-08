@@ -59,8 +59,7 @@ public class VentanaServicioPromocion
 	private void initialize() 
 	{
 		frmServProf = new JFrame();
-		frmServProf.setTitle("Relacion Servicio Profesional");
-		frmServProf.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/servicio.png"));
+		frmServProf.setTitle("Relacion Servicio Promocion");
 		frmServProf.setBounds(100, 100, 506, 442);
 		frmServProf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmServProf.getContentPane().setLayout(null);
