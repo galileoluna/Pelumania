@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `ServicioProfesional`(
 CREATE TABLE IF NOT EXISTS `Promocion`(
 
   `idPromocion` INT(11) NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(55) NOT NULL,  
+  `Descripcion` VARCHAR(200) NOT NULL,  
   `FechaInicio` DATE NOT NULL,
   `FechaFin` DATE NOT NULL,
   `Descuento` INT(11)  NULL,
