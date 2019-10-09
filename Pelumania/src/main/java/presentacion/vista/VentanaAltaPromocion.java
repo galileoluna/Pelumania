@@ -20,7 +20,7 @@ public class VentanaAltaPromocion extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtNombre;
+	private JTextField descripcion;
 	private JComboBox estado;
 	private JButton btnAgregar;
 	private JDateChooser dateFechaInic;
@@ -65,10 +65,10 @@ public class VentanaAltaPromocion extends JFrame
 		lblNombre.setBounds(10, 11, 113, 14);
 		panel.add(lblNombre);
 		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(188, 8, 376, 23);
-		panel.add(txtNombre);
-		txtNombre.setColumns(10);
+		descripcion = new JTextField();
+		descripcion.setBounds(188, 8, 376, 23);
+		panel.add(descripcion);
+		descripcion.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Fecha Inicio:");
 		lblApellido.setBounds(10, 56, 113, 14);
@@ -131,9 +131,9 @@ public class VentanaAltaPromocion extends JFrame
 		this.setVisible(true);
 	}
 	
-	public JTextField getTxtNombre() 
+	public JTextField getDescripcion() 
 	{
-		return txtNombre;
+		return descripcion;
 	}
 
 	public JButton getBtnAgregar() {
@@ -164,7 +164,7 @@ public class VentanaAltaPromocion extends JFrame
 
 	public void cerrar()
 	{
-		this.txtNombre.setText(null);
+		this.descripcion.setText(null);
 		this.puntos.setText(null);
 		this.descuento.setText(null);
 		this.dispose();
