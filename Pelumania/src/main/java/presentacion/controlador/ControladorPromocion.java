@@ -16,12 +16,20 @@ public class ControladorPromocion {
 	private Sistema sistema;
 	private VentanaPromocion ventanaPromocion;
 	List<PromocionDTO> promosEnTabla;
+	private ControladorServPromo controlServPromo;
+	private ControladorAltaPromo altaPromo;
+	private ControladorEditarPromo edtiarPromo;
 	
 	private ControladorPromocion(Sistema sistema) {
 		this.ventanaPromocion = VentanaPromocion.getInstance();
 		this.sistema=sistema;
 		this.ventanaPromocion.getBtnBorrar().addActionListener(l -> borrarPromocion(l));
+		this.ventanaPromocion.getbtnAsignarServicio().addActionListener(k -> agregarServicio(k));
+		this.ventanaPromocion.getBtnAgregar().addActionListener(m -> agregarPromocion(m));
+		this.ventanaPromocion.getBtnEditar().addActionListener(b-> editarPromocion(b));
 	}
+
+
 
 	public static ControladorPromocion getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
@@ -54,5 +62,34 @@ public class ControladorPromocion {
 		        	}
 				}	
 	}
-
+	
+	private void agregarPromocion(ActionEvent m) {
+		this.altaPromo = ControladorAltaPromo.getInstance(sistema);
+	}
+	
+	private void editarPromocion(ActionEvent b) {
+		this.promosEnTabla=sistema.obtenerPrmociones();
+		int[] filasSeleccionadas = this.ventanaPromocion.gettablaPromocion().getSelectedRows();
+       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(this.promosEnTabla.get(fila)!=null) {	 
+        		        		
+        		List<PromocionDTO>profesional=this.sistema.obtenerUnaPrmociones(this.promosEnTabla.get(fila).getIdPromocion());
+        		this.edtiarPromo.getInstance(sistema,profesional);
+        	}
+		}	
+	}
+	private void agregarServicio(ActionEvent k) {
+		this.promosEnTabla=sistema.obtenerPrmociones();
+		int[] filasSeleccionadas = this.ventanaPromocion.gettablaPromocion().getSelectedRows();
+       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(this.promosEnTabla.get(fila)!=null) {
+        		String promo =this.promosEnTabla.get(fila).getDescripcion();
+        		this.controlServPromo=ControladorServicioProfesional.getInstance(sistema,this.promosEnTabla.get(fila).getDescripcion(), promo);
+        	}
+		}	
+	}
 }

@@ -151,7 +151,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 		boolean isInsertExitoso = false;
 		
 		try{
-			statement = conexion.prepareStatement(insert);
+			statement = conexion.prepareStatement(insertServProm);
 			statement.setInt(1, id_promocion);
 			statement.setInt(2, id_servicio);
 			if(statement.executeUpdate() > 0){
@@ -176,7 +176,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
 		try {
-			statement = conexion.prepareStatement(delete);
+			statement = conexion.prepareStatement(deleteServProm);
 			statement.setInt(1,id_promocion);
 			statement.setInt(2, id_servicio);
 			if(statement.executeUpdate() > 0){
