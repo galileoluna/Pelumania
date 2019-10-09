@@ -12,15 +12,25 @@ public class PromocionDTO {
 	public String estado;
 	
 	public PromocionDTO(int id, String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos,String estado) {
-		this.idPromocion=id;
-		this.descripcion=descripcion;
-		this.fechaInicio=fechaIn;
-		this.fechaFin=fechaFin;
-		this.descuento=desc;
-		this.puntos=puntos;
-		this.estado=estado;
+		if(validar(descripcion,fechaIn,fechaFin,desc,puntos,estado)) {
+			this.idPromocion=id;
+			this.descripcion=descripcion;
+			this.fechaInicio=fechaIn;
+			this.fechaFin=fechaFin;
+			this.descuento=desc;
+			this.puntos=puntos;
+			this.estado=estado;
+		}
+		
 	}
 	
+	private boolean validar( String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos,String estado) {
+		if(descripcion==null || descripcion.equals("") || fechaIn==null || fechaFin==null || estado.equals("") || (desc==-1 || puntos==-1)) {
+			return false;
+		}
+		return true;
+	}
+
 	public int getIdPromocion() {
 		return this.idPromocion;
 	}

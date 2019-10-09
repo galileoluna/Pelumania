@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dto.PromocionDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAltaProfesional;
@@ -34,21 +36,31 @@ public class ControladorAltaPromo implements ActionListener{
 	}
 	
 	private void guardarPromocion(ActionEvent l) {
+		
 		String desc=this.ventanaAltaPromo.getDescripcion().getText();
 		java.util.Date utilDate =this.ventanaAltaPromo.getDateFechaInic().getDate();
 		java.sql.Date fechaIn = new java.sql.Date(utilDate.getDate());
 		java.util.Date utilDate2 =this.ventanaAltaPromo.getDateFechaFin().getDate();
 		java.sql.Date fechaF = new java.sql.Date(utilDate2.getDate());
 		Double descuento=(this.ventanaAltaPromo.getDescuento().getText().equals("")?-1:Double.parseDouble(this.ventanaAltaPromo.getDescuento().getText()));
-		int puntos=(this.ventanaAltaPromo.getPuntos().getText().contentEquals("")?-1:Integer.parseInt(this.ventanaAltaPromo.getPuntos().getText()));
+		int puntos=(this.ventanaAltaPromo.getPuntos().getText().equals("")?-1:Integer.parseInt(this.ventanaAltaPromo.getPuntos().getText()));
 		String estado=this.ventanaAltaPromo.getEstado().getSelectedItem().toString();
-		PromocionDTO promo= new PromocionDTO (0,desc,fechaIn,fechaF,descuento,puntos,estado);
-		this.sistema.insertarPromocion(promo);
-		this.ventanaAltaPromo.cerrar();
-		this.controlPromo.getInstance(sistema);
-		
+		if(validar(desc,fechaIn,fechaF,descuento,puntos,estado)) {
+			PromocionDTO promo= new PromocionDTO (0,desc,fechaIn,fechaF,descuento,puntos,estado);
+			this.sistema.insertarPromocion(promo);
+			this.ventanaAltaPromo.cerrar();
+			this.controlPromo.getInstance(sistema);
+		}else {
+			JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
+	private boolean validar( String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos,String estado) {
+		if(descripcion==null || descripcion.equals("") || fechaIn==null || fechaFin==null || estado.equals("") || (desc==-1 || puntos==-1)) {
+			return false;
+		}
+		return true;
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
