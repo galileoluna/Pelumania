@@ -34,6 +34,7 @@ public class Vista {
 	private JMenu mnProfesional;
 	private JMenuItem menuConsultarProf;
 	private JMenuItem menuConsultaClientes;
+	private JMenuItem menuConsultaPromo;
 	private JMenu mnCliente;
 	private DefaultTableModel modelCita;
 	private  String[] nombreColumnas = {"Horario","Cliente","Estado"};
@@ -81,6 +82,9 @@ public class Vista {
 		
 		menuConsultaClientes = new JMenuItem("Consultar Clientes");
 		mnCliente.add(menuConsultaClientes);
+		
+		menuConsultaPromo= new JMenuItem("Consultar Promociones");
+		mnCliente.add(menuConsultaPromo);
 
 
 		JPanel panel = new JPanel();
@@ -159,6 +163,10 @@ public class Vista {
 
 	public JMenuItem getMenuProfesional() {
 		return menuConsultarProf;
+	}
+	
+	public JMenuItem getMenuPromocion() {
+		return menuConsultaPromo;
 	}
 
 	public String[] getNombreColumnas(){
