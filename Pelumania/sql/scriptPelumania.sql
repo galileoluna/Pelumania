@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `Promocion`(
   `FechaFin` DATE NOT NULL,
   `Descuento` DOUBLE NULL,
   `Puntos` INT(11)  NULL,
-
+ `Estado` VARCHAR(55) NOT NULL	
  
  PRIMARY KEY(`idPromocion`)
 );

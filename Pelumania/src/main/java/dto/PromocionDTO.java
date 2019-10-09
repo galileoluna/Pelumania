@@ -9,14 +9,16 @@ public class PromocionDTO {
 	public Date fechaFin;
 	public Double descuento;
 	public int puntos;
+	public String estado;
 	
-	public PromocionDTO(int id, String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos) {
+	public PromocionDTO(int id, String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos,String estado) {
 		this.idPromocion=id;
 		this.descripcion=descripcion;
 		this.fechaInicio=fechaIn;
 		this.fechaFin=fechaFin;
 		this.descuento=desc;
 		this.puntos=puntos;
+		this.estado=estado;
 	}
 	
 	public int getIdPromocion() {
@@ -65,5 +67,13 @@ public class PromocionDTO {
 	
 	public void setPuntos(int puntos) {
 		this.puntos=puntos;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+	
+	public void setEstado(String estado) {
+		this.estado=estado;
 	}
 }

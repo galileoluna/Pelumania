@@ -22,6 +22,7 @@ public class Controlador implements ActionListener {
 	private List<CitaDTO> citasEnTabla;
 	private ControladorProfesional controladorProfesional;
 	private ControladorAgregarCita controladoragregarcita;
+	private ControladorPromocion controladorPromocion;
 	
 	private Sistema sistema;
 
@@ -47,7 +48,9 @@ public class Controlador implements ActionListener {
 		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
 		this.vista.getMenuConsultaClientes().addActionListener(l -> ventanaAgregarCliente(l));
 		this.vista.getBtnAgregarCita().addActionListener(d -> ventanaAgregarCita(d));
+		this.vista.getMenuPromocion().addActionListener(m -> ventanaPromocion(m));
 	}
+
 
 	private void ventanaServicios(ActionEvent c) {
 		this.controladorServicio = ControladorServicio.getInstance(sistema);
@@ -59,6 +62,10 @@ public class Controlador implements ActionListener {
 
 	private void ventanaProfesional (ActionEvent b) {
 		this.controladorProfesional= ControladorProfesional.getInstance(sistema);
+	}
+
+	private void ventanaPromocion(ActionEvent m) {
+		this.controladorPromocion= ControladorPromocion.getInstance(sistema);
 	}
 
 	private void ventanaAgregarCita(ActionEvent d) {

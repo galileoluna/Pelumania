@@ -14,10 +14,11 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PromocionDAO;
 
 public class PromocionDAOSQL implements PromocionDAO{
-	private static final String readAll="SELECT * FROM serviciopromocion";
+	private static final String readAll="SELECT * FROM promocion";
 	private static final String readOne="SELECT s.nombre, p.* FROM serviciopromocion JOIN servicio s USING (idServicio) JOIN promocion p USING (idPromocion) WHERE p.idPromocion=?";
 	private static final String insert="INSERT INTO promocion (Descripcion,FechaInicio,FechaFin,Descuento,Puntos) VALUES (?,?,?,?,?)";
-	private static final String delete="DELETE FROM promocion WHERE idPromocion = ?";
+	private static final String deleteReal="DELETE FROM promocion WHERE idPromocion = ?";
+	private static final String delete="UPADATE promocion set estado='Inactivo' WHERE idPromocion=?";
 	private static final String insertServProm="INSERT INTO servicioprofesional (idPromocion, idServicio) VALUES (?,?)";
 	private static final String deleteServProm="DELETE FROM servicioprofesional WHERE idPromocion = ?, idServicio=?";
 	private static final String update="UPADATE promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Promocion=? WHERE idPromocion=?";
@@ -196,8 +197,8 @@ public class PromocionDAOSQL implements PromocionDAO{
 		Date fechaFin = resultSet.getDate("FechaFin");
 		Double descuento =resultSet.getDouble("Descuento");
 		int puntos=resultSet.getInt("Puntos");
-		
-		return new PromocionDTO(id, descripcion,fechaInc ,fechaFin, descuento, puntos );
+		String estado=resultSet.getString("Estado");
+		return new PromocionDTO(id, descripcion,fechaInc ,fechaFin, descuento, puntos,estado );
 	}
 
 

@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 
 import javax.swing.JButton;
@@ -30,11 +29,10 @@ public class VentanaPromocion{
 	private JTable tablaPromocion;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
-	private JButton btnHorario;
 	private JButton btnEditar;
-	private JButton btnAsignarPromocion;
+	private JButton btnAsignarServicio;
 	private DefaultTableModel modelPromocion;
-	private  String[] nombreColumnas = {"Decripcion","Fecha Inicio","Fecha Fin","Descuento","Puntos"};
+	private  String[] nombreColumnas = {"Decripcion","Fecha Inicio","Fecha Fin","Descuento","Puntos","Estado"};
 
 	public VentanaPromocion() 
 	{
@@ -79,25 +77,22 @@ public class VentanaPromocion{
 		
 		spPersonas.setViewportView(tablaPromocion);
 		
-		btnAgregar = new JButton("Agregar Profesional");
+		btnAgregar = new JButton("Agregar Promocion");
 		btnAgregar.setBounds(111, 228, 153, 23);
 		panel.add(btnAgregar);
 		
-		btnEditar = new JButton("Editar Profesional");
+		btnEditar = new JButton("Editar Promocion");
 		btnEditar.setBounds(357, 228, 153, 23);
 		panel.add(btnEditar);
 		
-		btnBorrar = new JButton("Borrar Profesional");
+		btnBorrar = new JButton("Borrar Promocion");
 		btnBorrar.setBounds(608, 228, 159, 23);
 		panel.add(btnBorrar);
+
 		
-		btnHorario = new JButton("Ver Horario");
-		btnHorario.setBounds(806, 61, 159, 23);
-		panel.add(btnHorario);
-		
-		btnAsignarPromocion = new JButton("Asignar Promocion");
-		btnAsignarPromocion.setBounds(806, 130, 159, 23);
-		panel.add(btnAsignarPromocion);
+		btnAsignarServicio = new JButton("Asignar Servicio");
+		btnAsignarServicio.setBounds(806, 85, 159, 23);
+		panel.add(btnAsignarServicio);
 		
 	}
 	
@@ -122,11 +117,6 @@ public class VentanaPromocion{
 		return btnEditar;
 	}
 	
-	public JButton getBtnHorario() 
-	{
-		return btnHorario;
-	}
-	
 	public DefaultTableModel getmodelPromocion() 
 	{
 		return modelPromocion;
@@ -141,8 +131,8 @@ public class VentanaPromocion{
 		return nombreColumnas;
 	}
 	
-	public JButton getBtnAsignarPromocion() {
-		return this.btnAsignarPromocion;
+	public JButton getbtnAsignarServicio() {
+		return this.btnAsignarServicio;
 	}
 
 	public void llenarTabla(List<PromocionDTO> promociones) {
@@ -156,7 +146,8 @@ public class VentanaPromocion{
 			Date FechaFin=p.getFechaFin();
 			Double descuento=p.getDescuento();
 			int puntos=p.getPuntos();
-			Object[] fila = {descripcion, FechaInicio,FechaFin,descuento,puntos};
+			String estado=p.getEstado();
+			Object[] fila = {descripcion, FechaInicio,FechaFin,descuento,puntos,estado};
 			this.getmodelPromocion().addRow(fila);
 		}
 		
