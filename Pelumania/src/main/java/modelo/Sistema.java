@@ -145,7 +145,7 @@ public class Sistema
 		this.horario.update(horario_a_actualizar);
 	}
 	// FIN HORARIO
-
+    //arranca sucursal
 	public void agregarSucursal(SucursalDTO sucursal_a_agregar) {
 		this.sucursal.insert(sucursal_a_agregar);
 	}
@@ -161,6 +161,15 @@ public class Sistema
 	public List<SucursalDTO> obtenerSucursales(){
 		return this.sucursal.readAll();
 	}
+	
+	public void borrarSucursalReal(SucursalDTO sucursal_a_eliminar) {
+		this.sucursal.deleteRealSucursal(sucursal_a_eliminar);
+	}
+	
+	public SucursalDTO getSucursalById(int idSucursal) {
+		return this.sucursal.readOne(idSucursal);
+	}
+	//finaliza sucursal
 
 	public void deleteReal(ClienteDTO cliente_a_eliminar) {
 		this.cliente.deleteReal(cliente_a_eliminar);
