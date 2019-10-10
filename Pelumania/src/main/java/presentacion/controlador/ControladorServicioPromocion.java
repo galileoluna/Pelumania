@@ -15,7 +15,7 @@ public class ControladorServicioPromocion {
 	private Sistema sistema;
 	private static ControladorServicioPromocion INSTANCE;
 	private VentanaServicioPromocion ventanaServPromo;
-	private List<String> servCombo;
+	private static List<String> servCombo=new ArrayList<String>();
 	private List<String> servEnTabla;
 	private static List<Integer> idServEnTabla=new ArrayList<Integer>();
 	private int idPromocion;
@@ -60,18 +60,42 @@ public class ControladorServicioPromocion {
     	this.getInstance(sistema, descripcionPromo, idPromocion);
 	}
 
-	private Object agregarServ(ActionEvent l) {
-		// TODO Auto-generated method stub
-		return null;
+	private void agregarServ(ActionEvent l) {
+		String serv=this.ventanaServPromo.getCombo().getSelectedItem().toString();
+		if(validar(serv)) {
+			System.out.println(servCombo);
+			System.out.println(idServEnTabla.get(servCombo.indexOf(serv))+"-"+serv);
+			this.sistema.insertarServPromo(idPromocion, idServEnTabla.get(servCombo.indexOf(serv)));
+		// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
+			this.getInstance(sistema, descripcionPromo,idPromocion);
+		}else {
+			JOptionPane.showMessageDialog(null, "La promocion ya tiene relacionado el servicio que intenta asociar", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	private static void llenarCombo(JComboBox combo, Sistema sistema) {
 		List<ServicioDTO> servicios=sistema.obtenerServicios();
 		for (ServicioDTO s : servicios) {
 			combo.addItem(s.getNombre());
+			servCombo.add(s.getNombre());
 			idServEnTabla.add(s.getIdServicio());
 		}
 		
+	}
+	
+	private boolean validar(String serv) {
+		int encontro=0;
+		for(String s : servEnTabla) {
+			if(s.equals(serv)) {
+				encontro++;
+			}
+		}
+		if(encontro==0) {
+			return true;
+		}else {
+			return false;
+	
+		}
 	}
 	
 }
