@@ -42,8 +42,8 @@ public class ControladorAltaPromo implements ActionListener{
 		java.sql.Date fechaIn = new java.sql.Date(utilDate.getDate());
 		java.util.Date utilDate2 =this.ventanaAltaPromo.getDateFechaFin().getDate();
 		java.sql.Date fechaF = new java.sql.Date(utilDate2.getDate());
-		Double descuento=(this.ventanaAltaPromo.getDescuento().getText().equals("")?-1:Double.parseDouble(this.ventanaAltaPromo.getDescuento().getText()));
-		int puntos=(this.ventanaAltaPromo.getPuntos().getText().equals("")?-1:Integer.parseInt(this.ventanaAltaPromo.getPuntos().getText()));
+		Double descuento=(this.ventanaAltaPromo.getDescuento().getText().equals("")?null:Double.parseDouble(this.ventanaAltaPromo.getDescuento().getText()));
+		Integer puntos=(this.ventanaAltaPromo.getPuntos().getText().equals("")?null:Integer.parseInt(this.ventanaAltaPromo.getPuntos().getText()));
 		String estado=this.ventanaAltaPromo.getEstado().getSelectedItem().toString();
 		if(validar(desc,fechaIn,fechaF,descuento,puntos,estado)) {
 			PromocionDTO promo= new PromocionDTO (0,desc,fechaIn,fechaF,descuento,puntos,estado);
@@ -55,8 +55,8 @@ public class ControladorAltaPromo implements ActionListener{
 		}
 	}
 	
-	private boolean validar( String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos,String estado) {
-		if(descripcion==null || descripcion.equals("") || fechaIn==null || fechaFin==null || estado.equals("") || (desc==-1 || puntos==-1)) {
+	private boolean validar( String descripcion, Date fechaIn, Date fechaFin, Double desc ,Integer puntos,String estado) {
+		if(descripcion==null || descripcion.equals("") || fechaIn==null || fechaFin==null || estado.equals("") || (desc==null && puntos==null)) {
 			return false;
 		}
 		return true;

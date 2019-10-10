@@ -8,10 +8,10 @@ public class PromocionDTO {
 	public Date fechaInicio;
 	public Date fechaFin;
 	public Double descuento;
-	public int puntos;
+	public Integer puntos;
 	public String estado;
 	
-	public PromocionDTO(int id, String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos,String estado) {
+	public PromocionDTO(int id, String descripcion, Date fechaIn, Date fechaFin, Double desc ,Integer puntos,String estado) {
 		if(validar(descripcion,fechaIn,fechaFin,desc,puntos,estado)) {
 			this.idPromocion=id;
 			this.descripcion=descripcion;
@@ -24,8 +24,8 @@ public class PromocionDTO {
 		
 	}
 	
-	private boolean validar( String descripcion, Date fechaIn, Date fechaFin, Double desc ,int puntos,String estado) {
-		if(descripcion==null || descripcion.equals("") || fechaIn==null || fechaFin==null || estado.equals("") || (desc==-1 || puntos==-1)) {
+	private boolean validar( String descripcion, Date fechaIn, Date fechaFin, Double desc ,Integer puntos,String estado) {
+		if(descripcion==null || descripcion.equals("") || fechaIn==null || fechaFin==null || estado.equals("") || (desc==null && puntos==null)) {
 			return false;
 		}
 		return true;
