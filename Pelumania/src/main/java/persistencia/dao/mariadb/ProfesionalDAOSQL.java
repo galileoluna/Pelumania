@@ -203,6 +203,28 @@ package persistencia.dao.mariadb;
 		return deleteExitoso;
 	}
 
+	public String obtenerNombreSucursal(int id) {
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		String sucursal;
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement("Select NombreSucursal FROM sucursal WHERE idSucursal = ?");
+
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			if (resultSet.next()){
+				sucursal = resultSet.getString("NombreSucursal");
+				return sucursal;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");

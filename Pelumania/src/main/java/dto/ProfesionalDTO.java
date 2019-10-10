@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import persistencia.conexion.Conexion;
+import persistencia.dao.mariadb.ProfesionalDAOSQL;
 
 public class ProfesionalDTO {
 
@@ -88,7 +89,9 @@ public class ProfesionalDTO {
 	}
 
 	public String getSucursal(int id) {
-		return getStringSucursal(id);
+		ProfesionalDAOSQL prof= new ProfesionalDAOSQL();
+		return prof.obtenerNombreSucursal(id);
+		
 	}
 
 	@Override
@@ -101,26 +104,4 @@ public class ProfesionalDTO {
 
 	}
 
-	public String getStringSucursal(int id) {
-		PreparedStatement statement;
-		ResultSet resultSet;
-		Conexion conexion = Conexion.getConexion();
-		String sucursal;
-		try
-		{
-			statement = conexion.getSQLConexion().prepareStatement("Select NombreSucursal FROM sucursal WHERE idSucursal = ?");
-
-			statement.setInt(1, id);
-			resultSet = statement.executeQuery();
-			if (resultSet.next()){
-				sucursal = resultSet.getString("NombreSucursal");
-				return sucursal;
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
 }
