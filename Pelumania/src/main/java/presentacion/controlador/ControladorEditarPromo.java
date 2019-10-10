@@ -13,6 +13,7 @@ public class ControladorEditarPromo {
 	private VentanaModificarPromocion ventanaEditarPromo;
 	private ControladorPromocion controlPromo;
 	private Sistema sistema;
+	private int idPromo;
 	private static ControladorEditarPromo INSTANCE;
 	
 	private ControladorEditarPromo(Sistema sistema) {
@@ -27,6 +28,7 @@ public class ControladorEditarPromo {
 			INSTANCE = new ControladorEditarPromo(sistema);
 		}
 		for (PromocionDTO p : promocion) {
+			INSTANCE.idPromo=p.getIdPromocion();
 			INSTANCE.ventanaEditarPromo.getDescripcion().setText(p.getDescripcion());
 			INSTANCE.ventanaEditarPromo.getDateFechaInic().setDate(p.getFechaInicio());
 			INSTANCE.ventanaEditarPromo.getDateFechaFin().setDate(p.getFechaFin());
@@ -46,9 +48,9 @@ public class ControladorEditarPromo {
 		Integer puntos=(this.ventanaEditarPromo.getPuntos().getText().equals("")?null:Integer.parseInt(this.ventanaEditarPromo.getPuntos().getText()));
 		String estado=this.ventanaEditarPromo.getEstado().getSelectedItem().toString();
 		if(validar(desc,utilDate,utilDate2,descuento,puntos,estado)) {
-			java.sql.Date fechaIn = new java.sql.Date(utilDate.getDate());
-			java.sql.Date fechaF = new java.sql.Date(utilDate2.getDate());
-			PromocionDTO promo= new PromocionDTO (0,desc,fechaIn,fechaF,descuento,puntos,estado);
+			java.sql.Date fechaIn =new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),  utilDate.getDate()+1);
+			java.sql.Date fechaF = new java.sql.Date(utilDate2.getYear(),utilDate2.getMonth(),  utilDate2.getDate()+1);
+			PromocionDTO promo= new PromocionDTO (idPromo,desc,fechaIn,fechaF,descuento,puntos,estado);
 			this.sistema.editarPromocion(promo);
 			this.ventanaEditarPromo.cerrar();
 			this.controlPromo.getInstance(sistema);

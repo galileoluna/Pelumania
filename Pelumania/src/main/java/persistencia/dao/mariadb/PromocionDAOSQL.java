@@ -103,7 +103,6 @@ public class PromocionDAOSQL implements PromocionDAO{
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(update);
-			
 			statement.setString(1, promocion_a_editar.getDescripcion());
 			statement.setDate(2, promocion_a_editar.getFechaInicio());
 			statement.setDate(3, promocion_a_editar.getFechaFin());
@@ -113,7 +112,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 			validarNull(puntos,null,5,statement);
 			statement.setString(6, promocion_a_editar.getEstado());
 			statement.setInt(7, promocion_a_editar.getIdPromocion());
-			
+		
 			chequeoUpdate = statement.executeUpdate();
 			conexion.getSQLConexion().commit();
 			if(chequeoUpdate > 0) {

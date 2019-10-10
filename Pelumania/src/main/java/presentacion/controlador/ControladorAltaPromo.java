@@ -45,8 +45,8 @@ public class ControladorAltaPromo implements ActionListener{
 		Integer puntos=(this.ventanaAltaPromo.getPuntos().getText().equals("")?null:Integer.parseInt(this.ventanaAltaPromo.getPuntos().getText()));
 		String estado=this.ventanaAltaPromo.getEstado().getSelectedItem().toString();
 		if(validar(desc,utilDate,utilDate2,descuento,puntos,estado)) {
-			java.sql.Date fechaIn =new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),  utilDate.getDate());
-			java.sql.Date fechaF = new java.sql.Date(utilDate2.getYear(),utilDate2.getMonth(),  utilDate2.getDate());
+			java.sql.Date fechaIn =new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),  utilDate.getDate()+1);
+			java.sql.Date fechaF = new java.sql.Date(utilDate2.getYear(),utilDate2.getMonth(),  utilDate2.getDate()+1);
 			PromocionDTO promo= new PromocionDTO (0,desc,fechaIn,fechaF,descuento,puntos,estado);
 			this.sistema.insertarPromocion(promo);
 			this.ventanaAltaPromo.cerrar();
