@@ -150,24 +150,25 @@ CREATE TABLE IF NOT EXISTS `Cita`(
 
 CREATE TABLE IF NOT EXISTS `Caja`(
 
-  `IdCaja` INT(11) NOT NULL AUTO_INCREMENT,
+  `idCaja` INT(11) NOT NULL AUTO_INCREMENT,
   `idSucursal` INT(11) NOT NULL,
   `Categoria` VARCHAR(55) NOT NULL,
   `Fecha`  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `Descripcion` VARCHAR(80) NOT NULL,  
-  `Concepto` VARCHAR(55) NOT NULL,    
+  `Descripcion` VARCHAR(80) NULL,  
+  `TipoMovimiento` VARCHAR(55) NOT NULL,    
   `TipoDeCambio` VARCHAR(55) NOT NULL,
   `idPromocion` INT(11)  NULL,
-  `PrecioLocal` INT(11) NOT NULL,
-  `PrecioDolar` INT(11) NOT NULL,
+	`PrecioLocal` DECIMAL(13,2) NOT NULL,
+  `PrecioDolar` DECIMAL(13,2) NOT NULL,
   `idCita` INT(11)  NULL,
   `idCliente` INT(11)  NULL,
  
- PRIMARY KEY(`IdCaja`),
+ PRIMARY KEY(`idCaja`),
  FOREIGN KEY (`idSucursal`) REFERENCES `Sucursal`(`idSucursal`),
  FOREIGN KEY (`idPromocion`) REFERENCES `Promocion`(`idPromocion`),
  FOREIGN KEY (`idCliente`) REFERENCES `Cliente`(`idCliente`),
- FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`)
+ FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`),
+ FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
 
 );
 

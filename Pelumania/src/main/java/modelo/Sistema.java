@@ -5,6 +5,7 @@ import java.util.List;
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.HorarioDTO;
+import dto.MovimientoCajaDTO;
 import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 import dto.ServicioDTO;
@@ -13,6 +14,7 @@ import persistencia.dao.interfaz.CitaDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
+import persistencia.dao.interfaz.MovimientoCajaDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
 import persistencia.dao.interfaz.PromocionDAO;
 import persistencia.dao.interfaz.ServicioDAO;
@@ -28,6 +30,7 @@ public class Sistema
 	private SucursalDAO sucursal;
 	private CitaDAO cita;
 	private PromocionDAO promocion;
+	private MovimientoCajaDAO caja;
 
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -38,8 +41,9 @@ public class Sistema
 		this.sucursal = metodo_persistencia.createSucursalDAO();
 		this.cita = metodo_persistencia.createCitaDAO();
 		this.promocion=metodo_persistencia.createPromocionDAO();
+		this.caja = metodo_persistencia.createMovimientoCajaDAO();
 	}
-
+// COMIENZA CLIENTE
 	public void agregarCliente(ClienteDTO nuevoCliente)
 	{
 		this.cliente.insert(nuevoCliente);
@@ -59,8 +63,9 @@ public class Sistema
 	{
 		return this.cliente.readAll();
 	}
-
+//FIN CLIENTE
 	
+//COMIENZA SERVICIO	
 	public void agregarServicio(ServicioDTO nuevoServicio) {
 		this.servicio.insert(nuevoServicio);
 	}
@@ -84,6 +89,7 @@ public class Sistema
 	public void deleteRealServicio(ServicioDTO servicio_a_eliminar) {
 		this.servicio.deleteRealServicio(servicio_a_eliminar);
 	}
+//FIN SERVICIO
 
 	// ARRANCA LO QUE ES PROFESIONAL
 	public void agregarProfesional(ProfesionalDTO nuevoProfesional) {
@@ -229,5 +235,10 @@ public class Sistema
 	}
 	// FIN PROMOCIONES
 
+	// COMIENZA CAJA
+	public boolean insertarMovimientoCaja (MovimientoCajaDTO caja_a_insertar) {
+		return this.caja.insert(caja_a_insertar);
+	}
+	//FIN CAJA
 
 }
