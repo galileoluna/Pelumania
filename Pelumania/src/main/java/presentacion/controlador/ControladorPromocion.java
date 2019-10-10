@@ -16,7 +16,7 @@ public class ControladorPromocion {
 	private Sistema sistema;
 	private VentanaPromocion ventanaPromocion;
 	List<PromocionDTO> promosEnTabla;
-	private ControladorServPromo controlServPromo;
+	private ControladorServicioPromocion controlServPromo;
 	private ControladorAltaPromo altaPromo;
 	private ControladorEditarPromo edtiarPromo;
 	
@@ -89,7 +89,8 @@ public class ControladorPromocion {
     	{
         	if(this.promosEnTabla.get(fila)!=null) {
         		String promo =this.promosEnTabla.get(fila).getDescripcion();
-        	//	this.controlServPromo=ControladorServicioProfesional.getInstance(sistema,this.promosEnTabla.get(fila).getDescripcion(), promo);
+        		int idPromo=this.promosEnTabla.get(fila).getIdPromocion();
+        		this.controlServPromo=ControladorServicioPromocion.getInstance(sistema, promo,idPromo);
         	}
 		}	
 	}

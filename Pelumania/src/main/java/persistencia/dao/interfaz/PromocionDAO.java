@@ -20,6 +20,8 @@ public interface PromocionDAO {
 	public boolean insertServProm(int id_promocion , int id_servicio);
 	
 	public boolean deleteServProm(int id_promocion , int id_servicio);
+	
+	public List<String> readAllServProm(int id_promo);
 
 	//public boolean deleteReal(PromocionDTO promocion_a_eliminar);
 }

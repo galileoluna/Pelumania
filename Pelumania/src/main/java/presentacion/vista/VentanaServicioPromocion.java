@@ -144,7 +144,7 @@ public class VentanaServicioPromocion
 		return nombreColumnas;
 	}
 	
-	public void setNombreEmpl(String nombre) {
+	public void setDescripcion(String nombre) {
 		this.lblProm.setText(nombre);
 	}
 

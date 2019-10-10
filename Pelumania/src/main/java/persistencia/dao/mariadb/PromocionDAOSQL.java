@@ -20,6 +20,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 	private static final String deleteReal="DELETE FROM promocion WHERE idPromocion = ?";
 	private static final String delete="UPDATE promocion SET estado='Inactivo' WHERE idPromocion=?";
 	private static final String insertServProm="INSERT INTO servicioprofesional (idPromocion, idServicio) VALUES (?,?)";
+	private static final String readAllServProm="SELECT s.nombre FROM serviciopromocion sp JOIN servicio s USING(idServicio) JOIN promocion p USING(idPromocion) WHERE p.idPromocion=?";
 	private static final String deleteServProm="DELETE FROM servicioprofesional WHERE idPromocion = ?, idServicio=?";
 	private static final String update="UPDATE promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
 
@@ -214,6 +215,26 @@ public class PromocionDAOSQL implements PromocionDAO{
 			e.printStackTrace();
 		}
 		return isdeleteExitoso;
+	}
+	
+	@Override
+	public List<String> readAllServProm(int id_promocion) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<String> servi = new ArrayList<String>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readAllServProm);
+			statement.setInt(1, id_promocion);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				servi.add(resultSet.getString("s.nombre"));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return servi;
 	}
 	
 	private PromocionDTO getPromocionlDTO(ResultSet resultSet) throws SQLException{

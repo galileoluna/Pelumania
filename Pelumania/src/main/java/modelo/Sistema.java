@@ -242,6 +242,10 @@ public class Sistema
 	public boolean editarPromocion (PromocionDTO promo) {
 		return this.promocion.update(promo);
 	}
+	
+	public List<String> obtenerServPromo(int id_promo){
+		return this.promocion.readAllServProm(id_promo);
+	}
 	// FIN PROMOCIONES
 
 	// COMIENZA CAJA
