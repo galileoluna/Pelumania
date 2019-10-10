@@ -15,7 +15,7 @@ import persistencia.dao.interfaz.PromocionDAO;
 
 public class PromocionDAOSQL implements PromocionDAO{
 	private static final String readAll="SELECT * FROM promocion";
-	private static final String readOne="SELECT s.nombre, p.* FROM promocion JOIN servicio s USING (idServicio) JOIN promocion p USING (idPromocion) WHERE p.idPromocion=?";
+	private static final String readOne="SELECT * FROM promocion WHERE idPromocion=?";
 	private static final String insert="INSERT INTO promocion (Descripcion,FechaInicio,FechaFin,Descuento,Puntos,Estado) VALUES (?,?,?,?,?,?)";
 	private static final String deleteReal="DELETE FROM promocion WHERE idPromocion = ?";
 	private static final String delete="UPDATE promocion SET estado='Inactivo' WHERE idPromocion=?";

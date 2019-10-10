@@ -18,7 +18,7 @@ public class ControladorPromocion {
 	List<PromocionDTO> promosEnTabla;
 	private ControladorServPromo controlServPromo;
 	private ControladorAltaPromo altaPromo;
-	//private ControladorEditarPromo edtiarPromo;
+	private ControladorEditarPromo edtiarPromo;
 	
 	private ControladorPromocion(Sistema sistema) {
 		this.ventanaPromocion = VentanaPromocion.getInstance();
@@ -29,6 +29,7 @@ public class ControladorPromocion {
 		this.ventanaPromocion.getBtnEditar().addActionListener(b-> editarPromocion(b));
 	}
 
+	
 
 
 	public static ControladorPromocion getInstance(Sistema sistema) {
@@ -75,8 +76,8 @@ public class ControladorPromocion {
     	{
         	if(this.promosEnTabla.get(fila)!=null) {	 
         		        		
-        		List<PromocionDTO>profesional=this.sistema.obtenerUnaPrmociones(this.promosEnTabla.get(fila).getIdPromocion());
-        	//	this.edtiarPromo.getInstance(sistema,profesional);
+        		List<PromocionDTO>promocion=this.sistema.obtenerUnaPrmociones(this.promosEnTabla.get(fila).getIdPromocion());
+        		this.edtiarPromo.getInstance(sistema,promocion);
         	}
 		}	
 	}

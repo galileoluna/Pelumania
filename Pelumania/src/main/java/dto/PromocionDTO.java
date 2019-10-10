@@ -51,7 +51,7 @@ public class PromocionDTO {
 		return this.descuento;
 	}
 	
-	public int getPuntos() {
+	public Integer getPuntos() {
 		return this.puntos;
 	}
 	
