@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
+import dto.ServicioDTO;
 import modelo.Sistema;
 import persistencia.conexion.Conexion;
 import presentacion.vista.VentanaProfesional;
@@ -43,11 +44,11 @@ public class ControladorServicioProfesional {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorServicioProfesional(sistema);
 		}
-	
+		INSTANCE.nombre=nombre;
 		INSTANCE.ventServProf.setNombreEmpl(nombre);
 		INSTANCE.idProfesional=idProf;
 		INSTANCE.servEnTabla=INSTANCE.sistema.obtenerobtenerServEnTabla(idProf);
-		INSTANCE.allServ=llenarServ(INSTANCE.idServ);
+		INSTANCE.allServ=llenarServ(INSTANCE.idServ,INSTANCE.sistema);
 		llenarCombo(INSTANCE.ventServProf.getCombo(),INSTANCE.allServ);
 		INSTANCE.ventServProf.llenarTabla(INSTANCE.servEnTabla);
 		INSTANCE.ventServProf.show();
@@ -81,27 +82,14 @@ public class ControladorServicioProfesional {
 	
 	// esta funcion hace dos cosas llena la lista con los servicios que se van a cargar en el desplegable y ademas llena una segunda lista con los indices(idServ) de dicha tabla para luego poder hacer mas facil los insert y delete
 	// la lista que recibe por parametros el la lista de los id (idServ), devuelve la lista de nombres de los servicios
-	private static List<String> llenarServ(List<Integer> id) {
-		PreparedStatement statement;
-		ResultSet resultSet;
-		Conexion conexion = Conexion.getConexion();
-		List<String> servicio = new ArrayList<String>();		
-		
-		try 
-		{
-			statement = conexion.getSQLConexion().prepareStatement("SELECT nombre, IdServicio FROM servicio;");
-			resultSet = statement.executeQuery();
-			while (resultSet.next()){
-				servicio.add(resultSet.getString("nombre"));
-				id.add(resultSet.getInt("IdServicio"));
-			}
-			return servicio;
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
+	private static List<String> llenarServ(List<Integer> id,Sistema sistema) {
+		List<ServicioDTO> servicios=sistema.obtenerServicios();
+		List<String> ret = new ArrayList<String>();	
+		for (ServicioDTO s : servicios) {
+			ret.add(s.getNombre());
+			id.add(s.getIdServicio());
 		}
-		return null;
+			return ret;
 			
 	}
 	// llena el combo con la lista que fue cargada anteriormente
