@@ -34,8 +34,11 @@ public class PromocionDAOSQL implements PromocionDAO{
 			statement.setString(1, promocion.getDescripcion());
 			statement.setDate(2, promocion.getFechaInicio());
 			statement.setDate(3, promocion.getFechaFin());
-			statement.setDouble(4,promocion.getDescuento());
-			statement.setInt(5,promocion.getPuntos());
+			Double descuen=promocion.getDescuento();
+			System.out.println(descuen);
+			validarNull(null,descuen, 4, statement);
+			Integer puntos=promocion.getPuntos();
+			validarNull(puntos,null,5,statement);
 			statement.setString(6, promocion.getEstado());
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
@@ -51,6 +54,28 @@ public class PromocionDAOSQL implements PromocionDAO{
 			}
 		}			
 		return isInsertExitoso;
+	}
+	
+	private void validarNull(Integer puntos,Double descuento,Integer posicion,PreparedStatement statement) {
+		try {
+			if(posicion==5) {
+				if(puntos==null) {
+					statement.setString(posicion,null);
+				}else {
+					statement.setInt(posicion,puntos);
+				}
+			}else {
+				if(descuento==null) {
+					statement.setString(posicion,null);
+				}else {
+					System.out.println(descuento);
+					statement.setDouble(posicion,descuento);
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
