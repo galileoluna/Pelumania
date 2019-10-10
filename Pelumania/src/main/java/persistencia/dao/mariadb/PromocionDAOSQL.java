@@ -21,7 +21,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 	private static final String delete="UPDATE promocion SET estado='Inactivo' WHERE idPromocion=?";
 	private static final String insertServProm="INSERT INTO servicioprofesional (idPromocion, idServicio) VALUES (?,?)";
 	private static final String deleteServProm="DELETE FROM servicioprofesional WHERE idPromocion = ?, idServicio=?";
-	private static final String update="UPDATE promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Promocion=? WHERE idPromocion=?";
+	private static final String update="UPDATE promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
 
 	@Override
 	public boolean insert(PromocionDTO promocion) {
@@ -35,7 +35,6 @@ public class PromocionDAOSQL implements PromocionDAO{
 			statement.setDate(2, promocion.getFechaInicio());
 			statement.setDate(3, promocion.getFechaFin());
 			Double descuen=promocion.getDescuento();
-			System.out.println(descuen);
 			validarNull(null,descuen, 4, statement);
 			Integer puntos=promocion.getPuntos();
 			validarNull(puntos,null,5,statement);
@@ -68,7 +67,6 @@ public class PromocionDAOSQL implements PromocionDAO{
 				if(descuento==null) {
 					statement.setString(posicion,null);
 				}else {
-					System.out.println(descuento);
 					statement.setDouble(posicion,descuento);
 				}
 			}
@@ -109,18 +107,21 @@ public class PromocionDAOSQL implements PromocionDAO{
 			statement.setString(1, promocion_a_editar.getDescripcion());
 			statement.setDate(2, promocion_a_editar.getFechaInicio());
 			statement.setDate(3, promocion_a_editar.getFechaFin());
-			statement.setDouble(4, promocion_a_editar.getDescuento());
-			statement.setInt(5, promocion_a_editar.getPuntos());
-			statement.setInt(6, promocion_a_editar.getIdPromocion());
+			Double descuen=promocion_a_editar.getDescuento();
+			validarNull(null,descuen, 4, statement);
+			Integer puntos=promocion_a_editar.getPuntos();
+			validarNull(puntos,null,5,statement);
+			statement.setString(6, promocion_a_editar.getEstado());
+			statement.setInt(7, promocion_a_editar.getIdPromocion());
 			
 			chequeoUpdate = statement.executeUpdate();
 			conexion.getSQLConexion().commit();
-			if(chequeoUpdate > 0)
+			if(chequeoUpdate > 0) {
 					return true;
+			}
 		} 
 		catch (SQLException e) 
 		{
-			System.out.println("false");
 			e.printStackTrace();
 		}
 		
