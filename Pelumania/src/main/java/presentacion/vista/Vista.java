@@ -34,9 +34,11 @@ public class Vista {
 	private JMenu mnProfesional;
 	private JMenuItem menuConsultarProf;
 	private JMenuItem menuConsultaClientes;
+	private JMenuItem menuConsultarSucursal;
 	private JMenu mnPromocion;
 	private JMenuItem menuConsultaPromo;
 	private JMenu mnCliente;
+	private JMenu mnSucursal;
 	private DefaultTableModel modelCita;
 	private  String[] nombreColumnas = {"Horario","Cliente","Estado"};
 	private JTable table;
@@ -90,6 +92,11 @@ public class Vista {
 		menuConsultaPromo= new JMenuItem("Consultar Promociones");
 		mnPromocion.add(menuConsultaPromo);
 
+        mnSucursal = new JMenu("Sucursal");
+		menuBar.add(mnSucursal);
+		
+		menuConsultarSucursal = new JMenuItem("Consultar Sucursales");
+		mnSucursal.add(menuConsultarSucursal);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1039, 633);
@@ -169,6 +176,10 @@ public class Vista {
 		return menuConsultarProf;
 	}
 	
+	public JMenuItem getMenuSucursal() {
+		return menuConsultarSucursal;
+	}
+	
 	public JMenuItem getMenuPromocion() {
 		return menuConsultaPromo;
 	}
@@ -195,6 +206,18 @@ public class Vista {
 
 	public JMenu getMnCliente() {
 		return mnCliente;
+	}
+	
+	public JMenuItem getMenuConsultaSucursal() {
+		return menuConsultarSucursal;
+	}
+
+	public void setMenuConsultaSucursal(JMenuItem menuConsultaSucursal) {
+		this.menuConsultarSucursal = menuConsultaSucursal;
+	}
+
+	public JMenu getMnSucursal() {
+		return mnSucursal;
 	}
 
 	public DefaultTableModel getmodelCita()
