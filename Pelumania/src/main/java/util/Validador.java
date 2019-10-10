@@ -78,8 +78,28 @@ public class Validador {
 			return false;
 		}
 		
+		@SuppressWarnings("static-access")
+		public static boolean esNumeroSucursalValido(String numero) {
+			String PRECIO_REGEX=
+					"^[0-9]+(\\.[0-9]{1,2})?$";
+			Pattern PRECIO_PATTERN = Pattern.compile(PRECIO_REGEX);
+			return PRECIO_PATTERN.matches(PRECIO_REGEX, numero);
+		}
+		
 		public static boolean esEstadoClienteValido(String estado) {
 			String[] ESTADOS = {"activo","inactivo","moroso","vip"};
+			for (String  e : ESTADOS) {
+				if (e.equals(estado)){
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		public static boolean esEstadoSucursalValido(String estado) {
+			String input = estado.toLowerCase();
+			String[] ESTADOS = {"activo", "inactivo"};
+			
 			for (String  e : ESTADOS) {
 				if (e.equals(estado)){
 					return true;
