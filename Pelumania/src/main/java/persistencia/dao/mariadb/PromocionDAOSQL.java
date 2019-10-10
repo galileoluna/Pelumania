@@ -21,7 +21,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 	private static final String delete="UPDATE promocion SET estado='Inactivo' WHERE idPromocion=?";
 	private static final String insertServProm="INSERT INTO servicioprofesional (idPromocion, idServicio) VALUES (?,?)";
 	private static final String readAllServProm="SELECT s.nombre FROM serviciopromocion sp JOIN servicio s USING(idServicio) JOIN promocion p USING(idPromocion) WHERE p.idPromocion=?";
-	private static final String deleteServProm="DELETE FROM servicioprofesional WHERE idPromocion = ?, idServicio=?";
+	private static final String deleteServProm="DELETE FROM serviciopromocion WHERE idPromocion = ? AND idServicio=?";
 	private static final String update="UPDATE promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
 
 	@Override
