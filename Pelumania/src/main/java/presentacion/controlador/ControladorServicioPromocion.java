@@ -63,7 +63,7 @@ public class ControladorServicioPromocion {
 	private void agregarServ(ActionEvent l) {
 		String serv=this.ventanaServPromo.getCombo().getSelectedItem().toString();
 		if(validar(serv)) {
-			System.out.println(servCombo);
+			System.out.println(servCombo+" "+idPromocion);
 			System.out.println(idServEnTabla.get(servCombo.indexOf(serv))+"-"+serv);
 			this.sistema.insertarServPromo(idPromocion, idServEnTabla.get(servCombo.indexOf(serv)));
 		// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
@@ -74,6 +74,7 @@ public class ControladorServicioPromocion {
 	}
 	
 	private static void llenarCombo(JComboBox combo, Sistema sistema) {
+		combo.removeAllItems();
 		List<ServicioDTO> servicios=sistema.obtenerServicios();
 		for (ServicioDTO s : servicios) {
 			combo.addItem(s.getNombre());
