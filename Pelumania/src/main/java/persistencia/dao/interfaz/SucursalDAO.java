@@ -13,5 +13,9 @@ public interface SucursalDAO {
 	
 	public boolean delete(SucursalDTO sucursal_a_eliminar);
 	
+	public boolean deleteRealSucursal(SucursalDTO sucursal_a_eliminar);
+	
 	public List<SucursalDTO> readAll();
+
+	public SucursalDTO readOne(int idSucursal);
 }
