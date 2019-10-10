@@ -46,7 +46,7 @@ public class ControladorServicioProfesional {
 	
 		INSTANCE.ventServProf.setNombreEmpl(nombre);
 		INSTANCE.idProfesional=idProf;
-		INSTANCE.servEnTabla=llenarLista(idProf);
+		INSTANCE.servEnTabla=INSTANCE.sistema.obtenerobtenerServEnTabla(idProf);
 		INSTANCE.allServ=llenarServ(INSTANCE.idServ);
 		llenarCombo(INSTANCE.ventServProf.getCombo(),INSTANCE.allServ);
 		INSTANCE.ventServProf.llenarTabla(INSTANCE.servEnTabla);
@@ -79,30 +79,6 @@ public class ControladorServicioProfesional {
     	this.getInstance(sistema, idProfesional, nombre);
 	}
 	
-	// llena la lista de los servicios asociados a un cliente 
-	private static List<String> llenarLista(int id) {
-		PreparedStatement statement;
-		ResultSet resultSet;
-		Conexion conexion = Conexion.getConexion();
-		List<String> servicio = new ArrayList<String>();
-		try 
-		{
-			// que buena query 
-			statement = conexion.getSQLConexion().prepareStatement("SELECT s.Nombre FROM servicioprofesional sp JOIN profesional p USING(idProfesional) JOIN servicio s USING (idServicio) WHERE p.IdProfesional=?");
-			statement.setInt(1, id);
-			resultSet = statement.executeQuery();
-			while (resultSet.next()){
-				servicio.add(resultSet.getString("s.Nombre"));
-			}
-			return servicio;
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return null;
-			
-	}
 	// esta funcion hace dos cosas llena la lista con los servicios que se van a cargar en el desplegable y ademas llena una segunda lista con los indices(idServ) de dicha tabla para luego poder hacer mas facil los insert y delete
 	// la lista que recibe por parametros el la lista de los id (idServ), devuelve la lista de nombres de los servicios
 	private static List<String> llenarServ(List<Integer> id) {

@@ -226,6 +226,29 @@ package persistencia.dao.mariadb;
 		return null;
 	}
 	
+	public List<String> obtenerServEnTabla(int id){
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Conexion conexion = Conexion.getConexion();
+		List<String> servicio = new ArrayList<String>();
+		try 
+		{
+			// que buena query 
+			statement = conexion.getSQLConexion().prepareStatement("SELECT s.Nombre FROM servicioprofesional sp JOIN profesional p USING(idProfesional) JOIN servicio s USING (idServicio) WHERE p.IdProfesional=?");
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()){
+				servicio.add(resultSet.getString("s.Nombre"));
+			}
+			return servicio;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");
 		String nombre = resultSet.getString("Nombre");

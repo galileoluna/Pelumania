@@ -124,6 +124,10 @@ public class Sistema
 	public boolean deleteServProfesional(Integer idServ ,Integer idProf) {
 		return this.profesional.deleteServProf(idServ, idProf);
 	}
+	
+	public List<String> obtenerobtenerServEnTabla(int id){
+		return this.profesional.obtenerServEnTabla(id);
+	}
 	// FIN PROFESIONAL
 	
 	// ARRANCA HORARIOS ASOCIADOS A PROFESIONAL
