@@ -23,6 +23,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 	private static final String readAllServProm="SELECT s.nombre FROM serviciopromocion sp JOIN servicio s USING(idServicio) JOIN promocion p USING(idPromocion) WHERE p.idPromocion=?";
 	private static final String deleteServProm="DELETE FROM serviciopromocion WHERE idPromocion = ? AND idServicio=?";
 	private static final String update="UPDATE promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
+	private static final String readPromVigente="SELECT * FROM promocion p WHERE p.FechaInicio<= ? AND p.FechaFin>=? AND estado='Activo'";
 
 	@Override
 	public boolean insert(PromocionDTO promocion) {
@@ -246,6 +247,31 @@ public class PromocionDAOSQL implements PromocionDAO{
 		int puntos=resultSet.getInt("Puntos");
 		String estado=resultSet.getString("Estado");
 		return new PromocionDTO(id, descripcion,fechaInc ,fechaFin, descuento, puntos,estado );
+	}
+
+	@Override
+	public List<PromocionDTO> readPromoVigente(Date fechaI,Date fechaF) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		List<PromocionDTO> promo = new ArrayList<PromocionDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readPromVigente);
+			statement.setDate(1, fechaI);
+			statement.setDate(2, fechaF);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				promo.add(getPromocionlDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return promo;
 	}
 
 

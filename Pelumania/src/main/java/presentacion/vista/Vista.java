@@ -37,6 +37,7 @@ public class Vista {
 	private JMenuItem menuConsultarSucursal;
 	private JMenu mnPromocion;
 	private JMenuItem menuConsultaPromo;
+	private JMenuItem menuPromosVigentes;
 	private JMenu mnCliente;
 	private JMenu mnSucursal;
 	private DefaultTableModel modelCita;
@@ -88,7 +89,10 @@ public class Vista {
 		
 		mnPromocion=new JMenu("Promociones");
 		menuBar.add(mnPromocion);
-
+		
+		menuPromosVigentes= new JMenuItem("Ver Promos vigentes");
+		mnPromocion.add(menuPromosVigentes);
+		
 		menuConsultaPromo= new JMenuItem("Consultar Promociones");
 		mnPromocion.add(menuConsultaPromo);
 
@@ -182,6 +186,10 @@ public class Vista {
 	
 	public JMenuItem getMenuPromocion() {
 		return menuConsultaPromo;
+	}
+	
+	public JMenuItem getMenuPromoVigente() {
+		return menuPromosVigentes;
 	}
 
 	public String[] getNombreColumnas(){

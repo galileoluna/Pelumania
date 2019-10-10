@@ -16,7 +16,6 @@ import presentacion.vista.Vista;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
-
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	private List<CitaDTO> citasEnTabla;
@@ -24,6 +23,7 @@ public class Controlador implements ActionListener {
 	private ControladorAgregarCita controladoragregarcita;
 	private ControladorPromocion controladorPromocion;
 	private ControladorSucursal controladorSucursal;
+	private ControladorPromosionesVigentes controladorPromoVigente;
 	
 	private Sistema sistema;
 
@@ -50,6 +50,7 @@ public class Controlador implements ActionListener {
 		this.vista.getMenuConsultaClientes().addActionListener(l -> ventanaAgregarCliente(l));
 		this.vista.getBtnAgregarCita().addActionListener(d -> ventanaAgregarCita(d));
 		this.vista.getMenuPromocion().addActionListener(m -> ventanaPromocion(m));
+		this.vista.getMenuPromoVigente().addActionListener(p -> verPromosVigentes(p));
 		this.vista.getMenuSucursal().addActionListener(e -> ventanaSucursal(e));
 	}
 
@@ -83,6 +84,10 @@ public class Controlador implements ActionListener {
 		ControladorAgregarCita.setMES(mes+1);
 		ControladorAgregarCita.setDIA(dia);
 		this.controladoragregarcita = ControladorAgregarCita.getInstance(sistema);
+	}
+	
+	private void verPromosVigentes(ActionEvent p) {
+		this.controladorPromoVigente=ControladorPromosionesVigentes.getInstance(sistema,vista);
 	}
 
 	@Override

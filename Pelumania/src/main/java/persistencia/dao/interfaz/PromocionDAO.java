@@ -1,5 +1,6 @@
 package persistencia.dao.interfaz;
 
+import java.sql.Date;
 import java.util.List;
 
 import dto.PromocionDTO;
@@ -22,6 +23,8 @@ public interface PromocionDAO {
 	public boolean deleteServProm(int id_promocion , int id_servicio);
 	
 	public List<String> readAllServProm(int id_promo);
+
+	public List<PromocionDTO> readPromoVigente(Date fInicio, Date fFin);
 
 	//public boolean deleteReal(PromocionDTO promocion_a_eliminar);
 }

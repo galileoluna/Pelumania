@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Date;
 import java.util.List;
 
 import dto.CitaDTO;
@@ -245,6 +246,10 @@ public class Sistema
 	
 	public List<String> obtenerServPromo(int id_promo){
 		return this.promocion.readAllServProm(id_promo);
+	}
+	
+	public List<PromocionDTO> obtenerPromoVigente(Date fInicio,Date fFin){
+		return this.promocion.readPromoVigente(fInicio,fFin);
 	}
 	// FIN PROMOCIONES
 
