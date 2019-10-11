@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -36,10 +37,12 @@ public class ControladorAgregarCita implements ActionListener{
 
 	private ControladorAgregarCita(Sistema sistema) {
 		this.ventanaAgregarCita = VentanaAgregarCita.getInstance();
-		this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarCita(p));
+		//this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarCita(p));
 		this.ventanaAgregarCita.getBtnRegistrarCliente().addActionListener(q -> registrarCliente(q));
 		this.ventanaAgregarCita.getBtnBuscarCliente().addActionListener(r -> buscarCliente(r));
+		this.ventanaAgregarCita.getJCBoxProfesional().addActionListener(p -> seleccionarProfesional(p));
 		this.sistema = sistema;
+		prueba();
 	}
 
 	private static void inicializarDatos() {
@@ -49,7 +52,6 @@ public class ControladorAgregarCita implements ActionListener{
 		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
 
-		INSTANCE.ventanaAgregarCita.getJCBoxServicio().removeAllItems();
 		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
 		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
 		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
@@ -73,7 +75,15 @@ public class ControladorAgregarCita implements ActionListener{
 	public void registrarCliente(ActionEvent q) {
 		controladorCliente = ControladorCliente.getInstance(sistema);
 	}
-
+	
+	public void prueba () {
+	List<ServicioDTO> lista = new ArrayList<ServicioDTO>();
+	lista.add(this.sistema.getServicioById(1));
+	lista.add(this.sistema.getServicioById(2));
+	lista.add(this.sistema.getServicioById(3));
+	System.out.println(lista.toString());
+	}
+/*
 	public void guardarCita(ActionEvent p) {
 		//Levanto los datos de la ventanaCita
 		Integer idcliente = this.ventanaAgregarCita.getIdCliente();
@@ -123,7 +133,7 @@ public class ControladorAgregarCita implements ActionListener{
 				"horafin " + S_HoraFin + "\n" +
 				"Fecha " + S_fecha+ "\n" +
 				"idSucursal " + idSucursal);
-		*/
+		
 		CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado, idProfesional, idServicio,
 				Servicio.getPrecioLocal(), Servicio.getPrecioDolar(), HoraCitaInicio, HoraCitaFin, fecha,
 				idSucursal);
@@ -147,7 +157,14 @@ public class ControladorAgregarCita implements ActionListener{
 			}
 		}
 	}
+	*/
 	
+	public void seleccionarProfesional(ActionEvent e) {
+		ProfesionalDTO Profesional = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
+		this.ventanaAgregarCita.getLblNombreProfesional().setText(Profesional.getNombre()+" "+Profesional.getApellido());
+		int idProfesional = Profesional.getIdProfesional();
+		// -- ActualizarTabla();
+	}
 	public static int getANIO() {
 		return ANIO;
 	}
@@ -171,6 +188,7 @@ public class ControladorAgregarCita implements ActionListener{
 	public static void setDIA(int dIA) {
 		DIA = dIA;
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

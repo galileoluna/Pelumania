@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,10 +27,6 @@ public class VentanaAgregarCita extends JFrame
 	private JButton btn_AgregarCita;
 	private JButton btn_Cancelar;
 
-	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
-			"Mail", "Puntos", "Estado", "Deuda"};
-	private DefaultTableModel modelClientes;
-
 	private JLabel lblFecha;
 	private JTextField txtFecha;
 	private JTextField txtNombre;
@@ -39,13 +37,21 @@ public class VentanaAgregarCita extends JFrame
 	
 	private JComboBox<Integer> JCBoxHora;
 	private JComboBox<Integer> JCBoxMinutos;
-	private JComboBox<ServicioDTO> JCBoxServicio;
+	
+	private JTable tablaServicios;
+	private DefaultTableModel modelServicios;
+	private String[] nombreColumnas = {"Nombre","Precio",
+			"USD","Duracion"};
 
 	private JLabel lblProfesional;
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
 	private LocalDate fechaCita;
 	private Integer idCliente = -1;
+	
+	private JLabel lblNombreProfesional;
+	private JLabel lblServiciosQueRealiza;
+	private JLabel lblServiciosElegidos;
 
 
 	public static VentanaAgregarCita getInstance()
@@ -65,25 +71,23 @@ public class VentanaAgregarCita extends JFrame
 
 		setTitle("Nueva Cita");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 428, 547);
+		setBounds(100, 100, 659, 599);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 392, 486);
+		panel.setBounds(10, 11, 623, 538);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		btn_AgregarCita = new JButton("Agregar");
-		btn_AgregarCita.setBounds(80, 452, 89, 23);
+		btn_AgregarCita.setBounds(176, 504, 89, 23);
 		panel.add(btn_AgregarCita);
 
 		btn_Cancelar = new JButton("Cancelar");
-		btn_Cancelar.setBounds(219, 452, 89, 23);
+		btn_Cancelar.setBounds(342, 504, 89, 23);
 		panel.add(btn_Cancelar);
-
-		modelClientes = new DefaultTableModel(null,nombreColumnas);
 
 		lblFecha = new JLabel("Fecha:");
 		lblFecha.setBounds(23, 11, 133, 23);
@@ -144,22 +148,55 @@ public class VentanaAgregarCita extends JFrame
 		btnRegistrarCliente.setBounds(28, 113, 141, 23);
 		panel.add(btnRegistrarCliente);
 
-		JLabel lblServicio = new JLabel("Servicio:");
-		lblServicio.setBounds(23, 208, 133, 23);
-		panel.add(lblServicio);
-
-		JCBoxServicio = new JComboBox<ServicioDTO>();
-		JCBoxServicio.setBounds(100, 209, 237, 23);
-		panel.add(JCBoxServicio);
-
 		lblProfesional = new JLabel("Profesional");
-		lblProfesional.setBounds(23, 248, 133, 23);
+		lblProfesional.setBounds(23, 208, 133, 23);
 		panel.add(lblProfesional);
 
 		JCBoxProfesional = new JComboBox<ProfesionalDTO>();
-		JCBoxProfesional.setBounds(100, 249, 237, 23);
+		JCBoxProfesional.setBounds(100, 209, 237, 23);
 		panel.add(JCBoxProfesional);
 
+		JScrollPane spServicios = new JScrollPane();
+		spServicios.setBounds(10, 271, 287, 188);
+		panel.add(spServicios);
+
+		modelServicios = new DefaultTableModel(null,nombreColumnas) {
+			//Para que las celdas de la tabla no se puedan editar
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		tablaServicios = new JTable(modelServicios);
+
+
+		tablaServicios.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaServicios.getColumnModel().getColumn(0).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(1).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(2).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(3).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(3).setResizable(false);
+
+		spServicios.setViewportView(tablaServicios);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(315, 271, 287, 188);
+		panel.add(scrollPane);
+		
+		lblServiciosElegidos = new JLabel("Servicios Elegidos");
+		lblServiciosElegidos.setBounds(315, 246, 208, 14);
+		panel.add(lblServiciosElegidos);
+		
+		lblServiciosQueRealiza = new JLabel("Servicios que realiza: ");
+		lblServiciosQueRealiza.setBounds(10, 246, 126, 14);
+		panel.add(lblServiciosQueRealiza);
+		
+		lblNombreProfesional = new JLabel("");
+		lblNombreProfesional.setBounds(142, 246, 133, 14);
+		panel.add(lblNombreProfesional);
 
 		this.setVisible(false);
 	}
@@ -189,11 +226,11 @@ public class VentanaAgregarCita extends JFrame
 	}
 
 	public DefaultTableModel getModelClientes() {
-		return modelClientes;
+		return modelServicios;
 	}
 
 	public void setModelClientes(DefaultTableModel modelClientes) {
-		this.modelClientes = modelClientes;
+		this.modelServicios = modelClientes;
 	}
 
 	public JButton getBtnBuscarCliente() {
@@ -210,14 +247,6 @@ public class VentanaAgregarCita extends JFrame
 
 	public void setBtnRegistrarCliente(JButton btnRegistrarCliente) {
 		this.btnRegistrarCliente = btnRegistrarCliente;
-	}
-
-	public JComboBox<ServicioDTO> getJCBoxServicio() {
-		return JCBoxServicio;
-	}
-
-	public void setJCBoxServicio(JComboBox<ServicioDTO> jCBoxServicio) {
-		JCBoxServicio = jCBoxServicio;
 	}
 
 	public JComboBox<ProfesionalDTO> getJCBoxProfesional() {
@@ -289,6 +318,14 @@ public class VentanaAgregarCita extends JFrame
 		this.setVisible(true);
 	}
 
+	public JLabel getLblNombreProfesional() {
+		return lblNombreProfesional;
+	}
+
+	public void setLblNombreProfesional(JLabel lblNombreProfesional) {
+		this.lblNombreProfesional = lblNombreProfesional;
+	}
+
 	private void cargarHora(JComboBox<Integer> hora) {
 		for(int i=0;i<=23;i++) {
 			hora.addItem(i);
@@ -312,10 +349,19 @@ public class VentanaAgregarCita extends JFrame
 		txtFecha.setText(dia + " de "+ S_mes+" de "+anio);
 		this.setFechaCita(fecha);
 	}
+	
+
+	public JTable getTablaServicios() {
+		return tablaServicios;
+	}
+
+	public void setTablaServicios(JTable tablaServicios) {
+		this.tablaServicios = tablaServicios;
+	}
 
 	public void cargarServicios(List<ServicioDTO> serviciosEnTabla) {
 		for (ServicioDTO s : serviciosEnTabla) {
-			JCBoxServicio.addItem(s);
+			
 		}
 	}
 
@@ -338,7 +384,6 @@ public class VentanaAgregarCita extends JFrame
 
 	public void cerrar()
 	{
-		this.JCBoxServicio.removeAllItems();
 		this.JCBoxProfesional.removeAllItems();
 		limpiarCampos();
 		dispose();

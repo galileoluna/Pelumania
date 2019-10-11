@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `Promocion`(
   `FechaFin` DATE NOT NULL,
   `Descuento` DOUBLE NULL,
   `Puntos` INT(11)  NULL,
- `Estado` VARCHAR(55) NOT NULL	
+  `Estado` VARCHAR(55) NOT NULL,	
  
  PRIMARY KEY(`idPromocion`)
 );
@@ -144,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `Cita`(
     -- falta la foreign key a idUsuario
     FOREIGN KEY (`IdProfesional`) REFERENCES `Profesional`(`IdProfesional`),
     FOREIGN KEY (`IdCliente`) REFERENCES `Cliente`(`idCliente`),
-    FOREIGN KEY (`IdSucursal`) REFERENCES `Sucursal`(`idSucursal`),
-    --FOREIGN KEY (`IdServicio`) REFERENCES `Servicio`(`IdServicio`)   
+    FOREIGN KEY (`IdSucursal`) REFERENCES `Sucursal`(`idSucursal`)
+    -- FOREIGN KEY (`IdServicio`) REFERENCES `Servicio`(`IdServicio`)   
 );
 
 CREATE TABLE IF NOT EXISTS `Caja`(
@@ -167,8 +167,8 @@ CREATE TABLE IF NOT EXISTS `Caja`(
  FOREIGN KEY (`idSucursal`) REFERENCES `Sucursal`(`idSucursal`),
  FOREIGN KEY (`idPromocion`) REFERENCES `Promocion`(`idPromocion`),
  FOREIGN KEY (`idCliente`) REFERENCES `Cliente`(`idCliente`),
- FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`),
- FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
+ FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`)
+ -- FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`IdProfesional`)
 
 );
 
