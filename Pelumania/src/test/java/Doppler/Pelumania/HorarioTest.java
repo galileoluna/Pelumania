@@ -2,6 +2,7 @@ package Doppler.Pelumania;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import java.sql.Time;
 
 import org.junit.After;
@@ -25,21 +26,21 @@ public class HorarioTest {
 	@Before
 	public void before() {
 		sistema=new Sistema(new DAOSQLFactory());
-		profesional=new ProfesionalDTO(0,"juan","perez",0,0,"Activo");
-		sucursal=new SucursalDTO(0,"bsas","nnose 123",123,"Activo");
+		profesional=new ProfesionalDTO(1,"juan","perez",0,0,"Activo");
+		sucursal=new SucursalDTO(1,"bsas","nnose 123",123,"Activo");
 		
 		sistema.agregarSucursal(sucursal);
 		sistema.agregarProfesional(profesional);
 		
 			
-		for(int i=0; i<sistema.obtenerHorario(0).size();i++) {
-			sistema.borrarHorario(sistema.obtenerHorario(0).get(0));
+		for(int i=0; i<sistema.obtenerHorario(1).size();i++) {
+			sistema.borrarHorario(sistema.obtenerHorario(1).get(0));
 		}
 	} 
 	@After
 	public void after() {
-		for(int i=0; i<sistema.obtenerHorario(0).size();i++) {
-			sistema.borrarHorario(sistema.obtenerHorario(0).get(0));		
+		for(int i=0; i<sistema.obtenerHorario(1).size();i++) {
+			sistema.borrarHorario(sistema.obtenerHorario(1).get(0));		
 		}
 		sistema.borrarSanti(profesional);
 		sistema.borrarSucursal(sucursal);
@@ -53,7 +54,7 @@ public class HorarioTest {
 		
 		sistema.agregarHorario(nuevoHorario);
 		
-		assertEquals(sistema.obtenerHorario(0).size(),1);
+		assertEquals(sistema.obtenerHorario(1).size(),1);
 	}
 	
 
@@ -67,17 +68,11 @@ public class HorarioTest {
 		
 		entrada=new Time(Integer.parseInt("11"),Integer.parseInt("00"),00);
 		salida=new Time(Integer.parseInt("19"),Integer.parseInt("00"),00);
-		nuevoHorario=new HorarioDTO(1,"martes",entrada,salida,2);
+		nuevoHorario=new HorarioDTO(1,"martes",entrada,salida,1);
 		
 		sistema.agregarHorario(nuevoHorario);
-		
-		entrada=new Time(Integer.parseInt("12"),Integer.parseInt("00"),00);
-		salida=new Time(Integer.parseInt("20"),Integer.parseInt("00"),00);
-		nuevoHorario=new HorarioDTO(2,"martes",entrada,salida,3);
-		
-		sistema.agregarHorario(nuevoHorario);
-		
-		assertEquals(sistema.obtenerHorario(0).size(),3);
+
+		assertEquals(sistema.obtenerHorario(1).size(),2);
 	}
 	
 	@Test 
@@ -88,7 +83,7 @@ public class HorarioTest {
 		
 		sistema.agregarHorario(nuevoHorario);
 		
-		assertEquals(sistema.obtenerHorario(0).get(0).getDia(),"martes");
+		assertEquals(sistema.obtenerHorario(1).get(0).getDia(),"martes");
 	}
 	
 	@Test 
@@ -99,7 +94,7 @@ public class HorarioTest {
 		
 		sistema.agregarHorario(nuevoHorario);
 		
-		assertEquals(sistema.obtenerHorario(0).get(0).getIdProfesional(),1);
+		assertEquals(sistema.obtenerHorario(1).get(0).getIdProfesional(),1);
 	}
 	
 	@Test 
@@ -110,7 +105,7 @@ public class HorarioTest {
 		
 		sistema.agregarHorario(nuevoHorario);
 		
-		if(sistema.obtenerHorario(0).get(0).getHoraEntrada().compareTo(entrada)==0) 
+		if(sistema.obtenerHorario(1).get(0).getHoraEntrada().compareTo(entrada)==0) 
 			assertTrue(true);
 		else assertTrue(false);
 	}
@@ -123,7 +118,7 @@ public class HorarioTest {
 		
 		sistema.agregarHorario(nuevoHorario);
 		
-		if(sistema.obtenerHorario(0).get(0).getHoraSalida().compareTo(salida)==0) 
+		if(sistema.obtenerHorario(1).get(0).getHoraSalida().compareTo(salida)==0) 
 			assertTrue(true);
 		else assertTrue(false);
 	}
@@ -137,7 +132,7 @@ public class HorarioTest {
 		sistema.agregarHorario(nuevoHorario);
 		sistema.borrarHorario(nuevoHorario);
 		
-		assertEquals(sistema.obtenerHorario(0).size(),0);
+		assertEquals(sistema.obtenerHorario(1).size(),0);
 	}
 
 	@Test 
@@ -150,7 +145,7 @@ public class HorarioTest {
 		
 		entrada=new Time(Integer.parseInt("11"),Integer.parseInt("00"),00);
 		salida=new Time(Integer.parseInt("19"),Integer.parseInt("00"),00);
-		nuevoHorario=new HorarioDTO(1,"martes",entrada,salida,2);
+		nuevoHorario=new HorarioDTO(1,"martes",entrada,salida,1);
 		
 		sistema.agregarHorario(nuevoHorario);
 		
@@ -162,7 +157,7 @@ public class HorarioTest {
 	
 		sistema.borrarHorario(nuevoHorario);
 		
-		assertEquals(sistema.obtenerHorario(0).size(),2);
+		assertEquals(sistema.obtenerHorario(1).size(),2);
 	}
 	
 	@Test 
@@ -186,10 +181,12 @@ public class HorarioTest {
 		sistema.agregarHorario(nuevoHorario);
 	
 		sistema.borrarHorario(nuevoHorario);
-		sistema.borrarHorario(sistema.obtenerHorario(0).get(0));
-		sistema.borrarHorario(sistema.obtenerHorario(0).get(0));
+		sistema.borrarHorario(sistema.obtenerHorario(1).get(0));
+		sistema.borrarHorario(sistema.obtenerHorario(2).get(0));
 		
-		assertEquals(sistema.obtenerHorario(0).size(),0);
+		assertEquals(sistema.obtenerHorario(1).size(),0);
+		assertEquals(sistema.obtenerHorario(2).size(),0);
+		assertEquals(sistema.obtenerHorario(3).size(),0);
 	}
 	
 	@Test 
@@ -199,10 +196,15 @@ public class HorarioTest {
 		nuevoHorario=new HorarioDTO(5,"martes",entrada,salida,1);
 		
 		sistema.agregarHorario(nuevoHorario);
-		nuevoHorario=new HorarioDTO(5,"martes",entrada,salida,5);
+		nuevoHorario=new HorarioDTO(5,"lunes",entrada,salida,1);
 		sistema.actualizarHorario(nuevoHorario);
 		
-		assertEquals(sistema.obtenerHorario(0).size(),0);
+		List<HorarioDTO> diaModificado=sistema.obtenerHorario(1);
+		String dia=null;
+		for(HorarioDTO d : diaModificado) {
+			dia=d.getDia();
+		}
+		assertEquals(dia,"lunes");
 	}
 	
 	@Test 
@@ -213,10 +215,10 @@ public class HorarioTest {
 		sistema.agregarHorario(nuevoHorario);
 		
 		entrada=new Time(Integer.parseInt("12"),Integer.parseInt("00"),00);
-		nuevoHorario=new HorarioDTO(5,"martes",entrada,salida,5);
+		nuevoHorario=new HorarioDTO(5,"martes",entrada,salida,1);
 		sistema.actualizarHorario(nuevoHorario);
 		
-		if(sistema.obtenerHorario(0).get(0).getHoraEntrada().compareTo(entrada)==0) 
+		if(sistema.obtenerHorario(1).get(0).getHoraEntrada().compareTo(entrada)==0) 
 			assertTrue(true);
 		else assertTrue(false);
 	}
@@ -232,7 +234,7 @@ public class HorarioTest {
 		nuevoHorario=new HorarioDTO(5,"martes",entrada,salida,5);
 		sistema.actualizarHorario(nuevoHorario);
 		
-		if(sistema.obtenerHorario(0).get(0).getHoraSalida().compareTo(salida)==0) 
+		if(sistema.obtenerHorario(1).get(0).getHoraSalida().compareTo(salida)==0) 
 			assertTrue(true);
 		else assertTrue(false);
 	}
@@ -248,7 +250,7 @@ public class HorarioTest {
 		nuevoHorario=new HorarioDTO(5,"martes",entrada,salidaIncorrecto,5);
 		sistema.actualizarHorario(nuevoHorario);
 		
-		if(sistema.obtenerHorario(0).get(0).getHoraSalida().compareTo(salidaIncorrecto)==0) 
+		if(sistema.obtenerHorario(1).get(0).getHoraSalida().compareTo(salidaIncorrecto)==0) 
 			assertTrue(false);
 		else assertTrue(true);
 	}
