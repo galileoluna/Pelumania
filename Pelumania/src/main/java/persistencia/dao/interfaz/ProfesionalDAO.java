@@ -3,6 +3,7 @@ package persistencia.dao.interfaz;
 import java.util.List;
 
 import dto.ProfesionalDTO;
+import dto.ServicioDTO;
 
 public interface ProfesionalDAO {
 	
@@ -21,6 +22,8 @@ public interface ProfesionalDAO {
 	public boolean insertServProf(int idServ, int idProf);
 	
 	public boolean deleteServProf(int idServ, int idPof);
+	
+	public List<ServicioDTO> getServiciosDelProfesional(int id);
 	
 	public List<String> obtenerServEnTabla(int id);
 

@@ -163,7 +163,9 @@ public class ControladorAgregarCita implements ActionListener{
 		ProfesionalDTO Profesional = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
 		this.ventanaAgregarCita.getLblNombreProfesional().setText(Profesional.getNombre()+" "+Profesional.getApellido());
 		int idProfesional = Profesional.getIdProfesional();
-		// -- ActualizarTabla();
+		
+		List<ServicioDTO> serviciosDelProfesional = sistema.getServiciosDelProfesional(idProfesional);
+		this.ventanaAgregarCita.cargarServicios(serviciosDelProfesional);
 	}
 	public static int getANIO() {
 		return ANIO;

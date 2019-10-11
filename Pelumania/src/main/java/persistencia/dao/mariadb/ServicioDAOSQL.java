@@ -137,7 +137,31 @@ public class ServicioDAOSQL implements ServicioDAO{
 		ResultSet resultSet; //Guarda el resultado de la query
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		List<ServicioDTO> servicios = new ArrayList<ServicioDTO>();
-
+		try 
+		{
+			statement = conexion.prepareStatement(getById);
+			statement.setInt(1, idServicio);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				servicios.add(getServicioDTO(resultSet));
+			}
+	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return servicios.get(0);
+	}
+	
+	protected static ServicioDTO obtenerPorId(int idServicio)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		List<ServicioDTO> servicios = new ArrayList<ServicioDTO>();
 		try 
 		{
 			statement = conexion.prepareStatement(getById);
@@ -176,7 +200,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 		return isdeleteExitoso;
 	}
 	
-	private ServicioDTO getServicioDTO(ResultSet resultSet) throws SQLException{
+	protected static ServicioDTO getServicioDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idServicio");
 		String nombre = resultSet.getString("Nombre");
 		BigDecimal precioLocal = resultSet.getBigDecimal("PrecioLocal");

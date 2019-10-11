@@ -47,7 +47,7 @@ public class ControladorServicioProfesional {
 		INSTANCE.nombre=nombre;
 		INSTANCE.ventServProf.setNombreEmpl(nombre);
 		INSTANCE.idProfesional=idProf;
-		INSTANCE.servEnTabla=INSTANCE.sistema.obtenerobtenerServEnTabla(idProf);
+		INSTANCE.servEnTabla=INSTANCE.sistema.obtenerServEnTabla(idProf);
 		INSTANCE.allServ=llenarServ(INSTANCE.idServ,INSTANCE.sistema);
 		llenarCombo(INSTANCE.ventServProf.getCombo(),INSTANCE.allServ);
 		INSTANCE.ventServProf.llenarTabla(INSTANCE.servEnTabla);

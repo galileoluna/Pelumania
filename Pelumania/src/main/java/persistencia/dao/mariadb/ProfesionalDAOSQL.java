@@ -7,7 +7,8 @@ package persistencia.dao.mariadb;
 	import java.util.ArrayList;
 	import java.util.List;
 	import dto.ProfesionalDTO;
-	import persistencia.conexion.Conexion;
+import dto.ServicioDTO;
+import persistencia.conexion.Conexion;
 	import persistencia.dao.interfaz.ProfesionalDAO;
 
 	public class ProfesionalDAOSQL implements ProfesionalDAO{
@@ -18,8 +19,10 @@ package persistencia.dao.mariadb;
 	private static final String readall = "SELECT * FROM Profesional";
 	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
 	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=?, estado = ? WHERE IdProfesional = ?";
-	private static final String readBuscador="SELECT * FROM Profesional WHERE ? LIKE ?";
+	private static final String readBuscador = "SELECT * FROM Profesional WHERE ? LIKE ?";
 	
+	
+	private static final String serviciosDelProfesional = "SELECT * FROM ServicioProfesional WHERE idProfesional = ?";
 	public boolean insert(ProfesionalDTO profesional){
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -274,6 +277,37 @@ package persistencia.dao.mariadb;
 		return personas;
 	}
 
+	public List<ServicioDTO> getServiciosDelProfesional (int id)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		List<Integer> IdServicios = new ArrayList<Integer>();
+
+		try 
+		{
+			statement = conexion.prepareStatement(serviciosDelProfesional);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				IdServicios.add(resultSet.getInt("IdServicio"));
+			}
+	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		List<ServicioDTO> servicios = new ArrayList<ServicioDTO>();
+		for (Integer i : IdServicios) {
+			servicios.add(ServicioDAOSQL.obtenerPorId(i));
+		}
+		
+		return servicios;
+	}
+	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");
 		String nombre = resultSet.getString("Nombre");

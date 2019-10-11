@@ -125,8 +125,12 @@ public class Sistema
 		return this.profesional.deleteServProf(idServ, idProf);
 	}
 	
-	public List<String> obtenerobtenerServEnTabla(int id){
+	public List<String> obtenerServEnTabla(int id){
 		return this.profesional.obtenerServEnTabla(id);
+	}
+	
+	public List<ServicioDTO> getServiciosDelProfesional(int idProfesional){
+		return this.profesional.getServiciosDelProfesional(idProfesional);
 	}
 	public List<ProfesionalDTO> obtenerProfesionalConBuscador(String variable, String value) {
 		return this.profesional.obtenerProfBuscado(variable,value);
