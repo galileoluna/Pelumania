@@ -40,6 +40,7 @@ public class Controlador implements ActionListener {
 				String anio =Integer.toString(Controlador.this.vista.getCalendario().getYearChooser().getYear());
 				//A obtenerTablaCita se le pasa el dia que se selecciona como un string EJ: 2019-10-06
 				Controlador.this.citasEnTabla=Controlador.this.sistema.obtenerTablaCita(anio+"-"+mes+"-"+dia);
+				System.out.println("estoy en el controlador"+Controlador.this.citasEnTabla);
 				Controlador.this.vista.llenarTabla(Controlador.this.citasEnTabla);
 				
 			}

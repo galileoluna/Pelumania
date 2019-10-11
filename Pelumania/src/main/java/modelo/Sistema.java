@@ -216,6 +216,7 @@ public class Sistema
 	// Funcion que obtiene la lista que se va a visualizar con los turnos ocupados
 	//Recibe un string con el dia a buscar 
 	public List<CitaDTO> obtenerTablaCita( String dia ){
+		System.out.println(dia+" estoy en sistema ");
 		return this.cita.readCitaPorDia(dia);
 	}
 	

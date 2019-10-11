@@ -31,7 +31,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String deleteReal = "DELETE FROM Cita WHERE idCita = ?";
 	private static final String cancel = "UPDATE Cita SET EstadoCita = ? WHERE idCita = ?";
 	private static final String readall = "SELECT * FROM Cita";
-	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal,c.idCita, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.Hora,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
+	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal,c.idCita, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.HoraInicio,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
 	private static final String update = "UPDATE  Cita SET ____ WHERE idCliente=?";
 	
 	private static final String DADODEBAJA = "Cerrado";
@@ -260,7 +260,7 @@ public class CitaDAOSQL implements CitaDAO{
 		int idCita = resultSet.getInt("c.idCita");
 		String profesional = resultSet.getString("p.Nombre")+" "+resultSet.getString("p.Apellido");
 		String cliente= resultSet.getString("cl.Nombre")+" "+resultSet.getString("cl.Apellido");
-		Time hora=resultSet.getTime("hora");
+		Time hora=resultSet.getTime("HoraInicio");
 		Date dia=resultSet.getDate("Dia");
 		String sucursal=resultSet.getString("s.NombreSucursal");
 		String estado=resultSet.getString("c.EstadoTurno");
