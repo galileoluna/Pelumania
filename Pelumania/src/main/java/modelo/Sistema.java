@@ -128,6 +128,10 @@ public class Sistema
 	public List<String> obtenerobtenerServEnTabla(int id){
 		return this.profesional.obtenerServEnTabla(id);
 	}
+	public List<ProfesionalDTO> obtenerProfesionalConBuscador(String variable, String value) {
+		return this.profesional.obtenerProfBuscado(variable,value);
+		
+	}
 	// FIN PROFESIONAL
 	
 	// ARRANCA HORARIOS ASOCIADOS A PROFESIONAL
@@ -263,5 +267,6 @@ public class Sistema
 		return this.caja.insert(caja_a_insertar);
 	}
 	//FIN CAJA
+	
 
 }

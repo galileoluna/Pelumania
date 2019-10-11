@@ -23,5 +23,7 @@ public interface ProfesionalDAO {
 	public boolean deleteServProf(int idServ, int idPof);
 	
 	public List<String> obtenerServEnTabla(int id);
+
+	public List<ProfesionalDTO> obtenerProfBuscado(String variable, String value);
 	
 }

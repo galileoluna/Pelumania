@@ -38,6 +38,7 @@ public class ControladorProfesional {
 		this.ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
 		this.ventanaProfesional.getBtnHorario().addActionListener(k -> verHorarios(k));
 		this.ventanaProfesional.getBtnAsignar().addActionListener(f -> asignarServ(f));
+		this.ventanaProfesional.getBtnBuscar().addActionListener(y -> buscar(y));
 		this.sistema = sistema;
 	}
 
@@ -130,6 +131,12 @@ public class ControladorProfesional {
         		this.controlServProf=ControladorServicioProfesional.getInstance(sistema,this.profesionalEnTabla.get(fila).idProfesional, nombreEmpl);
         	}
 		}	
+	}
+	
+	private void buscar(ActionEvent y) {
+		String variable=this.ventanaProfesional.getVariableBuscar().getSelectedItem().toString();
+		String value=this.ventanaProfesional.getBuscador().getText();
+		this.ventanaProfesional.llenarTabla(this.sistema.obtenerProfesionalConBuscador(variable,value));
 	}
 	
 }

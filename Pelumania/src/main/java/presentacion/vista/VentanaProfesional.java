@@ -20,6 +20,10 @@ import javax.swing.JButton;
 
 import persistencia.conexion.Conexion;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 public class VentanaProfesional
 {
@@ -27,6 +31,8 @@ public class VentanaProfesional
 	private JFrame frmProfesional;
 	private JTable tablaProfesional;
 	private JButton btnAgregar;
+	private JButton btnBuscar;
+	private JComboBox variableBuscar;
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private JButton btnHorario;
@@ -34,6 +40,7 @@ public class VentanaProfesional
 	private DefaultTableModel modelProfesional;
 	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia","Estado"};
 	private JButton btnAsignarServicio;
+	private JTextField buscador;
 
 	public VentanaProfesional() 
 	{
@@ -56,17 +63,17 @@ public class VentanaProfesional
 		frmProfesional = new JFrame();
 		frmProfesional.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
 		frmProfesional.setTitle("Profesional");
-		frmProfesional.setBounds(100, 100, 1001, 300);
+		frmProfesional.setBounds(100, 100, 1001, 341);
 		frmProfesional.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProfesional.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 975, 262);
+		panel.setBounds(0, 0, 975, 291);
 		frmProfesional.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(10, 11, 786, 182);
+		spPersonas.setBounds(10, 64, 786, 182);
 		panel.add(spPersonas);
 		
 		modelProfesional = new DefaultTableModel(null,nombreColumnas);
@@ -80,28 +87,50 @@ public class VentanaProfesional
 		spPersonas.setViewportView(tablaProfesional);
 		
 		btnAgregar = new JButton("Agregar Profesional");
-		btnAgregar.setBounds(111, 228, 153, 23);
+		btnAgregar.setBounds(114, 257, 153, 23);
 		panel.add(btnAgregar);
 		
 		btnEditar = new JButton("Editar Profesional");
-		btnEditar.setBounds(357, 228, 153, 23);
+		btnEditar.setBounds(356, 257, 153, 23);
 		panel.add(btnEditar);
 		
 		btnBorrar = new JButton("Borrar Profesional");
-		btnBorrar.setBounds(608, 228, 159, 23);
+		btnBorrar.setBounds(611, 257, 159, 23);
 		panel.add(btnBorrar);
 		
 		btnHorario = new JButton("Ver Horario");
-		btnHorario.setBounds(806, 61, 159, 23);
+		btnHorario.setBounds(806, 112, 159, 23);
 		panel.add(btnHorario);
 		
 		btnAsignarServicio = new JButton("Asignar Servicio");
-		btnAsignarServicio.setBounds(806, 130, 159, 23);
+		btnAsignarServicio.setBounds(806, 167, 159, 23);
 		panel.add(btnAsignarServicio);
 		
 		btnBorrarSanti = new JButton("Borrar Santi");
-		btnBorrarSanti.setBounds(806, 200, 159, 23);
+		btnBorrarSanti.setBounds(806, 238, 159, 23);
 		panel.add(btnBorrarSanti);
+		
+		JLabel lblBuscarPor = new JLabel("Buscar por:");
+		lblBuscarPor.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblBuscarPor.setBounds(10, 11, 95, 24);
+		panel.add(lblBuscarPor);
+		
+		variableBuscar = new JComboBox();
+		variableBuscar.setBounds(136, 13, 153, 22);
+		panel.add(variableBuscar);
+		variableBuscar.addItem("Todos");
+		variableBuscar.addItem("Nombre");
+		variableBuscar.addItem("Apellido");
+		variableBuscar.addItem("Estado");
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(572, 13, 123, 23);
+		panel.add(btnBuscar);
+		
+		buscador = new JTextField();
+		buscador.setBounds(327, 14, 221, 20);
+		panel.add(buscador);
+		buscador.setColumns(10);
 		
 	}
 	
@@ -152,6 +181,17 @@ public class VentanaProfesional
 	
 	public JButton getBtnAsignar() {
 		return this.btnAsignarServicio;
+	}
+	
+	public JButton getBtnBuscar() {
+		return btnBuscar;
+	}
+	public JComboBox getVariableBuscar() {
+		return variableBuscar;
+	}
+	
+	public JTextField getBuscador() {
+		return buscador;
 	}
 
 	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla) {
