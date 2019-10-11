@@ -253,7 +253,7 @@ public class CitaDAOSQL implements CitaDAO{
 		
 		return profesional;
 	}
-	
+	 
 	
 	// Este get Cita recibe los parametros necesarios para armar CitaDTO para la visualizacion del turno por tabla
 	private CitaDTO getCitaDTO(ResultSet resultSet) throws SQLException{
