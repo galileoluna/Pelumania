@@ -171,9 +171,14 @@ public class ControladorAgregarCita implements ActionListener{
     	{
         	if(serviciosDelProfesional.get(fila)!=null) {
         		ServicioDTO servicioSeleccionado = serviciosDelProfesional.get(fila);
-        		this.serviciosAgregados.add(servicioSeleccionado);
+        		if (!existeServicio(servicioSeleccionado)) {
+        			this.serviciosAgregados.add(servicioSeleccionado);
+                	this.ventanaAgregarCita.actualizarServiciosAgregados(serviciosAgregados);
+        			ActualizarInformacionServiciosAgregados();
+        		}else {
+        			JOptionPane.showMessageDialog(null, "No puedes agregar 2 veces el mismo servicio!");
+        		}
 	}
-        	this.ventanaAgregarCita.actualizarServiciosAgregados(serviciosAgregados);
     	}
 	}
 	
@@ -191,6 +196,46 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.cargarServicios(serviciosDelProfesional);
 		}
 	}
+	
+	//Chequea si el servicio a agregar a la cita ya esta agregado o no.
+	public boolean existeServicio(ServicioDTO servicio_a_chequear) {
+		for (ServicioDTO s : serviciosAgregados) {
+			if (s.getIdServicio() == servicio_a_chequear.getIdServicio())
+				return true;
+		}
+		return false;
+	}
+	
+	public BigDecimal calcularTotal() {
+		BigDecimal total = BigDecimal.valueOf(0);
+		for (ServicioDTO s : serviciosAgregados) {
+			total = total.add(s.getPrecioLocal());
+		}
+		return total;
+	}
+	
+	public BigDecimal calcularTotalDolar() {
+		BigDecimal total = BigDecimal.valueOf(0);
+		for (ServicioDTO s : serviciosAgregados) {
+			total = total.add(s.getPrecioDolar());
+		}
+		return total;
+	}
+	
+	public LocalTime CalcularTotalTiempo() {
+		LocalTime total = LocalTime.of(0, 0);
+		for (ServicioDTO s : serviciosAgregados) {
+			total.plusHours(s.getDuracion().getHour());
+			total.plusMinutes(s.getDuracion().getMinute());
+		}
+		return total;
+	}
+	
+	public void ActualizarInformacionServiciosAgregados() {
+		this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());
+		this.ventanaAgregarCita.getLblHora_1().setText(CalcularTotalTiempo().toString());
+	}
+	
 	public static int getANIO() {
 		return ANIO;
 	}
