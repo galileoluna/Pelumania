@@ -35,12 +35,18 @@ public class ControladorAgregarCita implements ActionListener{
 	
 
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	private ControladorAgregarCita(Sistema sistema) {
 		this.ventanaAgregarCita = VentanaAgregarCita.getInstance();
 		//this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarCita(p));
 		this.ventanaAgregarCita.getBtnRegistrarCliente().addActionListener(q -> registrarCliente(q));
 		this.ventanaAgregarCita.getBtnBuscarCliente().addActionListener(r -> buscarCliente(r));
 		this.ventanaAgregarCita.getJCBoxProfesional().addActionListener(p -> seleccionarProfesional(p));
+		
+		this.ventanaAgregarCita.getBtnAgregarServicio().addActionListener(w -> agregarServicio(w));
+		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicio(x));
 		this.sistema = sistema;
 
 	}
@@ -152,6 +158,14 @@ public class ControladorAgregarCita implements ActionListener{
 		}
 	}
 	*/
+	
+	public void agregarServicio(ActionEvent w) {
+		//falta implementar
+	}
+	
+	public void borrarServicio(ActionEvent x) {
+		//falta implementar
+	}
 	
 	public void seleccionarProfesional(ActionEvent e) {
 		if (this.ventanaAgregarCita.getJCBoxProfesional().getSelectedIndex() != -1) {
