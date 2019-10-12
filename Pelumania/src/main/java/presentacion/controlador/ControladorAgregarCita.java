@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ControladorAgregarCita implements ActionListener{
 	private static int ANIO;
 	private static int MES;
 	private static int DIA;
-	
+	private static List<ServicioDTO> serviciosAgregados;
 
 
 	/**
@@ -47,6 +48,8 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		this.ventanaAgregarCita.getBtnAgregarServicio().addActionListener(w -> agregarServicio(w));
 		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicio(x));
+		//Instancio la lista de servicios vacía
+		serviciosAgregados = new ArrayList<ServicioDTO>();
 		this.sistema = sistema;
 
 	}
@@ -160,7 +163,18 @@ public class ControladorAgregarCita implements ActionListener{
 	*/
 	
 	public void agregarServicio(ActionEvent w) {
-		//falta implementar
+		ProfesionalDTO prof = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
+		List<ServicioDTO> serviciosDelProfesional = sistema.getServiciosDelProfesional(prof.getIdProfesional());
+		int[] filasSeleccionadas = ventanaAgregarCita.getTablaServicios().getSelectedRows();
+	       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(serviciosDelProfesional.get(fila)!=null) {
+        		ServicioDTO servicioSeleccionado = serviciosDelProfesional.get(fila);
+        		this.serviciosAgregados.add(servicioSeleccionado);
+	}
+        	this.ventanaAgregarCita.actualizarServiciosAgregados(serviciosAgregados);
+    	}
 	}
 	
 	public void borrarServicio(ActionEvent x) {

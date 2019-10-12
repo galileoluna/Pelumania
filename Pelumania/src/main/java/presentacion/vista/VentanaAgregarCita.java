@@ -485,6 +485,24 @@ public class VentanaAgregarCita extends JFrame
 				this.getModelServicios().addRow(fila);
 			}
 	}
+	public void actualizarServiciosAgregados(List<ServicioDTO> serviciosAgregados)
+	{
+	this.getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
+	this.getModelServiciosAgregados().setColumnCount(0);
+	this.getModelServiciosAgregados().setColumnIdentifiers(this.getNombreColumnas());
+
+	for (ServicioDTO s : serviciosAgregados)
+	{
+		String nombre = s.getNombre();
+		BigDecimal precioLocal = s.getPrecioLocal();
+		BigDecimal precioDolar = s.getPrecioDolar();
+		LocalTime duracion = s.getDuracion();
+		int puntos = s.getPuntos();
+		String estado = s.getEstado();
+		Object[] fila = {nombre};
+		this.getModelServiciosAgregados().addRow(fila);
+	}
+}
 
 	public void cargarProfesionales(List<ProfesionalDTO> profesionalesEnTabla) {
 		for (ProfesionalDTO p : profesionalesEnTabla) {
