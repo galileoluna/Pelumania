@@ -15,4 +15,6 @@ public interface CategoriaMovimientoCajaDAO {
 	public boolean deleteRealCategoria(CategoriaMovimientoCajaDTO categoria_a_eliminar);
 	
 	public List<CategoriaMovimientoCajaDTO> readAll();
+
+	public CategoriaMovimientoCajaDTO readOne(int idCategoria);
 }
