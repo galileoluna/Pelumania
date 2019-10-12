@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `Caja`(
 );
 
 CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
-	`idCategoria` INT(11) NOT NULL,
+	`idCategoriaCaja` INT(11) NOT NULL,
 	`Nombre` VARCHAR(55) NOT NULL,
     `Estado` VARCHAR(55) NOT NULL
 );
