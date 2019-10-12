@@ -1,14 +1,18 @@
 package presentacion.vista;
 
+import java.awt.Font;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ServicioDTO;
@@ -22,9 +26,13 @@ public class VentanaServicio extends JFrame{
 			"Precio en USD","Duracion", "Puntos que brinda", "Estado"};
 
 
+	private JButton btnBuscar;
+	private JTextField buscador;
+
 	private JButton btnAgregar;
 	private JButton btnEditar;
 	private JButton btnBorrar;
+	private JButton btnVerTodo;
 
 	public VentanaServicio()
 	{
@@ -58,7 +66,8 @@ public class VentanaServicio extends JFrame{
 		JScrollPane spServicios = new JScrollPane();
 		spServicios.setBounds(10, 11, 693, 277);
 		panel.add(spServicios);
-
+		
+		
 		modelServicios = new DefaultTableModel(null,nombreColumnas) {
 			//Para que las celdas de la tabla no se puedan editar
 			@Override
@@ -85,16 +94,37 @@ public class VentanaServicio extends JFrame{
 		spServicios.setViewportView(tablaServicios);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(172, 322, 89, 23);
+		btnAgregar.setBounds(10, 322, 89, 23);
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(282, 322, 89, 23);
+		btnEditar.setBounds(120, 322, 89, 23);
 		panel.add(btnEditar);
 
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(394, 322, 89, 23);
+		btnBorrar.setBounds(230, 322, 89, 23);
 		panel.add(btnBorrar);
+		
+		JLabel lblBuscarPor = new JLabel("Buscar por nombre:");
+		lblBuscarPor.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblBuscarPor.setBounds(350, 322, 200, 23);
+		panel.add(lblBuscarPor);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(600, 322, 89, 23);
+		panel.add(btnBuscar);
+		
+		buscador = new JTextField();
+		buscador.setBounds(500, 322, 89, 23);
+		panel.add(buscador);
+		buscador.setColumns(10);
+		
+
+		btnVerTodo = new JButton("Ver todo");
+		btnVerTodo.setBounds(600, 290, 89, 23);
+		panel.add(btnVerTodo);
+		
+		
 	}
 
 	public JTable getTablaServicios() {
@@ -132,6 +162,10 @@ public class VentanaServicio extends JFrame{
 	public JButton getBtnEditar() {
 		return btnEditar;
 	}
+	
+	public JButton getBtnVerTodo() {
+		return btnVerTodo;
+	}
 
 	public void setBtnEditar(JButton btnEditar) {
 		this.btnEditar = btnEditar;
@@ -144,6 +178,16 @@ public class VentanaServicio extends JFrame{
 	public void setBtnBorrar(JButton btnBorrar) {
 		this.btnBorrar = btnBorrar;
 	}
+	
+	public JButton getBtnBuscar() {
+		return btnBuscar;
+	}
+	
+	
+	public JTextField getBuscador() {
+		return buscador;
+	}
+
 
 	public void llenarTabla(List<ServicioDTO> serviciosEnTabla) {
 		this.getModelServicios().setRowCount(0); //Para vaciar la tabla
