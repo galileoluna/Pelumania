@@ -20,7 +20,7 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 	private ControladorAgregarCategoriaMovimientoCaja(Sistema sistema) {
 		this.VentanaAgregarCategoriaMovimientosCaja = VentanaAgregarCategoriaMovimientosCaja.getInstance();
 		this.VentanaAgregarCategoriaMovimientosCaja.getBtnAgregarSucursal().addActionListener(p -> guardarCateforia(p));
-		llenarCombos();	
+		llenarCombos();	 
 		this.sistema = sistema;
 	}
 
