@@ -19,17 +19,18 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 	private JPanel contentPane;
 	private static VentanaAgregarCategoriaMovimientosCaja INSTANCE;
 
-	private JTextField txtNombreSucursal;
+	private JTextField txtNombreCategoria;
 
-	private JLabel lbl_NombreCategoria;
-	private JLabel lbl_TipoMovimiento;
-	private JLabel lbl_Estado;
+	private JLabel lblNombreCategoria;
+	private JLabel lblTipoMovimiento;
+	private JLabel lblEstado;
 	
 
-	private JButton btn_AgregarSucursal;
-	private JButton btn_Cancelar;
+	private JButton btnAgregarCategoria;
+	private JButton btnCancelar;
 	private JComboBox<String> comboEstado;
 	private JTextField txtEgreso;
+	private JButton btnEditarCategoria;
 	
 	public static VentanaAgregarCategoriaMovimientosCaja getInstance()
 	{
@@ -56,32 +57,36 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		txtNombreSucursal = new JTextField();
-		txtNombreSucursal.setBounds(132, 19, 167, 26);
-		panel.add(txtNombreSucursal);
-		txtNombreSucursal.setColumns(10);
+		txtNombreCategoria = new JTextField();
+		txtNombreCategoria.setBounds(132, 19, 167, 26);
+		panel.add(txtNombreCategoria);
+		txtNombreCategoria.setColumns(10);
 
-		lbl_NombreCategoria = new JLabel("Nombre Categoria");
-		lbl_NombreCategoria.setBounds(0, 19, 124, 26);
-		panel.add(lbl_NombreCategoria);
+		lblNombreCategoria = new JLabel("Nombre Categoria");
+		lblNombreCategoria.setBounds(0, 19, 124, 26);
+		panel.add(lblNombreCategoria);
 
-		lbl_TipoMovimiento = new JLabel("Tipo de movimiento");
-		lbl_TipoMovimiento.setBounds(0, 56, 124, 26);
-		panel.add(lbl_TipoMovimiento);
+		lblTipoMovimiento = new JLabel("Tipo de movimiento");
+		lblTipoMovimiento.setBounds(0, 56, 124, 26);
+		panel.add(lblTipoMovimiento);
 
-		lbl_Estado = new JLabel("Estado");
-		lbl_Estado.setBounds(0, 93, 124, 26);
-		panel.add(lbl_Estado);
+		lblEstado = new JLabel("Estado");
+		lblEstado.setBounds(0, 93, 124, 26);
+		panel.add(lblEstado);
 
-		btn_AgregarSucursal = new JButton("Agregar");
-		btn_AgregarSucursal.setBounds(66, 270, 89, 23);
-		panel.add(btn_AgregarSucursal);
-
-		btn_Cancelar = new JButton("Cancelar");
-		btn_Cancelar.setBounds(165, 270, 89, 23);
-		panel.add(btn_Cancelar);
+		btnAgregarCategoria = new JButton("Agregar");
+		btnAgregarCategoria.setBounds(66, 270, 89, 23);
+		panel.add(btnAgregarCategoria);
 		
-		comboEstado = new JComboBox();
+		btnEditarCategoria = new JButton("Editar");
+		btnEditarCategoria.setBounds(66, 270, 89, 23);
+		panel.add(btnEditarCategoria);
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(165, 270, 89, 23);
+		panel.add(btnCancelar);
+		
+		comboEstado = new JComboBox<String>();
 		comboEstado.setBounds(132, 96, 167, 23);
 		panel.add(comboEstado);
 		
@@ -100,27 +105,27 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 	}
 
 	public JTextField getTxtNombre() {
-		return txtNombreSucursal;
+		return txtNombreCategoria;
 	}
 
 	public void setTxtNombreSucursal(JTextField txtNombreSucursal) {
-		this.txtNombreSucursal = txtNombreSucursal;
+		this.txtNombreCategoria = txtNombreSucursal;
 	}
 
-public JButton getBtnAgregarSucursal() {
-		return btn_AgregarSucursal;
+public JButton getBtnAgregarCategoria() {
+		return btnAgregarCategoria;
 	}
 
 	public void setBtnAgregarSucursal(JButton btn_AgregarSucursal) {
-		this.btn_AgregarSucursal = btn_AgregarSucursal;
+		this.btnAgregarCategoria = btn_AgregarSucursal;
 	}
 
-	public JButton getBtn_Cancelar() {
-		return btn_Cancelar;
+	public JButton getBtnCancelar() {
+		return btnCancelar;
 	}
 
-	public void setBtn_Cancelar(JButton btn_Cancelar) {
-		this.btn_Cancelar = btn_Cancelar;
+	public void setBtnCancelar(JButton btn_Cancelar) {
+		this.btnCancelar = btn_Cancelar;
 	}
 
 	public JComboBox<String> getComboEstado() {
@@ -142,13 +147,16 @@ public JButton getBtnAgregarSucursal() {
 	}
 
 	public void limpiarCampos() {
-//		this.getTxtNombreSucursal().setText(null);
-//		this.getTxtDireccion().setText(null);
-//		this.getTxtNumero().setText(null);
-		
+		this.getTxtNombre().setText(null);
+
 	}
 	
 	public void cerrar(){
 		this.dispose();
+	}
+
+	public JButton getBtnEditarCategoria() {
+		return this.btnEditarCategoria;
+		
 	}
 }

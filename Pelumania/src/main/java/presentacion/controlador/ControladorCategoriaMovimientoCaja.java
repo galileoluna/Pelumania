@@ -52,10 +52,12 @@ public class ControladorCategoriaMovimientoCaja {
     	{
         	if(categoriaEnTabla.get(fila)!=null) {	 
         		int idCategoria = categoriaEnTabla.get(fila).getIdCategoria();
-        		SucursalDTO sucursal_a_editar = sistema.getSucursalById(idCategoria);
-        		
-        		ControladorEditarSucursal.getInstance(sistema, sucursal_a_editar, idCategoria);
-	}
+        		CategoriaMovimientoCajaDTO categoria_a_editar = sistema.getCategoriaMovimientoCajaById(idCategoria);
+        		//uso la misma ventana para editar y agregar
+        		this.controladorAgregarCategoriaMovimientoCaja = ControladorAgregarCategoriaMovimientoCaja.getInstance(sistema);
+        		//seteo los input
+        		this.controladorAgregarCategoriaMovimientoCaja.llenarInputsEditar(categoria_a_editar);
+        	}
     	}
 	}
 

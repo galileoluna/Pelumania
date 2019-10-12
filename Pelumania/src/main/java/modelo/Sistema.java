@@ -292,6 +292,10 @@ public class Sistema
 		return this.categoriaMovimientoCaja.delete(categoria_a_eliminar);
 	}
 	
+	public boolean updateCategoriaMovimientoCaja(CategoriaMovimientoCajaDTO categoria_a_editar) {
+		return this.categoriaMovimientoCaja.update(categoria_a_editar);
+	}
+	
 	//Fin Categorias Movimiento Caja
 	
 
