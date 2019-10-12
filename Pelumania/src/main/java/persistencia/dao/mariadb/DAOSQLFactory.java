@@ -1,5 +1,6 @@
 package persistencia.dao.mariadb;
 
+import persistencia.dao.interfaz.CategoriaMovimientoCajaDAO;
 import persistencia.dao.interfaz.CitaDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
@@ -54,8 +55,12 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 
 	@Override
 	public MovimientoCajaDAO createMovimientoCajaDAO() {
-		// TODO Auto-generated method stub
 		return new MovimientoCajaDAOSQL();
+	}
+	
+	@Override
+	public CategoriaMovimientoCajaDAO createCategoriaMovimientoCajaDAO() {
+		return new CategoriaMovimientoCajaDAOSQL();
 	}
 
 }

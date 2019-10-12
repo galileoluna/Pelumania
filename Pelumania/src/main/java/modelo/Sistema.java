@@ -3,6 +3,7 @@ package modelo;
 import java.sql.Date;
 import java.util.List;
 
+import dto.CategoriaMovimientoCajaDTO;
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.HorarioDTO;
@@ -11,6 +12,7 @@ import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 import dto.ServicioDTO;
 import dto.SucursalDTO;
+import persistencia.dao.interfaz.CategoriaMovimientoCajaDAO;
 import persistencia.dao.interfaz.CitaDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
@@ -32,6 +34,7 @@ public class Sistema
 	private CitaDAO cita;
 	private PromocionDAO promocion;
 	private MovimientoCajaDAO caja;
+	private CategoriaMovimientoCajaDAO categoriaMovimientoCaja;
 
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -43,6 +46,7 @@ public class Sistema
 		this.cita = metodo_persistencia.createCitaDAO();
 		this.promocion=metodo_persistencia.createPromocionDAO();
 		this.caja = metodo_persistencia.createMovimientoCajaDAO();
+		this.categoriaMovimientoCaja = metodo_persistencia.createCategoriaMovimientoCajaDAO();
 	}
 // COMIENZA CLIENTE
 	public void agregarCliente(ClienteDTO nuevoCliente)
@@ -272,6 +276,16 @@ public class Sistema
 	}
 	
 	//FIN CAJA
+	
+	// COMIENZA CATEGORIAS MOVIMIENTO CAJA
+	public boolean insertarCategoriaMovimientoCaja (CategoriaMovimientoCajaDTO categoria_a_insertar) {
+		return this.categoriaMovimientoCaja.insert(categoria_a_insertar);
+	}
+	public List<CategoriaMovimientoCajaDTO> obtenerCategoriasMovimientoCaja() {
+		return this.categoriaMovimientoCaja.readAll();
+	}
+	
+	//Fin Categorias Movimiento Caja
 	
 
 }

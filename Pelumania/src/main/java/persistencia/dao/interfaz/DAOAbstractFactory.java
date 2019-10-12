@@ -18,4 +18,6 @@ public interface DAOAbstractFactory {
 	public PromocionDAO createPromocionDAO();
 	
 	public MovimientoCajaDAO createMovimientoCajaDAO();
-}
+	
+	public CategoriaMovimientoCajaDAO createCategoriaMovimientoCajaDAO();
+	}

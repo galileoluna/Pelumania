@@ -46,6 +46,7 @@ public class Vista {
 	private  String[] nombreColumnas = {"Horario","Cliente","Estado"};
 	private JTable table;
 	private JButton btnAgregarCita;
+	private JMenuItem menuConsultaCategoriaCaja;
 
 
 	public Vista()
@@ -105,6 +106,8 @@ public class Vista {
 		menuBar.add(mnCaja);
 		
 		menuConsultarCaja = new JMenuItem("Consultar Caja");
+		menuConsultaCategoriaCaja = new JMenuItem("Consultar Categorias");
+		mnCaja.add(menuConsultaCategoriaCaja);
 		mnCaja.add(menuConsultarCaja);
 
 		JPanel panel = new JPanel();
@@ -248,6 +251,14 @@ public class Vista {
 	public JMenuItem getMenuCaja() {
 		return this.menuConsultarCaja;
 	}
+	public JMenuItem getMenuConsultarCategoriaCaja() {
+		return menuConsultaCategoriaCaja;
+	}
+
+	public void setMenuConsultarCategoriaCaja(JMenuItem menuConsultarCategoriaCaja) {
+		this.menuConsultaCategoriaCaja = menuConsultarCategoriaCaja;
+	}
+
 	public void  llenarTabla (List<CitaDTO> CitaslEnTabla) {
 		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
 		this.getmodelCita().setColumnCount(0);
