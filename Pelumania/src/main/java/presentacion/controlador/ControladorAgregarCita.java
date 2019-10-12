@@ -42,7 +42,7 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getBtnBuscarCliente().addActionListener(r -> buscarCliente(r));
 		this.ventanaAgregarCita.getJCBoxProfesional().addActionListener(p -> seleccionarProfesional(p));
 		this.sistema = sistema;
-		prueba();
+
 	}
 
 	private static void inicializarDatos() {
@@ -63,6 +63,7 @@ public class ControladorAgregarCita implements ActionListener{
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorAgregarCita(sistema);
 		}
+		INSTANCE.ventanaAgregarCita.limpiarCampos();
 		inicializarDatos();
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
 		return INSTANCE;
@@ -76,13 +77,6 @@ public class ControladorAgregarCita implements ActionListener{
 		controladorCliente = ControladorCliente.getInstance(sistema);
 	}
 	
-	public void prueba () {
-	List<ServicioDTO> lista = new ArrayList<ServicioDTO>();
-	lista.add(this.sistema.getServicioById(1));
-	lista.add(this.sistema.getServicioById(2));
-	lista.add(this.sistema.getServicioById(3));
-	System.out.println(lista.toString());
-	}
 /*
 	public void guardarCita(ActionEvent p) {
 		//Levanto los datos de la ventanaCita
@@ -160,12 +154,14 @@ public class ControladorAgregarCita implements ActionListener{
 	*/
 	
 	public void seleccionarProfesional(ActionEvent e) {
+		if (this.ventanaAgregarCita.getJCBoxProfesional().getSelectedIndex() != -1) {
 		ProfesionalDTO Profesional = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
 		this.ventanaAgregarCita.getLblNombreProfesional().setText(Profesional.getNombre()+" "+Profesional.getApellido());
 		int idProfesional = Profesional.getIdProfesional();
 		
 		List<ServicioDTO> serviciosDelProfesional = sistema.getServiciosDelProfesional(idProfesional);
 		this.ventanaAgregarCita.cargarServicios(serviciosDelProfesional);
+		}
 	}
 	public static int getANIO() {
 		return ANIO;

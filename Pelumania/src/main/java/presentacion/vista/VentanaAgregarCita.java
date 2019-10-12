@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,9 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
-import dto.ClienteDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import java.awt.event.ActionListener;
@@ -215,10 +212,6 @@ public class VentanaAgregarCita extends JFrame
 		
 		JButton btnBorrarServicio = new JButton("Borrar Servicio");
 		btnBorrarServicio.setBounds(162, 464, 133, 23);
-		btnBorrarServicio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		panel.add(btnBorrarServicio);
 		
 		JLabel lblHoraDeFinalizacion = new JLabel("Hora de finalizacion: ");
@@ -441,6 +434,9 @@ public class VentanaAgregarCita extends JFrame
 		
 		this.getJCBoxHora().setSelectedItem(null);
 		this.getJCBoxMinutos().setSelectedItem(null);
+		
+		this.JCBoxProfesional.setSelectedIndex(-1);
+		
 	}
 
 	public void cerrar()
