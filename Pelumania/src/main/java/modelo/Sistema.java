@@ -284,6 +284,13 @@ public class Sistema
 	public List<CategoriaMovimientoCajaDTO> obtenerCategoriasMovimientoCaja() {
 		return this.categoriaMovimientoCaja.readAll();
 	}
+	public CategoriaMovimientoCajaDTO getCategoriaMovimientoCajaById(int idCategoria) {
+		return this.categoriaMovimientoCaja.readOne(idCategoria);
+	}
+	
+	public boolean deleteCategoriaMovimientoCaja (CategoriaMovimientoCajaDTO categoria_a_eliminar) {
+		return this.categoriaMovimientoCaja.delete(categoria_a_eliminar);
+	}
 	
 	//Fin Categorias Movimiento Caja
 	

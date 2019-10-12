@@ -9,6 +9,7 @@ import java.util.List;
 
 
 import dto.CategoriaMovimientoCajaDTO;
+import dto.SucursalDTO;
 import persistencia.conexion.Conexion; 
 import persistencia.dao.interfaz.CategoriaMovimientoCajaDAO;
 
@@ -20,6 +21,7 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
 	private static final String readall = "SELECT * FROM CategoriaCaja";
 	private static final String update = "UPDATE CategoriaCaja SET Nombre=?, Estado=? WHERE idCategoriaCaja = ?";
 	private static final String ESTADO_INACTIVO = "inactivo";
+	private static final String readOne = "SELECT * FROM CategoriaCaja WHERE idCategoriaCaja = ?";
     
     @Override
     public boolean insert(CategoriaMovimientoCajaDTO categoria){
@@ -155,5 +157,29 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
     	
     	return new CategoriaMovimientoCajaDTO(id, nombre, estado);
     }
+	
+	public CategoriaMovimientoCajaDTO readOne(int idCategoriaCaja) {
+		PreparedStatement statement;
+    	ResultSet resultSet; //Guarda el resultado de la query
+    	List<CategoriaMovimientoCajaDTO> sucursal = new ArrayList<CategoriaMovimientoCajaDTO>();
+    	Conexion conexion = Conexion.getConexion();
+    	try 
+    	{
+    		statement = conexion.getSQLConexion().prepareStatement(readOne);
+    		statement.setInt(1, idCategoriaCaja);
+    		resultSet = statement.executeQuery();
+    		while(resultSet.next())
+    		{
+    			sucursal.add(getCategoriaMovimientoCajaDTO(resultSet));
+    		}
+    	} 
+    	catch (SQLException e) 
+    	{
+    		e.printStackTrace();
+    	}
+    	
+    	return sucursal.get(0);
+	}
 
+	
 }
