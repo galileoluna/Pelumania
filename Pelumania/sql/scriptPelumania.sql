@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `Caja`(
 
   `IdCaja` INT(11) NOT NULL AUTO_INCREMENT,
   `idSucursal` INT(11) NULL,
-  `Categoria` VARCHAR(55) NOT NULL,
+  `idCategoria` INT(11) NOT NULL,
   `Fecha`  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `Descripcion` VARCHAR(80) NULL,  
   `TipoMovimiento` VARCHAR(55) NOT NULL,    
@@ -169,6 +169,14 @@ CREATE TABLE IF NOT EXISTS `Caja`(
  FOREIGN KEY (`idCliente`) REFERENCES `Cliente`(`idCliente`),
  FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`IdProfesional`)
  FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`),
+ FOREIGN KEY (`idCategoria`) REFERENCES `CategoriaCaja`(`idCategoriaCaja`),
+
+);
+
+CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
+	`idCategoriaCaja` INT(11) NOT NULL,
+	`Nombre` VARCHAR(55) NOT NULL,
+    `Estado` VARCHAR(55) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `ServicioTurno`(

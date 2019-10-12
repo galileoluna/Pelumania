@@ -55,6 +55,7 @@ public class ControladorCaja implements ActionListener {
 	
 	private void mostrarInputsEgreso() {
 		this.ventanaCaja.getPanel_egreso().setVisible(true);
+//		this.ventanaCaja.getPanel_Ingreso().setVisible(false);
 	}
 
 	private void agregarMovimiento(ActionEvent l) {
@@ -86,7 +87,7 @@ public class ControladorCaja implements ActionListener {
 								precioLocal, precioDolar, descripcion);
 		
 		this.sistema.insertarEgreso(mov);
-		System.out.println("BIEN AHI PAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+		System.out.println("NANANNAAN CLAVE ESE METODO BEBETO NDEAAHHHHHHH DE RUTAAAAAA");
 		
 		}
 		

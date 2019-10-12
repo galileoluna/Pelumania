@@ -44,9 +44,7 @@ public class ControladorCliente implements ActionListener {
 		INSTANCE.ventanaCliente.mostrar();
 	}
 
-	/**
-	 * @param ¿que estado tiene en el alta un cliente?
-	 * */
+
 	private void guardarCliente(ActionEvent p) {
 
 

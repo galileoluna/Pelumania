@@ -10,6 +10,8 @@ import util.TextPrompt;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -19,13 +21,17 @@ public class VentanaCaja extends JFrame
 	private JPanel contentPane;
 	private static VentanaCaja INSTANCE;
 	private JComboBox<String> comboTipoMovimiento;
-	private JLabel lbl_Categoria;
+	private JLabel lblTipoMovimiento;
 	private JComboBox<String> comboCategoria;
 	private JTextField txtDescripcion;
 	private JPanel panel_egreso;
 	private JLabel lbl_profesional;
 	private JComboBox<String> comboProfesional;
 	private JButton btnAgregar;
+	private JLabel lblPrecioEgreso;
+	private JTextField txtPrecio;
+	private JLabel lblCita;
+	private JButton buttonBuscarCita;
 	
 	public static VentanaCaja getInstance()
 	{
@@ -44,55 +50,72 @@ public class VentanaCaja extends JFrame
 
 		setTitle("Caja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 451, 453);
+		setBounds(100, 100, 413, 453);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 435, 415);
+		panel.setBounds(0, 0, 397, 415);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		lbl_Categoria = new JLabel("Tipo de Movimiento");
-		lbl_Categoria.setBounds(10, 33, 124, 26);
-		panel.add(lbl_Categoria);
+		lblTipoMovimiento = new JLabel("Tipo de Movimiento");
+		lblTipoMovimiento.setBounds(10, 33, 124, 26);
+		panel.add(lblTipoMovimiento);
 		
 		comboTipoMovimiento = new JComboBox<String>();
 		comboTipoMovimiento.addItem("Ingreso");
 		comboTipoMovimiento.addItem("Egreso");
-		comboTipoMovimiento.setBounds(169, 35, 204, 23);
+		comboTipoMovimiento.setBounds(169, 35, 173, 23);
 		panel.add(comboTipoMovimiento);
 		
-		JLabel lbl_Categoria = new JLabel("Categoria");
-		lbl_Categoria.setBounds(10, 81, 124, 26);
-		panel.add(lbl_Categoria);
+		JLabel lblCategoria = new JLabel("Categoria");
+		lblCategoria.setBounds(10, 81, 124, 26);
+		panel.add(lblCategoria);
 		
 		comboCategoria = new JComboBox<String>();
-		comboCategoria.setBounds(169, 84, 204, 23);
+		comboCategoria.setBounds(169, 84, 173, 23);
 		comboCategoria.addItem("Insumos");
 		panel.add(comboCategoria);
 		
 		panel_egreso = new JPanel();
-		panel_egreso.setBounds(0, 119, 437, 185);
-		panel.add(panel_egreso);
+		panel_egreso.setBounds(0, 118, 397, 154);
+//		panel.add(panel_egreso);
 		panel_egreso.setLayout(null);
 		//ocultamos por defecto los campos que son
 		//especicos de un egreso
 		panel_egreso.setVisible(false);
 		
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(10, 65, 385, 78);
+		txtDescripcion.setBounds(173, 24, 165, 53);
 		panel_egreso.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
 		
 		JLabel lblDescripcion = new JLabel("Descripción");
-		lblDescripcion.setBounds(10, 21, 87, 16);
+		lblDescripcion.setBounds(10, 24, 87, 16);
 		panel_egreso.add(lblDescripcion);
 		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(173, 98, 164, 26);
+		panel_egreso.add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		lblPrecioEgreso = new JLabel("Monto en ARS");
+		lblPrecioEgreso.setBounds(10, 98, 124, 26);
+		panel_egreso.add(lblPrecioEgreso);
+		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(152, 377, 140, 26);
+		btnAgregar.setBounds(130, 378, 160, 26);
 		panel.add(btnAgregar);
+		
+//		lblCita = new JLabel("Cita");
+//		lblCita.setBounds(10, 138, 99, 26);
+//		panel.add(lblCita);
+		
+//		buttonBuscarCita = new JButton("Buscar");
+//		buttonBuscarCita.setBounds(169, 140, 173, 26);
+//		panel.add(buttonBuscarCita);
 		
 //		lbl_profesional = new JLabel("Profesional");
 //		lbl_profesional.setBounds(10, 128, 124, 26);
