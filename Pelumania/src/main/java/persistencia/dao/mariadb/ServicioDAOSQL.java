@@ -25,6 +25,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 	private static final String readall = " SELECT * FROM servicio";
 	private static final String getById = "SELECT * FROM servicio WHERE idServicio = ?";
 	private static final String deleteRealServicio = "DELETE FROM Servicio WHERE idServicio = ?";
+	private static final String readBuscador = "SELECT * FROM servicio WHERE ? LIKE ?";
 	
 	private static final String ESTADO_INACTIVO = "Inactivo";
 
@@ -210,6 +211,29 @@ public class ServicioDAOSQL implements ServicioDAO{
 		String estado = resultSet.getString("Estado");
 		
 		return new ServicioDTO(id, nombre, precioLocal, precioDolar, duracion.toLocalTime(), puntos, estado);
+	}
+	
+	@Override
+	public List<ServicioDTO> obtenerServBuscado(String variable, String value) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<ServicioDTO> servicio = new ArrayList<ServicioDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			if(variable.equals("Todos")) {
+				statement = conexion.getSQLConexion().prepareStatement(readall);
+			}else {
+				statement = conexion.getSQLConexion().prepareStatement(readall+" WHERE "+variable+ " LIKE '"+value+"'");
+			}
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				servicio.add(getServicioDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return servicio;
 	}
 
 }
