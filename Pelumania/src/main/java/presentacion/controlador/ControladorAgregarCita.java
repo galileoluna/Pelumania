@@ -189,6 +189,10 @@ public class ControladorAgregarCita implements ActionListener{
 		//falta implementar
 	}
 	
+	/*
+	 * Se encarga de cargar en la tabla los servicios asociados al profesional que se selecciona
+	 * en el JComboBox profesional*/
+	
 	public void seleccionarProfesional(ActionEvent e) {
 		if (this.ventanaAgregarCita.getJCBoxProfesional().getSelectedIndex() != -1) {
 		ProfesionalDTO Profesional = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
@@ -209,6 +213,10 @@ public class ControladorAgregarCita implements ActionListener{
 		return false;
 	}
 	
+	/*
+	 * Metodo que recorre todos los servicios agregados y devuelve el total en $
+	 * por todos los servicios*/
+	
 	public BigDecimal calcularTotal() {
 		BigDecimal total = BigDecimal.valueOf(0);
 		for (ServicioDTO s : serviciosAgregados) {
@@ -217,6 +225,10 @@ public class ControladorAgregarCita implements ActionListener{
 		return total;
 	}
 	
+	/*
+	 * Metodo que recorre todos los servicios agregados y devuelve el total en Dolares
+	 * por todos los servicios*/
+
 	public BigDecimal calcularTotalDolar() {
 		BigDecimal total = BigDecimal.valueOf(0);
 		for (ServicioDTO s : serviciosAgregados) {
@@ -225,6 +237,9 @@ public class ControladorAgregarCita implements ActionListener{
 		return total;
 	}
 	
+	/*
+	 * Metodo que recorre todos los servicios agregados y le suma a la hora inicial del turno
+	 * la duracion de cada uno de ellos.*/
 	public LocalTime CalcularTotalTiempo() {
 		int horaInicial = (Integer) this.ventanaAgregarCita.getJCBoxHora().getSelectedItem();
 		int minutoInicial = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
@@ -237,6 +252,10 @@ public class ControladorAgregarCita implements ActionListener{
 		return total;
 	}
 	
+	/*
+	 * Metodo que se ocupa de validar si la hora elegida en los JComboBox, si no se eligio nada
+	 * devuelve false. 
+	 * */
 	public boolean validarHora() {
 		//Si no selecciono nada en los JComBox de Hora devuelvo false
 		if (this.ventanaAgregarCita.getJCBoxHora().getSelectedItem() == null 
@@ -248,6 +267,9 @@ public class ControladorAgregarCita implements ActionListener{
 		
 	}
 	
+	/* Metodo que se ocupa de actualizar en la ventana la tabla de los servicios agregados,
+	 * como asi tambien el precio y la duracion total de la cita 
+	 * */
 	public void ActualizarInformacionServiciosAgregados() {
 		this.ventanaAgregarCita.getLblHora_1().setText(CalcularTotalTiempo().toString());
 		this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());

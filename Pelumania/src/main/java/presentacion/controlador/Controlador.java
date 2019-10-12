@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.AncestorListener;
 
 import dto.CitaDTO;
@@ -94,16 +96,32 @@ public class Controlador implements ActionListener {
 		int mes = this.vista.getCalendario().getMonthChooser().getMonth();
 		int anio = this.vista.getCalendario().getYearChooser().getYear();
 		
-		ControladorAgregarCita.setANIO(anio);
-		ControladorAgregarCita.setMES(mes+1);
-		ControladorAgregarCita.setDIA(dia);
-		this.controladoragregarcita = ControladorAgregarCita.getInstance(sistema);
+		LocalDate fecha = LocalDate.of(anio, mes+1, dia);
+		
+		if (validarFechaCita(fecha))
+			{
+			ControladorAgregarCita.setANIO(anio);
+			ControladorAgregarCita.setMES(mes+1);
+			ControladorAgregarCita.setDIA(dia);
+			this.controladoragregarcita = ControladorAgregarCita.getInstance(sistema);
+			}else {
+				JOptionPane.showMessageDialog(null, "No puedes cargar una cita para un dia que ya transcurrio!");
+			}
 	}
 	
 	private void verPromosVigentes(ActionEvent p) {
 		this.controladorPromoVigente=ControladorPromosionesVigentes.getInstance(sistema,vista);
 	}
 
+	/* Metodo que recibe una fecha y devuelve true si la fecha es despues
+	 * del dia de hoy, y false si el dia es anterior a hoy.
+	 */
+	
+	public boolean validarFechaCita(LocalDate fechaCita) {
+		LocalDate ahora = LocalDate.now();
+		return fechaCita.isAfter(ahora);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) { }
 }
