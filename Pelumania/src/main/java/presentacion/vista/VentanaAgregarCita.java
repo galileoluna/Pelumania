@@ -83,13 +83,13 @@ public class VentanaAgregarCita extends JFrame
 
 		setTitle("Nueva Cita");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 821, 702);
+		setBounds(100, 100, 873, 773);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 785, 641);
+		panel.setBounds(10, 11, 837, 711);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -169,7 +169,7 @@ public class VentanaAgregarCita extends JFrame
 		panel.add(JCBoxProfesional);
 
 		JScrollPane spServicios = new JScrollPane();
-		spServicios.setBounds(10, 271, 315, 188);
+		spServicios.setBounds(10, 271, 409, 188);
 		panel.add(spServicios);
 
 		modelServicios = new DefaultTableModel(null,nombreColumnas) {
@@ -195,7 +195,7 @@ public class VentanaAgregarCita extends JFrame
 		spServicios.setViewportView(tablaServicios);
 		
 		JScrollPane spServiciosAgregados = new JScrollPane();
-		spServiciosAgregados.setBounds(366, 271, 315, 188);
+		spServiciosAgregados.setBounds(450, 271, 387, 188);
 		panel.add(spServiciosAgregados);
 
 		modelServiciosAgregados = new DefaultTableModel(null,nombreColumnasAgregadas) {
@@ -215,7 +215,7 @@ public class VentanaAgregarCita extends JFrame
 		spServiciosAgregados.setViewportView(tablaServiciosAgregados);
 		
 		lblServiciosElegidos = new JLabel("Servicios Elegidos");
-		lblServiciosElegidos.setBounds(366, 246, 208, 14);
+		lblServiciosElegidos.setBounds(450, 246, 208, 14);
 		panel.add(lblServiciosElegidos);
 		
 		lblServiciosQueRealiza = new JLabel("Servicios que realiza: ");
@@ -227,31 +227,31 @@ public class VentanaAgregarCita extends JFrame
 		panel.add(lblNombreProfesional);
 		
 		btnAgregarServicio = new JButton("Agregar Servicio");
-		btnAgregarServicio.setBounds(23, 464, 133, 23);
+		btnAgregarServicio.setBounds(36, 464, 133, 23);
 		panel.add(btnAgregarServicio);
 		
 		btnBorrarServicio = new JButton("Borrar Servicio");
-		btnBorrarServicio.setBounds(162, 464, 133, 23);
+		btnBorrarServicio.setBounds(269, 464, 133, 23);
 		panel.add(btnBorrarServicio);
 		
 		JLabel lblHoraDeFinalizacion = new JLabel("Hora de finalizacion: ");
-		lblHoraDeFinalizacion.setBounds(366, 464, 117, 23);
+		lblHoraDeFinalizacion.setBounds(450, 464, 117, 23);
 		panel.add(lblHoraDeFinalizacion);
 		
 		JLabel lblPrecio$ = new JLabel("Total $");
-		lblPrecio$.setBounds(507, 464, 67, 23);
+		lblPrecio$.setBounds(603, 464, 67, 23);
 		panel.add(lblPrecio$);
 		
 		lblHoraTotal = new JLabel("");
-		lblHoraTotal.setBounds(463, 470, 46, 14);
+		lblHoraTotal.setBounds(565, 464, 46, 23);
 		panel.add(lblHoraTotal);
 		
 		lblTotal$ = new JLabel("");
-		lblTotal$.setBounds(550, 470, 46, 14);
+		lblTotal$.setBounds(641, 464, 46, 23);
 		panel.add(lblTotal$);
 		
 		lblUSD = new JLabel("Total USD");
-		lblUSD.setBounds(600, 464, 67, 23);
+		lblUSD.setBounds(708, 464, 67, 23);
 		panel.add(lblUSD);
 
 		this.setVisible(false);

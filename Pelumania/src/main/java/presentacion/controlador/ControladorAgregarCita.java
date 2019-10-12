@@ -73,8 +73,8 @@ public class ControladorAgregarCita implements ActionListener{
 			INSTANCE = new ControladorAgregarCita(sistema);
 		}
 		INSTANCE.ventanaAgregarCita.limpiarCampos();
+		INSTANCE.controladorCita.serviciosAgregados.clear();
 		inicializarDatos();
-		INSTANCE.ventanaAgregarCita.mostrarVentana();
 		return INSTANCE;
 	}
 
@@ -171,17 +171,20 @@ public class ControladorAgregarCita implements ActionListener{
     	{
         	if(serviciosDelProfesional.get(fila)!=null) {
         		ServicioDTO servicioSeleccionado = serviciosDelProfesional.get(fila);
-        		if (!existeServicio(servicioSeleccionado)) {
-        			this.serviciosAgregados.add(servicioSeleccionado);
-                	this.ventanaAgregarCita.actualizarServiciosAgregados(serviciosAgregados);
-        			ActualizarInformacionServiciosAgregados();
-        		}else {
+        		
+        		if (existeServicio(servicioSeleccionado)) {
         			JOptionPane.showMessageDialog(null, "No puedes agregar 2 veces el mismo servicio!");
+        		}else {
+        			if (validarHora()) {
+        				this.serviciosAgregados.add(servicioSeleccionado);
+        				ActualizarInformacionServiciosAgregados();
+        			}else {
+        				JOptionPane.showMessageDialog(null, "Debes seleccionar una hora para el turno primero!");
         		}
 	}
-    	}
+        	}
+  	}
 	}
-	
 	public void borrarServicio(ActionEvent x) {
 		//falta implementar
 	}
@@ -223,17 +226,32 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 	
 	public LocalTime CalcularTotalTiempo() {
-		LocalTime total = LocalTime.of(0, 0);
+		int horaInicial = (Integer) this.ventanaAgregarCita.getJCBoxHora().getSelectedItem();
+		int minutoInicial = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
+	
+		LocalTime total = LocalTime.of(horaInicial, minutoInicial);
 		for (ServicioDTO s : serviciosAgregados) {
-			total.plusHours(s.getDuracion().getHour());
-			total.plusMinutes(s.getDuracion().getMinute());
+			total = total.plusHours(s.getDuracion().getHour());
+			total = total.plusMinutes(s.getDuracion().getMinute());
 		}
 		return total;
 	}
 	
+	public boolean validarHora() {
+		//Si no selecciono nada en los JComBox de Hora devuelvo false
+		if (this.ventanaAgregarCita.getJCBoxHora().getSelectedItem() == null 
+				|| this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem() == null)
+		{
+			return false;
+		}
+		return true;
+		
+	}
+	
 	public void ActualizarInformacionServiciosAgregados() {
-		this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());
 		this.ventanaAgregarCita.getLblHora_1().setText(CalcularTotalTiempo().toString());
+		this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());
+    	this.ventanaAgregarCita.actualizarServiciosAgregados(serviciosAgregados);
 	}
 	
 	public static int getANIO() {
