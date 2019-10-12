@@ -24,9 +24,13 @@ public class ControladorServicio {
 		ventanaServicio.getBtnAgregar().addActionListener(a ->agregarServicio(a));
 		ventanaServicio.getBtnBorrar().addActionListener(b -> borrarServicio(b));
 		ventanaServicio.getBtnEditar().addActionListener(c -> editarServicio(c));
+		ventanaServicio.getBtnBuscar().addActionListener(y -> buscar(y));
+		ventanaServicio.getBtnVerTodo().addActionListener(c -> verTodo(c));
 		sistema = sist;
 	}
 	
+	
+
 	public static ControladorServicio getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorServicio(sistema);
@@ -78,5 +82,17 @@ public class ControladorServicio {
         	}
         	}
     	}
+	}
+	
+	private void buscar(ActionEvent y) {
+		String variable="nombre";
+		String value=this.ventanaServicio.getBuscador().getText();
+		this.ventanaServicio.llenarTabla(this.sistema.obtenerServicioConBuscador(variable,value));
+	}
+	
+	private void verTodo(ActionEvent c) {
+		List<ServicioDTO> serviciosEnTabla = sistema.obtenerServicios();
+		ventanaServicio.llenarTabla(serviciosEnTabla);
+		ventanaServicio.mostrar();
 	}
 }
