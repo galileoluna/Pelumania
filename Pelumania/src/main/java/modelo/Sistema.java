@@ -94,6 +94,11 @@ public class Sistema
 	public void deleteRealServicio(ServicioDTO servicio_a_eliminar) {
 		this.servicio.deleteRealServicio(servicio_a_eliminar);
 	}
+	
+	public List<ServicioDTO> obtenerServicioConBuscador(String variable, String value) {
+		return this.servicio.obtenerServBuscado(variable,value);
+
+	}
 //FIN SERVICIO
 
 	// ARRANCA LO QUE ES PROFESIONAL
@@ -140,6 +145,8 @@ public class Sistema
 		return this.profesional.obtenerProfBuscado(variable,value);
 		
 	}
+	
+	
 	// FIN PROFESIONAL
 	
 	// ARRANCA HORARIOS ASOCIADOS A PROFESIONAL
@@ -295,6 +302,7 @@ public class Sistema
 	public boolean updateCategoriaMovimientoCaja(CategoriaMovimientoCajaDTO categoria_a_editar) {
 		return this.categoriaMovimientoCaja.update(categoria_a_editar);
 	}
+	
 	
 	//Fin Categorias Movimiento Caja
 	
