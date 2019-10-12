@@ -3,6 +3,8 @@ package dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.google.protobuf.Timestamp;
+
 
 //Se modela con una misma entidad al ingreso y egreso
 //dependiendo de los campos con los que ingrese sera uno o el otro
@@ -12,14 +14,14 @@ import java.time.LocalDate;
 // tipoMovimiento --> egreso,ingreso
 // categoria -->      producto, servicio,viaticos, sueldo 
 // tipoCambio -->	  puntos, efectivo, tarj 
-// descripcion --> (solo para ingreso )
+// descripcion --> (solo para egreso )
 
 public class MovimientoCajaDTO {
 
 	private int idCaja;
 	private int idSucursal;
 	private String categoria;
-	private LocalDate fecha;
+	private Timestamp fecha;
 	private String descripcion;
 	private String tipoMovimiento;
 	private String tipoCambio;
@@ -32,7 +34,7 @@ public class MovimientoCajaDTO {
 	
 	
 	//constructor para un egreso
-	public MovimientoCajaDTO(int idCaja, int idSucursal,LocalDate fecha, String tipoMovimiento, String categoria,
+	public MovimientoCajaDTO(int idCaja, int idSucursal,Timestamp fecha, String tipoMovimiento, String categoria,
 			String tipoCambio, BigDecimal precioLocal, BigDecimal precioDolar, String descripcion) {
 		
 		this.idCaja = idCaja;
@@ -48,7 +50,7 @@ public class MovimientoCajaDTO {
 
 //constructor para un ingreso
 	
-	public MovimientoCajaDTO(int idCaja, int idSucursal, String categoria, LocalDate fecha, String tipoMovimiento,
+	public MovimientoCajaDTO(int idCaja, int idSucursal, String categoria, Timestamp fecha, String tipoMovimiento,
 			String tipoCambio, int idPromocion, BigDecimal precioLocal, BigDecimal precioDolar, int idProfesional,
 			int idCita, int idCliente) {
 		super();
@@ -92,11 +94,11 @@ public class MovimientoCajaDTO {
 		this.categoria = categoria;
 	}
 
-	public LocalDate getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 

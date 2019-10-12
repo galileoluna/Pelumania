@@ -11,13 +11,13 @@ import persistencia.dao.interfaz.MovimientoCajaDAO;
 
 public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	
-	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Fecha, Descripcion, "
+	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Descripcion, "
 			+ "TipoMovimiento, TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static final String insertEgreso = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Fecha, Descripcion, "
+	private static final String insertEgreso = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Descripcion, "
 			+ "TipoMovimiento, TipoDeCambio, PrecioLocal, PrecioDolar) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String delete = "UPDATE  Caja SET EstadoCliente=? WHERE idCaja= ?";
 	private static final String readallIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso";
@@ -44,12 +44,11 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 				statement.setInt(1, movimiento.getIdCaja());
 				statement.setInt (2, movimiento.getIdSucursal());
 				statement.setString(3, movimiento.getCategoria());
-				statement.setDate(4, Date.valueOf(movimiento.getFecha().toString()));
-				statement.setString(5, movimiento.getDescripcion());
-				statement.setString(6, movimiento.getTipoMovimiento().toLowerCase());
-				statement.setString(7, movimiento.getTipoCambio());
-				statement.setBigDecimal(8, movimiento.getPrecioLocal());
-				statement.setBigDecimal(9, movimiento.getPrecioDolar());
+				statement.setString(4, movimiento.getDescripcion());
+				statement.setString(5, movimiento.getTipoMovimiento().toLowerCase());
+				statement.setString(6, movimiento.getTipoCambio());
+				statement.setBigDecimal(7, movimiento.getPrecioLocal());
+				statement.setBigDecimal(8, movimiento.getPrecioDolar());
 
 				if(statement.executeUpdate() > 0)
 				{
