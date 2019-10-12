@@ -438,6 +438,15 @@ public class VentanaAgregarCita extends JFrame
 		this.btnAgregarServicio = btnAgregarServicio;
 	}
 
+	
+	public String[] getNombreColumnasAgregadas() {
+		return nombreColumnasAgregadas;
+	}
+
+	public void setNombreColumnasAgregadas(String[] nombreColumnasAgregadas) {
+		this.nombreColumnasAgregadas = nombreColumnasAgregadas;
+	}
+
 	private void cargarHora(JComboBox<Integer> hora) {
 		for(int i=0;i<=23;i++) {
 			hora.addItem(i);
@@ -489,7 +498,7 @@ public class VentanaAgregarCita extends JFrame
 	{
 	this.getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
 	this.getModelServiciosAgregados().setColumnCount(0);
-	this.getModelServiciosAgregados().setColumnIdentifiers(this.getNombreColumnas());
+	this.getModelServiciosAgregados().setColumnIdentifiers(this.getNombreColumnasAgregadas());
 
 	for (ServicioDTO s : serviciosAgregados)
 	{
