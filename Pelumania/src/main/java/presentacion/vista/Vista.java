@@ -40,6 +40,8 @@ public class Vista {
 	private JMenuItem menuPromosVigentes;
 	private JMenu mnCliente;
 	private JMenu mnSucursal;
+	private JMenu mnCaja;
+	private JMenuItem menuConsultarCaja;
 	private DefaultTableModel modelCita;
 	private  String[] nombreColumnas = {"Horario","Cliente","Estado"};
 	private JTable table;
@@ -65,9 +67,6 @@ public class Vista {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 995, 21);
 		frame.getContentPane().add(menuBar);
-
-		JMenu mnArchivo = new JMenu("Archivo");
-		menuBar.add(mnArchivo);
 
 		mnServicio = new JMenu("Servicio");
 		menuBar.add(mnServicio);
@@ -101,6 +100,12 @@ public class Vista {
 		
 		menuConsultarSucursal = new JMenuItem("Consultar Sucursales");
 		mnSucursal.add(menuConsultarSucursal);
+		
+		mnCaja = new JMenu("Caja");
+		menuBar.add(mnCaja);
+		
+		menuConsultarCaja = new JMenuItem("Consultar Caja");
+		mnCaja.add(menuConsultarCaja);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1039, 633);
@@ -240,7 +245,9 @@ public class Vista {
 	public void setCalendario(JCalendar calendario) {
 		this.calendario = calendario;
 	}
-
+	public JMenuItem getMenuCaja() {
+		return this.menuConsultarCaja;
+	}
 	public void  llenarTabla (List<CitaDTO> CitaslEnTabla) {
 		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
 		this.getmodelCita().setColumnCount(0);

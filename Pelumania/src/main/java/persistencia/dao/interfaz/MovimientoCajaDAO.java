@@ -7,7 +7,7 @@ import dto.SucursalDTO;
 
 public interface MovimientoCajaDAO {
 
-	public boolean insert(MovimientoCajaDTO sucursal);
+	public boolean insertEgreso(MovimientoCajaDTO sucursal);
 
 	public boolean update(MovimientoCajaDTO sucursal_a_actualizar);
 	

@@ -3,8 +3,19 @@ package dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
+//Se modela con una misma entidad al ingreso y egreso
+//dependiendo de los campos con los que ingrese sera uno o el otro
+//el egreso va a atener varios en nulo y viceversa 
+
+//idCaja --> numero de transaccion 
+// tipoMovimiento --> egreso,ingreso
+// categoria -->      producto, servicio,viaticos, sueldo 
+// tipoCambio -->	  puntos, efectivo, tarj 
+// descripcion --> (solo para ingreso )
+
 public class MovimientoCajaDTO {
-	
+
 	private int idCaja;
 	private int idSucursal;
 	private String categoria;
@@ -19,10 +30,11 @@ public class MovimientoCajaDTO {
 	private int idCita;
 	private int idCliente;
 	
-	public MovimientoCajaDTO(int idCaja, int idSucursal, String categoria, LocalDate fecha, String tipoMovimiento,
-			String tipoCambio, BigDecimal precioLocal, BigDecimal precioDolar, int idProfesional, int idCita,
-			int idCliente) {
-		super();
+	
+	//constructor para un egreso
+	public MovimientoCajaDTO(int idCaja, int idSucursal,LocalDate fecha, String tipoMovimiento, String categoria,
+			String tipoCambio, BigDecimal precioLocal, BigDecimal precioDolar, String descripcion) {
+		
 		this.idCaja = idCaja;
 		this.idSucursal = idSucursal;
 		this.categoria = categoria;
@@ -31,17 +43,37 @@ public class MovimientoCajaDTO {
 		this.tipoCambio = tipoCambio;
 		this.precioLocal = precioLocal;
 		this.precioDolar = precioDolar;
+		this.descripcion = descripcion;
+	}
+
+//constructor para un ingreso
+	
+	public MovimientoCajaDTO(int idCaja, int idSucursal, String categoria, LocalDate fecha, String tipoMovimiento,
+			String tipoCambio, int idPromocion, BigDecimal precioLocal, BigDecimal precioDolar, int idProfesional,
+			int idCita, int idCliente) {
+		super();
+		this.idCaja = idCaja;
+		this.idSucursal = idSucursal;
+		this.categoria = categoria;
+		this.fecha = fecha;
+		this.tipoMovimiento = tipoMovimiento;
+		this.tipoCambio = tipoCambio;
+		this.idPromocion = idPromocion;
+		this.precioLocal = precioLocal;
+		this.precioDolar = precioDolar;
 		this.idProfesional = idProfesional;
 		this.idCita = idCita;
 		this.idCliente = idCliente;
 	}
 
+
+
 	public int getIdCaja() {
 		return idCaja;
 	}
 
-	public void setIdCaja(int idCaja) {
-		this.idCaja = idCaja;
+	public void setIdCaja(int idMovimiento) {
+		this.idCaja = idMovimiento;
 	}
 
 	public int getIdSucursal() {

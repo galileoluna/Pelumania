@@ -24,6 +24,7 @@ public class Controlador implements ActionListener {
 	private ControladorPromocion controladorPromocion;
 	private ControladorSucursal controladorSucursal;
 	private ControladorPromosionesVigentes controladorPromoVigente;
+	private ControladorCaja controladorCaja;
 	
 	private Sistema sistema;
 
@@ -53,8 +54,13 @@ public class Controlador implements ActionListener {
 		this.vista.getMenuPromocion().addActionListener(m -> ventanaPromocion(m));
 		this.vista.getMenuPromoVigente().addActionListener(p -> verPromosVigentes(p));
 		this.vista.getMenuSucursal().addActionListener(e -> ventanaSucursal(e));
+		this.vista.getMenuCaja().addActionListener(a -> ventanaCaja(a));
 	}
 
+
+	private void ventanaCaja(ActionEvent a) {
+		this.controladorCaja = ControladorCaja.getInstance(sistema);
+	}
 
 	private void ventanaServicios(ActionEvent c) {
 		this.controladorServicio = ControladorServicio.getInstance(sistema);

@@ -12,8 +12,12 @@ import persistencia.dao.interfaz.MovimientoCajaDAO;
 public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	
 	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Fecha, Descripcion, "
-			+ "TipoMovimiento, TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional	 ) "
+			+ "TipoMovimiento, TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	private static final String insertEgreso = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Fecha, Descripcion, "
+			+ "TipoMovimiento, TipoDeCambio, PrecioLocal, PrecioDolar) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String delete = "UPDATE  Caja SET EstadoCliente=? WHERE idCaja= ?";
 	private static final String readallIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso";
@@ -28,28 +32,24 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	// seria como cancelar un pago
 	
 	@Override
-	public boolean insert(MovimientoCajaDTO movimiento) {
+	public boolean insertEgreso(MovimientoCajaDTO movimiento) {
 		
 			PreparedStatement statement;
 			Connection conexion = Conexion.getConexion().getSQLConexion();
 			boolean isInsertExitoso = false;
-//			if(esClienteValido(cliente)) {
+//			if(esMovimientoValido(movimiento)) {
 			try
 			{
-				statement = conexion.prepareStatement(insert);
+				statement = conexion.prepareStatement(insertEgreso);
 				statement.setInt(1, movimiento.getIdCaja());
 				statement.setInt (2, movimiento.getIdSucursal());
 				statement.setString(3, movimiento.getCategoria());
 				statement.setDate(4, Date.valueOf(movimiento.getFecha().toString()));
 				statement.setString(5, movimiento.getDescripcion());
-				statement.setString(6, movimiento.getTipoMovimiento());
+				statement.setString(6, movimiento.getTipoMovimiento().toLowerCase());
 				statement.setString(7, movimiento.getTipoCambio());
-				statement.setInt(8, movimiento.getIdPromocion());
-				statement.setBigDecimal(9, movimiento.getPrecioLocal());
-				statement.setBigDecimal(10, movimiento.getPrecioDolar());
-				statement.setInt(11, movimiento.getIdCita());
-				statement.setInt(12, movimiento.getIdCliente());
-				statement.setInt(13, movimiento.getIdProfesional());
+				statement.setBigDecimal(8, movimiento.getPrecioLocal());
+				statement.setBigDecimal(9, movimiento.getPrecioDolar());
 
 				if(statement.executeUpdate() > 0)
 				{

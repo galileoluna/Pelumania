@@ -267,9 +267,10 @@ public class Sistema
 	// FIN PROMOCIONES
 
 	// COMIENZA CAJA
-	public boolean insertarMovimientoCaja (MovimientoCajaDTO caja_a_insertar) {
-		return this.caja.insert(caja_a_insertar);
+	public boolean insertarEgreso (MovimientoCajaDTO caja_a_insertar) {
+		return this.caja.insertEgreso(caja_a_insertar);
 	}
+	
 	//FIN CAJA
 	
 
