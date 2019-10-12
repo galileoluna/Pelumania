@@ -3,8 +3,11 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.google.protobuf.Timestamp;
 
 import dto.ClienteDTO;
 import dto.MovimientoCajaDTO;
@@ -61,7 +64,7 @@ public class ControladorCaja implements ActionListener {
 		//obtengo datos del movimiento
 		int idSucursal = 1; //0; //de donde lo saca de la sesion del usuario?
 		String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
-		LocalDate fecha = LocalDate.now();
+		Instant fecha = Instant.now();
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
 		String tipoMovimiento = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		String tipoCambio = "efectivo"; // cambiar
