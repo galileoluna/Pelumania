@@ -1,161 +1,224 @@
-package presentacion.controlador;
+package persistencia.dao.mariadb;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
-
 import dto.ClienteDTO;
-import modelo.Sistema;
-import presentacion.vista.VentanaCliente;
+import dto.ProfesionalDTO;
+import persistencia.conexion.Conexion;
+import persistencia.dao.interfaz.ClienteDAO;
 import util.Validador;
 
-public class ControladorCliente implements ActionListener {
+public class ClienteDAOSQL implements ClienteDAO
+{
 
-	private VentanaCliente ventanaCliente;
-	private Sistema sistema;
-	private List<ClienteDTO> listaClientes;
-	private static ControladorCliente INSTANCE;
+	private static final String insert = "INSERT INTO Cliente( idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String delete = "UPDATE  Cliente SET EstadoCliente=? WHERE idCliente = ?";
+	private static final String readall = "SELECT * FROM Cliente";
+	private static final String update = "UPDATE  Cliente SET Nombre=? , Apellido=? , Telefono=? , Mail=? , Puntos=? , EstadoCliente=?, Deuda=? WHERE idCliente=?";
+	private static final String deleteReal = "DELETE FROM Cliente WHERE idCliente = ?";
+	private static final String ESTADO_INACTIVO = "inactivo";
 
-	private ControladorCliente(Sistema sistema) {
-		this.ventanaCliente = VentanaCliente.getInstance();
-		this.ventanaCliente.getBtnAgregar().addActionListener(p -> guardarCliente(p));
-		this.ventanaCliente.getBtnBorrar().addActionListener(p-> borrarCliente(p));
-		this.ventanaCliente.getBtnEditar().addActionListener(p-> editarCliente(p));
-		this.ventanaCliente.getBtnBuscar().addActionListener(y -> buscar(y));
-
-		this.sistema = sistema;
-	}
-
-	
-
-	public static ControladorCliente getInstance(Sistema sistema) {
-		if ( INSTANCE == null) {
-			INSTANCE = new ControladorCliente(sistema);
-		}
-		inicializarDatos();
-		return INSTANCE;
-	}
-	private static void inicializarDatos() {
-
-		List<ClienteDTO> listaClientes = INSTANCE.sistema.obtenerClientes();
-		INSTANCE.ventanaCliente.llenarTabla(listaClientes);
-		INSTANCE.ventanaCliente.limpiarInputs();
-		INSTANCE.ventanaCliente.mostrar();
-	}
-
-
-	private void guardarCliente(ActionEvent p) {
-
-
-		String nombre = this.ventanaCliente.getTxtNombre().getText();
-		String apellido = this.ventanaCliente.getTxtApellido().getText();
-		String telefono = this.ventanaCliente.getTxtTelefono().getText();
-		String mail = this.ventanaCliente.getTxtMail().getText();
-		int puntos = 0 ; // por defecto al dar de alta no tiene puntos
-		String estado = "activo";
-		BigDecimal deuda =  new BigDecimal(0);//tampoco tendra deuda al ser dado de alta
-
-		//validamos campos
-		if ( Validador.esNombreConEspaciosValido(nombre) &&
-				Validador.esNombreConEspaciosValido(apellido) &&
-				Validador.esTelefono(telefono) &&
-				Validador.esMail(mail)) {
-
-
-			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, telefono, mail, puntos, estado, deuda);
-
-			this.sistema.agregarCliente(nuevoCliente);
-			this.listaClientes = this.sistema.obtenerClientes();
-			this.ventanaCliente.llenarTabla(listaClientes);
-			this.ventanaCliente.limpiarInputs();
-			INSTANCE.ventanaCliente.mostrarExitoAlta();
-
-		} else {
-
-			this.ventanaCliente.mostrarErrorCamposInvalidos();
-		}
-		
-
-	}
-
-	private void borrarCliente(ActionEvent p) {
-
-		this.listaClientes = this.sistema.obtenerClientes();
-		int[] filasSeleccionadas = this.ventanaCliente.getTablaClientes().getSelectedRows();
-
-		for (int fila : filasSeleccionadas)
+	@Override
+	public boolean insert(ClienteDTO cliente)
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+//		if(esClienteValido(cliente)) {
+		try
 		{
-			if(listaClientes.get(fila)!=null) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Cliente?","Confirmacion", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					this.sistema.borrarCliente((listaClientes.get(fila)));
-				}
-			}
-		}
-		this.listaClientes = INSTANCE.sistema.obtenerClientes();
-		INSTANCE.ventanaCliente.llenarTabla(this.listaClientes);
-	}
+			statement = conexion.prepareStatement(insert);
+			statement.setInt	(1, cliente.getIdCliente());
+			statement.setString (2, cliente.getNombre());
+			statement.setString (3, cliente.getApellido());
+			statement.setString (4, cliente.getTelefono());
+			statement.setString (5, cliente.getMail());
+			statement.setInt    (6, cliente.getPuntos());
+			statement.setString (7, cliente.getEstadoCliente());
+			statement.setBigDecimal (8, cliente.getDeuda());
 
-	private void editarCliente(ActionEvent p) {
-
-		this.listaClientes = this.sistema.obtenerClientes();
-		int filaSeleccionada = this.ventanaCliente.getTablaClientes().getSelectedRow();
-
-		TableModel tabla = this.ventanaCliente.getTablaClientes().getModel();
-
-		ClienteDTO cliente_seleccionado = this.listaClientes.get(filaSeleccionada);
-		if (cliente_seleccionado != null) {
-
-			int id = cliente_seleccionado.getIdCliente();
-			String nombre = tabla.getValueAt(filaSeleccionada, 0).toString();
-			String apellido =  tabla.getValueAt(filaSeleccionada, 1).toString();
-			String telefono =  tabla.getValueAt(filaSeleccionada, 2).toString();
-			String mail =  tabla.getValueAt(filaSeleccionada, 3).toString();
-			String puntos = tabla.getValueAt(filaSeleccionada, 4).toString();
-			String estado = tabla.getValueAt(filaSeleccionada, 5).toString();
-			String deuda = tabla.getValueAt(filaSeleccionada, 6).toString();
-
-			if ( Validador.esNombreConEspaciosValido(nombre) &&
-					Validador.esNombreConEspaciosValido(apellido) &&
-					Validador.esTelefono(telefono) &&
-					Validador.esMail(mail) &&
-					Validador.esPuntosValido( puntos) &&
-					Validador.esEstadoClienteValido(estado)&&
-					Validador.esPrecioValido(deuda))
+			if(statement.executeUpdate() > 0)
 			{
-				ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, new BigDecimal(deuda.replaceAll(",", "")));
-
-				INSTANCE.sistema.editarCliente(cliente_a_modifcar);
-				INSTANCE.ventanaCliente.mostrarExitoEditar();
-
-			} else {
-				INSTANCE.ventanaCliente.mostrarErrorCamposInvalidos();
+				conexion.commit();
+				isInsertExitoso = true;
 			}
-
-		} else {
-			INSTANCE.ventanaCliente.mostrarErrorSinSeleccionar();
 		}
-		
-		INSTANCE.ventanaCliente.llenarTabla(INSTANCE.sistema.obtenerClientes());
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+//	 }
 
+		return isInsertExitoso;
 	}
 
-	private void buscar(ActionEvent y) {
-		String variable=this.ventanaCliente.getVariableBuscar().getSelectedItem().toString();
-		String value=this.ventanaCliente.getBuscador().getText();
-		this.ventanaCliente.llenarTabla(this.sistema.obtenerClienteConBuscador(variable,value));
+	@Override
+	public boolean delete(ClienteDTO cliente_a_eliminar)
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		if (esClienteValido(cliente_a_eliminar)) {
+		try
+		{
+			statement = conexion.prepareStatement(delete);
+			statement.setString(1, ESTADO_INACTIVO);
+			statement.setString(2, Integer.toString(cliente_a_eliminar.getIdCliente()));
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	 }
+		return isdeleteExitoso;
+	}
+
+	@Override
+	public List<ClienteDTO> readAll()
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readall);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				clientes.add(getClienteDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+
+	private ClienteDTO getClienteDTO(ResultSet resultSet) throws SQLException
+	{
+		int id = resultSet.getInt("idCliente");
+		String nombre = resultSet.getString("Nombre");
+		String apellido = resultSet.getString("Apellido");
+		String telefono = resultSet.getString("Telefono");
+		String mail = resultSet.getString("Mail");
+		int puntos = resultSet.getInt("Puntos");
+		String estado = resultSet.getString("EstadoCliente");
+		BigDecimal deuda = resultSet.getBigDecimal("Deuda");
+
+		return new ClienteDTO(id, nombre, apellido, telefono, mail, puntos, estado, deuda);
+	}
+
+	@Override
+	public boolean update(ClienteDTO cliente_a_editar) {
+		PreparedStatement statement;
+		int chequeoUpdate = 0;
+		Conexion conexion = Conexion.getConexion();
+		if (esClienteValido(cliente_a_editar)) {
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+
+			statement.setString (1, cliente_a_editar.getNombre());
+			statement.setString (2, cliente_a_editar.getApellido());
+			statement.setString (3, cliente_a_editar.getTelefono());
+			statement.setString (4, cliente_a_editar.getMail());
+			statement.setInt    (5, cliente_a_editar.getPuntos());
+			statement.setString (6, cliente_a_editar.getEstadoCliente());
+			statement.setBigDecimal (7, cliente_a_editar.getDeuda());
+			statement.setInt	(8, cliente_a_editar.getIdCliente());
+
+			chequeoUpdate = statement.executeUpdate();
+			conexion.getSQLConexion().commit();
+
+			if(chequeoUpdate > 0) {
+				return true;
+			}
+		}
+		catch (SQLException e)
+		{
+			System.out.println("false");
+			e.printStackTrace();
+		}
+	 }
+		return false;
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public List<ClienteDTO> obtenerClienteBuscado(String variable, String value) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<ClienteDTO> cliente = new ArrayList<ClienteDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			if(variable.equals("Todos")) {
+				statement = conexion.getSQLConexion().prepareStatement(readall);
+			}else {
+				statement = conexion.getSQLConexion().prepareStatement(readall+" WHERE "+variable+ " LIKE '"+value+"'");
+			}
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				cliente.add(getClienteDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cliente;
 	}
 
-
-
+	@Override
+	public boolean deleteReal(ClienteDTO cliente_a_eliminar)
+	{
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(deleteReal);
+			statement.setString(1, Integer.toString(cliente_a_eliminar.getIdCliente()));
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return isdeleteExitoso;
+	}
+	
+	private boolean esClienteValido(ClienteDTO cliente){
+		if (Validador.esNombreConEspaciosValido(cliente.getNombre()) 
+			&& Validador.esNombreConEspaciosValido(cliente.getApellido())
+			&& Validador.esMail(cliente.getMail()) 
+			&& Validador.esEstadoClienteValido(cliente.getEstadoCliente()) 
+			&& Validador.esPrecioValido(String.valueOf(cliente.getDeuda()))) 
+		{
+			return true;
+		
+		} else {
+			
+		return false;
+	  } 
+	}
 }
