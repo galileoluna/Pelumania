@@ -36,8 +36,6 @@ public class ControladorAgregarCita implements ActionListener{
 	private static int MES;
 	private static int DIA;
 	private static List<ServicioTurnoDTO> serviciosTurnoAgregados;
-	private static List<ServicioDTO> serviciosAgregados;
-	private static List<ProfesionalDTO> profesionalesAgregados;
 
 
 	/**
@@ -51,11 +49,9 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getJCBoxProfesional().addActionListener(p -> seleccionarProfesional(p));
 		
 		this.ventanaAgregarCita.getBtnAgregarServicio().addActionListener(w -> agregarServicio(w));
-		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicio(x));
+		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicioAgregado(x));
 		//Instancio la lista de servicios vacía
 		serviciosTurnoAgregados = new ArrayList<ServicioTurnoDTO>();
-		serviciosAgregados = new ArrayList<ServicioDTO>();
-		profesionalesAgregados = new ArrayList<ProfesionalDTO>();
 		this.sistema = sistema;
 
 	}
@@ -80,8 +76,6 @@ public class ControladorAgregarCita implements ActionListener{
 		}
 		INSTANCE.ventanaAgregarCita.limpiarCampos();
 		INSTANCE.controladorCita.serviciosTurnoAgregados.clear();
-		INSTANCE.controladorCita.serviciosAgregados.clear();
-		INSTANCE.controladorCita.profesionalesAgregados.clear();
 		inicializarDatos();
 		return INSTANCE;
 	}
@@ -195,8 +189,19 @@ public class ControladorAgregarCita implements ActionListener{
         	}
   	}
 	}
-	public void borrarServicio(ActionEvent x) {
-		//falta implementar
+	public void borrarServicioAgregado(ActionEvent x) {
+		int[] filasSeleccionadas = ventanaAgregarCita.getTablaServiciosAgregados().getSelectedRows();
+	       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(serviciosTurnoAgregados.get(fila)!=null) {
+        		this.sistema.getServicioById(serviciosTurnoAgregados.get(fila).getIdServicio());
+        		ServicioTurnoDTO servicioSeleccionado = serviciosTurnoAgregados.get(fila);
+        		serviciosTurnoAgregados.remove(servicioSeleccionado);
+        		this.actualizarServiciosAgregados(serviciosTurnoAgregados);
+        		this.ActualizarInformacionServiciosAgregados();
+        	}
+    	}
 	}
 	
 	/*
@@ -293,6 +298,8 @@ public class ControladorAgregarCita implements ActionListener{
     	this.actualizarServiciosAgregados(serviciosTurnoAgregados);
 	}
 	
+	/*
+	 * Metodo que actualiza la tabla de serviciosAgregados*/
 	public void actualizarServiciosAgregados(List<ServicioTurnoDTO> serviciosTurnoAgregados)
 	{
 	this.ventanaAgregarCita.getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
