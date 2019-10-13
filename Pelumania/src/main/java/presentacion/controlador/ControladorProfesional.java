@@ -34,7 +34,6 @@ public class ControladorProfesional {
 		this.ventanaProfesional = VentanaProfesional.getInstance();
 		this.ventanaProfesional.getBtnAgregar().addActionListener(p ->agregarProfesional(p));
 		this.ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s,0));
-		this.ventanaProfesional.getBtnSanti().addActionListener(s-> borrarProfesional(s,1));
 		this.ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
 		this.ventanaProfesional.getBtnHorario().addActionListener(k -> verHorarios(k));
 		this.ventanaProfesional.getBtnAsignar().addActionListener(f -> asignarServ(f));
@@ -72,19 +71,15 @@ public class ControladorProfesional {
 		        	if(this.profesionalEnTabla.get(fila)!=null) {	 
 		        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Profesional?","Confirmacion", JOptionPane.YES_NO_OPTION,
 		   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
-		        		if (confirm == 0) {
-		        			// if para el boton de borrado de santi
-		        			if(borro==1) {
-		        				this.sistema.borrarSanti(this.profesionalEnTabla.get(fila));
-		        			}else{
-		        				this.sistema.borrarProfesional(this.profesionalEnTabla.get(fila));
-		        			}
+		        		if (confirm == 0)
+		        			this.sistema.borrarProfesional(this.profesionalEnTabla.get(fila));
+		        			
 		        		}
 		        		// llama a la instancia para refrescar tabla
 		        		this.getInstance(sistema);
-		        	}
-				}	
-	}
+	        	}
+	}	
+	
 	
 	//Obtiene el profesional seleccionado y llama a la instancia del controlador encargado de editar el profesional (ControladorModificarProfesional)
 	//a la instancia del controlador le pasa todos los campos del profesional seleccionado, sistema y el id del profesional
