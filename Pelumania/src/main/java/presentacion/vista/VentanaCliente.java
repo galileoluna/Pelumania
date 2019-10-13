@@ -2,6 +2,7 @@
 package presentacion.vista;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -35,7 +36,10 @@ public class VentanaCliente extends JFrame{
 	private JButton btnAgregar;
 	private JButton btnEditar;
 	private JButton btnBorrar;
-
+	
+	private JTextField buscador;
+	private JButton btnBuscar;
+	private JComboBox variableBuscar;
 	
 	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
 			"Mail", "Puntos", "Estado", "Deuda"};
@@ -106,12 +110,34 @@ public class VentanaCliente extends JFrame{
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(438, 473, 129, 34);
+		btnEditar.setBounds(10, 473, 129, 34);
 		panel.add(btnEditar);
 
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(229, 473, 129, 34);
+		btnBorrar.setBounds(140, 473, 129, 34);
 		panel.add(btnBorrar);
+		
+		JLabel lblBuscarPor = new JLabel("Buscar por:");
+		lblBuscarPor.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblBuscarPor.setBounds(280, 473, 129, 34);
+		panel.add(lblBuscarPor);
+		
+		variableBuscar = new JComboBox();
+		variableBuscar.setBounds(360, 473, 129, 34);
+		panel.add(variableBuscar);
+		variableBuscar.addItem("Todos");
+		variableBuscar.addItem("Nombre");
+		variableBuscar.addItem("Apellido");
+		variableBuscar.addItem("EstadoCliente");
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(625, 473, 129, 34);
+		panel.add(btnBuscar);
+		
+		buscador = new JTextField();
+		buscador.setBounds(493, 473, 129, 34);
+		panel.add(buscador);
+		buscador.setColumns(10);
 
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(10, 11, 113, 14);
@@ -218,6 +244,17 @@ public class VentanaCliente extends JFrame{
 	public void setBtnBorrar(JButton btnBorrar) {
 		this.btnBorrar = btnBorrar;
 	}
+	
+	public JButton getBtnBuscar() {
+		return btnBuscar;
+	}
+	public JComboBox getVariableBuscar() {
+		return variableBuscar;
+	}
+	
+	public JTextField getBuscador() {
+		return buscador;
+	}
 
 	public JTextField getTxtNombre()
 	{
@@ -316,4 +353,3 @@ public class VentanaCliente extends JFrame{
 		
 	}
 }
-
