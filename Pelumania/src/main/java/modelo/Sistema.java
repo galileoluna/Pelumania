@@ -68,6 +68,11 @@ public class Sistema
 	{
 		return this.cliente.readAll();
 	}
+	
+	public List<ClienteDTO> obtenerClienteConBuscador(String variable, String value) {
+		return this.cliente.obtenerClienteBuscado(variable,value);
+
+	}
 //FIN CLIENTE
 	
 //COMIENZA SERVICIO	
@@ -302,6 +307,7 @@ public class Sistema
 	public boolean updateCategoriaMovimientoCaja(CategoriaMovimientoCajaDTO categoria_a_editar) {
 		return this.categoriaMovimientoCaja.update(categoria_a_editar);
 	}
+	
 	
 	
 	//Fin Categorias Movimiento Caja
