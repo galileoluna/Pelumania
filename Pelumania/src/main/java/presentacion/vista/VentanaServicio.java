@@ -28,6 +28,8 @@ public class VentanaServicio extends JFrame{
 
 	private JButton btnBuscar;
 	private JTextField buscador;
+	private JComboBox variableBuscar;
+
 
 	private JButton btnAgregar;
 	private JButton btnEditar;
@@ -105,24 +107,27 @@ public class VentanaServicio extends JFrame{
 		btnBorrar.setBounds(230, 322, 89, 23);
 		panel.add(btnBorrar);
 		
-		JLabel lblBuscarPor = new JLabel("Buscar por nombre:");
+		JLabel lblBuscarPor = new JLabel("Buscar por:");
 		lblBuscarPor.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblBuscarPor.setBounds(350, 322, 200, 23);
 		panel.add(lblBuscarPor);
 		
+		variableBuscar = new JComboBox();
+		variableBuscar.setBounds(430, 322, 89, 23);
+		panel.add(variableBuscar);
+		variableBuscar.addItem("Todos");
+		variableBuscar.addItem("Nombre");
+		variableBuscar.addItem("Estado");
+		
+		
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(600, 322, 89, 23);
+		btnBuscar.setBounds(610, 322, 89, 23);
 		panel.add(btnBuscar);
 		
 		buscador = new JTextField();
-		buscador.setBounds(500, 322, 89, 23);
+		buscador.setBounds(520, 322, 89, 23);
 		panel.add(buscador);
 		buscador.setColumns(10);
-		
-
-		btnVerTodo = new JButton("Ver todo");
-		btnVerTodo.setBounds(600, 290, 89, 23);
-		panel.add(btnVerTodo);
 		
 		
 	}
@@ -182,7 +187,9 @@ public class VentanaServicio extends JFrame{
 	public JButton getBtnBuscar() {
 		return btnBuscar;
 	}
-	
+	public JComboBox getVariableBuscar() {
+		return variableBuscar;
+	}
 	
 	public JTextField getBuscador() {
 		return buscador;
