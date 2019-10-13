@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.ClienteDTO;
+import dto.ProfesionalDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ClienteDAO;
 import util.Validador;
@@ -158,6 +159,29 @@ public class ClienteDAOSQL implements ClienteDAO
 		}
 	 }
 		return false;
+	}
+	
+	@Override
+	public List<ClienteDTO> obtenerClienteBuscado(String variable, String value) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<ClienteDTO> cliente = new ArrayList<ClienteDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			if(variable.equals("Todos")) {
+				statement = conexion.getSQLConexion().prepareStatement(readall);
+			}else {
+				statement = conexion.getSQLConexion().prepareStatement(readall+" WHERE "+variable+ " LIKE '"+value+"'");
+			}
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				cliente.add(getClienteDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cliente;
 	}
 
 	@Override
