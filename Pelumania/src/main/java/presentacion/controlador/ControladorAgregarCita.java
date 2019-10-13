@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
+import dto.ServicioTurnoDTO;
 import modelo.Sistema;
+import persistencia.dao.mariadb.ProfesionalDAOSQL;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.VentanaCliente;
@@ -33,7 +35,9 @@ public class ControladorAgregarCita implements ActionListener{
 	private static int ANIO;
 	private static int MES;
 	private static int DIA;
+	private static List<ServicioTurnoDTO> serviciosTurnoAgregados;
 	private static List<ServicioDTO> serviciosAgregados;
+	private static List<ProfesionalDTO> profesionalesAgregados;
 
 
 	/**
@@ -49,7 +53,9 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getBtnAgregarServicio().addActionListener(w -> agregarServicio(w));
 		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicio(x));
 		//Instancio la lista de servicios vacía
+		serviciosTurnoAgregados = new ArrayList<ServicioTurnoDTO>();
 		serviciosAgregados = new ArrayList<ServicioDTO>();
+		profesionalesAgregados = new ArrayList<ProfesionalDTO>();
 		this.sistema = sistema;
 
 	}
@@ -60,7 +66,7 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
-
+		
 		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
 		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
 		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
@@ -73,7 +79,9 @@ public class ControladorAgregarCita implements ActionListener{
 			INSTANCE = new ControladorAgregarCita(sistema);
 		}
 		INSTANCE.ventanaAgregarCita.limpiarCampos();
+		INSTANCE.controladorCita.serviciosTurnoAgregados.clear();
 		INSTANCE.controladorCita.serviciosAgregados.clear();
+		INSTANCE.controladorCita.profesionalesAgregados.clear();
 		inicializarDatos();
 		return INSTANCE;
 	}
@@ -176,7 +184,9 @@ public class ControladorAgregarCita implements ActionListener{
         			JOptionPane.showMessageDialog(null, "No puedes agregar 2 veces el mismo servicio!");
         		}else {
         			if (validarHora()) {
-        				this.serviciosAgregados.add(servicioSeleccionado);
+        				ServicioTurnoDTO servTurno = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(),
+        						prof.getIdProfesional());
+        				this.serviciosTurnoAgregados.add(servTurno);
         				ActualizarInformacionServiciosAgregados();
         			}else {
         				JOptionPane.showMessageDialog(null, "Debes seleccionar una hora para el turno primero!");
@@ -206,8 +216,9 @@ public class ControladorAgregarCita implements ActionListener{
 	
 	//Chequea si el servicio a agregar a la cita ya esta agregado o no.
 	public boolean existeServicio(ServicioDTO servicio_a_chequear) {
-		for (ServicioDTO s : serviciosAgregados) {
-			if (s.getIdServicio() == servicio_a_chequear.getIdServicio())
+		for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
+			
+			if (st.getIdServicio() == servicio_a_chequear.getIdServicio())
 				return true;
 		}
 		return false;
@@ -219,8 +230,10 @@ public class ControladorAgregarCita implements ActionListener{
 	
 	public BigDecimal calcularTotal() {
 		BigDecimal total = BigDecimal.valueOf(0);
-		for (ServicioDTO s : serviciosAgregados) {
-			total = total.add(s.getPrecioLocal());
+		for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
+			Integer idServicio = st.getIdServicio();
+			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+			total = total.add(servicio.getPrecioLocal());
 		}
 		return total;
 	}
@@ -231,8 +244,10 @@ public class ControladorAgregarCita implements ActionListener{
 
 	public BigDecimal calcularTotalDolar() {
 		BigDecimal total = BigDecimal.valueOf(0);
-		for (ServicioDTO s : serviciosAgregados) {
-			total = total.add(s.getPrecioDolar());
+		for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
+			Integer idServicio = st.getIdServicio();
+			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+			total = total.add(servicio.getPrecioDolar());
 		}
 		return total;
 	}
@@ -245,9 +260,11 @@ public class ControladorAgregarCita implements ActionListener{
 		int minutoInicial = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
 	
 		LocalTime total = LocalTime.of(horaInicial, minutoInicial);
-		for (ServicioDTO s : serviciosAgregados) {
-			total = total.plusHours(s.getDuracion().getHour());
-			total = total.plusMinutes(s.getDuracion().getMinute());
+		for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
+			Integer idServicio = st.getIdServicio();
+			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+			total = total.plusHours(servicio.getDuracion().getHour());
+			total = total.plusMinutes(servicio.getDuracion().getMinute());
 		}
 		return total;
 	}
@@ -273,8 +290,26 @@ public class ControladorAgregarCita implements ActionListener{
 	public void ActualizarInformacionServiciosAgregados() {
 		this.ventanaAgregarCita.getLblHora_1().setText(CalcularTotalTiempo().toString());
 		this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());
-    	this.ventanaAgregarCita.actualizarServiciosAgregados(serviciosAgregados);
+    	this.actualizarServiciosAgregados(serviciosTurnoAgregados);
 	}
+	
+	public void actualizarServiciosAgregados(List<ServicioTurnoDTO> serviciosTurnoAgregados)
+	{
+	this.ventanaAgregarCita.getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
+	this.ventanaAgregarCita.getModelServiciosAgregados().setColumnCount(0);
+	this.ventanaAgregarCita.getModelServiciosAgregados().setColumnIdentifiers(this.ventanaAgregarCita.getNombreColumnasAgregadas());
+
+	for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
+		ServicioDTO serv = this.sistema.getServicioById(st.getIdServicio());
+		ProfesionalDTO prof = this.sistema.getProfesionalById(st.getIdProfesional());
+		
+		String nombreServicio = serv.getNombre();
+		String nombreProfesional = prof.getNombre()+" "+prof.getApellido();
+		
+		Object[] fila = {nombreServicio, nombreProfesional};
+		this.ventanaAgregarCita.getModelServiciosAgregados().addRow(fila);
+	}
+}
 	
 	public static int getANIO() {
 		return ANIO;

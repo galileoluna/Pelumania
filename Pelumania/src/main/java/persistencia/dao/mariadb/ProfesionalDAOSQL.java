@@ -19,6 +19,7 @@ import persistencia.conexion.Conexion;
 	private static final String readall = "SELECT * FROM Profesional";
 	private static final String readone = "SELECT * FROM Profesional WHERE IdProfesional = ?";
 	private static final String update = "UPDATE Profesional SET nombre=? , apellido=? , idSucursalOrigen=? , idSucursalTransferencia=?, estado = ? WHERE IdProfesional = ?";
+	private static final String getById = "SELECT * FROM Profesional WHERE idProfesional = ?";
 	private static final String readBuscador = "SELECT * FROM Profesional WHERE ? LIKE ?";
 	
 	
@@ -308,6 +309,32 @@ import persistencia.conexion.Conexion;
 		return servicios;
 	}
 	
+	public ProfesionalDTO getById(int idProfesional)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		List<ProfesionalDTO> profesionales = new ArrayList<ProfesionalDTO>();
+		try 
+		{
+			statement = conexion.prepareStatement(getById);
+			statement.setInt(1, idProfesional);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				profesionales.add(getProfesionalDTO(resultSet));
+			}
+	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return profesionales.get(0);
+	}
+	
+	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");
 		String nombre = resultSet.getString("Nombre");
@@ -318,7 +345,6 @@ import persistencia.conexion.Conexion;
 		
 		return new ProfesionalDTO(id, nombre, apellido ,idSucursalOrigen, idSucursalTransferencia, estado );
 	}
-
 	
 }
 

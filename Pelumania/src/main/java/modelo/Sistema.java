@@ -131,6 +131,10 @@ public class Sistema
 		this.profesional.update(profesional_a_editar);
 	}
 	
+	public ProfesionalDTO getProfesionalById(Integer idProfesional) {
+		return this.profesional.getById(idProfesional);
+	}
+	
 	public boolean agregarServicioProfesional( Integer idServ ,Integer idProf) {
 		return this.profesional.insertServProf(idServ, idProf);
 	}
