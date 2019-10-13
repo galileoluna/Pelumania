@@ -36,9 +36,7 @@ public class VentanaCliente extends JFrame{
 	private JButton btnEditar;
 	private JButton btnBorrar;
 
-	//borrable
-	public JButton btnBorrarReal;
-
+	
 	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
 			"Mail", "Puntos", "Estado", "Deuda"};
 	private JTextField txtNombre;
@@ -114,12 +112,6 @@ public class VentanaCliente extends JFrame{
 		btnBorrar = new JButton("Borrar");
 		btnBorrar.setBounds(229, 473, 129, 34);
 		panel.add(btnBorrar);
-		
-				btnBorrarReal = new JButton("Borrar 100% real NOFAKE");
-				btnBorrarReal.setForeground(Color.WHITE);
-				btnBorrarReal.setBackground(Color.RED);
-				btnBorrarReal.setBounds(10, 469, 195, 42);
-				panel.add(btnBorrarReal);
 
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(10, 11, 113, 14);
