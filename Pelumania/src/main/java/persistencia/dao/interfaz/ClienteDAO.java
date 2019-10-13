@@ -16,5 +16,7 @@ public interface ClienteDAO {
 
 	public boolean deleteReal(ClienteDTO cliente_a_eliminar);
 
+	public List<ClienteDTO> obtenerClienteBuscado(String variable, String value);
+
 
 }
