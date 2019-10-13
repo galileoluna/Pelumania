@@ -25,7 +25,6 @@ public class ControladorCliente implements ActionListener {
 		this.ventanaCliente.getBtnAgregar().addActionListener(p -> guardarCliente(p));
 		this.ventanaCliente.getBtnBorrar().addActionListener(p-> borrarCliente(p));
 		this.ventanaCliente.getBtnEditar().addActionListener(p-> editarCliente(p));
-		this.ventanaCliente.btnBorrarReal.addActionListener(r -> deleteReal(r));
 		this.sistema = sistema;
 	}
 
@@ -142,29 +141,7 @@ public class ControladorCliente implements ActionListener {
 
 	}
 
-	// BORRABLE
-	//------------------------------------------------
-	private void deleteReal(ActionEvent p) {
-
-		this.listaClientes = this.sistema.obtenerClientes();
-		int[] filasSeleccionadas = this.ventanaCliente.getTablaClientes().getSelectedRows();
-
-		for (int fila : filasSeleccionadas)
-		{
-			if(listaClientes.get(fila)!=null) {
-				int confirm = JOptionPane.showOptionDialog(null, "Seguro Santi? Mira que vas a borrar todo mono","Confirmacion", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					this.sistema.deleteReal((listaClientes.get(fila)));
-				}
-			}
-		}
-		this.listaClientes = INSTANCE.sistema.obtenerClientes();
-		INSTANCE.ventanaCliente.llenarTabla(this.listaClientes);
-	}
-
-	//------------------------------------------------
-	//BORRABLE
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
