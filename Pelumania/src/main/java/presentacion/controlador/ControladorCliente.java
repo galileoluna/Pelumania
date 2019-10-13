@@ -25,6 +25,7 @@ public class ControladorCliente implements ActionListener {
 		this.ventanaCliente.getBtnAgregar().addActionListener(p -> guardarCliente(p));
 		this.ventanaCliente.getBtnBorrar().addActionListener(p-> borrarCliente(p));
 		this.ventanaCliente.getBtnEditar().addActionListener(p-> editarCliente(p));
+		this.ventanaCliente.getBtnBuscar().addActionListener(y -> buscar(y));
 		this.sistema = sistema;
 	}
 
@@ -139,6 +140,12 @@ public class ControladorCliente implements ActionListener {
 		
 		INSTANCE.ventanaCliente.llenarTabla(INSTANCE.sistema.obtenerClientes());
 
+	}
+	
+	private void buscar(ActionEvent y) {
+		String variable=this.ventanaCliente.getVariableBuscar().getSelectedItem().toString();
+		String value=this.ventanaCliente.getBuscador().getText();
+		this.ventanaCliente.llenarTabla(this.sistema.obtenerClienteConBuscador(variable,value));
 	}
 
 	
