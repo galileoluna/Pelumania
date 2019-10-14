@@ -72,6 +72,7 @@ public class ControladorCategoriaMovimientoCaja {
 	        			CategoriaMovimientoCajaDTO categoria_a_eliminar = sistema.getCategoriaMovimientoCajaById(idCategoria);
 	        			sistema.deleteCategoriaMovimientoCaja(categoria_a_eliminar);
 	        			ControladorCategoriaMovimientoCaja.getInstance(sistema);
+	        			
 	        		}
         	}
     	}

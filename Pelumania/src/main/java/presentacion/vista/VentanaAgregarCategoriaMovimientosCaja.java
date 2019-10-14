@@ -169,4 +169,12 @@ public JButton getBtnAgregarCategoria() {
 		JOptionPane.showMessageDialog(new JFrame(), "Ya existe una categoria con ese nombre", "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
+
+	public void mostrarExitoEditar() {
+			JOptionPane.showMessageDialog(new JFrame(), "La categoria fue editado con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public void mostrarExitoAgregar() {
+		JOptionPane.showMessageDialog(new JFrame(), "La categoria fue agregada con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);		
+	}
 }

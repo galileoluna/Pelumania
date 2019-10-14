@@ -49,12 +49,20 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 					//los campos estan mal
 					this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
 				}
-			}
+		this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoEditar();
+	}
 
 	private boolean existeCategoria(String nombre) {
+		try {
 		CategoriaMovimientoCajaDTO cat = this.sistema.getIdCategoriaMovimientoCajaByName(nombre);
+		if ( cat != null) {
+			return cat.getIdCategoria() != this.idCategoria;
+		} else {
+			return false;
+			}
+		} catch (IndexOutOfBoundsException e) {}
 		
-		return cat != null;
+		return false;
 	}
 
 	private void llenarCombos() {
@@ -111,6 +119,9 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 			} else {
 				this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
 			}
+			
+			this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoAgregar();
+		
 		} else {
 			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
 		}

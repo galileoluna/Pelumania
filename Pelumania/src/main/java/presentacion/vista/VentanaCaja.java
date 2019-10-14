@@ -100,7 +100,7 @@ public class VentanaCaja extends JFrame
 		panel.add(comboCategoria);
 		
 		panel_egreso = new JPanel();
-		panel_egreso.setBounds(10, 269, 397, 195);
+		panel_egreso.setBounds(0, 269, 397, 195);
 		panel.add(panel_egreso);
 		panel_egreso.setLayout(null);
 		//ocultamos por defecto los campos que son
@@ -112,12 +112,12 @@ public class VentanaCaja extends JFrame
 		panel_egreso.add(lblDescripcion);
 		
 		txtPrecioPesos = new JTextField();
-		txtPrecioPesos.setBounds(173, 85, 170, 26);
+		txtPrecioPesos.setBounds(183, 104, 170, 26);
 		panel_egreso.add(txtPrecioPesos);
 		txtPrecioPesos.setColumns(10);
 		
 		lblPrecioEgreso = new JLabel("Monto en ARS");
-		lblPrecioEgreso.setBounds(10, 85, 124, 26);
+		lblPrecioEgreso.setBounds(10, 104, 124, 26);
 		panel_egreso.add(lblPrecioEgreso);
 		
 		JLabel lblMontoEnUsd = new JLabel("Monto en USD");
@@ -128,12 +128,12 @@ public class VentanaCaja extends JFrame
 		txtDescripcion.setToolTipText("De ser necesario, ingrese una descripción");
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		txtDescripcion.setBounds(173, 6, 170, 67);
+		txtDescripcion.setBounds(183, 20, 170, 67);
 		panel_egreso.add(txtDescripcion);
 		
 		txtPrecioDolar = new JTextField();
 		txtPrecioDolar.setColumns(10);
-		txtPrecioDolar.setBounds(173, 141, 170, 26);
+		txtPrecioDolar.setBounds(183, 141, 170, 26);
 		panel_egreso.add(txtPrecioDolar);
 		
 		btnAgregar = new JButton("Agregar");
