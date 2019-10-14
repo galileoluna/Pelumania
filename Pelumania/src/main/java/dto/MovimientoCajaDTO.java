@@ -17,7 +17,7 @@ public class MovimientoCajaDTO {
 
 	private int idCaja;
 	private int idSucursal;
-	private int categoria;
+	private int idCategoria;
 	private Instant fecha;
 	private String descripcion;
 	private String tipoMovimiento;
@@ -36,7 +36,7 @@ public class MovimientoCajaDTO {
 		
 		this.idCaja = idCaja;
 		this.idSucursal = idSucursal; //por ahora ira hardcodeado hasta saber de donde sacar el dato
-		this.categoria = idCategoria;
+		this.idCategoria = idCategoria;
 		this.fecha = fecha;
 		this.tipoMovimiento = tipoMovimiento;
 		this.tipoCambio = tipoCambio;
@@ -53,7 +53,7 @@ public class MovimientoCajaDTO {
 		super();
 		this.idCaja = idCaja;
 		this.idSucursal = idSucursal;
-		this.categoria = categoria;
+		this.idCategoria = categoria;
 		this.fecha = fecha;
 		this.tipoMovimiento = tipoMovimiento;
 		this.tipoCambio = tipoCambio;
@@ -84,11 +84,11 @@ public class MovimientoCajaDTO {
 	}
 
 	public int getCategoria() {
-		return categoria;
+		return idCategoria;
 	}
 
 	public void setCategoria(int categoria) {
-		this.categoria = categoria;
+		this.idCategoria = categoria;
 	}
 
 	public Instant getFecha() {
