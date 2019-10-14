@@ -11,6 +11,7 @@ import dto.MovimientoCajaDTO;
 import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 import dto.ServicioDTO;
+import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import persistencia.dao.interfaz.CategoriaMovimientoCajaDAO;
 import persistencia.dao.interfaz.CitaDAO;
@@ -21,6 +22,7 @@ import persistencia.dao.interfaz.MovimientoCajaDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
 import persistencia.dao.interfaz.PromocionDAO;
 import persistencia.dao.interfaz.ServicioDAO;
+import persistencia.dao.interfaz.ServicioTurnoDAO;
 import persistencia.dao.interfaz.SucursalDAO;
 
 
@@ -35,6 +37,7 @@ public class Sistema
 	private PromocionDAO promocion;
 	private MovimientoCajaDAO caja;
 	private CategoriaMovimientoCajaDAO categoriaMovimientoCaja;
+	private ServicioTurnoDAO servicioTurno;
 
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -47,6 +50,7 @@ public class Sistema
 		this.promocion=metodo_persistencia.createPromocionDAO();
 		this.caja = metodo_persistencia.createMovimientoCajaDAO();
 		this.categoriaMovimientoCaja = metodo_persistencia.createCategoriaMovimientoCajaDAO();
+		this.servicioTurno = metodo_persistencia.createServicioTurnoDAO();
 	}
 // COMIENZA CLIENTE
 	public void agregarCliente(ClienteDTO nuevoCliente)
@@ -240,6 +244,22 @@ public class Sistema
 	{
 		return this.cita.readAll();
 	}
+	
+	//Arranca ServicioTurno
+	
+	public boolean insertServicioTurno(ServicioTurnoDTO servicioTurno_a_insertar) {
+		return this.servicioTurno.insert(servicioTurno_a_insertar);
+	}
+	
+	public boolean deleteServicioTurno(ServicioTurnoDTO servicioTurno_a_eliminar) {
+		return this.servicioTurno.delete(servicioTurno_a_eliminar);
+	}
+	
+	public List<ServicioTurnoDTO> getByIdCita(int idCita) {
+		return this.servicioTurno.getByIdCita(idCita);
+	}
+	
+	//termina ServicioTurno
 	
 	// Funcion que obtiene la lista que se va a visualizar con los turnos ocupados
 	//Recibe un string con el dia a buscar 

@@ -20,4 +20,7 @@ public interface DAOAbstractFactory {
 	public MovimientoCajaDAO createMovimientoCajaDAO();
 	
 	public CategoriaMovimientoCajaDAO createCategoriaMovimientoCajaDAO();
-	}
+
+	public ServicioTurnoDAO createServicioTurnoDAO();
+	
+}

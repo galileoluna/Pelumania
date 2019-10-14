@@ -184,11 +184,13 @@ CREATE TABLE IF NOT EXISTS `Caja`(
 
 CREATE TABLE IF NOT EXISTS `ServicioTurno`(
 
-  `IdServicio` INT(11) NOT NULL,
   `idCita` INT(11) NOT NULL,
+  `idServicio` INT(11) NOT NULL,
+  `idProfesional` INT(11) NOT NULL,
     
-  FOREIGN KEY (`idServicio`) REFERENCES `Servicio`(`IdServicio`),
-  FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`)
+  FOREIGN KEY (`idServicio`) REFERENCES `Servicio`(`idServicio`),
+  FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`),
+  FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`) 
 );
 
 CREATE TABLE IF NOT EXISTS `Puntos`(

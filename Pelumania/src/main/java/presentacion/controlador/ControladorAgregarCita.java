@@ -37,8 +37,9 @@ public class ControladorAgregarCita implements ActionListener{
 	private static int MES;
 	private static int DIA;
 	private static List<ServicioTurnoDTO> serviciosTurnoAgregados;
+	
 	private static String errorHora;
-
+	private static String errorCliente;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -94,6 +95,9 @@ public class ControladorAgregarCita implements ActionListener{
 		controladorCliente = ControladorCliente.getInstance(sistema);
 	}
 	
+	public void guardarCita(ActionEvent p) {
+
+	}
 /*
 	public void guardarCita(ActionEvent p) {
 		//Levanto los datos de la ventanaCita
@@ -348,6 +352,39 @@ public class ControladorAgregarCita implements ActionListener{
 			break;
 		}
 	}
+	
+	public boolean validarCliente() {
+		if ((this.ventanaAgregarCita.getTxtNombre().getText() == null) &&
+			(this.ventanaAgregarCita.getTxtApellido().getText() == null))
+		{
+			this.errorCliente = "CamposClienteNulos";
+			return false;
+		}else {
+		if (this.ventanaAgregarCita.getTxtNombre().getText() == null) {
+			this.errorCliente = "CampoNombreNulo";
+			return false;
+		}
+		if (this.ventanaAgregarCita.getTxtApellido().getText() == null) {
+			this.errorCliente = "ApellidoNulo";
+			return false;
+		}
+		return true;
+	}
+	}
+	public void mostrarErrorClienteInvalido() {
+		switch (this.errorCliente) {
+		case "CamposClienteNulos":
+			JOptionPane.showMessageDialog(null, "Debes completar ambos campos para un cliente no registrado.");
+			break;
+		case "CampoNombreNulo":
+			JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para el cliente antes de continuar.");
+			break;
+		case "CampoApellidoNulo":
+			JOptionPane.showMessageDialog(null, "Debe ingresar un apellido para el cliente antes de continuar.");
+			break;
+		}
+	}
+	
 	public static int getANIO() {
 		return ANIO;
 	}
