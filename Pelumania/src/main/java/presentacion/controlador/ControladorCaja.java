@@ -7,6 +7,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.swing.JComboBox;
+
+import dto.CategoriaMovimientoCajaDTO;
 import dto.ClienteDTO;
 import dto.MovimientoCajaDTO;
 import modelo.Sistema;
@@ -18,6 +21,7 @@ public class ControladorCaja implements ActionListener {
 	private Sistema sistema;
 	private List<MovimientoCajaDTO> listaIngresos;
 	private List<MovimientoCajaDTO> listaEgresos;
+	private List<CategoriaMovimientoCajaDTO> listaCategorias;
 	private static ControladorCaja INSTANCE;
 	
 	private ControladorCaja (Sistema sistema) {
@@ -26,6 +30,7 @@ public class ControladorCaja implements ActionListener {
 		
 		this.ventanaCaja.getComboTipoMovimiento().addActionListener(l -> mostrarInputs(l));
 		this.ventanaCaja.getBtnAgregar().addActionListener(l -> agregarMovimiento(l));
+		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 	}
 
 
@@ -42,24 +47,65 @@ public class ControladorCaja implements ActionListener {
 
 //		INSTANCE.ventanaCaja.limpiarInputs();
 		INSTANCE.ventanaCaja.mostrarVentana();
+
 	}
 	
 	private void mostrarInputs(ActionEvent l) {
 		if ( esIngreso()) {
-				//mostrarIpuntsIngreso()
+				mostrarIpuntsIngreso();
 		//es egreso
 		} else {
 			mostrarInputsEgreso();
 		}
 	}
 	
+	private void mostrarIpuntsIngreso() {
+		this.ventanaCaja.getPanel_egreso().setVisible(false);
+		
+	}
+
+
+
+
 	private void mostrarInputsEgreso() {
 		this.ventanaCaja.getPanel_egreso().setVisible(true);
 //		this.ventanaCaja.getPanel_Ingreso().setVisible(false);
+		
+		agregarCategoriasEgreso();
+		tipoPagoEgreso();
+//		this.ventanaCaja.getComboTipoPago().addItem("Efectivo");
 	}
+
+	private void tipoPagoEgreso() {
+		JComboBox<String> comboTiposPago = this.ventanaCaja.getComboTipoPago();
+		//limpio tipos de pago de ingresos
+		comboTiposPago.removeAllItems();
+		comboTiposPago.addItem("Efectivo");
+		comboTiposPago.setEnabled(false);
+	}
+
+
+	private void agregarCategoriasEgreso() {
+		
+		JComboBox<String> comboCategorias = this.ventanaCaja.getComboCategoria();
+		
+		//limpio servicio y producto que son las fijas de ingreso
+		comboCategorias.removeAllItems();
+		
+		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
+			comboCategorias.addItem(categoria.getNombre());
+		}
+		
+	}
+
+
+
 
 	private void agregarMovimiento(ActionEvent l) {
 		
+		if (esIngreso()) {
+			//validar campos ingreso
+
 		//obtengo datos del movimiento
 		int idSucursal = 1; //0; //de donde lo saca de la sesion del usuario?
 		String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
@@ -74,19 +120,17 @@ public class ControladorCaja implements ActionListener {
 //		int idCita;
 //		int idCliente;
 		
-		if (esIngreso()) {
 			
-			//validar campos ingreso
 		}
 		//es egreso
 		else {
 			//validar campos egreso
 						
-		MovimientoCajaDTO mov = new MovimientoCajaDTO(0, idSucursal, fecha, 
-								tipoMovimiento, categoria, tipoCambio, 
-								precioLocal, precioDolar, descripcion);
+//		MovimientoCajaDTO mov = new MovimientoCajaDTO(0, idSucursal, fecha, 
+//								tipoMovimiento, categoria, tipoCambio, 
+//								precioLocal, precioDolar, descripcion);
 		
-		this.sistema.insertarEgreso(mov);
+//		this.sistema.insertarEgreso(mov);
 		System.out.println("NANANNAAN CLAVE ESE METODO BEBETO NDEAAHHHHHHH DE RUTAAAAAA");
 		
 		}

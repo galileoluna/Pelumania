@@ -32,6 +32,8 @@ public class VentanaCaja extends JFrame
 	private JTextField txtPrecio;
 	private JLabel lblCita;
 	private JButton buttonBuscarCita;
+	private JComboBox comboTipoPago;
+	private JTextField textField;
 	
 	public static VentanaCaja getInstance()
 	{
@@ -76,12 +78,11 @@ public class VentanaCaja extends JFrame
 		
 		comboCategoria = new JComboBox<String>();
 		comboCategoria.setBounds(169, 84, 173, 23);
-		comboCategoria.addItem("Insumos");
 		panel.add(comboCategoria);
 		
 		panel_egreso = new JPanel();
-		panel_egreso.setBounds(0, 118, 397, 154);
-//		panel.add(panel_egreso);
+		panel_egreso.setBounds(0, 172, 397, 195);
+		panel.add(panel_egreso);
 		panel_egreso.setLayout(null);
 		//ocultamos por defecto los campos que son
 		//especicos de un egreso
@@ -105,9 +106,27 @@ public class VentanaCaja extends JFrame
 		lblPrecioEgreso.setBounds(10, 98, 124, 26);
 		panel_egreso.add(lblPrecioEgreso);
 		
+		JLabel lblMontoEnUsd = new JLabel("Monto en USD");
+		lblMontoEnUsd.setBounds(10, 158, 124, 26);
+		panel_egreso.add(lblMontoEnUsd);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(173, 158, 164, 26);
+		panel_egreso.add(textField);
+		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(130, 378, 160, 26);
 		panel.add(btnAgregar);
+		
+		JLabel lblTipoPago = new JLabel("Tipo de Pago");
+		lblTipoPago.setToolTipText("");
+		lblTipoPago.setBounds(10, 134, 85, 14);
+		panel.add(lblTipoPago);
+		
+		comboTipoPago = new JComboBox();
+		comboTipoPago.setBounds(169, 131, 173, 20);
+		panel.add(comboTipoPago);
 		
 //		lblCita = new JLabel("Cita");
 //		lblCita.setBounds(10, 138, 99, 26);
@@ -125,8 +144,6 @@ public class VentanaCaja extends JFrame
 //		comboProfesional.setBounds(169, 129, 204, 23);
 //		panel.add(comboProfesional);
 //		
-	
-
 		this.setVisible(false);
 	}
 
@@ -180,5 +197,13 @@ public class VentanaCaja extends JFrame
 
 	public JComboBox<String> getComboCategoria() {
 		return comboCategoria;
+	}
+
+	public JComboBox getComboTipoPago() {
+		return comboTipoPago;
+	}
+
+	public void setComboTipoPago(JComboBox comboTipoPago) {
+		this.comboTipoPago = comboTipoPago;
 	}
 }

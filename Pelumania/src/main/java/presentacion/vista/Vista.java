@@ -105,7 +105,7 @@ public class Vista {
 		mnCaja = new JMenu("Caja");
 		menuBar.add(mnCaja);
 		
-		menuConsultarCaja = new JMenuItem("Consultar Caja");
+		menuConsultarCaja = new JMenuItem("Utilizar Caja");
 		menuConsultaCategoriaCaja = new JMenuItem("Consultar Categorias");
 		mnCaja.add(menuConsultaCategoriaCaja);
 		mnCaja.add(menuConsultarCaja);
