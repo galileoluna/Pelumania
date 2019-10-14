@@ -149,11 +149,11 @@ CREATE TABLE IF NOT EXISTS `Cita`(
 );
 
 CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
-	`idCategoriaCaja` INT(11) NOT NULL,
+	`idCategoriaCaja` INT(11) NOT NULL AUTO_INCREMENT,
 	`Nombre` VARCHAR(55) NOT NULL,
     `Estado` VARCHAR(55) NOT NULL,
     
-    PRIMARY KEY (idCategoriaCaja)
+    PRIMARY KEY(`idCategoriaCaja`)
 );
 
 CREATE TABLE IF NOT EXISTS `Caja`(

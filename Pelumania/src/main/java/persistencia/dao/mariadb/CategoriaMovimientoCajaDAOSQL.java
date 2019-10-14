@@ -63,9 +63,9 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
 	    	{
 	    		statement = conexion.getSQLConexion().prepareStatement(update);
 	    		
-	    		statement.setInt(1, categoria_a_actualizar.getIdCategoria());
-	    		statement.setString(2, categoria_a_actualizar.getNombre());
-	    		statement.setString (3, categoria_a_actualizar.getEstado());
+	    		statement.setString(1, categoria_a_actualizar.getNombre());
+	    		statement.setString (2, categoria_a_actualizar.getEstado());
+	    		statement.setInt(3, categoria_a_actualizar.getIdCategoria());
 
 	    		
 	    		chequeoUpdate = statement.executeUpdate();
@@ -161,7 +161,7 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
 	public CategoriaMovimientoCajaDTO readOne(int idCategoriaCaja) {
 		PreparedStatement statement;
     	ResultSet resultSet; //Guarda el resultado de la query
-    	List<CategoriaMovimientoCajaDTO> sucursal = new ArrayList<CategoriaMovimientoCajaDTO>();
+    	List<CategoriaMovimientoCajaDTO> categoria = new ArrayList<CategoriaMovimientoCajaDTO>();
     	Conexion conexion = Conexion.getConexion();
     	try 
     	{
@@ -170,7 +170,7 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
     		resultSet = statement.executeQuery();
     		while(resultSet.next())
     		{
-    			sucursal.add(getCategoriaMovimientoCajaDTO(resultSet));
+    			categoria.add(getCategoriaMovimientoCajaDTO(resultSet));
     		}
     	} 
     	catch (SQLException e) 
@@ -178,7 +178,7 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
     		e.printStackTrace();
     	}
     	
-    	return sucursal.get(0);
+    	return categoria.get(0);
 	}
 
 	

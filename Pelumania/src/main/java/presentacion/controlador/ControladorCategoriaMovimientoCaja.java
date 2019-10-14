@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import dto.CategoriaMovimientoCajaDTO;
-import dto.SucursalDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaCategoriaMovimentoCaja;
 
@@ -17,7 +16,6 @@ public class ControladorCategoriaMovimientoCaja {
 	private static List<CategoriaMovimientoCajaDTO> categoriaEnTabla;
 	private ControladorAgregarCategoriaMovimientoCaja controladorAgregarCategoriaMovimientoCaja ;
 	
-//	private ControladorEditarSucursal controladorEditarSucursal;
 	private static Sistema sistema;
 	
 	private ControladorCategoriaMovimientoCaja(Sistema sist) {
@@ -46,40 +44,35 @@ public class ControladorCategoriaMovimientoCaja {
 	
 	private void editarCategoria(ActionEvent c) {
 		categoriaEnTabla = sistema.obtenerCategoriasMovimientoCaja();
-		int[] filasSeleccionadas = ventanaCategoria.getTablaCategoria().getSelectedRows();
+		int filasSeleccionada = ventanaCategoria.getTablaCategoria().getSelectedRow();
 	       
-    	for (int fila : filasSeleccionadas)
-    	{
-        	if(categoriaEnTabla.get(fila)!=null) {	 
-        		int idCategoria = categoriaEnTabla.get(fila).getIdCategoria();
+    		if(categoriaEnTabla.get(filasSeleccionada)!=null) {	 
+        		int idCategoria = categoriaEnTabla.get(filasSeleccionada).getIdCategoria();
         		CategoriaMovimientoCajaDTO categoria_a_editar = sistema.getCategoriaMovimientoCajaById(idCategoria);
         		//uso la misma ventana para editar y agregar
-        		this.controladorAgregarCategoriaMovimientoCaja = ControladorAgregarCategoriaMovimientoCaja.getInstance(sistema);
+        		this.controladorAgregarCategoriaMovimientoCaja = ControladorAgregarCategoriaMovimientoCaja.getInstance(sistema,idCategoria);
         		//seteo los input
         		this.controladorAgregarCategoriaMovimientoCaja.llenarInputsEditar(categoria_a_editar);
         	}
-    	}
 	}
 
 	private void borrarCategoria(ActionEvent b) {
 		categoriaEnTabla = sistema.obtenerCategoriasMovimientoCaja();
-		int[] filasSeleccionadas = ventanaCategoria.getTablaCategoria().getSelectedRows();
+		int filaSeleccionada = ventanaCategoria.getTablaCategoria().getSelectedRow();
 	       
-    	for (int fila : filasSeleccionadas){
-        	if(categoriaEnTabla.get(fila)!=null) {
-        		if (categoriaEnTabla.get(fila).getEstado().equalsIgnoreCase(("Inactivo"))) {
+        	if(categoriaEnTabla.get(filaSeleccionada)!=null) {
+        		if (categoriaEnTabla.get(filaSeleccionada).getEstado().equalsIgnoreCase(("Inactivo"))) {
         			JOptionPane.showMessageDialog(null, "No se puede eliminar algo ya eliminado!");
         		}
         		else {
         			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar la categoria?","Confirmacion", JOptionPane.YES_NO_OPTION,
 	   		        JOptionPane.QUESTION_MESSAGE, null, null, null);
 	        		if (confirm == 0) {
-	        			int idCategoria = categoriaEnTabla.get(fila).getIdCategoria();
+	        			int idCategoria = categoriaEnTabla.get(filaSeleccionada).getIdCategoria();
 	        			CategoriaMovimientoCajaDTO categoria_a_eliminar = sistema.getCategoriaMovimientoCajaById(idCategoria);
 	        			sistema.deleteCategoriaMovimientoCaja(categoria_a_eliminar);
 	        			ControladorCategoriaMovimientoCaja.getInstance(sistema);
 	        		}
-        	}
         	}
     	}
 	}

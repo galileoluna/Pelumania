@@ -14,15 +14,20 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 	
 	private VentanaAgregarCategoriaMovimientosCaja VentanaAgregarCategoriaMovimientosCaja;
 	private Sistema sistema;
-	private ControladorCategoriaMovimientoCaja controladorSucursal;
+	private int idCategoria;
 	private static ControladorAgregarCategoriaMovimientoCaja INSTANCE;
 
 	private ControladorAgregarCategoriaMovimientoCaja(Sistema sistema) {
 		this.VentanaAgregarCategoriaMovimientosCaja = VentanaAgregarCategoriaMovimientosCaja.getInstance();
 		this.VentanaAgregarCategoriaMovimientosCaja.getBtnAgregarCategoria().addActionListener(p -> agregarCategoria(p));
 		this.VentanaAgregarCategoriaMovimientosCaja.getBtnEditarCategoria().addActionListener(l -> editarCategoria(l));
+		this.VentanaAgregarCategoriaMovimientosCaja.getBtnCancelar().addActionListener(l -> cancelar(l));
 		llenarCombos();	 
 		this.sistema = sistema;
+	}
+
+	private void cancelar(ActionEvent l) {
+		this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
 	}
 
 	private void editarCategoria(ActionEvent l) {
@@ -31,8 +36,7 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 		
 		//validamos campos
 				if ( Validador.esNombreConEspaciosValido(nombre)){
-
-					CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(0,nombre,estado);
+					CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado);
 					this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
 					ControladorCategoriaMovimientoCaja.getInstance(sistema);
 					this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
@@ -60,6 +64,19 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 		INSTANCE.VentanaAgregarCategoriaMovimientosCaja.mostrarVentana();
 		INSTANCE.VentanaAgregarCategoriaMovimientosCaja.getBtnAgregarCategoria().setVisible(true);
 		INSTANCE.VentanaAgregarCategoriaMovimientosCaja.getBtnEditarCategoria().setVisible(false);
+		return INSTANCE;
+	}
+	
+	//Constructor para editar, recibe un parametro extra
+	public static ControladorAgregarCategoriaMovimientoCaja getInstance(Sistema sistema, int idCategoria) {
+		if ( INSTANCE == null) {
+			INSTANCE = new ControladorAgregarCategoriaMovimientoCaja(sistema);
+		}
+		INSTANCE.VentanaAgregarCategoriaMovimientosCaja.limpiarCampos();
+		INSTANCE.VentanaAgregarCategoriaMovimientosCaja.mostrarVentana();
+		INSTANCE.VentanaAgregarCategoriaMovimientosCaja.getBtnAgregarCategoria().setVisible(true);
+		INSTANCE.VentanaAgregarCategoriaMovimientosCaja.getBtnEditarCategoria().setVisible(false);
+		INSTANCE.idCategoria = idCategoria;
 		return INSTANCE;
 	}
 	

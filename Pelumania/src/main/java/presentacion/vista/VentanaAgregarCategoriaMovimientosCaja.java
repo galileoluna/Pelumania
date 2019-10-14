@@ -45,7 +45,7 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 	{
 		super();
 
-		setTitle("Nueva sucursal");
+		setTitle("Nueva categoria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 346, 354);
 		contentPane = new JPanel();
