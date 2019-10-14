@@ -59,6 +59,7 @@ public class VentanaAgregarCita extends JFrame
 	private JLabel lblServiciosElegidos;
 	private JLabel lblHoraTotal;
 	private JLabel lblTotal$;
+	private JLabel lblTotalUSD;
 	private JLabel lblUSD;
 	
 	private JButton btnBorrarServicio;
@@ -79,7 +80,7 @@ public class VentanaAgregarCita extends JFrame
 	private VentanaAgregarCita()
 	{
 		super();
-		setAutoRequestFocus(false);
+
 
 		setTitle("Nueva Cita");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -94,11 +95,11 @@ public class VentanaAgregarCita extends JFrame
 		panel.setLayout(null);
 
 		btn_AgregarCita = new JButton("Agregar");
-		btn_AgregarCita.setBounds(236, 504, 89, 23);
+		btn_AgregarCita.setBounds(248, 677, 89, 23);
 		panel.add(btn_AgregarCita);
 
 		btn_Cancelar = new JButton("Cancelar");
-		btn_Cancelar.setBounds(342, 504, 89, 23);
+		btn_Cancelar.setBounds(366, 677, 89, 23);
 		panel.add(btn_Cancelar);
 
 		lblFecha = new JLabel("Fecha:");
@@ -129,10 +130,10 @@ public class VentanaAgregarCita extends JFrame
 		cargarMinutos(JCBoxMinutos);
 		panel.add(JCBoxMinutos);
 
-		JLabel lblNewLabel = new JLabel("Ese horario no se encuentra disponible!");
-		lblNewLabel.setBounds(100, 183, 208, 14);
-		lblNewLabel.setVisible(false);
-		panel.add(lblNewLabel);
+		JLabel lblErrorHorario = new JLabel("Ese horario no se encuentra disponible!");
+		lblErrorHorario.setBounds(100, 183, 208, 14);
+		lblErrorHorario.setVisible(false);
+		panel.add(lblErrorHorario);
 
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(23, 45, 133, 23);
@@ -250,9 +251,13 @@ public class VentanaAgregarCita extends JFrame
 		lblTotal$.setBounds(641, 464, 46, 23);
 		panel.add(lblTotal$);
 		
-		lblUSD = new JLabel("Total USD");
+		lblUSD = new JLabel("Total USD:");
 		lblUSD.setBounds(708, 464, 67, 23);
 		panel.add(lblUSD);
+		
+		lblTotalUSD = new JLabel("");
+		lblTotalUSD.setBounds(766, 464, 46, 23);
+		panel.add(lblTotalUSD);
 
 		this.setVisible(false);
 	}
@@ -406,11 +411,11 @@ public class VentanaAgregarCita extends JFrame
 		this.modelServiciosAgregados = modelServiciosAgregados;
 	}
 
-	public JLabel getLblHora_1() {
+	public JLabel getLblHoraTotal() {
 		return lblHoraTotal;
 	}
 
-	public void setLblHora_1(JLabel lblHora_1) {
+	public void setLblHoraTotal(JLabel lblHora_1) {
 		this.lblHoraTotal = lblHora_1;
 	}
 
@@ -421,7 +426,7 @@ public class VentanaAgregarCita extends JFrame
 	public void setLblTotal$(JLabel lblTotal$) {
 		this.lblTotal$ = lblTotal$;
 	}
-
+	
 	public JButton getBtnBorrarServicio() {
 		return btnBorrarServicio;
 	}
@@ -445,6 +450,14 @@ public class VentanaAgregarCita extends JFrame
 
 	public void setNombreColumnasAgregadas(String[] nombreColumnasAgregadas) {
 		this.nombreColumnasAgregadas = nombreColumnasAgregadas;
+	}
+
+	public JLabel getLblTotalUSD() {
+		return lblTotalUSD;
+	}
+
+	public void setLblTotalUSD(JLabel lblTotalUSD) {
+		this.lblTotalUSD = lblTotalUSD;
 	}
 
 	private void cargarHora(JComboBox<Integer> hora) {

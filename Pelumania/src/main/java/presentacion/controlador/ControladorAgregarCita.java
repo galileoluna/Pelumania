@@ -36,6 +36,7 @@ public class ControladorAgregarCita implements ActionListener{
 	private static int MES;
 	private static int DIA;
 	private static List<ServicioTurnoDTO> serviciosTurnoAgregados;
+	private static String errorHora;
 
 
 	/**
@@ -183,7 +184,7 @@ public class ControladorAgregarCita implements ActionListener{
         				this.serviciosTurnoAgregados.add(servTurno);
         				ActualizarInformacionServiciosAgregados();
         			}else {
-        				JOptionPane.showMessageDialog(null, "Debes seleccionar una hora para el turno primero!");
+        				mostrarErrorHoraInvalida();
         		}
 	}
         	}
@@ -283,8 +284,21 @@ public class ControladorAgregarCita implements ActionListener{
 		if (this.ventanaAgregarCita.getJCBoxHora().getSelectedItem() == null 
 				|| this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem() == null)
 		{
+			this.setErrorHora("CampoNulo");
 			return false;
 		}
+		
+		if (this.ventanaAgregarCita.getFechaCita().equals(LocalDate.now()))
+			{
+			Integer horaSeleccionada = (Integer) this.ventanaAgregarCita.getJCBoxHora().getSelectedItem();
+			Integer minutoSeleccionado = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
+				LocalTime horaCita = LocalTime.of(horaSeleccionada, minutoSeleccionado);
+				if (LocalTime.now().isAfter(horaCita)) 
+				{
+					this.setErrorHora("HoraAtrasada");
+					return false;
+				}
+			}
 		return true;
 		
 	}
@@ -293,8 +307,9 @@ public class ControladorAgregarCita implements ActionListener{
 	 * como asi tambien el precio y la duracion total de la cita 
 	 * */
 	public void ActualizarInformacionServiciosAgregados() {
-		this.ventanaAgregarCita.getLblHora_1().setText(CalcularTotalTiempo().toString());
+		this.ventanaAgregarCita.getLblHoraTotal().setText(CalcularTotalTiempo().toString());
 		this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());
+		this.ventanaAgregarCita.getLblTotalUSD().setText(calcularTotalDolar().toString());
     	this.actualizarServiciosAgregados(serviciosTurnoAgregados);
 	}
 	
@@ -318,6 +333,16 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 }
 	
+	public void mostrarErrorHoraInvalida() {
+		switch (this.errorHora) {
+		case "CampoNulo":
+			JOptionPane.showMessageDialog(null, "Debes ingresar un horario antes de elegir un servicio!");
+			break;
+		case "HoraAtrasada":
+			JOptionPane.showMessageDialog(null, "No puedes elegir un horario que ya paso.");
+			break;
+		}
+	}
 	public static int getANIO() {
 		return ANIO;
 	}
@@ -341,7 +366,14 @@ public class ControladorAgregarCita implements ActionListener{
 	public static void setDIA(int dIA) {
 		DIA = dIA;
 	}
-	
+
+	public static String getErrorHora() {
+		return errorHora;
+	}
+
+	public static void setErrorHora(String errorHora) {
+		ControladorAgregarCita.errorHora = errorHora;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

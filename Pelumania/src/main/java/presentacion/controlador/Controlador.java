@@ -118,8 +118,8 @@ public class Controlador implements ActionListener {
 	 */
 	
 	public boolean validarFechaCita(LocalDate fechaCita) {
-		LocalDate ahora = LocalDate.now();
-		return fechaCita.isAfter(ahora);
+		LocalDate hoy = LocalDate.now();
+		return fechaCita.isAfter(hoy) || fechaCita.isEqual(hoy);
 	}
 	
 	@Override
