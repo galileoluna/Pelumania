@@ -12,6 +12,7 @@ import dto.HorarioDTO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 
 public class VentanaHorarioProfesional
@@ -48,6 +49,10 @@ public class VentanaHorarioProfesional
 		frmHorario.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmHorario.setTitle("Horarios Laborales");
 		frmHorario.setBounds(100, 100, 644, 300);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmHorario.setLocation(dim.width/2-frmHorario.getSize().width/2, dim.height/2-frmHorario.getSize().height/2);
+		
 		frmHorario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmHorario.getContentPane().setLayout(null);
 		

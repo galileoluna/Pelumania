@@ -1,52 +1,34 @@
 package presentacion.vista;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
 import java.util.List;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import dto.HorarioDTO;
-import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 
-import javax.swing.JButton;
-
-import persistencia.conexion.Conexion;
-import javax.swing.JLabel;
-import java.awt.Color;
-import java.awt.Toolkit;
-
-import javax.swing.JComboBox;
-
-public class VentanaPromosionesVigentes{
-	private static VentanaPromosionesVigentes INSTANCE;
+public class VentanaPromocionesVigentes{
+	private static VentanaPromocionesVigentes INSTANCE;
 	private JFrame frmServProf;
 	private JTable tablaServicioPromocion;
 	private DefaultTableModel modelPromVigen;
 	private  String[] nombreColumnas = {"Decripcion","Fecha Inicio","Fecha Fin","Descuento","Puntos"};
 
-	public VentanaPromosionesVigentes() 
+	public VentanaPromocionesVigentes() 
 	{
 		super();
 		initialize();
 	}
-	public static VentanaPromosionesVigentes getInstance()
+	public static VentanaPromocionesVigentes getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaPromosionesVigentes(); 	
-			return new VentanaPromosionesVigentes();
+			INSTANCE = new VentanaPromocionesVigentes(); 	
+			return new VentanaPromocionesVigentes();
 		}
 		else
 			return INSTANCE;
@@ -57,6 +39,10 @@ public class VentanaPromosionesVigentes{
 		frmServProf = new JFrame();
 		frmServProf.setTitle("Promociones Vigentes");
 		frmServProf.setBounds(100, 100, 520, 442);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmServProf.setLocation(dim.width/2-frmServProf.getSize().width/2, dim.height/2-frmServProf.getSize().height/2);
+		
 		frmServProf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmServProf.getContentPane().setLayout(null);
 		

@@ -10,26 +10,26 @@ import java.util.List;
 
 import dto.PromocionDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaPromosionesVigentes;
+import presentacion.vista.VentanaPromocionesVigentes;
 import presentacion.vista.Vista;
 
 
-public class ControladorPromosionesVigentes implements ActionListener{
+public class ControladorPromocionesVigentes implements ActionListener{
 	private Sistema sistema;
-	private static ControladorPromosionesVigentes INSTANCE;
+	private static ControladorPromocionesVigentes INSTANCE;
 	private List<PromocionDTO> promosEnTabla;
 	private Vista vista;
-	private VentanaPromosionesVigentes ventanaPromoVigente;
+	private VentanaPromocionesVigentes ventanaPromoVigente;
 	
-	private ControladorPromosionesVigentes(Sistema sistema,Vista vista) {
+	private ControladorPromocionesVigentes(Sistema sistema,Vista vista) {
 		this.ventanaPromoVigente = ventanaPromoVigente.getInstance();
 		this.sistema=sistema;
 		this.vista=vista;
 	}
 
-	public static ControladorPromosionesVigentes getInstance(Sistema sistema,Vista vista) {
+	public static ControladorPromocionesVigentes getInstance(Sistema sistema,Vista vista) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorPromosionesVigentes(sistema,vista);
+			INSTANCE = new ControladorPromocionesVigentes(sistema,vista);
 		}
 
 		java.util.Date utilDate =INSTANCE.vista.getCalendario().getDate();

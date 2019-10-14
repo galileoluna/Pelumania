@@ -25,7 +25,7 @@ public class Controlador implements ActionListener {
 	private ControladorAgregarCita controladoragregarcita;
 	private ControladorPromocion controladorPromocion;
 	private ControladorSucursal controladorSucursal;
-	private ControladorPromosionesVigentes controladorPromoVigente;
+	private ControladorPromocionesVigentes controladorPromoVigente;
 	private ControladorCaja controladorCaja;
 	private ControladorCategoriaMovimientoCaja controladorCategoriaMovimientoCaja;
 	
@@ -110,7 +110,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void verPromosVigentes(ActionEvent p) {
-		this.controladorPromoVigente=ControladorPromosionesVigentes.getInstance(sistema,vista);
+		this.controladorPromoVigente=ControladorPromocionesVigentes.getInstance(sistema,vista);
 	}
 
 	/* Metodo que recibe una fecha y devuelve true si la fecha es despues

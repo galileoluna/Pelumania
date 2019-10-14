@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -64,6 +65,8 @@ public class Vista {
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		frame.setTitle("Hair & Head");
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 995, 21);

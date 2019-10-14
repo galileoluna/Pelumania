@@ -19,6 +19,8 @@ import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import dto.SucursalDTO;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.math.BigDecimal;
 
 public class VentanaAgregarCita extends JFrame
@@ -89,6 +91,10 @@ public class VentanaAgregarCita extends JFrame
 		setTitle("Nueva Cita");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 873, 645);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

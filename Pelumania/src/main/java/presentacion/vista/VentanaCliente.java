@@ -1,13 +1,12 @@
 
 package presentacion.vista;
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -68,6 +67,9 @@ public class VentanaCliente extends JFrame{
 	private void initialize()
 	{
 		this.setBounds(100, 100, 803, 560);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		this.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();

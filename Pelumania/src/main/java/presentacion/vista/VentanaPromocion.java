@@ -1,25 +1,15 @@
 package presentacion.vista;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import dto.PromocionDTO;
-
 import javax.swing.JButton;
-
-import persistencia.conexion.Conexion;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 
 public class VentanaPromocion{
@@ -57,6 +47,9 @@ public class VentanaPromocion{
 		frmPromocion.setBounds(100, 100, 1001, 300);
 		frmPromocion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPromocion.getContentPane().setLayout(null);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmPromocion.setLocation(dim.width/2-frmPromocion.getSize().width/2, dim.height/2-frmPromocion.getSize().height/2);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 975, 262);

@@ -1,28 +1,16 @@
 package presentacion.vista;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import dto.HorarioDTO;
-import dto.ProfesionalDTO;
-
 import javax.swing.JButton;
-
-import persistencia.conexion.Conexion;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JComboBox;
@@ -61,6 +49,10 @@ public class VentanaServicioPromocion
 		frmServProf = new JFrame();
 		frmServProf.setTitle("Relacion Servicio Promocion");
 		frmServProf.setBounds(100, 100, 506, 442);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmServProf.setLocation(dim.width/2-frmServProf.getSize().width/2, dim.height/2-frmServProf.getSize().height/2);
+		
 		frmServProf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmServProf.getContentPane().setLayout(null);
 		

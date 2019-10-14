@@ -1,7 +1,7 @@
 package presentacion.vista;
 
-import java.awt.Font;
-
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import util.TextPrompt;
 
 public class VentanaAgregarSucursal extends JFrame
 {
@@ -43,7 +42,9 @@ public class VentanaAgregarSucursal extends JFrame
 	private VentanaAgregarSucursal()
 	{
 		super();
-
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 		setTitle("Nueva sucursal");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 346, 354);

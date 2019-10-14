@@ -1,8 +1,7 @@
 package presentacion.vista;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.math.BigDecimal;
-import java.time.LocalTime;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,9 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import dto.ProfesionalDTO;
-import dto.ServicioDTO;
 import dto.SucursalDTO;
 
 public class VentanaSucursal extends JFrame {
@@ -46,6 +42,10 @@ public class VentanaSucursal extends JFrame {
 	private void initialize()
 	{
 		setBounds(100, 100, 739, 406);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setTitle("Manejo de Sucursales");

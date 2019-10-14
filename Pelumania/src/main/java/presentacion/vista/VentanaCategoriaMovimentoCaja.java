@@ -3,6 +3,8 @@
 
 package presentacion.vista;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -42,6 +44,9 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 	private void initialize()
 	{
 		setBounds(100, 100, 739, 406);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setTitle("Manejo de Categorias de Caja");
