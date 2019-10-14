@@ -14,8 +14,6 @@ public class CitaDTO{
     private String nombre;
     private String apellido;
     private String estado;
-    private int idProfesional;
-    private int idServicio;
     private BigDecimal precioLocal;
     private BigDecimal precioDolar;
     private LocalTime horaInicio;
@@ -58,41 +56,6 @@ public CitaDTO (int idcita,
     this.nombre = nombre;
     this.apellido = apellido;
     this.estado = estado;
-    this.idProfesional = idprofesional;
-    this.precioLocal = precioLocal;
-    this.precioDolar = precioDolar;
-    this.horaInicio = horaInicio;
-    this.horaFin = horaFin;
-    this.fecha = fecha;
-    this.idSucursal = idsucursal;
-}
-/***
- * Constructor sin un profesional en especifico asignado
- * @param idcita (Id autoincremental de la cita)
- * @param idusuario (ID del usuario que carga el turno)
- * @param idcliente (ID del cliente asociado al turno)
- * @param estado (Estado del turno)
- * @param precioLocal (precio final en la moneda local)
- * @param precioDolar (precio final en dolares)
- * @param idsucursal (Sucursal asociada al turno)
- */
-public CitaDTO (int idcita,
-                int idusuario,                
-                int idcliente,
-                String nombre,
-                String apellido,
-                String estado,
-                BigDecimal precioLocal,
-                BigDecimal precioDolar,
-                LocalTime horaInicio,
-                LocalTime horaFin,
-                LocalDate fecha,
-                int idsucursal
-){
-    this.idCita = idcita;
-    this.idUsuario = idusuario;
-    this.idCliente = idcliente;
-    this.estado = estado;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
     this.horaInicio = horaInicio;
@@ -130,7 +93,6 @@ public CitaDTO (int idcita,
     this.nombre = nombre;
     this.apellido = apellido;
     this.estado = estado;
-    this.idProfesional = idprofesional;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
     this.horaInicio = horaInicio;
@@ -189,18 +151,12 @@ public void setIdCliente(int idcliente){
     this.idCliente = idcliente;
 }
 
-
-
 public String getEstado(){
     return this.estado;
 }
 
 public void setEstado(String estado){
     this.estado = estado;
-}
-
-public int getIdProfesional(){
-    return this.idProfesional;
 }
 
 public void setIdProfesional(int idProfesional){
@@ -211,12 +167,6 @@ public BigDecimal getPrecioLocal(){
     return this.precioLocal;
 }
 
-public int getIdServicio() {
-	return idServicio;
-}
-public void setIdServicio(int idServicio) {
-	this.idServicio = idServicio;
-}
 public void setPrecioLocal(BigDecimal preciolocal){
     this.precioLocal = preciolocal;
 }
@@ -228,7 +178,6 @@ public BigDecimal getPrecioDolar(){
 public void setPrecioDolar(BigDecimal preciodolar){
     this.precioDolar = preciodolar;
 }
-
 
 public LocalTime getHoraInicio(){
     return this.horaInicio;

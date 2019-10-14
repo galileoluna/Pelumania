@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
+import dto.SucursalDTO;
+
 import java.math.BigDecimal;
 
 public class VentanaAgregarCita extends JFrame
@@ -64,7 +66,9 @@ public class VentanaAgregarCita extends JFrame
 	
 	private JButton btnBorrarServicio;
 	private JButton btnAgregarServicio;
+	private JLabel lblSucursal;
 
+	private JComboBox<SucursalDTO> JCBoxSucursales;
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -84,22 +88,22 @@ public class VentanaAgregarCita extends JFrame
 
 		setTitle("Nueva Cita");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 873, 773);
+		setBounds(100, 100, 873, 645);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 837, 711);
+		panel.setBounds(10, 11, 837, 584);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		btn_AgregarCita = new JButton("Agregar");
-		btn_AgregarCita.setBounds(248, 677, 89, 23);
+		btn_AgregarCita.setBounds(470, 556, 89, 23);
 		panel.add(btn_AgregarCita);
 
 		btn_Cancelar = new JButton("Cancelar");
-		btn_Cancelar.setBounds(366, 677, 89, 23);
+		btn_Cancelar.setBounds(569, 556, 89, 23);
 		panel.add(btn_Cancelar);
 
 		lblFecha = new JLabel("Fecha:");
@@ -258,6 +262,18 @@ public class VentanaAgregarCita extends JFrame
 		lblTotalUSD = new JLabel("");
 		lblTotalUSD.setBounds(766, 464, 46, 23);
 		panel.add(lblTotalUSD);
+		
+		lblSucursal = new JLabel("Sucursal:");
+		lblSucursal.setBounds(23, 512, 89, 23);
+		panel.add(lblSucursal);
+		
+		JCBoxSucursales = new JComboBox<SucursalDTO>();
+		JCBoxSucursales.setBounds(100, 513, 237, 23);
+		panel.add(JCBoxSucursales);
+		
+		JButton btnVerComprobante = new JButton("Ver Comprobante");
+		btnVerComprobante.setBounds(675, 556, 152, 23);
+		panel.add(btnVerComprobante);
 
 		this.setVisible(false);
 	}
@@ -460,15 +476,29 @@ public class VentanaAgregarCita extends JFrame
 		this.lblTotalUSD = lblTotalUSD;
 	}
 
+	public JComboBox<SucursalDTO> getJCBoxSucursales() {
+		return JCBoxSucursales;
+	}
+
+	public void setJCBoxSucursales(JComboBox<SucursalDTO> jCBoxSucursales) {
+		JCBoxSucursales = jCBoxSucursales;
+	}
+
 	private void cargarHora(JComboBox<Integer> hora) {
-		for(int i=0;i<=23;i++) {
+		for(int i=8;i<=20;i++) {
 			hora.addItem(i);
 		}
 	}
 
 	private void cargarMinutos(JComboBox<Integer> min) {
-		for(int i=0;i<=59;i++) {
+		for(int i=0;i<=59;i = i+5) {
 			min.addItem(i);
+		}
+	}
+	
+	public void cargarSucursales(List<SucursalDTO> sucursalesEnTabla) {
+		for (SucursalDTO s : sucursalesEnTabla) {
+			this.JCBoxSucursales.addItem(s);
 		}
 	}
 

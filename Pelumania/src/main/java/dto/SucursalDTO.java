@@ -56,5 +56,9 @@ public class SucursalDTO {
 		this.estadoSucursal = estadoSucursal;
 	}
 
+	@Override
+	public String toString() {
+		return this.nombreSucursal;
+	}
 	
 }

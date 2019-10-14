@@ -14,6 +14,7 @@ import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
+import dto.SucursalDTO;
 import modelo.Sistema;
 import persistencia.dao.mariadb.ProfesionalDAOSQL;
 import presentacion.vista.VentanaAgregarCita;
@@ -63,10 +64,14 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
+		List<SucursalDTO> listaSucursales = INSTANCE.sistema.obtenerSucursales();
 		
 		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
+		INSTANCE.ventanaAgregarCita.getJCBoxSucursales().removeAllItems();
+		
 		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
 		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
+		INSTANCE.ventanaAgregarCita.cargarSucursales(listaSucursales);
 		INSTANCE.ventanaAgregarCita.cargarFecha(ANIO, MES, DIA);
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
 	}
