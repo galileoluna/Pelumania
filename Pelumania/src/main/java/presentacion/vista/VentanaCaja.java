@@ -8,11 +8,13 @@ import javax.swing.JPanel;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 
@@ -56,7 +58,7 @@ public class VentanaCaja extends JFrame
 		
 		setTitle("Caja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 413, 453);
+		setBounds(100, 100, 413, 561);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -66,39 +68,39 @@ public class VentanaCaja extends JFrame
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 397, 415);
+		panel.setBounds(0, 0, 397, 512);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		lblTipoMovimiento = new JLabel("Tipo de Movimiento");
-		lblTipoMovimiento.setBounds(10, 33, 124, 26);
+		lblTipoMovimiento.setBounds(10, 136, 124, 26);
 		panel.add(lblTipoMovimiento);
 		
 		comboTipoMovimiento = new JComboBox<String>();
 		comboTipoMovimiento.addItem("Ingreso");
 		comboTipoMovimiento.addItem("Egreso");
-		comboTipoMovimiento.setBounds(169, 35, 173, 23);
+		comboTipoMovimiento.setBounds(182, 138, 172, 23);
 		panel.add(comboTipoMovimiento);
 		
 		JLabel lblCategoria = new JLabel("Categoria");
-		lblCategoria.setBounds(10, 81, 124, 26);
+		lblCategoria.setBounds(10, 187, 124, 26);
 		panel.add(lblCategoria);
 		
 		JLabel lblTipoPago = new JLabel("Tipo de Pago");
 		lblTipoPago.setToolTipText("");
-		lblTipoPago.setBounds(10, 134, 85, 14);
+		lblTipoPago.setBounds(10, 239, 85, 14);
 		panel.add(lblTipoPago);
 		
 		comboTipoPago = new JComboBox();
-		comboTipoPago.setBounds(169, 128, 173, 23);
+		comboTipoPago.setBounds(182, 235, 172, 23);
 		panel.add(comboTipoPago);
 		
 		comboCategoria = new JComboBox<String>();
-		comboCategoria.setBounds(169, 84, 173, 23);
+		comboCategoria.setBounds(182, 186, 172, 23);
 		panel.add(comboCategoria);
 		
 		panel_egreso = new JPanel();
-		panel_egreso.setBounds(0, 172, 397, 195);
+		panel_egreso.setBounds(10, 269, 397, 195);
 		panel.add(panel_egreso);
 		panel_egreso.setLayout(null);
 		//ocultamos por defecto los campos que son
@@ -135,11 +137,11 @@ public class VentanaCaja extends JFrame
 		panel_egreso.add(txtPrecioDolar);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(54, 378, 124, 26);
+		btnAgregar.setBounds(52, 475, 124, 26);
 		panel.add(btnAgregar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(216, 378, 124, 26);
+		btnCancelar.setBounds(218, 475, 124, 26);
 		panel.add(btnCancelar);
 		
 //		lblCita = new JLabel("Cita");
@@ -158,6 +160,20 @@ public class VentanaCaja extends JFrame
 //		comboProfesional.setBounds(169, 129, 204, 23);
 //		panel.add(comboProfesional);
 //		
+		
+		
+		
+		JLabel lblImagen =  new JLabel();
+		lblImagen.setBounds(10, 11, 124, 98);		
+		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/caja.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+		lblImagen.setIcon(imageIcon);
+		panel.add(lblImagen);
+		
+		
+		
+		
+		
+		
 		this.setVisible(false);
 	}
 

@@ -35,19 +35,27 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 		String estado = this.VentanaAgregarCategoriaMovimientosCaja.getComboEstado().getSelectedItem().toString();
 		
 		//validamos campos
-				if ( Validador.esNombreConEspaciosValido(nombre)){
-					CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado);
-					this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
-					ControladorCategoriaMovimientoCaja.getInstance(sistema);
-					this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
+				if ( Validador.esNombreConEspaciosValido(nombre)) {
+					if (!existeCategoria(nombre)){
+						CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado);
+						this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
+						ControladorCategoriaMovimientoCaja.getInstance(sistema);
+						this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
+					} else {
+						//esta repetido
+						this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
+					}
 				} else {
-//					if (yaExisteCategoria()) {
-//						this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
-//
-//					}
+					//los campos estan mal
 					this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
 				}
 			}
+
+	private boolean existeCategoria(String nombre) {
+		CategoriaMovimientoCajaDTO cat = this.sistema.getIdCategoriaMovimientoCajaByName(nombre);
+		
+		return cat != null;
+	}
 
 	private void llenarCombos() {
 		JComboBox<String> comboEstados = this.VentanaAgregarCategoriaMovimientosCaja.getComboEstado();
@@ -95,13 +103,15 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 
 		//validamos campos
 		if ( Validador.esNombreConEspaciosValido(nombre)){
-
-			CategoriaMovimientoCajaDTO nuevaCategoria = new CategoriaMovimientoCajaDTO(0,nombre,estado);
-			this.sistema.insertarCategoriaMovimientoCaja(nuevaCategoria);
-			ControladorCategoriaMovimientoCaja.getInstance(sistema);
-			this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
+			if (!existeCategoria(nombre)){
+				CategoriaMovimientoCajaDTO nuevaCategoria = new CategoriaMovimientoCajaDTO(0,nombre,estado);
+				this.sistema.insertarCategoriaMovimientoCaja(nuevaCategoria);
+				ControladorCategoriaMovimientoCaja.getInstance(sistema);
+				this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
+			} else {
+				this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
+			}
 		} else {
-
 			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
 		}
 	}

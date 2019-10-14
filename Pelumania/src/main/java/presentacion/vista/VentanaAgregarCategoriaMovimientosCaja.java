@@ -164,4 +164,9 @@ public JButton getBtnAgregarCategoria() {
 		return this.btnEditarCategoria;
 		
 	}
+
+	public void mostrarErrorRepetido() {
+		JOptionPane.showMessageDialog(new JFrame(), "Ya existe una categoria con ese nombre", "Dialog",
+				JOptionPane.ERROR_MESSAGE);
+	}
 }
