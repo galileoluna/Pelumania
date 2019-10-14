@@ -8,6 +8,7 @@ import persistencia.dao.interfaz.HorarioDAO;
 import persistencia.dao.interfaz.MovimientoCajaDAO;
 import persistencia.dao.interfaz.PromocionDAO;
 import persistencia.dao.interfaz.ServicioDAO;
+import persistencia.dao.interfaz.ServicioTurnoDAO;
 import persistencia.dao.interfaz.SucursalDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
@@ -61,6 +62,11 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	@Override
 	public CategoriaMovimientoCajaDAO createCategoriaMovimientoCajaDAO() {
 		return new CategoriaMovimientoCajaDAOSQL();
+	}
+
+	@Override
+	public ServicioTurnoDAO createServicioTurnoDAO() {
+		return new ServicioTurnoDAOSQL();
 	}
 
 }

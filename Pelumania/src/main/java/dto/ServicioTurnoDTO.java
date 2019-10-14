@@ -12,7 +12,7 @@ public class ServicioTurnoDTO {
 		this.idProfesional = idprofesional; 
 	}
 	public ServicioTurnoDTO(Integer idservicio, Integer idprofesional) {
-		this.idCita = null; 
+		this.idCita = -1; 
 		this.idServicio = idservicio;
 		this.idProfesional = idprofesional;
 	}

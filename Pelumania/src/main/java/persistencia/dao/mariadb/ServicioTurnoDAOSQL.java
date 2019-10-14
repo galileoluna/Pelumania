@@ -27,6 +27,9 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 		boolean isInsertExitoso = false;
 		try
 		{
+			System.out.println(servicioTurno_a_insertar.getIdCita());
+			System.out.println(servicioTurno_a_insertar.getIdServicio());
+			System.out.println(servicioTurno_a_insertar.getIdProfesional());
 			statement = conexion.prepareStatement(insert);
 			statement.setInt	(1, servicioTurno_a_insertar.getIdCita());
 			statement.setInt	(2, servicioTurno_a_insertar.getIdServicio());
