@@ -14,7 +14,7 @@ public class Validador {
 	
 		@SuppressWarnings("static-access")
 		public static boolean esNombreValido(String nombre) {
-			String NOMBRE_REGEX = "[A-Za-z]{3,45}$";
+			String NOMBRE_REGEX = "[A-Za-z ñ]{3,45}$";
 			Pattern NOMBRE_PATTERN = Pattern.compile(NOMBRE_REGEX);
 			return NOMBRE_PATTERN.matches(NOMBRE_REGEX, nombre);
 		}
@@ -89,7 +89,7 @@ public class Validador {
 		public static boolean esEstadoClienteValido(String estado) {
 			String[] ESTADOS = {"activo","inactivo","moroso","vip"};
 			for (String  e : ESTADOS) {
-				if (e.equals(estado)){
+				if (e.equalsIgnoreCase(estado)){
 					return true;
 				}
 			}
@@ -101,11 +101,29 @@ public class Validador {
 			String[] ESTADOS = {"activo", "inactivo"};
 			
 			for (String  e : ESTADOS) {
-				if (e.equals(estado)){
+				if (e.equalsIgnoreCase(estado)){
 					return true;
 				}
 			}
 			return false;
+		}
+
+		public static boolean esTipoMovimientoValido(String tipo) {
+			return tipo.equalsIgnoreCase("ingreso") || tipo.equalsIgnoreCase("egreso");
+		}
+
+		public static boolean esTipoCambioValido(String tipoCambio) {
+			return tipoCambio.equalsIgnoreCase("efectivo");
+		}
+		
+		@SuppressWarnings("static-access")
+		public static boolean esDescripcionValida(String descripcion) {
+			String DESCRIPCION_REGEX =  "^[a-zA-Z0-9 ]{0,80}";
+			String VACIO_REGEX = "^$";
+			
+			Pattern PATTERN = Pattern.compile(DESCRIPCION_REGEX);
+																	//puede ocurrir que no venga desc
+			return PATTERN.matches(DESCRIPCION_REGEX, descripcion) || Pattern.matches(VACIO_REGEX, descripcion) ;
 		}
 
 }

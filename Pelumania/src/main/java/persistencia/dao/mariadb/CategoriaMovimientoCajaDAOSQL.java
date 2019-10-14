@@ -22,6 +22,7 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
 	private static final String update = "UPDATE CategoriaCaja SET Nombre=?, Estado=? WHERE idCategoriaCaja = ?";
 	private static final String ESTADO_INACTIVO = "inactivo";
 	private static final String readOne = "SELECT * FROM CategoriaCaja WHERE idCategoriaCaja = ?";
+	private static final String readOneByName = "SELECT * FROM CategoriaCaja WHERE Nombre = ?";
     
     @Override
     public boolean insert(CategoriaMovimientoCajaDTO categoria){
@@ -181,5 +182,27 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
     	return categoria.get(0);
 	}
 
+	public CategoriaMovimientoCajaDTO readOneByName(String name ) {
+		PreparedStatement statement;
+    	ResultSet resultSet; //Guarda el resultado de la query
+    	List<CategoriaMovimientoCajaDTO> categoria = new ArrayList<CategoriaMovimientoCajaDTO>();
+    	Conexion conexion = Conexion.getConexion();
+    	try 
+    	{
+    		statement = conexion.getSQLConexion().prepareStatement(readOneByName);
+    		statement.setString(1, name);
+    		resultSet = statement.executeQuery();
+    		while(resultSet.next())
+    		{
+    			categoria.add(getCategoriaMovimientoCajaDTO(resultSet));
+    		}
+    	} 
+    	catch (SQLException e) 
+    	{
+    		e.printStackTrace();
+    	}
+    	
+    	return categoria.get(0);
+	}
 	
 }

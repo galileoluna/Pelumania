@@ -331,6 +331,9 @@ public class Sistema
 	public boolean updateCategoriaMovimientoCaja(CategoriaMovimientoCajaDTO categoria_a_editar) {
 		return this.categoriaMovimientoCaja.update(categoria_a_editar);
 	}
+	public CategoriaMovimientoCajaDTO getIdCategoriaMovimientoCajaByName(String categoria) {
+		return this.categoriaMovimientoCaja.readOneByName(categoria);
+	}
 	
 	
 	

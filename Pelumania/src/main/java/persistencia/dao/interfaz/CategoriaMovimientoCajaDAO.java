@@ -17,4 +17,6 @@ public interface CategoriaMovimientoCajaDAO {
 	public List<CategoriaMovimientoCajaDTO> readAll();
 
 	public CategoriaMovimientoCajaDTO readOne(int idCategoria);
+
+	public CategoriaMovimientoCajaDTO readOneByName(String categoria);
 }

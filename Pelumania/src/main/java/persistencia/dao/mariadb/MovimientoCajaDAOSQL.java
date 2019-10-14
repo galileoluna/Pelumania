@@ -11,11 +11,11 @@ import persistencia.dao.interfaz.MovimientoCajaDAO;
 
 public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	
-	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Descripcion, "
+	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion, "
 			+ "TipoMovimiento, TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static final String insertEgreso = "INSERT INTO Caja (idCaja, idSucursal, Categoria, Descripcion, "
+	private static final String insertEgreso = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion, "
 			+ "TipoMovimiento, TipoDeCambio, PrecioLocal, PrecioDolar) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	
@@ -43,7 +43,7 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 				statement = conexion.prepareStatement(insertEgreso);
 				statement.setInt(1, movimiento.getIdCaja());
 				statement.setInt (2, movimiento.getIdSucursal());
-				statement.setString(3, movimiento.getCategoria());
+				statement.setInt(3, movimiento.getCategoria());
 				statement.setString(4, movimiento.getDescripcion());
 				statement.setString(5, movimiento.getTipoMovimiento().toLowerCase());
 				statement.setString(6, movimiento.getTipoCambio());

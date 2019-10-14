@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import java.awt.Font;
 
 
 
@@ -23,17 +25,18 @@ public class VentanaCaja extends JFrame
 	private JComboBox<String> comboTipoMovimiento;
 	private JLabel lblTipoMovimiento;
 	private JComboBox<String> comboCategoria;
-	private JTextField txtDescripcion;
 	private JPanel panel_egreso;
 	private JLabel lbl_profesional;
 	private JComboBox<String> comboProfesional;
 	private JButton btnAgregar;
 	private JLabel lblPrecioEgreso;
-	private JTextField txtPrecio;
+	private JTextField txtPrecioPesos;
 	private JLabel lblCita;
 	private JButton buttonBuscarCita;
 	private JComboBox comboTipoPago;
-	private JTextField textField;
+	private JTextArea txtDescripcion;
+	private JTextField txtPrecioDolar;
+	private JButton btnCancelar;
 	
 	public static VentanaCaja getInstance()
 	{
@@ -76,6 +79,15 @@ public class VentanaCaja extends JFrame
 		lblCategoria.setBounds(10, 81, 124, 26);
 		panel.add(lblCategoria);
 		
+		JLabel lblTipoPago = new JLabel("Tipo de Pago");
+		lblTipoPago.setToolTipText("");
+		lblTipoPago.setBounds(10, 134, 85, 14);
+		panel.add(lblTipoPago);
+		
+		comboTipoPago = new JComboBox();
+		comboTipoPago.setBounds(169, 128, 173, 23);
+		panel.add(comboTipoPago);
+		
 		comboCategoria = new JComboBox<String>();
 		comboCategoria.setBounds(169, 84, 173, 23);
 		panel.add(comboCategoria);
@@ -88,45 +100,42 @@ public class VentanaCaja extends JFrame
 		//especicos de un egreso
 		panel_egreso.setVisible(false);
 		
-		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(173, 24, 165, 53);
-		panel_egreso.add(txtDescripcion);
-		txtDescripcion.setColumns(10);
-		
 		JLabel lblDescripcion = new JLabel("Descripción");
 		lblDescripcion.setBounds(10, 24, 87, 16);
 		panel_egreso.add(lblDescripcion);
 		
-		txtPrecio = new JTextField();
-		txtPrecio.setBounds(173, 98, 164, 26);
-		panel_egreso.add(txtPrecio);
-		txtPrecio.setColumns(10);
+		txtPrecioPesos = new JTextField();
+		txtPrecioPesos.setBounds(173, 85, 170, 26);
+		panel_egreso.add(txtPrecioPesos);
+		txtPrecioPesos.setColumns(10);
 		
 		lblPrecioEgreso = new JLabel("Monto en ARS");
-		lblPrecioEgreso.setBounds(10, 98, 124, 26);
+		lblPrecioEgreso.setBounds(10, 85, 124, 26);
 		panel_egreso.add(lblPrecioEgreso);
 		
 		JLabel lblMontoEnUsd = new JLabel("Monto en USD");
-		lblMontoEnUsd.setBounds(10, 158, 124, 26);
+		lblMontoEnUsd.setBounds(10, 141, 124, 26);
 		panel_egreso.add(lblMontoEnUsd);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(173, 158, 164, 26);
-		panel_egreso.add(textField);
+		txtDescripcion = new JTextArea();
+		txtDescripcion.setToolTipText("De ser necesario, ingrese una descripción");
+		txtDescripcion.setLineWrap(true);
+		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		txtDescripcion.setBounds(173, 6, 170, 67);
+		panel_egreso.add(txtDescripcion);
+		
+		txtPrecioDolar = new JTextField();
+		txtPrecioDolar.setColumns(10);
+		txtPrecioDolar.setBounds(173, 141, 170, 26);
+		panel_egreso.add(txtPrecioDolar);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(130, 378, 160, 26);
+		btnAgregar.setBounds(54, 378, 124, 26);
 		panel.add(btnAgregar);
 		
-		JLabel lblTipoPago = new JLabel("Tipo de Pago");
-		lblTipoPago.setToolTipText("");
-		lblTipoPago.setBounds(10, 134, 85, 14);
-		panel.add(lblTipoPago);
-		
-		comboTipoPago = new JComboBox();
-		comboTipoPago.setBounds(169, 131, 173, 20);
-		panel.add(comboTipoPago);
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(216, 378, 124, 26);
+		panel.add(btnCancelar);
 		
 //		lblCita = new JLabel("Cita");
 //		lblCita.setBounds(10, 138, 99, 26);
@@ -168,7 +177,9 @@ public class VentanaCaja extends JFrame
 	}
 
 	public void limpiarCampos() {
-		
+		this.txtPrecioDolar.setText(null);
+		this.txtPrecioPesos.setText(null);
+		this.txtDescripcion.setText(null);
 	}
 	
 	public void cerrar(){
@@ -199,11 +210,34 @@ public class VentanaCaja extends JFrame
 		return comboCategoria;
 	}
 
-	public JComboBox getComboTipoPago() {
+	public JComboBox getComboTipoCambio() {
 		return comboTipoPago;
 	}
 
 	public void setComboTipoPago(JComboBox comboTipoPago) {
 		this.comboTipoPago = comboTipoPago;
+	}
+
+	public JTextField getTxtPrecioPesos() {
+		return txtPrecioPesos;
+	}
+
+	public JTextField getTxtPrecioDolar() {
+		return txtPrecioDolar;
+	}
+
+	public void mostrarErrorPrecio() {
+		JOptionPane.showMessageDialog(new JFrame(), "precio inválido", "Dialog",
+				JOptionPane.ERROR_MESSAGE);		
+	}
+
+	public void mostrarExito() {
+		JOptionPane.showMessageDialog(new JFrame(), "La operacion fue registrada con exito", "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);		
+		
+	}
+
+	public JButton getBtnCancelar() {
+		return this.btnCancelar;
 	}
 }

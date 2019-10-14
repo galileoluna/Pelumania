@@ -17,7 +17,7 @@ public class MovimientoCajaDTO {
 
 	private int idCaja;
 	private int idSucursal;
-	private String categoria;
+	private int categoria;
 	private Instant fecha;
 	private String descripcion;
 	private String tipoMovimiento;
@@ -31,12 +31,12 @@ public class MovimientoCajaDTO {
 	
 	
 	//constructor para un egreso
-	public MovimientoCajaDTO(int idCaja, int idSucursal,Instant fecha, String tipoMovimiento, String categoria,
+	public MovimientoCajaDTO(int idCaja, int idSucursal,Instant fecha, String tipoMovimiento, int idCategoria,
 			String tipoCambio, BigDecimal precioLocal, BigDecimal precioDolar, String descripcion) {
 		
 		this.idCaja = idCaja;
-		this.idSucursal = idSucursal;
-		this.categoria = categoria;
+		this.idSucursal = idSucursal; //por ahora ira hardcodeado hasta saber de donde sacar el dato
+		this.categoria = idCategoria;
 		this.fecha = fecha;
 		this.tipoMovimiento = tipoMovimiento;
 		this.tipoCambio = tipoCambio;
@@ -47,7 +47,7 @@ public class MovimientoCajaDTO {
 
 //constructor para un ingreso
 	
-	public MovimientoCajaDTO(int idCaja, int idSucursal, String categoria, Instant fecha, String tipoMovimiento,
+	public MovimientoCajaDTO(int idCaja, int idSucursal, int categoria, Instant fecha, String tipoMovimiento,
 			String tipoCambio, int idPromocion, BigDecimal precioLocal, BigDecimal precioDolar, int idProfesional,
 			int idCita, int idCliente) {
 		super();
@@ -83,11 +83,11 @@ public class MovimientoCajaDTO {
 		this.idSucursal = idSucursal;
 	}
 
-	public String getCategoria() {
+	public int getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
 
