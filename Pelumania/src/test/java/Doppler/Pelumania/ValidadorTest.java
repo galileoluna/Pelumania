@@ -546,11 +546,162 @@ class ValidadorTest {
 		
 		assertFalse(validador.esTipoMovimientoValido(mov));
 	}
+	
+	@Test
+	void esPrecioValidoCorrectoEntero() {
+		String precio="10";
+		
+		assertTrue(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoCorrectoDecimal() {
+		String precio="10.1";
+		
+		assertTrue(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoCorrecto2DigitosDecimal() {
+		String precio="10.15";
+		
+		assertTrue(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoCorrectoConComa() {
+		String precio="10,15";
+		
+		assertTrue(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoCorrecto6Digitos() {
+		String precio="101554,15";
+		
+		assertTrue(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoCorrecto9Digitos() {
+		String precio="101554123,15";
+		
+		assertTrue(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoIncorrecto10Digitos() {
+		String precio="1015541234,15";
+		
+		assertFalse(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoIncorrectoVacio() {
+		String precio="";
+		
+		assertFalse(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esPrecioValidoIncorrectoDobleComa() {
+		String precio="12,12,2";
+		
+		assertFalse(validador.esPrecioValido(precio));
+	}
+	
+	@Test
+	void esEstadoSucursalValidoCorrectoActivo() {
+		String estado="activo";
+		
+		assertTrue(validador.esPrecioValido(estado));
+	}
+	
+	@Test
+	void esEstadoSucursalValidoCorrectoInactivo() {
+		String estado="inactivo";
+		
+		assertTrue(validador.esPrecioValido(estado));
+	}
+	
+	@Test
+	void esEstadoSucursalValidoIncorrectoVacio() {
+		String estado="";
+		
+		assertFalse(validador.esPrecioValido(estado));
+	}
+	
+	@Test
+	void esEstadoSucursalValidoIncorrectoConError() {
+		String estado="activo,";
+		
+		assertFalse(validador.esPrecioValido(estado));
+	}
+	
+	@Test
+	void esEstadoSucursalValidoIncorrectoConEspacio() {
+		String estado="activo ";
+		
+		assertFalse(validador.esPrecioValido(estado));
+	}
+	
+	@Test
+	void esEstadoSucursalValidoIncompleto() {
+		String estado="acti";
+		
+		assertFalse(validador.esPrecioValido(estado));
+	}
+	
+	@Test
+	void esDescripcionValidaCorrecto() {
+		String descripcion="hola lalla";
+		
+		assertTrue(validador.esPrecioValido(descripcion));
+	}
+	
+	@Test
+	void esDescripcionValidaConNumeros() {
+		String descripcion="hola lalla2353";
+		
+		assertTrue(validador.esPrecioValido(descripcion));
+	}
+	
+	@Test
+	void esDescripcionValidaVacio() {
+		String descripcion="";
+		
+		assertTrue(validador.esPrecioValido(descripcion));
+	}
+	
+	@Test
+	void esDescripcionValidaVacioConEspacio() {
+		String descripcion=" ";
+		
+		assertTrue(validador.esPrecioValido(descripcion));
+	}
+	
+	@Test
+	void esDescripcionValidaCon79Palabras() {
+		String descripcion="hola lalladfjnfjnfjnjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
+		
+		assertTrue(validador.esPrecioValido(descripcion));
+	}
+	
+	@Test
+	void esDescripcionValidaCon80Palabras() {
+		String descripcion="hola lalladfjnfjnfjnfjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
+		
+		assertTrue(validador.esPrecioValido(descripcion));
+	}
+	
+	@Test
+	void esDescripcionValidaCon81Palabras() {
+		String descripcion="hola lalladfjnfjnffgjnjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
+		
+		assertFalse(validador.esPrecioValido(descripcion));
+	}
 	/*
-	esPrecioValido
-	esEstadoSucursalValido
 	esTipoCambioValido
-	esDescripcionValida
 	*/
 
 	
