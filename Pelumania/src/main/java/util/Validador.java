@@ -14,7 +14,7 @@ public class Validador {
 	
 		@SuppressWarnings("static-access")
 		public static boolean esNombreValido(String nombre) {
-			String NOMBRE_REGEX = "[A-Za-z ñ]{3,45}$";
+			String NOMBRE_REGEX = "[A-Za-z]{3,45}$";
 			Pattern NOMBRE_PATTERN = Pattern.compile(NOMBRE_REGEX);
 			return NOMBRE_PATTERN.matches(NOMBRE_REGEX, nombre);
 		}

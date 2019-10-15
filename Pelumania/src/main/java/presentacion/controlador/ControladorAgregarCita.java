@@ -94,8 +94,11 @@ public class ControladorAgregarCita implements ActionListener{
 	public void registrarCliente(ActionEvent q) {
 		controladorCliente = ControladorCliente.getInstance(sistema);
 	}
-	
+
 	public void guardarCita(ActionEvent p) {
+		if(!validarCliente())
+			mostrarErrorClienteInvalido();
+		
 		if(serviciosTurnoAgregados.isEmpty())
 		{
 			JOptionPane.showMessageDialog(null, "No puedes guardar una cita sin servicios!");
@@ -106,67 +109,56 @@ public class ControladorAgregarCita implements ActionListener{
 			this.sistema.insertServicioTurno(st);
 			}
 		}
-	}
-/*
-	public void guardarCita(ActionEvent p) {
+		
 		//Levanto los datos de la ventanaCita
 		Integer idcliente = this.ventanaAgregarCita.getIdCliente();
-		if (idcliente == -1);
-		
 		//HARDCODEADO IDUSUARIO
 		Integer idUsuario = -1;
 		//---------------------
 		String nombre = this.ventanaAgregarCita.getTxtNombre().getText();
 		String apellido = this.ventanaAgregarCita.getTxtApellido().getText();
 		String estado = "Activa";
-		ProfesionalDTO Profesional = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
-		int idProfesional = Profesional.getIdProfesional();
-		ServicioDTO Servicio = (ServicioDTO) this.ventanaAgregarCita.getJCBoxServicio().getSelectedItem();
-		int idServicio = Servicio.getIdServicio();
-		String S_precioLocal = Servicio.getPrecioLocal().toString();
-		String S_precioDolar = Servicio.getPrecioDolar().toString();
-		
+
 		Integer hora = (Integer )this.ventanaAgregarCita.getJCBoxHora().getSelectedItem();
 		Integer minutos = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
 		LocalTime HoraCitaInicio = LocalTime.of(hora, minutos);
-		String S_HoraInicio = HoraCitaInicio.toString();
-		//Obtengo la parte Hora y la parte MInutos de la duracion del servicio
-		int horaDuracionServicio = Servicio.getDuracion().getHour();
-		int minutosDuracionServicio = Servicio.getDuracion().getMinute();
-		//Le sumo la parte de las horas
-		LocalTime HoraCitaFinTemporal = HoraCitaInicio.plusHours(horaDuracionServicio);
-		//Le sumo la parte de los minutos
-		LocalTime HoraCitaFin = HoraCitaFinTemporal.plusMinutes(minutosDuracionServicio);
 		
-		String S_HoraFin = HoraCitaFin.toString();
+		String S_HoraInicio = HoraCitaInicio.toString();
+		String S_HoraFin = this.ventanaAgregarCita.getLblHoraTotal().getText();
+		LocalTime HoraCitaFin = this.ventanaAgregarCita.getHoraFin();
+		
 		String S_fecha = this.ventanaAgregarCita.getFechaCita().toString();
 		LocalDate fecha = this.ventanaAgregarCita.getFechaCita();
-		//HARDCODEADO
-		int idSucursal = 1; 
-		/*
+		
+		SucursalDTO sucursalSeleccionada = (SucursalDTO) this.ventanaAgregarCita.getJCBoxSucursales().getSelectedItem();
+		int idSucursal = sucursalSeleccionada.getIdSucursal();
+		
+		Integer idCitaAgregada;
+		
 		System.out.println("Id Cliente " + idcliente + "\n" +
 				"IdUsuario " + idUsuario + "\n" +
 				"Nombre " + nombre + "\n" +
 				"Apellido " + apellido + "\n" +
 				"Estado " + estado + "\n" +
-				"IdProf " + idProfesional+ "\n" +
-				"IdServ " + idServicio + "\n" +
-				"PrecioLocal" + S_precioLocal + "\n" +
-				"PrecioDolar " + S_precioDolar + "\n" +
+				"PrecioLocal" + this.ventanaAgregarCita.getTotal$()+ "\n" +
+				"PrecioDolar " + this.ventanaAgregarCita.getTotalUSD() + "\n" +
 				"horaInicio " + S_HoraInicio + "\n" +
 				"horafin " + S_HoraFin + "\n" +
 				"Fecha " + S_fecha+ "\n" +
 				"idSucursal " + idSucursal);
 		
-		CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado, idProfesional, idServicio,
-				Servicio.getPrecioLocal(), Servicio.getPrecioDolar(), HoraCitaInicio, HoraCitaFin, fecha,
-				idSucursal);
+		CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado,
+				this.ventanaAgregarCita.getTotal$(), this.ventanaAgregarCita.getTotalUSD(), 
+				HoraCitaInicio, HoraCitaFin, fecha,	idSucursal);
 		
 		System.out.println(nuevaCita);
 		
 		//Diferencia si el cliente esta registrado o no.
 		if (idcliente == -1) {
 			if (this.sistema.agregarCitaSinCliente(nuevaCita)) {
+				CitaDTO CitaAgregada = this.sistema.getCitaMax();
+				idCitaAgregada = CitaAgregada.getIdCita();
+				System.out.println(idCitaAgregada);
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
 				this.ventanaAgregarCita.cerrar();
 			}else {
@@ -174,6 +166,9 @@ public class ControladorAgregarCita implements ActionListener{
 			}
 		}else{
 			if (this.sistema.agregarCita(nuevaCita)) {
+				CitaDTO CitaAgregada = this.sistema.getCitaMax();
+				idCitaAgregada = CitaAgregada.getIdCita();
+				System.out.println(idCitaAgregada);
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
 				this.ventanaAgregarCita.cerrar();
 			}else {
@@ -181,7 +176,7 @@ public class ControladorAgregarCita implements ActionListener{
 			}
 		}
 	}
-	*/
+	
 	
 	public void agregarServicio(ActionEvent w) {
 		ProfesionalDTO prof = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
@@ -259,6 +254,7 @@ public class ControladorAgregarCita implements ActionListener{
 			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
 			total = total.add(servicio.getPrecioLocal());
 		}
+		this.ventanaAgregarCita.setTotal$(total);
 		return total;
 	}
 	
@@ -273,6 +269,7 @@ public class ControladorAgregarCita implements ActionListener{
 			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
 			total = total.add(servicio.getPrecioDolar());
 		}
+		this.ventanaAgregarCita.setTotalUSD(total);
 		return total;
 	}
 	
@@ -290,6 +287,7 @@ public class ControladorAgregarCita implements ActionListener{
 			total = total.plusHours(servicio.getDuracion().getHour());
 			total = total.plusMinutes(servicio.getDuracion().getMinute());
 		}
+		this.ventanaAgregarCita.setHoraFin(total);
 		return total;
 	}
 	
@@ -363,17 +361,17 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 	
 	public boolean validarCliente() {
-		if ((this.ventanaAgregarCita.getTxtNombre().getText() == null) &&
-			(this.ventanaAgregarCita.getTxtApellido().getText() == null))
+		if ((this.ventanaAgregarCita.getTxtNombre().getText().isEmpty()) &&
+			(this.ventanaAgregarCita.getTxtApellido().getText().isEmpty()))
 		{
 			this.errorCliente = "CamposClienteNulos";
 			return false;
 		}else {
-		if (this.ventanaAgregarCita.getTxtNombre().getText() == null) {
+		if (this.ventanaAgregarCita.getTxtNombre().getText().isEmpty()) {
 			this.errorCliente = "CampoNombreNulo";
 			return false;
 		}
-		if (this.ventanaAgregarCita.getTxtApellido().getText() == null) {
+		if (this.ventanaAgregarCita.getTxtApellido().getText().isEmpty()) {
 			this.errorCliente = "ApellidoNulo";
 			return false;
 		}

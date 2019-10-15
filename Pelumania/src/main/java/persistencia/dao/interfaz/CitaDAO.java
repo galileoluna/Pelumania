@@ -22,5 +22,7 @@ public interface CitaDAO {
 	
 	public List<CitaDTO> readCitaPorDia(String dia);
 
+	public CitaDTO getCitaMax();
+
 
 }

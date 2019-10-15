@@ -27,6 +27,8 @@ public class CitaDAOSQL implements CitaDAO{
 			+ "NombreCliente, ApellidoCliente, EstadoTurno,"
 			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
+	private static final String getCitaMax = "SELECT * FROM Cita WHERE IdCita IN (SELECT MAX(IdCita) FROM Cita);";
+
 	private static final String delete = "UPDATE  Cita SET EstadoCita =? WHERE idCita = ?";
 	private static final String deleteReal = "DELETE FROM Cita WHERE idCita = ?";
 	private static final String cancel = "UPDATE Cita SET EstadoCita = ? WHERE idCita = ?";
@@ -176,6 +178,7 @@ public class CitaDAOSQL implements CitaDAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
 	public List<CitaDTO> readAll() {
 		PreparedStatement statement;
@@ -227,6 +230,28 @@ public class CitaDAOSQL implements CitaDAO{
 		}
 	}
 
+	@Override
+	public CitaDTO getCitaMax() {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<CitaDTO> citas = new ArrayList<CitaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(getCitaMax);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				citas.add(getCitaDTOMati(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return citas.get(0);
+	}
+	
 	public List<CitaDTO> readCitaPorDia (String dia_a_buscar) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
@@ -261,5 +286,23 @@ public class CitaDAOSQL implements CitaDAO{
 		String sucursal=resultSet.getString("s.NombreSucursal");
 		String estado=resultSet.getString("c.EstadoTurno");
 		return new CitaDTO(idCita,profesional,cliente,hora,dia,sucursal,estado);
+	}
+	
+	private CitaDTO getCitaDTOMati(ResultSet resultSet) throws SQLException{
+		int idCita = resultSet.getInt("idCita");
+		int idUsuario = resultSet.getInt("idUsuario");
+		int idCliente = resultSet.getInt("IdCliente");
+		String nombre = resultSet.getString("NombreCliente");
+		String apellido = resultSet.getString("ApellidoCliente");
+		String estado = resultSet.getString("EstadoTurno");
+		BigDecimal precioLocal = resultSet.getBigDecimal("PrecioLocal");
+		BigDecimal precioDolar = resultSet.getBigDecimal("PrecioDolar");
+		LocalTime horaInicio = resultSet.getTime("HoraInicio").toLocalTime();
+		LocalTime horaFin = resultSet.getTime("HoraFin").toLocalTime();
+		LocalDate fechaCita = resultSet.getDate("Dia").toLocalDate();
+		int idSucursal = resultSet.getInt("IdSucursal");
+		
+		return new CitaDTO(idCita, idUsuario, idCliente, nombre, apellido, estado, precioLocal,
+				precioDolar, horaInicio, horaFin, fechaCita, idSucursal);
 	}
 }

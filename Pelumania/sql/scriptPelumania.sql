@@ -122,7 +122,6 @@ CREATE TABLE IF NOT EXISTS `ServicioPromocion`(
   FOREIGN KEY (`IdServicio`) REFERENCES `Servicio`(`idServicio`)
 );
 
-
 CREATE TABLE IF NOT EXISTS `Cita`(
 
   `idCita` INT(11) NOT NULL AUTO_INCREMENT,
@@ -131,8 +130,6 @@ CREATE TABLE IF NOT EXISTS `Cita`(
   `NombreCliente` VARCHAR(55) NOT NULL,
   `ApellidoCliente` VARCHAR(55) NOT NULL,
   `EstadoTurno` VARCHAR(55) NOT NULL,
-  `IdProfesional` INT (11),
-  `IdServicio` INT(11) NOT NULL,
   `PrecioLocal` INT (11) NOT NULL,
   `PrecioDolar` INT (11) NOT NULL,
   `HoraInicio` TIME NOT NULL,
@@ -142,10 +139,8 @@ CREATE TABLE IF NOT EXISTS `Cita`(
 
     PRIMARY KEY(`idCita`),
     -- falta la foreign key a idUsuario
-    FOREIGN KEY (`IdProfesional`) REFERENCES `Profesional`(`IdProfesional`),
     FOREIGN KEY (`IdCliente`) REFERENCES `Cliente`(`idCliente`),
     FOREIGN KEY (`IdSucursal`) REFERENCES `Sucursal`(`idSucursal`)
-    -- FOREIGN KEY (`IdServicio`) REFERENCES `Servicio`(`IdServicio`)   
 );
 
 CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
@@ -181,7 +176,6 @@ CREATE TABLE IF NOT EXISTS `Caja`(
  FOREIGN KEY (`idCategoriaCaja`) REFERENCES `CategoriaCaja`(`idCategoriaCaja`)
 
 );
-
 
 CREATE TABLE IF NOT EXISTS `ServicioTurno`(
 
