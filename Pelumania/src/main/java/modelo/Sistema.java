@@ -245,6 +245,10 @@ public class Sistema
 		return this.cita.readAll();
 	}
 	
+	public CitaDTO getCitaMax() {
+		return this.cita.getCitaMax();
+	}
+	
 	//Arranca ServicioTurno
 	
 	public boolean insertServicioTurno(ServicioTurnoDTO servicioTurno_a_insertar) {

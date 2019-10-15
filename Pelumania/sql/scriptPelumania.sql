@@ -177,7 +177,6 @@ CREATE TABLE IF NOT EXISTS `Caja`(
 
 );
 
-
 CREATE TABLE IF NOT EXISTS `ServicioTurno`(
 
   `idCita` INT(11) NOT NULL,
@@ -245,5 +244,3 @@ CREATE TABLE IF NOT EXISTS `LogTransferencia`(
   FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
 
 );
-USE Pelumania;
-SELECT * FROM CITA;

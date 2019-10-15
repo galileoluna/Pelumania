@@ -133,6 +133,8 @@ public class ControladorAgregarCita implements ActionListener{
 		SucursalDTO sucursalSeleccionada = (SucursalDTO) this.ventanaAgregarCita.getJCBoxSucursales().getSelectedItem();
 		int idSucursal = sucursalSeleccionada.getIdSucursal();
 		
+		Integer idCitaAgregada;
+		
 		System.out.println("Id Cliente " + idcliente + "\n" +
 				"IdUsuario " + idUsuario + "\n" +
 				"Nombre " + nombre + "\n" +
@@ -154,6 +156,9 @@ public class ControladorAgregarCita implements ActionListener{
 		//Diferencia si el cliente esta registrado o no.
 		if (idcliente == -1) {
 			if (this.sistema.agregarCitaSinCliente(nuevaCita)) {
+				CitaDTO CitaAgregada = this.sistema.getCitaMax();
+				idCitaAgregada = CitaAgregada.getIdCita();
+				System.out.println(idCitaAgregada);
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
 				this.ventanaAgregarCita.cerrar();
 			}else {
@@ -161,6 +166,9 @@ public class ControladorAgregarCita implements ActionListener{
 			}
 		}else{
 			if (this.sistema.agregarCita(nuevaCita)) {
+				CitaDTO CitaAgregada = this.sistema.getCitaMax();
+				idCitaAgregada = CitaAgregada.getIdCita();
+				System.out.println(idCitaAgregada);
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
 				this.ventanaAgregarCita.cerrar();
 			}else {
