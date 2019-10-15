@@ -56,6 +56,9 @@ public class VentanaAgregarCita extends JFrame
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
 	private LocalDate fechaCita;
+	private LocalTime HoraFin;
+	private BigDecimal total$;
+	private BigDecimal totalUSD;
 	private Integer idCliente = -1;
 	
 	private JLabel lblNombreProfesional;
@@ -488,6 +491,30 @@ public class VentanaAgregarCita extends JFrame
 
 	public void setJCBoxSucursales(JComboBox<SucursalDTO> jCBoxSucursales) {
 		JCBoxSucursales = jCBoxSucursales;
+	}
+
+	public LocalTime getHoraFin() {
+		return HoraFin;
+	}
+
+	public void setHoraFin(LocalTime horaFin) {
+		HoraFin = horaFin;
+	}
+
+	public BigDecimal getTotal$() {
+		return total$;
+	}
+
+	public void setTotal$(BigDecimal total$) {
+		this.total$ = total$;
+	}
+
+	public BigDecimal getTotalUSD() {
+		return totalUSD;
+	}
+
+	public void setTotalUSD(BigDecimal totalUSD) {
+		this.totalUSD = totalUSD;
 	}
 
 	private void cargarHora(JComboBox<Integer> hora) {
