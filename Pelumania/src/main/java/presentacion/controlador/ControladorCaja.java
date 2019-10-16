@@ -31,9 +31,16 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getBtnCancelar().addActionListener(l -> cancelar(l));
 		this.ventanaCaja.getComboTipoMovimiento().addActionListener(l -> mostrarInputs(l));
 		this.ventanaCaja.getBtnAgregar().addActionListener(l -> agregarMovimiento(l));
+		this.ventanaCaja.getComboCategoria().addActionListener(l -> productoSoloEfectivo(l));
 		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		
 		this.mostrarIpuntsIngreso();
+	}
+
+	private void productoSoloEfectivo(ActionEvent l) {
+		if (!esServicio()) {
+			tipoPagoSoloEfectivo();
+		}		
 	}
 
 	private void cancelar(ActionEvent l) {
@@ -69,32 +76,11 @@ public class ControladorCaja implements ActionListener {
 		comboTipoCambio.removeAllItems();
 		comboTipoCambio.setEnabled(true);
 		comboTipoCambio.addItem("Efectivo");
+		
 		comboTipoCambio.addItem("Puntos");
 		//validar que el cliente no sea moroso
 		comboTipoCambio.addItem("Fiado");
 
-		
-		
-		///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////
-		///////////////////////////////////////////////////////////
-
-		///////////////////////////////////////////////////////////
 		this.ventanaCaja.getPanel_egreso().setVisible(false);
 		
 	}
@@ -102,10 +88,10 @@ public class ControladorCaja implements ActionListener {
 	private void mostrarInputsEgreso() {
 		this.ventanaCaja.getPanel_egreso().setVisible(true);
 		agregarCategoriasEgreso();
-		tipoPagoEgreso();
+		tipoPagoSoloEfectivo();
 	}
 
-	private void tipoPagoEgreso() {
+	private void tipoPagoSoloEfectivo() {
 		JComboBox<String> comboTiposPago = this.ventanaCaja.getComboTipoCambio();
 		//limpio tipos de pago de ingresos
 		comboTiposPago.removeAllItems();
@@ -188,6 +174,14 @@ public class ControladorCaja implements ActionListener {
 	private boolean esIngreso() {
 		String tipoMov = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		return tipoMov.equalsIgnoreCase("ingreso");
+	}
+	
+	private boolean esServicio() {
+		if (this.ventanaCaja.getComboCategoria().getItemCount() > 0) {
+			String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
+			return categoria.equalsIgnoreCase("servicio");
+		} else
+			return false;
 	}
 
 	@Override
