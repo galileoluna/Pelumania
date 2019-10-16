@@ -45,7 +45,7 @@ public class ControladorPromocion {
 	
 
 	private void borrarPromocion(ActionEvent l) {
-		this.promosEnTabla=sistema.obtenerPrmociones();
+		this.promosEnTabla=sistema.obtenerPrmociones(); 
 		int[] filasSeleccionadas = this.ventanaPromocion.gettablaPromocion().getSelectedRows();
 		       
 	        	for (int fila : filasSeleccionadas)
