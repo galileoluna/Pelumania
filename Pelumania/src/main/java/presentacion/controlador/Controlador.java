@@ -20,7 +20,9 @@ public class Controlador implements ActionListener {
 	private Vista vista;
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
+	
 	private List<CitaDTO> citasEnTabla;
+
 	private ControladorProfesional controladorProfesional;
 	private ControladorAgregarCita controladoragregarcita;
 	private ControladorPromocion controladorPromocion;
@@ -35,6 +37,9 @@ public class Controlador implements ActionListener {
 	{
 		this.vista = vista; 
 		this.sistema = sistema;
+		
+		cargarCitasDelDia();
+		/*
 		// Con esta funcion lleno la tabla dependiendo el dia que se selecciona
 		this.vista.getCalendario().addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
@@ -50,6 +55,7 @@ public class Controlador implements ActionListener {
 			}
 		});
 		// fin funcion que llena la tabla
+		*/
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
 		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
 		this.vista.getMenuConsultaClientes().addActionListener(l -> ventanaAgregarCliente(l));
@@ -61,11 +67,9 @@ public class Controlador implements ActionListener {
 		this.vista.getMenuConsultarCategoriaCaja().addActionListener(a -> ventanCategoriaMovimientoCaja(a));
 	}
 
-
 	private void ventanCategoriaMovimientoCaja(ActionEvent a) {
 		this.controladorCategoriaMovimientoCaja = ControladorCategoriaMovimientoCaja.getInstance(sistema);
 	}
-
 
 	private void ventanaCaja(ActionEvent a) {
 		this.controladorCaja = ControladorCaja.getInstance(sistema);
@@ -113,6 +117,27 @@ public class Controlador implements ActionListener {
 		this.controladorPromoVigente=ControladorPromocionesVigentes.getInstance(sistema,vista);
 	}
 
+	public void cargarCitasDelDia() {
+		int dia = this.vista.getCalendario().getDayChooser().getDay();
+		int mes = this.vista.getCalendario().getMonthChooser().getMonth();
+		int anio = this.vista.getCalendario().getYearChooser().getYear();
+		
+		this.vista.getCalendario().addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent arg0) {
+				String dia = Integer.toString(Controlador.this.vista.getCalendario().getDayChooser().getDay());
+				String mes =Integer.toString(Controlador.this.vista.getCalendario().getMonthChooser().getMonth()+1);
+				String anio =Integer.toString(Controlador.this.vista.getCalendario().getYearChooser().getYear());
+				
+				//A obtenerTablaCita se le pasa el dia que se selecciona como un string EJ: 2019-10-06
+				Controlador.this.citasEnTabla = Controlador.this.sistema.getCitasPorDia(anio+mes+dia);
+				
+				Controlador.this.vista.cargarCitas(citasEnTabla);
+				
+			}
+		});
+	}
+	
 	/* Metodo que recibe una fecha y devuelve true si la fecha es despues
 	 * del dia de hoy, y false si el dia es anterior a hoy.
 	 */

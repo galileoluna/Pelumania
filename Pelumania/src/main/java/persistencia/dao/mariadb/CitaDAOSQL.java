@@ -36,6 +36,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal,c.idCita, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.HoraInicio,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
 	private static final String update = "UPDATE  Cita SET ____ WHERE idCliente=?";
 	
+	private static final String readByDia = "SELECT * FROM Cita WHERE Dia = ?";
 	private static final String DADODEBAJA = "Cerrado";
 	private static final String CANCELADA = "Cancelada";
 
@@ -287,6 +288,31 @@ public class CitaDAOSQL implements CitaDAO{
 		String estado=resultSet.getString("c.EstadoTurno");
 		return new CitaDTO(idCita,profesional,cliente,hora,dia,sucursal,estado);
 	}
+	
+	public List<CitaDTO> getCitasPorDia (String dia_a_buscar) {
+		//Los strings a buscar son de la forma 20191015 (Para el 15 de Octubre de 2019)
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		List<CitaDTO> citasPorDia = new ArrayList<CitaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readByDia);
+			statement.setString(1, dia_a_buscar);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				citasPorDia.add(getCitaDTOMati(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return citasPorDia;
+	}
+	 
 	
 	private CitaDTO getCitaDTOMati(ResultSet resultSet) throws SQLException{
 		int idCita = resultSet.getInt("idCita");

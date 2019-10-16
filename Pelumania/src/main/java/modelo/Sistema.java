@@ -245,6 +245,10 @@ public class Sistema
 		return this.cita.readAll();
 	}
 	
+	public List<CitaDTO> getCitasPorDia(String dia){
+		return this.cita.getCitasPorDia(dia);
+	}
+	
 	public CitaDTO getCitaMax() {
 		return this.cita.getCitaMax();
 	}

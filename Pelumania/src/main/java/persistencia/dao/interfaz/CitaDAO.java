@@ -21,6 +21,8 @@ public interface CitaDAO {
 	public boolean deleteReal(CitaDTO cita_a_eliminar);
 	
 	public List<CitaDTO> readCitaPorDia(String dia);
+	
+	public List<CitaDTO> getCitasPorDia(String dia);
 
 	public CitaDTO getCitaMax();
 

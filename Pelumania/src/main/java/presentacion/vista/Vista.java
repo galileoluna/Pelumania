@@ -1,5 +1,7 @@
 package presentacion.vista;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -17,12 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
 
 import dto.CitaDTO;
 import persistencia.conexion.Conexion;
+import javax.swing.border.LineBorder;
 
 public class Vista {
 
@@ -48,6 +52,11 @@ public class Vista {
 	private JTable table;
 	private JButton btnAgregarCita;
 	private JMenuItem menuConsultaCategoriaCaja;
+	
+	private JPanel JPanelCitas;
+	private JScrollPane scrollPanelCitas;
+	
+	private int cantCitas;
 
 
 	public Vista()
@@ -59,17 +68,16 @@ public class Vista {
 	private void initialize()
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 40, 1065, 683);
+		frame.setBounds(100, 40, 1109, 683);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/images.jpg"));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
 		frame.setTitle("Hair & Head");
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 995, 21);
+		menuBar.setBounds(0, 0, 1091, 21);
 		frame.getContentPane().add(menuBar);
 
 		mnServicio = new JMenu("Servicio");
@@ -114,7 +122,7 @@ public class Vista {
 		mnCaja.add(menuConsultarCaja);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1039, 633);
+		panel.setBounds(0, 0, 1091, 633);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -125,36 +133,77 @@ public class Vista {
 		panel.add(calendario);
 		calendario.setVisible(true);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(620, 110, 409, 512);
-		panel.add(scrollPane);
-
-		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
-
 		modelCita = new DefaultTableModel(null,nombreColumnas);
-		table = new JTable(modelCita);
-
-		table.getColumnModel().getColumn(0).setPreferredWidth(103);
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
-		table.getColumnModel().getColumn(1).setResizable(false);
-
-		scrollPane.setViewportView(table);
 
 		btnAgregarCita = new JButton("Agregar Cita");
-		btnAgregarCita.setBounds(620, 60, 117, 39);
+		btnAgregarCita.setBounds(608, 33, 117, 39);
 		panel.add(btnAgregarCita);
 		
 		JButton btnCancelarCita = new JButton("Cancelar Cita");
-		btnCancelarCita.setBounds(767, 60, 117, 39);
+		btnCancelarCita.setBounds(752, 33, 117, 39);
 		panel.add(btnCancelarCita);
 		
 		JButton btnBorrarCita = new JButton("Borrar Cita");
-		btnBorrarCita.setBounds(912, 60, 117, 39);
+		btnBorrarCita.setBounds(897, 33, 117, 39);
 		panel.add(btnBorrarCita);
+		
+		JPanelCitas = new JPanel();
+		JPanelCitas.setLayout(null);
+		JPanelCitas.setPreferredSize(new Dimension(409,cantCitas*350));
+		JPanelCitas.setBounds(620, 83, 460, 560);
+		panel.add(JPanelCitas);
+		
+		scrollPanelCitas = new JScrollPane();
+		scrollPanelCitas.setBounds(608,83,480,540);
+		
+		frame.setVisible(true);
 	}
 
+	public void cargarCitas(List<CitaDTO> citasDelDia) {
+		JPanelCitas.removeAll();
+
+		int x = 10;
+		int y = 10;
+		
+		cantCitas = citasDelDia.size();
+		
+		JPanelCitas.setPreferredSize(new Dimension(409,cantCitas*340));
+		
+		for (int i =0; i < citasDelDia.size(); i++) {
+			ComponenteCita cc = new ComponenteCita(x,y);
+			CitaDTO citaCargada = citasDelDia.get(i);
+			cc.getLbl_IdCita().setText(Integer.toString(citaCargada.getIdCita()));
+			cc.getLbl_HoraInicio().setText(citaCargada.getHoraInicio().toString());
+			cc.getLbl_HoraFin().setText(citaCargada.getHoraFin().toString());
+			cc.getLbl_NombreCliente().setText(citaCargada.getNombre()+citaCargada.getApellido());	
+			cc.getLbl_Estado().setText(citaCargada.getEstado());
+			
+			cambiarColorCita(cc, citaCargada.getEstado());
+			JPanelCitas.add(cc);
+			y = y + 330;
+		}
+		
+		scrollPanelCitas.setBounds(608,83,480,540);
+		
+		scrollPanelCitas.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPanelCitas.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		scrollPanelCitas.setViewportView(JPanelCitas);
+		frame.getContentPane().add(scrollPanelCitas, BorderLayout.CENTER);
+		
+		scrollPanelCitas.setVisible(true);
+	}
+
+	public void cambiarColorCita(JPanel cita, String estado) {
+		switch (estado) {
+		case "Activa":
+			cita.setBackground(Color.green);
+			break;
+		case "":
+			break;
+		}
+	}
+	
 	public void show()
 	{
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
