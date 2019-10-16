@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.swing.ComboBoxEditor;
 import javax.swing.JComboBox;
 
 import dto.CategoriaMovimientoCajaDTO;
@@ -31,6 +32,8 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getComboTipoMovimiento().addActionListener(l -> mostrarInputs(l));
 		this.ventanaCaja.getBtnAgregar().addActionListener(l -> agregarMovimiento(l));
 		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
+		
+		this.mostrarIpuntsIngreso();
 	}
 
 	private void cancelar(ActionEvent l) {
@@ -41,14 +44,8 @@ public class ControladorCaja implements ActionListener {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorCaja(sistema);
 		}
-		inicializarDatos();
-		return INSTANCE;
-	}
-	private static void inicializarDatos() {
-
-//		INSTANCE.ventanaCaja.limpiarInputs();
 		INSTANCE.ventanaCaja.mostrarVentana();
-
+		return INSTANCE;
 	}
 	
 	private void mostrarInputs(ActionEvent l) {
@@ -61,8 +58,21 @@ public class ControladorCaja implements ActionListener {
 	}
 	
 	private void mostrarIpuntsIngreso() {
-		
+		this.ventanaCaja.limpiarCampos();
 		//hay que limpiar la descripcion y demas para que no se guarde
+		JComboBox<String> comboCategoria = this.ventanaCaja.getComboCategoria();
+		comboCategoria.removeAllItems();
+		comboCategoria.addItem("Servicio");
+		comboCategoria.addItem("Producto");
+		
+		JComboBox<String> comboTipoCambio = this.ventanaCaja.getComboTipoCambio();
+		comboTipoCambio.removeAllItems();
+		comboTipoCambio.setEnabled(true);
+		comboTipoCambio.addItem("Efectivo");
+		comboTipoCambio.addItem("Puntos");
+		//validar que el cliente no sea moroso
+		comboTipoCambio.addItem("Fiado");
+
 		
 		
 		///////////////////////////////////////////////////////////
@@ -91,8 +101,6 @@ public class ControladorCaja implements ActionListener {
 
 	private void mostrarInputsEgreso() {
 		this.ventanaCaja.getPanel_egreso().setVisible(true);
-//		this.ventanaCaja.getPanel_Ingreso().setVisible(false);
-		
 		agregarCategoriasEgreso();
 		tipoPagoEgreso();
 	}
