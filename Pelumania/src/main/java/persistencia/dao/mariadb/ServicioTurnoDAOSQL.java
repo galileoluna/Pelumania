@@ -110,7 +110,7 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 	private ServicioTurnoDTO getServicioTurnoDTO(ResultSet resultSet) throws SQLException
 		{
 			int idCita = resultSet.getInt("idCita");
-			int idServicio = resultSet.getInt("idSerivicio");
+			int idServicio = resultSet.getInt("idServicio");
 			int idProfesional = resultSet.getInt("idprofesional");
 
 			return new ServicioTurnoDTO(idCita, idServicio, idProfesional);

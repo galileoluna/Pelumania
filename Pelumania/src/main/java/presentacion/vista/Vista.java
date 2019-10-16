@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,15 +16,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
 
 import dto.CitaDTO;
+import dto.ServicioTurnoDTO;
 import persistencia.conexion.Conexion;
-import javax.swing.border.LineBorder;
+import persistencia.dao.mariadb.ServicioDAOSQL;
 
 public class Vista {
 
@@ -47,16 +44,20 @@ public class Vista {
 	private JMenu mnSucursal;
 	private JMenu mnCaja;
 	private JMenuItem menuConsultarCaja;
-	private DefaultTableModel modelCita;
-	private  String[] nombreColumnas = {"Horario","Cliente","Estado"};
-	private JTable table;
-	private JButton btnAgregarCita;
 	private JMenuItem menuConsultaCategoriaCaja;
 	
+
+	private JButton btnAgregarCita;
+	private JButton btnEditarCita;
+	private JButton btnCancelarCita;
+
 	private JPanel JPanelCitas;
 	private JScrollPane scrollPanelCitas;
 	
+	private static CitaDTO citaSeleccionada;
+	private static ComponenteCita componenteCitaSeleccionado;
 	private int cantCitas;
+
 
 
 	public Vista()
@@ -133,19 +134,19 @@ public class Vista {
 		panel.add(calendario);
 		calendario.setVisible(true);
 
-		modelCita = new DefaultTableModel(null,nombreColumnas);
-
 		btnAgregarCita = new JButton("Agregar Cita");
 		btnAgregarCita.setBounds(608, 33, 117, 39);
 		panel.add(btnAgregarCita);
 		
-		JButton btnCancelarCita = new JButton("Cancelar Cita");
+		btnCancelarCita = new JButton("Cancelar Cita");
 		btnCancelarCita.setBounds(752, 33, 117, 39);
+		btnCancelarCita.setEnabled(false);
 		panel.add(btnCancelarCita);
 		
-		JButton btnBorrarCita = new JButton("Borrar Cita");
-		btnBorrarCita.setBounds(897, 33, 117, 39);
-		panel.add(btnBorrarCita);
+		btnEditarCita = new JButton("Borrar Cita");
+		btnEditarCita.setBounds(897, 33, 117, 39);
+		btnEditarCita.setEnabled(false);
+		panel.add(btnEditarCita);
 		
 		JPanelCitas = new JPanel();
 		JPanelCitas.setLayout(null);
@@ -155,10 +156,11 @@ public class Vista {
 		
 		scrollPanelCitas = new JScrollPane();
 		scrollPanelCitas.setBounds(608,83,480,540);
+		scrollPanelCitas.getVerticalScrollBar().setUnitIncrement(16);
 		
 		frame.setVisible(true);
 	}
-
+/*
 	public void cargarCitas(List<CitaDTO> citasDelDia) {
 		JPanelCitas.removeAll();
 
@@ -171,12 +173,36 @@ public class Vista {
 		
 		for (int i =0; i < citasDelDia.size(); i++) {
 			ComponenteCita cc = new ComponenteCita(x,y);
+			cc.setFocusable(true);
 			CitaDTO citaCargada = citasDelDia.get(i);
 			cc.getLbl_IdCita().setText(Integer.toString(citaCargada.getIdCita()));
 			cc.getLbl_HoraInicio().setText(citaCargada.getHoraInicio().toString());
 			cc.getLbl_HoraFin().setText(citaCargada.getHoraFin().toString());
 			cc.getLbl_NombreCliente().setText(citaCargada.getNombre()+citaCargada.getApellido());	
 			cc.getLbl_Estado().setText(citaCargada.getEstado());
+			cc.getLbl_Total().setText(citaCargada.getPrecioLocal().toString());
+			cc.getLbl_TotalUSD().setText(citaCargada.getPrecioDolar().toString());
+			
+			cc.setFocusable(true);
+			cc.addMouseListener(new java.awt.event.MouseAdapter() {
+				
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                	cc.requestFocus();
+                	cc.isFocusOwner();
+                	if (cc.hasFocus()) {
+                		cc.setBackground(Color.white);
+                    	setCitaSeleccionada(citaCargada);
+                    	setComponenteCitaSeleccionado(cc);
+                    	System.out.println(getCitaSeleccionada());
+                    	
+                    	if (citaSeleccionada.getEstado()!= "Cancelada") {
+                    		getBtnCancelarCita().setEnabled(true);
+                    		getBtnEditarCita().setEnabled(true);
+                    	}
+                	}
+                }
+  
+            });
 			
 			cambiarColorCita(cc, citaCargada.getEstado());
 			JPanelCitas.add(cc);
@@ -193,13 +219,16 @@ public class Vista {
 		
 		scrollPanelCitas.setVisible(true);
 	}
-
-	public void cambiarColorCita(JPanel cita, String estado) {
+*/
+	public void cambiarColorCita(ComponenteCita cita, String estado) {
+		Color rojo = new Color(225,64,68);
+		Color verde = new Color(129,152,48);
 		switch (estado) {
 		case "Activa":
-			cita.setBackground(Color.green);
+			cita.setBackground(verde);
 			break;
-		case "":
+		case "Cancelada":
+			cita.setBackground(rojo);
 			break;
 		}
 	}
@@ -252,16 +281,28 @@ public class Vista {
 		return menuPromosVigentes;
 	}
 
-	public String[] getNombreColumnas(){
-		return nombreColumnas;
-	}
-
 	public JButton getBtnAgregarCita() {
 		return btnAgregarCita;
 	}
 
 	public void setBtnAgregarCita(JButton btnAgregarCita) {
 		this.btnAgregarCita = btnAgregarCita;
+	}
+
+	public JButton getBtnEditarCita() {
+		return btnEditarCita;
+	}
+
+	public void setBtnEditarCita(JButton btnEditarCita) {
+		this.btnEditarCita = btnEditarCita;
+	}
+
+	public JButton getBtnCancelarCita() {
+		return btnCancelarCita;
+	}
+
+	public void setBtnCancelarCita(JButton btnCancelarCita) {
+		this.btnCancelarCita = btnCancelarCita;
 	}
 
 	public JMenuItem getMenuConsultaClientes() {
@@ -288,11 +329,6 @@ public class Vista {
 		return mnSucursal;
 	}
 
-	public DefaultTableModel getmodelCita()
-	{
-		return modelCita;
-	}
-
 	public JCalendar getCalendario() {
 		return calendario;
 	}
@@ -311,19 +347,53 @@ public class Vista {
 		this.menuConsultaCategoriaCaja = menuConsultarCategoriaCaja;
 	}
 
-	public void  llenarTabla (List<CitaDTO> CitaslEnTabla) {
-		this.getmodelCita().setRowCount(0); //Para vaciar la tabla
-		this.getmodelCita().setColumnCount(0);
-		this.getmodelCita().setColumnIdentifiers(this.getNombreColumnas());
-		System.out.println("casi entro al for");
-		for (CitaDTO c : CitaslEnTabla) {
-			System.out.println("entro al for de vista");
-			System.out.println(c.getHoraTurno()+"-"+c.getNombre()+"-"+c.getEstado());
-			Time hora= c.getHoraTurno();
-			String cliente=c.getNombre();
-			String estado=c.getEstado();
-			Object[] fila = {hora, cliente,estado};
-			this.getmodelCita().addRow(fila);
-		}
+	public static CitaDTO getCitaSeleccionada() {
+		return citaSeleccionada;
 	}
+
+	public static void setCitaSeleccionada(CitaDTO citaSeleccionada) {
+		Vista.citaSeleccionada = citaSeleccionada;
+	}
+
+	public static ComponenteCita getComponenteCitaSeleccionado() {
+		return componenteCitaSeleccionado;
+	}
+
+	public static void setComponenteCitaSeleccionado(ComponenteCita componenteCitaSeleccionado) {
+		Vista.componenteCitaSeleccionado = componenteCitaSeleccionado;
+	}
+
+	public JPanel getJPanelCitas() {
+		return JPanelCitas;
+	}
+
+	public void setJPanelCitas(JPanel jPanelCitas) {
+		JPanelCitas = jPanelCitas;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	public JScrollPane getScrollPanelCitas() {
+		return scrollPanelCitas;
+	}
+
+	public void setScrollPanelCitas(JScrollPane scrollPanelCitas) {
+		this.scrollPanelCitas = scrollPanelCitas;
+	}
+
+	public int getCantCitas() {
+		return cantCitas;
+	}
+
+	public void setCantCitas(int cantCitas) {
+		this.cantCitas = cantCitas;
+	}
+	
+	
 }

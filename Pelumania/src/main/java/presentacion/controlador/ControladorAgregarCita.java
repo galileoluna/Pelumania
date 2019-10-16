@@ -102,12 +102,6 @@ public class ControladorAgregarCita implements ActionListener{
 		if(serviciosTurnoAgregados.isEmpty())
 		{
 			JOptionPane.showMessageDialog(null, "No puedes guardar una cita sin servicios!");
-		}else{
-		for (ServicioTurnoDTO st : serviciosTurnoAgregados) 
-			{
-			System.out.println(st);
-			this.sistema.insertServicioTurno(st);
-			}
 		}
 		
 		//Levanto los datos de la ventanaCita
@@ -158,7 +152,14 @@ public class ControladorAgregarCita implements ActionListener{
 			if (this.sistema.agregarCitaSinCliente(nuevaCita)) {
 				CitaDTO CitaAgregada = this.sistema.getCitaMax();
 				idCitaAgregada = CitaAgregada.getIdCita();
-				System.out.println(idCitaAgregada);
+				
+				
+				for (ServicioTurnoDTO st : serviciosTurnoAgregados) 
+				{
+				st.setIdCita(idCitaAgregada);
+				this.sistema.insertServicioTurno(st);
+				}
+				
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
 				this.ventanaAgregarCita.cerrar();
 			}else {
@@ -168,7 +169,15 @@ public class ControladorAgregarCita implements ActionListener{
 			if (this.sistema.agregarCita(nuevaCita)) {
 				CitaDTO CitaAgregada = this.sistema.getCitaMax();
 				idCitaAgregada = CitaAgregada.getIdCita();
-				System.out.println(idCitaAgregada);
+				
+				
+				for (ServicioTurnoDTO st : serviciosTurnoAgregados) 
+				{
+				System.out.println(st);
+				st.setIdCita(idCitaAgregada);
+				this.sistema.insertServicioTurno(st);
+				}
+				
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
 				this.ventanaAgregarCita.cerrar();
 			}else {

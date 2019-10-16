@@ -17,6 +17,11 @@ public class ComponenteCita extends JPanel{
 	private JLabel lbl_HoraInicio;
 	private JLabel lbl_IdCita;
 	private JLabel lbl_NombreCliente;
+	private JLabel lbl_TotalUSD;
+	private JLabel lbl_Total;
+
+	
+	private JScrollPane spServicios;
 	
 	private JTable tablaServicios;
 	private DefaultTableModel modelServicios;
@@ -57,7 +62,7 @@ public class ComponenteCita extends JPanel{
 		add(lblCitaNro);
 		
 		lbl_IdCita = new JLabel("");
-		lbl_IdCita.setBounds(376, 10, 46, 22);
+		lbl_IdCita.setBounds(364, 10, 46, 22);
 		add(lbl_IdCita);
 		
 		lbl_HoraInicio = new JLabel("");
@@ -77,7 +82,7 @@ public class ComponenteCita extends JPanel{
 		add(lblEstado);
 		
 		lbl_Estado = new JLabel("");
-		lbl_Estado.setBounds(111, 76, 64, 22);
+		lbl_Estado.setBounds(78, 107, 64, 22);
 		add(lbl_Estado);
 		
 		JSeparator separador3 = new JSeparator();
@@ -88,16 +93,16 @@ public class ComponenteCita extends JPanel{
 		lblPrecioTotal.setBounds(20, 76, 64, 22);
 		add(lblPrecioTotal);
 		
-		JLabel lbl_Total = new JLabel("");
-		lbl_Total.setBounds(86, 76, 85, 22);
+		lbl_Total = new JLabel("");
+		lbl_Total.setBounds(66, 76, 85, 22);
 		add(lbl_Total);
 		
 		JLabel lblTotalEnUsd = new JLabel("Total en USD: ");
 		lblTotalEnUsd.setBounds(181, 76, 81, 22);
 		add(lblTotalEnUsd);
 		
-		JLabel lbl_TotalUSD = new JLabel("");
-		lbl_TotalUSD.setBounds(254, 76, 112, 22);
+		lbl_TotalUSD = new JLabel("");
+		lbl_TotalUSD.setBounds(268, 76, 112, 22);
 		add(lbl_TotalUSD);
 	
 		crearTablaServicios();
@@ -108,7 +113,7 @@ public class ComponenteCita extends JPanel{
 	}
 	
 	public void crearTablaServicios() {
-		JScrollPane spServicios = new JScrollPane();
+		spServicios = new JScrollPane();
 		spServicios.setBounds(20, 137, 402, 175);
 		add(spServicios);
 		
@@ -175,6 +180,59 @@ public class ComponenteCita extends JPanel{
 
 	public void setLbl_NombreCliente(JLabel lbl_NombreCliente) {
 		this.lbl_NombreCliente = lbl_NombreCliente;
+	}
+
+	public JLabel getLbl_TotalUSD() {
+		return lbl_TotalUSD;
+	}
+
+	public void setLbl_TotalUSD(JLabel lbl_TotalUSD) {
+		this.lbl_TotalUSD = lbl_TotalUSD;
+	}
+
+	public JLabel getLbl_Total() {
+		return lbl_Total;
+	}
+
+	public void setLbl_Total(JLabel lbl_Total) {
+		this.lbl_Total = lbl_Total;
+	}
+
+	
+	// ____________________________________________________
+	
+	// ____________________________________________________
+	
+	public JScrollPane getSpServicios() {
+		return spServicios;
+	}
+
+	public void setSpServicios(JScrollPane spServicios) {
+		this.spServicios = spServicios;
+	}
+
+	public JTable getTablaServicios() {
+		return tablaServicios;
+	}
+
+	public void setTablaServicios(JTable tablaServicios) {
+		this.tablaServicios = tablaServicios;
+	}
+
+	public DefaultTableModel getModelServicios() {
+		return modelServicios;
+	}
+
+	public void setModelServicios(DefaultTableModel modelServicios) {
+		this.modelServicios = modelServicios;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
 	}
 
 }
