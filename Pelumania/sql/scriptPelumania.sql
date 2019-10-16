@@ -176,13 +176,14 @@ CREATE TABLE IF NOT EXISTS `Caja`(
  FOREIGN KEY (`idCategoriaCaja`) REFERENCES `CategoriaCaja`(`idCategoriaCaja`)
 
 );
-
 CREATE TABLE IF NOT EXISTS `ServicioTurno`(
 
   `idCita` INT(11) NOT NULL,
   `idServicio` INT(11) NOT NULL,
   `idProfesional` INT(11) NOT NULL,
-    
+  `horaInicio` TIME NOT NULL,
+  `horaFin` time NOT NULL,
+  
   FOREIGN KEY (`idServicio`) REFERENCES `Servicio`(`idServicio`),
   FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`),
   FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`) 
@@ -244,3 +245,75 @@ CREATE TABLE IF NOT EXISTS `LogTransferencia`(
   FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
 
 );
+
+USE Pelumania;
+-- Inserts para las sucursales
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(1, "San Miguel", "Peron", 1100, "Activa");
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(2, "Bella Vista", "Ricchieri", 450, "Activa");
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(3, "Jose Cuchillo Paz", "Rivadavia", 1000, "Activa");
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(4, "Muñiz", "Conesa", 500, "Activa");
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(5, "Los Polvorines", "9 de Julio", 3500, "Activa");
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(6, "Torcuato", "Av. Balvastro", 7200, "Inactiva");
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(7, "Hurlingham", "Calle falsa", 123, "Activa");
+
+
+-- Inserts para los servicios
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(1, "Corte de pelo", 350.00, 6.06, 002000, 25, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(2, "Lavado", 100.00, 1.73, 000500, 5, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(3, "Secado", 100, 1.73, 000500, 5, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(4, "Tintura", 600, 10.39, 013000, 40, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(5, "Recorte de Barba", 150.00, 2.60, 001000, 15, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(6, "Corte con Navaja NDEAH", 225.00, 3.90, 002000, 25, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(7, "Alisado", 1000.00, 17.32, 020000, 50, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(8, "Reflejos", 400.00, 6.93, 003000, 20, "Inactivo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(9, "Rapado", 200.00, 3.46, 001000, 15, "Activo");
+INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
+VALUES(10, "Afano", 6000.00, 103.91, 000500, 5, "Activo");
+
+-- Inserts para Clientes 
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+VALUES(1, "Matias", "Arriola", 44512626, "prueba1@gmail.com", 0, "Activo", 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+VALUES(2, "Tomas", "Sierra", 44512727, "test2@gmail.com", 0, "Inactivo", 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+VALUES(3, "Nicolas", "Cirillo", 44512828, "prueba3@gmail.com", 0, "Activo", 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+VALUES(4, "Galileo", "Luna", 44512929, "test4@gmail.com", 0, "Activo", 10.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+VALUES(5, "Santiago", "Moreno", 44513030, "prueba5@gmail.com", 0, "Activo", 500.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+VALUES(6, "Adolf", "Gonzalez", 44513131, "test6@gmail.com", 0, "Inactivo", 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+VALUES(7, "Juan Domingo", "Perez", 44513232, "prueba7@gmail.com", 0, "Activo", 00.00);
+
+-- Inserts para profesionales 
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(1,"Enzo", "Perez", 7, "Activo");
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(2,"Roberto", "Gonzalez", 5, "Activo");
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(3,"Francisco", "Alcatraza", 4, "Inactivo");
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(4,"Armando", "Casas", 2, "Inactivo");
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(5,"Manuel", "Niestskjsa", 3, "Activo");
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(6,"John", "White", 6, "Activo");
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(7,"Juana", "De Arco", 2, "Activo");
