@@ -82,7 +82,7 @@ public class ControladorServicioProfesional {
 	
 	// esta funcion hace dos cosas llena la lista con los servicios que se van a cargar en el desplegable y ademas llena una segunda lista con los indices(idServ) de dicha tabla para luego poder hacer mas facil los insert y delete
 	// la lista que recibe por parametros el la lista de los id (idServ), devuelve la lista de nombres de los servicios
-	private static List<String> llenarServ(List<Integer> id,Sistema sistema) {
+	public static List<String> llenarServ(List<Integer> id,Sistema sistema) {
 		List<ServicioDTO> servicios=sistema.obtenerServicios();
 		List<String> ret = new ArrayList<String>();	
 		for (ServicioDTO s : servicios) {
@@ -94,7 +94,7 @@ public class ControladorServicioProfesional {
 	}
 	// llena el combo con la lista que fue cargada anteriormente
 	//recibe el combo y la lista
-	private static void llenarCombo(JComboBox combo,List<String> lista) {
+	public static void llenarCombo(JComboBox combo,List<String> lista) {
 		combo.removeAllItems();
 		for (String  s : lista) {
 			combo.addItem(s);
@@ -102,7 +102,7 @@ public class ControladorServicioProfesional {
 		
 	}
 		
-	private boolean validar(String serv) {
+	public boolean validar(String serv) {
 		int encontro=0;
 		for(String s : servEnTabla) {
 			if(s.equals(serv)) {
