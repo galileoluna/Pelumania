@@ -40,7 +40,9 @@ public class ControladorCaja implements ActionListener {
 	private void productoSoloEfectivo(ActionEvent l) {
 		if (!esServicio()) {
 			tipoPagoSoloEfectivo();
-		}		
+		} else {
+			llenarComboTipoCambioServicio();
+		}
 	}
 
 	private void cancelar(ActionEvent l) {
@@ -72,6 +74,13 @@ public class ControladorCaja implements ActionListener {
 		comboCategoria.addItem("Servicio");
 		comboCategoria.addItem("Producto");
 		
+		llenarComboTipoCambioServicio();
+
+		this.ventanaCaja.getPanel_egreso().setVisible(false);
+		
+	}
+
+	private void llenarComboTipoCambioServicio() {
 		JComboBox<String> comboTipoCambio = this.ventanaCaja.getComboTipoCambio();
 		comboTipoCambio.removeAllItems();
 		comboTipoCambio.setEnabled(true);
@@ -80,9 +89,6 @@ public class ControladorCaja implements ActionListener {
 		comboTipoCambio.addItem("Puntos");
 		//validar que el cliente no sea moroso
 		comboTipoCambio.addItem("Fiado");
-
-		this.ventanaCaja.getPanel_egreso().setVisible(false);
-		
 	}
 
 	private void mostrarInputsEgreso() {
