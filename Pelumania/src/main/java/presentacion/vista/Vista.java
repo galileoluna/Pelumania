@@ -335,6 +335,4 @@ public class Vista {
 	public void setCantCitas(int cantCitas) {
 		this.cantCitas = cantCitas;
 	}
-	
-	
 }

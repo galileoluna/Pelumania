@@ -133,12 +133,20 @@ public class Controlador implements ActionListener {
 		this.vista.getCalendario().addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
-				String dia = Integer.toString(Controlador.this.vista.getCalendario().getDayChooser().getDay());
+				
+				int dia = Controlador.this.vista.getCalendario().getDayChooser().getDay();
+				String S_dia;
+				if (dia<10)
+					S_dia = "0"+Integer.toString(Controlador.this.vista.getCalendario().getDayChooser().getDay());
+				else
+					S_dia = Integer.toString(Controlador.this.vista.getCalendario().getDayChooser().getDay());
+				
 				String mes =Integer.toString(Controlador.this.vista.getCalendario().getMonthChooser().getMonth()+1);
 				String anio =Integer.toString(Controlador.this.vista.getCalendario().getYearChooser().getYear());
 				
+
 				//A obtenerTablaCita se le pasa el dia que se selecciona como un string EJ: 2019-10-06
-				Controlador.this.citasEnTabla = Controlador.this.sistema.getCitasPorDia(anio+mes+dia);
+				Controlador.this.citasEnTabla = Controlador.this.sistema.getCitasPorDia(anio+mes+S_dia);
 				System.out.println(Controlador.this.citasEnTabla.size());
 				
 				if (Controlador.this.citasEnTabla.size() != 0) {
