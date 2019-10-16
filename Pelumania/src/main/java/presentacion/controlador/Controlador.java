@@ -116,6 +116,7 @@ public class Controlador implements ActionListener {
 		if (confirm == 0) {
 			this.sistema.cancelarCita(Vista.getCitaSeleccionada());
 			Vista.getCitaSeleccionada().setEstado("Cancelada");
+			this.vista.getComponenteCitaSeleccionado().getLbl_Estado().setText("Cancelada");
 			this.vista.cambiarColorCita(Vista.getComponenteCitaSeleccionado(), Vista.getCitaSeleccionada().getEstado());
 		}
 	}

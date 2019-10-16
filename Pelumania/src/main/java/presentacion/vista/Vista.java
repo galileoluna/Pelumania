@@ -160,66 +160,7 @@ public class Vista {
 		
 		frame.setVisible(true);
 	}
-/*
-	public void cargarCitas(List<CitaDTO> citasDelDia) {
-		JPanelCitas.removeAll();
 
-		int x = 10;
-		int y = 10;
-		
-		cantCitas = citasDelDia.size();
-		
-		JPanelCitas.setPreferredSize(new Dimension(409,cantCitas*340));
-		
-		for (int i =0; i < citasDelDia.size(); i++) {
-			ComponenteCita cc = new ComponenteCita(x,y);
-			cc.setFocusable(true);
-			CitaDTO citaCargada = citasDelDia.get(i);
-			cc.getLbl_IdCita().setText(Integer.toString(citaCargada.getIdCita()));
-			cc.getLbl_HoraInicio().setText(citaCargada.getHoraInicio().toString());
-			cc.getLbl_HoraFin().setText(citaCargada.getHoraFin().toString());
-			cc.getLbl_NombreCliente().setText(citaCargada.getNombre()+citaCargada.getApellido());	
-			cc.getLbl_Estado().setText(citaCargada.getEstado());
-			cc.getLbl_Total().setText(citaCargada.getPrecioLocal().toString());
-			cc.getLbl_TotalUSD().setText(citaCargada.getPrecioDolar().toString());
-			
-			cc.setFocusable(true);
-			cc.addMouseListener(new java.awt.event.MouseAdapter() {
-				
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                	cc.requestFocus();
-                	cc.isFocusOwner();
-                	if (cc.hasFocus()) {
-                		cc.setBackground(Color.white);
-                    	setCitaSeleccionada(citaCargada);
-                    	setComponenteCitaSeleccionado(cc);
-                    	System.out.println(getCitaSeleccionada());
-                    	
-                    	if (citaSeleccionada.getEstado()!= "Cancelada") {
-                    		getBtnCancelarCita().setEnabled(true);
-                    		getBtnEditarCita().setEnabled(true);
-                    	}
-                	}
-                }
-  
-            });
-			
-			cambiarColorCita(cc, citaCargada.getEstado());
-			JPanelCitas.add(cc);
-			y = y + 330;
-		}
-		
-		scrollPanelCitas.setBounds(608,83,480,540);
-		
-		scrollPanelCitas.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPanelCitas.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
-		scrollPanelCitas.setViewportView(JPanelCitas);
-		frame.getContentPane().add(scrollPanelCitas, BorderLayout.CENTER);
-		
-		scrollPanelCitas.setVisible(true);
-	}
-*/
 	public void cambiarColorCita(ComponenteCita cita, String estado) {
 		Color rojo = new Color(225,64,68);
 		Color verde = new Color(129,152,48);
