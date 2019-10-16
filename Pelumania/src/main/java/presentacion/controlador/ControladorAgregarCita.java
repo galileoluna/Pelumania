@@ -16,7 +16,6 @@ import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
-import persistencia.dao.mariadb.ProfesionalDAOSQL;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.VentanaCliente;
@@ -147,6 +146,7 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		System.out.println(nuevaCita);
 		
+		calcularHorariosServicios();
 		//Diferencia si el cliente esta registrado o no.
 		if (idcliente == -1) {
 			if (this.sistema.agregarCitaSinCliente(nuevaCita)) {
@@ -177,7 +177,7 @@ public class ControladorAgregarCita implements ActionListener{
 				st.setIdCita(idCitaAgregada);
 				this.sistema.insertServicioTurno(st);
 				}
-				
+				calcularHorariosServicios();
 				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
 				this.ventanaAgregarCita.cerrar();
 			}else {
@@ -225,6 +225,25 @@ public class ControladorAgregarCita implements ActionListener{
         		this.ActualizarInformacionServiciosAgregados();
         	}
     	}
+	}
+	
+	
+	public void calcularHorariosServicios() {
+		LocalTime horaInicio = this.ventanaAgregarCita.getHoraInicio();
+		for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
+			ServicioDTO servicio = sistema.getServicioById(st.getIdServicio());
+			st.setHoraInicio(horaInicio);
+			
+			LocalTime horaFinalizacionServicio = horaInicio.plusHours(servicio.getDuracion().getHour());
+			horaFinalizacionServicio = horaFinalizacionServicio.plusMinutes(servicio.getDuracion().getMinute());
+			
+			st.setHoraFin(horaFinalizacionServicio);
+			
+			horaInicio = horaFinalizacionServicio;
+			
+			System.out.println("El servicio "+st.getIdServicio()+" arranca a las "+st.getHoraInicio());
+			System.out.println("y termina a las "+st.getHoraFin());
+		}
 	}
 	
 	/*
@@ -324,6 +343,9 @@ public class ControladorAgregarCita implements ActionListener{
 					return false;
 				}
 			}
+		LocalTime horaInicio = LocalTime.of((Integer)this.ventanaAgregarCita.getJCBoxHora().getSelectedItem(),
+							   (Integer)this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem());
+		this.ventanaAgregarCita.setHoraInicio(horaInicio);
 		return true;
 		
 	}

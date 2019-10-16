@@ -1,15 +1,22 @@
 package dto;
 
+import java.time.LocalTime;
+
 public class ServicioTurnoDTO {
 	private Integer idCita;
 	private Integer idServicio;
 	private Integer idProfesional; 
+	private LocalTime horaInicio;
+	private LocalTime horaFin;
 	
 	
-	public ServicioTurnoDTO(Integer idcita, Integer idservicio, Integer idprofesional) {
+	public ServicioTurnoDTO(Integer idcita, Integer idservicio, Integer idprofesional, 
+			LocalTime horainicio, LocalTime horafin) {
 		this.idCita = idcita;
 		this.idServicio = idservicio;
 		this.idProfesional = idprofesional; 
+		this.horaInicio = horainicio;
+		this.horaFin = horafin;
 	}
 	public ServicioTurnoDTO(Integer idservicio, Integer idprofesional) {
 		this.idCita = -1; 
@@ -34,7 +41,18 @@ public class ServicioTurnoDTO {
 	public void setIdProfesional(Integer idProfesional) {
 		this.idProfesional = idProfesional;
 	}
-	
+	public LocalTime getHoraInicio() {
+		return horaInicio;
+	}
+	public void setHoraInicio(LocalTime horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+	public LocalTime getHoraFin() {
+		return horaFin;
+	}
+	public void setHoraFin(LocalTime horaFin) {
+		this.horaFin = horaFin;
+	}
 	
 }
 

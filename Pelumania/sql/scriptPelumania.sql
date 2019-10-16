@@ -232,7 +232,6 @@ CREATE TABLE IF NOT EXISTS `EnviarMail`(
 
 );
 
-
 CREATE TABLE IF NOT EXISTS `LogTransferencia`(
 
   `idLogTransferencia` INT(11) NOT NULL AUTO_INCREMENT,
@@ -243,8 +242,9 @@ CREATE TABLE IF NOT EXISTS `LogTransferencia`(
   PRIMARY KEY(`idLogTransferencia`),
   FOREIGN KEY (`idSucursal`) REFERENCES `Sucursal`(`idSucursal`),
   FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
-
 );
+
+SET time_zone = "-3:00";
 
 USE Pelumania;
 -- Inserts para las sucursales
@@ -266,25 +266,25 @@ VALUES(7, "Hurlingham", "Calle falsa", 123, "Activa");
 
 -- Inserts para los servicios
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(1, "Corte de pelo", 350.00, 6.06, 002000, 25, "Activo");
+VALUES(1, "Corte de pelo", 350.00, 6.06, "00:20:00", 25, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(2, "Lavado", 100.00, 1.73, 000500, 5, "Activo");
+VALUES(2, "Lavado", 100.00, 1.73, "00:05:00", 5, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(3, "Secado", 100, 1.73, 000500, 5, "Activo");
+VALUES(3, "Secado", 100, 1.73, "00:05:00", 5, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(4, "Tintura", 600, 10.39, 013000, 40, "Activo");
+VALUES(4, "Tintura", 600, 10.39, "01:30:00", 40, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(5, "Recorte de Barba", 150.00, 2.60, 001000, 15, "Activo");
+VALUES(5, "Recorte de Barba", 150.00, 2.60, "00:10:00", 15, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(6, "Corte con Navaja NDEAH", 225.00, 3.90, 002000, 25, "Activo");
+VALUES(6, "Corte con Navaja NDEAH", 225.00, 3.90, "00:20:00", 25, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(7, "Alisado", 1000.00, 17.32, 020000, 50, "Activo");
+VALUES(7, "Alisado", 1000.00, 17.32, "02:00:00", 50, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(8, "Reflejos", 400.00, 6.93, 003000, 20, "Inactivo");
+VALUES(8, "Reflejos", 400.00, 6.93, "00:30:00", 20, "Inactivo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(9, "Rapado", 200.00, 3.46, 001000, 15, "Activo");
+VALUES(9, "Rapado", 200.00, 3.46, "00:10:00", 15, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(10, "Afano", 6000.00, 103.91, 000500, 5, "Activo");
+VALUES(10, "Afano", 6000.00, 103.91, "00:05:00", 5, "Activo");
 
 -- Inserts para Clientes 
 INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
@@ -317,3 +317,6 @@ INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, esta
 VALUES(6,"John", "White", 6, "Activo");
 INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
 VALUES(7,"Juana", "De Arco", 2, "Activo");
+
+SELECT * FROM ServicioTurno;
+SELECT * FROM SERVICIO;

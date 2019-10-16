@@ -105,11 +105,14 @@ public class Controlador implements ActionListener {
 			ControladorAgregarCita.setMES(mes+1);
 			ControladorAgregarCita.setDIA(dia);
 			this.controladoragregarcita = ControladorAgregarCita.getInstance(sistema);
-			}else {
+			}else{
 				JOptionPane.showMessageDialog(null, "No puedes cargar una cita para un dia que ya transcurrio!");
 			}
 	}
 	
+	/*
+	 * Metodo que responde al boton CancelarCita. Obtiene la variable estatica getComponenteCitaSeleccionado
+	 * de la vista, y esa es la cita que cancela.*/
 	private void cancelarCita(ActionEvent e) {
 		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas cancelar la cita?","Confirmacion", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -144,7 +147,6 @@ public class Controlador implements ActionListener {
 				String mes =Integer.toString(Controlador.this.vista.getCalendario().getMonthChooser().getMonth()+1);
 				String anio =Integer.toString(Controlador.this.vista.getCalendario().getYearChooser().getYear());
 				
-
 				//A obtenerTablaCita se le pasa el dia que se selecciona como un string EJ: 2019-10-06
 				Controlador.this.citasEnTabla = Controlador.this.sistema.getCitasPorDia(anio+mes+S_dia);
 				System.out.println(Controlador.this.citasEnTabla.size());
@@ -162,12 +164,13 @@ public class Controlador implements ActionListener {
 		});
 	}
 	
+	/*Recibe el ID de cita, y su Tarjeta en el panel, y llama al metodo que las carga. */
 	public void llenarTablaServicios(int idCita, ComponenteCita Cita) {
 		List<ServicioTurnoDTO> serviciosDeCita = this.sistema.getByIdCita(idCita);
-		System.out.println(serviciosDeCita);
 		cargarServiciosDeCita(serviciosDeCita, Cita);
 	}
 	
+	/*Metodo que recibe las citas de un turno, y su Tarjeta en el Panel y carga los servicios en la tabla*/
 	public void cargarServiciosDeCita(List<ServicioTurnoDTO> serviciosDeCita, ComponenteCita Cita) {
 			
 			Cita.getModelServicios().setRowCount(0); //Para vaciar la tabla
@@ -192,6 +195,10 @@ public class Controlador implements ActionListener {
 				Cita.getModelServicios().addRow(fila);
 			}	
 		}
+	
+	/*
+	 * Metodo que recibe las citas del dia elegido en el calendario, y se encarga de cargar una "Tarjeta"
+	 * en pantalla con los datos de cada una. */
 	
 	public void cargarCitas(List<CitaDTO> citasDelDia) {
 		this.vista.getJPanelCitas().removeAll();
@@ -235,7 +242,7 @@ public class Controlador implements ActionListener {
                     	}
                 	}
                 }
-  
+ 
             });
 			
 			this.vista.cambiarColorCita(cc, citaCargada.getEstado());

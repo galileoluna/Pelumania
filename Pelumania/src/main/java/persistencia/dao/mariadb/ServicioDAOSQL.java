@@ -206,6 +206,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 		String nombre = resultSet.getString("Nombre");
 		BigDecimal precioLocal = resultSet.getBigDecimal("PrecioLocal");
 		BigDecimal precioDolar =resultSet.getBigDecimal("PrecioDolar");
+		System.out.println(resultSet.getTime("Duracion"));
 		Time duracion = resultSet.getTime("Duracion");
 		int puntos = resultSet.getInt("Puntos");
 		String estado = resultSet.getString("Estado");

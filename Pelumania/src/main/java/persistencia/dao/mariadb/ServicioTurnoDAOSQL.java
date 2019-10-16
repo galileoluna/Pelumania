@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import persistencia.dao.interfaz.ServicioTurnoDAO;
 
 public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 	
-	private static final String insert = "INSERT INTO ServicioTurno (idCita, idServicio, idProfesional) VALUES(?, ?, ?)";
+	private static final String insert = "INSERT INTO ServicioTurno (idCita, idServicio, idProfesional, horaInicio, horaFin) VALUES(?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM ServicioTurno WHERE idCita = ? AND idServicio = ? AND idProfesional = ?";
 	private static final String update = "";
 	private static final String readAll = "";
@@ -27,13 +29,12 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 		boolean isInsertExitoso = false;
 		try
 		{
-			System.out.println(servicioTurno_a_insertar.getIdCita());
-			System.out.println(servicioTurno_a_insertar.getIdServicio());
-			System.out.println(servicioTurno_a_insertar.getIdProfesional());
 			statement = conexion.prepareStatement(insert);
 			statement.setInt	(1, servicioTurno_a_insertar.getIdCita());
 			statement.setInt	(2, servicioTurno_a_insertar.getIdServicio());
 			statement.setInt	(3, servicioTurno_a_insertar.getIdProfesional());
+			statement.setTime	(4, Time.valueOf(servicioTurno_a_insertar.getHoraInicio()));
+			statement.setTime	(5, Time.valueOf(servicioTurno_a_insertar.getHoraFin()));
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -112,8 +113,10 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 			int idCita = resultSet.getInt("idCita");
 			int idServicio = resultSet.getInt("idServicio");
 			int idProfesional = resultSet.getInt("idprofesional");
+			LocalTime horainicio = resultSet.getTime("horaInicio").toLocalTime();
+			LocalTime horafin = resultSet.getTime("horaFin").toLocalTime();
 
-			return new ServicioTurnoDTO(idCita, idServicio, idProfesional);
+			return new ServicioTurnoDTO(idCita, idServicio, idProfesional, horainicio, horafin);
 		}
 	
 	@Override

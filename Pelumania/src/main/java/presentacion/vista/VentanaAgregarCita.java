@@ -56,6 +56,7 @@ public class VentanaAgregarCita extends JFrame
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
 	private LocalDate fechaCita;
+	private LocalTime horaInicio;
 	private LocalTime HoraFin;
 	private BigDecimal total$;
 	private BigDecimal totalUSD;
@@ -499,6 +500,14 @@ public class VentanaAgregarCita extends JFrame
 
 	public void setHoraFin(LocalTime horaFin) {
 		HoraFin = horaFin;
+	}
+
+	public LocalTime getHoraInicio() {
+		return horaInicio;
+	}
+
+	public void setHoraInicio(LocalTime horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
 	public BigDecimal getTotal$() {
