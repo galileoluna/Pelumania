@@ -125,6 +125,10 @@ public class Controlador implements ActionListener {
 	}
 	
 	public void actualizarCitasDelDia(PropertyChangeEvent a) {
+		
+		this.vista.getBtnCancelarCita().setEnabled(false);
+		this.vista.getBtnEditarCita().setEnabled(false);
+		
 		int dia = Controlador.this.vista.getCalendario().getDayChooser().getDay();
 		int mes =Controlador.this.vista.getCalendario().getMonthChooser().getMonth()+1;
 		
@@ -223,14 +227,15 @@ public class Controlador implements ActionListener {
                 	cc.requestFocus();
                 	cc.isFocusOwner();
                 	if (cc.hasFocus()) {
-                		cc.setBackground(Color.white);
                     	Vista.setCitaSeleccionada(citaCargada);
                     	Vista.setComponenteCitaSeleccionado(cc);
                     	
-                    	if (Vista.getCitaSeleccionada().getEstado()!= "Cancelada") {
+                    	if (!Vista.getCitaSeleccionada().getEstado().equals("Cancelada")) {
                     	    Controlador.this.vista.getBtnCancelarCita().setEnabled(true);
                     	    Controlador.this.vista.getBtnEditarCita().setEnabled(true);
+                    	    cc.setBackground(Color.white);
                     	}
+                
                 	}
                 }
  

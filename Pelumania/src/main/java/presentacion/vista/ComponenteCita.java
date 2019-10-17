@@ -1,13 +1,14 @@
 package presentacion.vista;
 
+import java.awt.Color;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JLabel;
 import javax.swing.JSeparator;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
 
 public class ComponenteCita extends JPanel{
 
@@ -125,19 +126,21 @@ public class ComponenteCita extends JPanel{
 				return false;
 			}
 		};
+		
+		
 		tablaServicios = new JTable(modelServicios);
-
+		tablaServicios.getTableHeader().setReorderingAllowed(false) ;
 
 		tablaServicios.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tablaServicios.getColumnModel().getColumn(0).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(0).setResizable(true);
 		tablaServicios.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tablaServicios.getColumnModel().getColumn(1).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(1).setResizable(true);
 		tablaServicios.getColumnModel().getColumn(2).setPreferredWidth(100);
-		tablaServicios.getColumnModel().getColumn(2).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(2).setResizable(true);
 		tablaServicios.getColumnModel().getColumn(3).setPreferredWidth(100);
-		tablaServicios.getColumnModel().getColumn(3).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(3).setResizable(true);
 		tablaServicios.getColumnModel().getColumn(4).setPreferredWidth(100);
-		tablaServicios.getColumnModel().getColumn(4).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(4).setResizable(true);
 
 		spServicios.setViewportView(tablaServicios);
 	}
