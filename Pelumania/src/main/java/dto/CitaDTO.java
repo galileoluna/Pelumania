@@ -231,4 +231,8 @@ public void setHoraTurno(Time horaTurno) {
 	this.horaTurno = horaTurno;
 }
 
+public boolean esActiva() {
+	return this.estado.equalsIgnoreCase("Activa");
+}
+
 }

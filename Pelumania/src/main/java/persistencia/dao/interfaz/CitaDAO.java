@@ -28,5 +28,7 @@ public interface CitaDAO {
 
 	public CitaDTO getCitaMax();
 
+	public List<CitaDTO> readAllActivas();
+
 
 }

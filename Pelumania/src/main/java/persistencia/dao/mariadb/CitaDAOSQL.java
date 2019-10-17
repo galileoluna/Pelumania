@@ -359,4 +359,15 @@ public class CitaDAOSQL implements CitaDAO{
 		return new CitaDTO(idCita, idUsuario, idCliente, nombre, apellido, estado, precioLocal,
 				precioDolar, horaInicio, horaFin, fechaCita, idSucursal);
 	}
+
+	@Override
+	public List<CitaDTO> readAllActivas() {
+		List<CitaDTO> citasActivas = new ArrayList<CitaDTO>();
+		for (CitaDTO cita : this.readAll()) {
+			if (cita.esActiva()) {
+				citasActivas.add(cita);
+			}
+		}
+		return citasActivas;
+	}
 }

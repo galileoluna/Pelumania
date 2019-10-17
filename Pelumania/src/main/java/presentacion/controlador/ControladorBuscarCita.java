@@ -35,30 +35,20 @@ public class ControladorBuscarCita implements ActionListener{
 	}
 	private static void inicializarDatos() {
 
-		List<CitaDTO> listaCitas = INSTANCE.sistema.obtenerCitas();
+		List<CitaDTO> listaCitas = INSTANCE.sistema.obtenerCitasActivas();
 		INSTANCE.ventanaBuscarCita.llenarTabla(listaCitas);
 		INSTANCE.ventanaBuscarCita.mostrarVentana();
 	} 
 	
 	private void seleccionarCita(ActionEvent p) {
 		this.listaCitas = INSTANCE.sistema.obtenerCitas();
-//		int filaSeleccionada = this.ventanaBuscarCita.getTablaClientes().getSelectedRow();
-//		System.out.println(listaCitas);
-//		ClienteDTO citaSeleccionada = this.listaCitas.get(filaSeleccionada);
-//		System.out.println(citaSeleccionada);
-//		if (citaSeleccionada != null) {
-//			String nombre = citaSeleccionada.getNombre();
-//			String apellido = citaSeleccionada.getApellido();
-//			int id = citaSeleccionada.getIdCliente();
-//			
-//			this.ventanaCaja.getTxtNombre().setText(nombre);
-//			this.ventanaCaja.getTxtNombre().setEditable(false);
-//			this.ventanaCaja.getTxtApellido().setText(apellido);
-//			this.ventanaCaja.getTxtApellido().setEditable(false);
-//			this.ventanaCaja.setIdCliente(id);
-			
+		int filaSeleccionada = this.ventanaBuscarCita.getTablaCitas().getSelectedRow();
+		CitaDTO citaSeleccionada = this.listaCitas.get(filaSeleccionada);
+		if (citaSeleccionada != null) {
+			String idCita = Integer.toString(citaSeleccionada.getIdCita());
+			this.ventanaCaja.getTxtIdCita().setText(idCita);
 			this.ventanaBuscarCita.cerrar();
-//		}
+		}
 
 	}
 

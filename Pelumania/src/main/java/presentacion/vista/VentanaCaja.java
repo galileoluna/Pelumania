@@ -40,7 +40,7 @@ public class VentanaCaja extends JFrame
 	private JTextField txtPrecioDolar;
 	private JButton btnCancelar;
 	private JPanel panelIngresoServicio;
-	private JTextField textField;
+	private JTextField txtIdCita;
 	
 	public static VentanaCaja getInstance()
 	{
@@ -174,12 +174,12 @@ public class VentanaCaja extends JFrame
 		buttonBuscarCita.setBounds(216, 37, 79, 23);
 		panelIngresoServicio.add(buttonBuscarCita);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.BOLD, 11));
-		textField.setEditable(false);
-		textField.setBounds(170, 6, 171, 20);
-		panelIngresoServicio.add(textField);
-		textField.setColumns(10);
+		txtIdCita = new JTextField();
+		txtIdCita.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtIdCita.setEditable(false);
+		txtIdCita.setBounds(170, 6, 171, 20);
+		panelIngresoServicio.add(txtIdCita);
+		txtIdCita.setColumns(10);
 		
 		this.setVisible(false);
 	}
@@ -271,5 +271,9 @@ public class VentanaCaja extends JFrame
 
 	public JButton getButtonBuscarCita() {
 		return buttonBuscarCita;
+	}
+
+	public JTextField getTxtIdCita() {
+		return txtIdCita;
 	}
 }
