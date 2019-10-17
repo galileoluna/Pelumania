@@ -144,8 +144,6 @@ public class ControladorAgregarCita implements ActionListener{
 				this.ventanaAgregarCita.getTotal$(), this.ventanaAgregarCita.getTotalUSD(), 
 				HoraCitaInicio, HoraCitaFin, fecha,	idSucursal);
 		
-		System.out.println(nuevaCita);
-		
 		calcularHorariosServicios();
 		//Diferencia si el cliente esta registrado o no.
 		if (idcliente == -1) {
@@ -173,7 +171,6 @@ public class ControladorAgregarCita implements ActionListener{
 				
 				for (ServicioTurnoDTO st : serviciosTurnoAgregados) 
 				{
-				System.out.println(st);
 				st.setIdCita(idCitaAgregada);
 				this.sistema.insertServicioTurno(st);
 				}
@@ -242,8 +239,6 @@ public class ControladorAgregarCita implements ActionListener{
 			
 			horaInicio = horaFinalizacionServicio;
 			
-			System.out.println("El servicio "+st.getIdServicio()+" arranca a las "+st.getHoraInicio());
-			System.out.println("y termina a las "+st.getHoraFin());
 		}
 	}
 	
@@ -404,7 +399,6 @@ public class ControladorAgregarCita implements ActionListener{
 			return false;
 		}
 		if (this.ventanaAgregarCita.getTxtApellido().getText().isEmpty()) {
-			System.out.println("llego");
 			this.errorCliente = "CampoApellidoNulo";
 			return false;
 		}
