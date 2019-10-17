@@ -18,17 +18,19 @@ public class ControladorBuscarCita implements ActionListener{
 	private List<CitaDTO> listaCitas;
 	private static ControladorBuscarCita INSTANCE;
 	private static VentanaCaja ventanaCaja;
-
-	private ControladorBuscarCita(Sistema sistema, VentanaCaja ventanaCaja) {
+	private ControladorCaja controladorCaja;
+	
+	private ControladorBuscarCita(Sistema sistema, VentanaCaja ventanaCaja, ControladorCaja controladorCaja) {
 		this.ventanaBuscarCita = VentanaBuscarCita.getInstance();
 		this.ventanaCaja = ventanaCaja;
 		this.ventanaBuscarCita.getBtnSeleccionarCita().addActionListener(p -> seleccionarCita(p));
 		this.sistema = sistema;
+		this.controladorCaja = controladorCaja;
 	}
 
-	public static ControladorBuscarCita getInstance(Sistema sistema, VentanaCaja ventanaCaja) {
+	public static ControladorBuscarCita getInstance(Sistema sistema, VentanaCaja ventanaCaja, ControladorCaja controladorCaja) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorBuscarCita(sistema, ventanaCaja);
+			INSTANCE = new ControladorBuscarCita(sistema, ventanaCaja, controladorCaja);
 		}
 		inicializarDatos();
 		return INSTANCE;
@@ -43,13 +45,18 @@ public class ControladorBuscarCita implements ActionListener{
 	private void seleccionarCita(ActionEvent p) {
 		this.listaCitas = INSTANCE.sistema.obtenerCitas();
 		int filaSeleccionada = this.ventanaBuscarCita.getTablaCitas().getSelectedRow();
-		CitaDTO citaSeleccionada = this.listaCitas.get(filaSeleccionada);
-		if (citaSeleccionada != null) {
-			String idCita = Integer.toString(citaSeleccionada.getIdCita());
-			this.ventanaCaja.getTxtIdCita().setText(idCita);
-			this.ventanaBuscarCita.cerrar();
+		
+		if (filaSeleccionada != -1) {
+			CitaDTO citaSeleccionada = this.listaCitas.get(filaSeleccionada);
+			if (citaSeleccionada != null) {
+				String idCita = Integer.toString(citaSeleccionada.getIdCita());
+				this.controladorCaja.setCitaSeleccionada(citaSeleccionada);
+				this.controladorCaja.mostarDatosCita();
+				this.ventanaBuscarCita.cerrar();
+			} 
+		} else {
+			this.ventanaBuscarCita.mostrarErrorSinSeleccionar();
 		}
-
 	}
 
 	@Override

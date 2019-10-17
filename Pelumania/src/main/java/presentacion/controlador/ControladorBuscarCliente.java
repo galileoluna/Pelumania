@@ -43,9 +43,7 @@ public class ControladorBuscarCliente implements ActionListener{
 	private void seleccionarCliente(ActionEvent p) {
 		this.listaClientes = INSTANCE.sistema.obtenerClientes();
 		int filaSeleccionada = this.ventanaBuscarCliente.getTablaClientes().getSelectedRow();
-		System.out.println(listaClientes);
 		ClienteDTO cliente_seleccionado = this.listaClientes.get(filaSeleccionada);
-		System.out.println(cliente_seleccionado);
 		if (cliente_seleccionado != null) {
 			String nombre = cliente_seleccionado.getNombre();
 			String apellido = cliente_seleccionado.getApellido();

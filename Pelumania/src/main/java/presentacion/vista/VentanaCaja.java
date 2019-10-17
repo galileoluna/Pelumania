@@ -16,6 +16,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.SwingConstants;
 
 
 
@@ -100,10 +101,37 @@ public class VentanaCaja extends JFrame
 		comboCategoria = new JComboBox<String>();
 		comboCategoria.setBounds(182, 186, 172, 23);
 		panel.add(comboCategoria);
+
+		JLabel lblImagen =  new JLabel();
+		lblImagen.setBounds(10, 11, 124, 98);		
+		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/caja.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+		lblImagen.setIcon(imageIcon);
+		panel.add(lblImagen);
+		
+		panelIngresoServicio = new JPanel();
+		panelIngresoServicio.setBounds(10, 289, 377, 71);
+		panel.add(panelIngresoServicio);
+		panelIngresoServicio.setLayout(null);
+		
+		lblCita = new JLabel("Cita Nro");
+		lblCita.setBounds(0, 9, 65, 14);
+		panelIngresoServicio.add(lblCita);
+		
+		txtIdCita = new JTextField();
+		txtIdCita.setHorizontalAlignment(SwingConstants.CENTER);
+		txtIdCita.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtIdCita.setEditable(false);
+		txtIdCita.setBounds(170, 6, 171, 20);
+		panelIngresoServicio.add(txtIdCita);
+		txtIdCita.setColumns(10);
+		
+		buttonBuscarCita = new JButton("Buscar");
+		buttonBuscarCita.setBounds(170, 37, 171, 23);
+		panelIngresoServicio.add(buttonBuscarCita);
 		
 		panel_egreso = new JPanel();
-		panel_egreso.setBounds(0, 269, 397, 195);
-//		panel.add(panel_egreso);
+		panel_egreso.setBounds(10, 269, 345, 91);
+		panel.add(panel_egreso);
 		panel_egreso.setLayout(null);
 		//ocultamos por defecto los campos que son
 		//especicos de un egreso
@@ -113,73 +141,42 @@ public class VentanaCaja extends JFrame
 		lblDescripcion.setBounds(10, 24, 87, 16);
 		panel_egreso.add(lblDescripcion);
 		
-		txtPrecioPesos = new JTextField();
-		txtPrecioPesos.setBounds(183, 104, 170, 26);
-		panel_egreso.add(txtPrecioPesos);
-		txtPrecioPesos.setColumns(10);
-		
-		lblPrecioEgreso = new JLabel("Monto en ARS");
-		lblPrecioEgreso.setBounds(10, 104, 124, 26);
-		panel_egreso.add(lblPrecioEgreso);
-		
-		JLabel lblMontoEnUsd = new JLabel("Monto en USD");
-		lblMontoEnUsd.setBounds(10, 141, 124, 26);
-		panel_egreso.add(lblMontoEnUsd);
-		
 		txtDescripcion = new JTextArea();
 		txtDescripcion.setToolTipText("De ser necesario, ingrese una descripción");
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		txtDescripcion.setBounds(183, 20, 170, 67);
+		txtDescripcion.setBounds(171, 20, 182, 67);
 		panel_egreso.add(txtDescripcion);
 		
-		txtPrecioDolar = new JTextField();
-		txtPrecioDolar.setColumns(10);
-		txtPrecioDolar.setBounds(183, 141, 170, 26);
-		panel_egreso.add(txtPrecioDolar);
+		lblPrecioEgreso = new JLabel("Monto en ARS");
+		lblPrecioEgreso.setBounds(11, 378, 124, 26);
+		panel.add(lblPrecioEgreso);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(73, 475, 115, 26);
-		panel.add(btnAgregar);
+		JLabel lblMontoEnUsd = new JLabel("Monto en USD");
+		lblMontoEnUsd.setBounds(11, 415, 124, 26);
+		panel.add(lblMontoEnUsd);
+		
+		txtPrecioDolar = new JTextField();
+		txtPrecioDolar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtPrecioDolar.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPrecioDolar.setBounds(184, 415, 170, 26);
+		panel.add(txtPrecioDolar);
+		txtPrecioDolar.setColumns(10);
+		
+		txtPrecioPesos = new JTextField();
+		txtPrecioPesos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtPrecioPesos.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPrecioPesos.setBounds(184, 378, 170, 26);
+		panel.add(txtPrecioPesos);
+		txtPrecioPesos.setColumns(10);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(218, 475, 124, 26);
 		panel.add(btnCancelar);
 		
-//		lbl_profesional = new JLabel("Profesional");
-//		lbl_profesional.setBounds(10, 128, 124, 26);
-//		panel.add(lbl_profesional);
-//		
-//		comboProfesional = new JComboBox<String>();
-//		comboProfesional.setBounds(169, 129, 204, 23);
-//		panel.add(comboProfesional);
-//		
-		
-		JLabel lblImagen =  new JLabel();
-		lblImagen.setBounds(10, 11, 124, 98);		
-		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/caja.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-		lblImagen.setIcon(imageIcon);
-		panel.add(lblImagen);
-		
-		panelIngresoServicio = new JPanel();
-		panelIngresoServicio.setBounds(10, 289, 377, 175);
-		panel.add(panelIngresoServicio);
-		panelIngresoServicio.setLayout(null);
-		
-		lblCita = new JLabel("Cita Nro");
-		lblCita.setBounds(0, 9, 65, 14);
-		panelIngresoServicio.add(lblCita);
-		
-		buttonBuscarCita = new JButton("Buscar");
-		buttonBuscarCita.setBounds(216, 37, 79, 23);
-		panelIngresoServicio.add(buttonBuscarCita);
-		
-		txtIdCita = new JTextField();
-		txtIdCita.setFont(new Font("Tahoma", Font.BOLD, 11));
-		txtIdCita.setEditable(false);
-		txtIdCita.setBounds(170, 6, 171, 20);
-		panelIngresoServicio.add(txtIdCita);
-		txtIdCita.setColumns(10);
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(73, 475, 115, 26);
+		panel.add(btnAgregar);
 		
 		this.setVisible(false);
 	}

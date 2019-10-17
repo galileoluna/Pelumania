@@ -4,15 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 
-import javax.swing.ComboBoxEditor;
 import javax.swing.JComboBox;
 
 import dto.CategoriaMovimientoCajaDTO;
-import dto.ClienteDTO;
+import dto.CitaDTO;
 import dto.MovimientoCajaDTO;
+import dto.ServicioTurnoDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaBuscarCita;
 import presentacion.vista.VentanaCaja;
@@ -25,10 +24,14 @@ public class ControladorCaja implements ActionListener {
 	private List<CategoriaMovimientoCajaDTO> listaCategorias;
 	private static ControladorCaja INSTANCE;
 	private static VentanaBuscarCita ventanaBuscarCita;
+	private CitaDTO citaSeleccionada;
+	private List<ServicioTurnoDTO> serviciosCita;
 	
 	private ControladorCaja (Sistema sistema) {
 		this.ventanaCaja = VentanaCaja.getInstance();
 		this.sistema = sistema;
+		this.citaSeleccionada = null;
+		this.serviciosCita = null;
 		
 		this.ventanaCaja.getBtnCancelar().addActionListener(l -> cancelar(l));
 		this.ventanaCaja.getComboTipoMovimiento().addActionListener(l -> mostrarInputs(l));
@@ -41,7 +44,7 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void buscarCita(ActionEvent l) {
-		ControladorBuscarCita.getInstance(this.sistema, this.ventanaCaja);
+		ControladorBuscarCita.getInstance(this.sistema, this.ventanaCaja, this);
 	}
 
 	private void productoSoloEfectivo(ActionEvent l) {
@@ -100,6 +103,9 @@ public class ControladorCaja implements ActionListener {
 
 	private void mostrarInputsEgreso() {
 		this.ventanaCaja.getPanel_egreso().setVisible(true);
+		this.ventanaCaja.getTxtIdCita().setText(null);
+		this.citaSeleccionada = null;
+		this.serviciosCita = null;
 		agregarCategoriasEgreso();
 		tipoPagoSoloEfectivo();
 	}
@@ -147,36 +153,37 @@ public class ControladorCaja implements ActionListener {
 				Validador.esPrecioValido(precioPesos) &&
 				Validador.esPrecioValido(precioDolar) &&
 				Validador.esTipoCambioValido(tipoCambio) &&
-				Validador.esDescripcionValida(descripcion)
-				) {
+				Validador.esDescripcionValida(descripcion)) {
 				
 				if (esIngreso()) {
-					//validar campos ingreso
-					
-		
-				//obtengo datos del movimiento
-		//		int idSucursal = 1; //0; //de donde lo saca de la sesion del usuario?
-		//		String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
-		//		Instant fecha = Instant.now();
-		//		String descripcion = this.ventanaCaja.getTxtDescripcion();
-		//		String tipoMovimiento = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
-		//		String tipoCambio = "efectivo"; // cambiar
-		//		int idPromocion;
-		//		BigDecimal precioLocal = new BigDecimal(100);// cambiar
-		//		BigDecimal precioDolar = new BigDecimal(69); // cambiar
-		//		int idProfesional;
-		//		int idCita;
-		//		int idCliente;
+				
+//					if(esServicio()) {
+//						
+//						MovimientoCajaDTO ingresoCita = new MovimientoCajaDTO(0, idSucursal, categoria, 
+//																			
+//																			fecha, tipoMovimiento, tipoCambio,
+//																//promocion null
+//																			null, precioPesos, precioDolar, 
+//																			
+//																			idProfesional, idCita, idCliente)
+//					}
+					//es un producto
+//					else {
+						
+//					}
+
+				
+				
 				
 				} else {
 						//constructor de egreso
 						int idCategoria = this.sistema.getIdCategoriaMovimientoCajaByName(categoria).getIdCategoria();
 					
-						MovimientoCajaDTO movimiento = new MovimientoCajaDTO(0, idSucursal, fecha, tipoMovimiento, 
+						MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha, tipoMovimiento, 
 																			idCategoria, tipoCambio, new BigDecimal(precioPesos),
 																			new BigDecimal(precioDolar), descripcion);
 						
-						this.sistema.insertarEgreso(movimiento);
+						this.sistema.insertarEgreso(egreso);
 						this.ventanaCaja.mostrarExito();
 					}
 								
@@ -206,5 +213,28 @@ public class ControladorCaja implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	public CitaDTO getCitaSeleccionada() {
+		return this.citaSeleccionada;
+	}
+	public void setCitaSeleccionada(CitaDTO citaSeleccionada) {
+		this.citaSeleccionada = citaSeleccionada;
+	}
+	public List<ServicioTurnoDTO> getServiciosCita() {
+		return this.serviciosCita;
+	}
+	public void setServiciosCita(List<ServicioTurnoDTO> serviciosCita) {
+		this.serviciosCita = serviciosCita;
+	}
+
+	public void mostarDatosCita() {
+		//llenamos los campos con la cita que se selecciono en el buscador
+		this.ventanaCaja.getTxtIdCita().setText(String.valueOf(this.citaSeleccionada.getIdCita()));
+		
+		this.ventanaCaja.getTxtPrecioPesos().setText(this.citaSeleccionada.getPrecioLocal().toString());
+		this.ventanaCaja.getTxtPrecioPesos().setEditable(false); //seteamos como no editable el precio
+		
+		this.ventanaCaja.getTxtPrecioDolar().setText(this.citaSeleccionada.getPrecioDolar().toString());
+		this.ventanaCaja.getTxtPrecioDolar().setEditable(false); //seteamos como no editable el precio
 	}
 }
