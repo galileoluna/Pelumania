@@ -6,11 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ServicioDAO;
@@ -87,7 +85,6 @@ public class ServicioDAOSQL implements ServicioDAO{
 		} 
 		catch (SQLException e) 
 		{
-			System.out.println("false");
 			e.printStackTrace();
 		}
 		
@@ -206,7 +203,6 @@ public class ServicioDAOSQL implements ServicioDAO{
 		String nombre = resultSet.getString("Nombre");
 		BigDecimal precioLocal = resultSet.getBigDecimal("PrecioLocal");
 		BigDecimal precioDolar =resultSet.getBigDecimal("PrecioDolar");
-		System.out.println(resultSet.getTime("Duracion"));
 		Time duracion = resultSet.getTime("Duracion");
 		int puntos = resultSet.getInt("Puntos");
 		String estado = resultSet.getString("Estado");

@@ -138,7 +138,7 @@ public class Vista {
 		btnCancelarCita.setEnabled(false);
 		panel.add(btnCancelarCita);
 		
-		btnEditarCita = new JButton("Borrar Cita");
+		btnEditarCita = new JButton("Editar Cita");
 		btnEditarCita.setBounds(897, 33, 117, 39);
 		btnEditarCita.setEnabled(false);
 		panel.add(btnEditarCita);

@@ -10,13 +10,11 @@ import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.event.AncestorListener;
 
 import dto.CitaDTO;
 import dto.ProfesionalDTO;
@@ -24,7 +22,6 @@ import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import modelo.Sistema;
 import presentacion.vista.ComponenteCita;
-import presentacion.vista.VentanaCliente;
 import presentacion.vista.Vista;
 
 public class Controlador implements ActionListener {
@@ -149,7 +146,6 @@ public class Controlador implements ActionListener {
 				
 				//A obtenerTablaCita se le pasa el dia que se selecciona como un string EJ: 2019-10-06
 				Controlador.this.citasEnTabla = Controlador.this.sistema.getCitasPorDia(anio+mes+S_dia);
-				System.out.println(Controlador.this.citasEnTabla.size());
 				
 				if (Controlador.this.citasEnTabla.size() != 0) {
 					cargarCitas(citasEnTabla);
@@ -221,8 +217,7 @@ public class Controlador implements ActionListener {
 			cc.getLbl_Estado().setText(citaCargada.getEstado());
 			cc.getLbl_Total().setText(citaCargada.getPrecioLocal().toString());
 			cc.getLbl_TotalUSD().setText(citaCargada.getPrecioDolar().toString());
-			
-			System.out.println("El id de la cita es:"+citaCargada.getIdCita());
+
 			llenarTablaServicios(citaCargada.getIdCita(), cc);
 			
 			cc.setFocusable(true);
