@@ -299,6 +299,7 @@ public class ControladorAgregarCita implements ActionListener{
 			total = total.add(servicio.getPrecioDolar());
 		}
 		this.ventanaAgregarCita.setTotalUSD(total);
+		System.out.println(total);
 		return total;
 	}
 	

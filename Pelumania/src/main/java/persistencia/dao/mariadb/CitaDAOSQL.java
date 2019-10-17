@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.CitaDTO;
-import dto.ClienteDTO;
-import dto.ProfesionalDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.CitaDAO;
 
@@ -57,6 +55,7 @@ public class CitaDAOSQL implements CitaDAO{
 				statement.setString     (5, cita.getApellido());
 				statement.setString     (6, cita.getEstado());
 				statement.setBigDecimal (7, cita.getPrecioLocal());
+				System.out.println(cita.getPrecioDolar());
 				statement.setBigDecimal (8, cita.getPrecioDolar());
 				statement.setTime       (9, Time.valueOf(cita.getHoraInicio()));
 				statement.setTime       (10, Time.valueOf(cita.getHoraFin()));

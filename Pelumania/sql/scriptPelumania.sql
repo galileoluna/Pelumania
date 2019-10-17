@@ -130,8 +130,8 @@ CREATE TABLE IF NOT EXISTS `Cita`(
   `NombreCliente` VARCHAR(55) NOT NULL,
   `ApellidoCliente` VARCHAR(55) NOT NULL,
   `EstadoTurno` VARCHAR(55) NOT NULL,
-  `PrecioLocal` INT (11) NOT NULL,
-  `PrecioDolar` INT (11) NOT NULL,
+  `PrecioLocal` DECIMAL (13,2) NOT NULL,
+  `PrecioDolar` DECIMAL (13,2) NOT NULL,
   `HoraInicio` TIME NOT NULL,
   `HoraFin` TIME NOT NULL,
   `Dia` DATE NOT NULL,
@@ -161,8 +161,8 @@ CREATE TABLE IF NOT EXISTS `Caja`(
   `TipoMovimiento` VARCHAR(55) NOT NULL,    
   `TipoDeCambio` VARCHAR(55) NOT NULL,
   `idPromocion` INT(11)  NULL,
-  `PrecioLocal` INT(11) NOT NULL,
-  `PrecioDolar` INT(11) NOT NULL,
+  `PrecioLocal` decimal(13,2) NOT NULL,
+  `PrecioDolar` decimal(13,2) NOT NULL,
   `idCita` INT(11)  NULL,
   `idCliente` INT(11)  NULL,
   `IdProfesional` INT(11)  NULL,
@@ -332,3 +332,6 @@ VALUE (5, "Administrativo", "Inactivo");
 
 SELECT * FROM ServicioTurno;
 SELECT * FROM SERVICIO;
+
+Use Pelumania;
+SELECT * FROM Cita;

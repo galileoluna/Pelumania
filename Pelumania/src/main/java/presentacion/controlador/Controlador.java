@@ -221,6 +221,7 @@ public class Controlador implements ActionListener {
 			cc.getLbl_HoraFin().setText(citaCargada.getHoraFin().toString());
 			cc.getLbl_NombreCliente().setText(citaCargada.getNombre()+citaCargada.getApellido());	
 			cc.getLbl_Estado().setText(citaCargada.getEstado());
+			System.out.println(citaCargada.getPrecioDolar());
 			cc.getLbl_Total().setText(citaCargada.getPrecioLocal().toString());
 			cc.getLbl_TotalUSD().setText(citaCargada.getPrecioDolar().toString());
 
