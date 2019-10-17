@@ -21,6 +21,14 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	
 	private static final String delete = "UPDATE  Caja SET EstadoCliente=? WHERE idCaja= ?";
 
+	private static final String insertIngresoServicio = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja,"
+			+ " TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional)" 
+			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	private static final String insertIngresoServicioSinPromocion = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja,"
+			+ " TipoDeCambio, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional)" 
+			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
 	//	private static final String readallIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso";
 //	private static final String readallEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso";
 //	private static final String readDayIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso AND Fecha=?";
@@ -38,7 +46,6 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 			PreparedStatement statement;
 			Connection conexion = Conexion.getConexion().getSQLConexion();
 			boolean isInsertExitoso = false;
-//			if(esMovimientoValido(movimiento)) {
 			try
 			{
 				statement = conexion.prepareStatement(insertEgreso);
@@ -67,13 +74,6 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 			}
 			return isInsertExitoso;
 		  }
-//		}
-
-	@Override
-	public boolean update(MovimientoCajaDTO movimiento_a_actualizar) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public boolean delete(MovimientoCajaDTO movimiento_a_eliminar) {
@@ -107,5 +107,45 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 		}
 		return isDeleteExitoso;
 	}
+	
+	@Override
+	public boolean insertIngresoServicio(MovimientoCajaDTO movimiento) {
+		
+			PreparedStatement statement;
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+			boolean isInsertExitoso = false;
+			try
+			{
+				//la fecha se autogenera pero si la necesito en el DTO
+				statement = conexion.prepareStatement(insertIngresoServicioSinPromocion);
+				statement.setInt(1, movimiento.getIdCaja());
+				statement.setInt (2, movimiento.getIdSucursal());
+				statement.setInt(3, movimiento.getCategoria());
+				statement.setString(4, movimiento.getTipoCambio());
+//				statement.setInt(5, movimiento.getIdPromocion()); //???????
+				statement.setBigDecimal(5, movimiento.getPrecioLocal());
+				statement.setBigDecimal(6, movimiento.getPrecioDolar());
+				statement.setInt(7, movimiento.getIdCita());
+				statement.setInt(8, movimiento.getIdCliente());
+				statement.setInt(9, movimiento.getIdProfesional());
+
+
+				if(statement.executeUpdate() > 0)
+				{
+					conexion.commit();
+					isInsertExitoso = true;
+				}
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+				try {
+					conexion.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			return isInsertExitoso;
+		  }
 
 }

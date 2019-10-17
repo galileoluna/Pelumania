@@ -85,8 +85,14 @@ public class ControladorCaja implements ActionListener {
 		//hay que limpiar la descripcion y demas para que no se guarde
 		JComboBox<String> comboCategoria = this.ventanaCaja.getComboCategoria();
 		comboCategoria.removeAllItems();
-		comboCategoria.addItem("Servicio");
-		comboCategoria.addItem("Producto");
+		
+		//agregamos solo las categorias de ingresos
+		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
+			if(esCategoriaActiva(categoria.getEstado()) && categoria.esIngreso()) {
+				
+				comboCategoria.addItem(categoria.getNombre());
+			}
+		}
 		
 		llenarComboTipoCambioServicio();
 		this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
@@ -142,8 +148,10 @@ public class ControladorCaja implements ActionListener {
 		comboCategorias.removeAllItems();
 		
 		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
-			if(esCategoriaActiva(categoria.getEstado()))
-			comboCategorias.addItem(categoria.getNombre());
+			//pongo solo las que son egreso
+			if(esCategoriaActiva(categoria.getEstado()) && !categoria.esIngreso()) {
+				comboCategorias.addItem(categoria.getNombre());
+			}
 		}
 		
 	}
@@ -155,7 +163,6 @@ public class ControladorCaja implements ActionListener {
 	private void agregarMovimiento(ActionEvent l) {
 		
 		int idSucursal = 1; //de donde sacamos esto?
-		String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
 		Instant fecha = Instant.now();
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
 		String tipoMovimiento = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
@@ -163,6 +170,9 @@ public class ControladorCaja implements ActionListener {
 		String precioPesos = this.ventanaCaja.getTxtPrecioPesos().getText();
 		String precioDolar = this.ventanaCaja.getTxtPrecioDolar().getText();
 
+		String strCategoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
+		int idCategoria = this.sistema.getIdCategoriaMovimientoCajaByName(strCategoria).getIdCategoria();
+		
 		//valido los campos en comun entre ingreso y egreso
 		if ( Validador.esTipoMovimientoValido(tipoMovimiento) && 
 				Validador.esPrecioValido(precioPesos) &&
@@ -170,30 +180,48 @@ public class ControladorCaja implements ActionListener {
 				Validador.esTipoCambioValido(tipoCambio) &&
 				Validador.esDescripcionValida(descripcion)) {
 				
-				if (esIngreso()) {
-				
-//					if(esServicio()) {
-//						
-//						MovimientoCajaDTO ingresoCita = new MovimientoCajaDTO(0, idSucursal, categoria, 
-//																			
-//																			fecha, tipoMovimiento, tipoCambio,
-//																//promocion null
-//																			null, precioPesos, precioDolar, 
-//																			
-//																			idProfesional, idCita, idCliente)
+				if (esServicio()) {
+					//tomamos datos de la cita seleccionada
+					//tomamos datos de los servicios asociados a esa cita
+					//por cada servicio sera una transaccion de "caja" porque hay que marcar lo que hizo cada profesional
+					 boolean exito = true; 
+
+					 //SE ESTA GUARDANDO EL PRECIO DE LA CITA EN VEZ DEL SERVICIO
+					 //HAY QUE AGREGAR EN LA TABLA "CITA" UN IDSERVICIO 
+					 
+					for (ServicioTurnoDTO servicio : serviciosCita) {
+						MovimientoCajaDTO ingresoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
+																								//por ahora promos en null
+																				fecha, tipoCambio, -1, new BigDecimal(precioPesos), 
+																				
+																				new BigDecimal(precioDolar), 1, citaSeleccionada.getIdCita(),
+																				
+																				citaSeleccionada.getIdCliente());
+						
+					 exito = this.sistema.insertarIngresoServicio(ingresoServicio) && exito;
+					
+					} 
+					
+//					exito ? this.ventanaCaja.mostrarExito() ?  this.ventanaCaja.mostrarErrorBDD();
+					
+//				}
+					
+					
+					 
+					
+							
 //					}
 					//es un producto
 //					else {
 						
 //					}
 
-				
-				
+				} else if (esProducto()) {
+					//do something 
 				
 				} else {
-						//constructor de egreso
-						int idCategoria = this.sistema.getIdCategoriaMovimientoCajaByName(categoria).getIdCategoria();
-					
+						//CONSTRUCTOR PARA EGRESOS
+																			//revisar sucursal en un egreso
 						MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha,
 																			idCategoria, tipoCambio, new BigDecimal(precioPesos),
 																			new BigDecimal(precioDolar), descripcion);
@@ -205,35 +233,17 @@ public class ControladorCaja implements ActionListener {
 							//rompio la bdd
 							this.ventanaCaja.mostrarErrorBDD();
 						}
-							
 				}
 								
 			} else {
 			//hubo un error en los inputs
+			//no paso los validadores
 			this.ventanaCaja.mostrarErrorCampos();
 		}
 		
 		this.ventanaCaja.limpiarCampos();
 	}
 
-	private boolean esIngreso() {
-		String tipoMov = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
-		return tipoMov.equalsIgnoreCase("ingreso");
-	}
-	
-	private boolean esServicio() {
-		if (this.ventanaCaja.getComboCategoria().getItemCount() > 0) {
-			String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
-			return categoria.equalsIgnoreCase("servicio");
-		} else
-			return false;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 	public CitaDTO getCitaSeleccionada() {
 		return this.citaSeleccionada;
 	}
@@ -265,5 +275,28 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getTxtPrecioPesos().setText(null);
 		this.ventanaCaja.getTxtPrecioDolar().setEditable(true); //seteamos como no editable el precio
 		this.ventanaCaja.getTxtPrecioDolar().setText(null);
+	}
+	private boolean esProducto() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	private boolean esIngreso() {
+		String tipoMov = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
+		return tipoMov.equalsIgnoreCase("ingreso");
+	}
+	
+	private boolean esServicio() {
+		if (this.ventanaCaja.getComboCategoria().getItemCount() > 0) {
+			String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
+			return categoria.equalsIgnoreCase("servicio");
+		} else
+			return false;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

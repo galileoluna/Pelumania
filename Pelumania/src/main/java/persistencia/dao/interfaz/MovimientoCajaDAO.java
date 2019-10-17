@@ -3,18 +3,17 @@ package persistencia.dao.interfaz;
 import java.util.List;
 
 import dto.MovimientoCajaDTO;
-import dto.SucursalDTO;
 
 public interface MovimientoCajaDAO {
 
-	public boolean insertEgreso(MovimientoCajaDTO sucursal);
+	public boolean insertEgreso(MovimientoCajaDTO movimiento_a_insertar);
 
-	public boolean update(MovimientoCajaDTO sucursal_a_actualizar);
-	
-	public boolean delete(MovimientoCajaDTO sucursal_a_eliminar);
+	public boolean delete(MovimientoCajaDTO movimiento_a_eliminar);
 	
 	public List<MovimientoCajaDTO> readAll();
 	
-	public boolean deleteReal(MovimientoCajaDTO promocion_a_eliminar);
+	public boolean deleteReal(MovimientoCajaDTO movimiento_a_eliminar);
+
+	public boolean insertIngresoServicio(MovimientoCajaDTO movimiento);
 
 }

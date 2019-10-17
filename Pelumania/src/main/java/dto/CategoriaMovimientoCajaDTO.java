@@ -44,4 +44,8 @@ public class CategoriaMovimientoCajaDTO {
 		this.tipoMovimiento = tipoMovimiento;
 	}
 
+	public boolean esIngreso() {
+		return this.tipoMovimiento.equalsIgnoreCase("ingreso");
+	}
+
 }

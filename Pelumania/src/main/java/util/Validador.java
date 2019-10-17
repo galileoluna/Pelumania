@@ -113,7 +113,7 @@ public class Validador {
 		}
 
 		public static boolean esTipoCambioValido(String tipoCambio) {
-			return tipoCambio.equalsIgnoreCase("efectivo");
+			return tipoCambio.equalsIgnoreCase("efectivo") || tipoCambio.equalsIgnoreCase("puntos") || tipoCambio.equalsIgnoreCase("fiado");
 		}
 		
 		@SuppressWarnings("static-access")
