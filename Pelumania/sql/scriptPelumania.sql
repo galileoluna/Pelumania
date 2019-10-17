@@ -147,6 +147,8 @@ CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
 	`idCategoriaCaja` INT(11) NOT NULL AUTO_INCREMENT,
 	`Nombre` VARCHAR(55) NOT NULL,
     `Estado` VARCHAR(55) NOT NULL,
+	`TipoMovimiento` VARCHAR(55) NOT NULL,
+
     
     PRIMARY KEY(`idCategoriaCaja`)
 );
@@ -158,7 +160,6 @@ CREATE TABLE IF NOT EXISTS `Caja`(
   `idCategoriaCaja` INT(11) NOT NULL,
   `Fecha`  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `Descripcion` VARCHAR(80) NULL,  
-  `TipoMovimiento` VARCHAR(55) NOT NULL,    
   `TipoDeCambio` VARCHAR(55) NOT NULL,
   `idPromocion` INT(11)  NULL,
   `PrecioLocal` decimal(13,2) NOT NULL,

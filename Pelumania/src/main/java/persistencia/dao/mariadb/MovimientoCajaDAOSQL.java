@@ -12,20 +12,21 @@ import persistencia.dao.interfaz.MovimientoCajaDAO;
 public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	
 	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion, "
-			+ "TipoMovimiento, TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static final String insertEgreso = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion, "
-			+ "TipoMovimiento, TipoDeCambio, PrecioLocal, PrecioDolar) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insertEgreso = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion,"
+			+ " TipoDeCambio, PrecioLocal, PrecioDolar) "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String delete = "UPDATE  Caja SET EstadoCliente=? WHERE idCaja= ?";
-	private static final String readallIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso";
-	private static final String readallEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso";
-	private static final String readDayIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso AND Fecha=?";
-	private static final String readDayEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso AND Fecha=?";
 
+	//	private static final String readallIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso";
+//	private static final String readallEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso";
+//	private static final String readDayIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso AND Fecha=?";
+//	private static final String readDayEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso AND Fecha=?";
 //	private static final String update = "UPDATE  Ingreso SET Nombre=? , Apellido=? , Telefono=? , Mail=? , Puntos=? , EstadoCliente=?, Deuda=? WHERE idCliente=?";
+	
 	private static final String deleteReal = "DELETE FROM Ingreso WHERE idIngreso = ?";
 
 	//no damos la opcion de "dar de baja" un ingreso ya que 
@@ -45,10 +46,9 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 				statement.setInt (2, movimiento.getIdSucursal());
 				statement.setInt(3, movimiento.getCategoria());
 				statement.setString(4, movimiento.getDescripcion());
-				statement.setString(5, movimiento.getTipoMovimiento().toLowerCase());
-				statement.setString(6, movimiento.getTipoCambio());
-				statement.setBigDecimal(7, movimiento.getPrecioLocal());
-				statement.setBigDecimal(8, movimiento.getPrecioDolar());
+				statement.setString(5, movimiento.getTipoCambio());
+				statement.setBigDecimal(6, movimiento.getPrecioLocal());
+				statement.setBigDecimal(7, movimiento.getPrecioDolar());
 
 				if(statement.executeUpdate() > 0)
 				{

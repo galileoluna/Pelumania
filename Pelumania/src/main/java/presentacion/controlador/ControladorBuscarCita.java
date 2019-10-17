@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.table.TableModel;
-
 import dto.CitaDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaBuscarCita;

@@ -51,6 +51,8 @@ public class ControladorCaja implements ActionListener {
 		if (!esServicio()) {
 			tipoPagoSoloEfectivo();
 			enablePrecio();
+			limpiarCita();
+			this.ventanaCaja.getPanelIngresoServicio().setVisible(false);
 		} else {
 			llenarComboTipoCambioServicio();
 			disablePrecio();
@@ -93,11 +95,13 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void llenarComboTipoCambioServicio() {
+		this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
+		
+		
 		JComboBox<String> comboTipoCambio = this.ventanaCaja.getComboTipoCambio();
 		comboTipoCambio.removeAllItems();
 		comboTipoCambio.setEnabled(true);
 		comboTipoCambio.addItem("Efectivo");
-		
 		comboTipoCambio.addItem("Puntos");
 		//validar que el cliente no sea moroso
 		comboTipoCambio.addItem("Fiado");
@@ -107,15 +111,19 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getPanelEgreso().setVisible(true);
 		//ocultamos lo de ingreso
 		this.ventanaCaja.getPanelIngresoServicio().setVisible(false);
+		limpiarCita();
+		
+		agregarCategoriasEgreso();
+		tipoPagoSoloEfectivo();
+		enablePrecio();
+	}
+
+	private void limpiarCita() {
 		this.ventanaCaja.getTxtIdCita().setText(null);
 		
 		//borramos si habia alguna cita seleccionada junto a sus servicios
 		this.citaSeleccionada = null;
 		this.serviciosCita = null;
-		
-		agregarCategoriasEgreso();
-		tipoPagoSoloEfectivo();
-		enablePrecio();
 	}
 
 	private void tipoPagoSoloEfectivo() {
@@ -186,16 +194,21 @@ public class ControladorCaja implements ActionListener {
 						//constructor de egreso
 						int idCategoria = this.sistema.getIdCategoriaMovimientoCajaByName(categoria).getIdCategoria();
 					
-						MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha, tipoMovimiento, 
+						MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha,
 																			idCategoria, tipoCambio, new BigDecimal(precioPesos),
 																			new BigDecimal(precioDolar), descripcion);
 						
-						this.sistema.insertarEgreso(egreso);
-						this.ventanaCaja.mostrarExito();
-					}
+						if (this.sistema.insertarEgreso(egreso)) {
+							//se guardo piola
+							this.ventanaCaja.mostrarExito();
+						} else {
+							//rompio la bdd
+							this.ventanaCaja.mostrarErrorBDD();
+						}
+							
+				}
 								
-			}
-		else {
+			} else {
 			//hubo un error en los inputs
 			this.ventanaCaja.mostrarErrorCampos();
 		}

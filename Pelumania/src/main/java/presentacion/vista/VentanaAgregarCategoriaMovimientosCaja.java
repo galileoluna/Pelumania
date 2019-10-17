@@ -85,15 +85,19 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 		panel.add(lblEstado);
 		
 		btnEditarCategoria = new JButton("Editar");
-		btnEditarCategoria.setBounds(109, 317, 89, 23);
+		btnEditarCategoria.setBounds(10, 317, 124, 23);
 		panel.add(btnEditarCategoria);
 
 		btnAgregarCategoria = new JButton("Agregar");
-		btnAgregarCategoria.setBounds(10, 317, 89, 23);
+		btnAgregarCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAgregarCategoria.setBounds(10, 317, 124, 23);
 		panel.add(btnAgregarCategoria);
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(210, 317, 89, 23);
+		btnCancelar.setBounds(175, 317, 124, 23);
 		panel.add(btnCancelar);
 		
 		comboEstado = new JComboBox<String>();
@@ -101,7 +105,7 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 		panel.add(comboEstado);
 		
 		comboTipoMovimiento = new JComboBox<String>();
-		comboTipoMovimiento.setBounds(132, 189, 167, 20);
+		comboTipoMovimiento.setBounds(132, 189, 167, 23);
 		panel.add(comboTipoMovimiento);
 		
 		 

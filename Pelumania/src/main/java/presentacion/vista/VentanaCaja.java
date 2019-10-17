@@ -275,4 +275,10 @@ public class VentanaCaja extends JFrame
 	public JPanel getPanelIngresoServicio() {
 		return panelIngresoServicio;
 	}
+
+	public void mostrarErrorBDD() {
+		JOptionPane.showMessageDialog(new JFrame(), "Ocurrió un error al intentar registar la operación", "Dialog",
+				JOptionPane.ERROR_MESSAGE);	
+		
+	}
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -143,7 +144,7 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 		this.getModelCategoria().setRowCount(0); //Para vaciar la tabla
 		this.getModelCategoria().setColumnCount(0);
 		this.getModelCategoria().setColumnIdentifiers(this.getNombreColumnas());
-
+ 
 		for (CategoriaMovimientoCajaDTO cat : CategoriaEnTabla)
 		{
 			String nombre= cat.getNombre();
@@ -160,6 +161,12 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 
 	public void cerrar() {
 		this.dispose();
+	}
+
+	public void mostrarErrorSinSeleccionar() {
+		JOptionPane.showMessageDialog(new JFrame(), "Debe seleccionar alguna categoría", "Dialog",
+				JOptionPane.ERROR_MESSAGE);
+		
 	}
 
 

@@ -20,7 +20,6 @@ public class MovimientoCajaDTO {
 	private int idCategoria;
 	private Instant fecha;
 	private String descripcion;
-	private String tipoMovimiento;
 	private String tipoCambio;
 	private int idPromocion;
 	private BigDecimal precioLocal;
@@ -31,14 +30,13 @@ public class MovimientoCajaDTO {
 	
 	
 	//constructor para un egreso
-	public MovimientoCajaDTO(int idCaja, int idSucursal,Instant fecha, String tipoMovimiento, int idCategoria,
+	public MovimientoCajaDTO(int idCaja, int idSucursal,Instant fecha, int idCategoria,
 			String tipoCambio, BigDecimal precioLocal, BigDecimal precioDolar, String descripcion) {
 		
 		this.idCaja = idCaja;
 		this.idSucursal = idSucursal; //por ahora ira hardcodeado hasta saber de donde sacar el dato
 		this.idCategoria = idCategoria;
 		this.fecha = fecha;
-		this.tipoMovimiento = tipoMovimiento;
 		this.tipoCambio = tipoCambio;
 		this.precioLocal = precioLocal;
 		this.precioDolar = precioDolar;
@@ -47,15 +45,15 @@ public class MovimientoCajaDTO {
 
 //constructor para un ingreso
 	
-	public MovimientoCajaDTO(int idCaja, int idSucursal, int categoria, Instant fecha, String tipoMovimiento,
-			String tipoCambio, int idPromocion, BigDecimal precioLocal, BigDecimal precioDolar, int idProfesional,
-			int idCita, int idCliente) {
+	public MovimientoCajaDTO(int idCaja, int idSucursal, int categoria, Instant fecha,String tipoCambio, 
+								int idPromocion, BigDecimal precioLocal, BigDecimal precioDolar, 
+								int idProfesional, int idCita, int idCliente) {
+		
 		super();
 		this.idCaja = idCaja;
 		this.idSucursal = idSucursal;
 		this.idCategoria = categoria;
 		this.fecha = fecha;
-		this.tipoMovimiento = tipoMovimiento;
 		this.tipoCambio = tipoCambio;
 		this.idPromocion = idPromocion;
 		this.precioLocal = precioLocal;
@@ -97,14 +95,6 @@ public class MovimientoCajaDTO {
 
 	public void setFecha(Instant fecha) {
 		this.fecha = fecha;
-	}
-
-	public String getTipoMovimiento() {
-		return tipoMovimiento;
-	}
-
-	public void setTipoMovimiento(String tipoMovimiento) {
-		this.tipoMovimiento = tipoMovimiento;
 	}
 
 	public String getTipoCambio() {

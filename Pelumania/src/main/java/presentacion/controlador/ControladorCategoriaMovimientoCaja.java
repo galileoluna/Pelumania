@@ -44,15 +44,18 @@ public class ControladorCategoriaMovimientoCaja {
 	
 	private void editarCategoria(ActionEvent c) {
 		categoriaEnTabla = sistema.obtenerCategoriasMovimientoCaja();
-		int filasSeleccionada = ventanaCategoria.getTablaCategoria().getSelectedRow();
+		int filaSeleccionada = ventanaCategoria.getTablaCategoria().getSelectedRow();
 	       
-    		if(categoriaEnTabla.get(filasSeleccionada)!=null) {	 
-        		int idCategoria = categoriaEnTabla.get(filasSeleccionada).getIdCategoria();
+    		if(filaSeleccionada >0 ) {	 
+        		int idCategoria = categoriaEnTabla.get(filaSeleccionada).getIdCategoria();
         		CategoriaMovimientoCajaDTO categoria_a_editar = sistema.getCategoriaMovimientoCajaById(idCategoria);
         		//uso la misma ventana para editar y agregar
         		this.controladorAgregarCategoriaMovimientoCaja = ControladorAgregarCategoriaMovimientoCaja.getInstance(sistema,idCategoria);
         		//seteo los input
         		this.controladorAgregarCategoriaMovimientoCaja.llenarInputsEditar(categoria_a_editar);
+        	} else {
+        		//no eligio nada
+        		this.ventanaCategoria.mostrarErrorSinSeleccionar();
         	}
 	}
 
@@ -60,7 +63,7 @@ public class ControladorCategoriaMovimientoCaja {
 		categoriaEnTabla = sistema.obtenerCategoriasMovimientoCaja();
 		int filaSeleccionada = ventanaCategoria.getTablaCategoria().getSelectedRow();
 	       
-        	if(categoriaEnTabla.get(filaSeleccionada)!=null) {
+        	if(filaSeleccionada >0) {
         		if (categoriaEnTabla.get(filaSeleccionada).getEstado().equalsIgnoreCase(("Inactivo"))) {
         			JOptionPane.showMessageDialog(null, "No se puede eliminar algo ya eliminado!");
         		}
@@ -73,8 +76,11 @@ public class ControladorCategoriaMovimientoCaja {
 	        			sistema.deleteCategoriaMovimientoCaja(categoria_a_eliminar);
 	        			ControladorCategoriaMovimientoCaja.getInstance(sistema);
 	        			
-	        		}
-        	}
+	        			}
+        			}
+    	} else {
+    		//no eligio nada
+    		this.ventanaCategoria.mostrarErrorSinSeleccionar();
     	}
 	}
 	
