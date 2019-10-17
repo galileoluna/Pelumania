@@ -32,6 +32,7 @@ public class Controlador implements ActionListener {
 
 	private ControladorProfesional controladorProfesional;
 	private ControladorAgregarCita controladoragregarcita;
+	private ControladorEditarCita controladoreditarcita;
 	private ControladorPromocion controladorPromocion;
 	private ControladorSucursal controladorSucursal;
 	private ControladorPromocionesVigentes controladorPromoVigente;
@@ -57,7 +58,12 @@ public class Controlador implements ActionListener {
 		this.vista.getCalendario().addPropertyChangeListener(a -> actualizarCitasDelDia(a));
 		
 		this.vista.getBtnAgregarCita().addActionListener(d -> ventanaAgregarCita(d));
+		this.vista.getBtnEditarCita().addActionListener(f -> ventanaEditarCita(f));
 		this.vista.getBtnCancelarCita().addActionListener(e -> cancelarCita(e));
+	}
+
+	private void ventanaEditarCita(ActionEvent f) {
+		this.controladoreditarcita = ControladorEditarCita.getInstance(sistema);
 	}
 
 	private void ventanCategoriaMovimientoCaja(ActionEvent a) {

@@ -23,6 +23,7 @@ public class ControladorAgregarServicio implements ActionListener {
 	private ControladorAgregarServicio(Sistema sistema) {
 		this.ventanaAgregarServicio = VentanaAgregarServicio.getInstance();
 		this.ventanaAgregarServicio.getBtnAgregarServicio().addActionListener(p -> guardarServicio(p));
+		this.ventanaAgregarServicio.getBtn_Cancelar().addActionListener(q -> cancelar(q));
 		this.sistema = sistema;
 	}
 
@@ -72,6 +73,10 @@ public class ControladorAgregarServicio implements ActionListener {
 
 			this.ventanaAgregarServicio.mostrarErrorCampos();
 		}
+	}
+	
+	public void cancelar(ActionEvent q) {
+		this.ventanaAgregarServicio.dispose();
 	}
 
 	@Override

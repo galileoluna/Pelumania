@@ -50,6 +50,7 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getBtnBuscarCliente().addActionListener(r -> buscarCliente(r));
 		this.ventanaAgregarCita.getJCBoxProfesional().addActionListener(p -> seleccionarProfesional(p));
 		
+		this.ventanaAgregarCita.getBtn_Cancelar().addActionListener(q -> cancelar(q));
 		this.ventanaAgregarCita.getBtnAgregarServicio().addActionListener(w -> agregarServicio(w));
 		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicioAgregado(x));
 		//Instancio la lista de servicios vacía
@@ -210,6 +211,7 @@ public class ControladorAgregarCita implements ActionListener{
         	}
   	}
 	}
+	
 	public void borrarServicioAgregado(ActionEvent x) {
 		int[] filasSeleccionadas = ventanaAgregarCita.getTablaServiciosAgregados().getSelectedRows();
 	       
@@ -256,7 +258,10 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.cargarServicios(serviciosDelProfesional);
 		}
 	}
-	
+
+	public void cancelar(ActionEvent q) {
+		this.ventanaAgregarCita.dispose();
+	}
 	//Chequea si el servicio a agregar a la cita ya esta agregado o no.
 	public boolean existeServicio(ServicioDTO servicio_a_chequear) {
 		for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
