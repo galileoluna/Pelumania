@@ -28,15 +28,13 @@ public class VentanaCaja extends JFrame
 	private JComboBox<String> comboTipoMovimiento;
 	private JLabel lblTipoMovimiento;
 	private JComboBox<String> comboCategoria;
-	private JPanel panel_egreso;
-	private JLabel lbl_profesional;
-	private JComboBox<String> comboProfesional;
+	private JPanel panelEgreso;
 	private JButton btnAgregar;
 	private JLabel lblPrecioEgreso;
 	private JTextField txtPrecioPesos;
 	private JLabel lblCita;
 	private JButton buttonBuscarCita;
-	private JComboBox comboTipoPago;
+	private JComboBox<String> comboTipoPago;
 	private JTextArea txtDescripcion;
 	private JTextField txtPrecioDolar;
 	private JButton btnCancelar;
@@ -108,6 +106,25 @@ public class VentanaCaja extends JFrame
 		lblImagen.setIcon(imageIcon);
 		panel.add(lblImagen);
 		
+		panelEgreso = new JPanel();
+		panelEgreso.setBounds(0, 264, 354, 91);
+		panel.add(panelEgreso);
+		panelEgreso.setLayout(null);
+		//ocultamos por defecto los campos que son
+		//especicos de un egreso
+		panelEgreso.setVisible(false);
+		
+		JLabel lblDescripcion = new JLabel("Descripción");
+		lblDescripcion.setBounds(10, 24, 87, 16);
+		panelEgreso.add(lblDescripcion);
+		
+		txtDescripcion = new JTextArea();
+		txtDescripcion.setToolTipText("De ser necesario, ingrese una descripción");
+		txtDescripcion.setLineWrap(true);
+		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		txtDescripcion.setBounds(183, 20, 171, 67);
+		panelEgreso.add(txtDescripcion);
+		
 		panelIngresoServicio = new JPanel();
 		panelIngresoServicio.setBounds(10, 289, 377, 71);
 		panel.add(panelIngresoServicio);
@@ -128,25 +145,6 @@ public class VentanaCaja extends JFrame
 		buttonBuscarCita = new JButton("Buscar");
 		buttonBuscarCita.setBounds(170, 37, 171, 23);
 		panelIngresoServicio.add(buttonBuscarCita);
-		
-		panel_egreso = new JPanel();
-		panel_egreso.setBounds(10, 269, 345, 91);
-		panel.add(panel_egreso);
-		panel_egreso.setLayout(null);
-		//ocultamos por defecto los campos que son
-		//especicos de un egreso
-		panel_egreso.setVisible(false);
-		
-		JLabel lblDescripcion = new JLabel("Descripción");
-		lblDescripcion.setBounds(10, 24, 87, 16);
-		panel_egreso.add(lblDescripcion);
-		
-		txtDescripcion = new JTextArea();
-		txtDescripcion.setToolTipText("De ser necesario, ingrese una descripción");
-		txtDescripcion.setLineWrap(true);
-		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		txtDescripcion.setBounds(171, 20, 182, 67);
-		panel_egreso.add(txtDescripcion);
 		
 		lblPrecioEgreso = new JLabel("Monto en ARS");
 		lblPrecioEgreso.setBounds(11, 378, 124, 26);
@@ -215,8 +213,8 @@ public class VentanaCaja extends JFrame
 		return comboTipoMovimiento;
 	}
 	
-	public JPanel getPanel_egreso() {
-		return panel_egreso;
+	public JPanel getPanelEgreso() {
+		return panelEgreso;
 	}
 
 	public JButton getBtnAgregar() {
@@ -272,5 +270,9 @@ public class VentanaCaja extends JFrame
 
 	public JTextField getTxtIdCita() {
 		return txtIdCita;
+	}
+
+	public JPanel getPanelIngresoServicio() {
+		return panelIngresoServicio;
 	}
 }
