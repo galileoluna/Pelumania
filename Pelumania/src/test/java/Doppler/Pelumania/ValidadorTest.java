@@ -614,95 +614,203 @@ class ValidadorTest {
 	void esEstadoSucursalValidoCorrectoActivo() {
 		String estado="activo";
 		
-		assertTrue(validador.esPrecioValido(estado));
+		assertTrue(validador.esEstadoSucursalValido(estado));
 	}
 	
 	@Test
 	void esEstadoSucursalValidoCorrectoInactivo() {
 		String estado="inactivo";
 		
-		assertTrue(validador.esPrecioValido(estado));
+		assertTrue(validador.esEstadoSucursalValido(estado));
 	}
 	
 	@Test
 	void esEstadoSucursalValidoIncorrectoVacio() {
 		String estado="";
 		
-		assertFalse(validador.esPrecioValido(estado));
+		assertFalse(validador.esEstadoSucursalValido(estado));
+	}
+	
+	@Test
+	void esEstadoSucursalValidoIncorrectoConEspacioVacio() {
+		String estado=" ";
+		
+		assertFalse(validador.esEstadoSucursalValido(estado));
 	}
 	
 	@Test
 	void esEstadoSucursalValidoIncorrectoConError() {
 		String estado="activo,";
 		
-		assertFalse(validador.esPrecioValido(estado));
+		assertFalse(validador.esEstadoSucursalValido(estado));
 	}
 	
 	@Test
 	void esEstadoSucursalValidoIncorrectoConEspacio() {
 		String estado="activo ";
 		
-		assertFalse(validador.esPrecioValido(estado));
+		assertFalse(validador.esEstadoSucursalValido(estado));
 	}
 	
 	@Test
 	void esEstadoSucursalValidoIncompleto() {
 		String estado="acti";
 		
-		assertFalse(validador.esPrecioValido(estado));
+		assertFalse(validador.esEstadoSucursalValido(estado));
 	}
 	
 	@Test
 	void esDescripcionValidaCorrecto() {
 		String descripcion="hola lalla";
 		
-		assertTrue(validador.esPrecioValido(descripcion));
+		assertTrue(validador.esDescripcionValida(descripcion));
 	}
 	
 	@Test
 	void esDescripcionValidaConNumeros() {
 		String descripcion="hola lalla2353";
 		
-		assertTrue(validador.esPrecioValido(descripcion));
+		assertTrue(validador.esDescripcionValida(descripcion));
 	}
 	
 	@Test
 	void esDescripcionValidaVacio() {
 		String descripcion="";
 		
-		assertTrue(validador.esPrecioValido(descripcion));
+		assertTrue(validador.esDescripcionValida(descripcion));
 	}
 	
 	@Test
 	void esDescripcionValidaVacioConEspacio() {
 		String descripcion=" ";
 		
-		assertTrue(validador.esPrecioValido(descripcion));
+		assertTrue(validador.esDescripcionValida(descripcion));
 	}
 	
 	@Test
 	void esDescripcionValidaCon79Palabras() {
 		String descripcion="hola lalladfjnfjnfjnjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
 		
-		assertTrue(validador.esPrecioValido(descripcion));
+		assertTrue(validador.esDescripcionValida(descripcion));
 	}
 	
 	@Test
 	void esDescripcionValidaCon80Palabras() {
 		String descripcion="hola lalladfjnfjnfjnfjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
 		
-		assertTrue(validador.esPrecioValido(descripcion));
+		assertTrue(validador.esDescripcionValida(descripcion));
 	}
 	
 	@Test
 	void esDescripcionValidaCon81Palabras() {
 		String descripcion="hola lalladfjnfjnffgjnjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
 		
+		assertFalse(validador.esDescripcionValida(descripcion));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoCon81Palabras() {
+		String descripcion="hola lalladfjnfjnffgjnjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
+		
 		assertFalse(validador.esPrecioValido(descripcion));
 	}
-	/*
-	esTipoCambioValido
-	*/
-
 	
+	@Test
+	void esNumeroSucursalValidoCorrectoEntero() {
+		String sucursal="10";
+		
+		assertTrue(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoCorrectoDecimal() {
+		String sucursal="10.1";
+		
+		assertTrue(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoCorrecto2DigitosDecimal() {
+		String sucursal="10.15";
+		
+		assertTrue(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoCorrectoConComa() {
+		String sucursal="10,15";
+		
+		assertFalse(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoCorrecto6Digitos() {
+		String sucursal="101554,15";
+		
+		assertFalse(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoCorrecto9Digitos() {
+		String sucursal="101554123,15";
+		
+		assertFalse(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoIncorrecto10Digitos() {
+		String sucursal="1015541234,15";
+		
+		assertFalse(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoIncorrectoVacio() {
+		String sucursal="";
+		
+		assertFalse(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	@Test
+	void esNumeroSucursalValidoIncorrectoDobleComa() {
+		String sucursal="12,12,2";
+		
+		assertFalse(validador.esNumeroSucursalValido(sucursal));
+	}
+	
+	
+	@Test
+	void esTipoCambioValidoCorrecto() {
+		String cambio="efectivo";
+		
+		assertTrue(validador.esTipoCambioValido(cambio));
+	}
+	
+	@Test
+	void esTipoCambioValidoIncorrecto() {
+		String cambio="puntos";
+		
+		assertFalse(validador.esTipoCambioValido(cambio));
+	}
+	
+	@Test
+	void esTipoCambioValidoVacio() {
+		String cambio="";
+		
+		assertFalse(validador.esTipoCambioValido(cambio));
+	}
+	
+	@Test
+	void esTipoCambioValidoVacioEspacio() {
+		String cambio="v";
+		
+		assertFalse(validador.esTipoCambioValido(cambio));
+	}
+	
+	@Test
+	void esTipoCambioValidoFiar() {
+		String cambio="fiar";
+		
+		assertFalse(validador.esTipoCambioValido(cambio));
+	}
 }
