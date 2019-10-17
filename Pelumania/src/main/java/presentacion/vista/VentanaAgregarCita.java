@@ -551,9 +551,52 @@ public class VentanaAgregarCita extends JFrame
 
 	public void cargarFecha(int anio,int mes, int dia) {
 		LocalDate fecha = LocalDate.of(anio, mes, dia);
-		String S_mes = fecha.getMonth().toString();
+		String S_mes = parseMes(mes);
 		txtFecha.setText(dia + " de "+ S_mes+" de "+anio);
 		this.setFechaCita(fecha);
+	}
+	
+	public String parseMes(int mes) {
+		String ret = "";
+		switch (mes) {
+		case 1:
+			ret = "Enero";
+			break;
+		case 2:
+			ret = "Febrero";
+			break;
+		case 3:
+			ret = "Marzo";
+			break;
+		case 4:
+			ret = "Abril";
+			break;
+		case 5:
+			ret = "Mayo";
+			break;
+		case 6:
+			ret = "Junio";
+			break;
+		case 7:
+			ret = "Julio";
+			break;
+		case 8:
+			ret = "Agosto";
+			break;
+		case 9:
+			ret = "Septiembre";
+			break;
+		case 10:
+			ret = "Octubre";
+			break;
+		case 11:
+			ret = "Noviembre";
+			break;
+		case 12:
+			ret = "Diciembre";
+			break;
+		}
+		return ret;
 	}
 	
 	public JTable getTablaServicios() {

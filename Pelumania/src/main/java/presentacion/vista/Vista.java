@@ -124,7 +124,6 @@ public class Vista {
 
 		calendario = new JCalendar();
 		calendario.setBounds(10, 33, 578, 600);
-		calendario.getYearChooser().getSpinner().setEnabled(false);
 		calendario.setTodayButtonVisible(true);
 		panel.add(calendario);
 		calendario.setVisible(true);
