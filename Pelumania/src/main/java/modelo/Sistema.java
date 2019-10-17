@@ -251,6 +251,10 @@ public class Sistema
 	{
 		return this.cita.readAll();
 	}
+//	public List<CitaDTO> obtenerCitasActivas()
+//	{
+//		return this.cita.readAll();
+//	}
 	
 	public List<CitaDTO> getCitasPorDia(String dia){
 		return this.cita.getCitasPorDia(dia);

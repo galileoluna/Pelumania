@@ -14,6 +14,7 @@ import dto.CategoriaMovimientoCajaDTO;
 import dto.ClienteDTO;
 import dto.MovimientoCajaDTO;
 import modelo.Sistema;
+import presentacion.vista.VentanaBuscarCita;
 import presentacion.vista.VentanaCaja;
 import util.Validador;
 
@@ -23,6 +24,7 @@ public class ControladorCaja implements ActionListener {
 	private Sistema sistema;
 	private List<CategoriaMovimientoCajaDTO> listaCategorias;
 	private static ControladorCaja INSTANCE;
+	private static VentanaBuscarCita ventanaBuscarCita;
 	
 	private ControladorCaja (Sistema sistema) {
 		this.ventanaCaja = VentanaCaja.getInstance();
@@ -33,8 +35,13 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getBtnAgregar().addActionListener(l -> agregarMovimiento(l));
 		this.ventanaCaja.getComboCategoria().addActionListener(l -> productoSoloEfectivo(l));
 		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
+		this.ventanaCaja.getButtonBuscarCita().addActionListener(l -> buscarCita(l));
 		
 		this.mostrarIpuntsIngreso();
+	}
+
+	private void buscarCita(ActionEvent l) {
+		ControladorBuscarCita.getInstance(this.sistema, this.ventanaCaja);
 	}
 
 	private void productoSoloEfectivo(ActionEvent l) {

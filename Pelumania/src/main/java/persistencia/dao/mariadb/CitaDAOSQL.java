@@ -220,7 +220,7 @@ public class CitaDAOSQL implements CitaDAO{
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				citas.add(getCitaDTO(resultSet));
+				citas.add(getCitaDTOMati(resultSet));
 			}
 		}
 		catch (SQLException e)

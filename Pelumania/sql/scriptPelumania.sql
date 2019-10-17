@@ -318,5 +318,17 @@ VALUES(6,"John", "White", 6, "Activo");
 INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
 VALUES(7,"Juana", "De Arco", 2, "Activo");
 
+-- insert para categoria de caja
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
+VALUES (1, "Viaticos", "Activo");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
+VALUES (2,"Insumos","Activo");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
+VALUES (3, "Sueldos", "Activo");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
+VALUES (4, "Publicidad","Activo");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
+VALUE (5, "Administrativo", "Inactivo");
+
 SELECT * FROM ServicioTurno;
 SELECT * FROM SERVICIO;

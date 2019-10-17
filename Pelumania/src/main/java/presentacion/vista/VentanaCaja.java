@@ -39,6 +39,8 @@ public class VentanaCaja extends JFrame
 	private JTextArea txtDescripcion;
 	private JTextField txtPrecioDolar;
 	private JButton btnCancelar;
+	private JPanel panelIngresoServicio;
+	private JTextField textField;
 	
 	public static VentanaCaja getInstance()
 	{
@@ -101,7 +103,7 @@ public class VentanaCaja extends JFrame
 		
 		panel_egreso = new JPanel();
 		panel_egreso.setBounds(0, 269, 397, 195);
-		panel.add(panel_egreso);
+//		panel.add(panel_egreso);
 		panel_egreso.setLayout(null);
 		//ocultamos por defecto los campos que son
 		//especicos de un egreso
@@ -137,20 +139,12 @@ public class VentanaCaja extends JFrame
 		panel_egreso.add(txtPrecioDolar);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(52, 475, 124, 26);
+		btnAgregar.setBounds(73, 475, 115, 26);
 		panel.add(btnAgregar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(218, 475, 124, 26);
 		panel.add(btnCancelar);
-		
-//		lblCita = new JLabel("Cita");
-//		lblCita.setBounds(10, 138, 99, 26);
-//		panel.add(lblCita);
-		
-//		buttonBuscarCita = new JButton("Buscar");
-//		buttonBuscarCita.setBounds(169, 140, 173, 26);
-//		panel.add(buttonBuscarCita);
 		
 //		lbl_profesional = new JLabel("Profesional");
 //		lbl_profesional.setBounds(10, 128, 124, 26);
@@ -161,18 +155,31 @@ public class VentanaCaja extends JFrame
 //		panel.add(comboProfesional);
 //		
 		
-		
-		
 		JLabel lblImagen =  new JLabel();
 		lblImagen.setBounds(10, 11, 124, 98);		
 		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/caja.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		lblImagen.setIcon(imageIcon);
 		panel.add(lblImagen);
 		
+		panelIngresoServicio = new JPanel();
+		panelIngresoServicio.setBounds(10, 289, 377, 175);
+		panel.add(panelIngresoServicio);
+		panelIngresoServicio.setLayout(null);
 		
+		lblCita = new JLabel("Cita Nro");
+		lblCita.setBounds(0, 9, 65, 14);
+		panelIngresoServicio.add(lblCita);
 		
+		buttonBuscarCita = new JButton("Buscar");
+		buttonBuscarCita.setBounds(216, 37, 79, 23);
+		panelIngresoServicio.add(buttonBuscarCita);
 		
-		
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.BOLD, 11));
+		textField.setEditable(false);
+		textField.setBounds(170, 6, 171, 20);
+		panelIngresoServicio.add(textField);
+		textField.setColumns(10);
 		
 		this.setVisible(false);
 	}
@@ -260,5 +267,9 @@ public class VentanaCaja extends JFrame
 
 	public JButton getBtnCancelar() {
 		return this.btnCancelar;
+	}
+
+	public JButton getButtonBuscarCita() {
+		return buttonBuscarCita;
 	}
 }
