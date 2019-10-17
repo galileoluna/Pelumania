@@ -2,8 +2,10 @@ package presentacion.vista;
 
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 {
@@ -29,8 +33,9 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 	private JButton btnAgregarCategoria;
 	private JButton btnCancelar;
 	private JComboBox<String> comboEstado;
-	private JTextField txtEgreso;
 	private JButton btnEditarCategoria;
+	private JComboBox<String> comboTipoMovimiento;
+	private JLabel lblImagen;
 	
 	public static VentanaAgregarCategoriaMovimientosCaja getInstance()
 	{
@@ -44,11 +49,11 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 	private VentanaAgregarCategoriaMovimientosCaja()
 	{
 		super();
-
+		
 		
 		setTitle("Nueva categoria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 346, 354);
+		setBounds(100, 100, 346, 400);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -58,51 +63,54 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 0, 309, 304);
+		panel.setBounds(10, 0, 309, 351);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		txtNombreCategoria = new JTextField();
-		txtNombreCategoria.setBounds(132, 19, 167, 26);
+		txtNombreCategoria.setBounds(132, 127, 167, 26);
 		panel.add(txtNombreCategoria);
 		txtNombreCategoria.setColumns(10);
 
 		lblNombreCategoria = new JLabel("Nombre Categoria");
-		lblNombreCategoria.setBounds(0, 19, 124, 26);
+		lblNombreCategoria.setBounds(10, 127, 124, 26);
 		panel.add(lblNombreCategoria);
 
 		lblTipoMovimiento = new JLabel("Tipo de movimiento");
-		lblTipoMovimiento.setBounds(0, 56, 124, 26);
+		lblTipoMovimiento.setBounds(10, 186, 124, 26);
 		panel.add(lblTipoMovimiento);
 
 		lblEstado = new JLabel("Estado");
-		lblEstado.setBounds(0, 93, 124, 26);
+		lblEstado.setBounds(10, 242, 124, 26);
 		panel.add(lblEstado);
-
-		btnAgregarCategoria = new JButton("Agregar");
-		btnAgregarCategoria.setBounds(66, 270, 89, 23);
-		panel.add(btnAgregarCategoria);
 		
 		btnEditarCategoria = new JButton("Editar");
-		btnEditarCategoria.setBounds(66, 270, 89, 23);
+		btnEditarCategoria.setBounds(109, 317, 89, 23);
 		panel.add(btnEditarCategoria);
 
+		btnAgregarCategoria = new JButton("Agregar");
+		btnAgregarCategoria.setBounds(10, 317, 89, 23);
+		panel.add(btnAgregarCategoria);
+
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(165, 270, 89, 23);
+		btnCancelar.setBounds(210, 317, 89, 23);
 		panel.add(btnCancelar);
 		
 		comboEstado = new JComboBox<String>();
-		comboEstado.setBounds(132, 96, 167, 23);
+		comboEstado.setBounds(132, 244, 167, 23);
 		panel.add(comboEstado);
 		
-		txtEgreso = new JTextField();
-		txtEgreso.setText("Egreso");
-		txtEgreso.setEnabled(false);
-		txtEgreso.setBounds(132, 56, 167, 26);
-		panel.add(txtEgreso);
-		txtEgreso.setColumns(10);
-
-
+		comboTipoMovimiento = new JComboBox<String>();
+		comboTipoMovimiento.setBounds(132, 189, 167, 20);
+		panel.add(comboTipoMovimiento);
+		
+		 
+		lblImagen =  new JLabel();
+		lblImagen.setBounds(10, 11, 99, 87);		
+		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/categoria.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		lblImagen.setIcon(imageIcon);
+		panel.add(lblImagen);
+		
 		this.setVisible(false);
 	}
 	public static VentanaAgregarCategoriaMovimientosCaja getINSTANCE() {
@@ -176,5 +184,18 @@ public JButton getBtnAgregarCategoria() {
 
 	public void mostrarExitoAgregar() {
 		JOptionPane.showMessageDialog(new JFrame(), "La categoria fue agregada con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);		
+	}
+
+	public JComboBox<String> getComboTipoMovimiento() {
+		return this.comboTipoMovimiento;
+	}
+
+	public void setComboTipoMovimiento(JComboBox<String> comboTipoMovimiento) {
+		this.comboTipoMovimiento = comboTipoMovimiento;
+	}
+
+	public void mostrarErrorNombre() {
+		JOptionPane.showMessageDialog(new JFrame(), "El nombre es inválido", "Dialog",
+				JOptionPane.ERROR_MESSAGE);
 	}
 }
