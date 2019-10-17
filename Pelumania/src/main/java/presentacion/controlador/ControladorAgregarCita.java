@@ -81,7 +81,6 @@ public class ControladorAgregarCita implements ActionListener{
 			INSTANCE = new ControladorAgregarCita(sistema);
 		}
 		INSTANCE.ventanaAgregarCita.limpiarCampos();
-		INSTANCE.controladorCita.serviciosTurnoAgregados.clear();
 		inicializarDatos();
 		return INSTANCE;
 	}
@@ -97,11 +96,12 @@ public class ControladorAgregarCita implements ActionListener{
 	public void guardarCita(ActionEvent p) {
 		if(!validarCliente())
 			mostrarErrorClienteInvalido();
+		else {
 		
 		if(serviciosTurnoAgregados.isEmpty())
 		{
 			JOptionPane.showMessageDialog(null, "No puedes guardar una cita sin servicios!");
-		}
+		}else {
 		
 		//Levanto los datos de la ventanaCita
 		Integer idcliente = this.ventanaAgregarCita.getIdCliente();
@@ -185,7 +185,8 @@ public class ControladorAgregarCita implements ActionListener{
 			}
 		}
 	}
-	
+		}
+	}
 	
 	public void agregarServicio(ActionEvent w) {
 		ProfesionalDTO prof = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
@@ -403,7 +404,8 @@ public class ControladorAgregarCita implements ActionListener{
 			return false;
 		}
 		if (this.ventanaAgregarCita.getTxtApellido().getText().isEmpty()) {
-			this.errorCliente = "ApellidoNulo";
+			System.out.println("llego");
+			this.errorCliente = "CampoApellidoNulo";
 			return false;
 		}
 		return true;

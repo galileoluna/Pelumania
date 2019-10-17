@@ -1,5 +1,8 @@
 package presentacion.vista;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -18,10 +21,6 @@ import javax.swing.table.DefaultTableModel;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import dto.SucursalDTO;
-
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.math.BigDecimal;
 
 public class VentanaAgregarCita extends JFrame
 {
@@ -51,6 +50,7 @@ public class VentanaAgregarCita extends JFrame
 	private JTable tablaServiciosAgregados;
 	private DefaultTableModel modelServiciosAgregados;
 	private String[] nombreColumnasAgregadas = {"Nombre","Profesional"};
+	private JScrollPane spServiciosAgregados;
 
 	private JLabel lblProfesional;
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
@@ -209,7 +209,7 @@ public class VentanaAgregarCita extends JFrame
 
 		spServicios.setViewportView(tablaServicios);
 		
-		JScrollPane spServiciosAgregados = new JScrollPane();
+		spServiciosAgregados = new JScrollPane();
 		spServiciosAgregados.setBounds(450, 271, 387, 188);
 		panel.add(spServiciosAgregados);
 
@@ -564,6 +564,14 @@ public class VentanaAgregarCita extends JFrame
 		this.tablaServicios = tablaServicios;
 	}
 
+	public JScrollPane getSpServiciosAgregados() {
+		return spServiciosAgregados;
+	}
+
+	public void setSpServiciosAgregados(JScrollPane spServiciosAgregados) {
+		this.spServiciosAgregados = spServiciosAgregados;
+	}
+
 	public void cargarServicios(List<ServicioDTO> serviciosEnTabla) {
 			this.getModelServicios().setRowCount(0); //Para vaciar la tabla
 			this.getModelServicios().setColumnCount(0);
@@ -596,8 +604,8 @@ public class VentanaAgregarCita extends JFrame
 		this.getJCBoxHora().setSelectedItem(null);
 		this.getJCBoxMinutos().setSelectedItem(null);
 		
+		this.getModelServiciosAgregados().setRowCount(0);
 		this.JCBoxProfesional.setSelectedIndex(-1);
-		
 	}
 
 	public void cerrar()
