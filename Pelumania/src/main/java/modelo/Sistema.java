@@ -347,6 +347,9 @@ public class Sistema
 	public boolean deleteCategoriaMovimientoCaja (CategoriaMovimientoCajaDTO categoria_a_eliminar) {
 		return this.categoriaMovimientoCaja.delete(categoria_a_eliminar);
 	}
+	public boolean deleteRealCategoria (CategoriaMovimientoCajaDTO categoria_a_eliminar) {
+		return this.categoriaMovimientoCaja.deleteRealCategoria(categoria_a_eliminar);
+	}
 	
 	public boolean updateCategoriaMovimientoCaja(CategoriaMovimientoCajaDTO categoria_a_editar) {
 		return this.categoriaMovimientoCaja.update(categoria_a_editar);
