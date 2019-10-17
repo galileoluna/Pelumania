@@ -1,12 +1,10 @@
 package presentacion.vista;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,14 +14,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 import com.toedter.calendar.JCalendar;
 
 import dto.CitaDTO;
-import dto.ServicioTurnoDTO;
 import persistencia.conexion.Conexion;
-import persistencia.dao.mariadb.ServicioDAOSQL;
 
 public class Vista {
 
@@ -164,12 +159,16 @@ public class Vista {
 	public void cambiarColorCita(ComponenteCita cita, String estado) {
 		Color rojo = new Color(225,64,68);
 		Color verde = new Color(129,152,48);
+		Color azul = new Color(0,85,121);
 		switch (estado) {
 		case "Activa":
 			cita.setBackground(verde);
 			break;
 		case "Cancelada":
 			cita.setBackground(rojo);
+			break;
+		case "Finalizada":
+			cita.setBackground(azul);
 			break;
 		}
 	}

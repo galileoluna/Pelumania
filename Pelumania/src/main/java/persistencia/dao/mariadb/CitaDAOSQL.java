@@ -31,7 +31,7 @@ public class CitaDAOSQL implements CitaDAO{
 
 	private static final String delete = "UPDATE  Cita SET EstadoCita =? WHERE idCita = ?";
 	private static final String deleteReal = "DELETE FROM Cita WHERE idCita = ?";
-	private static final String cancel = "UPDATE Cita SET EstadoTurno = ? WHERE idCita = ?";
+	private static final String cambioDeEstado = "UPDATE Cita SET EstadoTurno = ? WHERE idCita = ?";
 	private static final String readall = "SELECT * FROM Cita";
 	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal,c.idCita, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.HoraInicio,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
 	private static final String update = "UPDATE  Cita SET ____ WHERE idCliente=?";
@@ -39,6 +39,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String readByDia = "SELECT * FROM Cita WHERE Dia = ? ORDER BY HoraInicio";
 	private static final String DADODEBAJA = "Cerrado";
 	private static final String CANCELADA = "Cancelada";
+	private static final String FINALIZADA = "Finalizada";
 
 	@Override
 	public boolean insert(CitaDTO cita) {
@@ -150,16 +151,16 @@ public class CitaDAOSQL implements CitaDAO{
 	public boolean cancelar(CitaDTO cita_a_cancelar) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isInsertExitoso = false;
+		boolean isCancelarExitoso = false;
 		try
 		{
-			statement = conexion.prepareStatement(cancel);
+			statement = conexion.prepareStatement(cambioDeEstado);
 			statement.setString (1, CANCELADA);
 			statement.setInt	(2, cita_a_cancelar.getIdCita());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
-				isInsertExitoso = true;
+				isCancelarExitoso = true;
 			}
 		}
 		catch (SQLException e)
@@ -171,9 +172,36 @@ public class CitaDAOSQL implements CitaDAO{
 				e1.printStackTrace();
 			}
 		}
-		return isInsertExitoso;
+		return isCancelarExitoso;
 	}
 	
+	
+	public boolean finalizar(CitaDTO cita_a_finalizar) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isFinalizarExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(cambioDeEstado);
+			statement.setString (1, FINALIZADA);
+			statement.setInt	(2, cita_a_finalizar.getIdCita());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isFinalizarExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isFinalizarExitoso;
+	}
 	@Override
 	public boolean update(CitaDTO cita_a_eliminar) {
 		// TODO Auto-generated method stub

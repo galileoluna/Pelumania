@@ -232,9 +232,16 @@ public class Sistema
 		return this.cita.deleteReal(cita_a_eliminar);
 	}
 
-	public boolean cancelarCita(CitaDTO cita_a_cancelar) {
+	public boolean cancelarCita(CitaDTO cita_a_cancelar) 
+	{
 		return this.cita.cancelar(cita_a_cancelar);
 	}
+	
+	public boolean finalizarCita(CitaDTO cita_a_finalizar) 
+	{
+		return this.cita.finalizar(cita_a_finalizar);
+	}
+	
 	public void editarCita(CitaDTO cita_a_editar)
 	{
 		this.cita.update(cita_a_editar);
