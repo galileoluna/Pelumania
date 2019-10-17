@@ -102,6 +102,10 @@ public class VentanaBuscarCita extends JFrame
 		tablaCitas.getColumnModel().getColumn(4).setResizable(false);
 		tablaCitas.getColumnModel().getColumn(5).setPreferredWidth(10);
 		tablaCitas.getColumnModel().getColumn(5).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(6).setPreferredWidth(10);
+		tablaCitas.getColumnModel().getColumn(6).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(7).setPreferredWidth(10);
+		tablaCitas.getColumnModel().getColumn(7).setResizable(false);
 
 		spCitas.setViewportView(tablaCitas);
 
@@ -201,9 +205,10 @@ public class VentanaBuscarCita extends JFrame
 			String apellido = cita.getApellido();
 			String dia = cita.getFecha().toString();
 			String horaInicio = cita.getHoraInicio().toString();
+			String horaFin = cita.getHoraFin().toString();
 			BigDecimal precioPesos = cita.getPrecioLocal();
 			BigDecimal precioDolar = cita.getPrecioDolar();
-			Object[] fila = {nro, nombre, apellido, dia, horaInicio, precioPesos, precioDolar};
+			Object[] fila = {nro, nombre, apellido, dia, horaInicio, horaFin, precioPesos, precioPesos, precioDolar};
 			this.getModelCitas().addRow(fila);
 		}
 

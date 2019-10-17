@@ -50,8 +50,10 @@ public class ControladorCaja implements ActionListener {
 	private void productoSoloEfectivo(ActionEvent l) {
 		if (!esServicio()) {
 			tipoPagoSoloEfectivo();
+			enablePrecio();
 		} else {
 			llenarComboTipoCambioServicio();
+			disablePrecio();
 		}
 	}
 
@@ -85,8 +87,8 @@ public class ControladorCaja implements ActionListener {
 		comboCategoria.addItem("Producto");
 		
 		llenarComboTipoCambioServicio();
-
-		this.ventanaCaja.getPanel_egreso().setVisible(false);
+		this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
+		this.ventanaCaja.getPanelEgreso().setVisible(false);
 		
 	}
 
@@ -102,12 +104,18 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void mostrarInputsEgreso() {
-		this.ventanaCaja.getPanel_egreso().setVisible(true);
+		this.ventanaCaja.getPanelEgreso().setVisible(true);
+		//ocultamos lo de ingreso
+		this.ventanaCaja.getPanelIngresoServicio().setVisible(false);
 		this.ventanaCaja.getTxtIdCita().setText(null);
+		
+		//borramos si habia alguna cita seleccionada junto a sus servicios
 		this.citaSeleccionada = null;
 		this.serviciosCita = null;
+		
 		agregarCategoriasEgreso();
 		tipoPagoSoloEfectivo();
+		enablePrecio();
 	}
 
 	private void tipoPagoSoloEfectivo() {
@@ -147,7 +155,6 @@ public class ControladorCaja implements ActionListener {
 		String precioPesos = this.ventanaCaja.getTxtPrecioPesos().getText();
 		String precioDolar = this.ventanaCaja.getTxtPrecioDolar().getText();
 
-		
 		//valido los campos en comun entre ingreso y egreso
 		if ( Validador.esTipoMovimientoValido(tipoMovimiento) && 
 				Validador.esPrecioValido(precioPesos) &&
@@ -230,11 +237,20 @@ public class ControladorCaja implements ActionListener {
 	public void mostarDatosCita() {
 		//llenamos los campos con la cita que se selecciono en el buscador
 		this.ventanaCaja.getTxtIdCita().setText(String.valueOf(this.citaSeleccionada.getIdCita()));
-		
 		this.ventanaCaja.getTxtPrecioPesos().setText(this.citaSeleccionada.getPrecioLocal().toString());
-		this.ventanaCaja.getTxtPrecioPesos().setEditable(false); //seteamos como no editable el precio
-		
 		this.ventanaCaja.getTxtPrecioDolar().setText(this.citaSeleccionada.getPrecioDolar().toString());
+		disablePrecio();
+	}
+
+	private void disablePrecio() {
+		this.ventanaCaja.getTxtPrecioPesos().setEditable(false); //seteamos como no editable el precio
 		this.ventanaCaja.getTxtPrecioDolar().setEditable(false); //seteamos como no editable el precio
+	}
+	
+	private void enablePrecio() {
+		this.ventanaCaja.getTxtPrecioPesos().setEditable(true); //seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioPesos().setText(null);
+		this.ventanaCaja.getTxtPrecioDolar().setEditable(true); //seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioDolar().setText(null);
 	}
 }
