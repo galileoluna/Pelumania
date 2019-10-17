@@ -15,12 +15,12 @@ import persistencia.dao.interfaz.CategoriaMovimientoCajaDAO;
 
 public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO {
 	
-	private static final String insert = "INSERT INTO CategoriaCaja( idCategoriaCaja, Nombre, Estado) VALUES(?, ?, ?)";
+	private static final String insert = "INSERT INTO CategoriaCaja( idCategoriaCaja, Nombre, Estado, TipoMovimiento) VALUES(?, ?, ?, ?)";
 	private static final String delete = "UPDATE CategoriaCaja SET Estado=? WHERE idCategoriaCaja = ?";
 	private static final String deleteRealCategoria ="delete from CategoriaCaja where idCategoriaCaja=?";
 	private static final String readall = "SELECT * FROM CategoriaCaja";
-	private static final String update = "UPDATE CategoriaCaja SET Nombre=?, Estado=? WHERE idCategoriaCaja = ?";
-	private static final String ESTADO_INACTIVO = "inactivo";
+	private static final String update = "UPDATE CategoriaCaja SET Nombre=?, Estado=?, TipoMovimiento=? WHERE idCategoriaCaja = ?";
+	private static final String ESTADO_INACTIVO = "Inactivo";
 	private static final String readOne = "SELECT * FROM CategoriaCaja WHERE idCategoriaCaja = ?";
 	private static final String readOneByName = "SELECT * FROM CategoriaCaja WHERE Nombre = ?";
     
@@ -35,6 +35,7 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
     		statement.setInt	(1, categoria.getIdCategoria());
     		statement.setString (2, categoria.getNombre());
     		statement.setString (3, categoria.getEstado());
+    		statement.setString	(4, categoria.getTipoMovimiento());
 
     		if(statement.executeUpdate() > 0)
     		{
@@ -66,7 +67,8 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
 	    		
 	    		statement.setString(1, categoria_a_actualizar.getNombre());
 	    		statement.setString (2, categoria_a_actualizar.getEstado());
-	    		statement.setInt(3, categoria_a_actualizar.getIdCategoria());
+	    		statement.setString	(3, categoria_a_actualizar.getTipoMovimiento());
+	    		statement.setInt(4, categoria_a_actualizar.getIdCategoria());
 
 	    		
 	    		chequeoUpdate = statement.executeUpdate();
@@ -155,8 +157,9 @@ public class CategoriaMovimientoCajaDAOSQL implements CategoriaMovimientoCajaDAO
 		int id = resultSet.getInt("idCategoriaCaja");
     	String nombre = resultSet.getString("Nombre");
     	String estado = resultSet.getString("Estado");
+    	String tipo = resultSet.getString("TipoMovimiento");
     	
-    	return new CategoriaMovimientoCajaDTO(id, nombre, estado);
+    	return new CategoriaMovimientoCajaDTO(id, nombre, estado, tipo);
     }
 	
 	public CategoriaMovimientoCajaDTO readOne(int idCategoriaCaja) {

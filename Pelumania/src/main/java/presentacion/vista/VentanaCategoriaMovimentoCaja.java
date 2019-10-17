@@ -24,7 +24,7 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelCategoria;
-	private  String[] nombreColumnas = {"Nombre Categoria","Estado"};
+	private  String[] nombreColumnas = {"Nombre", "Tipo","Estado"};
 
 	public VentanaCategoriaMovimentoCaja()
 	{
@@ -43,7 +43,7 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 	
 	private void initialize()
 	{
-		setBounds(100, 100, 739, 406);
+		setBounds(100, 100, 600, 406);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
@@ -52,12 +52,12 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 		setTitle("Manejo de Categorias de Caja");
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 713, 356);
+		panel.setBounds(0, 0, 584, 356);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JScrollPane spCategoria = new JScrollPane();
-		spCategoria.setBounds(10, 11, 693, 277);
+		spCategoria.setBounds(10, 11, 572, 277);
 		panel.add(spCategoria);
 
 		modelCategoria = new DefaultTableModel(null,nombreColumnas) {
@@ -74,19 +74,21 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 		tablaCategoria.getColumnModel().getColumn(0).setResizable(false);
 		tablaCategoria.getColumnModel().getColumn(1).setPreferredWidth(100);
 		tablaCategoria.getColumnModel().getColumn(1).setResizable(false);
+		tablaCategoria.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tablaCategoria.getColumnModel().getColumn(2).setResizable(false);
 
 		spCategoria.setViewportView(tablaCategoria);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(172, 322, 89, 23);
+		btnAgregar.setBounds(56, 322, 123, 23);
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(282, 322, 89, 23);
+		btnEditar.setBounds(239, 322, 118, 23);
 		panel.add(btnEditar);
 
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(394, 322, 89, 23);
+		btnBorrar.setBounds(411, 322, 118, 23);
 		panel.add(btnBorrar);
 	}
 	public JTable getTablaCategoria() {
@@ -146,8 +148,9 @@ public class VentanaCategoriaMovimentoCaja extends JFrame {
 		{
 			String nombre= cat.getNombre();
 			String estado =cat.getEstado();
+			String tipo = cat.getTipoMovimiento();
 			
-			Object[] fila = {nombre,estado};
+			Object[] fila = {nombre,tipo,estado};
 			this.getModelCategoria().addRow(fila);
 		}
 	}

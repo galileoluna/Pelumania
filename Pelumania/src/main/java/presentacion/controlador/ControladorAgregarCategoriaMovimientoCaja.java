@@ -33,11 +33,12 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 	private void editarCategoria(ActionEvent l) {
 		String nombre = this.VentanaAgregarCategoriaMovimientosCaja.getTxtNombre().getText();
 		String estado = this.VentanaAgregarCategoriaMovimientosCaja.getComboEstado().getSelectedItem().toString();
+		String tipo = this.VentanaAgregarCategoriaMovimientosCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		
 		//validamos campos
-				if ( Validador.esNombreConEspaciosValido(nombre)) {
+				if ( Validador.esNombreConEspaciosValido(nombre) && Validador.esTipoMovimientoValido(tipo)) {
 					if (!existeCategoria(nombre)){
-						CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado);
+						CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado,tipo);
 						this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
 						ControladorCategoriaMovimientoCaja.getInstance(sistema);
 						this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
@@ -66,9 +67,14 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 	}
 
 	private void llenarCombos() {
+		JComboBox<String> comboTipo = this.VentanaAgregarCategoriaMovimientosCaja.getComboTipoMovimiento();
+		comboTipo.addItem("Ingreso");
+		comboTipo.addItem("Egreso");
+		
+		
 		JComboBox<String> comboEstados = this.VentanaAgregarCategoriaMovimientosCaja.getComboEstado();
-		comboEstados.addItem("activo");
-		comboEstados.addItem("inactivo");
+		comboEstados.addItem("Activo");
+		comboEstados.addItem("Inactivo");
 	}
 	
 
@@ -108,11 +114,12 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 	private void agregarCategoria(ActionEvent p) {
 		String nombre = this.VentanaAgregarCategoriaMovimientosCaja.getTxtNombre().getText();
 		String estado = this.VentanaAgregarCategoriaMovimientosCaja.getComboEstado().getSelectedItem().toString();
-
+		String tipo = this.VentanaAgregarCategoriaMovimientosCaja.getComboTipoMovimiento().getSelectedItem().toString();
+		
 		//validamos campos
-		if ( Validador.esNombreConEspaciosValido(nombre)){
+		if ( Validador.esNombreConEspaciosValido(nombre) && Validador.esTipoMovimientoValido(tipo)){
 			if (!existeCategoria(nombre)){
-				CategoriaMovimientoCajaDTO nuevaCategoria = new CategoriaMovimientoCajaDTO(0,nombre,estado);
+				CategoriaMovimientoCajaDTO nuevaCategoria = new CategoriaMovimientoCajaDTO(0,nombre,estado,tipo);
 				this.sistema.insertarCategoriaMovimientoCaja(nuevaCategoria);
 				ControladorCategoriaMovimientoCaja.getInstance(sistema);
 				this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
@@ -123,7 +130,7 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 			this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoAgregar();
 		
 		} else {
-			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
+			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorNombre();
 		}
 	}
 
