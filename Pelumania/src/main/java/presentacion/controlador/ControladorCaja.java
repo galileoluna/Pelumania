@@ -113,9 +113,14 @@ public class ControladorCaja implements ActionListener {
 		comboCategorias.removeAllItems();
 		
 		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
+			if(esCategoriaActiva(categoria.getEstado()))
 			comboCategorias.addItem(categoria.getNombre());
 		}
 		
+	}
+
+	private boolean esCategoriaActiva(String estado) {
+		return estado.equalsIgnoreCase("activo");
 	}
 
 	private void agregarMovimiento(ActionEvent l) {

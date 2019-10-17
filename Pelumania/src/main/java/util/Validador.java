@@ -118,7 +118,7 @@ public class Validador {
 		
 		@SuppressWarnings("static-access")
 		public static boolean esDescripcionValida(String descripcion) {
-			String DESCRIPCION_REGEX =  "^[a-zA-Z0-9 ]{0,80}";
+			String DESCRIPCION_REGEX =  "^[a-zA-Z0-9 ]{1,80}";
 			String VACIO_REGEX = "^$";
 			
 			Pattern PATTERN = Pattern.compile(DESCRIPCION_REGEX);
