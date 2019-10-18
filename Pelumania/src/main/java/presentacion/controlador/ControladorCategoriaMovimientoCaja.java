@@ -46,7 +46,7 @@ public class ControladorCategoriaMovimientoCaja {
 		categoriaEnTabla = sistema.obtenerCategoriasMovimientoCaja();
 		int filaSeleccionada = ventanaCategoria.getTablaCategoria().getSelectedRow();
 	       
-    		if(filaSeleccionada >0 ) {	 
+    		if(filaSeleccionada >= 0 ) {	 
         		int idCategoria = categoriaEnTabla.get(filaSeleccionada).getIdCategoria();
         		CategoriaMovimientoCajaDTO categoria_a_editar = sistema.getCategoriaMovimientoCajaById(idCategoria);
         		//uso la misma ventana para editar y agregar

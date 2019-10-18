@@ -30,6 +30,7 @@ public class ControladorCaja implements ActionListener {
 	private ControladorCaja (Sistema sistema) {
 		this.ventanaCaja = VentanaCaja.getInstance();
 		this.sistema = sistema;
+		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		this.citaSeleccionada = null;
 		this.serviciosCita = null;
 		
@@ -37,7 +38,6 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getComboTipoMovimiento().addActionListener(l -> mostrarInputs(l));
 		this.ventanaCaja.getBtnAgregar().addActionListener(l -> agregarMovimiento(l));
 		this.ventanaCaja.getComboCategoria().addActionListener(l -> productoSoloEfectivo(l));
-		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		this.ventanaCaja.getButtonBuscarCita().addActionListener(l -> buscarCita(l));
 		
 		this.mostrarIpuntsIngreso();
@@ -60,6 +60,7 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void cancelar(ActionEvent l) {
+		this.ventanaCaja.limpiarCampos();
 		this.ventanaCaja.cerrar();
 	}
 
@@ -67,7 +68,9 @@ public class ControladorCaja implements ActionListener {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorCaja(sistema);
 		}
+		INSTANCE.listaCategorias = sistema.obtenerCategoriasMovimientoCaja();
 		INSTANCE.ventanaCaja.mostrarVentana();
+		INSTANCE.mostrarIpuntsIngreso();
 		return INSTANCE;
 	}
 	
@@ -81,6 +84,7 @@ public class ControladorCaja implements ActionListener {
 	}
 	
 	private void mostrarIpuntsIngreso() {
+		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		this.ventanaCaja.limpiarCampos();
 		//hay que limpiar la descripcion y demas para que no se guarde
 		JComboBox<String> comboCategoria = this.ventanaCaja.getComboCategoria();
@@ -167,16 +171,16 @@ public class ControladorCaja implements ActionListener {
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
 		String tipoMovimiento = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		String tipoCambio = this.ventanaCaja.getComboTipoCambio().getSelectedItem().toString();		
-		String precioPesos = this.ventanaCaja.getTxtPrecioPesos().getText();
-		String precioDolar = this.ventanaCaja.getTxtPrecioDolar().getText();
+		String precioPesosTotal = this.ventanaCaja.getTxtPrecioPesos().getText();
+		String precioDolarTotal = this.ventanaCaja.getTxtPrecioDolar().getText();
 
 		String strCategoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
 		int idCategoria = this.sistema.getIdCategoriaMovimientoCajaByName(strCategoria).getIdCategoria();
 		
 		//valido los campos en comun entre ingreso y egreso
 		if ( Validador.esTipoMovimientoValido(tipoMovimiento) && 
-				Validador.esPrecioValido(precioPesos) &&
-				Validador.esPrecioValido(precioDolar) &&
+				Validador.esPrecioValido(precioPesosTotal) &&
+				Validador.esPrecioValido(precioDolarTotal) &&
 				Validador.esTipoCambioValido(tipoCambio) &&
 				Validador.esDescripcionValida(descripcion)) {
 				
@@ -184,19 +188,21 @@ public class ControladorCaja implements ActionListener {
 					//tomamos datos de la cita seleccionada
 					//tomamos datos de los servicios asociados a esa cita
 					//por cada servicio sera una transaccion de "caja" porque hay que marcar lo que hizo cada profesional
-					 boolean exito = true; 
-
-					 //SE ESTA GUARDANDO EL PRECIO DE LA CITA EN VEZ DEL SERVICIO
-					 //HAY QUE AGREGAR EN LA TABLA "CITA" UN IDSERVICIO 
+					boolean exito = true; 
 					 
 					for (ServicioTurnoDTO servicio : serviciosCita) {
+						
+						//buscamos el precio individual de ese servicio
+						BigDecimal precioPesosServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioLocal();
+						BigDecimal precioDolarServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioDolar();
+						
 						MovimientoCajaDTO ingresoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
-																								//por ahora promos en null
-																				fecha, tipoCambio, -1, new BigDecimal(precioPesos), 
+																							//por ahora  las promos en null o -1
+																				fecha, tipoCambio, -1, precioPesosServicio, 
 																				
-																				new BigDecimal(precioDolar), 1, citaSeleccionada.getIdCita(),
+																				precioDolarServicio, 1, citaSeleccionada.getIdCita(),
 																				
-																				citaSeleccionada.getIdCliente());
+																				citaSeleccionada.getIdCliente(), servicio.getIdServicio());
 						
 					 exito = this.sistema.insertarIngresoServicio(ingresoServicio) && exito;
 					
@@ -223,8 +229,8 @@ public class ControladorCaja implements ActionListener {
 						//CONSTRUCTOR PARA EGRESOS
 																			//revisar sucursal en un egreso
 						MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha,
-																			idCategoria, tipoCambio, new BigDecimal(precioPesos),
-																			new BigDecimal(precioDolar), descripcion);
+																			idCategoria, tipoCambio, new BigDecimal(precioPesosTotal),
+																			new BigDecimal(precioDolarTotal), descripcion);
 						
 						if (this.sistema.insertarEgreso(egreso)) {
 							//se guardo piola
@@ -242,19 +248,6 @@ public class ControladorCaja implements ActionListener {
 		}
 		
 		this.ventanaCaja.limpiarCampos();
-	}
-
-	public CitaDTO getCitaSeleccionada() {
-		return this.citaSeleccionada;
-	}
-	public void setCitaSeleccionada(CitaDTO citaSeleccionada) {
-		this.citaSeleccionada = citaSeleccionada;
-	}
-	public List<ServicioTurnoDTO> getServiciosCita() {
-		return this.serviciosCita;
-	}
-	public void setServiciosCita(List<ServicioTurnoDTO> serviciosCita) {
-		this.serviciosCita = serviciosCita;
 	}
 
 	public void mostarDatosCita() {
@@ -277,8 +270,7 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getTxtPrecioDolar().setText(null);
 	}
 	private boolean esProducto() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Producto");
 	}
 	
 	private boolean esIngreso() {
@@ -299,4 +291,20 @@ public class ControladorCaja implements ActionListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	public CitaDTO getCitaSeleccionada() {
+		return this.citaSeleccionada;
+	}
+	public void setCitaSeleccionada(CitaDTO citaSeleccionada) {
+		this.citaSeleccionada = citaSeleccionada;
+	}
+	public List<ServicioTurnoDTO> getServiciosCita() {
+		return this.serviciosCita;
+	}
+	public void setServiciosCita(List<ServicioTurnoDTO> serviciosCita) {
+		this.serviciosCita = serviciosCita;
+	}
+	
+	
 }

@@ -14,6 +14,6 @@ public interface MovimientoCajaDAO {
 	
 	public boolean deleteReal(MovimientoCajaDTO movimiento_a_eliminar);
 
-	public boolean insertIngresoServicio(MovimientoCajaDTO movimiento);
+	public boolean insertIngresoServicioSinPromocion(MovimientoCajaDTO movimiento);
 
 }

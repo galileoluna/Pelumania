@@ -127,3 +127,4 @@ class ClienteDTOtest {
 		cliente.setPuntos(15);
 		assertEquals(cliente.getPuntos(),15);
 	}
+}

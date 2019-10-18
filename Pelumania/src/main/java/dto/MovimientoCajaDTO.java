@@ -27,6 +27,7 @@ public class MovimientoCajaDTO {
 	private int idProfesional;
 	private int idCita;
 	private int idCliente;
+	private int idServicio;
 	
 	
 	//constructor para un egreso
@@ -47,7 +48,7 @@ public class MovimientoCajaDTO {
 	
 	public MovimientoCajaDTO(int idCaja, int idSucursal, int categoria, Instant fecha,String tipoCambio, 
 								int idPromocion, BigDecimal precioLocal, BigDecimal precioDolar, 
-								int idProfesional, int idCita, int idCliente) {
+								int idProfesional, int idCita, int idCliente, int idServicio) {
 		
 		super();
 		this.idCaja = idCaja;
@@ -61,6 +62,7 @@ public class MovimientoCajaDTO {
 		this.idProfesional = idProfesional;
 		this.idCita = idCita;
 		this.idCliente = idCliente;
+		this.idServicio = idServicio;
 	}
 
 
@@ -159,5 +161,21 @@ public class MovimientoCajaDTO {
 
 	public void setIdPromocion(int idPromocion) {
 		this.idPromocion = idPromocion;
+	}
+
+	public int getIdCategoria() {
+		return idCategoria;
+	}
+
+	public void setIdCategoria(int idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	public int getIdServicio() {
+		return idServicio;
+	}
+
+	public void setIdServicio(int idServicio) {
+		this.idServicio = idServicio;
 	}
 }

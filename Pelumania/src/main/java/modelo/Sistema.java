@@ -332,7 +332,7 @@ public class Sistema
 	}
 	
 	public boolean insertarIngresoServicio(MovimientoCajaDTO movimiento_a_insertar) {
-		return this.caja.insertIngresoServicio(movimiento_a_insertar);
+		return this.caja.insertIngresoServicioSinPromocion(movimiento_a_insertar);
 	}
 	
 	//FIN CAJA
