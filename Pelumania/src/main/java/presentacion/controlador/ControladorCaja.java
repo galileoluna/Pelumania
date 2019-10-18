@@ -202,7 +202,7 @@ public class ControladorCaja implements ActionListener {
 						//buscamos los puntos de cada servicio particular
 						int puntos = this.sistema.getServicioById(servicio.getIdServicio()).getPuntos();
 						
-						MovimientoCajaDTO ingresoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
+						MovimientoCajaDTO movimientoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
 																					//por ahora  las promos en null o -1
 																				fecha, tipoCambio, -1, precioPesosServicio, 
 																				
@@ -211,15 +211,13 @@ public class ControladorCaja implements ActionListener {
 																				citaSeleccionada.getIdCliente(), servicio.getIdServicio());
 						
 						//por is falla algo en la bdd
-						exito = this.sistema.insertarIngresoServicio(ingresoServicio) && exito;
+						exito = this.sistema.insertarIngresoServicio(movimientoServicio) && exito;
 						
 						//por si es fiado
-						esFiado = ingresoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
+						esFiado = movimientoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
 						
 						//sumamos puntos
 						puntosTotales += puntos; 
-						System.out.println("puntos del servicio = " + puntos );
-						System.out.println("puntos totales =" + puntosTotales);
 					} 
 					
 					if (exito) {
@@ -241,22 +239,25 @@ public class ControladorCaja implements ActionListener {
 						this.sistema.editarCliente(cliente);
 						this.ventanaCaja.mostrarExito();
 					}
-//					exito ? this.ventanaCaja.mostrarExito() ?  this.ventanaCaja.mostrarErrorBDD();
 					
-//				}
-					
-					
-					 
-					
-							
-//					}
-					//es un producto
-//					else {
-						
-//					}
-
 				} else if (esProducto()) {
-					//do something 
+					//es un producto y tiene menos campos que un servico
+					//parseamos 
+					BigDecimal precioPesosProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioPesos().getText());
+					BigDecimal precioDolarProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioDolar().getText());
+					
+					MovimientoCajaDTO movimientoProducto = new MovimientoCajaDTO(0, idSucursal, idCategoria,
+																			fecha, tipoCambio, precioPesosProducto, precioDolarProducto);
+					//lo insertamos en la bdd
+					if (this.sistema.insertarIngresoProducto(movimientoProducto)) {
+						//exito
+						System.out.println("en teoria salio todo bien");
+						this.ventanaCaja.mostrarExito();
+					
+					} else {
+						//rompio algo
+						this.ventanaCaja.mostrarErrorBDD();
+					}
 				
 				} else {
 						//CONSTRUCTOR PARA EGRESOS ES DISTINTO

@@ -27,7 +27,11 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	
 	private static final String deleteReal = "DELETE FROM Ingreso WHERE idIngreso = ?";
 
-	//	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion, "
+	private static final String insertIngresoProducto = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja,"
+			+ " TipoDeCambio, PrecioLocal, PrecioDolar)" 
+			+ " VALUES(?, ?, ?, ?, ?, ?)";
+	
+//	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion, "
 //			+ "TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
 //			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -39,8 +43,6 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 
 //	private static final String readDayEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso AND Fecha=?";
 
-//	private static final String update = "UPDATE  Ingreso SET Nombre=? , Apellido=? , Telefono=? , Mail=? , Puntos=? , EstadoCliente=?, Deuda=? WHERE idCliente=?";
-	
 
 	//no damos la opcion de "dar de baja" un ingreso ya que 
 	// seria como cancelar un pago
@@ -152,5 +154,38 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 			}
 			return isInsertExitoso;
 		  }
+	
+	@Override
+	public boolean insertIngresoProducto(MovimientoCajaDTO movimiento_a_insertar) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(insertIngresoProducto);
+			statement.setInt(1, movimiento_a_insertar.getIdCaja());
+			statement.setInt (2, movimiento_a_insertar.getIdSucursal());
+			statement.setInt(3, movimiento_a_insertar.getCategoria());
+			statement.setString(4, movimiento_a_insertar.getTipoCambio());
+			statement.setBigDecimal(5, movimiento_a_insertar.getPrecioLocal());
+			statement.setBigDecimal(6, movimiento_a_insertar.getPrecioDolar());
+
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isInsertExitoso;
+	}
 
 }

@@ -64,7 +64,20 @@ public class MovimientoCajaDTO {
 		this.idCliente = idCliente;
 		this.idServicio = idServicio;
 	}
-
+	
+	
+	//CONSTRUCTOR PARA UN INGRESO DE PRODUCTO
+	public MovimientoCajaDTO (int idCaja, int idSucursal, int idCategoria, Instant fecha, 
+							String tipoCambio,BigDecimal precioLocal, BigDecimal precioDolar ) {
+			
+	this.idCaja = idCaja;
+	this.idSucursal = idSucursal;
+	this.idCategoria = idCategoria;
+	this.tipoCambio = tipoCambio;
+	this.precioLocal = precioLocal;
+	this.precioDolar = precioDolar;
+	
+	}
 
 
 	public int getIdCaja() {

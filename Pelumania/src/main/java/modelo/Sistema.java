@@ -339,6 +339,10 @@ public class Sistema
 		return this.caja.insertIngresoServicioSinPromocion(movimiento_a_insertar);
 	}
 	
+	public boolean insertarIngresoProducto(MovimientoCajaDTO movimiento_a_insertar) {
+		return this.caja.insertIngresoProducto(movimiento_a_insertar);
+	}
+	
 	//FIN CAJA
 	
 	// COMIENZA CATEGORIAS MOVIMIENTO CAJA

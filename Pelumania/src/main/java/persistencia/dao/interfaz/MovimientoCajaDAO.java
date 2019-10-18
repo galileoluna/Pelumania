@@ -16,4 +16,6 @@ public interface MovimientoCajaDAO {
 
 	public boolean insertIngresoServicioSinPromocion(MovimientoCajaDTO movimiento);
 
+	public boolean insertIngresoProducto(MovimientoCajaDTO movimiento_a_insertar);
+
 }
