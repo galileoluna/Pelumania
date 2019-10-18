@@ -208,6 +208,15 @@ public class ControladorCaja implements ActionListener {
 					
 					} 
 					
+					if (exito) {
+						//se guardo bien
+						this.ventanaCaja.mostrarExito();
+						//finalizamos la cita
+						this.sistema.finalizarCita(citaSeleccionada);
+						//this.sistema.sumarPuntosCliente(citaSeleccionada.getIdCliente());
+						
+						
+					}
 //					exito ? this.ventanaCaja.mostrarExito() ?  this.ventanaCaja.mostrarErrorBDD();
 					
 //				}

@@ -1,7 +1,6 @@
 package persistencia.dao.mariadb;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -128,7 +127,6 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 				statement.setInt (2, movimiento.getIdSucursal());
 				statement.setInt(3, movimiento.getCategoria());
 				statement.setString(4, movimiento.getTipoCambio());
-//				statement.setInt(5, movimiento.getIdPromocion()); //???????
 				statement.setBigDecimal(5, movimiento.getPrecioLocal());
 				statement.setBigDecimal(6, movimiento.getPrecioDolar());
 				statement.setInt(7, movimiento.getIdCita());
