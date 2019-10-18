@@ -208,7 +208,7 @@ public class VentanaBuscarCita extends JFrame
 			String horaFin = cita.getHoraFin().toString();
 			BigDecimal precioPesos = cita.getPrecioLocal();
 			BigDecimal precioDolar = cita.getPrecioDolar();
-			Object[] fila = {nro, nombre, apellido, dia, horaInicio, horaFin, precioPesos, precioPesos, precioDolar};
+			Object[] fila = {nro, nombre, apellido, dia, horaInicio, horaFin, precioPesos, precioDolar};
 			this.getModelCitas().addRow(fila);
 		}
 

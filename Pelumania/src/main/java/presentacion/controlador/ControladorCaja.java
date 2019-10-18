@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 
 import dto.CategoriaMovimientoCajaDTO;
 import dto.CitaDTO;
+import dto.ClienteDTO;
 import dto.MovimientoCajaDTO;
 import dto.ServicioTurnoDTO;
 import modelo.Sistema;
@@ -188,8 +189,9 @@ public class ControladorCaja implements ActionListener {
 					//tomamos datos de la cita seleccionada
 					//tomamos datos de los servicios asociados a esa cita
 					//por cada servicio sera una transaccion de "caja" porque hay que marcar lo que hizo cada profesional
+					ClienteDTO cliente = this.sistema.obtenerClienteById(citaSeleccionada.getIdCliente());
 					boolean exito = true; 
-					 
+					boolean esFiado = false;
 					for (ServicioTurnoDTO servicio : serviciosCita) {
 						
 						//buscamos el precio individual de ese servicio
@@ -205,16 +207,24 @@ public class ControladorCaja implements ActionListener {
 																				citaSeleccionada.getIdCliente(), servicio.getIdServicio());
 						
 					 exito = this.sistema.insertarIngresoServicio(ingresoServicio) && exito;
-					
+					 esFiado = ingresoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
 					} 
 					
 					if (exito) {
+						
 						//se guardo bien
 						this.ventanaCaja.mostrarExito();
+						
 						//finalizamos la cita
 						this.sistema.finalizarCita(citaSeleccionada);
-						//this.sistema.sumarPuntosCliente(citaSeleccionada.getIdCliente());
 						
+						//si es una cita fiada, sumo la deuda
+						if (esFiado) {
+							//actualizamos la deuda
+							cliente.setDeuda(cliente.getDeuda().add(citaSeleccionada.getPrecioLocal()));
+							this.sistema.editarCliente(cliente);
+							//this.sistema.sumarPuntosCliente(citaSeleccionada.getIdCliente());
+							}
 						
 					}
 //					exito ? this.ventanaCaja.mostrarExito() ?  this.ventanaCaja.mostrarErrorBDD();

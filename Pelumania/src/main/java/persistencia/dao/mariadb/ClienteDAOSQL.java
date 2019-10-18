@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.ClienteDTO;
-import dto.ProfesionalDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ClienteDAO;
 import util.Validador;
@@ -23,6 +22,7 @@ public class ClienteDAOSQL implements ClienteDAO
 	private static final String update = "UPDATE  Cliente SET Nombre=? , Apellido=? , Telefono=? , Mail=? , Puntos=? , EstadoCliente=?, Deuda=? WHERE idCliente=?";
 	private static final String deleteReal = "DELETE FROM Cliente WHERE idCliente = ?";
 	private static final String ESTADO_INACTIVO = "inactivo";
+	private static final String readById = "SELECT * FROM Cliente WHERE idCliente = ?";
 
 	@Override
 	public boolean insert(ClienteDTO cliente)
@@ -30,7 +30,6 @@ public class ClienteDAOSQL implements ClienteDAO
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
-//		if(esClienteValido(cliente)) {
 		try
 		{
 			statement = conexion.prepareStatement(insert);
@@ -58,7 +57,6 @@ public class ClienteDAOSQL implements ClienteDAO
 				e1.printStackTrace();
 			}
 		}
-//	 }
 
 		return isInsertExitoso;
 	}
@@ -221,4 +219,30 @@ public class ClienteDAOSQL implements ClienteDAO
 		return false;
 	  } 
 	}
+
+	@Override
+	public ClienteDTO obtenerClienteById(int id)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ClienteDTO cliente = null;
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readById);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				cliente= getClienteDTO(resultSet);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
+
 }

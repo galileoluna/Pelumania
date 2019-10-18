@@ -18,5 +18,7 @@ public interface ClienteDAO {
 
 	public List<ClienteDTO> obtenerClienteBuscado(String variable, String value);
 
+	public ClienteDTO obtenerClienteById(int id);
+
 
 }

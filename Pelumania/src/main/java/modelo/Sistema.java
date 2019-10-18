@@ -77,6 +77,10 @@ public class Sistema
 		return this.cliente.obtenerClienteBuscado(variable,value);
 
 	}
+	
+	public ClienteDTO obtenerClienteById(int id) {
+		return this.cliente.obtenerClienteById(id);
+	}
 //FIN CLIENTE
 	
 //COMIENZA SERVICIO	
