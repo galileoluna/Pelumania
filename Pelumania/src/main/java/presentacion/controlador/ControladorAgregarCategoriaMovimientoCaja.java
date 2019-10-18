@@ -36,21 +36,23 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 		String tipo = this.VentanaAgregarCategoriaMovimientosCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		
 		//validamos campos
-				if ( Validador.esNombreConEspaciosValido(nombre) && Validador.esTipoMovimientoValido(tipo)) {
-					if (!existeCategoria(nombre)){
-						CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado,tipo);
-						this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
-						ControladorCategoriaMovimientoCaja.getInstance(sistema);
-						this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
-					} else {
-						//esta repetido
-						this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
-					}
-				} else {
-					//los campos estan mal
-					this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
-				}
-		this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoEditar();
+		if ( Validador.esNombreConEspaciosValido(nombre) && Validador.esTipoMovimientoValido(tipo)) {
+			 if (!existeCategoria(nombre)){
+				CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado,tipo);
+				this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
+				ControladorCategoriaMovimientoCaja.getInstance(sistema);
+				this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
+				this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoEditar();
+			
+			 } else {
+				 //esta repetido
+				 this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
+			 }
+		
+		} else {
+			//los campos estan mal
+			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
+		}
 	}
 
 	private boolean existeCategoria(String nombre) {
@@ -121,13 +123,13 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 			if (!existeCategoria(nombre)){
 				CategoriaMovimientoCajaDTO nuevaCategoria = new CategoriaMovimientoCajaDTO(0,nombre,estado,tipo);
 				this.sistema.insertarCategoriaMovimientoCaja(nuevaCategoria);
+				this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoAgregar();
 				ControladorCategoriaMovimientoCaja.getInstance(sistema);
 				this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
 			} else {
 				this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
 			}
 			
-			this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoAgregar();
 		
 		} else {
 			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorNombre();

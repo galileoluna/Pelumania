@@ -192,40 +192,54 @@ public class ControladorCaja implements ActionListener {
 					ClienteDTO cliente = this.sistema.obtenerClienteById(citaSeleccionada.getIdCliente());
 					boolean exito = true; 
 					boolean esFiado = false;
+					int puntosTotales = 0;
 					for (ServicioTurnoDTO servicio : serviciosCita) {
 						
 						//buscamos el precio individual de ese servicio
 						BigDecimal precioPesosServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioLocal();
 						BigDecimal precioDolarServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioDolar();
 						
+						//buscamos los puntos de cada servicio particular
+						int puntos = this.sistema.getServicioById(servicio.getIdServicio()).getPuntos();
+						
 						MovimientoCajaDTO ingresoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
-																							//por ahora  las promos en null o -1
+																					//por ahora  las promos en null o -1
 																				fecha, tipoCambio, -1, precioPesosServicio, 
 																				
 																				precioDolarServicio, 1, citaSeleccionada.getIdCita(),
 																				
 																				citaSeleccionada.getIdCliente(), servicio.getIdServicio());
 						
-					 exito = this.sistema.insertarIngresoServicio(ingresoServicio) && exito;
-					 esFiado = ingresoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
+						//por is falla algo en la bdd
+						exito = this.sistema.insertarIngresoServicio(ingresoServicio) && exito;
+						
+						//por si es fiado
+						esFiado = ingresoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
+						
+						//sumamos puntos
+						puntosTotales += puntos; 
+						System.out.println("puntos del servicio = " + puntos );
+						System.out.println("puntos totales =" + puntosTotales);
 					} 
 					
 					if (exito) {
-						
 						//se guardo bien
-						this.ventanaCaja.mostrarExito();
 						
 						//finalizamos la cita
 						this.sistema.finalizarCita(citaSeleccionada);
 						
-						//si es una cita fiada, sumo la deuda
+						if (esEfectivo()) {
+						//sumamos los puntos solo si paga en efectivo
+						cliente.setPuntos(cliente.getPuntos() + puntosTotales);
+						}
+						
 						if (esFiado) {
 							//actualizamos la deuda
 							cliente.setDeuda(cliente.getDeuda().add(citaSeleccionada.getPrecioLocal()));
-							this.sistema.editarCliente(cliente);
-							//this.sistema.sumarPuntosCliente(citaSeleccionada.getIdCliente());
-							}
-						
+						}
+							
+						this.sistema.editarCliente(cliente);
+						this.ventanaCaja.mostrarExito();
 					}
 //					exito ? this.ventanaCaja.mostrarExito() ?  this.ventanaCaja.mostrarErrorBDD();
 					
@@ -245,7 +259,7 @@ public class ControladorCaja implements ActionListener {
 					//do something 
 				
 				} else {
-						//CONSTRUCTOR PARA EGRESOS
+						//CONSTRUCTOR PARA EGRESOS ES DISTINTO
 																			//revisar sucursal en un egreso
 						MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha,
 																			idCategoria, tipoCambio, new BigDecimal(precioPesosTotal),
@@ -268,6 +282,8 @@ public class ControladorCaja implements ActionListener {
 		
 		this.ventanaCaja.limpiarCampos();
 	}
+
+
 
 	public void mostarDatosCita() {
 		//llenamos los campos con la cita que se selecciono en el buscador
@@ -305,10 +321,12 @@ public class ControladorCaja implements ActionListener {
 			return false;
 	}
 	
+	private boolean esEfectivo() {
+		return this.ventanaCaja.getComboTipoCambio().getSelectedItem().toString().equalsIgnoreCase("Efectivo");
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	
