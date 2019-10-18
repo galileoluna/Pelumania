@@ -63,7 +63,7 @@ public class Controlador implements ActionListener {
 	}
 
 	private void ventanaEditarCita(ActionEvent f) {
-		this.controladoreditarcita = ControladorEditarCita.getInstance(sistema);
+		this.controladoreditarcita = ControladorEditarCita.getInstance(sistema, Vista.getCitaSeleccionada());
 	}
 
 	private void ventanCategoriaMovimientoCaja(ActionEvent a) {
@@ -122,7 +122,7 @@ public class Controlador implements ActionListener {
 			this.sistema.cancelarCita(Vista.getCitaSeleccionada());
 			Vista.getCitaSeleccionada().setEstado("Cancelada");
 			this.vista.getComponenteCitaSeleccionado().getLbl_Estado().setText("Cancelada");
-			this.vista.cambiarColorCita(Vista.getComponenteCitaSeleccionado(), Vista.getCitaSeleccionada().getEstado());
+			this.vista.getComponenteCitaSeleccionado().cambiarColor();
 		}
 	}
 	
@@ -213,17 +213,9 @@ public class Controlador implements ActionListener {
 		this.vista.getJPanelCitas().setPreferredSize(new Dimension(409,this.vista.getCantCitas()*340));
 		
 		for (int i =0; i < citasDelDia.size(); i++) {
-			ComponenteCita cc = new ComponenteCita(x,y);
-			cc.setFocusable(true);
 			CitaDTO citaCargada = citasDelDia.get(i);
-			cc.getLbl_IdCita().setText(Integer.toString(citaCargada.getIdCita()));
-			cc.getLbl_HoraInicio().setText(citaCargada.getHoraInicio().toString());
-			cc.getLbl_HoraFin().setText(citaCargada.getHoraFin().toString());
-			cc.getLbl_NombreCliente().setText(citaCargada.getNombre()+citaCargada.getApellido());	
-			cc.getLbl_Estado().setText(citaCargada.getEstado());
-			System.out.println(citaCargada.getPrecioDolar());
-			cc.getLbl_Total().setText(citaCargada.getPrecioLocal().toString());
-			cc.getLbl_TotalUSD().setText(citaCargada.getPrecioDolar().toString());
+			ComponenteCita cc = new ComponenteCita(x,y, citaCargada);
+			cc.setFocusable(true);
 
 			llenarTablaServicios(citaCargada.getIdCita(), cc);
 			
@@ -248,7 +240,6 @@ public class Controlador implements ActionListener {
  
             });
 			
-			this.vista.cambiarColorCita(cc, citaCargada.getEstado());
 			this.vista.getJPanelCitas().add(cc);
 			y = y + 330;
 		}

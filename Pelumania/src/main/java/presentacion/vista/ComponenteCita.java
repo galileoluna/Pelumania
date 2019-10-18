@@ -10,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import dto.CitaDTO;
+
 public class ComponenteCita extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -28,13 +30,16 @@ public class ComponenteCita extends JPanel{
 	private DefaultTableModel modelServicios;
 	private String[] nombreColumnas = {"Nombre","Precio en $","Precio en USD",
 			"Duracion", "Profesional"};
+	
+	public CitaDTO citaAsociada;
 
-	public ComponenteCita(int x, int y) {
-		initialize(x,y);
+	public ComponenteCita(int x, int y, CitaDTO cita) {
+		initialize(x,y, cita);
 	}
 
-	private void initialize(int x, int y) {
+	private void initialize(int x, int y, CitaDTO cita) {
 		//bounds 450 300
+		setCitaAsociada(cita);
 		setBounds(x, y, 440, 327);
 		setLayout(null);
 		
@@ -110,7 +115,36 @@ public class ComponenteCita extends JPanel{
 		
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		
+		llenarDatos();
+		cambiarColor();
 		this.setVisible(true);
+	}
+	
+	public void llenarDatos() {
+		getLbl_IdCita().setText(Integer.toString(citaAsociada.getIdCita()));
+		getLbl_HoraInicio().setText(citaAsociada.getHoraInicio().toString());
+		getLbl_HoraFin().setText(citaAsociada.getHoraFin().toString());
+		getLbl_NombreCliente().setText(citaAsociada.getNombre()+citaAsociada.getApellido());	
+		getLbl_Estado().setText(citaAsociada.getEstado());
+		getLbl_Total().setText(citaAsociada.getPrecioLocal().toString());
+		getLbl_TotalUSD().setText(citaAsociada.getPrecioDolar().toString());
+	}
+	
+	public void cambiarColor() {
+		Color rojo = new Color(225,64,68);
+		Color verde = new Color(129,152,48);
+		Color azul = new Color(0,85,121);
+		switch (citaAsociada.getEstado()) {
+		case "Activa":
+			setBackground(verde);
+			break;
+		case "Cancelada":
+			setBackground(rojo);
+			break;
+		case "Finalizada":
+			setBackground(azul);
+			break;
+		}
 	}
 	
 	public void crearTablaServicios() {
@@ -237,5 +271,18 @@ public class ComponenteCita extends JPanel{
 	public void setNombreColumnas(String[] nombreColumnas) {
 		this.nombreColumnas = nombreColumnas;
 	}
+	// ____________________________________________________
+
+	public CitaDTO getCitaAsociada() {
+		return citaAsociada;
+	}
+
+	public void setCitaAsociada(CitaDTO citaAsociada) {
+		this.citaAsociada = citaAsociada;
+	}
+	// ____________________________________________________
+	
+	
 
 }
+

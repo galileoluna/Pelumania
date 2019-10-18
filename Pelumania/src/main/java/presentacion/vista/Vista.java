@@ -154,23 +154,6 @@ public class Vista {
 		
 		frame.setVisible(true);
 	}
-
-	public void cambiarColorCita(ComponenteCita cita, String estado) {
-		Color rojo = new Color(225,64,68);
-		Color verde = new Color(129,152,48);
-		Color azul = new Color(0,85,121);
-		switch (estado) {
-		case "Activa":
-			cita.setBackground(verde);
-			break;
-		case "Cancelada":
-			cita.setBackground(rojo);
-			break;
-		case "Finalizada":
-			cita.setBackground(azul);
-			break;
-		}
-	}
 	
 	public void show()
 	{
