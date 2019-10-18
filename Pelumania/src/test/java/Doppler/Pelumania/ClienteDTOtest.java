@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import dto.ClienteDTO;
 
-class ClienteDTOTest {
+class ClienteDTOtest {
 	
 	ClienteDTO cliente;
 
