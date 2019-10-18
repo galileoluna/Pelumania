@@ -203,6 +203,7 @@ public class VentanaCaja extends JFrame
 		this.txtPrecioDolar.setText(null);
 		this.txtPrecioPesos.setText(null);
 		this.txtDescripcion.setText(null);
+		this.txtIdCita.setText(null);
 	}
 	
 	public void cerrar(){
