@@ -19,6 +19,7 @@ import com.toedter.calendar.JCalendar;
 
 import dto.CitaDTO;
 import persistencia.conexion.Conexion;
+import javax.swing.border.LineBorder;
 
 public class Vista {
 
@@ -123,22 +124,24 @@ public class Vista {
 		panel.setLayout(null);
 
 		calendario = new JCalendar();
+		calendario.getYearChooser().setBorder(new LineBorder(new Color(0, 0, 0)));
+		calendario.getYearChooser().setEndYear(2050);
 		calendario.setBounds(10, 33, 578, 600);
 		calendario.setTodayButtonVisible(true);
 		panel.add(calendario);
 		calendario.setVisible(true);
 
 		btnAgregarCita = new JButton("Agregar Cita");
-		btnAgregarCita.setBounds(608, 33, 117, 39);
+		btnAgregarCita.setBounds(620, 33, 130, 39);
 		panel.add(btnAgregarCita);
 		
 		btnCancelarCita = new JButton("Cancelar Cita");
-		btnCancelarCita.setBounds(752, 33, 117, 39);
+		btnCancelarCita.setBounds(790, 33, 130, 39);
 		btnCancelarCita.setEnabled(false);
 		panel.add(btnCancelarCita);
 		
 		btnEditarCita = new JButton("Editar Cita");
-		btnEditarCita.setBounds(897, 33, 117, 39);
+		btnEditarCita.setBounds(950, 33, 130, 39);
 		btnEditarCita.setEnabled(false);
 		panel.add(btnEditarCita);
 		

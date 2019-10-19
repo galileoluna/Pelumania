@@ -24,19 +24,16 @@ public class ControladorAgregarCita implements ActionListener{
 
 	private VentanaAgregarCita ventanaAgregarCita;
 	private Sistema sistema;
-
 	private ControladorAgregarCita controladorCita;
 	private VentanaBuscarCliente ventanaBuscarCliente;
-
 	private ControladorCliente controladorCliente;
 	private VentanaCliente ventanaCliente;
-
 	private static ControladorAgregarCita INSTANCE;
 	private static int ANIO;
 	private static int MES;
 	private static int DIA;
 	private static List<ServicioTurnoDTO> serviciosTurnoAgregados;
-	
+	private CitaDTO citaParaEditar;
 	private static String errorHora;
 	private static String errorCliente;
 
@@ -58,15 +55,23 @@ public class ControladorAgregarCita implements ActionListener{
 		this.sistema = sistema;
 
 	}
+	
+	
 
 	private static void inicializarDatos() {
 
 		INSTANCE.ventanaAgregarCita.limpiarCampos();
 		
+		//los limpio porque tambien se usan en editar
+		INSTANCE.citaParaEditar = null;
+		INSTANCE.serviciosTurnoAgregados = new ArrayList<ServicioTurnoDTO>();
+		
 		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
 		List<SucursalDTO> listaSucursales = INSTANCE.sistema.obtenerSucursales();
-		
+
+		INSTANCE.ventanaAgregarCita.mostrarBuscarRegistrarCliente();
+
 		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
 		INSTANCE.ventanaAgregarCita.getJCBoxSucursales().removeAllItems();
 		
@@ -84,6 +89,72 @@ public class ControladorAgregarCita implements ActionListener{
 		INSTANCE.ventanaAgregarCita.limpiarCampos();
 		inicializarDatos();
 		return INSTANCE;
+	}
+	
+	//CONSTRUCTOR PARA EDITAR UNA CITA
+	//Recibe como parametro una cita 
+	public static ControladorAgregarCita getInstance(Sistema sistema, CitaDTO citaParaEditar) {
+		if ( INSTANCE == null) {
+			INSTANCE = new ControladorAgregarCita(sistema);
+		}
+		INSTANCE.citaParaEditar = citaParaEditar;
+		INSTANCE.ventanaAgregarCita.limpiarCampos();
+		inicializarDatosEditar();
+		return INSTANCE;
+	}
+
+	
+
+	private static void inicializarDatosEditar() {
+		INSTANCE.ventanaAgregarCita.limpiarCampos();
+		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
+		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
+		List<SucursalDTO> listaSucursales = INSTANCE.sistema.obtenerSucursales();
+		
+		//fecha de la cita a editar
+		INSTANCE.ventanaAgregarCita.cargarFecha(INSTANCE.citaParaEditar.getFecha());
+		//servicios que tenia
+		INSTANCE.serviciosTurnoAgregados = INSTANCE.sistema.getByIdCita(INSTANCE.citaParaEditar.getIdCita());
+		//ocultamos el boton registrar o buscar cliente
+		INSTANCE.ventanaAgregarCita.ocultarBuscarRegistrarCliente();
+		//cargamos los servicios que ya tenia
+		INSTANCE.actualizarServiciosAgregados(INSTANCE.serviciosTurnoAgregados);
+		INSTANCE.cargarNombreCliente();
+		INSTANCE.setearHorarioCita();
+		INSTANCE.ActualizarInformacionServiciosAgregados();
+		
+		
+		
+		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
+		INSTANCE.ventanaAgregarCita.getJCBoxSucursales().removeAllItems();
+		
+		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
+		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
+		INSTANCE.ventanaAgregarCita.cargarSucursales(listaSucursales);
+		INSTANCE.setearSucursalCita();
+		
+		
+		INSTANCE.ventanaAgregarCita.mostrarVentana();
+	}
+
+	private void setearSucursalCita() {
+		this.ventanaAgregarCita.getJCBoxSucursales().setSelectedIndex(this.citaParaEditar.getIdSucursal()-1);
+	}
+
+
+
+	private void setearHorarioCita() {
+		this.ventanaAgregarCita.getJCBoxHora().setSelectedItem(citaParaEditar.getHoraInicio().getHour());
+		this.ventanaAgregarCita.getJCBoxMinutos().setSelectedItem(citaParaEditar.getHoraInicio().getMinute());
+	}
+
+
+
+	private void cargarNombreCliente() {
+			this.ventanaAgregarCita.getTxtNombre().setText(this.citaParaEditar.getNombre());
+			this.ventanaAgregarCita.getTxtNombre().setEditable(false);
+			this.ventanaAgregarCita.getTxtApellido().setText(this.citaParaEditar.getApellido());
+			this.ventanaAgregarCita.getTxtApellido().setEditable(false);
 	}
 
 	public void buscarCliente(ActionEvent r) {

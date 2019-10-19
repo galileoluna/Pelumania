@@ -555,6 +555,13 @@ public class VentanaAgregarCita extends JFrame
 		txtFecha.setText(dia + " de "+ S_mes+" de "+anio);
 		this.setFechaCita(fecha);
 	}
+	//metodo sobrecargado para pasarle directamente una fecha
+	//se usa para editar citar
+	public void cargarFecha(LocalDate fecha) {
+		String S_mes = parseMes(fecha.getMonthValue());
+		txtFecha.setText(fecha.getDayOfMonth() + " de "+ S_mes+" de "+ fecha.getYear());
+		this.setFechaCita(fecha);
+	}
 	
 	public String parseMes(int mes) {
 		String ret = "";
@@ -657,4 +664,16 @@ public class VentanaAgregarCita extends JFrame
 		limpiarCampos();
 		dispose();
 	}
+
+	public void ocultarBuscarRegistrarCliente() {
+		this.getBtnBuscarCliente().setVisible(false);
+		this.getBtnRegistrarCliente().setVisible(false);
+	}
+
+	public void mostrarBuscarRegistrarCliente() {
+		this.getBtnBuscarCliente().setVisible(true);
+		this.getBtnRegistrarCliente().setVisible(true);
+		
+	}
+
 }
