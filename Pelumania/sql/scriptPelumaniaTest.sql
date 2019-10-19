@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `LogTransferencia`(
 
 SET time_zone = "-3:00";
 
-USE Pelumania;
+USE Pelumaniatest;
 -- Inserts para las sucursales
 INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
 VALUES(1, "San Miguel", "Peron", 1100, "Activa");

@@ -13,6 +13,7 @@ import dto.HorarioDTO;
 import dto.ProfesionalDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
+import persistencia.conexion.Conexion;
 import persistencia.dao.mariadb.DAOSQLFactory;
 
 public class HorarioTest {
