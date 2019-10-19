@@ -18,14 +18,14 @@ public class Conexion {
 				//en caso de que alguno este usando MySQL
 				Class.forName("com.mysql.cj.jdbc.Driver");
 //				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?","root","root");
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumaniaTest?serverTimezone=UTC","root","root");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?serverTimezone=UTC","root","root");
 //				Class.forName("org.mariadb.jdbc.Driver"); // quitar si no es necesario
 //				this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Pelumania?serverTimezone=UTC","root","root");
 				this.connection.setAutoCommit(false);
 				log.info("Conexión exitosa");
 			}
 			catch(Exception e)
-			{
+			{ 
 				log.error("Conexión fallida", e);
 			}
 		}
