@@ -21,7 +21,7 @@ public class ControladorEditarCita {
 	private ControladorEditarCita(Sistema sistema, CitaDTO citaAEditar) {
 		this.ventanaEditarCita = VentanaEditarCita.getInstance(citaAEditar);
 		this.sistema = sistema;
-		List<ServicioTurnoDTO> serviciosDeCita = this.sistema.getByIdCita(citaAEditar.getIdCita());
+		List<ServicioTurnoDTO> serviciosDeCita = this.sistema.getServicioTurnoByIdCita(citaAEditar.getIdCita());
 		cargarServicios(serviciosDeCita);
 	}
 

@@ -48,7 +48,7 @@ public class ControladorBuscarCita implements ActionListener{
 			CitaDTO citaSeleccionada = this.listaCitas.get(filaSeleccionada);
 			if (citaSeleccionada != null) {
 				this.controladorCaja.setCitaSeleccionada(citaSeleccionada);
-				this.controladorCaja.setServiciosCita(this.sistema.getByIdCita(citaSeleccionada.getIdCita()));
+				this.controladorCaja.setServiciosCita(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
 				this.controladorCaja.mostarDatosCita();
 				this.ventanaBuscarCita.cerrar();
 			} 

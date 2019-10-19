@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -50,13 +51,23 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getBtn_Cancelar().addActionListener(q -> cancelar(q));
 		this.ventanaAgregarCita.getBtnAgregarServicio().addActionListener(w -> agregarServicio(w));
 		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicioAgregado(x));
+		this.ventanaAgregarCita.getBtnEditar().addActionListener(l -> editarCita(l));
+	
+		this.ventanaAgregarCita.getJCBoxHora().addItemListener(l -> ActualizarInformacionServiciosAgregados());
+		this.ventanaAgregarCita.getJCBoxMinutos().addItemListener(l -> ActualizarInformacionServiciosAgregados());
+		
+		
+//		addItemListener(new ItemListener() {
+//	        public void itemStateChanged(ItemEvent arg0) {
+//	            //Do Something
+//	        }
+//	    });
+		
 		//Instancio la lista de servicios vacía
 		serviciosTurnoAgregados = new ArrayList<ServicioTurnoDTO>();
 		this.sistema = sistema;
 
 	}
-	
-	
 
 	private static void inicializarDatos() {
 
@@ -74,12 +85,14 @@ public class ControladorAgregarCita implements ActionListener{
 
 		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
 		INSTANCE.ventanaAgregarCita.getJCBoxSucursales().removeAllItems();
+		INSTANCE.ventanaAgregarCita.mostrarBotonesDeEditar(false);
 		
 		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
 		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
 		INSTANCE.ventanaAgregarCita.cargarSucursales(listaSucursales);
 		INSTANCE.ventanaAgregarCita.cargarFecha(ANIO, MES, DIA);
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
+		
 	}
 
 	public static ControladorAgregarCita getInstance(Sistema sistema) {
@@ -114,16 +127,14 @@ public class ControladorAgregarCita implements ActionListener{
 		//fecha de la cita a editar
 		INSTANCE.ventanaAgregarCita.cargarFecha(INSTANCE.citaParaEditar.getFecha());
 		//servicios que tenia
-		INSTANCE.serviciosTurnoAgregados = INSTANCE.sistema.getByIdCita(INSTANCE.citaParaEditar.getIdCita());
+		INSTANCE.serviciosTurnoAgregados = INSTANCE.sistema.getServicioTurnoByIdCita(INSTANCE.citaParaEditar.getIdCita());
 		//ocultamos el boton registrar o buscar cliente
-		INSTANCE.ventanaAgregarCita.ocultarBuscarRegistrarCliente();
+		INSTANCE.ventanaAgregarCita.mostrarBotonesDeEditar(true);
 		//cargamos los servicios que ya tenia
 		INSTANCE.actualizarServiciosAgregados(INSTANCE.serviciosTurnoAgregados);
 		INSTANCE.cargarNombreCliente();
 		INSTANCE.setearHorarioCita();
 		INSTANCE.ActualizarInformacionServiciosAgregados();
-		
-		
 		
 		INSTANCE.ventanaAgregarCita.getJCBoxProfesional().removeAllItems();
 		INSTANCE.ventanaAgregarCita.getJCBoxSucursales().removeAllItems();
@@ -131,13 +142,13 @@ public class ControladorAgregarCita implements ActionListener{
 		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
 		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
 		INSTANCE.ventanaAgregarCita.cargarSucursales(listaSucursales);
-		INSTANCE.setearSucursalCita();
+		INSTANCE.setearSucursalCitaEditar();
 		
 		
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
 	}
 
-	private void setearSucursalCita() {
+	private void setearSucursalCitaEditar() {
 		this.ventanaAgregarCita.getJCBoxSucursales().setSelectedIndex(this.citaParaEditar.getIdSucursal()-1);
 	}
 
@@ -172,7 +183,7 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		if(serviciosTurnoAgregados.isEmpty())
 		{
-			JOptionPane.showMessageDialog(null, "No puedes guardar una cita sin servicios!");
+			this.ventanaAgregarCita.mostrarErrorSinServicios();
 		}else {
 		
 		//Levanto los datos de la ventanaCita
@@ -230,10 +241,10 @@ public class ControladorAgregarCita implements ActionListener{
 				this.sistema.insertServicioTurno(st);
 				}
 				
-				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
+				this.ventanaAgregarCita.mostrarExitoCargarCita();
 				this.ventanaAgregarCita.cerrar();
 			}else {
-				JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
+				this.ventanaAgregarCita.mostrarErrorCargarCita();
 			}
 		}else{
 			if (this.sistema.agregarCita(nuevaCita)) {
@@ -247,7 +258,7 @@ public class ControladorAgregarCita implements ActionListener{
 				this.sistema.insertServicioTurno(st);
 				}
 				calcularHorariosServicios();
-				JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
+				this.ventanaAgregarCita.mostrarExitoCargarCita();
 				this.ventanaAgregarCita.cerrar();
 			}else {
 				JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
@@ -257,6 +268,67 @@ public class ControladorAgregarCita implements ActionListener{
 		}
 	}
 	
+	private void editarCita(ActionEvent l) {
+		if(serviciosTurnoAgregados.isEmpty()){
+			this.ventanaAgregarCita.mostrarErrorSinServicios();
+		
+		} else {
+			
+			//se le cambia el estado a una cita al editarla?
+			String estado = "Activa";
+
+			Integer hora = (Integer )this.ventanaAgregarCita.getJCBoxHora().getSelectedItem();
+			Integer minutos = (Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem();
+			LocalTime HoraCitaInicio = LocalTime.of(hora, minutos);
+			
+			validarHora();
+			LocalTime HoraCitaFin = this.ventanaAgregarCita.getHoraFin();
+			
+			//falta permitir cambiar el dia
+			LocalDate fecha = this.citaParaEditar.getFecha();
+			
+			SucursalDTO sucursalSeleccionada = (SucursalDTO) this.ventanaAgregarCita.getJCBoxSucursales().getSelectedItem();
+			int idSucursal = sucursalSeleccionada.getIdSucursal();
+			
+			//modifico el dto antes de mandarlo a la bdd
+			System.out.println("fecha de la citaOriginal" + citaParaEditar.getFecha());
+			System.out.println("fecha localDate " + fecha);
+			System.out.println("fecha Date " + Date.valueOf(fecha));
+			citaParaEditar.setDiaTurno(Date.valueOf(fecha));
+			System.out.println(citaParaEditar.getDiaTurno());
+			citaParaEditar.setIdSucursal(idSucursal);
+			citaParaEditar.setPrecioLocal(this.ventanaAgregarCita.getTotal$());
+			citaParaEditar.setPrecioDolar(this.ventanaAgregarCita.getTotalUSD());
+			citaParaEditar.setHoraInicio(HoraCitaInicio);
+			citaParaEditar.setHoraFin(HoraCitaFin);
+			
+			calcularHorariosServicios();
+
+			if (this.sistema.editarCita(citaParaEditar)) {
+					
+				//borramos todos los servicios que tenia la cita vieja
+				for (ServicioTurnoDTO servicioViejo : this.sistema.getServicioTurnoByIdCita(citaParaEditar.getIdCita())) {
+					this.sistema.deleteServicioTurno(servicioViejo);
+				}
+				
+				for (ServicioTurnoDTO st : serviciosTurnoAgregados) {
+					st.setIdCita(citaParaEditar.getIdCita());
+					this.sistema.insertServicioTurno(st);
+	
+				}
+					
+				JOptionPane.showMessageDialog(null, "La cita se editó correctamente");
+				this.ventanaAgregarCita.cerrar();
+					
+			} else {
+					JOptionPane.showMessageDialog(null, "No se pudo editar la Cita");
+				}
+			}
+			
+	}
+	
+	
+
 	public void agregarServicio(ActionEvent w) {
 		ProfesionalDTO prof = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
 		List<ServicioDTO> serviciosDelProfesional = sistema.getServiciosDelProfesional(prof.getIdProfesional());
@@ -427,10 +499,14 @@ public class ControladorAgregarCita implements ActionListener{
 	 * como asi tambien el precio y la duracion total de la cita 
 	 * */
 	public void ActualizarInformacionServiciosAgregados() {
-		this.ventanaAgregarCita.getLblHoraTotal().setText(CalcularTotalTiempo().toString());
-		this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());
-		this.ventanaAgregarCita.getLblTotalUSD().setText(calcularTotalDolar().toString());
-    	this.actualizarServiciosAgregados(serviciosTurnoAgregados);
+		//tienen que haberse cargado los horarios
+		if (this.ventanaAgregarCita.getJCBoxHora().getSelectedItem() != null && this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem() != null ) {
+			
+			this.ventanaAgregarCita.getLblHoraTotal().setText(CalcularTotalTiempo().toString());
+			this.ventanaAgregarCita.getLblTotal$().setText(calcularTotal().toString());
+			this.ventanaAgregarCita.getLblTotalUSD().setText(calcularTotalDolar().toString());
+	    	this.actualizarServiciosAgregados(serviciosTurnoAgregados);
+		}
 	}
 	
 	/*

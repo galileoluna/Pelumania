@@ -167,7 +167,7 @@ public class Controlador implements ActionListener {
 	
 	/*Recibe el ID de cita, y su Tarjeta en el panel, y llama al metodo que las carga. */
 	public void llenarTablaServicios(int idCita, ComponenteCita Cita) {
-		List<ServicioTurnoDTO> serviciosDeCita = this.sistema.getByIdCita(idCita);
+		List<ServicioTurnoDTO> serviciosDeCita = this.sistema.getServicioTurnoByIdCita(idCita);
 		cargarServiciosDeCita(serviciosDeCita, Cita);
 	}
 	

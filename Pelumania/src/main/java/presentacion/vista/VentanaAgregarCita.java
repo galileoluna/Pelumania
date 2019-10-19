@@ -75,6 +75,7 @@ public class VentanaAgregarCita extends JFrame
 	private JLabel lblSucursal;
 
 	private JComboBox<SucursalDTO> JCBoxSucursales;
+	private JButton btnEditar;
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -284,6 +285,10 @@ public class VentanaAgregarCita extends JFrame
 		JButton btnVerComprobante = new JButton("Ver Comprobante");
 		btnVerComprobante.setBounds(675, 556, 152, 23);
 		panel.add(btnVerComprobante);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setBounds(470, 556, 89, 23);
+		panel.add(btnEditar);
 
 		this.setVisible(false);
 	}
@@ -559,7 +564,7 @@ public class VentanaAgregarCita extends JFrame
 	//se usa para editar citar
 	public void cargarFecha(LocalDate fecha) {
 		String S_mes = parseMes(fecha.getMonthValue());
-		txtFecha.setText(fecha.getDayOfMonth() + " de "+ S_mes+" de "+ fecha.getYear());
+		txtFecha.setText(fecha.getDayOfMonth()+1 + " de "+ S_mes+" de "+ fecha.getYear());
 		this.setFechaCita(fecha);
 	}
 	
@@ -622,6 +627,10 @@ public class VentanaAgregarCita extends JFrame
 		this.spServiciosAgregados = spServiciosAgregados;
 	}
 
+	public JButton getBtnEditar() {
+		return btnEditar;
+	}
+
 	public void cargarServicios(List<ServicioDTO> serviciosEnTabla) {
 			this.getModelServicios().setRowCount(0); //Para vaciar la tabla
 			this.getModelServicios().setColumnCount(0);
@@ -665,9 +674,13 @@ public class VentanaAgregarCita extends JFrame
 		dispose();
 	}
 
-	public void ocultarBuscarRegistrarCliente() {
-		this.getBtnBuscarCliente().setVisible(false);
-		this.getBtnRegistrarCliente().setVisible(false);
+	public void mostrarBotonesDeEditar(boolean valor) {
+		// ocultamos/mostramos lo relacionado a agregar una cita
+		this.getBtnBuscarCliente().setVisible(!valor);
+		this.getBtnRegistrarCliente().setVisible(!valor);
+		this.getBtnAgregarCita().setVisible(!valor);
+	
+		this.getBtnEditar().setVisible(valor);
 	}
 
 	public void mostrarBuscarRegistrarCliente() {
@@ -675,5 +688,14 @@ public class VentanaAgregarCita extends JFrame
 		this.getBtnRegistrarCliente().setVisible(true);
 		
 	}
-
+	
+	public void mostrarErrorSinServicios() {
+		JOptionPane.showMessageDialog(null, "No puedes guardar una cita sin servicios!");
+	}
+	public void mostrarExitoCargarCita() {
+		JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
+	}
+	public void mostrarErrorCargarCita() {
+		JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
+	}
 }

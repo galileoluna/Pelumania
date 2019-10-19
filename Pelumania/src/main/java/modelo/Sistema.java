@@ -246,9 +246,9 @@ public class Sistema
 		return this.cita.finalizar(cita_a_finalizar);
 	}
 	
-	public void editarCita(CitaDTO cita_a_editar)
+	public boolean editarCita(CitaDTO cita_a_editar)
 	{
-		this.cita.update(cita_a_editar);
+		return this.cita.update(cita_a_editar);
 	}
 
 	public List<CitaDTO> obtenerCitas()
@@ -279,7 +279,7 @@ public class Sistema
 		return this.servicioTurno.delete(servicioTurno_a_eliminar);
 	}
 	
-	public List<ServicioTurnoDTO> getByIdCita(int idCita) {
+	public List<ServicioTurnoDTO> getServicioTurnoByIdCita(int idCita) {
 		return this.servicioTurno.getByIdCita(idCita);
 	}
 	

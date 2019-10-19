@@ -180,12 +180,12 @@ public LocalTime getHoraInicio(){
     return this.horaInicio;
 }
 
-public void setHora( LocalTime hora){
+public void setHoraInicio( LocalTime hora){
     this.horaInicio = hora;
 }
 
 public LocalTime getHoraFin() {
-	return horaFin;
+	return this.horaFin;
 }
 public void setHoraFin(LocalTime horaFin) {
 	this.horaFin = horaFin;
