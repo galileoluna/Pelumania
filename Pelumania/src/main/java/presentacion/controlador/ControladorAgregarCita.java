@@ -291,11 +291,7 @@ public class ControladorAgregarCita implements ActionListener{
 			int idSucursal = sucursalSeleccionada.getIdSucursal();
 			
 			//modifico el dto antes de mandarlo a la bdd
-			System.out.println("fecha de la citaOriginal" + citaParaEditar.getFecha());
-			System.out.println("fecha localDate " + fecha);
-			System.out.println("fecha Date " + Date.valueOf(fecha));
 			citaParaEditar.setDiaTurno(Date.valueOf(fecha));
-			System.out.println(citaParaEditar.getDiaTurno());
 			citaParaEditar.setIdSucursal(idSucursal);
 			citaParaEditar.setPrecioLocal(this.ventanaAgregarCita.getTotal$());
 			citaParaEditar.setPrecioDolar(this.ventanaAgregarCita.getTotalUSD());
