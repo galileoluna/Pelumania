@@ -39,7 +39,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String readByDia = "SELECT * FROM Cita WHERE Dia = ? ORDER BY HoraInicio";
 	private static final String DADODEBAJA = "Cerrado";
 	private static final String CANCELADA = "Cancelada";
-	private static final String FINALIZADA = "Finalizada";
+	private static final String FINALIZADA = "Finalizada"; 
 	private static final String profesionalOcupado="SELECT 1 as ocupapo" + 
 													"FROM servicioturno st" + 
 													"JOIN profesional p USING (IdProfesional)" + 
