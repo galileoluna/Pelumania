@@ -187,7 +187,7 @@ public class VentanaAltaHorario extends JFrame {
 	}
 	
 	private void cargarHora(JComboBox hora) {
-		for(int i=0;i<=23;i++) {
+		for(int i=8;i<=20;i++) {
 			hora.addItem(i);
 		}
 	}
