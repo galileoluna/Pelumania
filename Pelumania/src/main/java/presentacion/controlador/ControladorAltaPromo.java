@@ -36,26 +36,40 @@ public class ControladorAltaPromo implements ActionListener{
 	}
 	
 	private void guardarPromocion(ActionEvent l) {
-		
-		String desc=this.ventanaAltaPromo.getDescripcion().getText();
-		java.util.Date utilDate =this.ventanaAltaPromo.getDateFechaInic().getDate();
-		System.out.println(utilDate);
-		java.util.Date utilDate2 =this.ventanaAltaPromo.getDateFechaFin().getDate();
-		Double descuento=(this.ventanaAltaPromo.getDescuento().getText().equals("")?null:Double.parseDouble(this.ventanaAltaPromo.getDescuento().getText()));
-		Integer puntos=(this.ventanaAltaPromo.getPuntos().getText().equals("")?null:Integer.parseInt(this.ventanaAltaPromo.getPuntos().getText()));
-		String estado=this.ventanaAltaPromo.getEstado().getSelectedItem().toString();
-		if(validar(desc,utilDate,utilDate2,descuento,puntos,estado)) {
-			java.sql.Date fechaIn =new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),  utilDate.getDate()+1);
-			java.sql.Date fechaF = new java.sql.Date(utilDate2.getYear(),utilDate2.getMonth(),  utilDate2.getDate()+1);
-			PromocionDTO promo= new PromocionDTO (0,desc,fechaIn,fechaF,descuento,puntos,estado);
-			this.sistema.insertarPromocion(promo);
-			this.ventanaAltaPromo.cerrar();
-			this.controlPromo.getInstance(sistema);
-		}else {
-			JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+		boolean validarError=false;
+		char[] auxDesc=this.ventanaAltaPromo.getDescuento().getText().toCharArray();
+		for(int i=0;i<auxDesc.length;i++) {
+			if(!Character.isDigit(auxDesc[i])) {
+				JOptionPane.showMessageDialog(null, "Dato incorrecto en el descuento (poner solo numeros)", "Error", JOptionPane.ERROR_MESSAGE);
+				validarError=true;}
+		}
+		char[] auxPuntos=this.ventanaAltaPromo.getPuntos().getText().toCharArray();
+		for(int i=0;i<auxPuntos.length;i++) {
+			if(Character.isDigit(auxPuntos[i])) {
+				JOptionPane.showMessageDialog(null, "Dato incorrecto en los puntos (poner solo numeros)", "Error", JOptionPane.ERROR_MESSAGE);
+				validarError=true;}
+		}
+		if(validarError==false) {
+			String desc=this.ventanaAltaPromo.getDescripcion().getText();
+			java.util.Date utilDate =this.ventanaAltaPromo.getDateFechaInic().getDate();
+			System.out.println(utilDate);
+			java.util.Date utilDate2 =this.ventanaAltaPromo.getDateFechaFin().getDate();
+			Double descuento=(this.ventanaAltaPromo.getDescuento().getText().equals("")?null:Double.parseDouble(this.ventanaAltaPromo.getDescuento().getText()));
+			Integer puntos=(this.ventanaAltaPromo.getPuntos().getText().equals("")?null:Integer.parseInt(this.ventanaAltaPromo.getPuntos().getText()));
+			String estado=this.ventanaAltaPromo.getEstado().getSelectedItem().toString();
+			if(validar(desc,utilDate,utilDate2,descuento,puntos,estado)) {
+				java.sql.Date fechaIn =new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),  utilDate.getDate()+1);
+				java.sql.Date fechaF = new java.sql.Date(utilDate2.getYear(),utilDate2.getMonth(),  utilDate2.getDate()+1);
+				PromocionDTO promo= new PromocionDTO (0,desc,fechaIn,fechaF,descuento,puntos,estado);
+				this.sistema.insertarPromocion(promo);
+				this.ventanaAltaPromo.cerrar();
+				this.controlPromo.getInstance(sistema);
+			}else {
+				JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
-	
+
 	private boolean validar( String descripcion, java.util.Date utilDate, java.util.Date utilDate2, Double desc ,Integer puntos,String estado) {
 		if(descripcion==null || descripcion.equals("") || utilDate==null || utilDate2==null || estado.equals("") || (desc==null && puntos==null)) {
 			return false;
