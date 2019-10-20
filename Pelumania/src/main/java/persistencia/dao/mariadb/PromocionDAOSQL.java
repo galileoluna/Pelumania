@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.CategoriaMovimientoCajaDTO;
 import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 import persistencia.conexion.Conexion;
@@ -237,7 +238,27 @@ public class PromocionDAOSQL implements PromocionDAO{
 		}
 		return servi;
 	}
-	
+	public boolean deleteRealPromocion(PromocionDTO promocion_a_eliminar) {
+		PreparedStatement statement;
+    	Connection conexion = Conexion.getConexion().getSQLConexion();
+    	boolean isdeleteExitoso = false;
+    	try 
+    	{
+    		statement = conexion.prepareStatement(deleteReal);
+    		statement.setInt(1, promocion_a_eliminar.getIdPromocion());
+    		
+    		if(statement.executeUpdate() > 0)
+    		{
+    			conexion.commit();
+    			isdeleteExitoso = true;
+    		}
+    	} 
+    	catch (SQLException e) 
+    	{
+    		e.printStackTrace();
+    	}
+    	return isdeleteExitoso;
+	}
 	private PromocionDTO getPromocionlDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idPromocion");
 		String descripcion = resultSet.getString("Descripcion");
