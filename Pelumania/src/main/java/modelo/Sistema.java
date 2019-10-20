@@ -327,6 +327,10 @@ public class Sistema
 	
 	public List<PromocionDTO> obtenerPromoVigente(Date fInicio,Date fFin){
 		return this.promocion.readPromoVigente(fInicio,fFin);
+		
+	}
+	public boolean deleteRealPromocion (PromocionDTO promo) {
+		return this.promocion.deleteRealPromocion(promo);
 	}
 	// FIN PROMOCIONES
 

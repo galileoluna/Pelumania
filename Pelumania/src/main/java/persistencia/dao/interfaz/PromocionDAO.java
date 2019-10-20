@@ -26,5 +26,9 @@ public interface PromocionDAO {
 
 	public List<PromocionDTO> readPromoVigente(Date fInicio, Date fFin);
 
+	public boolean deleteRealPromocion(PromocionDTO promocion_a_eliminar);
+
+
+
 	//public boolean deleteReal(PromocionDTO promocion_a_eliminar);
 }
