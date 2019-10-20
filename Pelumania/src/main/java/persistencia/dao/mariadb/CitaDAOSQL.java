@@ -40,6 +40,13 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String DADODEBAJA = "Cerrado";
 	private static final String CANCELADA = "Cancelada";
 	private static final String FINALIZADA = "Finalizada";
+	private static final String profesionalOcupado="SELECT 1 as ocupapo" + 
+													"FROM servicioturno st" + 
+													"JOIN profesional p USING (IdProfesional)" + 
+													"JOIN cita c USING (idCita)" + 
+													"JOIN diaslaborales d ON  p.IdProfesional=d.IdProfesional" + 
+													"WHERE st.horaInicio < ? AND st.horaFin > ? AND d.HoraEntrada < ?" + 
+													"AND d.HoraSalida > ? AND d.Dia = ? AND p.IdProfesional = ? AND c.Dia=?; ";
 
 	@Override
 	public boolean insert(CitaDTO cita) {
