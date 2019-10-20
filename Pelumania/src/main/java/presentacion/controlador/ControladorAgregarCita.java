@@ -18,6 +18,7 @@ import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
+import presentacion.reportes.ReporteComprobante;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.VentanaCliente;
@@ -57,17 +58,17 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getJCBoxHora().addItemListener(l -> ActualizarInformacionServiciosAgregados());
 		this.ventanaAgregarCita.getJCBoxMinutos().addItemListener(l -> ActualizarInformacionServiciosAgregados());
 		
-		
-//		addItemListener(new ItemListener() {
-//	        public void itemStateChanged(ItemEvent arg0) {
-//	            //Do Something
-//	        }
-//	    });
+		this.ventanaAgregarCita.getBtnVerComprobante().addActionListener(l -> generarComprobante());
 		
 		//Instancio la lista de servicios vacía
 		serviciosTurnoAgregados = new ArrayList<ServicioTurnoDTO>();
 		this.sistema = sistema;
 
+	}
+
+	private void generarComprobante() {
+		 ReporteComprobante reporteComprobante = new ReporteComprobante(citaParaEditar);
+		 reporteComprobante.mostrar();
 	}
 
 	private static void inicializarDatos() {
@@ -348,10 +349,7 @@ public class ControladorAgregarCita implements ActionListener{
 					JOptionPane.showMessageDialog(null, "No se pudo editar la Cita");
 				}
 			}
-			
 	}
-	
-	
 
 	public void agregarServicio(ActionEvent w) {
 		ProfesionalDTO prof = (ProfesionalDTO) this.ventanaAgregarCita.getJCBoxProfesional().getSelectedItem();
