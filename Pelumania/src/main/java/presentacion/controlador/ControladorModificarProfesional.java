@@ -72,7 +72,7 @@ public class ControladorModificarProfesional implements ActionListener {
 		}
 	}
 	// Valida que los campos ingresados no sean nulos o esten vacios	
-	private boolean validar(String nombre,String apellido, Integer sucuOrig, Integer sucuTran) {
+	public boolean validar(String nombre,String apellido, Integer sucuOrig, Integer sucuTran) {
 		if (nombre == null || nombre.equals("") || apellido == null || apellido.equals("") || sucuOrig == null || sucuTran == null ) {
 			
 			return false;
@@ -93,7 +93,7 @@ public class ControladorModificarProfesional implements ActionListener {
 	}
 	
 	//obtiene el id de la sucursal para luego hacer el insert en la tabla 
-		private Integer getIdCombo(String sucur) {
+		public Integer getIdCombo(String sucur) {
 			for (HashMap.Entry<String, Integer> datos : sucursal.entrySet()) {
 				if(datos.getKey().toString().equals(sucur)) {
 					return datos.getValue();
@@ -105,7 +105,7 @@ public class ControladorModificarProfesional implements ActionListener {
 
 	// lleno todo el combo de las sucursales primero lo vacio para que no lo cargue dos veces 
 		// recibe el combo y el hashmap que ya posee el nombre e id de las sucursales
-		private static void llenarCombo(JComboBox combo, HashMap<String,Integer>sucursales) {
+		public static void llenarCombo(JComboBox combo, HashMap<String,Integer>sucursales) {
 			combo.removeAllItems();
 			combo.addItem("--");
 			for (HashMap.Entry<String, Integer> datos : sucursales.entrySet()) {
@@ -114,7 +114,7 @@ public class ControladorModificarProfesional implements ActionListener {
 		}
 		
 		// obtiene el nombre y id de las  sucursales y las agrega a un hasmap que luego se usa para agregar y modificar
-		protected static HashMap<String,Integer> getSucursales(){
+		public static HashMap<String,Integer> getSucursales(){
 			PreparedStatement statement;
 			ResultSet resultSet;
 			Conexion conexion = Conexion.getConexion();

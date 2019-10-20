@@ -73,7 +73,7 @@ public class ControladorServicioPromocion {
 		}
 	}
 	
-	private static void llenarCombo(JComboBox combo, Sistema sistema) {
+	public static void llenarCombo(JComboBox combo, Sistema sistema) {
 		combo.removeAllItems();
 		List<ServicioDTO> servicios=sistema.obtenerServicios();
 		for (ServicioDTO s : servicios) {
@@ -84,7 +84,7 @@ public class ControladorServicioPromocion {
 		
 	}
 	
-	private boolean validar(String serv) {
+	public boolean validar(String serv) {
 		int encontro=0;
 		for(String s : servEnTabla) {
 			if(s.equals(serv)) {

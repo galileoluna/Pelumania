@@ -9,6 +9,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComboBox;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +25,6 @@ import presentacion.controlador.ControladorAltaHorario;
 import presentacion.controlador.ControladorCaja;
 import presentacion.controlador.ControladorEditarPromo;
 import presentacion.controlador.ControladorEditarSucursal;
-import presentacion.controlador.ControladorServicioPromocion;
 
 
 public class ControladorVariosTest {
@@ -31,10 +32,8 @@ public class ControladorVariosTest {
 	ControladorCaja controladorCaja;
 	ControladorEditarSucursal controladorSucursal;
 	ControladorEditarPromo controladorEditarPromo;
-	ControladorServicioPromocion controladorServPromo;
 	ControladorAltaHorario controladorHorario;
 	List<ServicioTurnoDTO> servicios=new ArrayList<ServicioTurnoDTO>();
-
 	ProfesionalDTO prof;
 	HorarioDTO horario,horario3,horario2,horario4;
 	
@@ -59,7 +58,7 @@ public class ControladorVariosTest {
 		sistema.agregarHorario(horario3);
 		horario4=new HorarioDTO(4,"Miercoles",entrada,entrada,1);
 		sistema.agregarHorario(horario4);
-		
+		Date utilDate2 =new Date(10,10, 10);
 
 	}
 	
@@ -118,6 +117,5 @@ public class ControladorVariosTest {
 		assertEquals(false,controladorEditarPromo.validar("hola", utilDate2, null, 22.00, null, "d"));
 		assertEquals(false,controladorEditarPromo.validar("", utilDate2, null, 22.00, null, "d"));
 	}
-	
 	
 }
