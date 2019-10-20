@@ -63,10 +63,11 @@ public class ControladorAltaHorario implements ActionListener{
 	}
 	
 	//Valido que el profesional no tenga mas de dos horarios por dia es decir turno mañana y tarde
-	private boolean validar(int id, String dia) {
+	public boolean validar(int id, String dia) {
 		List<HorarioDTO> horas=this.sistema.obtenerHorario(id);
 		int encontro=0;
 		for(HorarioDTO h : horas) {
+
 			if(h.getDia().equals(dia)) {
 				encontro++;
 			}

@@ -59,7 +59,7 @@ public class ControladorEditarPromo {
 		}
 	}
 	
-	private boolean validar( String descripcion, java.util.Date utilDate, java.util.Date utilDate2, Double desc ,Integer puntos,String estado) {
+	public boolean validar( String descripcion, java.util.Date utilDate, java.util.Date utilDate2, Double desc ,Integer puntos,String estado) {
 		if(descripcion==null || descripcion.equals("") || utilDate==null || utilDate2==null || estado.equals("") || (desc==null && puntos==null)) {
 			return false;
 		}
