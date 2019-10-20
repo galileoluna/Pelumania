@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -116,10 +117,12 @@ public class ControladorAgregarCita implements ActionListener{
 		return INSTANCE;
 	}
 
-	
-
 	private static void inicializarDatosEditar() {
 		INSTANCE.ventanaAgregarCita.limpiarCampos();
+		
+		INSTANCE.ventanaAgregarCita.crearBotonEditarFecha();
+		
+		INSTANCE.ventanaAgregarCita.getBtn_EditarFecha().addActionListener(r -> editarFecha(r));
 		List<ServicioDTO> listaServicios = INSTANCE.sistema.obtenerServicios();
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
 		List<SucursalDTO> listaSucursales = INSTANCE.sistema.obtenerSucursales();
@@ -148,6 +151,31 @@ public class ControladorAgregarCita implements ActionListener{
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
 	}
 
+	private static void editarFecha(ActionEvent e) {
+		INSTANCE.ventanaAgregarCita.crearCalendarioEditarFecha();
+		INSTANCE.ventanaAgregarCita.getCalendario().addPropertyChangeListener(a -> cambiarFecha(a));
+	}
+	
+	private static void cambiarFecha(PropertyChangeEvent a) {
+		int dia = INSTANCE.ventanaAgregarCita.getCalendario().getDayChooser().getDay();
+		int mes =INSTANCE.ventanaAgregarCita.getCalendario().getMonthChooser().getMonth()+1;
+		
+		String S_dia;
+		if (dia<10)
+			S_dia = "0"+Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getDayChooser().getDay());
+		else
+			S_dia = Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getDayChooser().getDay());
+		
+		String S_mes;
+		if (mes<10)
+			S_mes = "0"+Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getMonthChooser().getMonth()+1);
+		else
+			S_mes = Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getMonthChooser().getMonth()+1);
+		
+		String anio =Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getYearChooser().getYear());
+		
+		INSTANCE.ventanaAgregarCita.getTxtFecha().setText(anio+S_mes+S_dia);
+	}
 	private void setearSucursalCitaEditar() {
 		this.ventanaAgregarCita.getJCBoxSucursales().setSelectedIndex(this.citaParaEditar.getIdSucursal()-1);
 	}

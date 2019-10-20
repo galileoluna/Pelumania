@@ -18,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JCalendar;
+
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import dto.SucursalDTO;
@@ -30,6 +32,8 @@ public class VentanaAgregarCita extends JFrame
 
 	private JButton btn_AgregarCita;
 	private JButton btn_Cancelar;
+	
+	private JButton btn_EditarFecha;
 
 	private JLabel lblFecha;
 	private JTextField txtFecha;
@@ -69,6 +73,8 @@ public class VentanaAgregarCita extends JFrame
 	private JLabel lblTotal$;
 	private JLabel lblTotalUSD;
 	private JLabel lblUSD;
+	
+	private JCalendar calendario;
 	
 	private JButton btnBorrarServicio;
 	private JButton btnAgregarServicio;
@@ -531,6 +537,22 @@ public class VentanaAgregarCita extends JFrame
 		this.totalUSD = totalUSD;
 	}
 
+	public JButton getBtn_EditarFecha() {
+		return btn_EditarFecha;
+	}
+
+	public void setBtn_EditarFecha(JButton btn_EditarFecha) {
+		this.btn_EditarFecha = btn_EditarFecha;
+	}
+
+	public JCalendar getCalendario() {
+		return calendario;
+	}
+
+	public void setCalendario(JCalendar calendario) {
+		this.calendario = calendario;
+	}
+
 	private void cargarHora(JComboBox<Integer> hora) {
 		for(int i=8;i<=20;i++) {
 			hora.addItem(i);
@@ -541,6 +563,22 @@ public class VentanaAgregarCita extends JFrame
 		for(int i=0;i<=59;i = i+5) {
 			min.addItem(i);
 		}
+	}
+	
+	public void crearBotonEditarFecha() {
+		btn_EditarFecha = new JButton("Editar Fecha");
+		btn_EditarFecha.setBounds(380, 21, 150, 25);
+		btn_EditarFecha.setVisible(true);
+		this.getContentPane().add(btn_EditarFecha);
+		this.setVisible(true);
+	}
+	
+	public void crearCalendarioEditarFecha() {
+		calendario = new JCalendar();
+		calendario.setBounds(550, 21, 250, 250);
+		calendario.setVisible(true);
+		this.getContentPane().add(calendario);
+		this.setVisible(true);
 	}
 	
 	public void cargarSucursales(List<SucursalDTO> sucursalesEnTabla) {
