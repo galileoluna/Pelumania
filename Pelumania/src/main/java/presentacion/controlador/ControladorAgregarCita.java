@@ -127,6 +127,7 @@ public class ControladorAgregarCita implements ActionListener{
 		List<ProfesionalDTO> listaProfesionales = INSTANCE.sistema.obtenerProfesional();
 		List<SucursalDTO> listaSucursales = INSTANCE.sistema.obtenerSucursales();
 		
+		
 		//fecha de la cita a editar
 		INSTANCE.ventanaAgregarCita.cargarFecha(INSTANCE.citaParaEditar.getFecha());
 		//servicios que tenia
@@ -147,7 +148,7 @@ public class ControladorAgregarCita implements ActionListener{
 		INSTANCE.ventanaAgregarCita.cargarSucursales(listaSucursales);
 		INSTANCE.setearSucursalCitaEditar();
 		
-		
+		System.out.println(INSTANCE.ventanaAgregarCita.getIdCliente());
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
 	}
 
@@ -173,14 +174,15 @@ public class ControladorAgregarCita implements ActionListener{
 			S_mes = Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getMonthChooser().getMonth()+1);
 		
 		String anio =Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getYearChooser().getYear());
+		int año =INSTANCE.ventanaAgregarCita.getCalendario().getYearChooser().getYear();
 		
 		INSTANCE.ventanaAgregarCita.getTxtFecha().setText(anio+S_mes+S_dia);
+		INSTANCE.ventanaAgregarCita.setFechaCita(LocalDate.of(año, mes, dia));
+		
 	}
 	private void setearSucursalCitaEditar() {
 		this.ventanaAgregarCita.getJCBoxSucursales().setSelectedIndex(this.citaParaEditar.getIdSucursal()-1);
 	}
-
-
 
 	private void setearHorarioCita() {
 		this.ventanaAgregarCita.getJCBoxHora().setSelectedItem(citaParaEditar.getHoraInicio().getHour());
@@ -190,6 +192,7 @@ public class ControladorAgregarCita implements ActionListener{
 
 
 	private void cargarNombreCliente() {
+			this.ventanaAgregarCita.setIdCliente(this.citaParaEditar.getIdCliente());
 			this.ventanaAgregarCita.getTxtNombre().setText(this.citaParaEditar.getNombre());
 			this.ventanaAgregarCita.getTxtNombre().setEditable(false);
 			this.ventanaAgregarCita.getTxtApellido().setText(this.citaParaEditar.getApellido());
@@ -319,10 +322,13 @@ public class ControladorAgregarCita implements ActionListener{
 			int idSucursal = sucursalSeleccionada.getIdSucursal();
 			
 			//modifico el dto antes de mandarlo a la bdd
+			citaParaEditar.setIdCliente(this.ventanaAgregarCita.getIdCliente());
 			citaParaEditar.setDiaTurno(Date.valueOf(fecha));
 			citaParaEditar.setIdSucursal(idSucursal);
 			citaParaEditar.setPrecioLocal(this.ventanaAgregarCita.getTotal$());
 			citaParaEditar.setPrecioDolar(this.ventanaAgregarCita.getTotalUSD());
+			citaParaEditar.setFecha(this.ventanaAgregarCita.getFechaCita());
+			System.out.println(citaParaEditar.getFecha());
 			citaParaEditar.setHoraInicio(HoraCitaInicio);
 			citaParaEditar.setHoraFin(HoraCitaFin);
 			

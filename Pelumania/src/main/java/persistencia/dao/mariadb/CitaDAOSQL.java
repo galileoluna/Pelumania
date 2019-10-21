@@ -214,6 +214,7 @@ public class CitaDAOSQL implements CitaDAO{
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
+		System.out.println("cita a editar: "+cita_a_editar.getIdCliente());
 		try
 		{
 			statement = conexion.prepareStatement(update);
