@@ -1,13 +1,16 @@
-package presentacion.Reportes;
+package presentacion.reportes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jdt.internal.compiler.ast.ArrayAllocationExpression;
 
 import dto.CitaDTO;
 import net.sf.jasperreports.engine.JRException;
@@ -27,13 +30,16 @@ public class ReporteComprobante
 	//Recibe la lista de personas para armar el reporte
     public ReporteComprobante(CitaDTO cita)
     {
+    	
+    	List<CitaDTO> coleccion = new ArrayList<CitaDTO>();
+    	coleccion.add(cita);
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
     	try		{
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "reportes" + File.separator + "ReporteComprobante.jasper" );
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("src" + File.separator + "main" + File.separator + "java" + File.separator +  "presentacion" + File.separator + "reportes" + File.separator + "ReporteComprobante.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
-					new JRBeanCollectionDataSource(cita));
+					new JRBeanCollectionDataSource(coleccion));
     		log.info("Se cargó correctamente el reporte");
 		}
 		catch( JRException ex ) 
@@ -48,3 +54,4 @@ public class ReporteComprobante
 		this.reporteViewer.setVisible(true);
 	}
    
+}

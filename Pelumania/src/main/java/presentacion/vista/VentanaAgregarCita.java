@@ -82,6 +82,7 @@ public class VentanaAgregarCita extends JFrame
 
 	private JComboBox<SucursalDTO> JCBoxSucursales;
 	private JButton btnEditar;
+	private JButton btnVerComprobante;
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -288,7 +289,7 @@ public class VentanaAgregarCita extends JFrame
 		JCBoxSucursales.setBounds(100, 513, 237, 23);
 		panel.add(JCBoxSucursales);
 		
-		JButton btnVerComprobante = new JButton("Ver Comprobante");
+		btnVerComprobante = new JButton("Ver Comprobante");
 		btnVerComprobante.setBounds(675, 556, 152, 23);
 		panel.add(btnVerComprobante);
 		
@@ -409,6 +410,10 @@ public class VentanaAgregarCita extends JFrame
 
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public JButton getBtnVerComprobante() {
+		return btnVerComprobante;
 	}
 
 	public void mostrarVentana()
