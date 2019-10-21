@@ -207,6 +207,8 @@ public class Controlador implements ActionListener {
 	
 	public void cargarCitas(List<CitaDTO> citasDelDia) {
 		this.vista.getJPanelCitas().removeAll();
+		this.vista.getBtnCancelarCita().setEnabled(false);
+		this.vista.getBtnEditarCita().setEnabled(false);
 
 		int x = 10;
 		int y = 10;
@@ -232,8 +234,8 @@ public class Controlador implements ActionListener {
                     	Vista.setCitaSeleccionada(citaCargada);
                     	Vista.setComponenteCitaSeleccionado(cc);
                     	
-                    	if (!Vista.getCitaSeleccionada().getEstado().equals("Cancelada") ||
-                    		!Vista.getCitaSeleccionada().getEstado().equals("Finalizada")||
+                    	if (!Vista.getCitaSeleccionada().getEstado().equals("Cancelada") &&
+                    		!Vista.getCitaSeleccionada().getEstado().equals("Finalizada")&&
                     		!Vista.getCitaSeleccionada().getEstado().equals("Vencida")) {
                     	    Controlador.this.vista.getBtnCancelarCita().setEnabled(true);
                     	    Controlador.this.vista.getBtnEditarCita().setEnabled(true);
