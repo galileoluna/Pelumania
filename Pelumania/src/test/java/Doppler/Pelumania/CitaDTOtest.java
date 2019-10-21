@@ -189,15 +189,14 @@ class CitaDTOtest {
 		cita.setIdCliente(10);
 		assertEquals(cita.getIdCliente(),10);
 	}
-	@Test
+    @Test
 	public void testValidarContructor2() {
 		Time tiempo=new Time(1,1,1);
 		Date dia=new Date(1,2,1);
 				
 		cita=new CitaDTO(1,"juan","roberto",tiempo,dia,"1","activo");
 				
-				
-		assertEquals(cita.getFecha(),tiempo);
+		assertEquals(cita.getHoraTurno().compareTo(tiempo),0);
 	}
 	
 	@Test
