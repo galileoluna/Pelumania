@@ -30,5 +30,9 @@ public interface CitaDAO {
 
 	public List<CitaDTO> readAllActivas();
 
+	public CitaDTO getById(int idCita);
+
+	public boolean reprogramar(CitaDTO cita_a_reprogramar);
+
 
 }

@@ -1,12 +1,12 @@
 package presentacion.controlador;
-import dto.ServicioDTO;
-import modelo.Sistema;
-
 import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import dto.CitaDTO;
+import dto.ServicioDTO;
+import modelo.Sistema;
 import presentacion.vista.VentanaServicio;
 
 public class ControladorServicio {
@@ -73,16 +73,27 @@ public class ControladorServicio {
         		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar el servicio?","Confirmacion", JOptionPane.YES_NO_OPTION,
 	   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
 	        		if (confirm == 0) {
-        		this.idServicio = serviciosEnTabla.get(fila).getIdServicio();
-        		ServicioDTO servicio_a_eliminar = sistema.getServicioById(idServicio);
-        		sistema.borrarServicio(servicio_a_eliminar);
-        		ControladorServicio.getInstance(sistema);
+		        		this.idServicio = serviciosEnTabla.get(fila).getIdServicio();
+		        		ServicioDTO servicio_a_eliminar = sistema.getServicioById(idServicio);
+		        		sistema.borrarServicio(servicio_a_eliminar);
+		        		ReprogramarCitas(idServicio);
+		        		ControladorServicio.getInstance(sistema);
+		        		
 	        		}
         	}
         	}
     	}
 	}
 	
+	private void ReprogramarCitas(int idServicio) {
+		System.out.println("ta aca");
+		List<Integer> citasAReprogramar = sistema.getCitasByIdServicio(idServicio);
+		for (Integer idCita : citasAReprogramar) {
+			CitaDTO cita_a_reprogramar = sistema.getCitaById(idCita);
+			sistema.reprogramarCita(cita_a_reprogramar);
+		}
+			
+	}
 	private void buscar(ActionEvent y) {
 		String variable=this.ventanaServicio.getVariableBuscar().getSelectedItem().toString();
 		String value=this.ventanaServicio.getBuscador().getText();

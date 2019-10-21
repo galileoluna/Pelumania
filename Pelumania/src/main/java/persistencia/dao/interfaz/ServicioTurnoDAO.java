@@ -16,4 +16,6 @@ public interface ServicioTurnoDAO {
 
 	public List<ServicioTurnoDTO> getByIdCita(int idCita);
 
+	List<Integer> getCitasByIdServicio(int idServicio);
+
 }

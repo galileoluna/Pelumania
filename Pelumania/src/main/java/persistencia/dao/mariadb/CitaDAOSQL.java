@@ -27,6 +27,7 @@ public class CitaDAOSQL implements CitaDAO{
 	
 	private static final String getCitaMax = "SELECT * FROM Cita WHERE IdCita IN (SELECT MAX(IdCita) FROM Cita);";
 
+	private static final String getById = "SELECT * FROM Cita WHERE idCita = ?";
 	private static final String delete = "UPDATE  Cita SET EstadoCita =? WHERE idCita = ?";
 	private static final String deleteReal = "DELETE FROM Cita WHERE idCita = ?";
 	private static final String cambioDeEstado = "UPDATE Cita SET EstadoTurno = ? WHERE idCita = ?";
@@ -39,6 +40,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String DADODEBAJA = "Cerrado";
 	private static final String CANCELADA = "Cancelada";
 	private static final String FINALIZADA = "Finalizada"; 
+	private static final String REPROGRAMAR = "Reprogramar";
 	private static final String profesionalOcupado = "SELECT 1 as ocupapo" + 
 													"FROM servicioturno st" +  
 													"JOIN profesional p USING (IdProfesional)" + 
@@ -208,6 +210,35 @@ public class CitaDAOSQL implements CitaDAO{
 		}
 		return isFinalizarExitoso;
 	}
+	
+	
+	public boolean reprogramar(CitaDTO cita_a_reprogramar) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isReprogramarExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(cambioDeEstado);
+			statement.setString (1, REPROGRAMAR);
+			statement.setInt	(2, cita_a_reprogramar.getIdCita());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isReprogramarExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isReprogramarExitoso;
+	}
+	
 	@Override
 	public boolean update(CitaDTO cita_a_editar) {
 		PreparedStatement statement;
@@ -344,7 +375,30 @@ public class CitaDAOSQL implements CitaDAO{
 		return profesional;
 	}
 	 
-	
+	public CitaDTO getById(int idCita) {
+			PreparedStatement statement;
+			ResultSet resultSet; //Guarda el resultado de la query
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+			List<CitaDTO> citas = new ArrayList<CitaDTO>();
+			try 
+			{
+				statement = conexion.prepareStatement(getById);
+				statement.setInt(1, idCita);
+				resultSet = statement.executeQuery();
+				
+				while(resultSet.next())
+				{
+					citas.add(getCitaDTOMati(resultSet));
+				}
+		
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			return citas.get(0);
+		}
+		
 	// Este get Cita recibe los parametros necesarios para armar CitaDTO para la visualizacion del turno por tabla
 	private CitaDTO getCitaDTO(ResultSet resultSet) throws SQLException{
 		int idCita = resultSet.getInt("c.idCita");

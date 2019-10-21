@@ -19,6 +19,7 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 	private static final String delete = "DELETE FROM ServicioTurno WHERE idCita = ? AND idServicio = ? AND idProfesional = ?";
 	private static final String update = "";
 	private static final String readAll = "";
+	private static final String getCitasByIdServicio = "SELECT * FROM ServicioTurno WHERE idServicio = ?";
 	private static final String getByIdCita = "SELECT * FROM ServicioTurno WHERE idCita = ?";
 
 	@Override
@@ -106,6 +107,31 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 			e.printStackTrace();
 		}
 		return servicios;
+	}
+	
+	@Override
+	public List<Integer> getCitasByIdServicio(int idServicio) 
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Integer> citas = new ArrayList<Integer>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(getCitasByIdServicio);
+			statement.setInt	(1, idServicio);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				citas.add(getServicioTurnoDTO(resultSet).getIdCita());
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		System.out.println(citas);
+		return citas;
 	}
 	
 	private ServicioTurnoDTO getServicioTurnoDTO(ResultSet resultSet) throws SQLException

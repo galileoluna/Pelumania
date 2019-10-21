@@ -241,6 +241,9 @@ public class Sistema
 		return this.cita.cancelar(cita_a_cancelar);
 	}
 	
+	public boolean reprogramarCita(CitaDTO cita_a_reprogramar) {
+		return this.cita.reprogramar(cita_a_reprogramar);
+	}
 	public boolean finalizarCita(CitaDTO cita_a_finalizar) 
 	{
 		return this.cita.finalizar(cita_a_finalizar);
@@ -283,6 +286,10 @@ public class Sistema
 		return this.servicioTurno.getByIdCita(idCita);
 	}
 	
+	public List<Integer> getCitasByIdServicio(int idServicio){
+		return this.servicioTurno.getCitasByIdServicio(idServicio);
+	}
+	
 	//termina ServicioTurno
 	
 	// Funcion que obtiene la lista que se va a visualizar con los turnos ocupados
@@ -290,6 +297,10 @@ public class Sistema
 	public List<CitaDTO> obtenerTablaCita( String dia ){
 		System.out.println(dia+" estoy en sistema ");
 		return this.cita.readCitaPorDia(dia);
+	}
+	
+	public CitaDTO getCitaById(int idCita) {
+		return this.cita.getById(idCita);
 	}
 	
 	// ARRANCA TODO LO QUE SON PROMOCIONES
