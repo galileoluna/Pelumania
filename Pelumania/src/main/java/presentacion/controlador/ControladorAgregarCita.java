@@ -177,9 +177,9 @@ public class ControladorAgregarCita implements ActionListener{
 		String anio =Integer.toString(INSTANCE.ventanaAgregarCita.getCalendario().getYearChooser().getYear());
 		int año =INSTANCE.ventanaAgregarCita.getCalendario().getYearChooser().getYear();
 		
-		INSTANCE.ventanaAgregarCita.getTxtFecha().setText(anio+S_mes+S_dia);
+		INSTANCE.ventanaAgregarCita.cargarFecha(LocalDate.of(año, mes, dia));
 		INSTANCE.ventanaAgregarCita.setFechaCita(LocalDate.of(año, mes, dia));
-		
+
 	}
 	private void setearSucursalCitaEditar() {
 		this.ventanaAgregarCita.getJCBoxSucursales().setSelectedIndex(this.citaParaEditar.getIdSucursal()-1);

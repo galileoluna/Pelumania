@@ -607,7 +607,7 @@ public class VentanaAgregarCita extends JFrame
 	//se usa para editar citar
 	public void cargarFecha(LocalDate fecha) {
 		String S_mes = parseMes(fecha.getMonthValue());
-		txtFecha.setText(fecha.getDayOfMonth()+1 + " de "+ S_mes+" de "+ fecha.getYear());
+		txtFecha.setText(fecha.getDayOfMonth() + " de "+ S_mes+" de "+ fecha.getYear());
 		this.setFechaCita(fecha);
 	}
 	
@@ -681,18 +681,21 @@ public class VentanaAgregarCita extends JFrame
 
 			for (ServicioDTO s : serviciosEnTabla)
 			{
-				String nombre = s.getNombre();
-				BigDecimal precioLocal = s.getPrecioLocal();
-				BigDecimal precioDolar = s.getPrecioDolar();
-				LocalTime duracion = s.getDuracion();
-				Object[] fila = {nombre, precioLocal, precioDolar, duracion};
-				this.getModelServicios().addRow(fila);
+				if(s.getEstado().equals("Activo")) {
+					String nombre = s.getNombre();
+					BigDecimal precioLocal = s.getPrecioLocal();
+					BigDecimal precioDolar = s.getPrecioDolar();
+					LocalTime duracion = s.getDuracion();
+					Object[] fila = {nombre, precioLocal, precioDolar, duracion};
+					this.getModelServicios().addRow(fila);
+				}
 			}
 	}
 
 	public void cargarProfesionales(List<ProfesionalDTO> profesionalesEnTabla) {
 		for (ProfesionalDTO p : profesionalesEnTabla) {
-			JCBoxProfesional.addItem(p);
+			if (p.getEstado().equals("Activo"))
+				JCBoxProfesional.addItem(p);
 		}
 	}
 	

@@ -12,7 +12,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import dto.CitaDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.CitaDAO;
@@ -72,7 +71,7 @@ public class CitaDAOSQL implements CitaDAO{
 
 				if(statement.executeUpdate() > 0)
 				{
-					conexion.commit();
+//					conexion.commit();
 					isInsertExitoso = true;
 				}
 			}
@@ -111,7 +110,7 @@ public class CitaDAOSQL implements CitaDAO{
 
 				if(statement.executeUpdate() > 0)
 				{
-					conexion.commit();
+//					conexion.commit();
 					isInsertExitoso = true;
 				}
 			}
