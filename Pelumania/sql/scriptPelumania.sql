@@ -147,8 +147,11 @@ CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
 	`idCategoriaCaja` INT(11) NOT NULL AUTO_INCREMENT,
 	`Nombre` VARCHAR(55) NOT NULL,
     `Estado` VARCHAR(55) NOT NULL,
-    `TipoMovimiento` VARCHAR(55) NOT NULL,
-    
+    `TipoMovimiento` VARCHAR(55) NOT NULL
+    -- Esta linea que sigue es borrable, es solo para que los insert funcionen
+    -- ________________________________________________________________________
+    DEFAULT("ValorPorDefecto"),
+    -- ________________________________________________________________________
     PRIMARY KEY(`idCategoriaCaja`)
 );
 
@@ -183,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `ServicioTurno`(
 
   `idCita` INT(11) NOT NULL,
   `idServicio` INT(11) NOT NULL,
-  `idProfesional` INT(11) NOT NULL,
+  `idProfesional` INT(11),
   `horaInicio` TIME NOT NULL,
   `horaFin` time NOT NULL,
   

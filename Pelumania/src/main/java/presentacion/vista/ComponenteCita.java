@@ -124,7 +124,7 @@ public class ComponenteCita extends JPanel{
 		getLbl_IdCita().setText(Integer.toString(citaAsociada.getIdCita()));
 		getLbl_HoraInicio().setText(citaAsociada.getHoraInicio().toString());
 		getLbl_HoraFin().setText(citaAsociada.getHoraFin().toString());
-		getLbl_NombreCliente().setText(citaAsociada.getNombre()+citaAsociada.getApellido());	
+		getLbl_NombreCliente().setText(citaAsociada.getNombre()+" "+citaAsociada.getApellido());	
 		getLbl_Estado().setText(citaAsociada.getEstado());
 		getLbl_Total().setText(citaAsociada.getPrecioLocal().toString());
 		getLbl_TotalUSD().setText(citaAsociada.getPrecioDolar().toString());
@@ -135,6 +135,8 @@ public class ComponenteCita extends JPanel{
 		Color verde = new Color(129,152,48);
 		Color azul = new Color(0,85,121);
 		Color amarillo = new Color(248,214,115);
+		Color naranja = new Color(239,169,74);
+		Color gris = new Color(128,128,128);
 		switch (citaAsociada.getEstado()) {
 		case "Activa":
 			setBackground(verde);
@@ -148,7 +150,13 @@ public class ComponenteCita extends JPanel{
 		case "Finalizada":
 			setBackground(azul);
 			break;
-		}
+		case "Vencida":
+			setBackground(naranja);
+			break;
+		default: 
+			setBackground(gris);
+			break;
+			}
 	}
 	
 	public void crearTablaServicios() {

@@ -9,6 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -44,6 +45,8 @@ public class Controlador implements ActionListener {
 	{
 		this.vista = vista; 
 		this.sistema = sistema;
+		
+		this.citasEnTabla = new ArrayList<CitaDTO>();
 
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
 		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
@@ -161,8 +164,8 @@ public class Controlador implements ActionListener {
 		cargarCitas(citasEnTabla);
 		JLabel SinCitas = new JLabel("Aún no hay citas para este día!");
 		SinCitas.setBounds(150,250,200,60);
-		Controlador.this.vista.getJPanelCitas().add(SinCitas);
 		SinCitas.setVisible(true);
+		Controlador.this.vista.getJPanelCitas().add(SinCitas);
 		}
 	}
 	
@@ -229,10 +232,13 @@ public class Controlador implements ActionListener {
                     	Vista.setCitaSeleccionada(citaCargada);
                     	Vista.setComponenteCitaSeleccionado(cc);
                     	
-                    	if (!Vista.getCitaSeleccionada().getEstado().equals("Cancelada")) {
+                    	if (!Vista.getCitaSeleccionada().getEstado().equals("Cancelada") ||
+                    		!Vista.getCitaSeleccionada().getEstado().equals("Finalizada")||
+                    		!Vista.getCitaSeleccionada().getEstado().equals("Vencida")) {
                     	    Controlador.this.vista.getBtnCancelarCita().setEnabled(true);
                     	    Controlador.this.vista.getBtnEditarCita().setEnabled(true);
                     	    cc.setBackground(Color.white);
+                    	    
                     	}
                 
                 	}
@@ -253,6 +259,8 @@ public class Controlador implements ActionListener {
 		this.vista.getFrame().getContentPane().add(this.vista.getScrollPanelCitas(), BorderLayout.CENTER);
 		
 		this.vista.getScrollPanelCitas().setVisible(true);
+		this.vista.getFrame().getContentPane().setVisible(true);
+		this.vista.getFrame().setVisible(true);
 	}
 	
 	/* Metodo que recibe una fecha y devuelve true si la fecha es despues
