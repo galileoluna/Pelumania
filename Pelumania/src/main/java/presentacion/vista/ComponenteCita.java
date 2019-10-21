@@ -88,7 +88,7 @@ public class ComponenteCita extends JPanel{
 		add(lblEstado);
 		
 		lbl_Estado = new JLabel("");
-		lbl_Estado.setBounds(78, 107, 64, 22);
+		lbl_Estado.setBounds(78, 107, 134, 22);
 		add(lbl_Estado);
 		
 		JSeparator separador3 = new JSeparator();
@@ -134,12 +134,16 @@ public class ComponenteCita extends JPanel{
 		Color rojo = new Color(225,64,68);
 		Color verde = new Color(129,152,48);
 		Color azul = new Color(0,85,121);
+		Color amarillo = new Color(248,214,115);
 		switch (citaAsociada.getEstado()) {
 		case "Activa":
 			setBackground(verde);
 			break;
 		case "Cancelada":
 			setBackground(rojo);
+			break;
+		case "Reprogramar":
+			setBackground(amarillo);
 			break;
 		case "Finalizada":
 			setBackground(azul);
