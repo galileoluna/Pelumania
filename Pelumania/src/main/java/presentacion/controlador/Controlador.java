@@ -30,6 +30,7 @@ public class Controlador implements ActionListener {
 	private ControladorServicio controladorServicio;
 	
 	private List<CitaDTO> citasEnTabla;
+	private List<ComponenteCita> componentesCita;
 
 	private ControladorProfesional controladorProfesional;
 	private ControladorAgregarCita controladorAgregarCita;
@@ -47,6 +48,7 @@ public class Controlador implements ActionListener {
 		this.sistema = sistema;
 		
 		this.citasEnTabla = new ArrayList<CitaDTO>();
+		this.componentesCita = new ArrayList<ComponenteCita>();
 
 		this.vista.getMnItmConsultarServicios().addActionListener(c->ventanaServicios(c));
 		this.vista.getMenuProfesional().addActionListener(l->ventanaProfesional(l));
@@ -206,6 +208,7 @@ public class Controlador implements ActionListener {
 	 * en pantalla con los datos de cada una. */
 	
 	public void cargarCitas(List<CitaDTO> citasDelDia) {
+		componentesCita.clear();
 		this.vista.getJPanelCitas().removeAll();
 		this.vista.getBtnCancelarCita().setEnabled(false);
 		this.vista.getBtnEditarCita().setEnabled(false);
@@ -221,10 +224,9 @@ public class Controlador implements ActionListener {
 			CitaDTO citaCargada = citasDelDia.get(i);
 			ComponenteCita cc = new ComponenteCita(x,y, citaCargada);
 			cc.setFocusable(true);
-
+			componentesCita.add(cc);
 			llenarTablaServicios(citaCargada.getIdCita(), cc);
 			
-			cc.setFocusable(true);
 			cc.addMouseListener(new java.awt.event.MouseAdapter() {
 				
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -233,17 +235,21 @@ public class Controlador implements ActionListener {
                 	if (cc.hasFocus()) {
                     	Vista.setCitaSeleccionada(citaCargada);
                     	Vista.setComponenteCitaSeleccionado(cc);
+                    	actualizarColorSegunSeleccion();
                     	
                     	if (!Vista.getCitaSeleccionada().getEstado().equals("Cancelada") &&
                     		!Vista.getCitaSeleccionada().getEstado().equals("Finalizada")&&
-                    		!Vista.getCitaSeleccionada().getEstado().equals("Vencida")) {
+                    		!Vista.getCitaSeleccionada().getEstado().equals("Vencida")) 
+                    	{
                     	    Controlador.this.vista.getBtnCancelarCita().setEnabled(true);
                     	    Controlador.this.vista.getBtnEditarCita().setEnabled(true);
-                    	    cc.setBackground(Color.white);
-                    	    
+                    	    cc.setBackground(Color.white);              
+                    	}else {
+                    		 Controlador.this.vista.getBtnCancelarCita().setEnabled(false);
+                     	    Controlador.this.vista.getBtnEditarCita().setEnabled(false);
                     	}
-                
                 	}
+                	
                 }
  
             });
@@ -268,6 +274,15 @@ public class Controlador implements ActionListener {
 	/* Metodo que recibe una fecha y devuelve true si la fecha es despues
 	 * del dia de hoy, y false si el dia es anterior a hoy.
 	 */
+	
+	public void actualizarColorSegunSeleccion() {
+		for (ComponenteCita ct : this.componentesCita) {
+			if(ct.getCitaAsociada() != Vista.getCitaSeleccionada()) {
+				ct.cambiarColor();
+			}
+				
+		}
+	}
 	
 	public boolean validarFechaCita(LocalDate fechaCita) {
 		LocalDate hoy = LocalDate.now();
