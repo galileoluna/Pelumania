@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.List;
 
 import dto.CategoriaMovimientoCajaDTO;
@@ -160,7 +161,10 @@ public class Sistema
 	}
 	public List<ProfesionalDTO> obtenerProfesionalConBuscador(String variable, String value) {
 		return this.profesional.obtenerProfBuscado(variable,value);
-		
+	}
+	
+	public List<ProfesionalDTO> getProfesionalByHorario(LocalTime inicioTurno, String diaDeLaSemana) {
+		return this.profesional.getProfesionalByHorario(inicioTurno, diaDeLaSemana);
 	}
 	
 	

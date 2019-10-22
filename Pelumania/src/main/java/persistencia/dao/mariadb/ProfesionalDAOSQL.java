@@ -25,6 +25,7 @@ import persistencia.dao.interfaz.ProfesionalDAO;
 	private static final String getById = "SELECT * FROM Profesional WHERE idProfesional = ?";
 	private static final String readBuscador = "SELECT * FROM Profesional WHERE ? LIKE ?";
 	
+	private static final String getProfesionalByHorario = "SELECT * FROM DiasLaborales WHERE ? > HoraEntrada AND ? < HoraSalida AND DIA = ?";
 	
 	private static final String serviciosDelProfesional = "SELECT * FROM ServicioProfesional WHERE idProfesional = ?";
 	public boolean insert(ProfesionalDTO profesional){
@@ -281,18 +282,20 @@ import persistencia.dao.interfaz.ProfesionalDAO;
 		return personas;
 	}
 	
-	public List<ProfesionalDTO> getProfesionalByHorario(LocalTime InicioTurno){
+	public List<ProfesionalDTO> getProfesionalByHorario(LocalTime InicioTurno, String diaDeLaSemana){
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		List<ProfesionalDTO> profesionales = new ArrayList<ProfesionalDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
-			statement = conexion.getSQLConexion().prepareStatement("FALTALAQUERY");
+			statement = conexion.getSQLConexion().prepareStatement(getProfesionalByHorario);
 			statement.setTime(1, Time.valueOf(InicioTurno));
+			statement.setTime(2, Time.valueOf(InicioTurno));
+			statement.setString(3, diaDeLaSemana);
 			resultSet = statement.executeQuery();
 			while (resultSet.next()){
-				profesionales.add(getProfesionalDTO(resultSet));
+				profesionales.add(getProfesionalById(resultSet.getInt("idProfesional")));
 			}
 			return profesionales;
 		} 
@@ -359,6 +362,29 @@ import persistencia.dao.interfaz.ProfesionalDAO;
 		return profesionales.get(0);
 	}
 	
+	private ProfesionalDTO getProfesionalById(int idProfesional) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		List<ProfesionalDTO> profesionales = new ArrayList<ProfesionalDTO>();
+		try 
+		{
+			statement = conexion.prepareStatement(getById);
+			statement.setInt(1, idProfesional);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				profesionales.add(getProfesionalDTO(resultSet));
+			}
+	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return profesionales.get(0);
+	}
 	
 	private ProfesionalDTO getProfesionalDTO(ResultSet resultSet) throws SQLException{
 		int id = resultSet.getInt("idProfesional");

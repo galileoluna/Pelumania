@@ -60,6 +60,7 @@ public class VentanaAgregarCita extends JFrame
 	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
 	private LocalDate fechaCita;
+	private String diaDeLaSemana;
 	private LocalTime horaInicio;
 	private LocalTime HoraFin;
 	private BigDecimal total$;
@@ -602,6 +603,7 @@ public class VentanaAgregarCita extends JFrame
 		String S_mes = parseMes(mes);
 		txtFecha.setText(dia + " de "+ S_mes+" de "+anio);
 		this.setFechaCita(fecha);
+		this.diaDeLaSemana = parsearDiaDeLaSemana(fecha);
 	}
 	//metodo sobrecargado para pasarle directamente una fecha
 	//se usa para editar citar
@@ -609,6 +611,31 @@ public class VentanaAgregarCita extends JFrame
 		String S_mes = parseMes(fecha.getMonthValue());
 		txtFecha.setText(fecha.getDayOfMonth() + " de "+ S_mes+" de "+ fecha.getYear());
 		this.setFechaCita(fecha);
+	}
+	
+	public String parsearDiaDeLaSemana(LocalDate d) {
+		String dia = "";
+		switch (d.getDayOfWeek()) {
+		case MONDAY:
+			dia = "Lunes";
+			break;
+		case TUESDAY:
+			dia = "Martes";
+			break;
+		case WEDNESDAY:
+			dia = "Miércoles";
+			break;
+		case THURSDAY:
+			dia = "Jueves";
+			break;
+		case FRIDAY:
+			dia = "Viernes";
+			break;
+		case SATURDAY:
+			dia = "Sábado";
+			break;
+		}
+		return dia;
 	}
 	
 	public String parseMes(int mes) {
@@ -693,6 +720,8 @@ public class VentanaAgregarCita extends JFrame
 	}
 
 	public void cargarProfesionales(List<ProfesionalDTO> profesionalesEnTabla) {
+		JCBoxProfesional.removeAllItems();
+		this.setVisible(true);
 		for (ProfesionalDTO p : profesionalesEnTabla) {
 			if (p.getEstado().equals("Activo"))
 				JCBoxProfesional.addItem(p);

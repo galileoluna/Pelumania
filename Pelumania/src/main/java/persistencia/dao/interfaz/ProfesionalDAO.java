@@ -1,5 +1,6 @@
 package persistencia.dao.interfaz;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import dto.ProfesionalDTO;
@@ -30,5 +31,7 @@ public interface ProfesionalDAO {
 	public List<String> obtenerServEnTabla(int id);
 
 	public List<ProfesionalDTO> obtenerProfBuscado(String variable, String value);
+
+	public List<ProfesionalDTO> getProfesionalByHorario(LocalTime inicioTurno, String diaDeLaSemana);
 	
 }

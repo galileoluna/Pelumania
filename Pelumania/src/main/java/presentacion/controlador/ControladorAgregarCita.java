@@ -54,6 +54,9 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getBtnAgregarServicio().addActionListener(w -> agregarServicio(w));
 		this.ventanaAgregarCita.getBtnBorrarServicio().addActionListener(x -> borrarServicioAgregado(x));
 		this.ventanaAgregarCita.getBtnEditar().addActionListener(l -> editarCita(l));
+		
+		this.ventanaAgregarCita.getJCBoxHora().addActionListener(x -> llenarProfesionales(x));
+		this.ventanaAgregarCita.getJCBoxMinutos().addActionListener(x -> llenarProfesionales(x));
 	
 		this.ventanaAgregarCita.getJCBoxHora().addItemListener(l -> ActualizarInformacionServiciosAgregados());
 		this.ventanaAgregarCita.getJCBoxMinutos().addItemListener(l -> ActualizarInformacionServiciosAgregados());
@@ -64,6 +67,22 @@ public class ControladorAgregarCita implements ActionListener{
 		serviciosTurnoAgregados = new ArrayList<ServicioTurnoDTO>();
 		this.sistema = sistema;
 
+	}
+
+	private void llenarProfesionales(ActionEvent x) {
+		List<ProfesionalDTO> profesionalesEnHorarioSeleccionado = new ArrayList<ProfesionalDTO>();
+		profesionalesEnHorarioSeleccionado.clear();
+		
+		if(this.ventanaAgregarCita.getJCBoxHora().getSelectedItem() != null &&
+			this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem() != null) {
+			
+			LocalTime horaInicio = LocalTime.of( (Integer)this.ventanaAgregarCita.getJCBoxHora().getSelectedItem(), 
+				(Integer) this.ventanaAgregarCita.getJCBoxMinutos().getSelectedItem());
+			profesionalesEnHorarioSeleccionado = 
+					this.sistema.getProfesionalByHorario(horaInicio, ventanaAgregarCita.parsearDiaDeLaSemana(ventanaAgregarCita.getFechaCita()));
+		
+		this.ventanaAgregarCita.cargarProfesionales(profesionalesEnHorarioSeleccionado);
+		}
 	}
 
 	private void generarComprobante() {
@@ -90,7 +109,7 @@ public class ControladorAgregarCita implements ActionListener{
 		INSTANCE.ventanaAgregarCita.mostrarBotonesDeEditar(false);
 		
 		INSTANCE.ventanaAgregarCita.cargarServicios(listaServicios);
-		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
+//		INSTANCE.ventanaAgregarCita.cargarProfesionales(listaProfesionales);
 		INSTANCE.ventanaAgregarCita.cargarSucursales(listaSucursales);
 		INSTANCE.ventanaAgregarCita.cargarFecha(ANIO, MES, DIA);
 		INSTANCE.ventanaAgregarCita.mostrarVentana();
@@ -602,7 +621,6 @@ public class ControladorAgregarCita implements ActionListener{
 	
 	public boolean comprobarDisponibilidadHorarios() {
 		return false;
-		
 	}
 	
 	public static int getANIO() {
