@@ -246,9 +246,9 @@ class ValidadorTest {
 	
 	@Test
 	void esTelefono9Digitos() {
-		String numero="153789601";
+		String numero="1537859601";
 		
-		assertFalse(validador.esTelefono(numero));
+		assertTrue(validador.esTelefono(numero));
 	}
 	
 	@Test
@@ -572,28 +572,28 @@ class ValidadorTest {
 	void esPrecioValidoCorrectoConComa() {
 		String precio="10,15";
 		
-		assertTrue(validador.esPrecioValido(precio));
+		assertFalse(validador.esPrecioValido(precio));
 	}
 	
 	@Test
 	void esPrecioValidoCorrecto6Digitos() {
-		String precio="101554,15";
+		String precio="101554.15";
 		
 		assertTrue(validador.esPrecioValido(precio));
 	}
 	
 	@Test
 	void esPrecioValidoCorrecto9Digitos() {
-		String precio="101554123,15";
+		String precio="101554123.15";
 		
 		assertTrue(validador.esPrecioValido(precio));
 	}
 	
 	@Test
-	void esPrecioValidoIncorrecto10Digitos() {
-		String precio="1015541234,15";
+	void esPrecioValidoCorrecto10Digitos() {
+		String precio="1015541234.15";
 		
-		assertFalse(validador.esPrecioValido(precio));
+		assertTrue(validador.esPrecioValido(precio));
 	}
 	
 	@Test
@@ -605,7 +605,7 @@ class ValidadorTest {
 	
 	@Test
 	void esPrecioValidoIncorrectoDobleComa() {
-		String precio="12,12,2";
+		String precio="12.12.2";
 		
 		assertFalse(validador.esPrecioValido(precio));
 	}
@@ -696,7 +696,7 @@ class ValidadorTest {
 	
 	@Test
 	void esDescripcionValidaCon80Palabras() {
-		String descripcion="hola lalladfjnfjnfjnfjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
+		String descripcion="hola alladfjnyfjnfjnfjnfkjnfkjnfdjnjdknfkjndkjfdnfkjnfkfmklfmlfkfklmfklmkflmlfflkmflkmfklmflkfnfkfkf";
 		
 		assertTrue(validador.esDescripcionValida(descripcion));
 	}
@@ -788,7 +788,7 @@ class ValidadorTest {
 	
 	@Test
 	void esTipoCambioValidoIncorrecto() {
-		String cambio="puntos";
+		String cambio="puntos1";
 		
 		assertFalse(validador.esTipoCambioValido(cambio));
 	}
