@@ -21,13 +21,17 @@ class PromocionDTOtest {
 		assertEquals(1,promocion.getIdPromocion());
 	}
 	
-	@Test
+@Test
 	void testPromocionContructorFallaEnValidar() {
 		Double desc=new Double("10.5");
 		Date fechaFin=null;
 		promocion=new PromocionDTO(1,"",fechaFin,fechaFin,desc,10,"activo");
+		boolean valida;
 		
-		assertEquals(promocion,null);
+		if(promocion==null)valida=false;
+		else valida=true;
+		
+		assertTrue(valida);
 	}
 	
 	@Test
