@@ -336,8 +336,94 @@ VALUES (4, "Publicidad","Activo");
 INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
 VALUE (5, "Administrativo", "Inactivo");
 
-SELECT * FROM ServicioTurno;
-SELECT * FROM SERVICIO;
+-- inserts para dias laborales
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (1, "Lunes", "08:00:00", "14:00:00", 1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (2, "Martes","08:00:00", "14:00:00", 1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (3, "Miercoles", "08:00:00", "14:00:00", 1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (4, "Jueves", "08:00:00", "14:00:00", 1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (5, "Viernes", "08:00:00", "14:00:00", 1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (6, "Sabado", "08:00:00", "14:00:00", 1);
 
-Use Pelumania;
-SELECT * FROM Cita;
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (7, "Lunes", "14:00:00", "20:00:00", 2);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (8, "Martes", "14:00:00", "20:00:00", 2);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (9, "Miercoles", "14:00:00", "20:00:00", 2);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (10, "Jueves", "14:00:00", "20:00:00", 2);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (11, "Viernes", "14:00:00", "20:00:00", 2);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (12, "Sabado", "14:00:00", "20:00:00", 2);
+
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (13, "Lunes", "08:00:00", "14:00:00", 3);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (14, "Martes","08:00:00", "14:00:00", 3);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (15, "Miercoles", "08:00:00", "14:00:00", 3);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (16, "Jueves", "08:00:00", "14:00:00", 3);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (17, "Viernes", "08:00:00", "14:00:00", 3);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (18, "Sabado", "08:00:00", "14:00:00", 3);
+
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (19, "Lunes", "14:00:00", "20:00:00", 4);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (20, "Martes", "14:00:00", "20:00:00", 4);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (21, "Miercoles", "14:00:00", "20:00:00", 4);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (22, "Jueves", "14:00:00", "20:00:00", 4);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (23, "Viernes", "14:00:00", "20:00:00", 4);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (24, "Sabado", "14:00:00", "20:00:00", 4);
+
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (25, "Lunes", "08:00:00", "14:00:00", 5);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (26, "Martes","08:00:00", "14:00:00", 5);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (27, "Miercoles", "08:00:00", "14:00:00", 5);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (28, "Jueves", "08:00:00", "14:00:00", 5);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (29, "Viernes", "08:00:00", "14:00:00", 5);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (30, "Sabado", "08:00:00", "14:00:00", 5);
+  
+ INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (31, "Lunes", "14:00:00", "20:00:00", 6);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (32, "Martes", "14:00:00", "20:00:00", 6);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (33, "Miercoles", "14:00:00", "20:00:00", 6);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (34, "Jueves", "14:00:00", "20:00:00", 6);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (35, "Viernes", "14:00:00", "20:00:00", 6);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (36, "Sabado", "14:00:00", "20:00:00", 6); 
+
+ INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (37, "Lunes", "12:00:00", "20:00:00", 7);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (38, "Martes", "12:00:00", "20:00:00", 7);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (39, "Miercoles", "12:00:00", "20:00:00", 7);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (40, "Jueves", "12:00:00", "20:00:00", 7);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (41, "Viernes", "12:00:00", "20:00:00", 7);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (42, "Sabado", "142:00:00", "20:00:00", 7); 
