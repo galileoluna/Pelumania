@@ -1,15 +1,18 @@
 package persistencia.dao.mariadb;
 
 	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.util.ArrayList;
-	import java.util.List;
-	import dto.ProfesionalDTO;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import persistencia.conexion.Conexion;
-	import persistencia.dao.interfaz.ProfesionalDAO;
+import persistencia.dao.interfaz.ProfesionalDAO;
 
 	public class ProfesionalDAOSQL implements ProfesionalDAO{
 
@@ -276,6 +279,28 @@ import persistencia.conexion.Conexion;
 			e.printStackTrace();
 		}
 		return personas;
+	}
+	
+	public List<ProfesionalDTO> getProfesionalByHorario(LocalTime InicioTurno){
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		List<ProfesionalDTO> profesionales = new ArrayList<ProfesionalDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement("FALTALAQUERY");
+			statement.setTime(1, Time.valueOf(InicioTurno));
+			resultSet = statement.executeQuery();
+			while (resultSet.next()){
+				profesionales.add(getProfesionalDTO(resultSet));
+			}
+			return profesionales;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return profesionales;
 	}
 
 	public List<ServicioDTO> getServiciosDelProfesional (int id)

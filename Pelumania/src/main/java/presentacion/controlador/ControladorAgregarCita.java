@@ -600,6 +600,11 @@ public class ControladorAgregarCita implements ActionListener{
 		}
 	}
 	
+	public boolean comprobarDisponibilidadHorarios() {
+		return false;
+		
+	}
+	
 	public static int getANIO() {
 		return ANIO;
 	}
