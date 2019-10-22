@@ -1,21 +1,22 @@
 package presentacion.vista;
 
-import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import dto.ProfesionalDTO;
-import javax.swing.JButton;
-import java.awt.Toolkit;
-import javax.swing.JLabel;
-
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import dto.ProfesionalDTO;
+import util.RowsRenderer;
 
 public class VentanaProfesional
 {
@@ -73,6 +74,9 @@ public class VentanaProfesional
 		
 		modelProfesional = new DefaultTableModel(null,nombreColumnas);
 		tablaProfesional = new JTable(modelProfesional);
+		
+		RowsRenderer rr = new RowsRenderer(4);
+		tablaProfesional.setDefaultRenderer(Object.class, rr);
 		
 		tablaProfesional.getColumnModel().getColumn(0).setPreferredWidth(103);
 		tablaProfesional.getColumnModel().getColumn(0).setResizable(false);
