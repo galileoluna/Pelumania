@@ -4,7 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import dto.CitaDTO;
 import modelo.Sistema;
 import presentacion.vista.NuevaVista;
 
@@ -14,6 +19,7 @@ public class Controlador2 implements ActionListener{
 	 */
 	private Sistema sistema;
 	private NuevaVista nvista;
+	private Logger log = Logger.getLogger(Controlador2.class);	
 	
 	private LocalDate fechaSeleccionada;
 	
@@ -30,9 +36,17 @@ public class Controlador2 implements ActionListener{
 	private ControladorCaja controladorCaja;
 	private ControladorCategoriaMovimientoCaja controladorCategoriaMovimientoCaja;
 
+	/*
+	 * Arreglos que se utilizan en la vista
+	 */
+	
+	private List<CitaDTO> citasPorDia;
+	
 	public Controlador2 (NuevaVista nvista, Sistema sistema) {
 		this.nvista = nvista;
 		this.sistema = sistema;
+
+		citasPorDia = new ArrayList<CitaDTO>();
 		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
@@ -82,8 +96,16 @@ public class Controlador2 implements ActionListener{
 		int mes = this.nvista.getCalendario().getMonthChooser().getMonth()+1;
 		int anio = this.nvista.getCalendario().getYearChooser().getYear();
 		
+		String S_dia = (dia < 10) ? "0"+dia : Integer.toString(dia);
+		String S_mes = (mes < 10) ? "0"+mes : Integer.toString(mes);
+		String S_anio = Integer.toString(anio);
+		
 		this.fechaSeleccionada = LocalDate.of(anio, mes, dia);
-		System.out.println(fechaSeleccionada);
+		log.info("Fecha seleccionada es: "+fechaSeleccionada);
+		
+		citasPorDia = this.sistema.getCitasPorDia(S_anio+S_mes+S_dia);
+		log.info("Las citas que levanta esta fecha son: "+citasPorDia);
+
 	}
 	
 	@Override
