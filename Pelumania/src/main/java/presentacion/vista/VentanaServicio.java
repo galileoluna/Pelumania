@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ServicioDTO;
-import util.RowsRenderer;
+import util.RowsRendererBasic;
 
 public class VentanaServicio extends JFrame{
 
@@ -85,7 +85,7 @@ public class VentanaServicio extends JFrame{
 			}
 		};
 		tablaServicios = new JTable(modelServicios);
-		RowsRenderer rr = new RowsRenderer(5);
+		RowsRendererBasic rr = new RowsRendererBasic(5);
 		tablaServicios.setDefaultRenderer(Object.class, rr);
 
 		tablaServicios.getColumnModel().getColumn(0).setPreferredWidth(103);

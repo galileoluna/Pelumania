@@ -418,6 +418,7 @@ public class NuevaVista implements Runnable {
 
 		spServicios.setViewportView(tablaCitas);
 	}
+	
 	@Override
 	public void run() {
 		Thread ct = Thread.currentThread();

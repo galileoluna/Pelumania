@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ProfesionalDTO;
-import util.RowsRenderer;
+import util.RowsRendererBasic;
 
 public class VentanaProfesional
 {
@@ -75,7 +75,7 @@ public class VentanaProfesional
 		modelProfesional = new DefaultTableModel(null,nombreColumnas);
 		tablaProfesional = new JTable(modelProfesional);
 		
-		RowsRenderer rr = new RowsRenderer(4);
+		RowsRendererBasic rr = new RowsRendererBasic(4);
 		tablaProfesional.setDefaultRenderer(Object.class, rr);
 		
 		tablaProfesional.getColumnModel().getColumn(0).setPreferredWidth(103);
