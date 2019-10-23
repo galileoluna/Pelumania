@@ -30,6 +30,20 @@ public class ControladorLogin implements ActionListener{
 			public void keyReleased(KeyEvent arg0) {}
 			}
 		);
+		this.login.getPass().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String pass= new String (login.getPass().getPassword());
+				if(pass.length()==8) {
+					e.consume();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0) {}
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
+		});
 		this.login.getIniciar().addActionListener(l -> IniciarPelumania(l));
 				
 	}
