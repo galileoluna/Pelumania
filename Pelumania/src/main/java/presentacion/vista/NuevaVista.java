@@ -62,6 +62,20 @@ public class NuevaVista implements Runnable {
 			String hora,minutos,segundos,ampm;
 			Calendar calendar;    
 			Thread h1;
+			private JLabel Lbl_Rojo;
+			private JLabel Lbl_Naranja;
+			private JLabel Lbl_Amarillo;
+			private JLabel Lbl_Verde;
+			private JLabel Lbl_Azul;
+			private JLabel Lbl_Gris;
+			private JLabel label_5;
+			private JLabel label_6;
+			private JLabel lblCitasActivas;
+			private JLabel LblCitasEnCurso;
+			private JLabel LblCitasAReprogramar;
+			private JLabel lblCitasCanceladas;
+			private JLabel lblCitasFinalizadas;
+			private JLabel lblCitasVencidas;
 			
 			/*
 			 * Variables Globales para settear la vista 
@@ -85,6 +99,7 @@ public class NuevaVista implements Runnable {
 			crearPanelCalendario();
 			crearCalendario();
 			crearPanelReferencias();
+				crearLabelsReferencias();
 			crearPanelNotificaciones();
 			crearPanelInformacion();
 				iniciarReloj();
@@ -145,6 +160,98 @@ public class NuevaVista implements Runnable {
 		JPnl_Referencias.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_Referencias.setBounds(0, 292, 415, 133);
 		JPnl_Izquierdo.add(JPnl_Referencias);
+		JPnl_Referencias.setLayout(null);
+	}
+
+	private void crearLabelsReferencias() {
+		    //_________________________________________
+			Lbl_Verde = new JLabel("");
+			Lbl_Verde.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Verde.setOpaque(true);
+			Lbl_Verde.setBackground(Color.GREEN);
+			Lbl_Verde.setBounds(10, 11, 20, 20);
+			JPnl_Referencias.add(Lbl_Verde);
+			
+			lblCitasActivas = new JLabel("Citas Activas");
+			lblCitasActivas.setBounds(40, 11, 157, 20);
+			JPnl_Referencias.add(lblCitasActivas);
+			//_________________________________________
+			
+			Lbl_Rojo = new JLabel();
+			Lbl_Rojo.setBounds(10, 102, 20, 20);
+			Lbl_Rojo.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Rojo.setBackground(Color.RED);
+			Lbl_Rojo.setOpaque(true);
+			JPnl_Referencias.add(Lbl_Rojo);
+			
+			lblCitasCanceladas = new JLabel("Citas Canceladas");
+			lblCitasCanceladas.setBounds(40, 102, 157, 20);
+			JPnl_Referencias.add(lblCitasCanceladas);
+			//_________________________________________
+		
+			Lbl_Naranja = new JLabel("");
+			Lbl_Naranja.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Naranja.setBackground(Color.ORANGE);
+			Lbl_Naranja.setBounds(10, 40, 20, 20);
+			Lbl_Naranja.setOpaque(true);
+			JPnl_Referencias.add(Lbl_Naranja);
+			
+			LblCitasEnCurso = new JLabel("Citas En Curso");
+			LblCitasEnCurso.setBounds(40, 40, 157, 20);
+			JPnl_Referencias.add(LblCitasEnCurso);
+			//_________________________________________
+		
+			Lbl_Amarillo = new JLabel("");
+			Lbl_Amarillo.setBackground(Color.YELLOW);
+			Lbl_Amarillo.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Amarillo.setOpaque(true);
+			Lbl_Amarillo.setBackground(Color.YELLOW);
+			Lbl_Amarillo.setBounds(10, 71, 20, 20);
+			JPnl_Referencias.add(Lbl_Amarillo);
+			
+			LblCitasAReprogramar = new JLabel("Citas a Reprogramar");
+			LblCitasAReprogramar.setBounds(40, 71, 157, 20);
+			JPnl_Referencias.add(LblCitasAReprogramar);
+			//_________________________________________
+
+			Lbl_Azul = new JLabel("");
+			Lbl_Azul.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Azul.setBackground(Color.BLUE);
+			Lbl_Azul.setOpaque(true);
+			Lbl_Azul.setBounds(207, 11, 20, 20);
+			JPnl_Referencias.add(Lbl_Azul);
+			
+			lblCitasFinalizadas = new JLabel("Citas Finalizadas");
+			lblCitasFinalizadas.setBounds(237, 11, 157, 20);
+			JPnl_Referencias.add(lblCitasFinalizadas);
+			//_________________________________________
+			
+			Lbl_Gris = new JLabel("");
+			Lbl_Gris.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Gris.setBackground(Color.LIGHT_GRAY);
+			Lbl_Gris.setOpaque(true);
+			Lbl_Gris.setBounds(207, 40, 20, 20);
+			JPnl_Referencias.add(Lbl_Gris);
+			
+			lblCitasVencidas = new JLabel("Citas Vencidas");
+			lblCitasVencidas.setBounds(237, 40, 157, 20);
+			JPnl_Referencias.add(lblCitasVencidas);
+
+			//_________________________________________
+			label_5 = new JLabel("");
+			label_5.setBorder(new LineBorder(new Color (0,0,0)));
+			label_5.setBackground(Color.RED);
+			label_5.setBounds(207, 71, 20, 20);
+			JPnl_Referencias.add(label_5);
+
+			//_________________________________________
+			
+			label_6 = new JLabel("");
+			label_6.setBorder(new LineBorder(new Color (0,0,0)));
+			label_6.setBackground(Color.RED);
+			label_6.setBounds(207, 102, 20, 20);
+			JPnl_Referencias.add(label_6);
+
 	}
 
 	private void crearPanelNotificaciones() {
