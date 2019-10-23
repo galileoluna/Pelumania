@@ -22,8 +22,8 @@ public class Main {
          
 //        Controlador controlador = new Controlador(vista, sistema);
         
-     //   NuevaVista Nvista = new NuevaVista();
-       // Controlador controlador2 = new Controlador(Nvista,sistema);
+        NuevaVista Nvista = new NuevaVista();
+        Controlador controlador2 = new Controlador(Nvista,sistema);
         
     }
  
