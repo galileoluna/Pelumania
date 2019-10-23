@@ -22,10 +22,12 @@ import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import modelo.Sistema;
 import presentacion.vista.ComponenteCita;
+import presentacion.vista.NuevaVista;
 import presentacion.vista.Vista;
 
 public class Controlador implements ActionListener {
 	private Vista vista;
+	private NuevaVista nvista;
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	
@@ -42,6 +44,11 @@ public class Controlador implements ActionListener {
 	
 	private Sistema sistema;
 
+	public Controlador (NuevaVista nvista, Sistema sistema) {
+		this.nvista = nvista;
+		this.sistema = sistema;
+	}
+	
 	public Controlador(Vista vista, Sistema sistema)
 	{
 		this.vista = vista; 
