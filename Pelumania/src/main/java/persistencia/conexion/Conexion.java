@@ -13,10 +13,10 @@ public class Conexion {
 		
 		private Conexion()
 		{
-			try
+			try 
 			{
 				//en caso de que alguno este usando MySQL
-				Class.forName("com.mysql.cj.jdbc.Driver");
+				Class.forName("com.mysql.cj.jdbc.Driver"); 
 				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?","root","root");
 				/* NO TOCAR LO USA NICO*/
 				//this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?serverTimezone=UTC","root","root");

@@ -250,6 +250,17 @@ CREATE TABLE IF NOT EXISTS `LogTransferencia`(
   FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
 );
 
+CREATE TABLE IF NOT EXISTS `usuarioRol`(
+
+  `idUsuario` INT(11) NOT NULL ,
+  `idRol` INT(11) NOT NULL,
+  
+  FOREIGN KEY (`idUsuario`) REFERENCES `Usuario`(`idUsuario`),
+  FOREIGN KEY (`idRol`) REFERENCES `rol`(`idRol`)
+  
+
+);
+
 SET time_zone = "-3:00";
 
 USE Pelumania;
@@ -268,6 +279,13 @@ INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucur
 VALUES(6, "Torcuato", "Av. Balvastro", 7200, "Inactiva");
 INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
 VALUES(7, "Hurlingham", "Calle falsa", 123, "Activa");
+
+-- Insert para rol
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (1, 'Dueño');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (2, 'Contador');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (3, 'Recepcionista');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (4, 'Supervisor');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (5, 'Administrador');
 
 
 -- Inserts para los servicios

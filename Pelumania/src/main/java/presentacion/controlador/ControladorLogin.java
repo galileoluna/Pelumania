@@ -2,6 +2,9 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import modelo.Sistema;
 import presentacion.vista.Login;
 import presentacion.vista.NuevaVista;
@@ -17,7 +20,32 @@ public class ControladorLogin implements ActionListener{
 		this.login = login;
 		this.sistema = sistema;
 		this.login.getIniciar().addActionListener(l -> IniciarPelumania(l));
-		
+		// valido el largo de los caracteres usuario
+		this.login.getUser().addKeyListener(new KeyListener(){
+			public void keyTyped(KeyEvent e) {
+				if (login.getUser().getText().length()== 8)
+			     e.consume();
+			}
+			public void keyPressed(KeyEvent arg0) {}
+			public void keyReleased(KeyEvent arg0) {}
+			}
+		);
+		this.login.getPass().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String pass= new String (login.getPass().getPassword());
+				if(pass.length()==8) {
+					e.consume();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0) {}
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
+		});
+		this.login.getIniciar().addActionListener(l -> IniciarPelumania(l));
+				
 	}
 
 	private void IniciarPelumania(ActionEvent l) {

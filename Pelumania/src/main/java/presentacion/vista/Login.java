@@ -3,6 +3,7 @@ package presentacion.vista;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import persistencia.conexion.Conexion;
@@ -26,7 +28,7 @@ public class Login {
 	private JButton btnIniciar;
 	private JLabel lblNombre;
 	private JTextField user;
-	private JTextField pass;
+	private JPasswordField pass;
 
 	public Login() 
 	{
@@ -40,7 +42,7 @@ public class Login {
 		frmLogin.setTitle("Login Pelumania");
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmLogin.setBounds(100, 100, 418, 219);
+		frmLogin.setBounds(100, 100, 342, 219);
 		
 		
 		contentPane = new JPanel();
@@ -54,7 +56,7 @@ public class Login {
 		contentPane.add(lblEmpleado);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 41, 392, 128);
+		panel.setBounds(10, 41, 306, 128);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -63,7 +65,7 @@ public class Login {
 		panel.add(lblDias);
 		
 		btnIniciar = new JButton("Iniciar Sesion");
-		btnIniciar.setBounds(107, 93, 132, 23);
+		btnIniciar.setBounds(81, 94, 132, 23);
 		panel.add(btnIniciar);
 		
 		JLabel lblContrasea = new JLabel("Contraseña: ");
@@ -71,13 +73,15 @@ public class Login {
 		panel.add(lblContrasea);
 		
 		user = new JTextField();
-		user.setBounds(152, 8, 169, 20);
+		user.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		user.setBounds(152, 8, 132, 20);
 		panel.add(user);
 		user.setColumns(10);
 		
-		pass = new JTextField();
+		pass = new JPasswordField();
+		pass.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pass.setColumns(10);
-		pass.setBounds(152, 52, 169, 20);
+		pass.setBounds(152, 52, 132, 20);
 		panel.add(pass);
 	
 		
@@ -108,11 +112,12 @@ public class Login {
 		this.frmLogin.setVisible(true);
 	}
 	
+
 	public void cerrar() {
 		frmLogin.dispose();
 	}
 	
-	public JTextField getPass() {
+	public JPasswordField getPass() {
 		return this.pass;
 	}
 	
