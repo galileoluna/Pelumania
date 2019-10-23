@@ -13,7 +13,7 @@ public class Conexion {
 		
 		private Conexion()
 		{
-			try
+			try 
 			{
 				//en caso de que alguno este usando MySQL
 				Class.forName("com.mysql.cj.jdbc.Driver"); 
