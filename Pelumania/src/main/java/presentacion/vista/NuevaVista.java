@@ -14,9 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
+
+import util.RowsRenderer;
 
 public class NuevaVista implements Runnable {
 
@@ -62,6 +67,9 @@ public class NuevaVista implements Runnable {
 			String hora,minutos,segundos,ampm;
 			Calendar calendar;    
 			Thread h1;
+			
+			/*
+			 * Variables para manejar las Referencias*/
 			private JLabel Lbl_Rojo;
 			private JLabel Lbl_Naranja;
 			private JLabel Lbl_Amarillo;
@@ -70,6 +78,7 @@ public class NuevaVista implements Runnable {
 			private JLabel Lbl_Gris;
 			private JLabel label_5;
 			private JLabel label_6;
+			
 			private JLabel lblCitasActivas;
 			private JLabel LblCitasEnCurso;
 			private JLabel LblCitasAReprogramar;
@@ -85,6 +94,14 @@ public class NuevaVista implements Runnable {
 			private UsuarioDTO usuario;
 			private SucursalDTO sucursal;
 			 */
+			
+			/*
+			 * Variables para manejo de tabla Citas
+			 * */
+			private JTable tablaCitas;
+			private DefaultTableModel modelCitas;
+			private String[] nombreColumnas = {"Cliente","Precio en $",
+					"Precio en USD","Hora Inicio", "Hora Fin",  "Puntos que brinda", "Estado"};
 
 	public NuevaVista() {
 		initialize();
@@ -109,6 +126,7 @@ public class NuevaVista implements Runnable {
 		crearPanelCitas();
 			crearPanelFiltros();
 			crearPanelTablaCitas();
+				crearTablaCitas();
 			crearPanelDetalle();
 			crearPanelBotones();
 			crearBotones();
@@ -368,6 +386,38 @@ public class NuevaVista implements Runnable {
 		crearLabelHora();
 	}
 	
+	public void crearTablaCitas() {
+		JPnl_TablaCitas.setLayout(new GridLayout(0, 1, 0, 0));
+		JScrollPane spServicios = new JScrollPane();
+		spServicios.setBounds(10, 11, 693, 277);
+		JPnl_TablaCitas.add(spServicios);
+		
+		modelCitas = new DefaultTableModel(null,nombreColumnas) {
+			//Para que las celdas de la tabla no se puedan editar
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tablaCitas = new JTable(modelCitas);
+		RowsRenderer rr = new RowsRenderer(5);
+		tablaCitas.setDefaultRenderer(Object.class, rr);
+
+		tablaCitas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaCitas.getColumnModel().getColumn(0).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tablaCitas.getColumnModel().getColumn(1).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tablaCitas.getColumnModel().getColumn(2).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(3).setPreferredWidth(100);
+		tablaCitas.getColumnModel().getColumn(3).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(4).setPreferredWidth(100);
+		tablaCitas.getColumnModel().getColumn(4).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(5).setPreferredWidth(100);
+		tablaCitas.getColumnModel().getColumn(5).setResizable(false);
+
+		spServicios.setViewportView(tablaCitas);
+	}
 	@Override
 	public void run() {
 		Thread ct = Thread.currentThread();
