@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -32,11 +33,20 @@ public class NuevaVista implements Runnable {
 	
 	private JMenuBar menuBar;
 		private JMenu JM_Sucursales;
+			private JMenuItem mntmGestionDeSucursales;
 		private JMenu JM_Promociones;
+			private JMenuItem mntmGestionDePromociones;
+			private JMenuItem mntmVerPromocionesVigentes;
 		private JMenu JM_Profesional;
+			private JMenuItem mntmGestionDeProfesionales;
 		private JMenu JM_Servicio;
+			private JMenuItem mntmGestionDeServicios;
 		private JMenu JM_Cliente;
-		
+			private JMenuItem mntmGestionDeClientes;
+		private JMenu JM_Caja;
+			private JMenuItem mntmConsultarCategorias;
+			private JMenuItem mntmUtilizarCaja;
+			
 	private JPanel JPnl_Izquierdo;
 	
 		private JPanel JPnl_Calendario;
@@ -145,17 +155,45 @@ public class NuevaVista implements Runnable {
 		JM_Cliente = new JMenu("Cliente");
 		menuBar.add(JM_Cliente);
 		
+		mntmGestionDeClientes = new JMenuItem("Gestion de Clientes");
+		JM_Cliente.add(mntmGestionDeClientes);
+		
 		JM_Servicio = new JMenu("Servicio");
 		menuBar.add(JM_Servicio);
+		
+		mntmGestionDeServicios = new JMenuItem("Gestion de Servicios");
+		JM_Servicio.add(mntmGestionDeServicios);
 		
 		JM_Profesional = new JMenu("Profesional");
 		menuBar.add(JM_Profesional);
 		
+		mntmGestionDeProfesionales = new JMenuItem("Gestion de Profesionales");
+		JM_Profesional.add(mntmGestionDeProfesionales);
+		
 		JM_Promociones = new JMenu("Promociones");
 		menuBar.add(JM_Promociones);
 		
+		mntmGestionDePromociones = new JMenuItem("Gestion de Promociones");
+		JM_Promociones.add(mntmGestionDePromociones);
+		
+		mntmVerPromocionesVigentes = new JMenuItem("Ver promociones Vigentes");
+		JM_Promociones.add(mntmVerPromocionesVigentes);
+		
 		JM_Sucursales = new JMenu("Sucursales");
 		menuBar.add(JM_Sucursales);
+		
+		mntmGestionDeSucursales = new JMenuItem("Gestion de Sucursales");
+		JM_Sucursales.add(mntmGestionDeSucursales);
+		
+		JM_Caja = new JMenu("Caja");
+		menuBar.add(JM_Caja);
+		
+		mntmConsultarCategorias = new JMenuItem("Consulta de categorías");
+		JM_Caja.add(mntmConsultarCategorias);
+		
+		mntmUtilizarCaja = new JMenuItem("Utilizar Caja");
+		JM_Caja.add(mntmUtilizarCaja);
+		
 	}
 
 	private void crearCalendario() {
@@ -447,4 +485,238 @@ public class NuevaVista implements Runnable {
 		minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
 		segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND); 
 		}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public JMenuBar getMenuBar() {
+		return menuBar;
+	}
+	public JMenu getJM_Sucursales() {
+		return JM_Sucursales;
+	}
+
+	public JMenuItem getMntmGestionDeSucursales() {
+		return mntmGestionDeSucursales;
+	}
+	public JMenu getJM_Promociones() {
+		return JM_Promociones;
+	}
+
+	public JMenuItem getMntmGestionDePromociones() {
+		return mntmGestionDePromociones;
+	}
+	public JMenuItem getMntmVerPromocionesVigentes() {
+		return mntmVerPromocionesVigentes;
+	}
+
+	public JMenu getJM_Profesional() {
+		return JM_Profesional;
+	}
+	public JMenuItem getMntmGestionDeProfesionales() {
+		return mntmGestionDeProfesionales;
+	}
+
+	public JMenu getJM_Servicio() {
+		return JM_Servicio;
+	}
+	public JMenuItem getMntmGestionDeServicios() {
+		return mntmGestionDeServicios;
+	}
+
+	public JMenu getJM_Cliente() {
+		return JM_Cliente;
+	}
+	public JMenuItem getMntmGestionDeClientes() {
+		return mntmGestionDeClientes;
+	}
+
+	public JMenu getJM_Caja() {
+		return JM_Caja;
+	}
+
+	public void setJM_Caja(JMenu jM_Caja) {
+		JM_Caja = jM_Caja;
+	}
+
+	public JMenuItem getMntmConsultarCategorias() {
+		return mntmConsultarCategorias;
+	}
+
+	public void setMntmConsultarCategorias(JMenuItem mntmConsultarCategorias) {
+		this.mntmConsultarCategorias = mntmConsultarCategorias;
+	}
+
+	public JMenuItem getMntmUtilizarCaja() {
+		return mntmUtilizarCaja;
+	}
+
+	public void setMntmUtilizarCaja(JMenuItem mntmUtilizarCaja) {
+		this.mntmUtilizarCaja = mntmUtilizarCaja;
+	}
+
+	public JLabel getLbl_Reloj() {
+		return Lbl_Reloj;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public String getMinutos() {
+		return minutos;
+	}
+
+	public String getSegundos() {
+		return segundos;
+	}
+
+	public String getAmpm() {
+		return ampm;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public Thread getH1() {
+		return h1;
+	}
+
+	public JLabel getLbl_Rojo() {
+		return Lbl_Rojo;
+	}
+
+	public JLabel getLbl_Naranja() {
+		return Lbl_Naranja;
+	}
+
+	public JLabel getLbl_Amarillo() {
+		return Lbl_Amarillo;
+	}
+
+	public JLabel getLbl_Verde() {
+		return Lbl_Verde;
+	}
+
+	public JLabel getLbl_Azul() {
+		return Lbl_Azul;
+	}
+
+	public JLabel getLbl_Gris() {
+		return Lbl_Gris;
+	}
+
+	public JLabel getLabel_5() {
+		return label_5;
+	}
+
+	public JLabel getLabel_6() {
+		return label_6;
+	}
+
+	public JLabel getLblCitasActivas() {
+		return lblCitasActivas;
+	}
+
+	public JLabel getLblCitasEnCurso() {
+		return LblCitasEnCurso;
+	}
+
+	public JLabel getLblCitasAReprogramar() {
+		return LblCitasAReprogramar;
+	}
+
+	public JLabel getLblCitasCanceladas() {
+		return lblCitasCanceladas;
+	}
+
+	public JLabel getLblCitasFinalizadas() {
+		return lblCitasFinalizadas;
+	}
+
+	public JLabel getLblCitasVencidas() {
+		return lblCitasVencidas;
+	}
+
+	public JPanel getJPnl_Izquierdo() {
+		return JPnl_Izquierdo;
+	}
+
+	public JPanel getJPnl_Calendario() {
+		return JPnl_Calendario;
+	}
+
+	public JCalendar getCalendario() {
+		return calendario;
+	}
+
+	public JPanel getJPnl_Referencias() {
+		return JPnl_Referencias;
+	}
+
+	public JPanel getJPnl_Notificaciones() {
+		return JPnl_Notificaciones;
+	}
+
+	public JPanel getJPnl_Informacion() {
+		return JPnl_Informacion;
+	}
+
+	public JPanel getJPnl_Citas() {
+		return JPnl_Citas;
+	}
+
+	public JPanel getJPanel_Filtros() {
+		return JPanel_Filtros;
+	}
+
+	public JPanel getJPnl_TablaCitas() {
+		return JPnl_TablaCitas;
+	}
+
+	public JPanel getJPnl_Botones() {
+		return JPnl_Botones;
+	}
+
+	public JButton getBtn_Agregar() {
+		return btn_Agregar;
+	}
+
+	public JButton getBtn_Editar() {
+		return btn_Editar;
+	}
+
+	public JButton getBtn_Cancelar() {
+		return btn_Cancelar;
+	}
+
+	public JButton getBtn_Finalizar() {
+		return btn_Finalizar;
+	}
+
+	public JButton getBtn_VerDetalle() {
+		return btn_VerDetalle;
+	}
+
+	public JButton getBtn_VerComprobante() {
+		return btn_VerComprobante;
+	}
+
+	public JPanel getJPnl_Detalle() {
+		return JPnl_Detalle;
+	}
+
+	public JTable getTablaCitas() {
+		return tablaCitas;
+	}
+
+	public DefaultTableModel getModelCitas() {
+		return modelCitas;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
 }

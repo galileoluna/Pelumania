@@ -4,7 +4,7 @@ import org.apache.log4j.BasicConfigurator;
 
 import modelo.Sistema;
 import persistencia.dao.mariadb.DAOSQLFactory;
-import presentacion.controlador.Controlador;
+import presentacion.controlador.Controlador2;
 import presentacion.controlador.ControladorLogin;
 import presentacion.vista.Login;
 import presentacion.vista.NuevaVista;
@@ -23,7 +23,7 @@ public class Main {
 //        Controlador controlador = new Controlador(vista, sistema);
         
         NuevaVista Nvista = new NuevaVista();
-        Controlador controlador2 = new Controlador(Nvista,sistema);
+        Controlador2 controlador2 = new Controlador2(Nvista,sistema);
         
     } 
  
