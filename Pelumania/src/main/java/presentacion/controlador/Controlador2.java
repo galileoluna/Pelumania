@@ -46,6 +46,8 @@ public class Controlador2 implements ActionListener{
 	 */
 	
 	private List<CitaDTO> citasDelDia;
+	private List<CitaDTO> citasEnTabla;
+	//No son lo mismo las citas del Dia, que las que estan en la tabla. Esta segunda es por los filtros
 	
 	public Controlador2 (NuevaVista nvista, Sistema sistema) {
 		this.nvista = nvista;
@@ -63,6 +65,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmConsultarCategorias().addActionListener(h -> ventanCategoriaMovimientoCaja(h));
 		
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
+		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 
 	}
 	
@@ -108,9 +111,11 @@ public class Controlador2 implements ActionListener{
 		log.info("Fecha seleccionada es: "+fechaSeleccionada);
 		
 		citasDelDia = this.sistema.getCitasPorDia(S_anio+S_mes+S_dia);
+		citasEnTabla = citasDelDia;
 		log.info("Las citas que levanta esta fecha son: "+citasDelDia);
 		
 		RefrescarTablaCitas();
+		habilitarBotonAgregar();
 
 	}
 	
@@ -136,6 +141,28 @@ public class Controlador2 implements ActionListener{
 			this.nvista.getModelCitas().addRow(fila);
 		}
 	}
+	
+	public void habilitarBotonAgregar() {
+		this.nvista.getBtn_Agregar().setEnabled(true);
+	}
+	
+	public void habilitarOperacionesCitas() {
+		int filaSeleccionada = this.nvista.getTablaCitas().getSelectedRow();
+
+		citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
+		if (citaSeleccionada != null) {
+			this.nvista.getBtn_Cancelar().setEnabled(true);
+			this.nvista.getBtn_Finalizar().setEnabled(true);
+			this.nvista.getBtn_VerComprobante().setEnabled(true);
+			this.nvista.getBtn_VerDetalle().setEnabled(true);
+		}
+		
+		log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
+		log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
+		log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
