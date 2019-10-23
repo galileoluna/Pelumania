@@ -8,7 +8,6 @@ import presentacion.controlador.Controlador;
 import presentacion.controlador.ControladorLogin;
 import presentacion.vista.Login;
 import presentacion.vista.NuevaVista;
-import presentacion.vista.Vista;
 
 public class Main {
 	
@@ -18,12 +17,14 @@ public class Main {
         Sistema sistema = new Sistema(new DAOSQLFactory());
         Login login=new Login();
         ControladorLogin controladorLog= new ControladorLogin(login,sistema);
-        /*Vista vista = new Vista();
-        Controlador controlador = new Controlador(vista, sistema);
-        /*
+        
+//         Vista vista = new Vista();
+         
+//        Controlador controlador = new Controlador(vista, sistema);
+        
         NuevaVista Nvista = new NuevaVista();
         Controlador controlador2 = new Controlador(Nvista,sistema);
-        */
+        
     }
  
 } 

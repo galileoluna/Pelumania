@@ -1,6 +1,16 @@
 package presentacion.vista;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -8,13 +18,11 @@ import javax.swing.border.LineBorder;
 
 import com.toedter.calendar.JCalendar;
 
-import java.awt.Color;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import java.awt.GridLayout;
+public class NuevaVista implements Runnable {
 
-public class NuevaVista {
-
+	/*
+	 * JComponentes de la instancia de la Vista
+	 */
 	private JFrame frame;
 	
 	private JMenuBar menuBar;
@@ -32,6 +40,7 @@ public class NuevaVista {
 			private JPanel JPnl_Referencias;	
 			private JPanel JPnl_Notificaciones;
 			private JPanel JPnl_Informacion;
+				private JLabel Lbl_Reloj;
 	
 	private JPanel JPnl_Citas;
 		private JPanel JPanel_Filtros;
@@ -45,11 +54,26 @@ public class NuevaVista {
 			private JButton btn_Finalizar;
 			private JButton btn_VerDetalle;
 			private JButton btn_VerComprobante;
-
+			private JPanel JPnl_Detalle;
+			
+			/*
+			 * Variables globales para manejar la hora
+			 * */
+			String hora,minutos,segundos,ampm;
+			Calendar calendar;    
+			Thread h1;
+			
+			/*
+			 * Variables Globales para settear la vista 
+			 */
+			
+			/*
+			private UsuarioDTO usuario;
+			private SucursalDTO sucursal;
+			 */
 
 	public NuevaVista() {
 		initialize();
-		frame.setVisible(true);
 	}
 	
 	private void initialize() {
@@ -63,12 +87,18 @@ public class NuevaVista {
 			crearPanelReferencias();
 			crearPanelNotificaciones();
 			crearPanelInformacion();
+				iniciarReloj();
+				crearLabelUsuario();
+				crearLabelSucursal();
 		
 		crearPanelCitas();
 			crearPanelFiltros();
 			crearPanelTablaCitas();
+			crearPanelDetalle();
 			crearPanelBotones();
 			crearBotones();
+			
+		frame.setVisible(true);
 	}
 
 	private void crearBarraMenu() {
@@ -127,9 +157,8 @@ public class NuevaVista {
 	private void crearPanelInformacion() {
 		JPnl_Informacion = new JPanel();
 		JPnl_Informacion.setBorder(new LineBorder(new Color(0, 0, 0)));
-		JPnl_Informacion.setBounds(0, 623, 415, 39);
+		JPnl_Informacion.setBounds(0, 627, 415, 35);
 		JPnl_Izquierdo.add(JPnl_Informacion);
-		JPnl_Informacion.setLayout(new BoxLayout(JPnl_Informacion, BoxLayout.X_AXIS));
 	}
 
 	private void crearPanelIzquierdo() {
@@ -143,7 +172,7 @@ public class NuevaVista {
 	private void crearPanelTablaCitas() {
 		JPnl_TablaCitas = new JPanel();
 		JPnl_TablaCitas.setBorder(new LineBorder(new Color(0, 0, 0)));
-		JPnl_TablaCitas.setBounds(0, 139, 917, 483);
+		JPnl_TablaCitas.setBounds(0, 139, 917, 332);
 		JPnl_Citas.add(JPnl_TablaCitas);
 	}
 
@@ -182,6 +211,13 @@ public class NuevaVista {
 		JPnl_Botones.setLayout(new GridLayout(0, 6, 0, 0));
 	}
 
+	private void crearPanelDetalle() {
+		JPnl_Detalle = new JPanel();
+		JPnl_Detalle.setBorder(new LineBorder(new Color(0, 0, 0)));
+		JPnl_Detalle.setBounds(0, 471, 917, 151);
+		JPnl_Citas.add(JPnl_Detalle);
+	}
+
 	private void crearPanelCitas() {
 		JPnl_Citas = new JPanel();
 		JPnl_Citas.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -194,7 +230,63 @@ public class NuevaVista {
 		frame = new JFrame();
 		frame.setTitle("Hair & Head");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/images.jpg"));
+		frame.setBounds(10,10,1380,740);
+		frame.setResizable(false);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 		frame.getContentPane().setLayout(null);
 	}
+
+	public void crearLabelHora() {
+		JPnl_Informacion.setLayout(new GridLayout(0, 3, 0, 0));
+		Lbl_Reloj = new JLabel("");
+		JPnl_Informacion.add(Lbl_Reloj);
+	}
+	
+	public void crearLabelUsuario() {
+		JLabel Lbl_Usuario = new JLabel("UsuarioDefault");
+		JPnl_Informacion.add(Lbl_Usuario);
+	}
+	
+	public void crearLabelSucursal() {
+		JLabel Lbl_Sucursal = new JLabel("SucursalPorDefecto");
+		JPnl_Informacion.add(Lbl_Sucursal);
+	}
+	
+	public void iniciarReloj() {
+		h1 = new Thread(this);
+		h1.start();
+		crearLabelHora();
+	}
+	
+	@Override
+	public void run() {
+		Thread ct = Thread.currentThread();
+		 while(ct == h1) {   
+		  calcula();
+		  Lbl_Reloj.setText(hora + ":" + minutos + ":" + segundos + " "+ampm);
+		  try {
+		   Thread.sleep(1000);
+		  }catch(InterruptedException e) {}
+		 }
+	}
+	
+	public void calcula () {        
+		Calendar calendario = new GregorianCalendar();
+		Date fechaHoraActual = new Date();
+
+		calendario.setTime(fechaHoraActual);
+		ampm = calendario.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
+
+		if(ampm.equals("PM")){
+		 int h = calendario.get(Calendar.HOUR_OF_DAY)-12;
+		 hora = h>9?""+h:"0"+h;
+		}else{
+		 hora = calendario.get(Calendar.HOUR_OF_DAY)>9?""+calendario.get(Calendar.HOUR_OF_DAY):"0"+calendario.get(Calendar.HOUR_OF_DAY);            
+		}
+		minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
+		segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND); 
+		}
 }
