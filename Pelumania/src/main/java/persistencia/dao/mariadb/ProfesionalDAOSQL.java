@@ -28,6 +28,8 @@ import persistencia.dao.interfaz.ProfesionalDAO;
 	private static final String getProfesionalByHorario = "SELECT * FROM DiasLaborales WHERE ? > HoraEntrada AND ? < HoraSalida AND DIA = ?";
 	
 	private static final String serviciosDelProfesional = "SELECT * FROM ServicioProfesional WHERE idProfesional = ?";
+	
+	
 	public boolean insert(ProfesionalDTO profesional){
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();

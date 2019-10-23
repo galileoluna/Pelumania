@@ -10,6 +10,7 @@ import persistencia.dao.interfaz.PromocionDAO;
 import persistencia.dao.interfaz.ServicioDAO;
 import persistencia.dao.interfaz.ServicioTurnoDAO;
 import persistencia.dao.interfaz.SucursalDAO;
+import persistencia.dao.interfaz.UsuarioDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
 
@@ -67,6 +68,11 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	@Override
 	public ServicioTurnoDAO createServicioTurnoDAO() {
 		return new ServicioTurnoDAOSQL();
+	}
+
+	@Override
+	public UsuarioDAO createUsuarioDAO() {
+		return new UsuarioDAOSQL();
 	}
 
 }

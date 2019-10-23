@@ -14,6 +14,7 @@ import dto.PromocionDTO;
 import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
+import dto.UsuarioDTO;
 import persistencia.dao.interfaz.CategoriaMovimientoCajaDAO;
 import persistencia.dao.interfaz.CitaDAO;
 import persistencia.dao.interfaz.ClienteDAO;
@@ -25,6 +26,7 @@ import persistencia.dao.interfaz.PromocionDAO;
 import persistencia.dao.interfaz.ServicioDAO;
 import persistencia.dao.interfaz.ServicioTurnoDAO;
 import persistencia.dao.interfaz.SucursalDAO;
+import persistencia.dao.interfaz.UsuarioDAO;
 
 
 public class Sistema
@@ -39,6 +41,7 @@ public class Sistema
 	private MovimientoCajaDAO caja;
 	private CategoriaMovimientoCajaDAO categoriaMovimientoCaja;
 	private ServicioTurnoDAO servicioTurno;
+	private UsuarioDAO usuario;
 
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -52,6 +55,7 @@ public class Sistema
 		this.caja = metodo_persistencia.createMovimientoCajaDAO();
 		this.categoriaMovimientoCaja = metodo_persistencia.createCategoriaMovimientoCajaDAO();
 		this.servicioTurno = metodo_persistencia.createServicioTurnoDAO();
+		this.usuario=metodo_persistencia.createUsuarioDAO();
 	}
 // COMIENZA CLIENTE
 	public void agregarCliente(ClienteDTO nuevoCliente)
@@ -389,9 +393,12 @@ public class Sistema
 		return this.categoriaMovimientoCaja.readOneByName(categoria);
 	}
 	
-	
-	
 	//Fin Categorias Movimiento Caja
+	
+	//Usuario
+	public List<UsuarioDTO>IniciarSesion(String user,String pass){
+		return this.usuario.readOne(user, pass);
+	}
 	
 
 }
