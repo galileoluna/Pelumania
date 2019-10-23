@@ -11,6 +11,14 @@ public class RowsRenderer extends DefaultTableCellRenderer {
 	private static final long serialVersionUID = 1L;
 	private int columna ;
 
+	
+	public static final Color rojo = new Color(225,64,68);
+	public static final Color verde = new Color(129,152,48);
+	public static final Color azul = new Color(0,85,121);
+	public static final Color amarillo = new Color(248,214,115);
+	public static final Color naranja = new Color(239,169,74);
+	public static final Color gris = new Color(128,128,128);
+	
 /*Le pasas al constructor el numero de columna por el que queres que pinte*/
 
 public RowsRenderer(int Colpatron)
@@ -26,31 +34,30 @@ public Component getTableCellRendererComponent (JTable table, Object value, bool
     setBackground(Color.white);
     table.setForeground(Color.black);
     super.getTableCellRendererComponent(table, value, selected, focused, row, column);
-    Component cell = super.getTableCellRendererComponent(table, value, selected, focused, row, column);
     
     if(table.getValueAt(row,columna).equals("Activa"))
     {
-    	this.setBackground(Color.green);
+    	this.setBackground(verde);
     }
     	if(table.getValueAt(row,columna).equals("Reprogramar"))
 	{
-    		this.setBackground(Color.yellow);
+    		this.setBackground(amarillo);
 	}
     	if(table.getValueAt(row,columna).equals("En Curso"))
 	{
-    		this.setBackground(Color.orange);
+    		this.setBackground(naranja);
 	}
     	if(table.getValueAt(row,columna).equals("Cancelada"))
 	{
-    		this.setBackground(Color.red);
+    		this.setBackground(rojo);
 	}
     	if(table.getValueAt(row,columna).equals("Vencida"))
 	{
-    		this.setBackground(Color.LIGHT_GRAY);
+    		this.setBackground(gris);
 	}
     	if(table.getValueAt(row,columna).equals("Finalizada"))
 	{
-    		this.setBackground(Color.blue);
+    		this.setBackground(azul);
 	}
   
 	return this;

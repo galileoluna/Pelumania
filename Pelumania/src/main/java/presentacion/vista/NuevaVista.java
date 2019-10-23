@@ -224,7 +224,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Verde = new JLabel("");
 			Lbl_Verde.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Verde.setOpaque(true);
-			Lbl_Verde.setBackground(Color.GREEN);
+			Lbl_Verde.setBackground(RowsRenderer.verde);
 			Lbl_Verde.setBounds(10, 11, 20, 20);
 			JPnl_Referencias.add(Lbl_Verde);
 			
@@ -236,7 +236,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Rojo = new JLabel();
 			Lbl_Rojo.setBounds(10, 102, 20, 20);
 			Lbl_Rojo.setBorder(new LineBorder(new Color (0,0,0)));
-			Lbl_Rojo.setBackground(Color.RED);
+			Lbl_Rojo.setBackground(RowsRenderer.rojo);
 			Lbl_Rojo.setOpaque(true);
 			JPnl_Referencias.add(Lbl_Rojo);
 			
@@ -247,7 +247,7 @@ public class NuevaVista implements Runnable {
 		
 			Lbl_Naranja = new JLabel("");
 			Lbl_Naranja.setBorder(new LineBorder(new Color (0,0,0)));
-			Lbl_Naranja.setBackground(Color.ORANGE);
+			Lbl_Naranja.setBackground(RowsRenderer.naranja);
 			Lbl_Naranja.setBounds(10, 40, 20, 20);
 			Lbl_Naranja.setOpaque(true);
 			JPnl_Referencias.add(Lbl_Naranja);
@@ -261,7 +261,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Amarillo.setBackground(Color.YELLOW);
 			Lbl_Amarillo.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Amarillo.setOpaque(true);
-			Lbl_Amarillo.setBackground(Color.YELLOW);
+			Lbl_Amarillo.setBackground(RowsRenderer.amarillo);
 			Lbl_Amarillo.setBounds(10, 71, 20, 20);
 			JPnl_Referencias.add(Lbl_Amarillo);
 			
@@ -272,7 +272,7 @@ public class NuevaVista implements Runnable {
 
 			Lbl_Azul = new JLabel("");
 			Lbl_Azul.setBorder(new LineBorder(new Color (0,0,0)));
-			Lbl_Azul.setBackground(Color.BLUE);
+			Lbl_Azul.setBackground(RowsRenderer.azul);
 			Lbl_Azul.setOpaque(true);
 			Lbl_Azul.setBounds(207, 11, 20, 20);
 			JPnl_Referencias.add(Lbl_Azul);
@@ -284,7 +284,7 @@ public class NuevaVista implements Runnable {
 			
 			Lbl_Gris = new JLabel("");
 			Lbl_Gris.setBorder(new LineBorder(new Color (0,0,0)));
-			Lbl_Gris.setBackground(Color.LIGHT_GRAY);
+			Lbl_Gris.setBackground(RowsRenderer.gris);
 			Lbl_Gris.setOpaque(true);
 			Lbl_Gris.setBounds(207, 40, 20, 20);
 			JPnl_Referencias.add(Lbl_Gris);
@@ -443,6 +443,7 @@ public class NuevaVista implements Runnable {
 				return false;
 			}
 		};
+		
 		tablaCitas = new JTable(modelCitas);
 		RowsRenderer rr = new RowsRenderer(5);
 		tablaCitas.setDefaultRenderer(Object.class, rr);
