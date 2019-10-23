@@ -23,4 +23,6 @@ public interface DAOAbstractFactory {
 
 	public ServicioTurnoDAO createServicioTurnoDAO();
 	
+	public UsuarioDAO createUsuarioDAO();
+	
 }
