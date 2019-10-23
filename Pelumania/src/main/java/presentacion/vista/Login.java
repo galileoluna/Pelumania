@@ -108,12 +108,20 @@ public class Login {
 		this.frmLogin.setVisible(true);
 	}
 	
+	public void cerrar() {
+		frmLogin.dispose();
+	}
+	
 	public JTextField getPass() {
 		return this.pass;
 	}
 	
 	public JTextField getUser() {
 		return this.user;
+	}
+	
+	public JButton getIniciar() {
+		return this.btnIniciar;
 	}
 	
 }
