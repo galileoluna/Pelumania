@@ -2,14 +2,24 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.time.LocalDate;
 
 import modelo.Sistema;
 import presentacion.vista.NuevaVista;
 
 public class Controlador2 implements ActionListener{
+	/*
+	 * Variables Globales importantes 
+	 */
 	private Sistema sistema;
 	private NuevaVista nvista;
 	
+	private LocalDate fechaSeleccionada;
+	
+	/*
+	 * Controladores a instanciar 
+	 */
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	private ControladorProfesional controladorProfesional;
@@ -32,6 +42,8 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmGestionDeSucursales().addActionListener(f -> ventanaSucursales(f));
 		this.nvista.getMntmUtilizarCaja().addActionListener(g -> ventanaCaja(g));
 		this.nvista.getMntmConsultarCategorias().addActionListener(h -> ventanCategoriaMovimientoCaja(h));
+		
+		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 
 	}
 
@@ -63,6 +75,15 @@ public class Controlador2 implements ActionListener{
 
 	private void ventanaCaja(ActionEvent h) {
 		this.controladorCaja = ControladorCaja.getInstance(sistema);
+	}
+	
+	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
+		int dia = this.nvista.getCalendario().getDayChooser().getDay();
+		int mes = this.nvista.getCalendario().getMonthChooser().getMonth()+1;
+		int anio = this.nvista.getCalendario().getYearChooser().getYear();
+		
+		this.fechaSeleccionada = LocalDate.of(anio, mes, dia);
+		System.out.println(fechaSeleccionada);
 	}
 	
 	@Override

@@ -139,7 +139,7 @@ public class NuevaVista implements Runnable {
 				crearTablaCitas();
 			crearPanelDetalle();
 			crearPanelBotones();
-			crearBotones();
+				crearBotones();
 			
 		frame.setVisible(true);
 	}
@@ -348,21 +348,27 @@ public class NuevaVista implements Runnable {
 
 	private void crearBotones() {
 		btn_Agregar = new JButton("Agregar");
+		btn_Agregar.setEnabled(false);
 		JPnl_Botones.add(btn_Agregar);
 		
 		btn_Editar = new JButton("Editar");
+		btn_Editar.setEnabled(false);
 		JPnl_Botones.add(btn_Editar);
 		
 		btn_Cancelar = new JButton("Cancelar");
+		btn_Cancelar.setEnabled(false);
 		JPnl_Botones.add(btn_Cancelar);
 		
 		btn_Finalizar = new JButton("Finalizar");
+		btn_Finalizar.setEnabled(false);
 		JPnl_Botones.add(btn_Finalizar);
 		
 		btn_VerDetalle = new JButton("Ver Detalle");
+		btn_VerDetalle.setEnabled(false);
 		JPnl_Botones.add(btn_VerDetalle);
 		
 		btn_VerComprobante = new JButton("Ver Comprobante");
+		btn_VerComprobante.setEnabled(false);
 		JPnl_Botones.add(btn_VerComprobante);
 	}
 
