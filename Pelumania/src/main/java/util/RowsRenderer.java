@@ -18,41 +18,41 @@ public RowsRenderer(int Colpatron)
     this.columna = Colpatron;
 }
 
+
 @Override
 public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column)
 {        
-	Color gris = new Color(155,155,155);
 	
     setBackground(Color.white);
     table.setForeground(Color.black);
     super.getTableCellRendererComponent(table, value, selected, focused, row, column);
+    Component cell = super.getTableCellRendererComponent(table, value, selected, focused, row, column);
     
     if(table.getValueAt(row,columna).equals("Activa"))
-    	{
-        this.setBackground(Color.green);
-    	}
-    if(table.getValueAt(row,columna).equals("Reprogramar"))
+    {
+    	this.setBackground(Color.green);
+    }
+    	if(table.getValueAt(row,columna).equals("Reprogramar"))
 	{
-    this.setBackground(Color.yellow);
+    		this.setBackground(Color.yellow);
 	}
-    if(table.getValueAt(row,columna).equals("En Curso"))
+    	if(table.getValueAt(row,columna).equals("En Curso"))
 	{
-    this.setBackground(Color.orange);
+    		this.setBackground(Color.orange);
 	}
-    if(table.getValueAt(row,columna).equals("Cancelada"))
+    	if(table.getValueAt(row,columna).equals("Cancelada"))
 	{
-    this.setBackground(Color.red);
+    		this.setBackground(Color.red);
 	}
-    if(table.getValueAt(row,columna).equals("Vencida"))
+    	if(table.getValueAt(row,columna).equals("Vencida"))
 	{
-    this.setBackground(Color.LIGHT_GRAY);
+    		this.setBackground(Color.LIGHT_GRAY);
 	}
-    if(table.getValueAt(row,columna).equals("Finalizada"))
+    	if(table.getValueAt(row,columna).equals("Finalizada"))
 	{
-    this.setBackground(Color.blue);
+    		this.setBackground(Color.blue);
 	}
   
 	return this;
-  
 }
-  }
+}

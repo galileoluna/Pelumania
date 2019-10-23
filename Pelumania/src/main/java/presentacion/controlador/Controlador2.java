@@ -3,13 +3,16 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import dto.CitaDTO;
+import dto.ClienteDTO;
 import modelo.Sistema;
 import presentacion.vista.NuevaVista;
 
@@ -19,9 +22,11 @@ public class Controlador2 implements ActionListener{
 	 */
 	private Sistema sistema;
 	private NuevaVista nvista;
+	
 	private Logger log = Logger.getLogger(Controlador2.class);	
 	
 	private LocalDate fechaSeleccionada;
+	private CitaDTO citaSeleccionada;
 	
 	/*
 	 * Controladores a instanciar 
@@ -40,13 +45,13 @@ public class Controlador2 implements ActionListener{
 	 * Arreglos que se utilizan en la vista
 	 */
 	
-	private List<CitaDTO> citasPorDia;
+	private List<CitaDTO> citasDelDia;
 	
 	public Controlador2 (NuevaVista nvista, Sistema sistema) {
 		this.nvista = nvista;
 		this.sistema = sistema;
 
-		citasPorDia = new ArrayList<CitaDTO>();
+		citasDelDia = new ArrayList<CitaDTO>();
 		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
@@ -60,7 +65,6 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 
 	}
-
 	
 	private void ventanaServicios(ActionEvent a) {
 		this.controladorServicio = ControladorServicio.getInstance(sistema);
@@ -103,11 +107,35 @@ public class Controlador2 implements ActionListener{
 		this.fechaSeleccionada = LocalDate.of(anio, mes, dia);
 		log.info("Fecha seleccionada es: "+fechaSeleccionada);
 		
-		citasPorDia = this.sistema.getCitasPorDia(S_anio+S_mes+S_dia);
-		log.info("Las citas que levanta esta fecha son: "+citasPorDia);
+		citasDelDia = this.sistema.getCitasPorDia(S_anio+S_mes+S_dia);
+		log.info("Las citas que levanta esta fecha son: "+citasDelDia);
+		
+		RefrescarTablaCitas();
 
 	}
 	
+	private void RefrescarTablaCitas() {
+		this.nvista.getModelCitas().setRowCount(0); //Para vaciar la tabla
+		this.nvista.getModelCitas().setColumnCount(0);
+		this.nvista.getModelCitas().setColumnIdentifiers(this.nvista.getNombreColumnas());
+
+		for (CitaDTO cita : citasDelDia)
+		{
+			ClienteDTO cliente = sistema.obtenerClienteById(cita.getIdCliente());
+			
+			if(cliente == null)
+			{log.error("El cliente no esta registrado y devuelve NullPointerException");}
+			
+			String nombre = cliente.getNombre()+" "+cliente.getApellido();
+			BigDecimal precioLocal = cita.getPrecioLocal();
+			BigDecimal precioDolar = cita.getPrecioDolar();
+			LocalTime HoraInicio = cita.getHoraInicio();
+			LocalTime HoraFin = cita.getHoraFin();
+			String estado = cita.getEstado();
+			Object[] fila = {nombre, precioLocal, precioDolar, HoraInicio, HoraFin, estado};
+			this.nvista.getModelCitas().addRow(fila);
+		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

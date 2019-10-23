@@ -111,7 +111,7 @@ public class NuevaVista implements Runnable {
 			private JTable tablaCitas;
 			private DefaultTableModel modelCitas;
 			private String[] nombreColumnas = {"Cliente","Precio en $",
-					"Precio en USD","Hora Inicio", "Hora Fin",  "Puntos que brinda", "Estado"};
+					"Precio en USD","Hora Inicio", "Hora Fin", "Estado"};
 
 	public NuevaVista() {
 		initialize();
@@ -457,8 +457,6 @@ public class NuevaVista implements Runnable {
 		tablaCitas.getColumnModel().getColumn(3).setResizable(false);
 		tablaCitas.getColumnModel().getColumn(4).setPreferredWidth(100);
 		tablaCitas.getColumnModel().getColumn(4).setResizable(false);
-		tablaCitas.getColumnModel().getColumn(5).setPreferredWidth(100);
-		tablaCitas.getColumnModel().getColumn(5).setResizable(false);
 
 		spServicios.setViewportView(tablaCitas);
 	}
