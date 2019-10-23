@@ -3,6 +3,7 @@ package presentacion.vista;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import persistencia.conexion.Conexion;
@@ -26,7 +28,7 @@ public class Login {
 	private JButton btnIniciar;
 	private JLabel lblNombre;
 	private JTextField user;
-	private JTextField pass;
+	private JPasswordField pass;
 
 	public Login() 
 	{
@@ -75,7 +77,7 @@ public class Login {
 		panel.add(user);
 		user.setColumns(10);
 		
-		pass = new JTextField();
+		pass = new JPasswordField();
 		pass.setColumns(10);
 		pass.setBounds(152, 52, 169, 20);
 		panel.add(pass);
@@ -108,11 +110,12 @@ public class Login {
 		this.frmLogin.setVisible(true);
 	}
 	
+
 	public void cerrar() {
 		frmLogin.dispose();
 	}
 	
-	public JTextField getPass() {
+	public JPasswordField getPass() {
 		return this.pass;
 	}
 	
