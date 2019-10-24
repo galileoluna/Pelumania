@@ -52,7 +52,7 @@ public class Controlador2 implements ActionListener{
 	private List<CitaDTO> citasEnTabla;
 	//No son lo mismo las citas del Dia, que las que estan en la tabla. Esta segunda es por los filtros
 	
-	public Controlador2 (NuevaVista nvista, Sistema sistema,UsuarioDTO usuario) {
+	public Controlador2 (NuevaVista nvista, Sistema sistema, UsuarioDTO usuario) {
 		this.nvista = nvista;
 		this.sistema = sistema;
 		this.usuario=usuario;
