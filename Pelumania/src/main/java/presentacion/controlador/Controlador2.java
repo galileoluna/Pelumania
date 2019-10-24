@@ -147,6 +147,7 @@ public class Controlador2 implements ActionListener{
 		
 		log.info("Las citas del día: "+fechaSeleccionada+" son "+citasDelDia);
 		log.info("Y las citas en tabla son: "+ citasEnTabla);
+		log.info("__________________________________________________________");
 	}
 	
 	private static String getFechaSeleccionadaAsString() {
@@ -203,6 +204,9 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	public void limpiarTablas() {
+		this.citaSeleccionada = null;
+		OperacionesCita(false);
+		this.citasDelDia.clear();
 		this.citasEnTabla.clear();
 	}
 	
@@ -216,18 +220,25 @@ public class Controlador2 implements ActionListener{
 	
 	public void actualizarCitaSeleccionada(ListSelectionEvent l) {
 		int filaSeleccionada = this.nvista.getTablaCitas().getSelectedRow();
-
-		citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
-		if (citaSeleccionada != null) {
-			this.nvista.getBtn_Cancelar().setEnabled(true);
-			this.nvista.getBtn_Finalizar().setEnabled(true);
-			this.nvista.getBtn_VerComprobante().setEnabled(true);
-			this.nvista.getBtn_VerDetalle().setEnabled(true);
-		}
 		
-		log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
-		log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
-		log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
+		if (filaSeleccionada != -1) {
+			citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
+			if (citaSeleccionada != null) {
+				OperacionesCita(true);
+				
+				log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
+				log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
+				log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
+				log.info("__________________________________________________________");
+			}
+		}
+	}
+	
+	public void OperacionesCita(boolean habilitar) {
+		this.nvista.getBtn_Cancelar().setEnabled(habilitar);
+		this.nvista.getBtn_Finalizar().setEnabled(habilitar);
+		this.nvista.getBtn_VerComprobante().setEnabled(habilitar);
+		this.nvista.getBtn_VerDetalle().setEnabled(habilitar);
 	}
 	
 	public boolean validarFechaSeleccionada() {
