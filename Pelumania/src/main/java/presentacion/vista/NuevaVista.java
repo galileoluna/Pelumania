@@ -11,12 +11,14 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -67,8 +69,14 @@ public class NuevaVista implements Runnable {
 		private JPanel JPanel_Filtros;
 			private JLabel LblFiltros;
 			private JSeparator separadorFiltros;
+			private JPanel JPnl_FiltroSeleccionado;
+				private JRadioButton rdbtnServicios;
+				private JRadioButton rdbtnProfesional;
+				private JRadioButton rdbtnRangoHorario;
+				private JRadioButton rdbtnEstado;
 			private JCheckBox chckbxMostrarSoloCitas;
 			private JCheckBox chckbxMostrarCitasCanceladas;
+			private JButton btnLimpiarFiltros;
 		private JPanel JPnl_TablaCitas;
 
 	
@@ -122,6 +130,7 @@ public class NuevaVista implements Runnable {
 			private String[] nombreColumnas = {"Cliente","Precio en $",
 					"Precio en USD","Hora Inicio", "Hora Fin", "Estado"};
 
+
 	public NuevaVista() {
 		initialize();
 	}
@@ -148,8 +157,10 @@ public class NuevaVista implements Runnable {
 			crearPanelFiltros();
 				crearLabelFiltros();
 				crearSeparadorFiltros();
+				crearRadioButtonsFiltros();
 				crearPanelDinamicoFiltros();
 				crearCheckBoxes();
+				crearBotonLimpiarFiltros();
 			crearPanelTablaCitas();
 				crearTablaCitas();
 			crearPanelDetalle();
@@ -383,11 +394,121 @@ public class NuevaVista implements Runnable {
 		JPanel_Filtros.add(chckbxMostrarCitasCanceladas);
 	}
 
+	
+	private void crearBotonLimpiarFiltros() {	
+		btnLimpiarFiltros = new JButton("Limpiar filtros");
+		btnLimpiarFiltros.setBounds(726, 56, 143, 23);
+		JPanel_Filtros.add(btnLimpiarFiltros);
+	}
+
+	private void crearRadioButtonsFiltros() {
+		rdbtnServicios = new JRadioButton("Servicios");
+		rdbtnServicios.setBounds(20, 43, 109, 23);
+		JPanel_Filtros.add(rdbtnServicios);
+		
+		rdbtnProfesional = new JRadioButton("Profesional");
+		rdbtnProfesional.setBounds(20, 65, 109, 23);
+		JPanel_Filtros.add(rdbtnProfesional);
+		
+		rdbtnRangoHorario = new JRadioButton("Rango Horario");
+		rdbtnRangoHorario.setBounds(126, 43, 109, 23);
+		JPanel_Filtros.add(rdbtnRangoHorario);
+		
+		rdbtnEstado = new JRadioButton("Estado");
+		rdbtnEstado.setBounds(126, 65, 109, 23);
+		JPanel_Filtros.add(rdbtnEstado);
+	}
+	
 	private void crearPanelDinamicoFiltros() {
-		JPanel JPnl_FiltroSeleccionado = new JPanel();
+		JPnl_FiltroSeleccionado = new JPanel();
 		JPnl_FiltroSeleccionado.setBounds(10, 86, 710, 42);
 		JPanel_Filtros.add(JPnl_FiltroSeleccionado);
 		JPnl_FiltroSeleccionado.setLayout(null);
+	}
+	
+	public void cargarPanelDinamicoFiltros(String filtroElegido) {
+		switch(filtroElegido) {
+		case "Servicio":
+			mostrarPanelServicios();
+			JPnl_FiltroSeleccionado.updateUI();
+			break;
+		case "Profesional":
+			mostrarPanelProfesional();
+			JPnl_FiltroSeleccionado.updateUI();
+			break;
+		case "RangoHorario":
+			mostrarPanelRangoHorario();
+			JPnl_FiltroSeleccionado.updateUI();
+			break;
+		case "Estado":
+			mostrarPanelEstado();
+			JPnl_FiltroSeleccionado.updateUI();
+			break;
+		}
+	}
+	
+	public void limpiarFiltros() {
+		JPnl_FiltroSeleccionado.removeAll();
+
+		rdbtnEstado.setSelected(false);
+		rdbtnRangoHorario.setSelected(false);
+		rdbtnProfesional.setSelected(false);
+		rdbtnServicios.setSelected(false);
+		
+		rdbtnEstado.setEnabled(true);
+		rdbtnRangoHorario.setEnabled(true);
+		rdbtnProfesional.setEnabled(true);
+		rdbtnServicios.setEnabled(true);
+		
+		JPnl_FiltroSeleccionado.updateUI();
+	}
+	
+	private void mostrarPanelServicios(){
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(119, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(comboBox);
+		
+		JLabel lblNewLabel = new JLabel("Servicio: ");
+		lblNewLabel.setBounds(10, 11, 108, 20);
+		JPnl_FiltroSeleccionado.add(lblNewLabel);
+	}
+	
+	private void mostrarPanelProfesional(){
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(119, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(comboBox);
+		
+		JLabel lblNewLabel = new JLabel("Profesional: ");
+		lblNewLabel.setBounds(10, 11, 108, 20);
+		JPnl_FiltroSeleccionado.add(lblNewLabel);
+	}
+	
+	private void mostrarPanelEstado(){
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(119, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(comboBox);
+		
+		JLabel lblNewLabel = new JLabel("Estado: ");
+		lblNewLabel.setBounds(10, 11, 108, 20);
+		JPnl_FiltroSeleccionado.add(lblNewLabel);
+	}
+	
+	private void mostrarPanelRangoHorario(){
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(119, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(comboBox);
+		
+		JLabel lblNewLabel = new JLabel("De: ");
+		lblNewLabel.setBounds(10, 11, 108, 20);
+		JPnl_FiltroSeleccionado.add(lblNewLabel);
+		
+		JComboBox comboBox2 = new JComboBox();
+		comboBox2.setBounds(327, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(comboBox2);
+		
+		JLabel lblNewLabel2 = new JLabel("A: ");
+		lblNewLabel2.setBounds(218, 11, 108, 20);
+		JPnl_FiltroSeleccionado.add(lblNewLabel2);
 	}
 	
 	private void crearBotones() {
@@ -778,5 +899,26 @@ public class NuevaVista implements Runnable {
 	public JCheckBox getChckbxMostrarCitasCanceladas() {
 		return chckbxMostrarCitasCanceladas;
 	}
+
+	public JRadioButton getRdbtnServicios() {
+		return rdbtnServicios;
+	}
+
+	public JRadioButton getRdbtnProfesional() {
+		return rdbtnProfesional;
+	}
+
+	public JRadioButton getRdbtnRangoHorario() {
+		return rdbtnRangoHorario;
+	}
+
+	public JRadioButton getRdbtnEstado() {
+		return rdbtnEstado;
+	}
+
+	public JButton getBtnLimpiarFiltros() {
+		return btnLimpiarFiltros;
+	}
+	
 	
 }

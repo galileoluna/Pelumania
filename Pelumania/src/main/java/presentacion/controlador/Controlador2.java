@@ -54,6 +54,7 @@ public class Controlador2 implements ActionListener{
 	
 	private List<CitaDTO> citasDelDia;
 	private List<CitaDTO> citasEnTabla;
+	
 	//No son lo mismo las citas del Dia, que las que estan en la tabla. Esta segunda es por los filtros
 	
 	public Controlador2 (NuevaVista nvista, Sistema sistema, UsuarioDTO usuario) {
@@ -86,6 +87,12 @@ public class Controlador2 implements ActionListener{
 		
 		this.nvista.getTablaCitas().getSelectionModel().addListSelectionListener(l -> actualizarCitaSeleccionada(l));
 
+		this.nvista.getRdbtnServicios().addActionListener(m -> cargarPanelDinamicoServicios(m));
+		this.nvista.getRdbtnProfesional().addActionListener(m -> cargarPanelDinamicoProfesional(m));
+		this.nvista.getRdbtnRangoHorario().addActionListener(m -> cargarPanelDinamicoRangoHorario(m));
+		this.nvista.getRdbtnEstado().addActionListener(m -> cargarPanelDinamicoEstado(m));
+		this.nvista.getBtnLimpiarFiltros().addActionListener(n -> limpiarFiltros(n));
+		
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 	}
 
@@ -149,6 +156,39 @@ public class Controlador2 implements ActionListener{
 			RefrescarTablaCitas();
 		}
 	}
+	
+	private void cargarPanelDinamicoServicios(ActionEvent m) {
+		this.nvista.getRdbtnProfesional().setEnabled(false);
+		this.nvista.getRdbtnEstado().setEnabled(false);
+		this.nvista.getRdbtnRangoHorario().setEnabled(false);
+		this.nvista.cargarPanelDinamicoFiltros("Servicio");
+	}
+	
+	private void cargarPanelDinamicoProfesional(ActionEvent m) {
+		this.nvista.getRdbtnServicios().setEnabled(false);
+		this.nvista.getRdbtnEstado().setEnabled(false);
+		this.nvista.getRdbtnRangoHorario().setEnabled(false);
+		this.nvista.cargarPanelDinamicoFiltros("Profesional");
+	}
+	
+	private void cargarPanelDinamicoRangoHorario(ActionEvent m) {
+		this.nvista.getRdbtnProfesional().setEnabled(false);
+		this.nvista.getRdbtnEstado().setEnabled(false);
+		this.nvista.getRdbtnServicios().setEnabled(false);
+		this.nvista.cargarPanelDinamicoFiltros("RangoHorario");
+	}
+	
+	private void cargarPanelDinamicoEstado(ActionEvent m) {
+		this.nvista.getRdbtnProfesional().setEnabled(false);
+		this.nvista.getRdbtnServicios().setEnabled(false);
+		this.nvista.getRdbtnRangoHorario().setEnabled(false);
+		this.nvista.cargarPanelDinamicoFiltros("Estado");
+	}
+	
+	private void limpiarFiltros(ActionEvent n) {
+		this.nvista.limpiarFiltros();
+	}
+	
 	
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();
