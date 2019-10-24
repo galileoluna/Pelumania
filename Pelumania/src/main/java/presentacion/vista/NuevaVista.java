@@ -88,7 +88,8 @@ public class NuevaVista implements Runnable {
 			private JLabel Lbl_Gris;
 			private JLabel label_5;
 			private JLabel label_6;
-			
+			private JLabel Lbl_Usuario;
+			private JLabel Lbl_Sucursal;
 			private JLabel lblCitasActivas;
 			private JLabel LblCitasEnCurso;
 			private JLabel LblCitasAReprogramar;
@@ -415,12 +416,12 @@ public class NuevaVista implements Runnable {
 	}
 	
 	public void crearLabelUsuario() {
-		JLabel Lbl_Usuario = new JLabel("UsuarioDefault");
+		Lbl_Usuario = new JLabel("UsuarioDefault");
 		JPnl_Informacion.add(Lbl_Usuario);
 	}
 	
 	public void crearLabelSucursal() {
-		JLabel Lbl_Sucursal = new JLabel("SucursalPorDefecto");
+		Lbl_Sucursal = new JLabel("SucursalPorDefecto");
 		JPnl_Informacion.add(Lbl_Sucursal);
 	}
 	
@@ -723,5 +724,13 @@ public class NuevaVista implements Runnable {
 
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
+	}
+	
+	public JLabel getLblUsuario() {
+		return Lbl_Usuario;
+	}
+	
+	public JLabel getLblSucursal() {
+		return Lbl_Sucursal;
 	}
 }

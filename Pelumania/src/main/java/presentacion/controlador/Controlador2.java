@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import dto.CitaDTO;
 import dto.ClienteDTO;
+import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.NuevaVista;
@@ -55,7 +56,8 @@ public class Controlador2 implements ActionListener{
 		this.nvista = nvista;
 		this.sistema = sistema;
 		this.usuario=usuario;
-
+		this.nvista.getLblUsuario().setText(usuario.getNombre()+" "+usuario.getApellido());
+		this.nvista.getLblSucursal().setText(getSucursal(usuario.getIdSucursal()));
 		citasDelDia = new ArrayList<CitaDTO>();
 		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
@@ -72,6 +74,11 @@ public class Controlador2 implements ActionListener{
 
 	}
 	
+	private String getSucursal(int idSucursal) {
+		SucursalDTO sucursal= sistema.getSucursalById(idSucursal);
+		return sucursal.getNombreSucursal();
+	}
+
 	private void ventanaServicios(ActionEvent a) {
 		this.controladorServicio = ControladorServicio.getInstance(sistema);
 	}

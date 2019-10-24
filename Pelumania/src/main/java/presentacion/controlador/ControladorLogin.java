@@ -55,16 +55,26 @@ public class ControladorLogin implements ActionListener{
 
 	private void IniciarPelumania(ActionEvent l) {
 		String pass=new String (login.getPass().getPassword());
-		List<UsuarioDTO> usuario=this.sistema.IniciarSesion(login.getUser().getText(),pass);
-		if(usuario.size()!=0) {
+		List<UsuarioDTO> listUser=this.sistema.IniciarSesion(login.getUser().getText(),pass);
+		UsuarioDTO usuario=getUSer(listUser);
+		if(listUser.size()!=0) {
 			this.login.cerrar();
 			NuevaVista nvista = new NuevaVista();
-	        Controlador2 controlador = new Controlador2(nvista, sistema,usuario);
+	        new Controlador2(nvista, sistema,usuario);
 		}else {
 			JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos");
 		}
 	}
 
+
+	private UsuarioDTO getUSer(List<UsuarioDTO> listUser) {
+		UsuarioDTO user=null;
+		for(UsuarioDTO u :listUser) {
+			user= new UsuarioDTO(u.getIdUsuario(), u.getNombre(), u.getApellido(), u.getNombreUsuario(), u.getContrasenia(), u.getMail(), u.getEstado(), u.getIdRol(), u.getIdSucursal());
+		}
+		return user;
+		
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
