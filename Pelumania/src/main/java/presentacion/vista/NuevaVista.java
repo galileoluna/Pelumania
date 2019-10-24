@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.Calendar;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -16,6 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -52,13 +55,19 @@ public class NuevaVista implements Runnable {
 		private JPanel JPnl_Calendario;
 			private JCalendar calendario;
 		
-			private JPanel JPnl_Referencias;	
+			private JPanel JPnl_Referencias;
+				private JLabel LblReferencias;
+				private JSeparator separadorReferencias;
 			private JPanel JPnl_Notificaciones;
 			private JPanel JPnl_Informacion;
 				private JLabel Lbl_Reloj;
-	
+
 	private JPanel JPnl_Citas;
 		private JPanel JPanel_Filtros;
+			private JLabel LblFiltros;
+			private JSeparator separadorFiltros;
+			private JCheckBox chckbxMostrarSoloCitas;
+			private JCheckBox chckbxMostrarCitasCanceladas;
 		private JPanel JPnl_TablaCitas;
 
 	
@@ -86,8 +95,6 @@ public class NuevaVista implements Runnable {
 			private JLabel Lbl_Verde;
 			private JLabel Lbl_Azul;
 			private JLabel Lbl_Gris;
-			private JLabel label_5;
-			private JLabel label_6;
 			private JLabel Lbl_Usuario;
 			private JLabel Lbl_Sucursal;
 			private JLabel lblCitasActivas;
@@ -127,7 +134,9 @@ public class NuevaVista implements Runnable {
 			crearPanelCalendario();
 			crearCalendario();
 			crearPanelReferencias();
+				crearLabelReferencias();
 				crearLabelsReferencias();
+				crearSeparadorReferencias();
 			crearPanelNotificaciones();
 			crearPanelInformacion();
 				iniciarReloj();
@@ -136,6 +145,9 @@ public class NuevaVista implements Runnable {
 		
 		crearPanelCitas();
 			crearPanelFiltros();
+				crearLabelFiltros();
+				crearSeparadorFiltros();
+				crearCheckBoxes();
 			crearPanelTablaCitas();
 				crearTablaCitas();
 			crearPanelDetalle();
@@ -226,35 +238,35 @@ public class NuevaVista implements Runnable {
 			Lbl_Verde.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Verde.setOpaque(true);
 			Lbl_Verde.setBackground(RowsRenderer.verde);
-			Lbl_Verde.setBounds(10, 11, 20, 20);
+			Lbl_Verde.setBounds(10, 42, 20, 20);
 			JPnl_Referencias.add(Lbl_Verde);
 			
 			lblCitasActivas = new JLabel("Citas Activas");
-			lblCitasActivas.setBounds(40, 11, 157, 20);
+			lblCitasActivas.setBounds(40, 42, 157, 20);
 			JPnl_Referencias.add(lblCitasActivas);
 			//_________________________________________
 			
 			Lbl_Rojo = new JLabel();
-			Lbl_Rojo.setBounds(10, 102, 20, 20);
+			Lbl_Rojo.setBounds(207, 42, 20, 20);
 			Lbl_Rojo.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Rojo.setBackground(RowsRenderer.rojo);
 			Lbl_Rojo.setOpaque(true);
 			JPnl_Referencias.add(Lbl_Rojo);
 			
 			lblCitasCanceladas = new JLabel("Citas Canceladas");
-			lblCitasCanceladas.setBounds(40, 102, 157, 20);
+			lblCitasCanceladas.setBounds(237, 42, 157, 20);
 			JPnl_Referencias.add(lblCitasCanceladas);
 			//_________________________________________
 		
 			Lbl_Naranja = new JLabel("");
 			Lbl_Naranja.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Naranja.setBackground(RowsRenderer.naranja);
-			Lbl_Naranja.setBounds(10, 40, 20, 20);
+			Lbl_Naranja.setBounds(10, 71, 20, 20);
 			Lbl_Naranja.setOpaque(true);
 			JPnl_Referencias.add(Lbl_Naranja);
 			
 			LblCitasEnCurso = new JLabel("Citas En Curso");
-			LblCitasEnCurso.setBounds(40, 40, 157, 20);
+			LblCitasEnCurso.setBounds(40, 71, 157, 20);
 			JPnl_Referencias.add(LblCitasEnCurso);
 			//_________________________________________
 		
@@ -263,11 +275,11 @@ public class NuevaVista implements Runnable {
 			Lbl_Amarillo.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Amarillo.setOpaque(true);
 			Lbl_Amarillo.setBackground(RowsRenderer.amarillo);
-			Lbl_Amarillo.setBounds(10, 71, 20, 20);
+			Lbl_Amarillo.setBounds(10, 102, 20, 20);
 			JPnl_Referencias.add(Lbl_Amarillo);
 			
 			LblCitasAReprogramar = new JLabel("Citas a Reprogramar");
-			LblCitasAReprogramar.setBounds(40, 71, 157, 20);
+			LblCitasAReprogramar.setBounds(40, 102, 157, 20);
 			JPnl_Referencias.add(LblCitasAReprogramar);
 			//_________________________________________
 
@@ -275,11 +287,11 @@ public class NuevaVista implements Runnable {
 			Lbl_Azul.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Azul.setBackground(RowsRenderer.azul);
 			Lbl_Azul.setOpaque(true);
-			Lbl_Azul.setBounds(207, 11, 20, 20);
+			Lbl_Azul.setBounds(207, 73, 20, 20);
 			JPnl_Referencias.add(Lbl_Azul);
 			
 			lblCitasFinalizadas = new JLabel("Citas Finalizadas");
-			lblCitasFinalizadas.setBounds(237, 11, 157, 20);
+			lblCitasFinalizadas.setBounds(237, 73, 157, 20);
 			JPnl_Referencias.add(lblCitasFinalizadas);
 			//_________________________________________
 			
@@ -287,28 +299,26 @@ public class NuevaVista implements Runnable {
 			Lbl_Gris.setBorder(new LineBorder(new Color (0,0,0)));
 			Lbl_Gris.setBackground(RowsRenderer.gris);
 			Lbl_Gris.setOpaque(true);
-			Lbl_Gris.setBounds(207, 40, 20, 20);
+			Lbl_Gris.setBounds(207, 102, 20, 20);
 			JPnl_Referencias.add(Lbl_Gris);
 			
 			lblCitasVencidas = new JLabel("Citas Vencidas");
-			lblCitasVencidas.setBounds(237, 40, 157, 20);
+			lblCitasVencidas.setBounds(237, 102, 157, 20);
 			JPnl_Referencias.add(lblCitasVencidas);
-
-			//_________________________________________
-			label_5 = new JLabel("");
-			label_5.setBorder(new LineBorder(new Color (0,0,0)));
-			label_5.setBackground(Color.RED);
-			label_5.setBounds(207, 71, 20, 20);
-			JPnl_Referencias.add(label_5);
-
-			//_________________________________________
-			
-			label_6 = new JLabel("");
-			label_6.setBorder(new LineBorder(new Color (0,0,0)));
-			label_6.setBackground(Color.RED);
-			label_6.setBounds(207, 102, 20, 20);
-			JPnl_Referencias.add(label_6);
-
+		
+	}
+	
+	private void crearSeparadorReferencias() {
+		separadorReferencias = new JSeparator();
+		separadorReferencias.setBounds(10, 29, 384, 2);
+		JPnl_Referencias.add(separadorReferencias);
+	}
+	
+	private void crearLabelReferencias() {
+		LblReferencias = new JLabel("Referencias:");
+		LblReferencias.setFont(new Font("Tahoma", Font.BOLD, 14));
+		LblReferencias.setBounds(10, 6, 165, 25);
+		JPnl_Referencias.add(LblReferencias);
 	}
 
 	private void crearPanelNotificaciones() {
@@ -345,8 +355,32 @@ public class NuevaVista implements Runnable {
 		JPanel_Filtros.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPanel_Filtros.setBounds(0, 0, 917, 139);
 		JPnl_Citas.add(JPanel_Filtros);
+		JPanel_Filtros.setLayout(null);
+	}
+	
+	private void crearLabelFiltros() {
+		LblFiltros = new JLabel("Filtros:");
+		LblFiltros.setFont(new Font("Tahoma", Font.BOLD, 14));
+		LblFiltros.setBounds(10, 11, 165, 25);
+		JPanel_Filtros.add(LblFiltros);
 	}
 
+	private void crearSeparadorFiltros() {
+		separadorFiltros = new JSeparator();
+		separadorFiltros.setBounds(10, 34, 715, 2);
+		JPanel_Filtros.add(separadorFiltros);
+	}
+
+	private void crearCheckBoxes() {
+		chckbxMostrarSoloCitas = new JCheckBox("Mostrar solo citas Activas");
+		chckbxMostrarSoloCitas.setBounds(726, 86, 185, 23);
+		JPanel_Filtros.add(chckbxMostrarSoloCitas);
+		
+		chckbxMostrarCitasCanceladas = new JCheckBox("Mostrar citas Canceladas");
+		chckbxMostrarCitasCanceladas.setBounds(726, 108, 185, 23);
+		JPanel_Filtros.add(chckbxMostrarCitasCanceladas);
+	}
+	
 	private void crearBotones() {
 		btn_Agregar = new JButton("Agregar");
 		btn_Agregar.setEnabled(false);
@@ -438,6 +472,7 @@ public class NuevaVista implements Runnable {
 		JPnl_TablaCitas.add(spServicios);
 		
 		modelCitas = new DefaultTableModel(null,nombreColumnas) {
+			private static final long serialVersionUID = 1L;
 			//Para que las celdas de la tabla no se puedan editar
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -612,14 +647,6 @@ public class NuevaVista implements Runnable {
 
 	public JLabel getLbl_Gris() {
 		return Lbl_Gris;
-	}
-
-	public JLabel getLabel_5() {
-		return label_5;
-	}
-
-	public JLabel getLabel_6() {
-		return label_6;
 	}
 
 	public JLabel getLblCitasActivas() {
