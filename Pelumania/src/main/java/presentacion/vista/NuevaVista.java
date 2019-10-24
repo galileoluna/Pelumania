@@ -503,11 +503,11 @@ public class NuevaVista implements Runnable {
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
 		
 		JComboBox comboBox2 = new JComboBox();
-		comboBox2.setBounds(327, 11, 205, 20);
+		comboBox2.setBounds(450, 11, 205, 20);
 		JPnl_FiltroSeleccionado.add(comboBox2);
 		
 		JLabel lblNewLabel2 = new JLabel("A: ");
-		lblNewLabel2.setBounds(218, 11, 108, 20);
+		lblNewLabel2.setBounds(335, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel2);
 	}
 	
