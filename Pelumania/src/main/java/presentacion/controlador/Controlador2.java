@@ -82,6 +82,7 @@ public class Controlador2 implements ActionListener{
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 		
 		this.nvista.getBtn_Agregar().addActionListener(k -> ventanaAgregarCita(k));
+		this.nvista.getBtn_Cancelar().addActionListener(l -> cancelarCita(l));
 		
 		this.nvista.getTablaCitas().getSelectionModel().addListSelectionListener(l -> actualizarCitaSeleccionada(l));
 
@@ -133,6 +134,19 @@ public class Controlador2 implements ActionListener{
 			ControladorAgregarCita.setMES(fechaSeleccionada.getMonthValue());
 			ControladorAgregarCita.setDIA(fechaSeleccionada.getDayOfMonth());
 			this.controladorAgregarCita = ControladorAgregarCita.getInstance(sistema);
+		}
+	}
+	
+	private void cancelarCita(ActionEvent e) {
+		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas cancelar la cita?","Confirmacion", JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			this.sistema.cancelarCita(citaSeleccionada);
+			
+			limpiarTablas();
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			cargarListaConCitas();
+			RefrescarTablaCitas();
 		}
 	}
 	
@@ -219,17 +233,24 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	public void actualizarCitaSeleccionada(ListSelectionEvent l) {
+		OperacionesCita(false);
 		int filaSeleccionada = this.nvista.getTablaCitas().getSelectedRow();
 		
 		if (filaSeleccionada != -1) {
 			citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
 			if (citaSeleccionada != null) {
+				if(!citaSeleccionada.getEstado().equals("Cancelada") &&
+				   !citaSeleccionada.getEstado().equals("Finalizada") &&
+				   !citaSeleccionada.getEstado().equals("Vencida")) {
+		
 				OperacionesCita(true);
-				
 				log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
 				log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
 				log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
 				log.info("__________________________________________________________");
+				}
+				this.nvista.getBtn_VerComprobante().setEnabled(true);
+				this.nvista.getBtn_VerDetalle().setEnabled(true);
 			}
 		}
 	}
