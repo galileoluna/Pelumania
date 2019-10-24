@@ -263,6 +263,10 @@ CREATE TABLE IF NOT EXISTS `permisosUsuario`(
 SET time_zone = "-3:00";
 
 USE Pelumania;
+
+-- Insert usuario
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
+
 -- Inserts para las sucursales
 INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
 VALUES(1, "San Miguel", "Peron", 1100, "Activa");
