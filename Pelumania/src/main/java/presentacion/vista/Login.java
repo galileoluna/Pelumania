@@ -43,6 +43,8 @@ public class Login {
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.setBounds(100, 100, 342, 219);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmLogin.setLocation(dim.width/2-frmLogin.getSize().width/2, dim.height/2-frmLogin.getSize().height/2);
 		
 		
 		contentPane = new JPanel();

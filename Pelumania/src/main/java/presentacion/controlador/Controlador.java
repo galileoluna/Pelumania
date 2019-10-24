@@ -64,9 +64,7 @@ public class Controlador implements ActionListener {
 		this.vista.getMenuPromoVigente().addActionListener(p -> verPromosVigentes(p));
 		this.vista.getMenuSucursal().addActionListener(e -> ventanaSucursal(e));
 		this.vista.getMenuCaja().addActionListener(a -> ventanaCaja(a));
-		this.vista.getMenuConsultarCategoriaCaja().addActionListener(a -> ventanCategoriaMovimientoCaja(a));
-		
-		this.vista.getCalendario().addPropertyChangeListener(a -> actualizarCitasDelDia(a));
+		this.vista.getMenuConsultarCategoriaCaja().addActionListener(a -> ventanCategoriaMovimientoCaja(a));		
 		
 		this.vista.getBtnAgregarCita().addActionListener(d -> ventanaAgregarCita(d));
 		this.vista.getBtnEditarCita().addActionListener(f -> ventanaEditarCita(f));

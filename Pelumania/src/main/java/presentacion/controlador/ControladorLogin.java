@@ -19,13 +19,12 @@ import presentacion.vista.Vista;
 public class ControladorLogin implements ActionListener{
 	Login login;
 	Sistema sistema;
-	Vista vista;
-	Controlador controlador;
+	NuevaVista nvista;
+	Controlador2 controlador;
 	
 	public ControladorLogin (Login login, Sistema sistema) {
 		this.login = login;
 		this.sistema = sistema;
-		this.login.getIniciar().addActionListener(l -> IniciarPelumania(l));
 		// valido el largo de los caracteres usuario
 		this.login.getUser().addKeyListener(new KeyListener(){
 			public void keyTyped(KeyEvent e) {
@@ -59,8 +58,8 @@ public class ControladorLogin implements ActionListener{
 		List<UsuarioDTO> usuario=this.sistema.IniciarSesion(login.getUser().getText(),pass);
 		if(usuario.size()!=0) {
 			this.login.cerrar();
-			Vista vista = new Vista();
-	        Controlador controlador = new Controlador(vista, sistema);
+			NuevaVista nvista = new NuevaVista();
+	        Controlador2 controlador = new Controlador2(nvista, sistema,usuario);
 		}else {
 			JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos");
 		}

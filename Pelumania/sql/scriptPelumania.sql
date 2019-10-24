@@ -250,13 +250,12 @@ CREATE TABLE IF NOT EXISTS `LogTransferencia`(
   FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
 );
 
-CREATE TABLE IF NOT EXISTS `usuarioRol`(
+CREATE TABLE IF NOT EXISTS `permisosUsuario`(
 
-  `idUsuario` INT(11) NOT NULL ,
-  `idRol` INT(11) NOT NULL,
+  `idRol` INT(11) NOT NULL ,
+  `idModulo` INT(11) NOT NULL,
   
-  FOREIGN KEY (`idUsuario`) REFERENCES `Usuario`(`idUsuario`),
-  FOREIGN KEY (`idRol`) REFERENCES `rol`(`idRol`)
+  FOREIGN KEY (`idRol`) REFERENCES `Rol`(`idRol`)
   
 
 );
