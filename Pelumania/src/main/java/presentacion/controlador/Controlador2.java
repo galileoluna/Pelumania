@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -127,9 +128,7 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	private void ventanaAgregarCita(ActionEvent k) {
-		if (!validarFechaSeleccionada()) {
-			JOptionPane.showMessageDialog(null, "No puedes cargar una cita para un dia que ya transcurrio!");
-		}else {
+		if (validarFechaSeleccionada()) {
 			ControladorAgregarCita.setANIO(fechaSeleccionada.getYear());
 			ControladorAgregarCita.setMES(fechaSeleccionada.getMonthValue());
 			ControladorAgregarCita.setDIA(fechaSeleccionada.getDayOfMonth());
@@ -138,6 +137,8 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
+		limpiarTablas();
+		this.citaSeleccionada = null;
 		setearFechaSeleccionadaEnCalendario();
 		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 		cargarListaConCitas();
@@ -201,6 +202,10 @@ public class Controlador2 implements ActionListener{
 		}
 	}
 	
+	public void limpiarTablas() {
+		this.citasEnTabla.clear();
+	}
+	
 	public List <CitaDTO> obtenerCitasDelDia(String dia) {
 		return this.sistema.getCitasPorDia(dia);
 	}
@@ -226,10 +231,26 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	public boolean validarFechaSeleccionada() {
-			LocalDate hoy = LocalDate.now();
-			return fechaSeleccionada.isAfter(hoy) || fechaSeleccionada.isEqual(hoy);
+		if (esDespuesDeHoy()) {
+			if (esDomingo()) {
+			JOptionPane.showMessageDialog(null, "No se pueden realizar reservas los Domingos!");
+			return false;
+			}else
+				return true;
+		}
+		JOptionPane.showMessageDialog(null, "No puedes realizar una reserva para un dia que ya transcurrio!");
+		return false;
 	}
 	
+	public boolean esDomingo() {
+		return fechaSeleccionada.getDayOfWeek().equals(DayOfWeek.SUNDAY);
+	}
+	
+	
+	public boolean esDespuesDeHoy() {
+		LocalDate hoy = LocalDate.now();
+		return fechaSeleccionada.isAfter(hoy) || fechaSeleccionada.isEqual(hoy);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
