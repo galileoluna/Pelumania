@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -490,6 +491,7 @@ public class NuevaVista implements Runnable {
 		
 		tablaCitas = new JTable(modelCitas);
 		RowsRenderer rr = new RowsRenderer(5);
+		tablaCitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaCitas.setDefaultRenderer(Object.class, rr);
 
 		tablaCitas.getColumnModel().getColumn(0).setPreferredWidth(103);

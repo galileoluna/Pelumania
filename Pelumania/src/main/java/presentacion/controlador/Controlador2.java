@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
 
 import org.apache.log4j.Logger;
 
@@ -30,7 +31,7 @@ public class Controlador2 implements ActionListener{
 	
 	private Logger log = Logger.getLogger(Controlador2.class);	
 	
-	private LocalDate fechaSeleccionada;
+	private static LocalDate fechaSeleccionada;
 	private CitaDTO citaSeleccionada;
 	
 	/*
@@ -80,6 +81,8 @@ public class Controlador2 implements ActionListener{
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 		
 		this.nvista.getBtn_Agregar().addActionListener(k -> ventanaAgregarCita(k));
+		
+		this.nvista.getTablaCitas().getSelectionModel().addListSelectionListener(l -> actualizarCitaSeleccionada(l));
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 	}
@@ -141,11 +144,11 @@ public class Controlador2 implements ActionListener{
 		RefrescarTablaCitas();
 		habilitarBotonAgregar();
 		
-		log.info("Las citas del día: "+this.fechaSeleccionada+" son "+citasDelDia);
+		log.info("Las citas del día: "+fechaSeleccionada+" son "+citasDelDia);
 		log.info("Y las citas en tabla son: "+ citasEnTabla);
 	}
 	
-	private String getFechaSeleccionadaAsString() {
+	private static String getFechaSeleccionadaAsString() {
 		int dia = fechaSeleccionada.getDayOfMonth();
 		int mes = fechaSeleccionada.getMonthValue();
 		int anio = fechaSeleccionada.getYear();
@@ -162,11 +165,11 @@ public class Controlador2 implements ActionListener{
 		int mes = this.nvista.getCalendario().getMonthChooser().getMonth()+1;
 		int anio = this.nvista.getCalendario().getYearChooser().getYear();
 		
-		this.fechaSeleccionada = LocalDate.of(anio, mes, dia);
+		fechaSeleccionada = LocalDate.of(anio, mes, dia);
 	}
 	
 	public void setearFechaSeleccionadaHoy() {
-		this.fechaSeleccionada = LocalDate.now();
+		fechaSeleccionada = LocalDate.now();
 	}
 	
 	private void cargarListaConCitas(){
@@ -206,7 +209,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getBtn_Agregar().setEnabled(true);
 	}
 	
-	public void habilitarOperacionesCitas() {
+	public void actualizarCitaSeleccionada(ListSelectionEvent l) {
 		int filaSeleccionada = this.nvista.getTablaCitas().getSelectedRow();
 
 		citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
@@ -220,7 +223,6 @@ public class Controlador2 implements ActionListener{
 		log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
 		log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
 		log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
-		
 	}
 	
 	public boolean validarFechaSeleccionada() {
