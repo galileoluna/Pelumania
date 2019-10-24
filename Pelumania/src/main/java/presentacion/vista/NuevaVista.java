@@ -147,6 +147,7 @@ public class NuevaVista implements Runnable {
 			crearPanelFiltros();
 				crearLabelFiltros();
 				crearSeparadorFiltros();
+				crearPanelDinamicoFiltros();
 				crearCheckBoxes();
 			crearPanelTablaCitas();
 				crearTablaCitas();
@@ -380,10 +381,17 @@ public class NuevaVista implements Runnable {
 		chckbxMostrarCitasCanceladas.setBounds(726, 108, 185, 23);
 		JPanel_Filtros.add(chckbxMostrarCitasCanceladas);
 	}
+
+	private void crearPanelDinamicoFiltros() {
+		JPanel JPnl_FiltroSeleccionado = new JPanel();
+		JPnl_FiltroSeleccionado.setBounds(10, 86, 710, 42);
+		JPanel_Filtros.add(JPnl_FiltroSeleccionado);
+		JPnl_FiltroSeleccionado.setLayout(null);
+	}
 	
 	private void crearBotones() {
 		btn_Agregar = new JButton("Agregar");
-		btn_Agregar.setEnabled(false);
+		btn_Agregar.setEnabled(true);
 		JPnl_Botones.add(btn_Agregar);
 		
 		btn_Editar = new JButton("Editar");
@@ -760,4 +768,13 @@ public class NuevaVista implements Runnable {
 	public JLabel getLblSucursal() {
 		return Lbl_Sucursal;
 	}
+
+	public JCheckBox getChckbxMostrarSoloCitas() {
+		return chckbxMostrarSoloCitas;
+	}
+
+	public JCheckBox getChckbxMostrarCitasCanceladas() {
+		return chckbxMostrarCitasCanceladas;
+	}
+	
 }

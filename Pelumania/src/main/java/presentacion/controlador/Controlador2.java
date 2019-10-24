@@ -56,9 +56,14 @@ public class Controlador2 implements ActionListener{
 		this.nvista = nvista;
 		this.sistema = sistema;
 		this.usuario=usuario;
-		this.nvista.getLblUsuario().setText(usuario.getNombre()+" "+usuario.getApellido());
-		this.nvista.getLblSucursal().setText(getSucursal(usuario.getIdSucursal()));
+		
+		CargarDatosUsuarioYSurcursal();
+		
 		citasDelDia = new ArrayList<CitaDTO>();
+		citasEnTabla = new ArrayList<CitaDTO>();
+		
+		setearFechaSeleccionadaHoy();
+		RefrescarTablaCitas();
 		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
@@ -72,6 +77,12 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 
+		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
+	}
+
+	private void CargarDatosUsuarioYSurcursal() {
+		this.nvista.getLblUsuario().setText(usuario.getNombre()+" "+usuario.getApellido());
+		this.nvista.getLblSucursal().setText(getSucursal(usuario.getIdSucursal()));
 	}
 	
 	private String getSucursal(int idSucursal) {
@@ -109,32 +120,53 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
-		int dia = this.nvista.getCalendario().getDayChooser().getDay();
-		int mes = this.nvista.getCalendario().getMonthChooser().getMonth()+1;
-		int anio = this.nvista.getCalendario().getYearChooser().getYear();
+		setearFechaSeleccionadaEnCalendario();
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		cargarListaConCitas();
+		RefrescarTablaCitas();
+		habilitarBotonAgregar();
+		
+		log.info("Las citas del día: "+this.fechaSeleccionada+" son "+citasDelDia);
+		log.info("Y las citas en tabla son: "+ citasEnTabla);
+	}
+	
+	private String getFechaSeleccionadaAsString() {
+		int dia = fechaSeleccionada.getDayOfMonth();
+		int mes = fechaSeleccionada.getMonthValue();
+		int anio = fechaSeleccionada.getYear();
 		
 		String S_dia = (dia < 10) ? "0"+dia : Integer.toString(dia);
 		String S_mes = (mes < 10) ? "0"+mes : Integer.toString(mes);
 		String S_anio = Integer.toString(anio);
 		
-		this.fechaSeleccionada = LocalDate.of(anio, mes, dia);
-		log.info("Fecha seleccionada es: "+fechaSeleccionada);
-		
-		citasDelDia = this.sistema.getCitasPorDia(S_anio+S_mes+S_dia);
-		citasEnTabla = citasDelDia;
-		log.info("Las citas que levanta esta fecha son: "+citasDelDia);
-		
-		RefrescarTablaCitas();
-		habilitarBotonAgregar();
-
+		return S_anio+S_mes+S_dia;
 	}
+	
+	public void setearFechaSeleccionadaEnCalendario() {
+		int dia = this.nvista.getCalendario().getDayChooser().getDay();
+		int mes = this.nvista.getCalendario().getMonthChooser().getMonth()+1;
+		int anio = this.nvista.getCalendario().getYearChooser().getYear();
+		
+		this.fechaSeleccionada = LocalDate.of(anio, mes, dia);
+	}
+	
+	public void setearFechaSeleccionadaHoy() {
+		this.fechaSeleccionada = LocalDate.now();
+	}
+	
+	private void cargarListaConCitas(){
+		for (CitaDTO cita : citasDelDia) {
+			citasEnTabla.add(cita);
+		}
+	}
+	
 	
 	private void RefrescarTablaCitas() {
 		this.nvista.getModelCitas().setRowCount(0); //Para vaciar la tabla
 		this.nvista.getModelCitas().setColumnCount(0);
 		this.nvista.getModelCitas().setColumnIdentifiers(this.nvista.getNombreColumnas());
 
-		for (CitaDTO cita : citasDelDia)
+		for (CitaDTO cita : citasEnTabla)
 		{
 			ClienteDTO cliente = sistema.obtenerClienteById(cita.getIdCliente());
 			
@@ -150,6 +182,10 @@ public class Controlador2 implements ActionListener{
 			Object[] fila = {nombre, precioLocal, precioDolar, HoraInicio, HoraFin, estado};
 			this.nvista.getModelCitas().addRow(fila);
 		}
+	}
+	
+	public List <CitaDTO> obtenerCitasDelDia(String dia) {
+		return this.sistema.getCitasPorDia(dia);
 	}
 	
 	public void habilitarBotonAgregar() {
