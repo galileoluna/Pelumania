@@ -9,6 +9,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 
 import dto.CitaDTO;
@@ -76,6 +78,8 @@ public class Controlador2 implements ActionListener{
 		
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
+		
+		this.nvista.getBtn_Agregar().addActionListener(k -> ventanaAgregarCita(k));
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 	}
@@ -119,6 +123,17 @@ public class Controlador2 implements ActionListener{
 		this.controladorCaja = ControladorCaja.getInstance(sistema);
 	}
 	
+	private void ventanaAgregarCita(ActionEvent k) {
+		if (!validarFechaSeleccionada()) {
+			JOptionPane.showMessageDialog(null, "No puedes cargar una cita para un dia que ya transcurrio!");
+		}else {
+			ControladorAgregarCita.setANIO(fechaSeleccionada.getYear());
+			ControladorAgregarCita.setMES(fechaSeleccionada.getMonthValue());
+			ControladorAgregarCita.setDIA(fechaSeleccionada.getDayOfMonth());
+			this.controladorAgregarCita = ControladorAgregarCita.getInstance(sistema);
+		}
+	}
+	
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		setearFechaSeleccionadaEnCalendario();
 		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
@@ -159,8 +174,7 @@ public class Controlador2 implements ActionListener{
 			citasEnTabla.add(cita);
 		}
 	}
-	
-	
+
 	private void RefrescarTablaCitas() {
 		this.nvista.getModelCitas().setRowCount(0); //Para vaciar la tabla
 		this.nvista.getModelCitas().setColumnCount(0);
@@ -207,6 +221,11 @@ public class Controlador2 implements ActionListener{
 		log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
 		log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
 		
+	}
+	
+	public boolean validarFechaSeleccionada() {
+			LocalDate hoy = LocalDate.now();
+			return fechaSeleccionada.isAfter(hoy) || fechaSeleccionada.isEqual(hoy);
 	}
 	
 	@Override
