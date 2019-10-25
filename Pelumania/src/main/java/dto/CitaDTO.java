@@ -20,7 +20,6 @@ public class CitaDTO{
     private LocalTime horaFin;
     private LocalDate fecha;
     private int idSucursal;
-    private String historial;
 	private String nomProfesional;
 	private String nomSucursal;
 	private Time horaTurno;
@@ -47,8 +46,7 @@ public CitaDTO (int idcita,
                 LocalTime horaInicio,
                 LocalTime horaFin,
                 LocalDate fecha,
-                int idsucursal,
-                String historial
+                int idsucursal
 ){
     this.idCita = idcita;
     this.idUsuario = idusuario;
@@ -62,7 +60,6 @@ public CitaDTO (int idcita,
     this.horaFin = horaFin;
     this.fecha = fecha;
     this.idSucursal = idsucursal;
-    this.historial = historial;
 }
 
 /***
@@ -86,8 +83,7 @@ public CitaDTO (int idcita,
                 LocalTime horaInicio,
                 LocalTime horaFin,
                 LocalDate fecha,
-                int idsucursal,
-                String historial
+                int idsucursal
 ){
     this.idCita = idcita;
     this.idUsuario = idusuario;
@@ -100,7 +96,6 @@ public CitaDTO (int idcita,
     this.horaFin = horaFin;
     this.fecha = fecha;
     this.idSucursal = idsucursal;
-    this.historial = historial;
 }
 
 //Contructor para visualizacion de turno por tabla
@@ -234,14 +229,6 @@ public Time getHoraTurno() {
 }
 public void setHoraTurno(Time horaTurno) {
 	this.horaTurno = horaTurno;
-}
-
-public String getHistorial() {
-	return historial;
-}
-
-public void setHistorial (String nuevaActividad) {
-	historial = this.historial + "\n" + nuevaActividad;
 }
 
 public boolean esActiva() {
