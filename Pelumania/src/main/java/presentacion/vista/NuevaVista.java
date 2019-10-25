@@ -52,6 +52,14 @@ public class NuevaVista implements Runnable {
 		private JMenu JM_Caja;
 			private JMenuItem mntmConsultarCategorias;
 			private JMenuItem mntmUtilizarCaja;
+		private JMenu JM_Reportes;
+			private JMenuItem mntmGenerarReporteLocal;
+			private JMenuItem mntmGenerarReporteGeneral;
+			private JMenuItem mntmGenerarReportePorServicio;
+			private JMenuItem mntmGenerarReportePorCliente;
+			private JMenuItem mntmGenerarReportePorProfesional;
+			private JMenuItem mntmGenerarReporteCaja;
+			private JMenuItem mntmGenerarReporteRanking;	
 			
 	private JPanel JPnl_Izquierdo;
 	
@@ -220,6 +228,29 @@ public class NuevaVista implements Runnable {
 		mntmUtilizarCaja = new JMenuItem("Utilizar Caja");
 		JM_Caja.add(mntmUtilizarCaja);
 		
+		JM_Reportes = new JMenu("Reportes");
+		menuBar.add(JM_Reportes);
+		
+		mntmGenerarReporteLocal = new JMenuItem("Generar reporte por local");
+		JM_Reportes.add(mntmGenerarReporteLocal);
+		
+		mntmGenerarReporteGeneral = new JMenuItem("Generar reporte General");
+		JM_Reportes.add(mntmGenerarReporteGeneral);
+		
+		mntmGenerarReportePorServicio = new JMenuItem("Generar reporte por servicio");
+		JM_Reportes.add(mntmGenerarReportePorServicio);
+		
+		mntmGenerarReportePorCliente = new JMenuItem("Generar reporte por cliente");
+		JM_Reportes.add(mntmGenerarReportePorCliente);
+		
+		mntmGenerarReportePorProfesional = new JMenuItem("Generar reporte por profesional");
+		JM_Reportes.add(mntmGenerarReportePorProfesional);
+		
+		mntmGenerarReporteCaja = new JMenuItem("Generar reporte de caja");
+		JM_Reportes.add(mntmGenerarReporteCaja);
+		
+		mntmGenerarReporteRanking = new JMenuItem("Generar ranking de ventas");
+		JM_Reportes.add(mntmGenerarReporteRanking);
 	}
 
 	private void crearCalendario() {
@@ -726,6 +757,69 @@ public class NuevaVista implements Runnable {
 
 	public void setMntmUtilizarCaja(JMenuItem mntmUtilizarCaja) {
 		this.mntmUtilizarCaja = mntmUtilizarCaja;
+	}
+	
+	public JMenu getJM_Reportes() {
+		return JM_Reportes;
+	}
+	
+	public void setJM_Reportes(JMenu jM_reportes) {
+		JM_Caja = jM_reportes;
+	}
+	
+	public JMenuItem getMntmReporteLocal() {
+		return mntmGenerarReporteLocal;
+	}
+	
+	public void setMntmReporteLocal(JMenuItem mntmGenerarReporteLocal) {
+		this.mntmGenerarReporteLocal = mntmGenerarReporteLocal;
+	}
+	
+	public JMenuItem getMntmReporteGeneral() {
+		return mntmGenerarReporteGeneral;
+	}
+	
+	public void setMntmReporteGeneral(JMenuItem mntmGenerarReportegeneral) {
+		this.mntmGenerarReporteGeneral = mntmGenerarReporteGeneral;
+	}
+
+	public JMenuItem getMntmReportePorServicio() {
+		return mntmGenerarReportePorServicio;
+	}
+	
+	public void setMntmReportePorServicio(JMenuItem mntmGenerarReportePorServicio) {
+		this.mntmGenerarReportePorServicio = mntmGenerarReportePorServicio;
+	}
+	
+	public JMenuItem getMntmReportePorCliente() {
+		return mntmGenerarReportePorCliente;
+	}
+	
+	public void setMntmReportePorCliente(JMenuItem mntmGenerarReportePorCliente) {
+		this.mntmGenerarReportePorCliente = mntmGenerarReportePorCliente;
+	}
+	public JMenuItem getMntmReportePorProfesional() {
+		return mntmGenerarReportePorProfesional;
+	}
+	
+	public void setMntmReportePorProfesional(JMenuItem mntmGenerarReportePorProfesional) {
+		this.mntmGenerarReportePorProfesional = mntmGenerarReportePorProfesional;
+	}
+	
+	public JMenuItem getMntmReporteCaja() {
+		return mntmGenerarReporteCaja;
+	}
+	
+	public void setMntmReporteCaja(JMenuItem mntmGenerarReporteCaja) {
+		this.mntmGenerarReporteCaja = mntmGenerarReporteCaja;
+	}
+	
+	public JMenuItem getMntmReporteRanking() {
+		return mntmGenerarReporteRanking;
+	}
+	
+	public void setMntmReporteRanking(JMenuItem mntmGenerarReporteRanking) {
+		this.mntmGenerarReporteRanking = mntmGenerarReporteRanking;
 	}
 
 	public JLabel getLbl_Reloj() {
