@@ -20,10 +20,10 @@ public class CitaDAOSQL implements CitaDAO{
 
 	private static final String insert = "INSERT INTO Cita( idCita, idUsuario, idCliente,"
 			+ "NombreCliente, ApellidoCliente, EstadoTurno,"
-			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal, historial) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String insertSinRegistrar = "INSERT INTO Cita( idCita, idUsuario,"
 			+ "NombreCliente, ApellidoCliente, EstadoTurno,"
-			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal, historial) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String getCitaMax = "SELECT * FROM Cita WHERE IdCita IN (SELECT MAX(IdCita) FROM Cita);";
 
@@ -70,6 +70,7 @@ public class CitaDAOSQL implements CitaDAO{
 				statement.setTime       (10, Time.valueOf(cita.getHoraFin()));
 				statement.setDate       (11, Date.valueOf(cita.getFecha()));
 				statement.setInt        (12, cita.getIdSucursal());
+				statement.setString 	(13, cita.getHistorial());
 
 				if(statement.executeUpdate() > 0)
 				{
@@ -109,6 +110,7 @@ public class CitaDAOSQL implements CitaDAO{
 				statement.setTime       (9, Time.valueOf(cita.getHoraFin()));
 				statement.setDate       (10, Date.valueOf(cita.getFecha()));
 				statement.setInt        (11, cita.getIdSucursal());
+				statement.setString 	(12, cita.getHistorial());
 
 				if(statement.executeUpdate() > 0)
 				{
@@ -449,9 +451,10 @@ public class CitaDAOSQL implements CitaDAO{
 		LocalTime horaFin = resultSet.getTime("HoraFin").toLocalTime();
 		LocalDate fechaCita = resultSet.getDate("Dia").toLocalDate().plusDays(1);
 		int idSucursal = resultSet.getInt("IdSucursal");
+		String historial = resultSet.getString("historial");
 		
 		return new CitaDTO(idCita, idUsuario, idCliente, nombre, apellido, estado, precioLocal,
-				precioDolar, horaInicio, horaFin, fechaCita, idSucursal);
+				precioDolar, horaInicio, horaFin, fechaCita, idSucursal, historial);
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.border.LineBorder;
@@ -32,6 +33,7 @@ import javax.swing.table.TableRowSorter;
 import com.toedter.calendar.JCalendar;
 
 import util.RowsRenderer;
+import util.RowsRendererBasic;
 
 public class NuevaVista implements Runnable {
 
@@ -102,8 +104,9 @@ public class NuevaVista implements Runnable {
 			private JButton btn_Finalizar;
 			private JButton btn_VerDetalle;
 			private JButton btn_VerComprobante;
-			private JPanel JPnl_Detalle;
 			
+			private JPanel JPnl_Detalle;
+				private JLabel lblCitaSeleccionadaNull;
 			/*
 			 * Variables globales para manejar la hora
 			 * */
@@ -179,6 +182,7 @@ public class NuevaVista implements Runnable {
 			crearPanelTablaCitas();
 				crearTablaCitas();
 			crearPanelDetalle();
+			crearLabelCitaSeleccionadaNull();
 			crearPanelBotones();
 				crearBotones();
 			
@@ -602,8 +606,96 @@ public class NuevaVista implements Runnable {
 		JPnl_Detalle.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_Detalle.setBounds(0, 471, 917, 151);
 		JPnl_Citas.add(JPnl_Detalle);
+		JPnl_Detalle.setLayout(null);
+	}
+	
+	public void crearDetalleCita() {
+		JScrollPane spServicios = new JScrollPane();
+		spServicios.setBounds(502, 10, 405, 130);
+		JPnl_Detalle.add(spServicios);
+		
+		
+		DefaultTableModel modelServicios = new DefaultTableModel(null,nombreColumnas) {
+			//Para que las celdas de la tabla no se puedan editar
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		JTable tablaServicios = new JTable(modelServicios);
+		RowsRendererBasic rr = new RowsRendererBasic(5);
+		tablaServicios.setDefaultRenderer(Object.class, rr);
+
+		tablaServicios.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tablaServicios.getColumnModel().getColumn(0).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(1).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(2).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(3).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(3).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(4).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(4).setResizable(false);
+		tablaServicios.getColumnModel().getColumn(5).setPreferredWidth(100);
+		tablaServicios.getColumnModel().getColumn(5).setResizable(false);
+
+		spServicios.setViewportView(tablaServicios);
+		
+		JLabel lblId = new JLabel("Id");
+		lblId.setBounds(31, 25, 78, 14);
+		JPnl_Detalle.add(lblId);
+		
+		JLabel lblCliente = new JLabel("Cliente");
+		lblCliente.setBounds(31, 50, 46, 14);
+		JPnl_Detalle.add(lblCliente);
+		
+		JLabel lblHoraInicio = new JLabel("Hora Inicio");
+		lblHoraInicio.setBounds(31, 87, 93, 14);
+		JPnl_Detalle.add(lblHoraInicio);
+		
+		JLabel lblHoraFin = new JLabel("Hora Fin");
+		lblHoraFin.setBounds(31, 126, 93, 14);
+		JPnl_Detalle.add(lblHoraFin);
+		
+		JLabel lblid = new JLabel("[id]");
+		lblid.setBounds(135, 25, 60, 14);
+		JPnl_Detalle.add(lblid);
+		
+		JLabel lblcliente = new JLabel("[Cliente]");
+		lblcliente.setBounds(135, 50, 66, 14);
+		JPnl_Detalle.add(lblcliente);
+		
+		JLabel lblhorainicio = new JLabel("[HoraInicio]");
+		lblhorainicio.setBounds(135, 87, 93, 14);
+		JPnl_Detalle.add(lblhorainicio);
+		
+		JLabel lblhorafin = new JLabel("[HoraFin]");
+		lblhorafin.setBounds(134, 126, 93, 14);
+		JPnl_Detalle.add(lblhorafin);
+		
+		JTextField textField = new JTextField();
+		textField.setBounds(211, 10, 272, 130);
+		JPnl_Detalle.add(textField);
+		textField.setColumns(10);
+		
+		lblCitaSeleccionadaNull.setVisible(false);
+		JPnl_Detalle.updateUI();
+		lblCitaSeleccionadaNull.setVisible(false);
 	}
 
+	private void crearLabelCitaSeleccionadaNull() {
+		lblCitaSeleccionadaNull = new JLabel("[ Aun no hay una cita seleccionada ]");
+		lblCitaSeleccionadaNull.setBounds(350, 75, 254, 21);
+		JPnl_Detalle.add(lblCitaSeleccionadaNull);
+	}
+	
+	public void ocultarLabelCitaSeleccionadaNull() {
+		lblCitaSeleccionadaNull.setVisible(false);
+	}
+
+	public void mostrarLabelCitaSeleccionadaNull() {
+		lblCitaSeleccionadaNull.setVisible(true);
+	}
 	private void crearPanelCitas() {
 		JPnl_Citas = new JPanel();
 		JPnl_Citas.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -1004,6 +1096,4 @@ public class NuevaVista implements Runnable {
 	public JComboBox<String> getJCBoxFiltroEstado() {
 		return JCBoxFiltroEstado;
 	}
-
-	
 }

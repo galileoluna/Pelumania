@@ -227,6 +227,7 @@ public class Controlador2 implements ActionListener{
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();
 		this.citaSeleccionada = null;
+		actualizarCitaSeleccionada();
 		setearFechaSeleccionadaEnCalendario();
 		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 		cargarListaConCitas();
@@ -314,6 +315,7 @@ public class Controlador2 implements ActionListener{
 		if (filaSeleccionada != -1) {
 			this.citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
 			if (citaSeleccionada != null) {
+				this.nvista.crearDetalleCita();
 				if(!citaSeleccionada.getEstado().equals("Cancelada") &&
 				   !citaSeleccionada.getEstado().equals("Finalizada") &&
 				   !citaSeleccionada.getEstado().equals("Vencida")) {
@@ -323,6 +325,7 @@ public class Controlador2 implements ActionListener{
 				this.nvista.getBtn_VerComprobante().setEnabled(true);
 				this.nvista.getBtn_VerDetalle().setEnabled(true);
 			}
+			this.nvista.mostrarLabelCitaSeleccionadaNull();
 			log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
 			log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
 			log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
@@ -363,4 +366,31 @@ public class Controlador2 implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	private void actualizarCitaSeleccionada() {
+		OperacionesCita(false);
+		int filaSeleccionada = this.nvista.getTablaCitas().getSelectedRow();
+		
+		if (filaSeleccionada != -1) {
+			this.citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
+			if (citaSeleccionada != null) {
+				this.nvista.crearDetalleCita();
+				if(!citaSeleccionada.getEstado().equals("Cancelada") &&
+				   !citaSeleccionada.getEstado().equals("Finalizada") &&
+				   !citaSeleccionada.getEstado().equals("Vencida")) {
+		
+				OperacionesCita(true);
+				}
+				this.nvista.getBtn_VerComprobante().setEnabled(true);
+				this.nvista.getBtn_VerDetalle().setEnabled(true);
+			}
+			this.nvista.mostrarLabelCitaSeleccionadaNull();
+			log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
+			log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
+			log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
+			log.info("__________________________________________________________");
+		}
+	}
+	
 }

@@ -22,6 +22,7 @@ import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.VentanaCliente;
+import util.DescripcionesDefault;
 
 public class ControladorAgregarCita implements ActionListener{
 
@@ -260,6 +261,8 @@ public class ControladorAgregarCita implements ActionListener{
 		SucursalDTO sucursalSeleccionada = (SucursalDTO) this.ventanaAgregarCita.getJCBoxSucursales().getSelectedItem();
 		int idSucursal = sucursalSeleccionada.getIdSucursal();
 		
+		DescripcionesDefault alta = new DescripcionesDefault("UserHardcod", LocalDate.now());
+		String operacionAlta = alta.getDescripcion();
 		Integer idCitaAgregada;
 		
 		System.out.println("Id Cliente " + idcliente + "\n" +
@@ -276,7 +279,7 @@ public class ControladorAgregarCita implements ActionListener{
 		
 		CitaDTO nuevaCita = new CitaDTO(0, idUsuario, idcliente, nombre, apellido, estado,
 				this.ventanaAgregarCita.getTotal$(), this.ventanaAgregarCita.getTotalUSD(), 
-				HoraCitaInicio, HoraCitaFin, fecha,	idSucursal);
+				HoraCitaInicio, HoraCitaFin, fecha,	idSucursal, operacionAlta);
 		
 		calcularHorariosServicios();
 		//Diferencia si el cliente esta registrado o no.

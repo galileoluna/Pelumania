@@ -136,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `Cita`(
   `HoraFin` TIME NOT NULL,
   `Dia` DATE NOT NULL,
   `IdSucursal` INT (11) NOT NULL,
+  `historial` VARCHAR (1500) NOT NULL,
 
     PRIMARY KEY(`idCita`),
     -- falta la foreign key a idUsuario
@@ -265,8 +266,10 @@ SET time_zone = "-3:00";
 USE Pelumania;
 
 -- Insert usuario
-INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
-
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (2, "Matias" , "Arriola", "marriola", "password", "marriola@prueba.com", "Activo", 1, 1);
 -- Insert Rol
 INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (1, 'Dueño');
 INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (2, 'Contador');
