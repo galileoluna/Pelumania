@@ -267,6 +267,14 @@ USE Pelumania;
 -- Insert usuario
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
 
+-- Insert Rol
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (1, 'Dueño');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (2, 'Contador');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (3, 'Recepcionista');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (4, 'Supervisor');
+INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (5, 'Administrador');
+
+
 -- Inserts para las sucursales
 INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
 VALUES(1, "San Miguel", "Peron", 1100, "Activa");

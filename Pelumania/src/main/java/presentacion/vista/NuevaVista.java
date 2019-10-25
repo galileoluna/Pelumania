@@ -58,7 +58,8 @@ public class NuevaVista implements Runnable {
 			private JMenuItem mntmGenerarReportePorServicio;
 			private JMenuItem mntmGenerarReportePorCliente;
 			private JMenuItem mntmGenerarReportePorProfesional;
-			private JMenuItem mntmGenerarReporteRanking;	
+			private JMenuItem mntmGenerarReporteRanking;
+			private JMenuItem mntmGenerarReporteCaja;
 			
 	private JPanel JPnl_Izquierdo;
 	

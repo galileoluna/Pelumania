@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 
@@ -38,6 +39,7 @@ public class Controlador2 implements ActionListener{
 	/*
 	 * Controladores a instanciar 
 	 */
+
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	private ControladorProfesional controladorProfesional;
@@ -69,7 +71,7 @@ public class Controlador2 implements ActionListener{
 		
 		setearFechaSeleccionadaHoy();
 		RefrescarTablaCitas();
-		
+		getPermisos();
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
 		this.nvista.getMntmGestionDeClientes().addActionListener(c -> ventanaClientes(c));
@@ -94,6 +96,11 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getBtnLimpiarFiltros().addActionListener(n -> limpiarFiltros(n));
 		
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
+	}
+
+	private void getPermisos() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void CargarDatosUsuarioYSurcursal() {
