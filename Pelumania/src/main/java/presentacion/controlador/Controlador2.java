@@ -10,7 +10,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 
@@ -56,6 +55,8 @@ public class Controlador2 implements ActionListener{
 	
 	private List<CitaDTO> citasDelDia;
 	private List<CitaDTO> citasEnTabla;
+	private List<CitaDTO> citasFiltradas;
+	private List notificaciones;
 	
 	//No son lo mismo las citas del Dia, que las que estan en la tabla. Esta segunda es por los filtros
 	
@@ -185,17 +186,43 @@ public class Controlador2 implements ActionListener{
 		this.nvista.cargarPanelDinamicoFiltros("RangoHorario");
 	}
 	
-	private void cargarPanelDinamicoEstado(ActionEvent m) {
+	private void cargarPanelDinamicoEstado(ActionEvent m) {		
 		this.nvista.getRdbtnProfesional().setEnabled(false);
 		this.nvista.getRdbtnServicios().setEnabled(false);
 		this.nvista.getRdbtnRangoHorario().setEnabled(false);
 		this.nvista.cargarPanelDinamicoFiltros("Estado");
+		this.nvista.getBtn_FiltrarEstado().addActionListener(s -> filtrarPorEstado(s));
+	}
+	
+	private void filtrarPorEstado(ActionEvent s) {
+		String estadoSeleccionado = (String) this.nvista.getJCBoxFiltroEstado().getSelectedItem();
+		if (this.nvista.getRdbtnEstado().isSelected()) {
+			this.nvista.filtrar(estadoSeleccionado);
+			actualizarCitasPorEstado(estadoSeleccionado);
+		}else {
+			this.nvista.noOrdenar();
+			obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			cargarListaConCitas();
+			RefrescarTablaCitas();
+		}
 	}
 	
 	private void limpiarFiltros(ActionEvent n) {
 		this.nvista.limpiarFiltros();
+		limpiarTablas();
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		cargarListaConCitas();
+		RefrescarTablaCitas();
+		habilitarBotonAgregar();
 	}
 	
+	private void actualizarCitasPorEstado(String estado) {
+		for (CitaDTO cita : citasDelDia) {
+			if (cita.getEstado().equals(estado))
+				citasEnTabla.add(cita);
+		}
+		
+	}
 	
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();
@@ -236,6 +263,7 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	private void cargarListaConCitas(){
+		citasEnTabla.clear();
 		for (CitaDTO cita : citasDelDia) {
 			citasEnTabla.add(cita);
 		}
@@ -284,21 +312,21 @@ public class Controlador2 implements ActionListener{
 		int filaSeleccionada = this.nvista.getTablaCitas().getSelectedRow();
 		
 		if (filaSeleccionada != -1) {
-			citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
+			this.citaSeleccionada = this.citasEnTabla.get(filaSeleccionada);
 			if (citaSeleccionada != null) {
 				if(!citaSeleccionada.getEstado().equals("Cancelada") &&
 				   !citaSeleccionada.getEstado().equals("Finalizada") &&
 				   !citaSeleccionada.getEstado().equals("Vencida")) {
 		
 				OperacionesCita(true);
-				log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
-				log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
-				log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
-				log.info("__________________________________________________________");
 				}
 				this.nvista.getBtn_VerComprobante().setEnabled(true);
 				this.nvista.getBtn_VerDetalle().setEnabled(true);
 			}
+			log.info("Id de la cita seleccionada es: "+citaSeleccionada.getIdCita());
+			log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
+			log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
+			log.info("__________________________________________________________");
 		}
 	}
 	

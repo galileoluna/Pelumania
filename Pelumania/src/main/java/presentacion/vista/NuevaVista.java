@@ -23,8 +23,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JCalendar;
 
@@ -77,12 +80,16 @@ public class NuevaVista implements Runnable {
 		private JPanel JPanel_Filtros;
 			private JLabel LblFiltros;
 			private JSeparator separadorFiltros;
-			private JPanel JPnl_FiltroSeleccionado;
 				private JRadioButton rdbtnServicios;
 				private JRadioButton rdbtnProfesional;
 				private JRadioButton rdbtnRangoHorario;
 				private JRadioButton rdbtnEstado;
-			private JCheckBox chckbxMostrarSoloCitas;
+				
+				private JPanel JPnl_FiltroSeleccionado;
+				private JComboBox<String> JCBoxFiltroEstado;
+				private JButton btn_FiltrarEstado;
+				
+				private JCheckBox chckbxMostrarSoloCitas;
 			private JCheckBox chckbxMostrarCitasCanceladas;
 			private JButton btnLimpiarFiltros;
 		private JPanel JPnl_TablaCitas;
@@ -480,7 +487,8 @@ public class NuevaVista implements Runnable {
 	
 	public void limpiarFiltros() {
 		JPnl_FiltroSeleccionado.removeAll();
-
+		tablaCitas.setRowSorter(null);
+		
 		rdbtnEstado.setSelected(false);
 		rdbtnRangoHorario.setSelected(false);
 		rdbtnProfesional.setSelected(false);
@@ -502,6 +510,7 @@ public class NuevaVista implements Runnable {
 		JLabel lblNewLabel = new JLabel("Servicio: ");
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
+
 	}
 	
 	private void mostrarPanelProfesional(){
@@ -515,13 +524,25 @@ public class NuevaVista implements Runnable {
 	}
 	
 	private void mostrarPanelEstado(){
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(119, 11, 205, 20);
-		JPnl_FiltroSeleccionado.add(comboBox);
+		JCBoxFiltroEstado = new JComboBox<String>();
+		JCBoxFiltroEstado.setBounds(119, 11, 205, 20);
+		
+		JCBoxFiltroEstado.addItem("Activa");
+		JCBoxFiltroEstado.addItem("Cancelada");
+		JCBoxFiltroEstado.addItem("Reprogramar");
+		JCBoxFiltroEstado.addItem("En curso");
+		JCBoxFiltroEstado.addItem("Finalizada");
+		JCBoxFiltroEstado.addItem("Vencida");
+		
+		JPnl_FiltroSeleccionado.add(JCBoxFiltroEstado);
 		
 		JLabel lblNewLabel = new JLabel("Estado: ");
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
+		
+		btn_FiltrarEstado = new JButton("Filtrar");
+		btn_FiltrarEstado.setBounds(585,15,105,25);
+		JPnl_FiltroSeleccionado.add(btn_FiltrarEstado);
 	}
 	
 	private void mostrarPanelRangoHorario(){
@@ -660,6 +681,16 @@ public class NuevaVista implements Runnable {
 		spServicios.setViewportView(tablaCitas);
 	}
 	
+	public void noOrdenar() {
+		tablaCitas.setRowSorter(null);
+	}
+	
+	public void filtrar(String estado) {
+		TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(modelCitas);
+		tablaCitas.setRowSorter(modeloOrdenado);
+		modeloOrdenado.setRowFilter(RowFilter.regexFilter(estado, 5));
+	}
+	
 	@Override
 	public void run() {
 		Thread ct = Thread.currentThread();
@@ -739,79 +770,39 @@ public class NuevaVista implements Runnable {
 		return JM_Caja;
 	}
 
-	public void setJM_Caja(JMenu jM_Caja) {
-		JM_Caja = jM_Caja;
-	}
-
 	public JMenuItem getMntmConsultarCategorias() {
 		return mntmConsultarCategorias;
 	}
 
-	public void setMntmConsultarCategorias(JMenuItem mntmConsultarCategorias) {
-		this.mntmConsultarCategorias = mntmConsultarCategorias;
-	}
-
 	public JMenuItem getMntmUtilizarCaja() {
 		return mntmUtilizarCaja;
-	}
-
-	public void setMntmUtilizarCaja(JMenuItem mntmUtilizarCaja) {
-		this.mntmUtilizarCaja = mntmUtilizarCaja;
 	}
 	
 	public JMenu getJM_Reportes() {
 		return JM_Reportes;
 	}
 	
-	public void setJM_Reportes(JMenu jM_reportes) {
-		JM_Caja = jM_reportes;
-	}
-	
 	public JMenuItem getMntmReporteLocal() {
 		return mntmGenerarReporteLocal;
-	}
-	
-	public void setMntmReporteLocal(JMenuItem mntmGenerarReporteLocal) {
-		this.mntmGenerarReporteLocal = mntmGenerarReporteLocal;
 	}
 	
 	public JMenuItem getMntmReporteGeneral() {
 		return mntmGenerarReporteGeneral;
 	}
-	
-	public void setMntmReporteGeneral(JMenuItem mntmGenerarReportegeneral) {
-		this.mntmGenerarReporteGeneral = mntmGenerarReporteGeneral;
-	}
 
 	public JMenuItem getMntmReportePorServicio() {
 		return mntmGenerarReportePorServicio;
 	}
-	
-	public void setMntmReportePorServicio(JMenuItem mntmGenerarReportePorServicio) {
-		this.mntmGenerarReportePorServicio = mntmGenerarReportePorServicio;
-	}
-	
 	public JMenuItem getMntmReportePorCliente() {
 		return mntmGenerarReportePorCliente;
 	}
-	
-	public void setMntmReportePorCliente(JMenuItem mntmGenerarReportePorCliente) {
-		this.mntmGenerarReportePorCliente = mntmGenerarReportePorCliente;
-	}
+
 	public JMenuItem getMntmReportePorProfesional() {
 		return mntmGenerarReportePorProfesional;
 	}
-	
-	public void setMntmReportePorProfesional(JMenuItem mntmGenerarReportePorProfesional) {
-		this.mntmGenerarReportePorProfesional = mntmGenerarReportePorProfesional;
-	}
-	
+
 	public JMenuItem getMntmReporteRanking() {
 		return mntmGenerarReporteRanking;
-	}
-	
-	public void setMntmReporteRanking(JMenuItem mntmGenerarReporteRanking) {
-		this.mntmGenerarReporteRanking = mntmGenerarReporteRanking;
 	}
 
 	public JLabel getLbl_Reloj() {
@@ -1005,6 +996,14 @@ public class NuevaVista implements Runnable {
 	public JButton getBtnLimpiarFiltros() {
 		return btnLimpiarFiltros;
 	}
-	
+
+	public JButton getBtn_FiltrarEstado() {
+		return btn_FiltrarEstado;
+	}
+
+	public JComboBox<String> getJCBoxFiltroEstado() {
+		return JCBoxFiltroEstado;
+	}
+
 	
 }
