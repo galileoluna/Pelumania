@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -23,27 +24,22 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.toedter.calendar.JDateChooser;
+
 import dto.ClienteDTO;
+import dto.SucursalDTO;
+
+import javax.swing.JSeparator;
 
 public class VentanaReportesPorLocal extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private static VentanaReportesPorLocal INSTANCE;
-	private JButton btnAgregar;
-	private JButton btnEditar;
-	private JButton btnBorrar;
-	
-	private JTextField buscador;
-	private JButton btnBuscar;
-	private JComboBox variableBuscar;
-	
 	private JPanel contentPane;
+	private JComboBox<SucursalDTO> Jcb_Sucursal;
+	private JDateChooser Jdc_Hasta;
+	private JDateChooser Jdc_Desde;
 	
-	
-	private JTextField txtNombre;
-	private JTextField txtTelefono;
-	private JTextField txtApellido;
-	private JTextField txtMail;
 	private VentanaReportesPorLocal()
 	{
 		super();
@@ -55,7 +51,7 @@ public class VentanaReportesPorLocal extends JFrame{
 		if(INSTANCE == null)
 		{
 			INSTANCE = new VentanaReportesPorLocal();
-			return new VentanaReportesPorLocal();
+			return INSTANCE;
 		} else {
 			return INSTANCE;
 		}
@@ -64,9 +60,9 @@ public class VentanaReportesPorLocal extends JFrame{
 
 	private void initialize()
 	{
-		setTitle("Caja");
+		setTitle("Reportes por Local");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 413, 561);
+		setBounds(100, 100, 375, 225);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -76,81 +72,74 @@ public class VentanaReportesPorLocal extends JFrame{
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 397, 512);
+		panel.setBounds(0, 0, 356, 186);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
+		JLabel lblDesde = new JLabel("Desde : ");
+		lblDesde.setBounds(32, 49, 91, 23);
+		panel.add(lblDesde);
+		
+		JLabel lblHasta = new JLabel("Hasta: ");
+		lblHasta.setBounds(32, 83, 67, 24);
+		panel.add(lblHasta);
+		
+		Jdc_Desde = new JDateChooser();
+		Jdc_Desde.setSize(142, 23);
+		Jdc_Desde.setLocation(109, 49);
+		panel.add(Jdc_Desde);
+		
+		Jdc_Hasta = new JDateChooser();
+		Jdc_Hasta.setSize(142, 23);
+		Jdc_Hasta.setLocation(109, 84);
+		panel.add(Jdc_Hasta);
+		
+		JButton btnGenerarReporte = new JButton("Generar Reporte");
+		btnGenerarReporte.setBounds(195, 152, 151, 23);
+		panel.add(btnGenerarReporte);
+		
+		JLabel lblSucursal = new JLabel("Sucursal:");
+		lblSucursal.setBounds(32, 118, 91, 23);
+		panel.add(lblSucursal);
+		
+		Jcb_Sucursal = new JComboBox<SucursalDTO>();
+		Jcb_Sucursal.setBounds(109, 118, 142, 23);
+		panel.add(Jcb_Sucursal);
+		
+		JLabel lblGenerarReportesPor = new JLabel("Generar reportes por Local");
+		lblGenerarReportesPor.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblGenerarReportesPor.setBounds(32, 11, 273, 23);
+		panel.add(lblGenerarReportesPor);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(32, 36, 296, 2);
+		panel.add(separator);
+		
 		setVisible(true);
-
 	}
 
-	public JButton getBtnAgregar() {
-		return btnAgregar;
+	public JComboBox<SucursalDTO> getJcb_Sucursal() {
+		return Jcb_Sucursal;
 	}
 
-	public void setBtnAgregar(JButton btnAgregar) {
-		this.btnAgregar = btnAgregar;
+	public void setJcb_Sucursal(JComboBox<SucursalDTO> jcb_Sucursal) {
+		Jcb_Sucursal = jcb_Sucursal;
 	}
 
-	public JButton getBtnEditar() {
-		return btnEditar;
+	public JDateChooser getJdc_Hasta() {
+		return Jdc_Hasta;
 	}
 
-	public void setBtnEditar(JButton btnEditar) {
-		this.btnEditar = btnEditar;
+	public void setJdc_Hasta(JDateChooser jdc_Hasta) {
+		Jdc_Hasta = jdc_Hasta;
 	}
 
-	public JButton getBtnBorrar() {
-		return btnBorrar;
+	public JDateChooser getJdc_Desde() {
+		return Jdc_Desde;
 	}
 
-	public void setBtnBorrar(JButton btnBorrar) {
-		this.btnBorrar = btnBorrar;
-	}
-	
-	public JButton getBtnBuscar() {
-		return btnBuscar;
-	}
-	public JComboBox getVariableBuscar() {
-		return variableBuscar;
-	}
-	
-	public JTextField getBuscador() {
-		return buscador;
-	}
-
-	public JTextField getTxtNombre()
-	{
-		return txtNombre;
-	}
-
-	public JTextField getTxtTelefono()
-	{
-		return txtTelefono;
-	}
-
-	public JTextField getTxtApellido() {
-		return txtApellido;
-	}
-
-	public void setTxtApellido(JTextField txtApellido) {
-		this.txtApellido = txtApellido;
-	}
-
-	public JTextField getTxtMail() {
-		return txtMail;
-	}
-
-	public void setTxtMail(JTextField txtMail) {
-		this.txtMail = txtMail;
-	}
-
-	public void setTxtNombre(JTextField txtNombre) {
-		this.txtNombre = txtNombre;
-	}
-
-	public void setTxtTelefono(JTextField txtTelefono) {
-		this.txtTelefono = txtTelefono;
+	public void setJdc_Desde(JDateChooser jdc_Desde) {
+		Jdc_Desde = jdc_Desde;
 	}
 
 	public void mostrar() {
@@ -159,10 +148,6 @@ public class VentanaReportesPorLocal extends JFrame{
 	}
 	public void limpiarInputs()
 	{
-		this.txtNombre.setText(null);
-		this.txtTelefono.setText(null);
-		this.txtApellido.setText(null);
-		this.txtMail.setText(null);
+		
 	}
-
 }
