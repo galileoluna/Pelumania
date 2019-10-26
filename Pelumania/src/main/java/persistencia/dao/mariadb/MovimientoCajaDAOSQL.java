@@ -1,9 +1,16 @@
 package persistencia.dao.mariadb;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import dto.ClienteDTO;
 import dto.MovimientoCajaDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.MovimientoCajaDAO;
@@ -35,7 +42,7 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 //			+ "TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
 //			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-//	private static final String readallIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso";
+	private static final String readallIngresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = 'Ingreso'";
 
 //	private static final String readallEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso";
 
@@ -90,8 +97,44 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 
 	@Override
 	public List<MovimientoCajaDTO> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readallIngresos);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+	
+	private MovimientoCajaDTO getCajaDTO(ResultSet resultSet) throws SQLException
+	{
+		int idCaja = resultSet.getInt("idCaja");
+		int idSucursal = resultSet.getInt("idSucursal");
+		int idCategoriaCaja = resultSet.getInt("idCategoriaCaja");
+		Instant fecha=Instant.parse(resultSet.getString("Fecha"));
+		String TipoDeCambio= resultSet.getString("TipoDeCambio");
+		int idPromocion = resultSet.getInt("idPromocion");
+		BigDecimal local=resultSet.getBigDecimal("precioLocal");
+		BigDecimal dolar=resultSet.getBigDecimal("precioDolar");
+		int idProf = resultSet.getInt("idCaja");
+		int idCita = resultSet.getInt("idCita");
+		int idCliente = resultSet.getInt("idCliente");
+		int idServicio = resultSet.getInt("idServicio");
+
+
+		return new MovimientoCajaDTO(idCaja,idSucursal,idCategoriaCaja,fecha,TipoDeCambio,idPromocion,
+				local,dolar,idProf,idCita,idCliente,idServicio);
 	}
 
 	@Override
