@@ -51,6 +51,8 @@ public class Controlador2 implements ActionListener{
 	private ControladorPromocionesVigentes controladorPromoVigente;
 	private ControladorCaja controladorCaja;
 	private ControladorCategoriaMovimientoCaja controladorCategoriaMovimientoCaja;
+	private ControladorReportesPorLocal controladorReportesPorLocal;
+
 
 	/*
 	 * Arreglos que se utilizan en la vista
@@ -84,7 +86,8 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmGestionDeSucursales().addActionListener(f -> ventanaSucursales(f));
 		this.nvista.getMntmUtilizarCaja().addActionListener(g -> ventanaCaja(g));
 		this.nvista.getMntmConsultarCategorias().addActionListener(h -> ventanCategoriaMovimientoCaja(h));
-		
+		this.nvista.getMntmReporteLocal().addActionListener(l -> ventanaReportesLocal(l));
+
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 		
@@ -145,6 +148,10 @@ public class Controlador2 implements ActionListener{
 
 	private void ventanaCaja(ActionEvent h) {
 		this.controladorCaja = ControladorCaja.getInstance(sistema);
+	}
+	
+	private void ventanaReportesLocal(ActionEvent l) {
+		this.controladorReportesPorLocal= ControladorReportesPorLocal.getInstance(sistema);
 	}
 	
 	private void ventanaAgregarCita(ActionEvent k) {
