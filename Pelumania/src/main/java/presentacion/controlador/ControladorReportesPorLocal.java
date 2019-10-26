@@ -33,7 +33,4 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 			this.ventanaReportes.getJcb_Sucursal().addItem(sucursal);
 		}
 	}
-
-
-	
 }
