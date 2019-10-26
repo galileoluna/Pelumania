@@ -21,7 +21,7 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 	private static final String readAll = "";
 	private static final String getCitasByIdServicio = "SELECT * FROM ServicioTurno WHERE idServicio = ?";
 	private static final String getByIdCita = "SELECT * FROM ServicioTurno WHERE idCita = ?";
-
+	private static final String getByIdServicio = "SELECT * FROM ServicioTurno WHERE idServicio = ?";
 	@Override
 	public boolean insert(ServicioTurnoDTO servicioTurno_a_insertar) 
 	{

@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
+import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import dto.UsuarioDTO;
@@ -213,6 +214,14 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnEstado().setEnabled(false);
 		this.nvista.getRdbtnRangoHorario().setEnabled(false);
 		this.nvista.cargarPanelDinamicoFiltros("Servicio");
+		
+		List<ServicioDTO> servicios = this.sistema.obtenerServicios();
+		for (ServicioDTO serv : servicios) {
+			this.nvista.getJCBoxFiltroServicio().addItem(serv);
+		}
+		
+		this.nvista.getJCBoxFiltroServicio().updateUI();
+		this.nvista.getJCBoxFiltroServicio().addActionListener(s -> filtrarPorServicio(s));
 	}
 	
 	private void cargarPanelDinamicoProfesional(ActionEvent m) {
@@ -287,6 +296,20 @@ public class Controlador2 implements ActionListener{
 		}
 	}
 	
+	private void filtrarPorServicio(ActionEvent s) {
+		ServicioDTO servicioSeleccionado = (ServicioDTO) 
+				this.nvista.getJCBoxFiltroServicio().getSelectedItem();
+		if (this.nvista.getRdbtnServicios().isSelected()) {
+			limpiarTablas();
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			actualizarCitasPorServicio(servicioSeleccionado.getIdServicio());
+			RefrescarTablaCitas();
+		}else {
+			limpiarTablas();
+			RefrescarTablaCitas();
+		}
+	}
+	
 	private void actualizarCitasPorProfesional(int idProfesional) {
 		System.out.println("citasdeldia:"+citasDelDia);
 		for (CitaDTO cita : citasDelDia) {
@@ -299,10 +322,20 @@ public class Controlador2 implements ActionListener{
 			for (ServicioTurnoDTO servTurno : serviciosDeCita) {
 				if (idProfesional == servTurno.getIdProfesional())
 					citasEnTabla.add(cita);
-			}
 		}
-		
+		}
 	}
+		
+		private void actualizarCitasPorServicio(int idServicio) {
+		List<Integer> citasConServicioSeleccionado = 
+						this.sistema.getCitasByIdServicio(idServicio);
+				
+		for (Integer idCita : citasConServicioSeleccionado) {
+			CitaDTO cita = this.sistema.getCitaById(idCita);
+			citasEnTabla.add(cita);
+			}
+	}
+		
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();
 		this.citaSeleccionada = null;
