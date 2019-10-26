@@ -14,7 +14,7 @@ public class RowsRenderer extends DefaultTableCellRenderer {
 	
 	public static final Color rojo = new Color(225,64,68);
 	public static final Color verde = new Color(129,152,48);
-	public static final Color azul = new Color(0,85,121);
+	public static final Color azul = new Color(22,138,197);
 	public static final Color amarillo = new Color(248,214,115);
 	public static final Color naranja = new Color(239,169,74);
 	public static final Color gris = new Color(128,128,128);
