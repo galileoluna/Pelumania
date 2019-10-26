@@ -34,4 +34,5 @@ public interface ProfesionalDAO {
 
 	public List<ProfesionalDTO> getProfesionalByHorario(LocalTime inicioTurno, String diaDeLaSemana);
 	
+	public List<ProfesionalDTO> getProfesionalByIdSucursal(int idSucursal);
 }

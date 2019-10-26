@@ -25,6 +25,7 @@ import persistencia.dao.interfaz.ProfesionalDAO;
 	private static final String getById = "SELECT * FROM Profesional WHERE idProfesional = ?";
 	private static final String readBuscador = "SELECT * FROM Profesional WHERE ? LIKE ?";
 	
+	private static final String getProfesionalByIdSucursal = "SELECT * FROM Profesional WHERE idSucursalOrigen = ?";
 	private static final String getProfesionalByHorario = "SELECT * FROM DiasLaborales WHERE ? > HoraEntrada AND ? < HoraSalida AND DIA = ?";
 	
 	private static final String serviciosDelProfesional = "SELECT * FROM ServicioProfesional WHERE idProfesional = ?";
@@ -362,6 +363,31 @@ import persistencia.dao.interfaz.ProfesionalDAO;
 			e.printStackTrace();
 		}
 		return profesionales.get(0);
+	}
+	
+	public List<ProfesionalDTO> getProfesionalByIdSucursal(int idSucursal)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		List<ProfesionalDTO> profesionales = new ArrayList<ProfesionalDTO>();
+		try 
+		{
+			statement = conexion.prepareStatement(getProfesionalByIdSucursal);
+			statement.setInt(1, idSucursal);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				profesionales.add(getProfesionalDTO(resultSet));
+			}
+	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return profesionales;
 	}
 	
 	private ProfesionalDTO getProfesionalById(int idProfesional) {

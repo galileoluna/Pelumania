@@ -31,6 +31,7 @@ import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JCalendar;
 
+import dto.ProfesionalDTO;
 import util.RowsRenderer;
 import java.awt.FlowLayout;
 
@@ -89,6 +90,8 @@ public class NuevaVista implements Runnable {
 				private JPanel JPnl_FiltroSeleccionado;
 				private JComboBox<String> JCBoxFiltroEstado;
 				private JButton btn_FiltrarEstado;
+				
+				JComboBox<ProfesionalDTO> JCBoxFiltroProfesional;
 				
 				private JCheckBox chckbxMostrarSoloCitas;
 			private JCheckBox chckbxMostrarCitasCanceladas;
@@ -518,9 +521,9 @@ public class NuevaVista implements Runnable {
 	}
 	
 	private void mostrarPanelProfesional(){
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(119, 11, 205, 20);
-		JPnl_FiltroSeleccionado.add(comboBox);
+		JCBoxFiltroProfesional = new JComboBox<ProfesionalDTO>();
+		JCBoxFiltroProfesional.setBounds(119, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(JCBoxFiltroProfesional);
 		
 		JLabel lblNewLabel = new JLabel("Profesional: ");
 		lblNewLabel.setBounds(10, 11, 108, 20);
@@ -1017,6 +1020,14 @@ public class NuevaVista implements Runnable {
 
 	public JComboBox<String> getJCBoxFiltroEstado() {
 		return JCBoxFiltroEstado;
+	}
+
+	public JComboBox<ProfesionalDTO> getJCBoxFiltroProfesional() {
+		return JCBoxFiltroProfesional;
+	}
+
+	public void setJCBoxFiltroProfesional(JComboBox<ProfesionalDTO> jCBoxFiltroProfesional) {
+		JCBoxFiltroProfesional = jCBoxFiltroProfesional;
 	}
 
 	

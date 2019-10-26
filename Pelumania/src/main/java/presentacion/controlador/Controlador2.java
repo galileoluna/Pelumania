@@ -17,6 +17,8 @@ import org.apache.log4j.Logger;
 
 import dto.CitaDTO;
 import dto.ClienteDTO;
+import dto.ProfesionalDTO;
+import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
@@ -29,6 +31,7 @@ public class Controlador2 implements ActionListener{
 	private Sistema sistema;
 	private NuevaVista nvista;
 	private UsuarioDTO usuario;
+	private SucursalDTO sucursal;
 	
 	private Logger log = Logger.getLogger(Controlador2.class);	
 	
@@ -55,8 +58,8 @@ public class Controlador2 implements ActionListener{
 	
 	private List<CitaDTO> citasDelDia;
 	private List<CitaDTO> citasEnTabla;
-	private List<CitaDTO> citasFiltradas;
-	private List notificaciones;
+
+	private List<ProfesionalDTO> profesionalesEnSucursal;
 	
 	//No son lo mismo las citas del Dia, que las que estan en la tabla. Esta segunda es por los filtros
 	
@@ -105,8 +108,9 @@ public class Controlador2 implements ActionListener{
 	}
 
 	private void CargarDatosUsuarioYSurcursal() {
+		sucursal = this.sistema.getSucursalById(usuario.getIdSucursal());
 		this.nvista.getLblUsuario().setText(usuario.getNombre()+" "+usuario.getApellido());
-		this.nvista.getLblSucursal().setText(getSucursal(usuario.getIdSucursal()));
+		this.nvista.getLblSucursal().setText(sucursal.getNombreSucursal());
 	}
 	
 	private String getSucursal(int idSucursal) {
@@ -177,6 +181,14 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnEstado().setEnabled(false);
 		this.nvista.getRdbtnRangoHorario().setEnabled(false);
 		this.nvista.cargarPanelDinamicoFiltros("Profesional");
+		
+		profesionalesEnSucursal = this.sistema.getProfesionalByIdSucursal(sucursal.getIdSucursal());
+		System.out.println(profesionalesEnSucursal);
+		for (ProfesionalDTO profEnSucu : profesionalesEnSucursal) {
+			this.nvista.getJCBoxFiltroProfesional().addItem(profEnSucu);
+		}
+		this.nvista.getJCBoxFiltroProfesional().updateUI();
+		this.nvista.getJCBoxFiltroProfesional().addActionListener(s -> filtrarPorProfesional(s));
 	}
 	
 	private void cargarPanelDinamicoRangoHorario(ActionEvent m) {
@@ -191,7 +203,6 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnServicios().setEnabled(false);
 		this.nvista.getRdbtnRangoHorario().setEnabled(false);
 		this.nvista.cargarPanelDinamicoFiltros("Estado");
-		this.nvista.getJCBoxFiltroEstado().addActionListener(s -> filtrarPorEstado(s));
 	}
 	
 	private void filtrarPorEstado(ActionEvent s) {
@@ -221,9 +232,38 @@ public class Controlador2 implements ActionListener{
 			if (cita.getEstado().equals(estado))
 				citasEnTabla.add(cita);
 		}
-		
 	}
 	
+	private void filtrarPorProfesional(ActionEvent s) {
+		ProfesionalDTO profesionalSeleccionado = (ProfesionalDTO) 
+				this.nvista.getJCBoxFiltroProfesional().getSelectedItem();
+		if (this.nvista.getRdbtnProfesional().isSelected()) {
+			limpiarTablas();
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			actualizarCitasPorProfesional(profesionalSeleccionado.getIdProfesional());
+			RefrescarTablaCitas();
+		}else {
+			limpiarTablas();
+			RefrescarTablaCitas();
+		}
+	}
+	
+	private void actualizarCitasPorProfesional(int idProfesional) {
+		System.out.println("citasdeldia:"+citasDelDia);
+		for (CitaDTO cita : citasDelDia) {
+			int idCita = cita.getIdCita();
+			
+			List<ServicioTurnoDTO> serviciosDeCita = 
+					this.sistema.getServicioTurnoByIdCita(idCita);
+			
+			System.out.println("serviciosDeCita"+serviciosDeCita);
+			for (ServicioTurnoDTO servTurno : serviciosDeCita) {
+				if (idProfesional == servTurno.getIdProfesional())
+					citasEnTabla.add(cita);
+			}
+		}
+		
+	}
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();
 		this.citaSeleccionada = null;

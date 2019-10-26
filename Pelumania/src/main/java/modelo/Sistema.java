@@ -171,6 +171,9 @@ public class Sistema
 		return this.profesional.getProfesionalByHorario(inicioTurno, diaDeLaSemana);
 	}
 	
+	public List<ProfesionalDTO> getProfesionalByIdSucursal(int idSucursal){
+		return this.profesional.getProfesionalByIdSucursal(idSucursal);
+	}
 	
 	// FIN PROFESIONAL
 	
