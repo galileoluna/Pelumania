@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -281,6 +282,10 @@ public class Sistema
 	
 	public CitaDTO getCitaMax() {
 		return this.cita.getCitaMax();
+	}
+	
+	public List<CitaDTO> getCitasPorRangoHorario(LocalTime desde, LocalTime hasta, LocalDate dia){
+		return this.cita.getCitasByRangoHorario(desde, hasta, dia);
 	}
 	
 	//Arranca ServicioTurno

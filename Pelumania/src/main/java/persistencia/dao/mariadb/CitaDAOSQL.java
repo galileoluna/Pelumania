@@ -37,6 +37,8 @@ public class CitaDAOSQL implements CitaDAO{
 										+ "EstadoTurno=?, PrecioLocal=?, PrecioDolar=?, HoraInicio=?, HoraFin=?, Dia=?, IdSucursal=?  WHERE idCita=?";
 	
 	private static final String readByDia = "SELECT * FROM Cita WHERE Dia = ? ORDER BY HoraInicio";
+	private static final String getCitasByHoraInicio = "SELECT * FROM CITA WHERE HoraInicio > ? AND HoraInicio < ? AND Dia= ?";
+	
 	private static final String DADODEBAJA = "Cerrado";
 	private static final String CANCELADA = "Cancelada";
 	private static final String FINALIZADA = "Finalizada"; 
@@ -463,5 +465,30 @@ public class CitaDAOSQL implements CitaDAO{
 			}
 		}
 		return citasActivas;
+	}
+	
+	public List<CitaDTO> getCitasByRangoHorario(LocalTime desde, LocalTime hasta, LocalDate dia) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		List<CitaDTO> citasPorHora = new ArrayList<CitaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(getCitasByHoraInicio);
+			statement.setTime(1, Time.valueOf(desde));
+			statement.setTime(2, Time.valueOf(hasta));
+			statement.setDate(3, Date.valueOf(dia));
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				citasPorHora.add(getCitaDTOMati(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return citasPorHora;
 	}
 }

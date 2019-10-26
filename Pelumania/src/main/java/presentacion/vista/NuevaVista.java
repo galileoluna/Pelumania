@@ -90,6 +90,8 @@ public class NuevaVista implements Runnable {
 				private JPanel JPnl_FiltroSeleccionado;
 				private JComboBox<String> JCBoxFiltroEstado;
 				private JComboBox<ServicioDTO> JCBoxFiltroServicio;
+				private JComboBox<Integer> JCBoxDe;
+				private JComboBox<Integer> JCBoxA;
 				private JButton btn_FiltrarEstado;
 				
 				JComboBox<ProfesionalDTO> JCBoxFiltroProfesional;
@@ -547,17 +549,17 @@ public class NuevaVista implements Runnable {
 	}
 	
 	private void mostrarPanelRangoHorario(){
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(119, 11, 205, 20);
-		JPnl_FiltroSeleccionado.add(comboBox);
+		JCBoxDe = new JComboBox<Integer>();
+		JCBoxDe.setBounds(119, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(JCBoxDe);
 		
 		JLabel lblNewLabel = new JLabel("De: ");
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
 		
-		JComboBox comboBox2 = new JComboBox();
-		comboBox2.setBounds(450, 11, 205, 20);
-		JPnl_FiltroSeleccionado.add(comboBox2);
+		JCBoxA = new JComboBox<Integer>();
+		JCBoxA.setBounds(450, 11, 205, 20);
+		JPnl_FiltroSeleccionado.add(JCBoxA);
 		
 		JLabel lblNewLabel2 = new JLabel("A: ");
 		lblNewLabel2.setBounds(335, 11, 108, 20);
@@ -1036,6 +1038,21 @@ public class NuevaVista implements Runnable {
 		JCBoxFiltroServicio = jCBoxFiltroServicio;
 	}
 
-	
+	public JComboBox<Integer> getJCBoxDe() {
+		return JCBoxDe;
+	}
+
+	public void setJCBoxDe(JComboBox<Integer> jCBoxDe) {
+		JCBoxDe = jCBoxDe;
+	}
+
+	public JComboBox<Integer> getJCBoxA() {
+		return JCBoxA;
+	}
+
+	public void setJCBoxA(JComboBox<Integer> jCBoxA) {
+		JCBoxA = jCBoxA;
+	}
+
 }
 

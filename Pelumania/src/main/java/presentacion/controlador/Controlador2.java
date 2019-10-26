@@ -244,6 +244,17 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnEstado().setEnabled(false);
 		this.nvista.getRdbtnServicios().setEnabled(false);
 		this.nvista.cargarPanelDinamicoFiltros("RangoHorario");
+		
+		for (int i = 8; i<20; i++) {
+			this.nvista.getJCBoxDe().addItem(i);
+			this.nvista.getJCBoxA().addItem(i);
+		}
+		
+		this.nvista.getJCBoxDe().updateUI();
+		this.nvista.getJCBoxA().updateUI();
+		
+		this.nvista.getJCBoxDe().addActionListener(s -> filtrarPorRangoHorario(s));
+		this.nvista.getJCBoxA().addActionListener(s -> filtrarPorRangoHorario(s));
 	}
 	
 	private void cargarPanelDinamicoEstado(ActionEvent m) {		
@@ -310,6 +321,25 @@ public class Controlador2 implements ActionListener{
 		}
 	}
 	
+	private void filtrarPorRangoHorario(ActionEvent s) {
+		
+		Integer intDeSeleccionada = (Integer) this.nvista.getJCBoxDe().getSelectedItem();
+		Integer intASeleccionada = (Integer) this.nvista.getJCBoxA().getSelectedItem();
+		
+		LocalTime horaDeSeleccionada = LocalTime.of(intDeSeleccionada, 0);
+		LocalTime horaASeleccionada = LocalTime.of(intASeleccionada, 0);
+		
+		if (this.nvista.getRdbtnRangoHorario().isSelected()) {
+			limpiarTablas();
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			actualizarCitasPorRangoHorario(horaDeSeleccionada, horaASeleccionada);
+			RefrescarTablaCitas();
+		}else {
+			limpiarTablas();
+			RefrescarTablaCitas();
+		}
+	}
+	
 	private void actualizarCitasPorProfesional(int idProfesional) {
 		System.out.println("citasdeldia:"+citasDelDia);
 		for (CitaDTO cita : citasDelDia) {
@@ -335,6 +365,15 @@ public class Controlador2 implements ActionListener{
 			citasEnTabla.add(cita);
 			}
 	}
+		
+		private void actualizarCitasPorRangoHorario(LocalTime desde, LocalTime hasta) {
+			List<CitaDTO> citasEntreRangoHorario = 
+					this.sistema.getCitasPorRangoHorario(desde, hasta, fechaSeleccionada);
+			
+			for (CitaDTO cita : citasEntreRangoHorario) {
+				citasEnTabla.add(cita);
+				}
+		}
 		
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();

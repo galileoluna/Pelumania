@@ -1,5 +1,7 @@
 package persistencia.dao.interfaz;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import dto.CitaDTO;
@@ -33,6 +35,8 @@ public interface CitaDAO {
 	public CitaDTO getById(int idCita);
 
 	public boolean reprogramar(CitaDTO cita_a_reprogramar);
+
+	public List<CitaDTO> getCitasByRangoHorario(LocalTime desde, LocalTime hasta, LocalDate dia);
 
 
 }
