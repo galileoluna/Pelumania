@@ -97,4 +97,9 @@ public class ClienteDTO
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+	
+	@Override
+	public String toString() {
+		return this.nombre+" "+apellido;
+	}
 }
