@@ -32,6 +32,7 @@ import javax.swing.table.TableRowSorter;
 import com.toedter.calendar.JCalendar;
 
 import util.RowsRenderer;
+import java.awt.FlowLayout;
 
 public class NuevaVista implements Runnable {
 
@@ -102,8 +103,10 @@ public class NuevaVista implements Runnable {
 			private JButton btn_Finalizar;
 			private JButton btn_VerDetalle;
 			private JButton btn_VerComprobante;
-			private JPanel JPnl_Detalle;
 			
+		private JPanel JPnl_Detalle;
+			private JLabel Lbl_CitaSeleccionadaNull;
+
 			/*
 			 * Variables globales para manejar la hora
 			 * */
@@ -179,6 +182,7 @@ public class NuevaVista implements Runnable {
 			crearPanelTablaCitas();
 				crearTablaCitas();
 			crearPanelDetalle();
+				crearLabelCitaSeleccionadaNull();
 			crearPanelBotones();
 				crearBotones();
 			
@@ -539,10 +543,6 @@ public class NuevaVista implements Runnable {
 		JLabel lblNewLabel = new JLabel("Estado: ");
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
-		
-		btn_FiltrarEstado = new JButton("Filtrar");
-		btn_FiltrarEstado.setBounds(585,15,105,25);
-		JPnl_FiltroSeleccionado.add(btn_FiltrarEstado);
 	}
 	
 	private void mostrarPanelRangoHorario(){
@@ -604,6 +604,20 @@ public class NuevaVista implements Runnable {
 		JPnl_Citas.add(JPnl_Detalle);
 	}
 
+	private void crearLabelCitaSeleccionadaNull() {
+		JPnl_Detalle.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		Lbl_CitaSeleccionadaNull = new JLabel ("[ No hay citas seleccionadas ]");
+		JPnl_Detalle.add(Lbl_CitaSeleccionadaNull);
+	}
+	
+	public void MostrarLblCitaSeleccionadaNull() {
+		Lbl_CitaSeleccionadaNull.setVisible(true);
+	}
+	
+	public void OcultarLblCitaSeleccionadaNull() {
+		Lbl_CitaSeleccionadaNull.setVisible(false);
+	}
+	
 	private void crearPanelCitas() {
 		JPnl_Citas = new JPanel();
 		JPnl_Citas.setBorder(new LineBorder(new Color(0, 0, 0)));

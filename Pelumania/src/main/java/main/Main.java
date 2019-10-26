@@ -17,19 +17,7 @@ public class Main {
         Sistema sistema = new Sistema(new DAOSQLFactory());
         Login login=new Login();
         ControladorLogin controladorLog= new ControladorLogin(login,sistema);
-        
-//         Vista vista = new Vista();
-         
-//        Controlador controlador = new Controlador(vista, sistema);
-        
-
-      //  NuevaVista Nvista = new NuevaVista();
-      //  Controlador controlador2 = new Controlador(Nvista,sistema);
-/*
-        NuevaVista Nvista = new NuevaVista();
-        Controlador2 controlador2 = new Controlador2(Nvista,sistema);
-*/
-        
+   
     } 
  
 } 

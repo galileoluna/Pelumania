@@ -191,7 +191,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnServicios().setEnabled(false);
 		this.nvista.getRdbtnRangoHorario().setEnabled(false);
 		this.nvista.cargarPanelDinamicoFiltros("Estado");
-		this.nvista.getBtn_FiltrarEstado().addActionListener(s -> filtrarPorEstado(s));
+		this.nvista.getJCBoxFiltroEstado().addActionListener(s -> filtrarPorEstado(s));
 	}
 	
 	private void filtrarPorEstado(ActionEvent s) {
@@ -227,6 +227,8 @@ public class Controlador2 implements ActionListener{
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();
 		this.citaSeleccionada = null;
+		System.out.println(citaSeleccionada);
+		actualizarPanelCitaSeleccionada();
 		setearFechaSeleccionadaEnCalendario();
 		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 		cargarListaConCitas();
@@ -237,7 +239,7 @@ public class Controlador2 implements ActionListener{
 		log.info("Y las citas en tabla son: "+ citasEnTabla);
 		log.info("__________________________________________________________");
 	}
-	
+
 	private static String getFechaSeleccionadaAsString() {
 		int dia = fechaSeleccionada.getDayOfMonth();
 		int mes = fechaSeleccionada.getMonthValue();
@@ -320,6 +322,7 @@ public class Controlador2 implements ActionListener{
 		
 				OperacionesCita(true);
 				}
+				this.nvista.OcultarLblCitaSeleccionadaNull();
 				this.nvista.getBtn_VerComprobante().setEnabled(true);
 				this.nvista.getBtn_VerDetalle().setEnabled(true);
 			}
@@ -327,6 +330,14 @@ public class Controlador2 implements ActionListener{
 			log.info("Hora de inicio de la cita seleccionada es: "+citaSeleccionada.getHoraInicio());
 			log.info("Hora de Fin de la cita seleccionada es: "+citaSeleccionada.getHoraFin());
 			log.info("__________________________________________________________");
+		}
+	}
+	
+	private void actualizarPanelCitaSeleccionada() {
+		if (citaSeleccionada != null) {
+			//cargar el componente de detalles
+		}else {
+			this.nvista.MostrarLblCitaSeleccionadaNull();
 		}
 	}
 	
