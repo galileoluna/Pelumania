@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
     `TipoMovimiento` VARCHAR(55) NOT NULL
     -- Esta linea que sigue es borrable, es solo para que los insert funcionen
     -- ________________________________________________________________________
-    -- DEFAULT("ValorPorDefecto"),
+    DEFAULT("ValorPorDefecto"),
     -- ________________________________________________________________________
     PRIMARY KEY(`idCategoriaCaja`)
 );
@@ -460,3 +460,18 @@ INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProf
 VALUES (41, "Viernes", "12:00:00", "20:00:00", 7);
 INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
 VALUES (42, "Sabado", "142:00:00", "20:00:00", 7); 
+
+SELECT * FROM ServicioTurno;
+SELECT * FROM SERVICIO;
+SELECT * FROM CAJA;
+SELECT * FROM CITA;
+SELECT * FROM CategoriaCaja;
+SELECT * FROM Cliente;
+
+-- DELETE FROM CAJA;
+-- DELETE FROM ServicioTurno;
+-- DELETE FROM Cita;
+-- DROP TABLE IF EXISTS CategoriaCaja;
+-- DROP TABLE IF EXISTS Caja;
+
+SET SQL_SAFE_UPDATES = 0;
