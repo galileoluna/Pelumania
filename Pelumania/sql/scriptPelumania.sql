@@ -354,16 +354,20 @@ INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, esta
 VALUES(7,"Juana", "De Arco", 2, "Activo");
 
 -- insert para categoria de caja
-INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
-VALUES (1, "Viaticos", "Activo");
-INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
-VALUES (2,"Insumos","Activo");
-INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
-VALUES (3, "Sueldos", "Activo");
-INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
-VALUES (4, "Publicidad","Activo");
-INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado)
-VALUE (5, "Administrativo", "Inactivo");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
+VALUES (1, "Viaticos", "Activo", "Egreso");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
+VALUES (2,"Insumos","Activo", "Egreso");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
+VALUES (3, "Sueldos", "Activo", "Egreso");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
+VALUES (4, "Publicidad","Activo", "Egreso");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
+VALUE (5, "Administrativo", "Inactivo", "Egreso");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
+VALUE (5, "Productos", "Activo", "Ingreso");
+INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
+VALUE (5, "Servicios", "Activo", "Ingreso");
 
 -- inserts para dias laborales
 INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
@@ -456,3 +460,18 @@ INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProf
 VALUES (41, "Viernes", "12:00:00", "20:00:00", 7);
 INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
 VALUES (42, "Sabado", "142:00:00", "20:00:00", 7); 
+
+SELECT * FROM ServicioTurno;
+SELECT * FROM SERVICIO;
+SELECT * FROM CAJA;
+SELECT * FROM CITA;
+SELECT * FROM CategoriaCaja;
+SELECT * FROM Cliente;
+
+-- DELETE FROM CAJA;
+-- DELETE FROM ServicioTurno;
+-- DELETE FROM Cita;
+-- DROP TABLE IF EXISTS CategoriaCaja;
+-- DROP TABLE IF EXISTS Caja;
+
+SET SQL_SAFE_UPDATES = 0;
