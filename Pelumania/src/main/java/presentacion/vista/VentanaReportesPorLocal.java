@@ -60,7 +60,7 @@ public class VentanaReportesPorLocal extends JFrame{
 
 	private void initialize()
 	{
-		setTitle("Reportes por Local");
+		setTitle("Reporte de ventas por Local");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 375, 225);
 		
@@ -106,7 +106,7 @@ public class VentanaReportesPorLocal extends JFrame{
 		Jcb_Sucursal.setBounds(109, 118, 142, 23);
 		panel.add(Jcb_Sucursal);
 		
-		JLabel lblGenerarReportesPor = new JLabel("Generar reportes por Local");
+		JLabel lblGenerarReportesPor = new JLabel("Generar reporte por Local");
 		lblGenerarReportesPor.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblGenerarReportesPor.setBounds(32, 11, 273, 23);
 		panel.add(lblGenerarReportesPor);
