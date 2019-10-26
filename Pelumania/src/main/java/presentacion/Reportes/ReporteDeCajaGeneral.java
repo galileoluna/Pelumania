@@ -25,11 +25,11 @@ public class ReporteDeCajaGeneral {
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReporteDeCajaGeneral(MovimientoCajaDTO caja)
+    public ReporteDeCajaGeneral(List<MovimientoCajaDTO> caja)
     {
+    	System.out.println(caja.get(0).getIdCliente());
+    	List<MovimientoCajaDTO> coleccion =caja;
     	
-    	List<MovimientoCajaDTO> coleccion = new ArrayList<MovimientoCajaDTO>();
-    	coleccion.add(caja);
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
@@ -51,3 +51,4 @@ public class ReporteDeCajaGeneral {
 		this.reporteViewer.setVisible(true);
 	}
 }
+
