@@ -374,6 +374,10 @@ public class Sistema
 		return this.caja.insertIngresoProducto(movimiento_a_insertar);
 	}
 	
+	public List<MovimientoCajaDTO> obtenerMovimientosCaja(){
+		return this.caja.readAll();
+		
+	}
 	//FIN CAJA
 	
 	// COMIENZA CATEGORIAS MOVIMIENTO CAJA
