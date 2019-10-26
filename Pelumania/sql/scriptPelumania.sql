@@ -365,9 +365,9 @@ VALUES (4, "Publicidad","Activo", "Egreso");
 INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
 VALUE (5, "Administrativo", "Inactivo", "Egreso");
 INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
-VALUE (5, "Productos", "Activo", "Ingreso");
+VALUE (6, "Productos", "Activo", "Ingreso");
 INSERT INTO CategoriaCaja ( idCategoriaCaja, Nombre, Estado, tipoMovimiento)
-VALUE (5, "Servicios", "Activo", "Ingreso");
+VALUE (7, "Servicios", "Activo", "Ingreso");
 
 -- inserts para dias laborales
 INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
