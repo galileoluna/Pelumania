@@ -52,6 +52,11 @@ public class Controlador2 implements ActionListener{
 	private ControladorCaja controladorCaja;
 	private ControladorCategoriaMovimientoCaja controladorCategoriaMovimientoCaja;
 	private ControladorReportesPorLocal controladorReportesPorLocal;
+	private ControladorReporteGeneral controladorReporteGeneral;
+	private ControladorReportePorServicio controladorReportePorServicio;
+	private ControladorReportePorCliente controladorReportePorCliente;
+	private ControladorReportePorProfesional controladorReportePorProfesional;
+	private ControladorReporteRankingDeVentas controladorReporteRankingVentas;
 
 
 	/*
@@ -86,8 +91,15 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmGestionDeSucursales().addActionListener(f -> ventanaSucursales(f));
 		this.nvista.getMntmUtilizarCaja().addActionListener(g -> ventanaCaja(g));
 		this.nvista.getMntmConsultarCategorias().addActionListener(h -> ventanCategoriaMovimientoCaja(h));
-		this.nvista.getMntmReporteLocal().addActionListener(l -> ventanaReportesLocal(l));
 
+        this.nvista.getMntmReporteLocal().addActionListener(l -> ventanaReportesLocal(l));
+		this.nvista.getMntmReporteGeneral().addActionListener(h -> ventanaReporteGeneral(h));
+		this.nvista.getMntmReportePorServicio().addActionListener(l -> ventanaReporteServicio(l));
+		this.nvista.getMntmReportePorCliente().addActionListener(g -> ventanaReporteCliente(g));
+		this.nvista.getMntmReportePorProfesional().addActionListener(l -> ventanaReporteProfesional(l));
+		this.nvista.getMntmReporteRanking().addActionListener(g ->ventanaReporteRanking(g));
+		
+		
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 		
@@ -150,8 +162,28 @@ public class Controlador2 implements ActionListener{
 		this.controladorCaja = ControladorCaja.getInstance(sistema);
 	}
 	
-	private void ventanaReportesLocal(ActionEvent l) {
+		private void ventanaReportesLocal(ActionEvent l) {
 		this.controladorReportesPorLocal= ControladorReportesPorLocal.getInstance(sistema);
+	}
+	
+	private void ventanaReporteGeneral(ActionEvent h) {
+		this.controladorReporteGeneral=ControladorReporteGeneral.getInstance(sistema);
+	}
+
+	private void ventanaReporteServicio(ActionEvent l) {
+		this.controladorReportePorServicio=ControladorReportePorServicio.getInstance(sistema);
+	}
+	
+	private void ventanaReporteCliente(ActionEvent g) {
+		this.controladorReportePorCliente=ControladorReportePorCliente.getInstance(sistema);
+	}
+	
+	private void ventanaReporteProfesional(ActionEvent l) {
+		this.controladorReportePorProfesional=ControladorReportePorProfesional.getInstance(sistema);
+	}
+
+	private void ventanaReporteRanking(ActionEvent g) {
+		this.controladorReporteRankingVentas=ControladorReporteRankingDeVentas.getInstance(sistema);
 	}
 	
 	private void ventanaAgregarCita(ActionEvent k) {
