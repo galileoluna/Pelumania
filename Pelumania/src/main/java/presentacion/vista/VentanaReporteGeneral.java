@@ -20,6 +20,8 @@ public class VentanaReporteGeneral extends JFrame{
 	private JPanel contentPane;
 	private JDateChooser Jdc_Hasta;
 	private JDateChooser Jdc_Desde;
+	private JButton btnGenerarReporte;
+
 	
 	private VentanaReporteGeneral()
 	{
@@ -75,7 +77,7 @@ public class VentanaReporteGeneral extends JFrame{
 		Jdc_Hasta.setLocation(109, 84);
 		panel.add(Jdc_Hasta);
 		
-		JButton btnGenerarReporte = new JButton("Generar Reporte");
+		btnGenerarReporte = new JButton("Generar Reporte");
 		btnGenerarReporte.setBounds(195, 152, 151, 23);
 		panel.add(btnGenerarReporte);
 		
@@ -105,6 +107,10 @@ public class VentanaReporteGeneral extends JFrame{
 
 	public void setJdc_Desde(JDateChooser jdc_Desde) {
 		Jdc_Desde = jdc_Desde;
+	}
+	
+	public JButton getBtnGenerarReporte() {
+		return btnGenerarReporte;
 	}
 
 	public void mostrar() {
