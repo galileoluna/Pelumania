@@ -1,56 +1,35 @@
 package presentacion.vista;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.List;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
+import javax.swing.JSeparator;
 
 import com.toedter.calendar.JDateChooser;
 
-import dto.ClienteDTO;
-import dto.SucursalDTO;
-
-import javax.swing.JSeparator;
-
-public class VentanaReportesPorLocal extends JFrame{
-
+public class VentanaReporteRankingVentas extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private static VentanaReportesPorLocal INSTANCE;
+	private static VentanaReporteRankingVentas INSTANCE;
 	private JPanel contentPane;
-	private JComboBox<SucursalDTO> Jcb_Sucursal;
 	private JDateChooser Jdc_Hasta;
 	private JDateChooser Jdc_Desde;
 	
-	private VentanaReportesPorLocal()
+	private VentanaReporteRankingVentas()
 	{
 		super();
 		initialize();
 	}
 
-	public static VentanaReportesPorLocal getInstance()
+	public static VentanaReporteRankingVentas getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaReportesPorLocal();
+			INSTANCE = new VentanaReporteRankingVentas();
 			return INSTANCE;
 		} else {
 			return INSTANCE;
@@ -60,7 +39,7 @@ public class VentanaReportesPorLocal extends JFrame{
 
 	private void initialize()
 	{
-		setTitle("Reporte de ventas por Local");
+		setTitle("Reporte de ranking de ventas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 375, 225);
 		
@@ -98,15 +77,7 @@ public class VentanaReportesPorLocal extends JFrame{
 		btnGenerarReporte.setBounds(195, 152, 151, 23);
 		panel.add(btnGenerarReporte);
 		
-		JLabel lblSucursal = new JLabel("Sucursal:");
-		lblSucursal.setBounds(32, 118, 91, 23);
-		panel.add(lblSucursal);
-		
-		Jcb_Sucursal = new JComboBox<SucursalDTO>();
-		Jcb_Sucursal.setBounds(109, 118, 142, 23);
-		panel.add(Jcb_Sucursal);
-		
-		JLabel lblGenerarReportesPor = new JLabel("Generar reporte por Local");
+		JLabel lblGenerarReportesPor = new JLabel("Generar ranking de ventas");
 		lblGenerarReportesPor.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblGenerarReportesPor.setBounds(32, 11, 273, 23);
 		panel.add(lblGenerarReportesPor);
@@ -116,14 +87,6 @@ public class VentanaReportesPorLocal extends JFrame{
 		panel.add(separator);
 		
 		setVisible(true);
-	}
-
-	public JComboBox<SucursalDTO> getJcb_Sucursal() {
-		return Jcb_Sucursal;
-	}
-
-	public void setJcb_Sucursal(JComboBox<SucursalDTO> jcb_Sucursal) {
-		Jcb_Sucursal = jcb_Sucursal;
 	}
 
 	public JDateChooser getJdc_Hasta() {

@@ -64,7 +64,6 @@ public class NuevaVista implements Runnable {
 			private JMenuItem mntmGenerarReportePorCliente;
 			private JMenuItem mntmGenerarReportePorProfesional;
 			private JMenuItem mntmGenerarReporteRanking;
-			private JMenuItem mntmGenerarReporteCaja;
 			
 	private JPanel JPnl_Izquierdo;
 	
@@ -259,9 +258,6 @@ public class NuevaVista implements Runnable {
 		
 		mntmGenerarReportePorProfesional = new JMenuItem("Generar reporte por profesional");
 		JM_Reportes.add(mntmGenerarReportePorProfesional);
-		
-		mntmGenerarReporteCaja = new JMenuItem("Generar reporte de caja");
-		JM_Reportes.add(mntmGenerarReporteCaja);
 		
 		mntmGenerarReporteRanking = new JMenuItem("Generar ranking de ventas");
 		JM_Reportes.add(mntmGenerarReporteRanking);
@@ -1032,3 +1028,4 @@ public class NuevaVista implements Runnable {
 
 	
 }
+
