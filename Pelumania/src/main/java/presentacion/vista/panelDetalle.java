@@ -4,6 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import dto.CitaDTO;
+
+import java.math.BigDecimal;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
@@ -16,6 +21,10 @@ public class panelDetalle extends JPanel {
 	private DefaultTableModel modelServiciosAgregados;
 	private String[] nombreColumnasAgregadas = {"Servicio","Hora inicio", "Hora fin","Profesional"};
 	private JScrollPane spServiciosAgregados;
+	private JLabel lblId;
+	private JLabel lblNombre;
+	private JLabel lblPrecioTotal;
+	private JLabel lblEstado;
 	private static final long serialVersionUID = 1L;
 
 	public panelDetalle() {
@@ -56,50 +65,62 @@ public class panelDetalle extends JPanel {
 		spServiciosAgregados.setViewportView(tablaServiciosAgregados);
 		
 		JLabel lblCliente = new JLabel("ID: ");
-		lblCliente.setBounds(10, 12, 80, 20);
+		lblCliente.setBounds(10, 12, 68, 20);
 		add(lblCliente);
 		
 		JLabel label = new JLabel("Cliente:");
-		label.setBounds(10, 43, 80, 20);
+		label.setBounds(10, 43, 68, 20);
 		add(label);
 		
 		JLabel lblTotal = new JLabel("Total:");
-		lblTotal.setBounds(10, 75, 80, 20);
+		lblTotal.setBounds(10, 75, 68, 20);
 		add(lblTotal);
 		
 		JLabel lblHoraDeInicio = new JLabel("Estado:");
-		lblHoraDeInicio.setBounds(10, 106, 80, 20);
+		lblHoraDeInicio.setBounds(10, 106, 68, 20);
 		add(lblHoraDeInicio);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(93, 12, 109, 20);
-		add(lblNewLabel);
+		lblId = new JLabel("");
+		lblId.setBounds(80, 12, 122, 20);
+		add(lblId);
 		
-		JLabel label_1 = new JLabel("New label");
-		label_1.setBounds(93, 43, 109, 20);
-		add(label_1);
+		lblNombre = new JLabel("");
+		lblNombre.setBounds(80, 43, 122, 20);
+		add(lblNombre);
 		
-		JLabel label_2 = new JLabel("New label");
-		label_2.setBounds(93, 75, 109, 20);
-		add(label_2);
+		lblPrecioTotal = new JLabel("");
+		lblPrecioTotal.setBounds(80, 75, 122, 20);
+		add(lblPrecioTotal);
 		
-		JLabel label_3 = new JLabel("New label");
-		label_3.setBounds(93, 106, 109, 20);
-		add(label_3);
+		lblEstado = new JLabel("");
+		lblEstado.setBounds(80, 106, 122, 20);
+		add(lblEstado);
 		
 		JTextPane textPane = new JTextPane();
-		textPane.setBounds(212, 11, 295, 135);
+		textPane.setBounds(231, 11, 276, 135);
 		add(textPane);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(180, 11, 1, 135);
+		separator.setBounds(212, 11, 1, 135);
 		add(separator);
 		
 	}
-
 	public void ocultar() {
 		setVisible(false);
 		updateUI();
+	}
+	
+	public void cargarDatosCitaAsociada(CitaDTO cita) {
+		int id = cita.getIdCita();
+		String nombre = cita.getNombre() + " " + cita.getApellido();
+		String estado = cita.getEstado();
+		BigDecimal precioTotal = cita.getPrecioLocal();
+		
+		lblId.setText(Integer.toString(id));
+		lblNombre.setText(nombre);
+		lblEstado.setText(estado);
+		lblPrecioTotal.setText(precioTotal.toString());
+		
 	}
 }

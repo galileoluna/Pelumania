@@ -474,7 +474,7 @@ public class Controlador2 implements ActionListener{
 				OperacionesCita(true);
 				}
 				this.nvista.OcultarLblCitaSeleccionadaNull();
-				this.nvista.mostrarDetalleCitas();
+				this.nvista.mostrarDetalleCitas(citaSeleccionada);
 				this.nvista.getBtn_VerComprobante().setEnabled(true);
 				this.nvista.getBtn_VerDetalle().setEnabled(true);
 			}

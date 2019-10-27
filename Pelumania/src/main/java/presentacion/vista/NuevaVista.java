@@ -31,6 +31,7 @@ import javax.swing.table.TableRowSorter;
 
 import com.toedter.calendar.JCalendar;
 
+import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import util.RowsRenderer;
@@ -711,8 +712,9 @@ public class NuevaVista implements Runnable {
 		ocultarDetalleCitas();
 		}
 	
-	public void mostrarDetalleCitas() {
+	public void mostrarDetalleCitas(CitaDTO citaSeleccionada) {
 		detalleDeCita.setVisible(true);
+		detalleDeCita.cargarDatosCitaAsociada(citaSeleccionada);
 	}
 	
 	public void ocultarDetalleCitas() {
