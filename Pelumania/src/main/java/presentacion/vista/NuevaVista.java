@@ -440,10 +440,12 @@ public class NuevaVista implements Runnable {
 	private void crearCheckBoxes() {
 		chckbxMostrarSoloCitas = new JCheckBox("Mostrar solo citas Activas");
 		chckbxMostrarSoloCitas.setBounds(726, 86, 185, 23);
+		chckbxMostrarSoloCitas.setEnabled(false);
 		JPanel_Filtros.add(chckbxMostrarSoloCitas);
 		
 		chckbxMostrarCitasCanceladas = new JCheckBox("Mostrar citas Canceladas");
 		chckbxMostrarCitasCanceladas.setBounds(726, 108, 185, 23);
+		chckbxMostrarCitasCanceladas.setEnabled(false);
 		JPanel_Filtros.add(chckbxMostrarCitasCanceladas);
 	}
 

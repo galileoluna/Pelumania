@@ -231,7 +231,6 @@ public class Controlador2 implements ActionListener{
 		this.nvista.cargarPanelDinamicoFiltros("Profesional");
 		
 		profesionalesEnSucursal = this.sistema.getProfesionalByIdSucursal(sucursal.getIdSucursal());
-		System.out.println(profesionalesEnSucursal);
 		for (ProfesionalDTO profEnSucu : profesionalesEnSucursal) {
 			this.nvista.getJCBoxFiltroProfesional().addItem(profEnSucu);
 		}
@@ -343,14 +342,12 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	private void actualizarCitasPorProfesional(int idProfesional) {
-		System.out.println("citasdeldia:"+citasDelDia);
 		for (CitaDTO cita : citasDelDia) {
 			int idCita = cita.getIdCita();
 			
 			List<ServicioTurnoDTO> serviciosDeCita = 
 					this.sistema.getServicioTurnoByIdCita(idCita);
 			
-			System.out.println("serviciosDeCita"+serviciosDeCita);
 			for (ServicioTurnoDTO servTurno : serviciosDeCita) {
 				if (idProfesional == servTurno.getIdProfesional())
 					citasEnTabla.add(cita);
@@ -380,7 +377,6 @@ public class Controlador2 implements ActionListener{
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
 		limpiarTablas();
 		this.citaSeleccionada = null;
-		System.out.println(citaSeleccionada);
 		actualizarPanelCitaSeleccionada();
 		setearFechaSeleccionadaEnCalendario();
 		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
