@@ -12,8 +12,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.mysql.cj.xdevapi.Client;
-
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
@@ -21,7 +19,7 @@ import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
-import presentacion.Reportes.ReporteComprobante;
+import presentacion.reportes.ReporteComprobante;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.VentanaCliente;
@@ -318,7 +316,7 @@ public class ControladorAgregarCita implements ActionListener{
 				this.ventanaAgregarCita.cerrar();
 				
 				//una vez que se hizo todo bien mandamos el mail
-				enviarMailCita(CitaAgregada, cliente);
+				MailService.enviar(this.sistema, CitaAgregada, cliente);
 				
 			}else {
 				JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
@@ -328,19 +326,6 @@ public class ControladorAgregarCita implements ActionListener{
 		}
 	}
 
-	private void enviarMailCita(CitaDTO CitaAgregada, ClienteDTO cliente) {
-		
-		String mailCliente = cliente.getMail();
-		String nombreCliente = cliente.getNombre() + " " + cliente.getApellido();
-		String nombreSucursal = this.sistema.getSucursalById(CitaAgregada.getIdSucursal()).getNombreSucursal();
-		String asunto = "Comprobante de turno"; //esta leyenda iria en el properties de idiomas
-		String cuerpo = "Hola " + nombreCliente + ", se registro tu cita el dia " + CitaAgregada.getFecha() + " de " + CitaAgregada.getHoraInicio() 
-						+ " a " + CitaAgregada.getHoraFin() + " en la sucursal " +  nombreSucursal + " te esperamos!";
-		
-		System.out.println("cuerpo del mail = " + cuerpo);
-//		MailService.enviarConGMail(mailCliente, asunto, cuerpo);
-
-	}
 	
 	private void editarCita(ActionEvent l) {
 		if(serviciosTurnoAgregados.isEmpty()){

@@ -1,19 +1,18 @@
-package presentacion.Reportes;
+package presentacion.reportes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.ArrayAllocationExpression;
 
 import dto.CitaDTO;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -27,6 +26,8 @@ public class ReporteComprobante
 	private JasperViewer reporteViewer;
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
+	private String rutaPDF;
+
 	//Recibe la lista de personas para armar el reporte
     public ReporteComprobante(CitaDTO cita)
     {
@@ -37,7 +38,8 @@ public class ReporteComprobante
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
     	try		{
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("src" + File.separator + "main" + File.separator + "java" + File.separator +  "presentacion" + File.separator + "reportes" + File.separator + "ReporteComprobante.jasper" );
+    		String ruta = "src" + File.separator + "main" + File.separator + "java" + File.separator +  "presentacion" + File.separator + "reportes" + File.separator + "ReporteComprobante.jasper";
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
 					new JRBeanCollectionDataSource(coleccion));
     		log.info("Se cargó correctamente el reporte");
@@ -54,4 +56,44 @@ public class ReporteComprobante
 		this.reporteViewer.setVisible(true);
 	}
    
+    public void exportarPDF(){
+		try {
+			String nombrePDF = "d:\\"+ this.reporteLleno.getName() +".pdf";
+			JasperExportManager.exportReportToPdfFile(this.reporteLleno,  nombrePDF);
+			log.info("El reporte se exporto a PDF correctamente");
+			this.rutaPDF = nombrePDF;
+			
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public JasperReport getReporte() {
+		return reporte;
+	}
+
+	public void setReporte(JasperReport reporte) {
+		this.reporte = reporte;
+	}
+
+	public JasperViewer getReporteViewer() {
+		return reporteViewer;
+	}
+
+	public void setReporteViewer(JasperViewer reporteViewer) {
+		this.reporteViewer = reporteViewer;
+	}
+
+	public JasperPrint getReporteLleno() {
+		return reporteLleno;
+	}
+
+	public void setReporteLleno(JasperPrint reporteLleno) {
+		this.reporteLleno = reporteLleno;
+	}
+
+	public String getRutaPDF() {
+		return rutaPDF;
+	}
+
 }
