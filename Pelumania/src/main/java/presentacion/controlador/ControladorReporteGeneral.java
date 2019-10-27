@@ -29,7 +29,7 @@ public class ControladorReporteGeneral {
 	}
 
 	private void reporteGeneral(ActionEvent a) {
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCaja();
+		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresos();
 		System.out.println("hola");
 		System.out.println(caja.get(0).getIdCaja());
 		
