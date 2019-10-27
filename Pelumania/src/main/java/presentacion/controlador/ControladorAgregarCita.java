@@ -316,7 +316,7 @@ public class ControladorAgregarCita implements ActionListener{
 				this.ventanaAgregarCita.cerrar();
 				
 				//una vez que se hizo todo bien mandamos el mail
-				MailService.enviar(this.sistema, CitaAgregada, cliente);
+//				MailService.enviar(this.sistema, CitaAgregada, cliente);
 				
 			}else {
 				JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
