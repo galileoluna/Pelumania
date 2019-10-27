@@ -1,10 +1,17 @@
 package presentacion.controlador;
 
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import dto.ClienteDTO;
+import dto.MovimientoCajaDTO;
 import dto.ServicioDTO;
 import modelo.Sistema;
+import presentacion.Reportes.ReporteDeCajaPorSucursal;
+import presentacion.Reportes.ReportePorCliente;
 import presentacion.vista.VentanaReportePorCliente;
 import presentacion.vista.VentanaReportePorServicio;
 
@@ -17,6 +24,9 @@ public class ControladorReportePorCliente {
 		this.ventanaReportes = VentanaReportePorCliente.getInstance();
 		this.sistema = sistema;
 		cargarCliente();
+		
+		this.ventanaReportes.getBtnGenerarReporte().addActionListener(l -> reportePorCliente(l));
+
 	}
 
 	public static ControladorReportePorCliente getInstance(Sistema sistema) {
@@ -24,6 +34,20 @@ public class ControladorReportePorCliente {
 			INSTANCE = new ControladorReportePorCliente(sistema);
 		}
 		return INSTANCE;
+	}
+	
+	private void reportePorCliente(ActionEvent l) {
+		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
+		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
+		//System.out.println(desde+" "+hasta);
+		
+		ArrayList<MovimientoCajaDTO>cliente=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosCliente(desde,hasta,this.ventanaReportes.getJcb_Cliente().getSelectedIndex());
+		System.out.println("hola");
+		System.out.println(cliente.get(0).getIdCliente());
+		
+		ReportePorCliente reportePorCliente = new ReportePorCliente(cliente);
+		reportePorCliente.mostrar();
 	}
 	
 	public void cargarCliente() {
