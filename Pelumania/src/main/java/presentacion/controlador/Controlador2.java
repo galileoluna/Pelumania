@@ -262,6 +262,8 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnServicios().setEnabled(false);
 		this.nvista.getRdbtnRangoHorario().setEnabled(false);
 		this.nvista.cargarPanelDinamicoFiltros("Estado");
+		
+		this.nvista.getJCBoxFiltroEstado().addActionListener(s -> filtrarPorEstado(s));
 	}
 	
 	private void filtrarPorEstado(ActionEvent s) {
