@@ -421,6 +421,25 @@ public class Controlador2 implements ActionListener{
 			citasEnTabla.add(cita);
 		}
 	}
+	
+	public void cargarServiciosDeCitas(List<ServicioTurnoDTO> servicios) {
+		this.nvista.getDetalleDeCita().getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
+		this.nvista.getDetalleDeCita().getModelServiciosAgregados().setColumnCount(0);
+		this.nvista.getDetalleDeCita().getModelServiciosAgregados().setColumnIdentifiers(this.nvista.getDetalleDeCita().getNombreColumnas());
+
+		for (ServicioTurnoDTO s : servicios)
+		{
+			ServicioDTO serv = this.sistema.getServicioById(s.getIdServicio());
+			ProfesionalDTO prof = this.sistema.getProfesionalById(s.getIdProfesional());
+			
+			String nombreServicio = serv.getNombre();
+			LocalTime horaInicio = s.getHoraInicio();
+			LocalTime horaFin = s.getHoraFin();
+			String nombreProfesional = prof.getNombre()+" "+prof.getApellido();
+			Object[] fila = {nombreServicio, horaInicio, horaFin, nombreProfesional};
+			this.nvista.getDetalleDeCita().getModelServiciosAgregados().addRow(fila);
+	}
+}
 
 	private void RefrescarTablaCitas() {
 		this.nvista.getModelCitas().setRowCount(0); //Para vaciar la tabla
@@ -475,6 +494,7 @@ public class Controlador2 implements ActionListener{
 				}
 				this.nvista.OcultarLblCitaSeleccionadaNull();
 				this.nvista.mostrarDetalleCitas(citaSeleccionada);
+				this.cargarServiciosDeCitas(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
 				this.nvista.getBtn_VerComprobante().setEnabled(true);
 				this.nvista.getBtn_VerDetalle().setEnabled(true);
 			}

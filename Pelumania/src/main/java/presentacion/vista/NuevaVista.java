@@ -5,9 +5,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -34,6 +37,7 @@ import com.toedter.calendar.JCalendar;
 import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
+import dto.ServicioTurnoDTO;
 import util.RowsRenderer;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
@@ -706,19 +710,19 @@ public class NuevaVista implements Runnable {
 	
 	
 	public void crearDetalleCitas() {
-		detalleDeCita = new panelDetalle();
-		detalleDeCita.setBounds(0, 0, 915, 151);
-		JPnl_Detalle.add(detalleDeCita);
+		setDetalleDeCita(new panelDetalle());
+		getDetalleDeCita().setBounds(0, 0, 915, 151);
+		JPnl_Detalle.add(getDetalleDeCita());
 		ocultarDetalleCitas();
 		}
 	
 	public void mostrarDetalleCitas(CitaDTO citaSeleccionada) {
-		detalleDeCita.setVisible(true);
-		detalleDeCita.cargarDatosCitaAsociada(citaSeleccionada);
+		getDetalleDeCita().setVisible(true);
+		getDetalleDeCita().cargarDatosCitaAsociada(citaSeleccionada);
 	}
 	
 	public void ocultarDetalleCitas() {
-		this.detalleDeCita.ocultar();
+		this.getDetalleDeCita().ocultar();
 	}
 	
 	public void noOrdenar() {
@@ -1075,6 +1079,14 @@ public class NuevaVista implements Runnable {
 
 	public void setJCBoxA(JComboBox<Integer> jCBoxA) {
 		JCBoxA = jCBoxA;
+	}
+
+	public panelDetalle getDetalleDeCita() {
+		return detalleDeCita;
+	}
+
+	public void setDetalleDeCita(panelDetalle detalleDeCita) {
+		this.detalleDeCita = detalleDeCita;
 	}
 
 }

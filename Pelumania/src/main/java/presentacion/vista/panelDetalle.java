@@ -6,8 +6,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import dto.CitaDTO;
+import dto.ServicioDTO;
+import dto.ServicioTurnoDTO;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
@@ -19,8 +23,9 @@ public class panelDetalle extends JPanel {
 
 	private JTable tablaServiciosAgregados;
 	private DefaultTableModel modelServiciosAgregados;
-	private String[] nombreColumnasAgregadas = {"Servicio","Hora inicio", "Hora fin","Profesional"};
+	private String[] nombreColumnas = {"Servicio","Hora inicio", "Hora fin","Profesional"};
 	private JScrollPane spServiciosAgregados;
+	
 	private JLabel lblId;
 	private JLabel lblNombre;
 	private JLabel lblPrecioTotal;
@@ -36,10 +41,10 @@ public class panelDetalle extends JPanel {
 		setLayout(null);
 		
 		spServiciosAgregados = new JScrollPane();
-		spServiciosAgregados.setBounds(553, 11, 354, 135);
+		spServiciosAgregados.setBounds(411, 11, 496, 135);
 		add(spServiciosAgregados);
 
-		modelServiciosAgregados = new DefaultTableModel(null,nombreColumnasAgregadas) {
+		modelServiciosAgregados = new DefaultTableModel(null,nombreColumnas) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -97,7 +102,7 @@ public class panelDetalle extends JPanel {
 		add(lblEstado);
 		
 		JTextPane textPane = new JTextPane();
-		textPane.setBounds(231, 11, 276, 135);
+		textPane.setBounds(231, 11, 170, 135);
 		add(textPane);
 		
 		JSeparator separator = new JSeparator();
@@ -121,6 +126,38 @@ public class panelDetalle extends JPanel {
 		lblNombre.setText(nombre);
 		lblEstado.setText(estado);
 		lblPrecioTotal.setText(precioTotal.toString());
-		
 	}
+
+	public JTable getTablaServiciosAgregados() {
+		return tablaServiciosAgregados;
+	}
+
+	public void setTablaServiciosAgregados(JTable tablaServiciosAgregados) {
+		this.tablaServiciosAgregados = tablaServiciosAgregados;
+	}
+
+	public DefaultTableModel getModelServiciosAgregados() {
+		return modelServiciosAgregados;
+	}
+
+	public void setModelServiciosAgregados(DefaultTableModel modelServiciosAgregados) {
+		this.modelServiciosAgregados = modelServiciosAgregados;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
+	}
+
+	public JScrollPane getSpServiciosAgregados() {
+		return spServiciosAgregados;
+	}
+
+	public void setSpServiciosAgregados(JScrollPane spServiciosAgregados) {
+		this.spServiciosAgregados = spServiciosAgregados;
+	}
+
 }
