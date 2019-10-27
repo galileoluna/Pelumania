@@ -382,12 +382,12 @@ public class Sistema
 		return this.caja.readAllEgresos();
 	}
 	
-	public List<MovimientoCajaDTO> readDayEgresos(String fecha, String fecha2){
-		return this.caja.readDayEgresos(fecha, fecha2);
+	public List<MovimientoCajaDTO> readDayEgresos(String desde, String hasta){
+		return this.caja.readDayEgresos(desde, hasta);
 	}
 	
-	public List<MovimientoCajaDTO> readDayIngresos(String fecha, String fecha2){
-		return this.caja.readDayIngresos(fecha, fecha2);
+	public List<MovimientoCajaDTO> readDayIngresos(String desde, String hasta){
+		return this.caja.readDayIngresos(desde, hasta);
 	}
 	//FIN CAJA
 	
