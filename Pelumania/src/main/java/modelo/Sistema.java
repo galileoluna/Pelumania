@@ -374,21 +374,30 @@ public class Sistema
 		return this.caja.insertIngresoProducto(movimiento_a_insertar);
 	}
 	
-	public List<MovimientoCajaDTO> obtenerMovimientosCajaIngresos(){
-		return this.caja.readAllIngresos();
-	}
-	
-	public List<MovimientoCajaDTO> obtenerMovimientosCajaEgresos(){
-		return this.caja.readAllEgresos();
-	}
-	
-	public List<MovimientoCajaDTO> readDayEgresos(String desde, String hasta){
-		return this.caja.readDayEgresos(desde, hasta);
-	}
-	
-	public List<MovimientoCajaDTO> readDayIngresos(String desde, String hasta){
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaIngresos(String desde, String hasta){
 		return this.caja.readDayIngresos(desde, hasta);
 	}
+	
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaEgresos(String desde, String hasta){
+		return this.caja.readDayEgresos(desde,hasta);
+	}
+	
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaIngresosSucursal(String desde, String hasta,int sucursal){
+		return this.caja.readDayIngresosSucursal(desde, hasta, sucursal);
+	}
+	
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaIngresosCliente(String desde, String hasta,int cliente){
+		return this.caja.readDayIngresosCliente(desde, hasta, cliente);
+	}
+	
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaIngresosProfesional(String desde, String hasta,int profesional){
+		return this.caja.readDayIngresosProfesional(desde, hasta, profesional);
+	}
+	
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaIngresosServicio(String desde, String hasta,int servicio){
+		return this.caja.readDayIngresosServicio(desde, hasta, servicio);
+	}
+	
 	//FIN CAJA
 	
 	// COMIENZA CATEGORIAS MOVIMIENTO CAJA

@@ -8,19 +8,22 @@ public interface MovimientoCajaDAO {
 
 	public boolean insertEgreso(MovimientoCajaDTO movimiento_a_insertar);
 
-	public boolean delete(MovimientoCajaDTO movimiento_a_eliminar);
-		
 	public boolean deleteReal(MovimientoCajaDTO movimiento_a_eliminar);
 
 	public boolean insertIngresoServicioSinPromocion(MovimientoCajaDTO movimiento);
 
 	public boolean insertIngresoProducto(MovimientoCajaDTO movimiento_a_insertar);
 
-	public List<MovimientoCajaDTO> readAllEgresos();
-
-	public List<MovimientoCajaDTO> readAllIngresos();
-
 	public List<MovimientoCajaDTO> readDayEgresos(String fecha, String fecha2);
 	
 	public List<MovimientoCajaDTO> readDayIngresos(String fecha, String fecha2);
+
+	public List<MovimientoCajaDTO> readDayIngresosProfesional(String fecha, String fecha2, int profesional);
+
+	public List<MovimientoCajaDTO> readDayIngresosCliente(String fecha, String fecha2, int cliente);
+
+	public List<MovimientoCajaDTO> readDayIngresosServicio(String fecha, String fecha2, int servicio);
+
+	public List<MovimientoCajaDTO> readDayIngresosSucursal(String fecha, String fecha2, int sucursal);
+
 }
