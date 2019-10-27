@@ -42,13 +42,13 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 //			+ "TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
 //			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	private static final String readallIngresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = 'Ingreso'";
+	private static final String readallIngresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja";
 
-//	private static final String readallEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso";
+	private static final String readallEgresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Egreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja";
 
-//	private static final String readDayIngresos = "SELECT * FROM Caja WHERE tipoMovimiento = ingreso AND Fecha=?";
+	private static final String readDayIngresos ="SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
 
-//	private static final String readDayEgresos = "SELECT * FROM Caja WHERE tipoMovimiento = egreso AND Fecha=?";
+	private static final String readDayEgresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Egreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
 
 
 	//no damos la opcion de "dar de baja" un ingreso ya que 
@@ -96,7 +96,7 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	}
 
 	@Override
-	public List<MovimientoCajaDTO> readAll() {
+	public List<MovimientoCajaDTO> readAllIngresos() {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
@@ -104,6 +104,76 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 		try
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readallIngresos);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+	
+	@Override
+	public List<MovimientoCajaDTO> readAllEgresos() {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readallEgresos);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+	
+	@Override
+	public List<MovimientoCajaDTO> readDayEgresos(String fecha, String fecha2) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDayEgresos);
+			statement.setString(1, fecha);
+			statement.setString(12, fecha2);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+	
+	@Override
+	public List<MovimientoCajaDTO> readDayIngresos(String fecha, String fecha2) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDayIngresos);
+			statement.setString(1, fecha);
+			statement.setString(12, fecha2);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
