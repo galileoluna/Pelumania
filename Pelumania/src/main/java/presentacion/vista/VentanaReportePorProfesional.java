@@ -23,7 +23,7 @@ public class VentanaReportePorProfesional extends JFrame{
 	private JComboBox<ProfesionalDTO> Jcb_Profesional;
 	private JDateChooser Jdc_Hasta;
 	private JDateChooser Jdc_Desde;
-	private JButton btnGenerarRepore;
+	private JButton btnGenerarReporte;
 	
 	private VentanaReportePorProfesional()
 	{
