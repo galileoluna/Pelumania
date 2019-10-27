@@ -35,6 +35,7 @@ import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import util.RowsRenderer;
 import java.awt.FlowLayout;
+import javax.swing.SwingConstants;
 
 public class NuevaVista implements Runnable {
 
@@ -111,6 +112,7 @@ public class NuevaVista implements Runnable {
 			private JButton btn_VerComprobante;
 			
 		private JPanel JPnl_Detalle;
+			private panelDetalle detalleDeCita;
 			private JLabel Lbl_CitaSeleccionadaNull;
 
 			/*
@@ -189,6 +191,7 @@ public class NuevaVista implements Runnable {
 				crearTablaCitas();
 			crearPanelDetalle();
 				crearLabelCitaSeleccionadaNull();
+				crearDetalleCitas();
 			crearPanelBotones();
 				crearBotones();
 			
@@ -608,8 +611,10 @@ public class NuevaVista implements Runnable {
 	}
 
 	private void crearLabelCitaSeleccionadaNull() {
-		JPnl_Detalle.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPnl_Detalle.setLayout(null);
 		Lbl_CitaSeleccionadaNull = new JLabel ("[ No hay citas seleccionadas ]");
+		Lbl_CitaSeleccionadaNull.setHorizontalAlignment(SwingConstants.CENTER);
+		Lbl_CitaSeleccionadaNull.setBounds(0, 6, 917, 14);
 		JPnl_Detalle.add(Lbl_CitaSeleccionadaNull);
 	}
 	
@@ -696,6 +701,22 @@ public class NuevaVista implements Runnable {
 		tablaCitas.getColumnModel().getColumn(4).setResizable(false);
 
 		spServicios.setViewportView(tablaCitas);
+	}
+	
+	
+	public void crearDetalleCitas() {
+		detalleDeCita = new panelDetalle();
+		detalleDeCita.setBounds(0, 0, 915, 151);
+		JPnl_Detalle.add(detalleDeCita);
+		ocultarDetalleCitas();
+		}
+	
+	public void mostrarDetalleCitas() {
+		detalleDeCita.setVisible(true);
+	}
+	
+	public void ocultarDetalleCitas() {
+		this.detalleDeCita.ocultar();
 	}
 	
 	public void noOrdenar() {

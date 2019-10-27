@@ -474,6 +474,7 @@ public class Controlador2 implements ActionListener{
 				OperacionesCita(true);
 				}
 				this.nvista.OcultarLblCitaSeleccionadaNull();
+				this.nvista.mostrarDetalleCitas();
 				this.nvista.getBtn_VerComprobante().setEnabled(true);
 				this.nvista.getBtn_VerDetalle().setEnabled(true);
 			}
@@ -488,6 +489,7 @@ public class Controlador2 implements ActionListener{
 		if (citaSeleccionada != null) {
 			//cargar el componente de detalles
 		}else {
+			this.nvista.ocultarDetalleCitas();
 			this.nvista.MostrarLblCitaSeleccionadaNull();
 		}
 	}
