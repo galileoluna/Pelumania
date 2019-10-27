@@ -48,7 +48,7 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
 		//System.out.println(desde+" "+hasta);
 		
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosSucursal(desde,hasta,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex());
+		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desde,hasta,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex());
 		System.out.println("hola");
 		System.out.println(caja.get(0).getIdCaja());
 		
