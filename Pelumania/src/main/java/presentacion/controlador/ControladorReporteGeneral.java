@@ -2,14 +2,11 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.List;
 
 import dto.MovimientoCajaDTO;
 import modelo.Sistema;
-import presentacion.Reportes.ReporteComprobante;
-import presentacion.Reportes.ReporteDeCajaGeneral;
+import presentacion.reportes.ReporteDeCajaGeneral;
 import presentacion.vista.VentanaReporteGeneral;
-import presentacion.vista.VentanaReportesPorLocal;
 
 public class ControladorReporteGeneral {
 	private VentanaReporteGeneral ventanaReportes;

@@ -4,10 +4,8 @@ import org.apache.log4j.BasicConfigurator;
 
 import modelo.Sistema;
 import persistencia.dao.mariadb.DAOSQLFactory;
-import presentacion.controlador.Controlador2;
 import presentacion.controlador.ControladorLogin;
 import presentacion.vista.Login;
-import presentacion.vista.NuevaVista;
 
 public class Main {
 	

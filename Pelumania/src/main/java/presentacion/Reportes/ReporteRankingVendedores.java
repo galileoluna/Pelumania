@@ -1,4 +1,4 @@
-package presentacion.Reportes;
+package presentacion.reportes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
