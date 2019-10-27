@@ -22,6 +22,8 @@ public class VentanaReportePorServicio extends JFrame{
 	private JComboBox<ServicioDTO> Jcb_Servicio;
 	private JDateChooser Jdc_Hasta;
 	private JDateChooser Jdc_Desde;
+	private JButton btnGenerarReporte;
+
 	
 	private VentanaReportePorServicio()
 	{
@@ -77,7 +79,7 @@ public class VentanaReportePorServicio extends JFrame{
 		Jdc_Hasta.setLocation(109, 84);
 		panel.add(Jdc_Hasta);
 		
-		JButton btnGenerarReporte = new JButton("Generar Reporte");
+		btnGenerarReporte = new JButton("Generar Reporte");
 		btnGenerarReporte.setBounds(195, 152, 151, 23);
 		panel.add(btnGenerarReporte);
 		
@@ -99,6 +101,10 @@ public class VentanaReportePorServicio extends JFrame{
 		panel.add(separator);
 		
 		setVisible(true);
+	}
+	
+	public JButton getBtnGenerarReporte() {
+		return btnGenerarReporte;
 	}
 
 	public JComboBox<ServicioDTO> getJcb_Servicio() {

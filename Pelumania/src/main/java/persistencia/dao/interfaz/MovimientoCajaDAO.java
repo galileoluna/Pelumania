@@ -14,16 +14,15 @@ public interface MovimientoCajaDAO {
 
 	public boolean insertIngresoProducto(MovimientoCajaDTO movimiento_a_insertar);
 
-	public List<MovimientoCajaDTO> readDayEgresos(String fecha, String fecha2);
+	public List<MovimientoCajaDTO> readDay(String fecha, String fecha2);
 	
-	public List<MovimientoCajaDTO> readDayIngresos(String fecha, String fecha2);
-
 	public List<MovimientoCajaDTO> readDayIngresosProfesional(String fecha, String fecha2, int profesional);
 
 	public List<MovimientoCajaDTO> readDayIngresosCliente(String fecha, String fecha2, int cliente);
 
 	public List<MovimientoCajaDTO> readDayIngresosServicio(String fecha, String fecha2, int servicio);
 
-	public List<MovimientoCajaDTO> readDayIngresosSucursal(String fecha, String fecha2, int sucursal);
+	public List<MovimientoCajaDTO> readDaySucursal(String fecha, String fecha2, int sucursal);
 
 }
+

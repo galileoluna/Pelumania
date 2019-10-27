@@ -2,7 +2,6 @@ package presentacion.Reportes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +24,11 @@ public class ReporteDeCajaPorSucursal {
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReporteDeCajaPorSucursal(MovimientoCajaDTO caja)
+    public ReporteDeCajaPorSucursal(List<MovimientoCajaDTO> caja)
     {
+    	System.out.println(caja.get(0).getIdCliente());
+    	List<MovimientoCajaDTO> coleccion =caja;
     	
-    	List<MovimientoCajaDTO> coleccion = new ArrayList<MovimientoCajaDTO>();
-    	coleccion.add(caja);
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		

@@ -23,6 +23,7 @@ public class VentanaReportePorProfesional extends JFrame{
 	private JComboBox<ProfesionalDTO> Jcb_Profesional;
 	private JDateChooser Jdc_Hasta;
 	private JDateChooser Jdc_Desde;
+	private JButton btnGenerarReporte;
 	
 	private VentanaReportePorProfesional()
 	{
@@ -78,7 +79,7 @@ public class VentanaReportePorProfesional extends JFrame{
 		Jdc_Hasta.setLocation(109, 84);
 		panel.add(Jdc_Hasta);
 		
-		JButton btnGenerarReporte = new JButton("Generar Reporte");
+		btnGenerarReporte = new JButton("Generar Reporte");
 		btnGenerarReporte.setBounds(195, 152, 151, 23);
 		panel.add(btnGenerarReporte);
 		
@@ -100,6 +101,10 @@ public class VentanaReportePorProfesional extends JFrame{
 		panel.add(separator);
 		
 		setVisible(true);
+	}
+	
+	public JButton getBtnGenerarReporte() {
+		return btnGenerarReporte;
 	}
 
 	public JComboBox<ProfesionalDTO> getJcb_Profesional() {
