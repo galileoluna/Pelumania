@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import dto.CitaDTO;
+import dto.MovimientoCajaDTO;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -25,11 +26,10 @@ public class ReportePorServicio {
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReportePorServicio(CitaDTO cita)
+    public ReportePorServicio(ArrayList<MovimientoCajaDTO> caja)
     {
     	
-    	List<CitaDTO> coleccion = new ArrayList<CitaDTO>();
-    	coleccion.add(cita);
+    	List<MovimientoCajaDTO> coleccion =caja;
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
