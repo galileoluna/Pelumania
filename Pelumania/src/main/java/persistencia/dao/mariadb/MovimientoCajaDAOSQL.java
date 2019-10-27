@@ -42,15 +42,18 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 //			+ "TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
 //			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	private static final String readallIngresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja";
+	private static final String readDayIngresos = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
 
-	private static final String readallEgresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Egreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja";
+	private static final String readDayEgresos = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = egreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
 
-	private static final String readDayIngresos ="SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
+	private static final String readDayIngresosSucursal = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idSucursal=?";
 
-	private static final String readDayEgresos = "SELECT * FROM Caja,CategoriaCaja WHERE tipoMovimiento = Egreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
+	private static final String readDayIngresosPorCliente = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idCliente=?";
 
+	private static final String readDayIngresosPorProfesional = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idProfesional=?";
 
+	private static final String readDayIngresosPorServicio = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idServicio=?";
+	
 	//no damos la opcion de "dar de baja" un ingreso ya que 
 	// seria como cancelar un pago
 	
@@ -89,82 +92,10 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 			return isInsertExitoso;
 		  }
 
-	@Override
-	public boolean delete(MovimientoCajaDTO movimiento_a_eliminar) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
-	public List<MovimientoCajaDTO> readAllIngresos() {
-		PreparedStatement statement;
-		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
-		Conexion conexion = Conexion.getConexion();
-		try
-		{
-			statement = conexion.getSQLConexion().prepareStatement(readallIngresos);
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
-				caja.add(getCajaDTO(resultSet));
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return caja;
-	}
-	
-	@Override
-	public List<MovimientoCajaDTO> readAllEgresos() {
-		PreparedStatement statement;
-		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
-		Conexion conexion = Conexion.getConexion();
-		try
-		{
-			statement = conexion.getSQLConexion().prepareStatement(readallEgresos);
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
-				caja.add(getCajaDTO(resultSet));
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return caja;
-	}
-	
-	@Override
-	public List<MovimientoCajaDTO> readDayEgresos(String fecha, String fecha2) {
-		PreparedStatement statement;
-		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
-		Conexion conexion = Conexion.getConexion();
-		try
-		{
-			statement = conexion.getSQLConexion().prepareStatement(readDayEgresos);
-			statement.setString(1, fecha);
-			statement.setString(12, fecha2);
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
-				caja.add(getCajaDTO(resultSet));
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return caja;
-	}
-	
-	@Override
-	public List<MovimientoCajaDTO> readDayIngresos(String fecha, String fecha2) {
+	public List<MovimientoCajaDTO> readDayIngresos(String fecha,String fecha2) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
@@ -173,7 +104,137 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readDayIngresos);
 			statement.setString(1, fecha);
-			statement.setString(12, fecha2);
+			statement.setString(2, fecha2);
+
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+	
+	@Override
+	public List<MovimientoCajaDTO>  readDayEgresos(String fecha,String fecha2) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDayEgresos);
+			statement.setString(1, fecha);
+			statement.setString(2, fecha2);
+			
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+	
+	@Override
+	public List<MovimientoCajaDTO> readDayIngresosSucursal(String fecha,String fecha2,int sucursal) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDayIngresosSucursal);
+			statement.setString(1, fecha);
+			statement.setString(2, fecha2);
+			statement.setInt(3, sucursal);
+
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+	
+	@Override
+	public List<MovimientoCajaDTO> readDayIngresosCliente(String fecha,String fecha2,int cliente) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDayIngresosPorCliente);
+			statement.setString(1, fecha);
+			statement.setString(2, fecha2);
+			statement.setInt(3, cliente);
+
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+
+	@Override
+	public List<MovimientoCajaDTO> readDayIngresosProfesional(String fecha,String fecha2,int profesional) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDayIngresosPorProfesional);
+			statement.setString(1, fecha);
+			statement.setString(2, fecha2);
+			statement.setInt(3, profesional);
+
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	}
+
+	@Override
+	public List<MovimientoCajaDTO> readDayIngresosServicio(String fecha,String fecha2,int servicio) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readDayIngresosPorServicio);
+			statement.setString(1, fecha);
+			statement.setString(2, fecha2);
+			statement.setInt(3, servicio);
+
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
