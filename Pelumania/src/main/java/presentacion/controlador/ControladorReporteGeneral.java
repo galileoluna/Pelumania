@@ -36,7 +36,7 @@ public class ControladorReporteGeneral {
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
 		//System.out.println(desde+" "+hasta);
 		
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresos(desde,hasta);
+		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCaja(desde,hasta);
 		
 		System.out.println(caja.get(0).getIdCaja());
 		
