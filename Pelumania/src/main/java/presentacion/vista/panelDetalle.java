@@ -9,6 +9,7 @@ import dto.CitaDTO;
 import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 
+import java.awt.Color;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
@@ -30,6 +31,14 @@ public class panelDetalle extends JPanel {
 	private JLabel lblNombre;
 	private JLabel lblPrecioTotal;
 	private JLabel lblEstado;
+	
+	public static final Color rojo = new Color(225,64,68);
+	public static final Color verde = new Color(129,152,48);
+	public static final Color azul = new Color(22,138,197);
+	public static final Color amarillo = new Color(248,214,115);
+	public static final Color naranja = new Color(239,169,74);
+	public static final Color gris = new Color(128,128,128);
+	
 	private static final long serialVersionUID = 1L;
 
 	public panelDetalle() {
@@ -126,6 +135,39 @@ public class panelDetalle extends JPanel {
 		lblNombre.setText(nombre);
 		lblEstado.setText(estado);
 		lblPrecioTotal.setText(precioTotal.toString());
+		/*
+		switch (estado) {
+		case "Activa":
+		    {
+		    	this.setBackground(verde);
+		    	break;
+		    }
+		case "Reprogramar":
+			{
+				this.setBackground(amarillo);
+	    		break;
+			}
+		case "En Curso":
+			{
+	    		this.setBackground(naranja);
+	    		break;
+			}
+		case "Cancelada":
+			{
+	    		this.setBackground(rojo);
+	    		break;
+			}
+		case "Vencida":
+			{
+	    		this.setBackground(gris);
+	    		break;
+			}
+		case "Finalizada":
+			{
+	    		this.setBackground(azul);
+	    		break;
+			}
+		}*/
 	}
 
 	public JTable getTablaServiciosAgregados() {
