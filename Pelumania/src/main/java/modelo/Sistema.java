@@ -374,9 +374,20 @@ public class Sistema
 		return this.caja.insertIngresoProducto(movimiento_a_insertar);
 	}
 	
-	public List<MovimientoCajaDTO> obtenerMovimientosCaja(){
-		return this.caja.readAll();
-		
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaIngresos(){
+		return this.caja.readAllIngresos();
+	}
+	
+	public List<MovimientoCajaDTO> obtenerMovimientosCajaEgresos(){
+		return this.caja.readAllEgresos();
+	}
+	
+	public List<MovimientoCajaDTO> readDayEgresos(String fecha, String fecha2){
+		return this.caja.readDayEgresos(fecha, fecha2);
+	}
+	
+	public List<MovimientoCajaDTO> readDayIngresos(String fecha, String fecha2){
+		return this.caja.readDayIngresos(fecha, fecha2);
 	}
 	//FIN CAJA
 	
