@@ -25,11 +25,11 @@ public class ReportePorCliente {
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReportePorCliente(CitaDTO cita)
+    public ReportePorCliente(ArrayList<MovimientoCajaDTO> cita)
     {
     	
-    	List<CitaDTO> coleccion = new ArrayList<CitaDTO>();
-    	coleccion.add(cita);
+    	List<MovimientoCajaDTO> coleccion = cita;
+
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
