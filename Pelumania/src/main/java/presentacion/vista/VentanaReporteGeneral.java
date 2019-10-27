@@ -70,6 +70,7 @@ public class VentanaReporteGeneral extends JFrame{
 		Jdc_Desde = new JDateChooser();
 		Jdc_Desde.setSize(142, 23);
 		Jdc_Desde.setLocation(109, 49);
+		Jdc_Desde.setDateFormatString("dd/MM/yyyy");
 		panel.add(Jdc_Desde);
 		
 		Jdc_Hasta = new JDateChooser();
