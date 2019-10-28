@@ -15,15 +15,25 @@ public class Conexion {
 		{
 			try 
 			{
-				//en caso de que alguno este usando MySQL
+				// ***************************************   Para MYSQL  ***********************************************
+				// *****************************************************************************************************
 				Class.forName("com.mysql.cj.jdbc.Driver"); 
-				//this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?","root","root");
-				/* NO TOCAR LO USA NICO*/ 
-				this.connection = DriverManager.getConnection("jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10309995?serverTimezone=UTC","sql10309995","mS2tbDhSF2");
-//			    	FIN
-				//this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/PelumaniaTest?serverTimezone=UTC","root","@Root123");
-				//Class.forName("org.mariadb.jdbc.Driver"); // quitar si no es necesario
+				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?","root","root");
+				// *****************************************************************************************************
+				
+				// *************************************   Para BD REMOTA  *********************************************
+				// *****************************************************************************************************
+//				Class.forName("com.mysql.cj.jdbc.Driver"); 
+//				this.connection = DriverManager.getConnection("jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10309995?serverTimezone=UTC","sql10309995","mS2tbDhSF2");
+				// *****************************************************************************************************
+				
+//				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/PelumaniaTest?serverTimezone=UTC","root","@Root123");
+				
+				// **************************************   Para MariaDB  **********************************************
+				// *****************************************************************************************************
+//				Class.forName("org.mariadb.jdbc.Driver"); // quitar si no es necesario
 //				this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Pelumania?serverTimezone=UTC","root","root");
+				// *****************************************************************************************************
 				this.connection.setAutoCommit(false);
 				log.info("Conexión exitosa");
 			}

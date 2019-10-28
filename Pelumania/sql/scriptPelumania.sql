@@ -261,11 +261,7 @@ CREATE TABLE IF NOT EXISTS `permisosUsuario`(
 );
 
 SET time_zone = "-3:00";
-
 USE Pelumania;
-
--- Insert usuario
-INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
 
 -- Insert Rol
 INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (1, 'Dueño');
@@ -291,13 +287,15 @@ VALUES(6, "Torcuato", "Av. Balvastro", 7200, "Inactiva");
 INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
 VALUES(7, "Hurlingham", "Calle falsa", 123, "Activa");
 
--- Insert para rol
-INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (1, 'Dueño');
-INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (2, 'Contador');
-INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (3, 'Recepcionista');
-INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (4, 'Supervisor');
-INSERT INTO `rol` (`idRol`, `Cargo`) VALUES (5, 'Administrador');
+-- Insert usuario
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (-1, 'Default', 'user', 'a', 'a', 'a@a.com', 'Activo', 1, 1);
 
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
+
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (2, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 1);
 
 -- Inserts para los servicios
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
@@ -461,12 +459,80 @@ VALUES (41, "Viernes", "12:00:00", "20:00:00", 7);
 INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
 VALUES (42, "Sabado", "142:00:00", "20:00:00", 7); 
 
-SELECT * FROM ServicioTurno;
-SELECT * FROM SERVICIO;
-SELECT * FROM CAJA;
-SELECT * FROM CITA;
-SELECT * FROM CategoriaCaja;
-SELECT * FROM Cliente;
+
+-- inserts para ServicioProfesional
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (1,1); 
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (1,2);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (1,5);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (1,7);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (1,3);
+
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (2,5);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (2,7);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (2,1);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (2,4);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (2,3);
+
+
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (3,2);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (3,3);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (3,4);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (3,5);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (3,6);
+
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (4,1);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (4,7);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (4,2);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (4,6);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (4,4);
+
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (5,4);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (5,6);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (5,2);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (5,3);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (5,1);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (5,7);
+
+
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (6,2);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (6,1);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (6,5);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (6,7);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (6,4);
+
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (7,7);
 
 -- DELETE FROM CAJA;
 -- DELETE FROM ServicioTurno;
