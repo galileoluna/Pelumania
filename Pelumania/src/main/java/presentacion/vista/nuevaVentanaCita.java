@@ -1,8 +1,21 @@
 package presentacion.vista;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Font;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -10,22 +23,10 @@ import com.toedter.calendar.JDateChooser;
 
 import dto.SucursalDTO;
 
-import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JSeparator;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-
 public class nuevaVentanaCita {
 
+	private static nuevaVentanaCita INSTANCE;
+	
 	private JFrame frame;
 	private JTextField TxtNombre;
 	private JTextField TxtApellido;
@@ -51,6 +52,20 @@ public class nuevaVentanaCita {
 	private DefaultTableModel modelServiciosAgregados;
 	private String[] nombreColumnasAgregadas = {"Nombre","Profesional"};
 	private JScrollPane spServiciosAgregados;
+	
+	public static nuevaVentanaCita getInstance()
+	{
+		if(INSTANCE == null)
+		{
+			INSTANCE = new nuevaVentanaCita();
+			INSTANCE.frame.setVisible(true);
+			return new nuevaVentanaCita();
+		} else {
+			return INSTANCE;
+			
+		}
+		
+	}
 	
 	public nuevaVentanaCita() {
 		initialize();
@@ -134,6 +149,7 @@ public class nuevaVentanaCita {
 		crearBotonConfirmar();
 		
 		crearBotonCancelar();
+		
 	}
 
 	private void crearJDateChooserFecha() {
@@ -143,11 +159,11 @@ public class nuevaVentanaCita {
 	}
 
 	private void crearFrame() {
-		frame.setTitle("Nueva Cita");
 		frame = new JFrame();
 		frame.setBounds(100, 100, 569, 730);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Nueva Cita");
 	}
 
 	private void crearPanelDatosGlobales() {

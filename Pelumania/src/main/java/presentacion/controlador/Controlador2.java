@@ -42,6 +42,8 @@ public class Controlador2 implements ActionListener{
 	/*
 	 * Controladores a instanciar 
 	 */
+	
+	private ControladorCita controladorCita;
 
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
@@ -84,6 +86,10 @@ public class Controlador2 implements ActionListener{
 		setearFechaSeleccionadaHoy();
 		RefrescarTablaCitas();
 		getPermisos();
+		
+		this.nvista.btnCita.addActionListener(x -> abrirVentanaCitaNueva(x));
+		
+		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
 		this.nvista.getMntmGestionDeClientes().addActionListener(c -> ventanaClientes(c));
@@ -116,6 +122,10 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getBtnLimpiarFiltros().addActionListener(n -> limpiarFiltros(n));
 		
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
+	}
+
+	private void abrirVentanaCitaNueva(ActionEvent x) {
+		this.controladorCita = ControladorCita.getInstance(sistema);
 	}
 
 	private void getPermisos() {

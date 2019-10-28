@@ -5,12 +5,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.math.BigDecimal;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,6 +24,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -37,10 +35,7 @@ import com.toedter.calendar.JCalendar;
 import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
-import dto.ServicioTurnoDTO;
 import util.RowsRenderer;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
 
 public class NuevaVista implements Runnable {
 
@@ -160,6 +155,9 @@ public class NuevaVista implements Runnable {
 			private DefaultTableModel modelCitas;
 			private String[] nombreColumnas = {"Cliente","Precio en $",
 					"Precio en USD","Hora Inicio", "Hora Fin", "Estado"};
+			
+			
+			public JButton btnCita;
 
 
 	public NuevaVista() {
@@ -200,6 +198,11 @@ public class NuevaVista implements Runnable {
 			crearPanelBotones();
 				crearBotones();
 			
+				
+				btnCita = new JButton("btnCita");
+				btnCita.setBounds(769, 11, 89, 23);
+				JPanel_Filtros.add(btnCita);
+
 		frame.setVisible(true);
 	}
 
@@ -454,7 +457,7 @@ public class NuevaVista implements Runnable {
 		btnLimpiarFiltros = new JButton("Limpiar filtros");
 		btnLimpiarFiltros.setBounds(726, 56, 143, 23);
 		JPanel_Filtros.add(btnLimpiarFiltros);
-	}
+		}
 
 	private void crearRadioButtonsFiltros() {
 		rdbtnServicios = new JRadioButton("Servicios");
@@ -1090,6 +1093,5 @@ public class NuevaVista implements Runnable {
 	public void setDetalleDeCita(panelDetalle detalleDeCita) {
 		this.detalleDeCita = detalleDeCita;
 	}
-
 }
 
