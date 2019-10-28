@@ -2,6 +2,8 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -26,6 +28,11 @@ import dto.SucursalDTO;
 public class nuevaVentanaCita {
 
 	private static nuevaVentanaCita INSTANCE;
+	
+	
+	/* *************************************************************************************
+	 * ***************** COMPONENTES VISUALES DE LA VISTA **********************************
+	 * *************************************************************************************/
 	
 	private JFrame frame;
 	private JTextField TxtNombre;
@@ -53,19 +60,25 @@ public class nuevaVentanaCita {
 	private String[] nombreColumnasAgregadas = {"Nombre","Profesional"};
 	private JScrollPane spServiciosAgregados;
 	
+	/* *************************************************************************************
+	 * ******************* VARIABLES PARA MANEJAR DATOS ************************************
+	 * *************************************************************************************/
+	
+	private LocalDate fechaCita;
+	private SucursalDTO sucursal;
+	
+	
 	public static nuevaVentanaCita getInstance()
 	{
 		if(INSTANCE == null)
 		{
 			INSTANCE = new nuevaVentanaCita();
-			INSTANCE.frame.setVisible(true);
-			return new nuevaVentanaCita();
-		} else {
-			return INSTANCE;
-			
 		}
+		INSTANCE.frame.setVisible(true);
+		return INSTANCE;	
 		
-	}
+		}
+	
 	
 	public nuevaVentanaCita() {
 		initialize();
@@ -149,7 +162,7 @@ public class nuevaVentanaCita {
 		crearBotonConfirmar();
 		
 		crearBotonCancelar();
-		
+	
 	}
 
 	private void crearJDateChooserFecha() {
@@ -161,7 +174,7 @@ public class nuevaVentanaCita {
 	private void crearFrame() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 569, 730);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Nueva Cita");
 	}
@@ -464,5 +477,28 @@ public class nuevaVentanaCita {
 		
 		spServiciosAgregados.setViewportView(tablaServiciosAgregados);
 	}
+	
+	/* *************************************************************************************
+	 * **************** METODOS PARA LOS DATOS EN LA VISTA *********************************
+	 * *************************************************************************************/
+	
+	public void cargarFecha(LocalDate fecha) {
+		JDChooserFecha.setDate(Date.valueOf(fecha));
+	}
+
+	public LocalDate getFechaCita() {
+		return fechaCita;
+	}
+
+	public void setFechaCita(LocalDate fecha) {
+		this.fechaCita = fecha;
+		cargarFecha(fechaCita);
+		JDChooserFecha.setEnabled(false);
+	}
+	
+	public void habilitarJDateChooser() {
+		JDChooserFecha.setEnabled(true);
+	}
+
 
 }

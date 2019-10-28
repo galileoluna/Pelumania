@@ -125,7 +125,13 @@ public class Controlador2 implements ActionListener{
 	}
 
 	private void abrirVentanaCitaNueva(ActionEvent x) {
-		this.controladorCita = ControladorCita.getInstance(sistema);
+		
+		if (validarFechaSeleccionada())
+			{
+			controladorCita = ControladorCita.getInstance(sistema);
+			controladorCita.setFecha(fechaSeleccionada);
+			}
+		
 	}
 
 	private void getPermisos() {
