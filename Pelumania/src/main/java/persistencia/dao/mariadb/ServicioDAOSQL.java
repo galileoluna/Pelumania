@@ -15,15 +15,15 @@ import persistencia.dao.interfaz.ServicioDAO;
 
 public class ServicioDAOSQL implements ServicioDAO{
 	
-	private static final String insert = "INSERT INTO servicio(idServicio,Nombre,PrecioLocal,PrecioDolar,Duracion,Puntos,Estado) "
+	private static final String insert = "INSERT INTO Servicio(idServicio,Nombre,PrecioLocal,PrecioDolar,Duracion,Puntos,Estado) "
 										+ "VALUES(?,?,?,?,?,?,?)";
 	private static final String update = "UPDATE  Servicio SET Nombre=?, PrecioLocal=?, PrecioDolar=?,"
 			+ " Duracion=?, Puntos=?, Estado=? WHERE IdServicio=?";
 	private static final String delete = "UPDATE  Servicio SET Estado=? WHERE idServicio = ?";
-	private static final String readall = " SELECT * FROM servicio";
-	private static final String getById = "SELECT * FROM servicio WHERE idServicio = ?";
+	private static final String readall = " SELECT * FROM Servicio";
+	private static final String getById = "SELECT * FROM Servicio WHERE idServicio = ?";
 	private static final String deleteRealServicio = "DELETE FROM Servicio WHERE idServicio = ?";
-	private static final String readBuscador = "SELECT * FROM servicio WHERE ? LIKE ?";
+	private static final String readBuscador = "SELECT * FROM Servicio WHERE ? LIKE ?";
 	
 	private static final String ESTADO_INACTIVO = "Inactivo";
 

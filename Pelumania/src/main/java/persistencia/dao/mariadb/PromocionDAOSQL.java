@@ -15,16 +15,16 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PromocionDAO;
 
 public class PromocionDAOSQL implements PromocionDAO{
-	private static final String readAll="SELECT * FROM promocion";
-	private static final String readOne="SELECT * FROM promocion WHERE idPromocion=?";
-	private static final String insert="INSERT INTO promocion (Descripcion,FechaInicio,FechaFin,Descuento,Puntos,Estado) VALUES (?,?,?,?,?,?)";
-	private static final String deleteReal="DELETE FROM promocion WHERE idPromocion = ?";
-	private static final String delete="UPDATE promocion SET estado='Inactivo' WHERE idPromocion=?";
-	private static final String insertServProm="INSERT INTO serviciopromocion (idPromocion, idServicio) VALUES (?,?)";
-	private static final String readAllServProm="SELECT s.nombre FROM serviciopromocion sp JOIN servicio s USING(idServicio) JOIN promocion p USING(idPromocion) WHERE p.idPromocion=?";
-	private static final String deleteServProm="DELETE FROM serviciopromocion WHERE idPromocion = ? AND idServicio=?";
-	private static final String update="UPDATE promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
-	private static final String readPromVigente="SELECT * FROM promocion p WHERE p.FechaInicio<= ? AND p.FechaFin>=? AND estado='Activo'";
+	private static final String readAll="SELECT * FROM Promocion";
+	private static final String readOne="SELECT * FROM Promocion WHERE idPromocion=?";
+	private static final String insert="INSERT INTO Promocion (Descripcion,FechaInicio,FechaFin,Descuento,Puntos,Estado) VALUES (?,?,?,?,?,?)";
+	private static final String deleteReal="DELETE FROM Promocion WHERE idPromocion = ?";
+	private static final String delete="UPDATE Promocion SET estado='Inactivo' WHERE idPromocion=?";
+	private static final String insertServProm="INSERT INTO ServicioPromocion (idPromocion, idServicio) VALUES (?,?)";
+	private static final String readAllServProm="SELECT s.nombre FROM ServicioPromocion sp JOIN Servicio s USING(idServicio) JOIN Promocion p USING(idPromocion) WHERE p.idPromocion=?";
+	private static final String deleteServProm="DELETE FROM ServicioPromocion WHERE idPromocion = ? AND idServicio=?";
+	private static final String update="UPDATE Promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
+	private static final String readPromVigente="SELECT * FROM Promocion p WHERE p.FechaInicio<= ? AND p.FechaFin>=? AND estado='Activo'";
 
 	@Override
 	public boolean insert(PromocionDTO promocion) {

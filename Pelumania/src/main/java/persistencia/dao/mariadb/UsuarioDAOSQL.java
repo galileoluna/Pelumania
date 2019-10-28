@@ -12,7 +12,7 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.UsuarioDAO;
 
 public class UsuarioDAOSQL implements UsuarioDAO{
-	private static final String readOne="SELECT * from usuario where nombreUsuario=? AND Contrasenia=?";
+	private static final String readOne="SELECT * from Usuario where nombreUsuario=? AND Contrasenia=?";
 	
 	
 	
