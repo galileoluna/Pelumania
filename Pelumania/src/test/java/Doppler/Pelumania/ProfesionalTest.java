@@ -66,7 +66,7 @@ public class ProfesionalTest {
 	int cantProfExistentes=sistema.obtenerProfesional().size();	
 	ProfesionalDTO nuevo=	new ProfesionalDTO(12, "Flavio", "Mendoza" ,1, 2, "ACTIVO" );
 	sistema.agregarProfesional(nuevo);
-	
+
 	assertEquals(sistema.obtenerProfesional().get(cantProfExistentes-1).getEstado(),"ACTIVO");
 	}
 	@Test
@@ -173,8 +173,8 @@ public class ProfesionalTest {
 	public void testValidarSize() {
 		
 	int cantProfExistentes=sistema.obtenerProfesional().size();	
-	ProfesionalDTO nuevo=	new ProfesionalDTO(109, "Flavio", "Mendoza" ,1, 2, "ACTIVO" );
-	ProfesionalDTO nuevo1=	new ProfesionalDTO(203, "Flavio", "Mendoza" ,1, 2, "ACTIVO" );
+	ProfesionalDTO nuevo=	new ProfesionalDTO(209, "Flavio", "Mendoza" ,1, 2, "ACTIVO" );
+	ProfesionalDTO nuevo1=	new ProfesionalDTO(303, "Flavio", "Mendoza" ,1, 2, "ACTIVO" );
 	sistema.agregarProfesional(nuevo);
 	sistema.agregarProfesional(nuevo1);
 	assertEquals(sistema.obtenerProfesional().size(),2+cantProfExistentes);
@@ -237,6 +237,7 @@ public class ProfesionalTest {
 	@Test(expected = SQLException.class)
 	public void errorEditar() {
 	sistema.editarProfesional(-12);
+	System.out.println(sistema.editarProfesional(-12));
 	}
 	@Test(expected = SQLException.class)
 	public void errorEditarCu() {
