@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import dto.SucursalDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import persistencia.dao.mariadb.DAOSQLFactory;
 import presentacion.controlador.ControladorAltaProfesional;
@@ -18,6 +19,7 @@ public class ControladorAltaProfesionalTest {
 	Sistema sistema;
 	ControladorAltaProfesional controlador;
 	SucursalDTO sucursal;
+	UsuarioDTO usuario;
 
 
 	@Before
@@ -29,6 +31,7 @@ public class ControladorAltaProfesionalTest {
 		sistema.agregarSucursal(sucursal);
 		sucursal= new SucursalDTO(3, "pelu3", "avenida", 444, "activa");
 		sistema.agregarSucursal(sucursal);
+		 usuario= new UsuarioDTO(1,"nico","cirillo","ncirillo","ncirillo","nico@gmail.com","ACtivo",5,1);
 
 	}
 	
@@ -42,7 +45,7 @@ public class ControladorAltaProfesionalTest {
 	
 	@Test
 	public void getIdCombo() {
-		controlador= ControladorAltaProfesional.getInstance(sistema);
+		controlador= ControladorAltaProfesional.getInstance(sistema,usuario);
 		int id=controlador.getIdCombo("pelu1");
 		int id2=controlador.getIdCombo("pelu2");
 		
@@ -52,7 +55,7 @@ public class ControladorAltaProfesionalTest {
 	
 	@Test
 	public void getIdComboNull() {
-		controlador= ControladorAltaProfesional.getInstance(sistema);
+		controlador= ControladorAltaProfesional.getInstance(sistema,usuario);
 		int id=controlador.getIdCombo("pelu5");
 		int id2=controlador.getIdCombo("pelu6");
 		
@@ -62,7 +65,7 @@ public class ControladorAltaProfesionalTest {
 	
 	@Test
 	public void validarTrue() {
-		controlador= ControladorAltaProfesional.getInstance(sistema);
+		controlador= ControladorAltaProfesional.getInstance(sistema,usuario);
 		
 		
 		assertEquals(controlador.validar("nico","cirillo",1,2),true);
@@ -71,7 +74,7 @@ public class ControladorAltaProfesionalTest {
 	
 	@Test
 	public void validarFalse() {
-		controlador= ControladorAltaProfesional.getInstance(sistema);
+		controlador= ControladorAltaProfesional.getInstance(sistema,usuario);
 		
 		
 		assertEquals(controlador.validar("","",1,2),false);
@@ -80,7 +83,7 @@ public class ControladorAltaProfesionalTest {
 	
 	@Test
 	public void getSucursalesTest() {
-		controlador= ControladorAltaProfesional.getInstance(sistema);
+		controlador= ControladorAltaProfesional.getInstance(sistema,usuario);
 		HashMap<String,Integer> sucursales=controlador.getSucursales();
 		
 		assertEquals(sucursales.size(), 3);
@@ -92,7 +95,7 @@ public class ControladorAltaProfesionalTest {
 	
 	@Test
 	public void llenarComboTest() {
-		controlador= ControladorAltaProfesional.getInstance(sistema);
+		controlador= ControladorAltaProfesional.getInstance(sistema,usuario);
 		HashMap<String,Integer> sucursales=controlador.getSucursales();
 		JComboBox combo= new JComboBox();
 		

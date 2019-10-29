@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import dto.ServicioDTO;
 import dto.SucursalDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAgregarServicio;
 import presentacion.vista.VentanaAgregarSucursal;
@@ -21,16 +22,18 @@ public class ControladorAgregarSucursal  implements ActionListener {
 	private Sistema sistema;
 	private ControladorSucursal controladorSucursal;
 	private static ControladorAgregarSucursal INSTANCE;
+	private static UsuarioDTO usuario;
 
-	private ControladorAgregarSucursal(Sistema sistema) {
+	private ControladorAgregarSucursal(Sistema sistema, UsuarioDTO usuar) {
 		this.ventanaAgregarSucursal = ventanaAgregarSucursal.getInstance();
 		this.ventanaAgregarSucursal.getBtnAgregarSucursal().addActionListener(p -> guardarSucursal(p));
 		this.sistema = sistema;
+		usuario = usuar;
 	}
 
-	public static ControladorAgregarSucursal getInstance(Sistema sistema) {
+	public static ControladorAgregarSucursal getInstance(Sistema sistema, UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorAgregarSucursal(sistema);
+			INSTANCE = new ControladorAgregarSucursal(sistema,usuario);
 		}
 		INSTANCE.ventanaAgregarSucursal.limpiarCampos();
 		INSTANCE.ventanaAgregarSucursal.mostrarVentana();
@@ -50,7 +53,7 @@ public class ControladorAgregarSucursal  implements ActionListener {
 
 			SucursalDTO nuevoSucursal = new SucursalDTO(0,S_nombreSucursal,S_direccion,Integer.parseInt(S_numero),"Activo");
 			this.sistema.agregarSucursal(nuevoSucursal);
-			ControladorSucursal.getInstance(sistema);
+			ControladorSucursal.getInstance(sistema,usuario);
 			this.ventanaAgregarSucursal.cerrar();
 		} else {
 

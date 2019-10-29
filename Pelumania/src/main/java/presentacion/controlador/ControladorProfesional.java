@@ -144,11 +144,11 @@ public class ControladorProfesional {
 		    // code block
 		    break;
 		  case 3:
-			  ventanaProfesional.getBtnAgregar().setVisible(false);
-			  ventanaProfesional.getBtnAsignar().setVisible(false);
-			  ventanaProfesional.getBtnBorrar().setVisible(false);
-			  ventanaProfesional.getBtnEditar().setVisible(false);
-			  ventanaProfesional.getBtnHorario().setVisible(false);
+			  ventanaProfesional.getBtnAgregar().setEnabled(false);
+			  ventanaProfesional.getBtnAsignar().setEnabled(false);
+			  ventanaProfesional.getBtnBorrar().setEnabled(false);
+			  ventanaProfesional.getBtnEditar().setEnabled(false);
+			  ventanaProfesional.getBtnHorario().setEnabled(false);
 			  break;
 		  case 4:
 			 

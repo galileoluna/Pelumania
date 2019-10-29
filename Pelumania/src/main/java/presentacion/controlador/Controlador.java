@@ -42,6 +42,7 @@ public class Controlador implements ActionListener {
 	private ControladorCaja controladorCaja;
 	private ControladorCategoriaMovimientoCaja controladorCategoriaMovimientoCaja;
 	
+	
 	private Sistema sistema;
 
 	public Controlador (NuevaVista nvista, Sistema sistema) {
@@ -85,15 +86,15 @@ public class Controlador implements ActionListener {
 	}
 
 	private void ventanaServicios(ActionEvent c) {
-		this.controladorServicio = ControladorServicio.getInstance(sistema);
+		//this.controladorServicio = ControladorServicio.getInstance(sistema);
 	}
 
 	private void ventanaAgregarCliente(ActionEvent a) {
-		this.controladorCliente = ControladorCliente.getInstance(sistema);
+		//this.controladorCliente = ControladorCliente.getInstance(sistema);
 	}
 
 	private void ventanaProfesional (ActionEvent b) {
-		this.controladorProfesional= ControladorProfesional.getInstance(sistema);
+	//	this.controladorProfesional= ControladorProfesional.getInstance(sistema);
 	}
 
 	private void ventanaPromocion(ActionEvent m) {
@@ -101,7 +102,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void ventanaSucursal (ActionEvent b) {
-		this.controladorSucursal= ControladorSucursal.getInstance(sistema);
+		//this.controladorSucursal= ControladorSucursal.getInstance(sistema);
 	}
 
 	private void ventanaAgregarCita(ActionEvent d) {
@@ -137,7 +138,7 @@ public class Controlador implements ActionListener {
 	}
 	
 	private void verPromosVigentes(ActionEvent p) {
-		this.controladorPromoVigente=ControladorPromocionesVigentes.getInstance(sistema,vista);
+		//this.controladorPromoVigente=ControladorPromocionesVigentes.getInstance(sistema,vista);
 	}
 	
 	public void actualizarCitasDelDia(PropertyChangeEvent a) {

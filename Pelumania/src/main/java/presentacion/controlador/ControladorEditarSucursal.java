@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import dto.SucursalDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaEditarServicio;
 import presentacion.vista.VentanaEditarSucursal;
@@ -21,16 +22,18 @@ public class ControladorEditarSucursal {
 	private ControladorSucursal controladorSucursal;
 	private static int idSucursal;
 	private static ControladorEditarSucursal INSTANCE;
+	private static UsuarioDTO usuario;
 	
-	private ControladorEditarSucursal(Sistema sistema) {
+	private ControladorEditarSucursal(Sistema sistema, UsuarioDTO usuar) {
 		this.ventanaEditarSucursal = VentanaEditarSucursal.getInstance();
 		this.ventanaEditarSucursal.getBtnGuardarSucursal().addActionListener(a -> guardarSucursal(a));
 		this.sistema = sistema;
+		usuario = usuar;
 	}
 	
-	public static ControladorEditarSucursal getInstance(Sistema sistema, SucursalDTO sucursal, int id) {
+	public static ControladorEditarSucursal getInstance(Sistema sistema, SucursalDTO sucursal, int id, UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorEditarSucursal(sistema);
+			INSTANCE = new ControladorEditarSucursal(sistema, usuario);
 		}	
 			idSucursal = id;
 			INSTANCE.ventanaEditarSucursal.getTxtNombreSucursal().setText(sucursal.getNombreSucursal());
@@ -71,7 +74,7 @@ public class ControladorEditarSucursal {
 				this.sistema.editarSucursal(sucursal);
 				this.ventanaEditarSucursal.cerrar();
 				//llama a la instancia del controladorSucursal asi se refresca la tabla 
-				controladorSucursal.getInstance(sistema);
+				controladorSucursal.getInstance(sistema, usuario);
 			}else JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
 		}else {
 			this.ventanaEditarSucursal.mostrarErrorCampos();

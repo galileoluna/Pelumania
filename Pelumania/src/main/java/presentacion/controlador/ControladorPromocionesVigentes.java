@@ -10,6 +10,7 @@ import java.util.List;
 
 import dto.PromocionDTO;
 import modelo.Sistema;
+import presentacion.vista.NuevaVista;
 import presentacion.vista.VentanaPromocionesVigentes;
 import presentacion.vista.Vista;
 
@@ -18,16 +19,16 @@ public class ControladorPromocionesVigentes implements ActionListener{
 	private Sistema sistema;
 	private static ControladorPromocionesVigentes INSTANCE;
 	private List<PromocionDTO> promosEnTabla;
-	private Vista vista;
+	private NuevaVista vista;
 	private VentanaPromocionesVigentes ventanaPromoVigente;
 	
-	private ControladorPromocionesVigentes(Sistema sistema,Vista vista) {
+	private ControladorPromocionesVigentes(Sistema sistema,NuevaVista vista) {
 		this.ventanaPromoVigente = ventanaPromoVigente.getInstance();
 		this.sistema=sistema;
 		this.vista=vista;
 	}
 
-	public static ControladorPromocionesVigentes getInstance(Sistema sistema,Vista vista) {
+	public static ControladorPromocionesVigentes getInstance(Sistema sistema,NuevaVista vista) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorPromocionesVigentes(sistema,vista);
 		}
