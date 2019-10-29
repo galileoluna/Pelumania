@@ -139,8 +139,23 @@ public class Controlador2 implements ActionListener{
 	}
 
 	private void getPermisos() {
-		// TODO Auto-generated method stub
-		
+		int rol= this.usuario.getIdRol();
+		switch(rol) {
+		  case 1:
+		  case 5:
+		    
+		    break;
+		  case 2:
+		    // code block
+		    break;
+		  case 3:
+			this.nvista.getJM_Reportes().setVisible(false);
+			this.nvista.getMntmGestionDePromociones().setVisible(false);
+			  break;
+		  case 4:
+			 
+			 break;
+		}		
 	}
 
 	private void CargarDatosUsuarioYSurcursal() {
@@ -155,7 +170,7 @@ public class Controlador2 implements ActionListener{
 	}
 
 	private void ventanaServicios(ActionEvent a) {
-		this.controladorServicio = ControladorServicio.getInstance(sistema);
+		this.controladorServicio = ControladorServicio.getInstance(sistema,usuario);
 	}
 
 	private void ventanaClientes(ActionEvent b) {

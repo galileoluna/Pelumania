@@ -18,7 +18,7 @@ public class Conexion {
 				// ***************************************   Para MYSQL  ***********************************************
 				// *****************************************************************************************************
 				Class.forName("com.mysql.cj.jdbc.Driver"); 
-				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?","root","root");
+				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?serverTimezone=UTC","root","root");
 				// *****************************************************************************************************
 				
 				// *************************************   Para BD REMOTA  *********************************************

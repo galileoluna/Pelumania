@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import dto.CitaDTO;
 import dto.ServicioDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaServicio;
 
@@ -18,31 +19,57 @@ public class ControladorServicio {
 	private ControladorAgregarServicio controladorAgregarServicio;
 	private ControladorEditarServicio controladorEditarServicio;
 	private static Sistema sistema;
+	private static UsuarioDTO usuario;
 	
-	private ControladorServicio(Sistema sist) {
+	private ControladorServicio(Sistema sist,UsuarioDTO usuar) {
 		ventanaServicio = VentanaServicio.getInstance();
 		ventanaServicio.getBtnAgregar().addActionListener(a ->agregarServicio(a));
 		ventanaServicio.getBtnBorrar().addActionListener(b -> borrarServicio(b));
 		ventanaServicio.getBtnEditar().addActionListener(c -> editarServicio(c));
 		ventanaServicio.getBtnBuscar().addActionListener(y -> buscar(y));
 		sistema = sist;
+		usuario = usuar;
 	}
 	
 	
 
-	public static ControladorServicio getInstance(Sistema sistema) {
+	public static ControladorServicio getInstance(Sistema sistema, UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorServicio(sistema);
+			INSTANCE = new ControladorServicio(sistema,usuario);
 		}
-		
+		getPermisos();
 		List<ServicioDTO> serviciosEnTabla = sistema.obtenerServicios();
 		INSTANCE.ventanaServicio.llenarTabla(serviciosEnTabla);
 		INSTANCE.ventanaServicio.mostrar();
 		return INSTANCE;
 	}
 	
+	private static  void getPermisos() {
+		int rol= usuario.getIdRol();
+		switch(rol) {
+		  case 1:
+		  case 5:
+		    
+		    break;
+		  case 2:
+		    // code block
+		    break;
+		  case 3:
+			ventanaServicio.getBtnAgregar().setVisible(false);
+			ventanaServicio.getBtnBorrar().setVisible(false);
+			ventanaServicio.getBtnBuscar().setVisible(false);
+			ventanaServicio.getBtnEditar().setVisible(false);
+			  break;
+		  case 4:
+			 
+			 break;
+		}		
+	}
+
+
+
 	private void agregarServicio(ActionEvent a) {
-		this.controladorAgregarServicio = ControladorAgregarServicio.getInstance(sistema);
+		this.controladorAgregarServicio = ControladorAgregarServicio.getInstance(sistema,usuario);
 	}
 	
 	private void editarServicio(ActionEvent c) {
@@ -55,7 +82,7 @@ public class ControladorServicio {
         		this.idServicio = serviciosEnTabla.get(fila).getIdServicio();
         		ServicioDTO servicio_a_editar = sistema.getServicioById(idServicio);
         		
-        		ControladorEditarServicio.getInstance(sistema, servicio_a_editar, idServicio);
+        		ControladorEditarServicio.getInstance(sistema, servicio_a_editar, idServicio,usuario);
 	}
     	}
 	}
@@ -77,7 +104,7 @@ public class ControladorServicio {
 		        		ServicioDTO servicio_a_eliminar = sistema.getServicioById(idServicio);
 		        		sistema.borrarServicio(servicio_a_eliminar);
 		        		ReprogramarCitas(idServicio);
-		        		ControladorServicio.getInstance(sistema);
+		        		ControladorServicio.getInstance(sistema,usuario);
 		        		
 	        		}
         	}

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaEditarServicio;
 import util.Validador;
@@ -21,16 +22,18 @@ public class ControladorEditarServicio {
 	private ControladorServicio controladorServicio;
 	private static int idServicio;
 	private static ControladorEditarServicio INSTANCE;
+	private static UsuarioDTO usuario;
 	
-	private ControladorEditarServicio(Sistema sistema) {
+	private ControladorEditarServicio(Sistema sistema, UsuarioDTO usuario) {
 		this.ventanaEditarServicio = VentanaEditarServicio.getInstance();
 		this.ventanaEditarServicio.getBtnGuardarServicio().addActionListener(a -> guardarServicio(a));
 		this.sistema = sistema;
+		this.usuario= usuario;
 	}
 	
-	public static ControladorEditarServicio getInstance(Sistema sistema, ServicioDTO servicio, int id) {
+	public static ControladorEditarServicio getInstance(Sistema sistema, ServicioDTO servicio, int id, UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorEditarServicio(sistema);
+			INSTANCE = new ControladorEditarServicio(sistema, usuario);
 		}	
 			idServicio = id;
 			INSTANCE.ventanaEditarServicio.getTxtNombre().setText(servicio.getNombre());
@@ -73,7 +76,7 @@ public class ControladorEditarServicio {
 				ServicioDTO servicio_a_actualizar = new ServicioDTO(idServicio, nombre, precioLocal, precioDolar, duracion, puntos, S_estado);
 				this.sistema.editarServicio(servicio_a_actualizar);
 				this.ventanaEditarServicio.cerrar();
-				ControladorServicio.getInstance(sistema);
+				ControladorServicio.getInstance(sistema,usuario);
 				
 				} else {
 				

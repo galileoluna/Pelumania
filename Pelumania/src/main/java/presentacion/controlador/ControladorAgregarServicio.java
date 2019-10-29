@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 
 import dto.ServicioDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAgregarServicio;
 import util.Validador;
@@ -19,17 +20,19 @@ public class ControladorAgregarServicio implements ActionListener {
 	private Sistema sistema;
 	private ControladorServicio controladorServicio;
 	private static ControladorAgregarServicio INSTANCE;
+	private static UsuarioDTO usuario;
 
-	private ControladorAgregarServicio(Sistema sistema) {
+	private ControladorAgregarServicio(Sistema sistema, UsuarioDTO usuario) {
 		this.ventanaAgregarServicio = VentanaAgregarServicio.getInstance();
 		this.ventanaAgregarServicio.getBtnAgregarServicio().addActionListener(p -> guardarServicio(p));
 		this.ventanaAgregarServicio.getBtn_Cancelar().addActionListener(q -> cancelar(q));
 		this.sistema = sistema;
+		this.usuario = usuario;
 	}
 
-	public static ControladorAgregarServicio getInstance(Sistema sistema) {
+	public static ControladorAgregarServicio getInstance(Sistema sistema,UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorAgregarServicio(sistema);
+			INSTANCE = new ControladorAgregarServicio(sistema,usuario);
 		}
 		INSTANCE.ventanaAgregarServicio.limpiarCampos();
 		INSTANCE.ventanaAgregarServicio.mostrarVentana();
@@ -66,7 +69,7 @@ public class ControladorAgregarServicio implements ActionListener {
 
 			ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, duracion, puntos, "Activo");
 			this.sistema.agregarServicio(nuevoServicio);
-			ControladorServicio.getInstance(sistema);
+			ControladorServicio.getInstance(sistema,usuario);
 			this.ventanaAgregarServicio.cerrar();
 
 		} else {
