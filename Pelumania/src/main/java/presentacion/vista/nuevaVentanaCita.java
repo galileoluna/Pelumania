@@ -49,6 +49,7 @@ public class nuevaVentanaCita {
 	private JCheckBox chckbxRegistrado;
 	private JCheckBox chckbxGenerico;
 	private JButton btnBuscar;
+	private JButton btnRegistrar;
 	private JPanel JPnl_Servicios;
 	private JComboBox<Integer> JCBoxHora;
 	private JComboBox<Integer> JCBoxMinutos;
@@ -72,7 +73,6 @@ public class nuevaVentanaCita {
 	private SucursalDTO sucursal;
 	private ClienteDTO cliente;
 
-	
 	public static nuevaVentanaCita getInstance()
 	{
 		if(INSTANCE == null)
@@ -304,7 +304,7 @@ public class nuevaVentanaCita {
 	}
 
 	private void crearBotonRegistrar() {
-		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(314, 106, 97, 23);
 		JPnl_Cliente.add(btnRegistrar);
 	}
@@ -786,6 +786,16 @@ public class nuevaVentanaCita {
 
 	public void setCliente(ClienteDTO cliente) {
 		this.cliente = cliente;
+	}
+
+
+	public JButton getBtnRegistrar() {
+		return btnRegistrar;
+	}
+
+
+	public void setBtnRegistrar(JButton btnRegistrar) {
+		this.btnRegistrar = btnRegistrar;
 	}
 
 	

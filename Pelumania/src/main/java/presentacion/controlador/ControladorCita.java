@@ -27,12 +27,14 @@ public class ControladorCita implements ActionListener{
 		
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
 		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> mostrarPopUpSucursal(b));
+		
 		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
 		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
+		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
 		
 		inicializarArreglos();
 	}
-	
+
 	public static ControladorCita getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorCita(sistema);
@@ -111,6 +113,9 @@ public class ControladorCita implements ActionListener{
 		ControladorBuscarCliente.getInstance(sistema, this.ventanaCita);
 	}
 
+	private void ventanaRegistrarCliente(ActionEvent e) {
+		ControladorCliente.getInstance(sistema);
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
