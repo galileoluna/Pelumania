@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import persistencia.conexion.Conexion;
 import presentacion.vista.VentanaAltaProfesional;
@@ -23,17 +24,19 @@ public class ControladorAltaProfesional  implements ActionListener{
 	private HashMap<String,Integer>sucursal;
 	private Sistema sistema;
 	private static ControladorAltaProfesional INSTANCE;
+	private static UsuarioDTO usuario;
 	
-	private ControladorAltaProfesional(Sistema sistema) {
+	private ControladorAltaProfesional(Sistema sistema, UsuarioDTO usuar) {
 		this.altaProfesional = VentanaAltaProfesional.getInstance();
 		
 		this.altaProfesional.getBtnAgregar().addActionListener(l -> guardarProfesional(l));
 		this.sistema = sistema;
+		this.usuario = usuar;
 	}
 	
-	public static ControladorAltaProfesional getInstance(Sistema sistema) {
+	public static ControladorAltaProfesional getInstance(Sistema sistema,UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorAltaProfesional(sistema);
+			INSTANCE = new ControladorAltaProfesional(sistema, usuario);
 		}
 		INSTANCE.sucursal=getSucursales();
 		llenarCombo(INSTANCE.altaProfesional.getComboOrig(),INSTANCE.sucursal);
@@ -59,7 +62,7 @@ public class ControladorAltaProfesional  implements ActionListener{
 				this.sistema.agregarProfesional(profesional);
 				this.altaProfesional.cerrar();
 				// llamo a la instancia del ControladorProfesional para refrescar la tabla 
-				controlProfesional.getInstance(sistema);
+				controlProfesional.getInstance(sistema,usuario);
 			}else {
 				JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
 			}

@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import persistencia.conexion.Conexion;
 import presentacion.vista.VentanaAltaProfesional;
@@ -22,41 +23,45 @@ import presentacion.vista.VentanaProfesional;
 public class ControladorProfesional {
 	private static ControladorProfesional INSTANCE;
 	private List<ProfesionalDTO> profesionalEnTabla;
-	private VentanaProfesional ventanaProfesional;
+	private static VentanaProfesional ventanaProfesional;
 	private ControladorHorarioProfesional horarioProfesional;
 	private ControladorAltaProfesional altaProfesional;
 	public int idProfesional;
 	private ControladorModificarProfesional modificarProfesional;
 	private Sistema sistema;
 	private ControladorServicioProfesional controlServProf;
+	private static UsuarioDTO usuario;
 	
-	private ControladorProfesional(Sistema sistema) {
-		this.ventanaProfesional = VentanaProfesional.getInstance();
-		this.ventanaProfesional.getBtnAgregar().addActionListener(p ->agregarProfesional(p));
-		this.ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s,0));
-		this.ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
-		this.ventanaProfesional.getBtnHorario().addActionListener(k -> verHorarios(k));
-		this.ventanaProfesional.getBtnAsignar().addActionListener(f -> asignarServ(f));
-		this.ventanaProfesional.getBtnBuscar().addActionListener(y -> buscar(y));
-		this.sistema = sistema;
+	private ControladorProfesional(Sistema sist, UsuarioDTO usuar) {
+		ventanaProfesional = VentanaProfesional.getInstance();
+		ventanaProfesional.getBtnAgregar().addActionListener(p ->agregarProfesional(p));
+		ventanaProfesional.getBtnBorrar().addActionListener(s -> borrarProfesional(s,0));
+		ventanaProfesional.getBtnEditar().addActionListener(t -> editarProfesional(t));
+		ventanaProfesional.getBtnHorario().addActionListener(k -> verHorarios(k));
+		ventanaProfesional.getBtnAsignar().addActionListener(f -> asignarServ(f));
+		ventanaProfesional.getBtnBuscar().addActionListener(y -> buscar(y));
+		sistema = sist;
+		usuario = usuar;
 	}
 
 	// inicializo la intancia hago el new de la clase
 	//lleno la tabla de los profesionales agregados
-	public static ControladorProfesional getInstance(Sistema sistema) {
+	public static ControladorProfesional getInstance(Sistema sistema, UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorProfesional(sistema);
+			INSTANCE = new ControladorProfesional(sistema, usuario);
 		}
+		
 		
 		List<ProfesionalDTO> profesionalEnTabla=sistema.obtenerProfesional();
 		INSTANCE.ventanaProfesional.llenarTabla(profesionalEnTabla);
 		INSTANCE.ventanaProfesional.show();
+		getPermisos();
 		return INSTANCE;
 	}
 	
 	// llamo a la ventana que se encarga de el agregado de un profesional (VentanaAltaProfesional)
 	private void agregarProfesional(ActionEvent p) {
-		this.altaProfesional = ControladorAltaProfesional.getInstance(sistema);
+		this.altaProfesional = ControladorAltaProfesional.getInstance(sistema,usuario);
 		
 	}
 	
@@ -76,7 +81,7 @@ public class ControladorProfesional {
 		        			
 		        		}
 		        		// llama a la instancia para refrescar tabla
-		        		this.getInstance(sistema);
+		        		this.getInstance(sistema,usuario);
 	        	}
 	}	
 	
@@ -93,7 +98,7 @@ public class ControladorProfesional {
         		this.idProfesional=this.profesionalEnTabla.get(fila).idProfesional;
         		
         		List<ProfesionalDTO>profesional=this.sistema.editarProfesional(this.profesionalEnTabla.get(fila).idProfesional);
-        		this.modificarProfesional.getInstance(sistema,profesional,this.idProfesional);
+        		this.modificarProfesional.getInstance(sistema,profesional,this.idProfesional,usuario);
         	}
 		}	
 	}
@@ -126,6 +131,29 @@ public class ControladorProfesional {
         		this.controlServProf=ControladorServicioProfesional.getInstance(sistema,this.profesionalEnTabla.get(fila).idProfesional, nombreEmpl);
         	}
 		}	
+	}
+	
+	private static void getPermisos() {
+		int rol= usuario.getIdRol();
+		switch(rol) {
+		  case 1:
+		  case 5:
+		    
+		    break;
+		  case 2:
+		    // code block
+		    break;
+		  case 3:
+			  ventanaProfesional.getBtnAgregar().setVisible(false);
+			  ventanaProfesional.getBtnAsignar().setVisible(false);
+			  ventanaProfesional.getBtnBorrar().setVisible(false);
+			  ventanaProfesional.getBtnEditar().setVisible(false);
+			  ventanaProfesional.getBtnHorario().setVisible(false);
+			  break;
+		  case 4:
+			 
+			 break;
+		}		
 	}
 	
 	private void buscar(ActionEvent y) {

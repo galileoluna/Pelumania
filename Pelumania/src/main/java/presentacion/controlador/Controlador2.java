@@ -178,7 +178,7 @@ public class Controlador2 implements ActionListener{
 	}
 
 	private void ventanaProfesionales (ActionEvent c) {
-		this.controladorProfesional= ControladorProfesional.getInstance(sistema);
+		this.controladorProfesional= ControladorProfesional.getInstance(sistema,usuario);
 	}
 	private void ventanaPromociones(ActionEvent d) {
 		this.controladorPromocion= ControladorPromocion.getInstance(sistema);

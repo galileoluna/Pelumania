@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import dto.ProfesionalDTO;
+import dto.UsuarioDTO;
 import modelo.Sistema;
 import persistencia.conexion.Conexion;
 import presentacion.vista.VentanaAltaProfesional;
@@ -23,19 +24,21 @@ public class ControladorModificarProfesional implements ActionListener {
 	private static HashMap<String,Integer>sucursal;
 	private static int idProfesional;
 	private Sistema sistema;
+	private static UsuarioDTO usuario;
 	private static ControladorModificarProfesional INSTANCE;
 	
-	private ControladorModificarProfesional(Sistema sistema) {
+	private ControladorModificarProfesional(Sistema sistema, UsuarioDTO usuar) {
 		this.modificarProfesional = VentanaModificarProfesional.getInstance();
 		this.modificarProfesional.getBtnAgregar().addActionListener(l -> guardarProfesional(l));
 		this.sistema = sistema;
+		this.usuario = usuar;
 	}
 	
 	// inicializo la instancia de la pantalla que modifica al profesional (VentanaModificarProfesional)
 	// recibe la lista del profesional seleccionado para editar, el sistema, y el id del profesional 
-	public static ControladorModificarProfesional getInstance(Sistema sistema, List<ProfesionalDTO> profesional,int id) {
+	public static ControladorModificarProfesional getInstance(Sistema sistema, List<ProfesionalDTO> profesional,int id,UsuarioDTO usuario) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorModificarProfesional(sistema);
+			INSTANCE = new ControladorModificarProfesional(sistema,usuario);
 		}
 		INSTANCE.sucursal=getSucursales();
 		llenarCombo(INSTANCE.modificarProfesional.getComboOrig(),INSTANCE.sucursal);
@@ -66,7 +69,7 @@ public class ControladorModificarProfesional implements ActionListener {
 			this.sistema.actualizarProfesional(profesional);
 			this.modificarProfesional.cerrar();
 			//llama a la instancia del controladorProfesional asi se refresca la tabla 
-			controlProfesional.getInstance(sistema);
+			controlProfesional.getInstance(sistema,usuario);
 		}else {
 			JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
 		}
