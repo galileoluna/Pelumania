@@ -23,7 +23,6 @@ import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.VentanaCliente;
-import util.MailService;
 
 public class ControladorAgregarCita implements ActionListener{
 
@@ -222,7 +221,7 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 
 	public void buscarCliente(ActionEvent r) {
-		ControladorBuscarCliente.getInstance(sistema, this.ventanaAgregarCita);
+//		ControladorBuscarCliente.getInstance(sistema, this.ventanaAgregarCita);
 	}
 
 	public void registrarCliente(ActionEvent q) {

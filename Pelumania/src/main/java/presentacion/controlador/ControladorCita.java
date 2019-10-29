@@ -2,15 +2,10 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
-import org.jfree.util.Log;
-
+import dto.ClienteDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
 import presentacion.vista.nuevaVentanaCita;
@@ -21,7 +16,8 @@ public class ControladorCita implements ActionListener{
 	private static ControladorCita INSTANCE;
 	
 	private LocalDate fechaCita;
-	private SucursalDTO sucursal; 
+	private SucursalDTO sucursal;
+	private ClienteDTO cliente;
 	
 	private List<SucursalDTO> listaSucursales;
 	
@@ -31,6 +27,8 @@ public class ControladorCita implements ActionListener{
 		
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
 		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> mostrarPopUpSucursal(b));
+		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
+		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
 		
 		inicializarArreglos();
 	}
@@ -96,6 +94,23 @@ public class ControladorCita implements ActionListener{
 			this.ventanaCita.getLblAlertaSucursal().setVisible(false);
 	}
 	
+	public void mostrarOpcionesClienteRegistrado( ActionEvent d) {
+		this.ventanaCita.limpiarTxtCliente();
+		this.ventanaCita.getChckbxGenerico().setSelected(false);
+		this.ventanaCita.getBtnBuscar().setEnabled(true);
+		this.ventanaCita.getBtnBuscar().addActionListener(r -> buscarCliente(r));
+	}
+	
+	public void mostrarOpcionesClienteGenerico( ActionEvent d) {
+		this.ventanaCita.limpiarTxtCliente();
+		this.ventanaCita.getChckbxRegistrado().setSelected(false);
+		this.ventanaCita.getBtnBuscar().setEnabled(false);
+	}
+	
+	private void buscarCliente(ActionEvent r) {
+		ControladorBuscarCliente.getInstance(sistema, this.ventanaCita);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

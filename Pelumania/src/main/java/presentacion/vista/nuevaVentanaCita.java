@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import dto.ClienteDTO;
 import dto.SucursalDTO;
 
 public class nuevaVentanaCita {
@@ -47,6 +48,7 @@ public class nuevaVentanaCita {
 	private JPanel JPnl_Cliente;
 	private JCheckBox chckbxRegistrado;
 	private JCheckBox chckbxGenerico;
+	private JButton btnBuscar;
 	private JPanel JPnl_Servicios;
 	private JComboBox<Integer> JCBoxHora;
 	private JComboBox<Integer> JCBoxMinutos;
@@ -68,6 +70,7 @@ public class nuevaVentanaCita {
 	
 	private LocalDate fechaCita;
 	private SucursalDTO sucursal;
+	private ClienteDTO cliente;
 
 	
 	public static nuevaVentanaCita getInstance()
@@ -306,7 +309,7 @@ public class nuevaVentanaCita {
 	}
 
 	private void crearBotonBuscar() {
-		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(426, 104, 97, 23);
 		JPnl_Cliente.add(btnBuscar);
 	}
@@ -507,6 +510,28 @@ public class nuevaVentanaCita {
 		JDChooserFecha.setEnabled(false);
 	}
 	
+	public void setDatosClienteRegistrado() {
+		this.getTxtNombre().setText(cliente.getNombre());
+		this.getTxtApellido().setText(cliente.getApellido());
+		this.getTxtMail().setText(cliente.getMail());
+		this.getTxtTelefono().setText(cliente.getApellido());
+		
+		setearTxt(false);
+	}
+	
+	public void setearTxt(boolean b) {
+		this.getTxtNombre().setEditable(b);
+		this.getTxtApellido().setEditable(b);
+		this.getTxtMail().setEditable(b);
+		this.getTxtTelefono().setEditable(b);
+	}
+	
+	public void limpiarTxtCliente() {
+		this.getTxtNombre().setText(null);
+		this.getTxtApellido().setText(null);
+		this.getTxtMail().setText(null);
+		this.getTxtTelefono().setText(null);
+	}
 	public void habilitarJDateChooser() {
 		JDChooserFecha.setEnabled(true);
 	}
@@ -732,4 +757,27 @@ public class nuevaVentanaCita {
 	public void setLblAlertaSucursal(JLabel lblAlertaSucursal) {
 		this.lblAlertaSucursal = lblAlertaSucursal;
 	}
+
+
+	public JButton getBtnBuscar() {
+		return btnBuscar;
+	}
+
+
+	public void setBtnBuscar(JButton btnBuscar) {
+		this.btnBuscar = btnBuscar;
+	}
+
+
+	public ClienteDTO getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(ClienteDTO cliente) {
+		this.cliente = cliente;
+	}
+
+	
+	
 }

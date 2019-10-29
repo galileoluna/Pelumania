@@ -4,12 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.table.TableModel;
-
 import dto.ClienteDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
+import presentacion.vista.nuevaVentanaCita;
 
 public class ControladorBuscarCliente implements ActionListener{
 	
@@ -17,16 +15,16 @@ public class ControladorBuscarCliente implements ActionListener{
 	private Sistema sistema;
 	private List<ClienteDTO> listaClientes;
 	private static ControladorBuscarCliente INSTANCE;
-	private static VentanaAgregarCita ventanaAgregarCita;
+	private static nuevaVentanaCita ventanaCita;
 
-	private ControladorBuscarCliente(Sistema sistema, VentanaAgregarCita VAC) {
+	private ControladorBuscarCliente(Sistema sistema, nuevaVentanaCita VAC) {
 		this.ventanaBuscarCliente = VentanaBuscarCliente.getInstance();
-		this.ventanaAgregarCita = VAC;
+		this.ventanaCita = VAC;
 		this.ventanaBuscarCliente.getBtnSeleccionarCliente().addActionListener(p -> seleccionarCliente(p));
 		this.sistema = sistema;
 	}
 
-	public static ControladorBuscarCliente getInstance(Sistema sistema, VentanaAgregarCita VAC) {
+	public static ControladorBuscarCliente getInstance(Sistema sistema, nuevaVentanaCita VAC) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorBuscarCliente(sistema, VAC);
 		}
@@ -45,16 +43,8 @@ public class ControladorBuscarCliente implements ActionListener{
 		int filaSeleccionada = this.ventanaBuscarCliente.getTablaClientes().getSelectedRow();
 		ClienteDTO cliente_seleccionado = this.listaClientes.get(filaSeleccionada);
 		if (cliente_seleccionado != null) {
-			String nombre = cliente_seleccionado.getNombre();
-			String apellido = cliente_seleccionado.getApellido();
-			int id = cliente_seleccionado.getIdCliente();
-			
-			this.ventanaAgregarCita.getTxtNombre().setText(nombre);
-			this.ventanaAgregarCita.getTxtNombre().setEditable(false);
-			this.ventanaAgregarCita.getTxtApellido().setText(apellido);
-			this.ventanaAgregarCita.getTxtApellido().setEditable(false);
-			this.ventanaAgregarCita.setIdCliente(id);
-			
+			this.ventanaCita.setCliente(cliente_seleccionado);
+			this.ventanaCita.setDatosClienteRegistrado();
 			this.ventanaBuscarCliente.cerrar();
 		}
 
