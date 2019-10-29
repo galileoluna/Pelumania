@@ -166,7 +166,7 @@ public class Controlador2 implements ActionListener{
 	
 	private String getSucursal(int idSucursal) {
 		SucursalDTO sucursal= sistema.getSucursalById(idSucursal);
-		return sucursal.getNombreSucursal();
+		return sucursal.getNombreSucursal(); 
 	}
 
 	private void ventanaServicios(ActionEvent a) {
