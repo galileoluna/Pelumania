@@ -45,7 +45,7 @@ public class ControladorAltaPromo implements ActionListener{
 		}
 		char[] auxPuntos=this.ventanaAltaPromo.getPuntos().getText().toCharArray();
 		for(int i=0;i<auxPuntos.length;i++) {
-			if(Character.isDigit(auxPuntos[i])) {
+			if(!Character.isDigit(auxPuntos[i])) {
 				JOptionPane.showMessageDialog(null, "Dato incorrecto en los puntos (poner solo numeros)", "Error", JOptionPane.ERROR_MESSAGE);
 				validarError=true;}
 		}

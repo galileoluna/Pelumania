@@ -24,6 +24,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 	private static final String getById = "SELECT * FROM Servicio WHERE idServicio = ?";
 	private static final String deleteRealServicio = "DELETE FROM Servicio WHERE idServicio = ?";
 	private static final String readBuscador = "SELECT * FROM Servicio WHERE ? LIKE ?";
+	private static final String deletePromoAsociada="UPDATE promocion SET estado='Inactivo' WHERE idPromocion IN (SELECT sp.idPromocion FROM serviciopromocion sp JOIN servicio s USING (idServicio) WHERE s.IdServicio=?)";
 	
 	private static final String ESTADO_INACTIVO = "Inactivo";
 
@@ -102,12 +103,31 @@ public class ServicioDAOSQL implements ServicioDAO{
 			if(statement.executeUpdate() > 0){
 				conexion.commit();
 				isdeleteExitoso = true;
+				deletePromoAsociada(servicio_a_eliminar.getIdServicio());
 			}
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return isdeleteExitoso;
+	}
+
+	private boolean deletePromoAsociada(int idServicio) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeletePromoExitoso = false;
+		try {
+			statement = conexion.prepareStatement(deletePromoAsociada);
+			statement.setInt(1, idServicio);
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				isdeletePromoExitoso = true;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isdeletePromoExitoso;		
 	}
 
 	public List<ServicioDTO> readAll() {
