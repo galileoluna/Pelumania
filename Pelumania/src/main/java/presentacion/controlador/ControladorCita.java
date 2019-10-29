@@ -30,6 +30,7 @@ public class ControladorCita implements ActionListener{
 		this.sistema = s;
 		
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
+		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> mostrarPopUpSucursal(b));
 		
 		inicializarArreglos();
 	}
@@ -85,6 +86,15 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getJDChooserFecha().setEnabled(true);
 	}
 		
+	
+	public void mostrarPopUpSucursal(ActionEvent b) {
+		//limpiar todos los cmapos y recargarlos
+		if (!((SucursalDTO)this.ventanaCita.getJCBoxSucursal().getSelectedItem()).equals(sucursal)) {
+			this.ventanaCita.getLblAlertaSucursal().setVisible(true);
+		}
+		else
+			this.ventanaCita.getLblAlertaSucursal().setVisible(false);
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

@@ -54,6 +54,7 @@ public class nuevaVentanaCita {
 	private JRadioButton rdBtnServicio;
 	private JPanel JPnl_DinamicoServicios;
 	private JComponent JPnl_Datos;
+	private JLabel lblAlertaSucursal;
 	
 	private JTable tablaServiciosAgregados;
 	private DefaultTableModel modelServiciosAgregados;
@@ -66,6 +67,7 @@ public class nuevaVentanaCita {
 	
 	private LocalDate fechaCita;
 	private SucursalDTO sucursal;
+
 	
 	
 	public static nuevaVentanaCita getInstance()
@@ -176,6 +178,8 @@ public class nuevaVentanaCita {
 		frame.setBounds(100, 100, 569, 730);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 		frame.setTitle("Nueva Cita");
 	}
 
@@ -436,9 +440,12 @@ public class nuevaVentanaCita {
 	}
 
 	private void crearLabelAlertaSucursal() {
-		JLabel lblAlertaSucursal = new JLabel("[Pop-up Otra sucursal]");
+		Color amarilloOpaco = new Color(249,221,140);
+		lblAlertaSucursal = new JLabel("Estas dando de alta una cita en una sucursal distinta a la tuya!");
 		lblAlertaSucursal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlertaSucursal.setBounds(10, 85, 494, 30);
+		lblAlertaSucursal.setBounds(1, 85, 531, 29);
+		lblAlertaSucursal.setBackground(amarilloOpaco);
+		lblAlertaSucursal.setOpaque(true);
 		JPnl_Datos.add(lblAlertaSucursal);
 	}
 
@@ -700,6 +707,16 @@ public class nuevaVentanaCita {
 
 	public void setSucursal(SucursalDTO sucursal) {
 		this.sucursal = sucursal;
+	}
+
+
+	public JLabel getLblAlertaSucursal() {
+		return lblAlertaSucursal;
+	}
+
+
+	public void setLblAlertaSucursal(JLabel lblAlertaSucursal) {
+		this.lblAlertaSucursal = lblAlertaSucursal;
 	}
 	
 	
