@@ -79,6 +79,7 @@ public class nuevaVentanaCita {
 		{
 			INSTANCE = new nuevaVentanaCita();
 		}
+		INSTANCE.limpiarTodo();
 		INSTANCE.frame.setVisible(true);
 		return INSTANCE;	
 		
@@ -311,6 +312,7 @@ public class nuevaVentanaCita {
 	private void crearBotonBuscar() {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(426, 104, 97, 23);
+		btnBuscar.setEnabled(false);
 		JPnl_Cliente.add(btnBuscar);
 	}
 
@@ -534,6 +536,14 @@ public class nuevaVentanaCita {
 	}
 	public void habilitarJDateChooser() {
 		JDChooserFecha.setEnabled(true);
+	}
+	
+	public void limpiarTodo() {
+		this.btnBuscar.setEnabled(false);
+		this.chckbxGenerico.setSelected(false);
+		this.chckbxRegistrado.setSelected(false);
+		limpiarTxtCliente();
+		setearTxt(true);
 	}
 	/* *************************************************************************************
 	 * ******************** GETTERS Y SETTERS DE LOS COMPONENTES ***************************
