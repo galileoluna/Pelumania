@@ -55,10 +55,10 @@ public class ControladorServicio {
 		    // code block
 		    break;
 		  case 3:
-			ventanaServicio.getBtnAgregar().setVisible(false);
-			ventanaServicio.getBtnBorrar().setVisible(false);
-			ventanaServicio.getBtnBuscar().setVisible(false);
-			ventanaServicio.getBtnEditar().setVisible(false);
+			ventanaServicio.getBtnAgregar().setEnabled(false);
+			ventanaServicio.getBtnBorrar().setEnabled(false);
+			ventanaServicio.getBtnBuscar().setEnabled(false);
+			ventanaServicio.getBtnEditar().setEnabled(false);
 			  break;
 		  case 4:
 			 

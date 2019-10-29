@@ -153,7 +153,16 @@ public class Controlador2 implements ActionListener{
 			this.nvista.getMntmGestionDePromociones().setVisible(false);
 			  break;
 		  case 4:
-			 
+			 this.nvista.getJM_Servicio().setVisible(false);
+			 this.nvista.getJM_Cliente().setVisible(false);
+			 this.nvista.getJM_Caja().setVisible(false);
+			 this.nvista.getBtn_Agregar().setEnabled(false);
+			 this.nvista.getBtnCita().setEnabled(false);
+			 this.nvista.getMntmReporteGeneral().setVisible(false);
+			 this.nvista.getMntmReportePorCliente().setVisible(false);
+			 this.nvista.getMntmReportePorProfesional().setVisible(false);
+			 this.nvista.getMntmReportePorServicio().setVisible(false);
+			 this.nvista.getMntmReporteRanking().setVisible(false);
 			 break;
 		}		
 	}
@@ -184,7 +193,7 @@ public class Controlador2 implements ActionListener{
 		this.controladorPromocion= ControladorPromocion.getInstance(sistema);
 	}
 	private void ventanaSucursales (ActionEvent e) {
-		this.controladorSucursal= ControladorSucursal.getInstance(sistema);
+		this.controladorSucursal= ControladorSucursal.getInstance(sistema,usuario);
 	}
 //	private void verPromocionesVigentes(ActionEvent f) {
 //		this.controladorPromoVigente=ControladorPromocionesVigentes.getInstance(sistema,vista);

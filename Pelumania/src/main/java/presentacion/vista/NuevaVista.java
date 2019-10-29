@@ -206,6 +206,10 @@ public class NuevaVista implements Runnable {
 		frame.setVisible(true);
 	}
 
+	public JButton getBtnCita() {
+		return btnCita;
+	}
+
 	private void crearBarraMenu() {
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
