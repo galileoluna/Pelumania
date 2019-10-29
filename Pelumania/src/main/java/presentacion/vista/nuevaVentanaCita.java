@@ -52,6 +52,7 @@ public class nuevaVentanaCita {
 	private JComboBox<Integer> JCBoxMinutos;
 	private JRadioButton rdBtnProfesional;
 	private JRadioButton rdBtnServicio;
+	private JRadioButton rdbtnPromocion;
 	private JPanel JPnl_DinamicoServicios;
 	private JComponent JPnl_Datos;
 	private JLabel lblAlertaSucursal;
@@ -68,7 +69,6 @@ public class nuevaVentanaCita {
 	private LocalDate fechaCita;
 	private SucursalDTO sucursal;
 
-	
 	
 	public static nuevaVentanaCita getInstance()
 	{
@@ -135,6 +135,8 @@ public class nuevaVentanaCita {
 		
 		crearRadioButtonServicio();
 		
+		crearRadioButtonPromocion();
+		
 		crearPanelDinamicoServicios();
 		
 		crearTxtDescripcion();
@@ -185,7 +187,6 @@ public class nuevaVentanaCita {
 
 	private void crearPanelDatosGlobales() {
 		JPnl_DatosGlobales = new JPanel();
-		JPnl_DatosGlobales.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_DatosGlobales.setBounds(10, 11, 533, 105);
 		frame.getContentPane().add(JPnl_DatosGlobales);
 		JPnl_DatosGlobales.setLayout(null);
@@ -226,7 +227,6 @@ public class nuevaVentanaCita {
 
 	private void crearPanelCliente() {
 		JPnl_Cliente = new JPanel();
-		JPnl_Cliente.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_Cliente.setBounds(10, 115, 533, 136);
 		frame.getContentPane().add(JPnl_Cliente);
 		JPnl_Cliente.setLayout(null);
@@ -263,11 +263,11 @@ public class nuevaVentanaCita {
 		JPnl_Cliente.add(lblMail);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(113, 45, 46, 14);
+		lblNombre.setBounds(113, 45, 71, 14);
 		JPnl_Cliente.add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
-		lblApellido.setBounds(269, 45, 46, 14);
+		lblApellido.setBounds(269, 45, 71, 14);
 		JPnl_Cliente.add(lblApellido);
 	}
 
@@ -313,7 +313,6 @@ public class nuevaVentanaCita {
 
 	private void crearPanelServicios() {
 		JPnl_Servicios = new JPanel();
-		JPnl_Servicios.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_Servicios.setBounds(10, 249, 533, 282);
 		frame.getContentPane().add(JPnl_Servicios);
 		JPnl_Servicios.setLayout(null);
@@ -350,14 +349,20 @@ public class nuevaVentanaCita {
 
 	private void crearRadioButtonProfesional() {
 		rdBtnProfesional = new JRadioButton("Profesional");
-		rdBtnProfesional.setBounds(256, 33, 109, 23);
+		rdBtnProfesional.setBounds(247, 33, 96, 23);
 		JPnl_Servicios.add(rdBtnProfesional);
 	}
 
 	private void crearRadioButtonServicio() {
 		rdBtnServicio = new JRadioButton("Servicio");
-		rdBtnServicio.setBounds(395, 33, 109, 23);
+		rdBtnServicio.setBounds(345, 33, 74, 23);
 		JPnl_Servicios.add(rdBtnServicio);
+	}
+	
+	private void crearRadioButtonPromocion() {
+		rdbtnPromocion = new JRadioButton("Promocion");
+		rdbtnPromocion.setBounds(421, 33, 112, 23);
+		JPnl_Servicios.add(rdbtnPromocion);
 	}
 
 	private void crearPanelDinamicoServicios() {
@@ -398,7 +403,6 @@ public class nuevaVentanaCita {
 
 	private void crearPanelDatos() {
 		JPnl_Datos = new JPanel();
-		JPnl_Datos.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_Datos.setBounds(10, 531, 533, 115);
 		frame.getContentPane().add(JPnl_Datos);
 		JPnl_Datos.setLayout(null);
@@ -650,6 +654,16 @@ public class nuevaVentanaCita {
 	}
 
 
+	public JRadioButton getRdbtnPromocion() {
+		return rdbtnPromocion;
+	}
+
+
+	public void setRdbtnPromocion(JRadioButton rdbtnPromocion) {
+		this.rdbtnPromocion = rdbtnPromocion;
+	}
+
+
 	public JPanel getJPnl_DinamicoServicios() {
 		return JPnl_DinamicoServicios;
 	}
@@ -718,7 +732,4 @@ public class nuevaVentanaCita {
 	public void setLblAlertaSucursal(JLabel lblAlertaSucursal) {
 		this.lblAlertaSucursal = lblAlertaSucursal;
 	}
-	
-	
-
 }
