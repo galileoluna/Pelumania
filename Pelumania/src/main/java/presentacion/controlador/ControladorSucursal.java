@@ -47,7 +47,7 @@ public class ControladorSucursal {
 	
 
 	private void agregarSucursal(ActionEvent a) {
-		this.controladorAgregarSucursal = ControladorAgregarSucursal.getInstance(sistema);
+		this.controladorAgregarSucursal = ControladorAgregarSucursal.getInstance(sistema,usuario);
 	}
 	
 	private void editarSucursal(ActionEvent c) {
@@ -60,7 +60,7 @@ public class ControladorSucursal {
         		this.idSucursal = sucursalEnTabla.get(fila).getIdSucursal();
         		SucursalDTO sucursal_a_editar = sistema.getSucursalById(idSucursal);
         		
-        		ControladorEditarSucursal.getInstance(sistema, sucursal_a_editar, idSucursal);
+        		ControladorEditarSucursal.getInstance(sistema, sucursal_a_editar, idSucursal,usuario);
 	}
     	}
 	}

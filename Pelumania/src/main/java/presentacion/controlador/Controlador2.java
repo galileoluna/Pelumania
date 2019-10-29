@@ -94,7 +94,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
 		this.nvista.getMntmGestionDeClientes().addActionListener(c -> ventanaClientes(c));
 		this.nvista.getMntmGestionDePromociones().addActionListener(d -> ventanaPromociones(d));
-//		this.nvista.getMntmVerPromocionesVigentes().addActionListener(e -> verPromocionesVigentes(e));
+		this.nvista.getMntmVerPromocionesVigentes().addActionListener(e -> verPromocionesVigentes(e));
 		this.nvista.getMntmGestionDeSucursales().addActionListener(f -> ventanaSucursales(f));
 		this.nvista.getMntmUtilizarCaja().addActionListener(g -> ventanaCaja(g));
 		this.nvista.getMntmConsultarCategorias().addActionListener(h -> ventanCategoriaMovimientoCaja(h));
@@ -146,23 +146,35 @@ public class Controlador2 implements ActionListener{
 		    
 		    break;
 		  case 2:
-		    // code block
+			  	 this.nvista.getJM_Profesional().setVisible(false);
+				 this.nvista.getJM_Servicio().setVisible(false);
+				 this.nvista.getJM_Cliente().setVisible(false);
+				 this.nvista.getJM_Promociones().setVisible(false);
+				 this.nvista.getJM_Sucursales().setVisible(false);
+				 this.nvista.getJM_Caja().setVisible(false);
+				 this.nvista.getBtn_Agregar().setEnabled(false);
+				 this.nvista.getBtnCita().setEnabled(false);
+				 this.nvista.getMntmReporteGeneral().setVisible(false);
+				 this.nvista.getMntmReportePorCliente().setVisible(false);
+				 this.nvista.getMntmReportePorProfesional().setVisible(false);
+				 this.nvista.getMntmReportePorServicio().setVisible(false);
+				 this.nvista.getMntmReporteLocal().setVisible(false);
 		    break;
 		  case 3:
-			this.nvista.getJM_Reportes().setVisible(false);
-			this.nvista.getMntmGestionDePromociones().setVisible(false);
+			  	this.nvista.getJM_Reportes().setVisible(false);
+				this.nvista.getMntmGestionDePromociones().setVisible(false);
 			  break;
 		  case 4:
-			 this.nvista.getJM_Servicio().setVisible(false);
-			 this.nvista.getJM_Cliente().setVisible(false);
-			 this.nvista.getJM_Caja().setVisible(false);
-			 this.nvista.getBtn_Agregar().setEnabled(false);
-			 this.nvista.getBtnCita().setEnabled(false);
-			 this.nvista.getMntmReporteGeneral().setVisible(false);
-			 this.nvista.getMntmReportePorCliente().setVisible(false);
-			 this.nvista.getMntmReportePorProfesional().setVisible(false);
-			 this.nvista.getMntmReportePorServicio().setVisible(false);
-			 this.nvista.getMntmReporteRanking().setVisible(false);
+				 this.nvista.getJM_Servicio().setVisible(false);
+				 this.nvista.getJM_Cliente().setVisible(false);
+				 this.nvista.getJM_Caja().setVisible(false);
+				 this.nvista.getBtn_Agregar().setEnabled(false);
+				 this.nvista.getBtnCita().setEnabled(false);
+				 this.nvista.getMntmReporteGeneral().setVisible(false);
+				 this.nvista.getMntmReportePorCliente().setVisible(false);
+				 this.nvista.getMntmReportePorProfesional().setVisible(false);
+				 this.nvista.getMntmReportePorServicio().setVisible(false);
+				 this.nvista.getMntmReporteRanking().setVisible(false);
 			 break;
 		}		
 	}
@@ -195,9 +207,9 @@ public class Controlador2 implements ActionListener{
 	private void ventanaSucursales (ActionEvent e) {
 		this.controladorSucursal= ControladorSucursal.getInstance(sistema,usuario);
 	}
-//	private void verPromocionesVigentes(ActionEvent f) {
-//		this.controladorPromoVigente=ControladorPromocionesVigentes.getInstance(sistema,vista);
-//	}
+	private void verPromocionesVigentes(ActionEvent f) {
+		this.controladorPromoVigente=ControladorPromocionesVigentes.getInstance(sistema,nvista);
+	}
 
 	private void ventanCategoriaMovimientoCaja(ActionEvent g) {
 		this.controladorCategoriaMovimientoCaja = ControladorCategoriaMovimientoCaja.getInstance(sistema);
@@ -520,6 +532,7 @@ public class Controlador2 implements ActionListener{
 	
 	public void habilitarBotonAgregar() {
 		this.nvista.getBtn_Agregar().setEnabled(true);
+		getPermisos();
 	}
 	
 	public void actualizarCitaSeleccionada(ListSelectionEvent l) {
