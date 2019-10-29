@@ -1,4 +1,4 @@
-DROP DATABASE `Pelumania`;
+
 CREATE DATABASE `Pelumania`;
 USE Pelumania;
 
@@ -296,6 +296,9 @@ VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Acti
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
 VALUES (2, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 1);
+
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (-1, 'Default', 'user', 'e', 'e', 'a@a.com', 'Activo', 1, 2);
 
 -- Inserts para los servicios
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)

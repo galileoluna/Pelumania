@@ -130,6 +130,10 @@ public class Controlador2 implements ActionListener{
 			{
 			controladorCita = ControladorCita.getInstance(sistema);
 			controladorCita.setFecha(fechaSeleccionada);
+			System.out.println("La sucursal en controlador es: "+sucursal);
+			controladorCita.setSucursal(sucursal);
+			controladorCita.setearSucursalActual();
+			controladorCita.cargarDatos();
 			}
 		
 	}
@@ -208,6 +212,7 @@ public class Controlador2 implements ActionListener{
 			ControladorAgregarCita.setANIO(fechaSeleccionada.getYear());
 			ControladorAgregarCita.setMES(fechaSeleccionada.getMonthValue());
 			ControladorAgregarCita.setDIA(fechaSeleccionada.getDayOfMonth());
+			
 			this.controladorAgregarCita = ControladorAgregarCita.getInstance(sistema);
 		}
 	}

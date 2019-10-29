@@ -499,6 +499,209 @@ public class nuevaVentanaCita {
 	public void habilitarJDateChooser() {
 		JDChooserFecha.setEnabled(true);
 	}
+	/* *************************************************************************************
+	 * ******************** GETTERS Y SETTERS DE LOS COMPONENTES ***************************
+	 * *************************************************************************************/
 
+	public JTextField getTxtNombre() {
+		return TxtNombre;
+	}
+
+
+	public void setTxtNombre(JTextField txtNombre) {
+		TxtNombre = txtNombre;
+	}
+
+
+	public JTextField getTxtApellido() {
+		return TxtApellido;
+	}
+
+
+	public void setTxtApellido(JTextField txtApellido) {
+		TxtApellido = txtApellido;
+	}
+
+
+	public JTextField getTxtTelefono() {
+		return TxtTelefono;
+	}
+
+
+	public void setTxtTelefono(JTextField txtTelefono) {
+		TxtTelefono = txtTelefono;
+	}
+
+
+	public JTextField getTxtMail() {
+		return TxtMail;
+	}
+
+
+	public void setTxtMail(JTextField txtMail) {
+		TxtMail = txtMail;
+	}
+
+
+	public JTextField getTxtDescripcion() {
+		return txtDescripcion;
+	}
+
+
+	public void setTxtDescripcion(JTextField txtDescripcion) {
+		this.txtDescripcion = txtDescripcion;
+	}
+
+
+	public JComboBox<SucursalDTO> getJCBoxSucursal() {
+		return JCBoxSucursal;
+	}
+
+
+	public void setJCBoxSucursal(JComboBox<SucursalDTO> jCBoxSucursal) {
+		JCBoxSucursal = jCBoxSucursal;
+	}
+
+
+	public JDateChooser getJDChooserFecha() {
+		return JDChooserFecha;
+	}
+
+
+	public void setJDChooserFecha(JDateChooser jDChooserFecha) {
+		JDChooserFecha = jDChooserFecha;
+	}
+
+
+	public JButton getBtnEditarFecha() {
+		return btnEditarFecha;
+	}
+
+
+	public void setBtnEditarFecha(JButton btnEditarFecha) {
+		this.btnEditarFecha = btnEditarFecha;
+	}
+
+
+	public JCheckBox getChckbxRegistrado() {
+		return chckbxRegistrado;
+	}
+
+
+	public void setChckbxRegistrado(JCheckBox chckbxRegistrado) {
+		this.chckbxRegistrado = chckbxRegistrado;
+	}
+
+
+	public JCheckBox getChckbxGenerico() {
+		return chckbxGenerico;
+	}
+
+
+	public void setChckbxGenerico(JCheckBox chckbxGenerico) {
+		this.chckbxGenerico = chckbxGenerico;
+	}
+
+
+	public JComboBox<Integer> getJCBoxHora() {
+		return JCBoxHora;
+	}
+
+
+	public void setJCBoxHora(JComboBox<Integer> jCBoxHora) {
+		JCBoxHora = jCBoxHora;
+	}
+
+
+	public JComboBox<Integer> getJCBoxMinutos() {
+		return JCBoxMinutos;
+	}
+
+
+	public void setJCBoxMinutos(JComboBox<Integer> jCBoxMinutos) {
+		JCBoxMinutos = jCBoxMinutos;
+	}
+
+
+	public JRadioButton getRdBtnProfesional() {
+		return rdBtnProfesional;
+	}
+
+
+	public void setRdBtnProfesional(JRadioButton rdBtnProfesional) {
+		this.rdBtnProfesional = rdBtnProfesional;
+	}
+
+
+	public JRadioButton getRdBtnServicio() {
+		return rdBtnServicio;
+	}
+
+
+	public void setRdBtnServicio(JRadioButton rdBtnServicio) {
+		this.rdBtnServicio = rdBtnServicio;
+	}
+
+
+	public JPanel getJPnl_DinamicoServicios() {
+		return JPnl_DinamicoServicios;
+	}
+
+
+	public void setJPnl_DinamicoServicios(JPanel jPnl_DinamicoServicios) {
+		JPnl_DinamicoServicios = jPnl_DinamicoServicios;
+	}
+
+
+	public JTable getTablaServiciosAgregados() {
+		return tablaServiciosAgregados;
+	}
+
+
+	public void setTablaServiciosAgregados(JTable tablaServiciosAgregados) {
+		this.tablaServiciosAgregados = tablaServiciosAgregados;
+	}
+
+
+	public DefaultTableModel getModelServiciosAgregados() {
+		return modelServiciosAgregados;
+	}
+
+
+	public void setModelServiciosAgregados(DefaultTableModel modelServiciosAgregados) {
+		this.modelServiciosAgregados = modelServiciosAgregados;
+	}
+
+
+	public String[] getNombreColumnasAgregadas() {
+		return nombreColumnasAgregadas;
+	}
+
+
+	public void setNombreColumnasAgregadas(String[] nombreColumnasAgregadas) {
+		this.nombreColumnasAgregadas = nombreColumnasAgregadas;
+	}
+
+
+	public JScrollPane getSpServiciosAgregados() {
+		return spServiciosAgregados;
+	}
+
+
+	public void setSpServiciosAgregados(JScrollPane spServiciosAgregados) {
+		this.spServiciosAgregados = spServiciosAgregados;
+	}
+
+
+	public SucursalDTO getSucursal() {
+		return sucursal;
+	}
+
+
+	public void setSucursal(SucursalDTO sucursal) {
+		this.sucursal = sucursal;
+	}
+	
+	
 
 }

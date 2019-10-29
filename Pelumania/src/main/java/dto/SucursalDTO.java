@@ -61,4 +61,18 @@ public class SucursalDTO {
 		return this.nombreSucursal;
 	}
 	
+	@Override
+	public boolean equals(Object otro) {
+		return this.getIdSucursal() == ((SucursalDTO)otro).getIdSucursal();
+//			&& this.getNombreSucursal().equals(((SucursalDTO)otro).getNombreSucursal());
+	}
+	
+	@Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + (this.nombreSucursal != null ? this.nombreSucursal.hashCode() : 0);
+        hash = 89 * hash + this.idSucursal;
+        return hash;
+    }
+	
 }
