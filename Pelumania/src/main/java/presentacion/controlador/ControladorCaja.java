@@ -57,6 +57,7 @@ public class ControladorCaja implements ActionListener {
 		} else {
 			llenarComboTipoCambioServicio();
 			disablePrecio();
+			
 		}
 	}
 
@@ -98,9 +99,10 @@ public class ControladorCaja implements ActionListener {
 				comboCategoria.addItem(categoria.getNombre());
 			}
 		}
-		
-		llenarComboTipoCambioServicio();
-		this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
+		if(esServicio()) {
+			llenarComboTipoCambioServicio();
+			this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
+		}
 		this.ventanaCaja.getPanelEgreso().setVisible(false);
 		
 	}
@@ -311,13 +313,13 @@ public class ControladorCaja implements ActionListener {
 	
 	private boolean esIngreso() {
 		String tipoMov = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
-		return tipoMov.equalsIgnoreCase("ingreso");
+		return tipoMov.equalsIgnoreCase("ingreso") || tipoMov.equalsIgnoreCase("ingresos");
 	}
 	
 	private boolean esServicio() {
 		if (this.ventanaCaja.getComboCategoria().getItemCount() > 0) {
 			String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
-			return categoria.equalsIgnoreCase("servicio");
+			return categoria.equalsIgnoreCase("servicio") || categoria.equalsIgnoreCase("servicios");
 		} else
 			return false;
 	}
