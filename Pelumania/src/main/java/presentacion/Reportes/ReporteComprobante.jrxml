@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ultimaPrueba" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="79b6b6dd-d91a-4af5-af47-a2c5cbe075aa">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante de Cita" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="79b6b6dd-d91a-4af5-af47-a2c5cbe075aa">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -32,9 +34,6 @@
 	<field name="nomSucursal" class="java.lang.String">
 		<fieldDescription><![CDATA[nomSucursal]]></fieldDescription>
 	</field>
-	<field name="nomProfesional" class="java.lang.String">
-		<fieldDescription><![CDATA[nomProfesional]]></fieldDescription>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -59,7 +58,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nomSucursal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{idSucursal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -109,13 +108,6 @@
 				</textElement>
 				<text><![CDATA[Servicio]]></text>
 			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="360" y="0" width="80" height="29" forecolor="#FFFFFF" backcolor="#000000" uuid="a7e6aad8-8615-4aad-b26e-101ea8c5c37c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Profesional]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -139,11 +131,6 @@
 				<reportElement x="270" y="0" width="80" height="30" uuid="69fe1f15-26b3-425f-8549-d0f214f9fe55"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="360" y="0" width="80" height="30" uuid="90c445f0-dbb4-47f3-970c-da96e836f19b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{nomProfesional}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
