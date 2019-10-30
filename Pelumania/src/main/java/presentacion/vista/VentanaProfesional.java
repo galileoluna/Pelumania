@@ -156,7 +156,7 @@ public class VentanaProfesional
 	}
 	
 	public DefaultTableModel getmodelProfesional() 
-	{
+	{ 
 		return modelProfesional;
 	}
 	
