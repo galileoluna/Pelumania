@@ -199,12 +199,11 @@ public class VentanaProfesional
 			String estado=p.getEstado();
 			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans,estado};
 			if(idSucursal == -1) {
-				System.out.println("entre aca -1");
 				this.getmodelProfesional().addRow(fila);			
 			}else {
-				System.out.println("entre aca !-1");
-				if(p.getIdSucursalOrigen() == idSucursal || p.getIdSucursalOrigen() == idSucursal) {
-					System.out.println("entre aca !-1");
+
+				if(p.getIdSucursalOrigen() == idSucursal || p.getIdSucursalTransferencia() == idSucursal) {
+
 					this.getmodelProfesional().addRow(fila);
 				}
 			}
