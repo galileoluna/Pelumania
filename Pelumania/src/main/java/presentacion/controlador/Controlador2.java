@@ -85,6 +85,7 @@ public class Controlador2 implements ActionListener{
 		citasEnTabla = new ArrayList<CitaDTO>();
 		
 		setearFechaSeleccionadaHoy();
+		actualizarDiaSeleccionado();
 		RefrescarTablaCitas();
 		getPermisos();
 		
@@ -437,18 +438,21 @@ public class Controlador2 implements ActionListener{
 		}
 		
 	private void actualizarDiaSeleccionado(PropertyChangeEvent i) {
-		limpiarTablas();
-		this.citaSeleccionada = null;
-		actualizarPanelCitaSeleccionada();
-		setearFechaSeleccionadaEnCalendario();
-		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
-		cargarListaConCitas();
-		RefrescarTablaCitas();
-		habilitarBotonAgregar();
-		
+		actualizarDiaSeleccionado();
 		log.info("Las citas del día: "+fechaSeleccionada+" son "+citasDelDia);
 		log.info("Y las citas en tabla son: "+ citasEnTabla);
 		log.info("__________________________________________________________");
+	}
+	
+private void actualizarDiaSeleccionado() {
+	limpiarTablas();
+	this.citaSeleccionada = null;
+	actualizarPanelCitaSeleccionada();
+	setearFechaSeleccionadaEnCalendario();
+	citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+	cargarListaConCitas();
+	RefrescarTablaCitas();
+	habilitarBotonAgregar();
 	}
 
 	private static String getFechaSeleccionadaAsString() {
