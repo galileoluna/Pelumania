@@ -7,14 +7,11 @@ import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.Login;
 import presentacion.vista.NuevaVista;
-import presentacion.vista.Vista;
 
 public class ControladorLogin implements ActionListener{
 	Login login;

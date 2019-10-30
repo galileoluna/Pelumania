@@ -4,11 +4,9 @@ import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;

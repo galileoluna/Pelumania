@@ -8,12 +8,9 @@ import java.util.Locale;
 
 import dto.ClienteDTO;
 import dto.MovimientoCajaDTO;
-import dto.ServicioDTO;
 import modelo.Sistema;
-import presentacion.Reportes.ReporteDeCajaPorSucursal;
-import presentacion.Reportes.ReportePorCliente;
+import presentacion.reportes.ReportePorCliente;
 import presentacion.vista.VentanaReportePorCliente;
-import presentacion.vista.VentanaReportePorServicio;
 
 public class ControladorReportePorCliente {
 	private VentanaReportePorCliente ventanaReportes;

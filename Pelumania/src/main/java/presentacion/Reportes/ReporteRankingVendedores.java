@@ -1,4 +1,4 @@
-package presentacion.Reportes;
+package presentacion.reportes;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import dto.CitaDTO;
 import dto.MovimientoCajaDTO;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;

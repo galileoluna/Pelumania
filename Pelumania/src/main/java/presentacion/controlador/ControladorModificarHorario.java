@@ -8,9 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import dto.HorarioDTO;
-import dto.ProfesionalDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaHorarioProfesional;
 import presentacion.vista.VentanaModificarHorario;
 
 public class ControladorModificarHorario implements ActionListener {

@@ -9,7 +9,7 @@ import java.util.Locale;
 import dto.MovimientoCajaDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
-import presentacion.Reportes.ReporteDeCajaPorSucursal;
+import presentacion.reportes.ReporteDeCajaPorSucursal;
 import presentacion.vista.VentanaReportesPorLocal;
 
 public class ControladorReportesPorLocal /*implements ActionListener*/ {

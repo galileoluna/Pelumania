@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMultipart;
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import modelo.Sistema;
-import presentacion.Reportes.ReporteComprobante;
+import presentacion.reportes.ReporteComprobante;
 
 public class MailService {
 

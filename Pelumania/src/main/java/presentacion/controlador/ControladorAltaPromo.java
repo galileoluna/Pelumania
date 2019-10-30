@@ -2,15 +2,11 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import dto.PromocionDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaAltaPromocion;
 
 public class ControladorAltaPromo implements ActionListener{

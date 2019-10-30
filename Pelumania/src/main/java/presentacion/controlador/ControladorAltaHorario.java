@@ -3,8 +3,6 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -12,7 +10,6 @@ import javax.swing.JOptionPane;
 import dto.HorarioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAltaHorario;
-import presentacion.vista.VentanaAltaProfesional;
 
 public class ControladorAltaHorario implements ActionListener{
 	private static ControladorAltaHorario INSTANCE;

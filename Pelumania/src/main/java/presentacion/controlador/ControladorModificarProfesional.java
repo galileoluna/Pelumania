@@ -15,7 +15,6 @@ import dto.ProfesionalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
 import persistencia.conexion.Conexion;
-import presentacion.vista.VentanaAltaProfesional;
 import presentacion.vista.VentanaModificarProfesional;
 
 public class ControladorModificarProfesional implements ActionListener {
