@@ -113,6 +113,9 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getBtn_Agregar().addActionListener(k -> ventanaAgregarCita(k));
 		this.nvista.getBtn_Cancelar().addActionListener(l -> cancelarCita(l));
 		
+		//cobrar la cita desde la caja
+		this.nvista.getBtn_Finalizar().addActionListener(l -> finalizarCita(l));
+		
 		this.nvista.getTablaCitas().getSelectionModel().addListSelectionListener(l -> actualizarCitaSeleccionada(l));
 
 		this.nvista.getRdbtnServicios().addActionListener(m -> cargarPanelDinamicoServicios(m));
@@ -602,5 +605,10 @@ public class Controlador2 implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void finalizarCita(ActionEvent l) {
+		this.controladorCaja = ControladorCaja.getInstance(this.sistema);
+		this.controladorCaja.cobrarCitaDesdeMenu(this.citaSeleccionada);
 	}
 }

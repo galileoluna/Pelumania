@@ -308,7 +308,15 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getTxtPrecioDolar().setText(null);
 	}
 	private boolean esProducto() {
-		return this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Producto");
+		if (this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Producto") ||
+			this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Productos")) {
+			
+			return true;
+		
+		} else {
+			return false;
+		}
+	
 	}
 	
 	private boolean esIngreso() {
@@ -345,6 +353,32 @@ public class ControladorCaja implements ActionListener {
 	public void setServiciosCita(List<ServicioTurnoDTO> serviciosCita) {
 		this.serviciosCita = serviciosCita;
 	}
+
+	public void cobrarCitaDesdeMenu(CitaDTO citaSeleccionada) {
+		this.ventanaCaja.getComboTipoMovimiento().setSelectedItem("Ingreso");
+			if(existeCategoriaServicio()){
+				if(esServicio()) {
+					llenarComboTipoCambioServicio();
+					this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
+				}
+				this.ventanaCaja.getComboCategoria().setSelectedItem("Servicio");
+				this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
+				this.setCitaSeleccionada(citaSeleccionada);
+				this.setServiciosCita(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
+				this.mostarDatosCita();
+			}
+		}	
 	
+	private boolean existeCategoriaServicio() {
+		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
+			if (categoria.getNombre().equalsIgnoreCase("SERVICIO")) {
+				this.ventanaCaja.getComboCategoria().setSelectedItem(categoria.getNombre());
+			} else if( categoria.getNombre().equalsIgnoreCase("SERVICIOS")) {
+				this.ventanaCaja.getComboCategoria().setSelectedItem(categoria.getNombre());
+				return true;
+			}
+		}	
+		return false;
+	}
 	
 }
