@@ -83,7 +83,6 @@ public class VentanaAgregarCita extends JFrame
 
 	private JComboBox<SucursalDTO> JCBoxSucursales;
 	private JButton btnEditar;
-	private JButton btnVerComprobante;
 
 	public static VentanaAgregarCita getInstance()
 	{
@@ -290,10 +289,6 @@ public class VentanaAgregarCita extends JFrame
 		JCBoxSucursales.setBounds(100, 513, 237, 23);
 		panel.add(JCBoxSucursales);
 		
-		btnVerComprobante = new JButton("Ver Comprobante");
-		btnVerComprobante.setBounds(675, 556, 152, 23);
-		panel.add(btnVerComprobante);
-		
 		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(470, 556, 89, 23);
 		panel.add(btnEditar);
@@ -411,10 +406,6 @@ public class VentanaAgregarCita extends JFrame
 
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public JButton getBtnVerComprobante() {
-		return btnVerComprobante;
 	}
 
 	public void mostrarVentana()
@@ -767,9 +758,8 @@ public class VentanaAgregarCita extends JFrame
 	public void mostrarErrorSinServicios() {
 		JOptionPane.showMessageDialog(null, "No puedes guardar una cita sin servicios!");
 	}
-	public void mostrarExitoCargarCita() {
-		JOptionPane.showMessageDialog(null, "La cita se cargó correctamente");
-	}
+
+
 	public void mostrarErrorCargarCita() {
 		JOptionPane.showMessageDialog(null, "No se pudo agregar la Cita");
 	}

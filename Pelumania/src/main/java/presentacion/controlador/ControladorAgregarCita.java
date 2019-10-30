@@ -62,8 +62,6 @@ public class ControladorAgregarCita implements ActionListener{
 		this.ventanaAgregarCita.getJCBoxHora().addItemListener(l -> ActualizarInformacionServiciosAgregados());
 		this.ventanaAgregarCita.getJCBoxMinutos().addItemListener(l -> ActualizarInformacionServiciosAgregados());
 		
-		this.ventanaAgregarCita.getBtnVerComprobante().addActionListener(l -> generarComprobante());
-		
 		//Instancio la lista de servicios vacía
 		serviciosTurnoAgregados = new ArrayList<ServicioTurnoDTO>();
 		this.sistema = sistema;
@@ -86,8 +84,12 @@ public class ControladorAgregarCita implements ActionListener{
 		}
 	}
 
-	private void generarComprobante() {
-		 ReporteComprobante reporteComprobante = new ReporteComprobante(citaParaEditar);
+	private void generarComprobante(Integer idCita) {
+		 ReporteComprobante reporteComprobante = new ReporteComprobante(this.sistema.getCitaById(idCita));
+		 reporteComprobante.mostrar();
+	}
+	private void generarComprobante(CitaDTO cita) {
+		 ReporteComprobante reporteComprobante = new ReporteComprobante(cita);
 		 reporteComprobante.mostrar();
 	}
 
@@ -293,7 +295,7 @@ public class ControladorAgregarCita implements ActionListener{
 				this.sistema.insertServicioTurno(st);
 				}
 				
-				this.ventanaAgregarCita.mostrarExitoCargarCita();
+				this.mostrarExitoCargarCita(idCitaAgregada);
 				this.ventanaAgregarCita.cerrar();
 			}else {
 				this.ventanaAgregarCita.mostrarErrorCargarCita();
@@ -311,7 +313,7 @@ public class ControladorAgregarCita implements ActionListener{
 				this.sistema.insertServicioTurno(st);
 				}
 				calcularHorariosServicios();
-				this.ventanaAgregarCita.mostrarExitoCargarCita();
+				this.mostrarExitoCargarCita(idCitaAgregada);
 				this.ventanaAgregarCita.cerrar();
 				
 				//una vez que se hizo todo bien mandamos el mail
@@ -374,7 +376,7 @@ public class ControladorAgregarCita implements ActionListener{
 	
 				}
 					
-				JOptionPane.showMessageDialog(null, "La cita se editó correctamente");
+				mostrarExitoCargarCita(citaParaEditar.getIdCita());
 				this.ventanaAgregarCita.cerrar();
 					
 			} else {
@@ -628,6 +630,25 @@ public class ControladorAgregarCita implements ActionListener{
 	
 	public boolean comprobarDisponibilidadHorarios() {
 		return false;
+	}
+	
+	public void mostrarExitoCargarCita(Integer idCitaAgregada) {
+		
+		Object[] opciones = {"Aceptar",
+                "Ver Comprobante"};
+				int n = JOptionPane.showOptionDialog(null,
+				"La cita se cargó correctamente",
+				"Información",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.INFORMATION_MESSAGE,
+				null,
+				opciones,
+				opciones[1]);
+				
+				if (n==1) {
+					generarComprobante(idCitaAgregada);
+				}
+
 	}
 	
 	public static int getANIO() {
