@@ -558,6 +558,9 @@ public class nuevaVentanaCita {
 		this.chckbxRegistrado.setSelected(false);
 		limpiarTxtCliente();
 		setearTxt(true);
+		
+		this.JCBoxHora.setSelectedItem(8);
+		this.JCBoxMinutos.setSelectedItem(0);
 	}
 	
 	public void mostrarErrorFechaAnterior() {

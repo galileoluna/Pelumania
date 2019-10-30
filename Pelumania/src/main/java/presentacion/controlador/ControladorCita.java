@@ -36,8 +36,6 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
 		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
 		
-		
-		
 		inicializarArreglos();
 	}
 
@@ -65,6 +63,8 @@ public class ControladorCita implements ActionListener{
 	public void cargarDatos() {
 		cargarListaSucursales();
 		setearSucursalActual();
+		
+		cargarHorarios();
 	}
 	
 	public SucursalDTO getSucursal() {
@@ -81,6 +81,16 @@ public class ControladorCita implements ActionListener{
 		}
 	}
 	
+	public void cargarHorarios() {
+		for (int i = 8; i<20; i++)
+		{
+			this.ventanaCita.getJCBoxHora().addItem(i);
+		}
+		
+		for(int i=0; i<59; i=i+5) {
+			this.ventanaCita.getJCBoxMinutos().addItem(i);
+		}
+	}
 	public void setearSucursalActual() {
 		System.out.println(sucursal);
 		this.ventanaCita.getJCBoxSucursal().setSelectedItem(sucursal);
