@@ -23,6 +23,7 @@ import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
+import presentacion.reportes.ReporteComprobante;
 import presentacion.vista.NuevaVista;
 
 public class Controlador2 implements ActionListener{
@@ -123,6 +124,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnRangoHorario().addActionListener(m -> cargarPanelDinamicoRangoHorario(m));
 		this.nvista.getRdbtnEstado().addActionListener(m -> cargarPanelDinamicoEstado(m));
 		this.nvista.getBtnLimpiarFiltros().addActionListener(n -> limpiarFiltros(n));
+		this.nvista.getBtn_VerComprobante().addActionListener(l -> verComprobante(l));
 		
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 	}
@@ -610,5 +612,10 @@ public class Controlador2 implements ActionListener{
 	private void finalizarCita(ActionEvent l) {
 		this.controladorCaja = ControladorCaja.getInstance(this.sistema);
 		this.controladorCaja.cobrarCitaDesdeMenu(this.citaSeleccionada);
+	}
+	private void verComprobante(ActionEvent l) {
+		ReporteComprobante comprobante = new ReporteComprobante(this.citaSeleccionada);
+		comprobante.mostrar();
+		
 	}
 }
