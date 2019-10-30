@@ -72,6 +72,7 @@ public class nuevaVentanaCita {
 	private LocalDate fechaCita;
 	private SucursalDTO sucursal;
 	private ClienteDTO cliente;
+	private JLabel lblErrorFecha;
 
 	public static nuevaVentanaCita getInstance()
 	{
@@ -102,6 +103,8 @@ public class nuevaVentanaCita {
 		crearJCBoxSucursal();
 		
 		crearJDateChooserFecha();
+		
+		crearLabelErrorFecha();
 		
 		crearBotonEditarFecha();
 		
@@ -175,7 +178,7 @@ public class nuevaVentanaCita {
 
 	private void crearJDateChooserFecha() {
 		JDChooserFecha = new JDateChooser();
-		JDChooserFecha.setBounds(92, 77, 120, 20);
+		JDChooserFecha.setBounds(92, 77, 120, 23);
 		JPnl_DatosGlobales.add(JDChooserFecha);
 	}
 
@@ -213,7 +216,7 @@ public class nuevaVentanaCita {
 		JPnl_DatosGlobales.add(lblDatosGlobales);
 		
 		JSeparator spr_DatosGlobales = new JSeparator();
-		spr_DatosGlobales.setBounds(10, 28, 494, 2);
+		spr_DatosGlobales.setBounds(10, 28, 513, 2);
 		JPnl_DatosGlobales.add(spr_DatosGlobales);
 	}
 
@@ -225,8 +228,19 @@ public class nuevaVentanaCita {
 
 	private void crearBotonEditarFecha() {
 		btnEditarFecha = new JButton("Editar");
-		btnEditarFecha.setBounds(231, 76, 89, 23);
+		btnEditarFecha.setBounds(231, 77, 89, 23);
 		JPnl_DatosGlobales.add(btnEditarFecha);
+	}
+	
+	private void crearLabelErrorFecha()	{
+		Color rojo = new Color(242,108,102);
+		lblErrorFecha = new JLabel("Ese día ya transcurrio!");
+		lblErrorFecha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblErrorFecha.setVisible(false);
+		lblErrorFecha.setBackground(rojo);
+		lblErrorFecha.setOpaque(true);
+		lblErrorFecha.setBounds(330, 77, 193, 23);
+		JPnl_DatosGlobales.add(lblErrorFecha);
 	}
 
 	private void crearPanelCliente() {
@@ -243,7 +257,7 @@ public class nuevaVentanaCita {
 		JPnl_Cliente.add(lblCliente);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 28, 494, 2);
+		separator.setBounds(10, 28, 513, 2);
 		JPnl_Cliente.add(separator);
 	}
 
@@ -330,7 +344,7 @@ public class nuevaVentanaCita {
 		JPnl_Servicios.add(lblServicios);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 28, 494, 2);
+		separator_1.setBounds(10, 28, 513, 2);
 		JPnl_Servicios.add(separator_1);
 	}
 
@@ -420,7 +434,7 @@ public class nuevaVentanaCita {
 		JPnl_Datos.add(lblDatosDeLaCita);
 		
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 28, 494, 2);
+		separator_2.setBounds(10, 28, 513, 2);
 		JPnl_Datos.add(separator_2);
 	}
 
@@ -545,6 +559,15 @@ public class nuevaVentanaCita {
 		limpiarTxtCliente();
 		setearTxt(true);
 	}
+	
+	public void mostrarErrorFechaAnterior() {
+		this.lblErrorFecha.setVisible(true);
+	}
+	
+	public void ocultarErrorFechaAnteror() {
+		this.lblErrorFecha.setVisible(false);
+	}
+	
 	/* *************************************************************************************
 	 * ******************** GETTERS Y SETTERS DE LOS COMPONENTES ***************************
 	 * *************************************************************************************/
@@ -797,7 +820,4 @@ public class nuevaVentanaCita {
 	public void setBtnRegistrar(JButton btnRegistrar) {
 		this.btnRegistrar = btnRegistrar;
 	}
-
-	
-	
 }

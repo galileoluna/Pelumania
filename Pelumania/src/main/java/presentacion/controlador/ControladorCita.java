@@ -2,7 +2,10 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import dto.ClienteDTO;
@@ -25,12 +28,15 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita = nuevaVentanaCita.getInstance();
 		this.sistema = s;
 		
+		this.ventanaCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
 		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> mostrarPopUpSucursal(b));
 		
 		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
 		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
 		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
+		
+		
 		
 		inicializarArreglos();
 	}
@@ -85,7 +91,19 @@ public class ControladorCita implements ActionListener{
 	public void habilitarEditarFecha(ActionEvent a) {
 		this.ventanaCita.getJDChooserFecha().setEnabled(true);
 	}
+	
+	public void validarFechaElegida(PropertyChangeEvent b) {
+		java.util.Date D_fechaElegida = this.ventanaCita.getJDChooserFecha().getDate();
+		LocalDate fechaElegida = D_fechaElegida.toInstant()
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
 		
+		if (fechaElegida.isBefore(LocalDate.now())) {
+			this.ventanaCita.mostrarErrorFechaAnterior();
+		}else {
+			this.ventanaCita.ocultarErrorFechaAnteror();
+		}
+	}
 	
 	public void mostrarPopUpSucursal(ActionEvent b) {
 		//limpiar todos los cmapos y recargarlos
