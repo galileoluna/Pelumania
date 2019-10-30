@@ -23,7 +23,7 @@ import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
-import presentacion.reportes.ReporteComprobante;
+import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.NuevaVista;
 
 public class Controlador2 implements ActionListener{

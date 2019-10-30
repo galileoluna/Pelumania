@@ -9,7 +9,7 @@ import java.util.Locale;
 import dto.MovimientoCajaDTO;
 import dto.ServicioDTO;
 import modelo.Sistema;
-import presentacion.reportes.ReportePorServicio;
+import presentacion.Reportes.ReportePorServicio;
 import presentacion.vista.VentanaReportePorServicio;
 
 public class ControladorReportePorServicio {

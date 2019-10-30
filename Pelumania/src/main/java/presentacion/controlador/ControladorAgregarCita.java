@@ -19,7 +19,7 @@ import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
-import presentacion.reportes.ReporteComprobante;
+import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.VentanaCliente;

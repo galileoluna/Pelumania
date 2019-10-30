@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import dto.MovimientoCajaDTO;
 import modelo.Sistema;
-import presentacion.reportes.ReporteDeCajaGeneral;
+import presentacion.Reportes.ReporteDeCajaGeneral;
 import presentacion.vista.VentanaReporteGeneral;
 
 public class ControladorReporteGeneral {
