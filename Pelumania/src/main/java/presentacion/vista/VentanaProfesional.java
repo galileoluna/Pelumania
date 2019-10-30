@@ -184,21 +184,31 @@ public class VentanaProfesional
 		return buscador;
 	}
 
-	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla) {
+	public void llenarTabla(List<ProfesionalDTO> profesionalEnTabla,int idSucursal) {
 		this.getmodelProfesional().setRowCount(0); //Para vaciar la tabla
 		this.getmodelProfesional().setColumnCount(0);
 		this.getmodelProfesional().setColumnIdentifiers(this.getNombreColumnas());
-
+		
 		for (ProfesionalDTO p : profesionalEnTabla)
 		{ 
+			
 			String nombre = p.getNombre();
 			String apellido = p.getApellido();
 			String SucursalOrig=p.getSucursal(p.getIdSucursalOrigen());
 			String SucursalTrans=(p.getIdSucursalTransferencia()==-1?"":p.getSucursal(p.getIdSucursalTransferencia()));
 			String estado=p.getEstado();
 			Object[] fila = {nombre, apellido,SucursalOrig,SucursalTrans,estado};
-			this.getmodelProfesional().addRow(fila);
+			if(idSucursal == -1) {
+				System.out.println("entre aca -1");
+				this.getmodelProfesional().addRow(fila);			
+			}else {
+				System.out.println("entre aca !-1");
+				if(p.getIdSucursalOrigen() == idSucursal || p.getIdSucursalOrigen() == idSucursal) {
+					System.out.println("entre aca !-1");
+					this.getmodelProfesional().addRow(fila);
+				}
+			}
 		}
-		
+	
 	} 
 }

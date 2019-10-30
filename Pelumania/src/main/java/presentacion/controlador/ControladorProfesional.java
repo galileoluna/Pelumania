@@ -53,8 +53,13 @@ public class ControladorProfesional {
 		
 		
 		List<ProfesionalDTO> profesionalEnTabla=sistema.obtenerProfesional();
-		INSTANCE.ventanaProfesional.llenarTabla(profesionalEnTabla);
-		INSTANCE.ventanaProfesional.show();
+		if(usuario.getIdRol() == 1 || usuario.getIdRol() == 5) {
+			INSTANCE.ventanaProfesional.llenarTabla(profesionalEnTabla,-1);
+			INSTANCE.ventanaProfesional.show();
+		}else {
+			INSTANCE.ventanaProfesional.llenarTabla(profesionalEnTabla,usuario.getIdSucursal());
+			INSTANCE.ventanaProfesional.show();
+		}
 		getPermisos();
 		return INSTANCE;
 	}
@@ -159,7 +164,12 @@ public class ControladorProfesional {
 	private void buscar(ActionEvent y) {
 		String variable=this.ventanaProfesional.getVariableBuscar().getSelectedItem().toString();
 		String value=this.ventanaProfesional.getBuscador().getText();
-		this.ventanaProfesional.llenarTabla(this.sistema.obtenerProfesionalConBuscador(variable,value));
+		
+		if(usuario.getIdRol() == 1 || usuario.getIdRol() == 5 ) {
+			this.ventanaProfesional.llenarTabla(this.sistema.obtenerProfesionalConBuscador(variable,value),-1);
+		}else {
+			this.ventanaProfesional.llenarTabla(this.sistema.obtenerProfesionalConBuscador(variable,value),usuario.getIdSucursal());
+		}
 	}
 	
 }
