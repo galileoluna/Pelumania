@@ -36,6 +36,10 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
 		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
 		
+		
+		this.ventanaCita.getRdBtnServicio().addActionListener(a -> mostrarPanelServicio(a));
+		this.ventanaCita.getRdBtnProfesional().addActionListener(b -> mostrarPanelProfesional(b));
+		this.ventanaCita.getRdbtnPromocion().addActionListener(c -> mostrarPanelPromociones(c));
 		inicializarArreglos();
 	}
 
@@ -96,6 +100,25 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getJCBoxSucursal().setSelectedItem(sucursal);
 	}
 	
+	public void actualizarPanelDinamico(String PanelAMostrar) {
+		switch (PanelAMostrar){
+		case "Servicios":
+			this.ventanaCita.mostrarPanelServicios();
+			this.ventanaCita.ocultarPanelProfesionales();
+			this.ventanaCita.ocultarPanelPromociones();
+			break;
+		case "Profesionales":
+			this.ventanaCita.mostrarPanelProfesionales();
+			this.ventanaCita.ocultarPanelPromociones();
+			this.ventanaCita.ocultarPanelServicios();
+			break;
+		case "Promociones":
+			this.ventanaCita.mostrarPanelPromociones();
+			this.ventanaCita.ocultarPanelProfesionales();
+			this.ventanaCita.ocultarPanelServicios();
+			break;
+			}
+	}
 	
 	/* METODOS PARA LOS CONTROLADORES */
 	public void habilitarEditarFecha(ActionEvent a) {
@@ -143,6 +166,37 @@ public class ControladorCita implements ActionListener{
 
 	private void ventanaRegistrarCliente(ActionEvent e) {
 		ControladorCliente.getInstance(sistema);
+	}
+	
+	public void mostrarPanelServicio(ActionEvent a) {
+		this.ventanaCita.getRdBtnProfesional().setSelected(false);
+		this.ventanaCita.getRdbtnPromocion().setSelected(false);
+		if (this.ventanaCita.getRdBtnServicio().isSelected()) {
+			actualizarPanelDinamico("Servicios");
+		}else {
+//			limpiarPanel();
+		}
+	}
+	
+	public void mostrarPanelProfesional(ActionEvent a) {
+		this.ventanaCita.getRdBtnServicio().setSelected(false);
+		this.ventanaCita.getRdbtnPromocion().setSelected(false);
+		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
+			actualizarPanelDinamico("Profesionales");
+		}else {
+//			limpiarPanel();
+		}	
+	}
+	
+	public void mostrarPanelPromociones(ActionEvent a) {
+		this.ventanaCita.getRdBtnProfesional().setSelected(false);
+		this.ventanaCita.getRdBtnServicio().setSelected(false);
+		if(this.ventanaCita.getRdbtnPromocion().isSelected()) {
+			actualizarPanelDinamico("Promociones");
+			System.out.println("entro ak");
+		}else {
+//			limpiarPanel();
+		}
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

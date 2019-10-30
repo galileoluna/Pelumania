@@ -23,6 +23,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import componentesVistas.PanelDinamicoProfesionales;
+import componentesVistas.PanelDinamicoPromociones;
+import componentesVistas.PanelDinamicoServicios;
 import dto.ClienteDTO;
 import dto.SucursalDTO;
 
@@ -57,6 +60,9 @@ public class nuevaVentanaCita {
 	private JRadioButton rdBtnServicio;
 	private JRadioButton rdbtnPromocion;
 	private JPanel JPnl_DinamicoServicios;
+		private PanelDinamicoServicios panelDinamicoServicios;
+		private PanelDinamicoProfesionales panelDinamicoProfesionales;
+		private PanelDinamicoPromociones panelDinamicoPromociones;
 	private JComponent JPnl_Datos;
 	private JLabel lblAlertaSucursal;
 	
@@ -145,6 +151,8 @@ public class nuevaVentanaCita {
 		crearRadioButtonPromocion();
 		
 		crearPanelDinamicoServicios();
+		
+		crearPanelesDinamicos();
 		
 		crearTxtDescripcion();
 		
@@ -387,15 +395,16 @@ public class nuevaVentanaCita {
 	private void crearPanelDinamicoServicios() {
 		JPnl_DinamicoServicios = new JPanel();
 		JPnl_DinamicoServicios.setBorder(new LineBorder(new Color(0, 0, 0)));
-		JPnl_DinamicoServicios.setBounds(10, 65, 232, 157);
+		JPnl_DinamicoServicios.setBounds(10, 65, 232, 168);
 		JPnl_Servicios.add(JPnl_DinamicoServicios);
+		JPnl_DinamicoServicios.setLayout(null);
 	}
 
 	private void crearTxtDescripcion() {
 		txtDescripcion = new JTextField();
 		txtDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDescripcion.setText("[Descripcion de la cita]");
-		txtDescripcion.setBounds(8, 233, 515, 38);
+		txtDescripcion.setBounds(8, 244, 515, 38);
 		
 		JPnl_Servicios.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
@@ -474,19 +483,19 @@ public class nuevaVentanaCita {
 
 	private void crearBotonConfirmar() {
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(294, 657, 89, 23);
+		btnConfirmar.setBounds(333, 657, 100, 23);
 		frame.getContentPane().add(btnConfirmar);
 	}
 
 	private void crearBotonCancelar() {
 		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.setBounds(393, 657, 89, 23);
+		btnNewButton.setBounds(443, 657, 100, 23);
 		frame.getContentPane().add(btnNewButton);
 	}
 	
 	private void crearTablaServiciosAgregados() {
 		spServiciosAgregados = new JScrollPane();
-		spServiciosAgregados.setBounds(282, 83, 241, 139);
+		spServiciosAgregados.setBounds(282, 83, 241, 150);
 		JPnl_Servicios.add(spServiciosAgregados);
 		
 		modelServiciosAgregados = new DefaultTableModel(null,nombreColumnasAgregadas) {
@@ -506,6 +515,24 @@ public class nuevaVentanaCita {
 		tablaServiciosAgregados.getColumnModel().getColumn(0).setResizable(false);
 		
 		spServiciosAgregados.setViewportView(tablaServiciosAgregados);
+	}
+	
+	public void crearPanelesDinamicos() {
+		panelDinamicoServicios = new PanelDinamicoServicios();
+		panelDinamicoServicios.setLocation(0, 0);
+		panelDinamicoServicios.setVisible(false);
+		JPnl_DinamicoServicios.add(panelDinamicoServicios);
+		
+		panelDinamicoPromociones = new PanelDinamicoPromociones();
+		panelDinamicoPromociones.setLocation(0, 0);
+		panelDinamicoPromociones.setVisible(false);
+		JPnl_DinamicoServicios.add(panelDinamicoPromociones);
+		
+		panelDinamicoProfesionales = new PanelDinamicoProfesionales();
+		panelDinamicoProfesionales.setVisible(false);
+		JPnl_DinamicoServicios.add(panelDinamicoProfesionales);
+		
+		JPnl_DinamicoServicios.updateUI();
 	}
 	
 	/* *************************************************************************************
@@ -548,8 +575,33 @@ public class nuevaVentanaCita {
 		this.getTxtMail().setText(null);
 		this.getTxtTelefono().setText(null);
 	}
+	
 	public void habilitarJDateChooser() {
 		JDChooserFecha.setEnabled(true);
+	}
+	
+	public void mostrarPanelServicios() {
+		panelDinamicoServicios.setVisible(true);
+	}
+	
+	public void ocultarPanelServicios() {
+		panelDinamicoServicios.setVisible(false);
+	}
+	
+	public void mostrarPanelProfesionales() {
+		panelDinamicoProfesionales.setVisible(true);
+	}
+	
+	public void ocultarPanelProfesionales() {
+		panelDinamicoProfesionales.setVisible(false);
+	}
+	
+	public void mostrarPanelPromociones() {
+		panelDinamicoPromociones.setVisible(true);
+	}
+	
+	public void ocultarPanelPromociones() {
+		this.panelDinamicoPromociones.setVisible(false);
 	}
 	
 	public void limpiarTodo() {
@@ -561,6 +613,14 @@ public class nuevaVentanaCita {
 		
 		this.JCBoxHora.setSelectedItem(8);
 		this.JCBoxMinutos.setSelectedItem(0);
+		
+		this.getRdBtnProfesional().setSelected(false);
+		this.getRdbtnPromocion().setSelected(false);
+		this.getRdBtnServicio().setSelected(false);
+		
+		ocultarPanelProfesionales();
+		ocultarPanelPromociones();
+		ocultarPanelServicios();
 	}
 	
 	public void mostrarErrorFechaAnterior() {
@@ -569,8 +629,8 @@ public class nuevaVentanaCita {
 	
 	public void ocultarErrorFechaAnteror() {
 		this.lblErrorFecha.setVisible(false);
-	}
-	
+	}		
+		
 	/* *************************************************************************************
 	 * ******************** GETTERS Y SETTERS DE LOS COMPONENTES ***************************
 	 * *************************************************************************************/
