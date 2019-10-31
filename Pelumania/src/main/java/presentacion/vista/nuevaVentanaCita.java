@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -29,6 +30,7 @@ import componentesVistas.PanelDinamicoProfesionales;
 import componentesVistas.PanelDinamicoPromociones;
 import componentesVistas.PanelDinamicoServicios;
 import dto.ClienteDTO;
+import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 
 public class nuevaVentanaCita {
@@ -89,6 +91,7 @@ public class nuevaVentanaCita {
 	private SucursalDTO sucursal;
 	private ClienteDTO cliente;
 	private LocalTime horaInicio;
+	
 	private JLabel lblErrorFecha;
 
 	public static nuevaVentanaCita getInstance()

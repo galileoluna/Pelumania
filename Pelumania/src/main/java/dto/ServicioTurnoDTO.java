@@ -54,5 +54,19 @@ public class ServicioTurnoDTO {
 		this.horaFin = horaFin;
 	}
 	
+	@Override
+	public boolean equals(Object otro) {
+		return this.getIdServicio() == ((ServicioTurnoDTO)otro).getIdServicio();
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idServicio == null) ? 0 : idServicio.hashCode());
+		result = prime * result;
+		return result;
+	}
 }
 

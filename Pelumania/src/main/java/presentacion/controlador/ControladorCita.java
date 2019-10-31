@@ -6,6 +6,7 @@ import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -14,6 +15,8 @@ import org.apache.log4j.Logger;
 
 
 import dto.ClienteDTO;
+import dto.ProfesionalDTO;
+import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
 import presentacion.vista.nuevaVentanaCita;
@@ -31,8 +34,11 @@ public class ControladorCita implements ActionListener{
 	private Logger log = Logger.getLogger(ControladorCita.class);	
 	
 	private List<SucursalDTO> listaSucursales;
+	private List<ServicioTurnoDTO> serviciosAgregados;
 	
 	private static String errorHora;
+	private static String errorServicio;
+	
 	public ControladorCita(Sistema s) {
 		
 		this.ventanaCita = nuevaVentanaCita.getInstance();
@@ -75,6 +81,7 @@ public class ControladorCita implements ActionListener{
 
 	public void inicializarArreglos() {
 		listaSucursales = this.sistema.obtenerSucursales();
+		serviciosAgregados = new ArrayList<ServicioTurnoDTO>();
 	}
 	
 	public void cargarDatos() {
@@ -181,6 +188,7 @@ public class ControladorCita implements ActionListener{
 		
 		if (fechaElegida.isBefore(LocalDate.now())) {
 			this.ventanaCita.mostrarErrorFechaAnterior();
+			this.ventanaCita.setFechaCita(null);
 		}else {
 			this.ventanaCita.ocultarErrorFechaAnteror();
 		}
@@ -233,7 +241,7 @@ public class ControladorCita implements ActionListener{
 			mostrarErrorHora();
 			this.ventanaCita.getLbl_Inicio().setText(null);
 			this.ventanaCita.getJCBoxMinutos().setSelectedItem(null);
-		}
+			}
 		}
 	}
 	
@@ -270,10 +278,57 @@ public class ControladorCita implements ActionListener{
 	private void guardarCita(ActionEvent a) {
 		log.info("Aun no guarda nada, solo imprime los datos de la cita:");
 		System.out.println("Fecha: "+this.ventanaCita.getFechaCita());
-		System.out.println("Cliente:"+ this.ventanaCita.getCliente());
-		System.out.println("Sucursal:" + this.ventanaCita.getSucursal());
+		System.out.println("Cliente: "+ this.ventanaCita.getCliente());
+		System.out.println("Sucursal: " + this.ventanaCita.getSucursal());
+		
+		System.out.println("Inicio: "+ this.ventanaCita.getHoraInicio());
 	}
 	
+	
+	/* ****************************************************************** */
+	/* *********** METODOS PARA EL MANEJO DE LOS SERVICIOS ************** */
+	/* ****************************************************************** */
+	
+	public void agregarServicio(ServicioTurnoDTO servicioTurno) {
+		if (validarAntesDeAgregarServicio(servicioTurno)) {
+			serviciosAgregados.add(servicioTurno);
+			//Agregar a la tabla y mostrarlo
+	}else {
+		mostrarErrorServicio();
+	}
+		
+	}
+	
+	public boolean validarAntesDeAgregarServicio(ServicioTurnoDTO servicio) {
+		if (this.ventanaCita.getHoraInicio() == null) {
+			ControladorCita.errorServicio = "Debes elegir la hora de inicio del turno para agregar servicios!";
+			return false;
+		}
+		if (serviciosAgregados.contains(servicio)) {
+			ControladorCita.errorServicio = "Ese servicio ya fue agregado!";
+			return false;
+		}
+		ProfesionalDTO profesional = this.sistema.getProfesionalById(servicio.getIdProfesional());
+		if (!validarDisponibilidadProfesional()) {
+			ControladorCita.errorServicio = "El profesional "+ profesional.getNombre()+" "+
+					profesional.getApellido()+" no está disponible en ese horario!"+ 
+					"Tiene una cita desde: "+"__:__"+"hasta: "+ "__:__";
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	private boolean validarDisponibilidadProfesional() {
+		log.info("El metodo no esta implementado, validar un profesional da siempre false");
+		return false;
+	}
+	
+	private void mostrarErrorServicio() {
+		JOptionPane.showMessageDialog(null, ControladorCita.errorServicio);
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
