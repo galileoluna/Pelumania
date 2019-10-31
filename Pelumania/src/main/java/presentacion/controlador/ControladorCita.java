@@ -295,7 +295,8 @@ public class ControladorCita implements ActionListener{
 	private void cargarProfesionalesAsociadosAServicio() {
 		this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().removeAllItems();
 		for (ProfesionalDTO prof : profesionales) {
-			this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
+			if(prof.getEstado().equals("Activo"))
+				this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
 		}
 	}
 	
