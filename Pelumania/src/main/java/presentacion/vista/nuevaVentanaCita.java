@@ -972,6 +972,29 @@ public class nuevaVentanaCita {
 		this.lbl_TotalUSD = lbl_TotalUSD;
 	}
 
+	public PanelDinamicoServicios getPanelDinamicoServicios() {
+		return panelDinamicoServicios;
+	}
+
+	public void setPanelDinamicoServicios(PanelDinamicoServicios panelDinamicoServicios) {
+		this.panelDinamicoServicios = panelDinamicoServicios;
+	}
+
+	public PanelDinamicoProfesionales getPanelDinamicoProfesionales() {
+		return panelDinamicoProfesionales;
+	}
+
+	public void setPanelDinamicoProfesionales(PanelDinamicoProfesionales panelDinamicoProfesionales) {
+		this.panelDinamicoProfesionales = panelDinamicoProfesionales;
+	}
+
+	public PanelDinamicoPromociones getPanelDinamicoPromociones() {
+		return panelDinamicoPromociones;
+	}
+
+	public void setPanelDinamicoPromociones(PanelDinamicoPromociones panelDinamicoPromociones) {
+		this.panelDinamicoPromociones = panelDinamicoPromociones;
+	}
 	
 	/* *************************************************************************************
 	 * ********************* GETTERS Y SETTERS DE LAS VARIABLES ****************************

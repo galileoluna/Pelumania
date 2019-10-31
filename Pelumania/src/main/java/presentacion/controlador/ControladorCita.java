@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -10,12 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
 
 import org.apache.log4j.Logger;
 
 
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
+import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
@@ -35,6 +38,10 @@ public class ControladorCita implements ActionListener{
 	
 	private List<SucursalDTO> listaSucursales;
 	private List<ServicioTurnoDTO> serviciosAgregados;
+	private List<ServicioDTO> servicios;
+	private List<ProfesionalDTO> profesionales;
+	ServicioDTO servicioSeleccionado; 
+	
 	
 	private static String errorHora;
 	private static String errorServicio;
@@ -82,6 +89,7 @@ public class ControladorCita implements ActionListener{
 	public void inicializarArreglos() {
 		listaSucursales = this.sistema.obtenerSucursales();
 		serviciosAgregados = new ArrayList<ServicioTurnoDTO>();
+		servicios = this.sistema.obtenerServicios();
 	}
 	
 	public void cargarDatos() {
@@ -250,11 +258,13 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdbtnPromocion().setSelected(false);
 		if (this.ventanaCita.getRdBtnServicio().isSelected()) {
 			actualizarPanelDinamico("Servicios");
+			llenarDatosPanelServicio();
+			this.ventanaCita.getPanelDinamicoServicios().getTablaServicios().getSelectionModel().addListSelectionListener(l -> actualizarServicioSeleccionado(l));
 		}else {
 			this.ventanaCita.ocultarPanelesServicios();
 		}
 	}
-	
+
 	public void mostrarPanelProfesional(ActionEvent a) {
 		this.ventanaCita.getRdBtnServicio().setSelected(false);
 		this.ventanaCita.getRdbtnPromocion().setSelected(false);
@@ -273,6 +283,12 @@ public class ControladorCita implements ActionListener{
 		}else {
 			this.ventanaCita.ocultarPanelesServicios();
 		}
+	}
+	
+	private void actualizarServicioSeleccionado(ListSelectionEvent l) {
+		servicioSeleccionado = getServicioSeleccionado();
+		System.out.println(servicioSeleccionado);
+		//cargar profesionales segun servicio elegido
 	}
 	
 	private void guardarCita(ActionEvent a) {
@@ -329,6 +345,45 @@ public class ControladorCita implements ActionListener{
 		JOptionPane.showMessageDialog(null, ControladorCita.errorServicio);
 	}
 
+	/* PANEL SERVICIOS*/
+	
+	public void cargarServiciosEnTabla(List<ServicioDTO> servicios) {
+			this.ventanaCita.getPanelDinamicoServicios().getModelServicios().setRowCount(0); //Para vaciar la tabla
+			this.ventanaCita.getPanelDinamicoServicios().getModelServicios().setColumnCount(0);
+			this.ventanaCita.getPanelDinamicoServicios().getModelServicios().setColumnIdentifiers(this.ventanaCita.getPanelDinamicoServicios().getNombreColumnas());
+
+			for (ServicioDTO s : servicios)
+			{
+				String nombre = s.getNombre();
+				BigDecimal precioLocal = s.getPrecioLocal();
+				BigDecimal precioDolar = s.getPrecioDolar();
+				LocalTime duracion = s.getDuracion();
+				int puntos = s.getPuntos();
+				String estado = s.getEstado();
+				Object[] fila = {nombre, precioLocal, duracion, puntos, estado};
+				this.ventanaCita.getPanelDinamicoServicios().getModelServicios().addRow(fila);
+			}
+	}
+	
+	public void llenarDatosPanelServicio() {
+		cargarServiciosEnTabla(servicios);
+	}
+	
+	public ServicioDTO getServicioSeleccionado() {
+		ServicioDTO servicioSeleccionado = null;;
+		int[] filasSeleccionadas = this.ventanaCita.getPanelDinamicoServicios().getTablaServicios().getSelectedRows();
+	       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(servicios.get(fila)!=null) {	 
+        		Integer idServicio = servicios.get(fila).getIdServicio();
+        		servicioSeleccionado = sistema.getServicioById(idServicio);
+        	}
+    	}
+    	
+    	return servicioSeleccionado;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
