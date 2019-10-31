@@ -33,7 +33,7 @@ public class ControladorCita implements ActionListener{
 		
 		this.ventanaCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
-		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> mostrarPopUpSucursal(b));
+		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> seleccionarSucursal(b));
 		
 		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
 		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
@@ -126,6 +126,16 @@ public class ControladorCita implements ActionListener{
 			}
 	}
 	
+	public void mostrarPopUpSucursal() {
+		//limpiar todos los cmapos y recargarlos
+		if (!((SucursalDTO)this.ventanaCita.getJCBoxSucursal().getSelectedItem()).equals(sucursal)) {
+			this.ventanaCita.getLblAlertaSucursal().setVisible(true);
+		}
+		else {
+			this.ventanaCita.getLblAlertaSucursal().setVisible(false);
+		}
+	}
+	
 	/* METODOS PARA LOS CONTROLADORES */
 	public void habilitarEditarFecha(ActionEvent a) {
 		this.ventanaCita.getJDChooserFecha().setEnabled(true);
@@ -144,14 +154,13 @@ public class ControladorCita implements ActionListener{
 		}
 	}
 	
-	public void mostrarPopUpSucursal(ActionEvent b) {
-		//limpiar todos los cmapos y recargarlos
-		if (!((SucursalDTO)this.ventanaCita.getJCBoxSucursal().getSelectedItem()).equals(sucursal)) {
-			this.ventanaCita.getLblAlertaSucursal().setVisible(true);
-		}
-		else
-			this.ventanaCita.getLblAlertaSucursal().setVisible(false);
+	public void seleccionarSucursal(ActionEvent b) {
+		SucursalDTO sucuSeleccionada = (SucursalDTO) this.ventanaCita.getJCBoxSucursal().getSelectedItem();
+		this.ventanaCita.setSucursal(sucuSeleccionada);
+		
+		mostrarPopUpSucursal();
 	}
+
 	
 	public void mostrarOpcionesClienteRegistrado( ActionEvent d) {
 		this.ventanaCita.limpiarTxtCliente();
