@@ -668,7 +668,6 @@ public class nuevaVentanaCita {
 		lbl_Inicio.setText(horaInicio.toString());
 	}
 	
-	
 	public void limpiarTodo() {
 		this.btnBuscar.setEnabled(false);
 		this.chckbxGenerico.setSelected(false);
@@ -676,8 +675,8 @@ public class nuevaVentanaCita {
 		limpiarTxtCliente();
 		setearTxt(true);
 		
-		this.JCBoxHora.setSelectedItem(8);
-		this.JCBoxMinutos.setSelectedItem(0);
+		this.JCBoxHora.setSelectedItem(null);
+		this.JCBoxMinutos.setSelectedItem(null);
 		
 		this.getRdBtnProfesional().setSelected(false);
 		this.getRdbtnPromocion().setSelected(false);
@@ -686,6 +685,9 @@ public class nuevaVentanaCita {
 		ocultarPanelProfesionales();
 		ocultarPanelPromociones();
 		ocultarPanelServicios();
+		
+		
+		this.lbl_Inicio.setText(null);
 	}
 		
 	/* *************************************************************************************

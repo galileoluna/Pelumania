@@ -8,6 +8,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 
 
@@ -30,6 +32,7 @@ public class ControladorCita implements ActionListener{
 	
 	private List<SucursalDTO> listaSucursales;
 	
+	private static String errorHora;
 	public ControladorCita(Sistema s) {
 		
 		this.ventanaCita = nuevaVentanaCita.getInstance();
@@ -106,6 +109,9 @@ public class ControladorCita implements ActionListener{
 		for(int i=0; i<59; i=i+5) {
 			this.ventanaCita.getJCBoxMinutos().addItem(i);
 		}
+		
+		this.ventanaCita.getJCBoxHora().setSelectedItem(null);
+		this.ventanaCita.getJCBoxMinutos().setSelectedItem(null);
 	}
 	public void setearSucursalActual() {
 		this.ventanaCita.getJCBoxSucursal().setSelectedItem(sucursal);
@@ -133,13 +139,33 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	public void mostrarPopUpSucursal() {
-		//limpiar todos los cmapos y recargarlos
+		//limpiar todos los campos y recargarlos
 		if (!((SucursalDTO)this.ventanaCita.getJCBoxSucursal().getSelectedItem()).equals(sucursal)) {
 			this.ventanaCita.getLblAlertaSucursal().setVisible(true);
 		}
 		else {
 			this.ventanaCita.getLblAlertaSucursal().setVisible(false);
 		}
+	}
+	
+	/******************* VALIDACIONES *************/
+	
+	public boolean validarHora(LocalTime horaElegida) {
+		if (horaElegida == null) {
+			ControladorCita.errorHora = "Debes elegir un horario!";
+			return false;
+		}
+		if (this.ventanaCita.getFechaCita().equals(LocalDate.now())) {
+			if (horaElegida.isBefore(LocalTime.now())){
+				ControladorCita.errorHora = "No puedes sacar un turno para un horario que ya pasó!";
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void mostrarErrorHora() {
+		JOptionPane.showMessageDialog(null, ControladorCita.errorHora);
 	}
 	
 	/* METODOS PARA LOS CONTROLADORES */
@@ -196,10 +222,19 @@ public class ControladorCita implements ActionListener{
 		Integer hora = (Integer) this.ventanaCita.getJCBoxHora().getSelectedItem();
 		Integer minutos = (Integer) this.ventanaCita.getJCBoxMinutos().getSelectedItem();
 		
+		if(hora == null || minutos == null) {
+		}else {
 		LocalTime horaElegida = LocalTime.of(hora, minutos);
 		
-		this.ventanaCita.setHoraInicio(horaElegida);
-		this.ventanaCita.setearDatoInicio();
+		if (validarHora(horaElegida)) {
+			this.ventanaCita.setHoraInicio(horaElegida);
+			this.ventanaCita.setearDatoInicio();
+		}else {
+			mostrarErrorHora();
+			this.ventanaCita.getLbl_Inicio().setText(null);
+			this.ventanaCita.getJCBoxMinutos().setSelectedItem(null);
+		}
+		}
 	}
 	
 	public void mostrarPanelServicio(ActionEvent a) {
