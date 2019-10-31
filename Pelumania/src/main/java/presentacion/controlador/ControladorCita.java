@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -43,7 +44,6 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
 		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
 		
-		
 		this.ventanaCita.getRdBtnServicio().addActionListener(a -> mostrarPanelServicio(a));
 		this.ventanaCita.getRdBtnProfesional().addActionListener(b -> mostrarPanelProfesional(b));
 		this.ventanaCita.getRdbtnPromocion().addActionListener(c -> mostrarPanelPromociones(c));
@@ -77,8 +77,10 @@ public class ControladorCita implements ActionListener{
 	public void cargarDatos() {
 		cargarListaSucursales();
 		setearSucursalActual();
-		
 		cargarHorarios();
+		
+		this.ventanaCita.getJCBoxHora().addActionListener(a -> seleccionarHora(a));
+		this.ventanaCita.getJCBoxMinutos().addActionListener(a -> seleccionarHora(a));
 	}
 	
 	public SucursalDTO getSucursal() {
@@ -188,6 +190,16 @@ public class ControladorCita implements ActionListener{
 
 	private void ventanaRegistrarCliente(ActionEvent e) {
 		ControladorCliente.getInstance(sistema);
+	}
+	
+	public void seleccionarHora(ActionEvent a) {
+		Integer hora = (Integer) this.ventanaCita.getJCBoxHora().getSelectedItem();
+		Integer minutos = (Integer) this.ventanaCita.getJCBoxMinutos().getSelectedItem();
+		
+		LocalTime horaElegida = LocalTime.of(hora, minutos);
+		
+		this.ventanaCita.setHoraInicio(horaElegida);
+		this.ventanaCita.setearDatoInicio();
 	}
 	
 	public void mostrarPanelServicio(ActionEvent a) {

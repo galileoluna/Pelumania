@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -65,7 +66,11 @@ public class nuevaVentanaCita {
 		private PanelDinamicoProfesionales panelDinamicoProfesionales;
 		private PanelDinamicoPromociones panelDinamicoPromociones;
 	private JComponent JPnl_Datos;
-	private JLabel lblAlertaSucursal;
+		private JLabel lbl_Inicio;
+		private JLabel lbl_Fin;
+		private JLabel lbl_Total;
+		private JLabel lbl_TotalUSD;
+		private JLabel lblAlertaSucursal;
 	
 	private JTable tablaServiciosAgregados;
 	private DefaultTableModel modelServiciosAgregados;
@@ -83,6 +88,7 @@ public class nuevaVentanaCita {
 	private LocalDate fechaCita;
 	private SucursalDTO sucursal;
 	private ClienteDTO cliente;
+	private LocalTime horaInicio;
 	private JLabel lblErrorFecha;
 
 	public static nuevaVentanaCita getInstance()
@@ -177,6 +183,8 @@ public class nuevaVentanaCita {
 		crearLabelTotal();
 		
 		crearLabelTotalUSD();
+		
+		crearLabelsDatosCita();
 		
 		crearLabelAlertaSucursal();
 		
@@ -489,6 +497,24 @@ public class nuevaVentanaCita {
 		JPnl_Datos.add(lblAlertaSucursal);
 	}
 
+	private void crearLabelsDatosCita() {
+		lbl_Inicio = new JLabel("");
+		lbl_Inicio.setBounds(50, 41, 120, 14);
+		JPnl_Datos.add(lbl_Inicio);
+		
+		lbl_Fin = new JLabel("");
+		lbl_Fin.setBounds(68, 66, 120, 14);
+		JPnl_Datos.add(lbl_Fin);
+		
+		lbl_Total = new JLabel("");
+		lbl_Total.setBounds(269, 41, 120, 14);
+		JPnl_Datos.add(lbl_Total);
+		
+		lbl_TotalUSD = new JLabel("");
+		lbl_TotalUSD.setBounds(269, 66, 120, 14);
+		JPnl_Datos.add(lbl_TotalUSD);
+	}
+
 	private void crearBotonConfirmar() {
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setBounds(333, 657, 100, 23);
@@ -599,7 +625,7 @@ public class nuevaVentanaCita {
 	public void habilitarJDateChooser() {
 		JDChooserFecha.setEnabled(true);
 	}
-	
+
 	public void mostrarPanelServicios() {
 		panelDinamicoServicios.setVisible(true);
 	}
@@ -624,6 +650,25 @@ public class nuevaVentanaCita {
 		this.panelDinamicoPromociones.setVisible(false);
 	}
 	
+	public void mostrarErrorFechaAnterior() {
+		this.lblErrorFecha.setVisible(true);
+	}
+	
+	public void ocultarErrorFechaAnteror() {
+		this.lblErrorFecha.setVisible(false);
+	}		
+	
+	public void ocultarPanelesServicios() {
+		this.panelDinamicoProfesionales.setVisible(false);
+		this.panelDinamicoPromociones.setVisible(false);
+		this.panelDinamicoServicios.setVisible(false);
+	}
+	
+	public void setearDatoInicio() {
+		lbl_Inicio.setText(horaInicio.toString());
+	}
+	
+	
 	public void limpiarTodo() {
 		this.btnBuscar.setEnabled(false);
 		this.chckbxGenerico.setSelected(false);
@@ -641,20 +686,6 @@ public class nuevaVentanaCita {
 		ocultarPanelProfesionales();
 		ocultarPanelPromociones();
 		ocultarPanelServicios();
-	}
-	
-	public void mostrarErrorFechaAnterior() {
-		this.lblErrorFecha.setVisible(true);
-	}
-	
-	public void ocultarErrorFechaAnteror() {
-		this.lblErrorFecha.setVisible(false);
-	}		
-	
-	public void ocultarPanelesServicios() {
-		this.panelDinamicoProfesionales.setVisible(false);
-		this.panelDinamicoPromociones.setVisible(false);
-		this.panelDinamicoServicios.setVisible(false);
 	}
 		
 	/* *************************************************************************************
@@ -904,6 +935,39 @@ public class nuevaVentanaCita {
 		this.btnConfirmar = btnConfirmar;
 	}
 	
+	public JLabel getLbl_Inicio() {
+		return lbl_Inicio;
+	}
+
+	public void setLbl_Inicio(JLabel lbl_Inicio) {
+		this.lbl_Inicio = lbl_Inicio;
+	}
+
+	public JLabel getLbl_Fin() {
+		return lbl_Fin;
+	}
+
+	public void setLbl_Fin(JLabel lbl_Fin) {
+		this.lbl_Fin = lbl_Fin;
+	}
+
+	public JLabel getLbl_Total() {
+		return lbl_Total;
+	}
+
+	public void setLbl_Total(JLabel lbl_Total) {
+		this.lbl_Total = lbl_Total;
+	}
+
+	public JLabel getLbl_TotalUSD() {
+		return lbl_TotalUSD;
+	}
+
+	public void setLbl_TotalUSD(JLabel lbl_TotalUSD) {
+		this.lbl_TotalUSD = lbl_TotalUSD;
+	}
+
+	
 	/* *************************************************************************************
 	 * ********************* GETTERS Y SETTERS DE LAS VARIABLES ****************************
 	 * *************************************************************************************/
@@ -922,5 +986,13 @@ public class nuevaVentanaCita {
 
 	public void setCliente(ClienteDTO cliente) {
 		this.cliente = cliente;
+	}
+
+	public LocalTime getHoraInicio() {
+		return horaInicio;
+	}
+
+	public void setHoraInicio(LocalTime horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 }
