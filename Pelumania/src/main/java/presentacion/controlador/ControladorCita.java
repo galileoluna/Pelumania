@@ -64,6 +64,7 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdBtnProfesional().addActionListener(b -> mostrarPanelProfesional(b));
 		this.ventanaCita.getRdbtnPromocion().addActionListener(c -> mostrarPanelPromociones(c));
 		
+		this.ventanaCita.getBtnAgregarServicio().addActionListener(d -> agregarServicio(d));
 		this.ventanaCita.getBtnConfirmar().addActionListener (a -> guardarCita(a));
 		
 		inicializarArreglos();
@@ -199,6 +200,7 @@ public class ControladorCita implements ActionListener{
 			this.ventanaCita.setFechaCita(null);
 		}else {
 			this.ventanaCita.ocultarErrorFechaAnteror();
+			this.ventanaCita.setFechaCita(fechaElegida);
 		}
 	}
 	
@@ -314,9 +316,9 @@ public class ControladorCita implements ActionListener{
 	/* *********** METODOS PARA EL MANEJO DE LOS SERVICIOS ************** */
 	/* ****************************************************************** */
 	
-	public void agregarServicio(ServicioTurnoDTO servicioTurno) {
-		if (validarAntesDeAgregarServicio(servicioTurno)) {
-			serviciosAgregados.add(servicioTurno);
+	public void agregarServicio(ActionEvent d) {
+		if (validarAntesDeAgregarServicio(servicioSeleccionado)) {
+//			serviciosAgregados.add(servicioSeleccionado);
 			//Agregar a la tabla y mostrarlo
 	}else {
 		mostrarErrorServicio();
@@ -324,7 +326,11 @@ public class ControladorCita implements ActionListener{
 		
 	}
 	
-	public boolean validarAntesDeAgregarServicio(ServicioTurnoDTO servicio) {
+	public boolean validarAntesDeAgregarServicio(ServicioDTO servicio) {
+		if (servicio == null) {
+			ControladorCita.errorServicio = "No has seleccionado ningun servicio!";
+			return false;
+		}
 		if (this.ventanaCita.getHoraInicio() == null) {
 			ControladorCita.errorServicio = "Debes elegir la hora de inicio del turno para agregar servicios!";
 			return false;
@@ -333,7 +339,7 @@ public class ControladorCita implements ActionListener{
 			ControladorCita.errorServicio = "Ese servicio ya fue agregado!";
 			return false;
 		}
-		ProfesionalDTO profesional = this.sistema.getProfesionalById(servicio.getIdProfesional());
+		ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().getSelectedItem();
 		if (!validarDisponibilidadProfesional()) {
 			ControladorCita.errorServicio = "El profesional "+ profesional.getNombre()+" "+
 					profesional.getApellido()+" no está disponible en ese horario!"+ 

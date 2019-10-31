@@ -79,6 +79,9 @@ public class nuevaVentanaCita {
 	private String[] nombreColumnasAgregadas = {"Nombre","Profesional"};
 	private JScrollPane spServiciosAgregados;
 	
+	private JButton btnAgregarServicio;
+	private JButton btnEliminarServicio;
+	
 	private JButton btnCancelar;
 	private JButton btnConfirmar;
 
@@ -437,13 +440,13 @@ public class nuevaVentanaCita {
 	}
 
 	private void crearBotonAgregarServicio() {
-		JButton btnAgregarServicio = new JButton("");
+		btnAgregarServicio = new JButton("");
 		btnAgregarServicio.setBounds(249, 120, 25, 25);
 		JPnl_Servicios.add(btnAgregarServicio);
 	}
 
 	private void crearBotonEliminarServicio() {
-		JButton btnEliminarServicio = new JButton("");
+		btnEliminarServicio = new JButton("");
 		btnEliminarServicio.setBounds(249, 156, 25, 25);
 		JPnl_Servicios.add(btnEliminarServicio);
 	}
@@ -994,6 +997,22 @@ public class nuevaVentanaCita {
 
 	public void setPanelDinamicoPromociones(PanelDinamicoPromociones panelDinamicoPromociones) {
 		this.panelDinamicoPromociones = panelDinamicoPromociones;
+	}
+	
+	public JButton getBtnAgregarServicio() {
+		return btnAgregarServicio;
+	}
+
+	public void setBtnAgregarServicio(JButton btnAgregarServicio) {
+		this.btnAgregarServicio = btnAgregarServicio;
+	}
+
+	public JButton getBtnEliminarServicio() {
+		return btnEliminarServicio;
+	}
+
+	public void setBtnEliminarServicio(JButton btnEliminarServicio) {
+		this.btnEliminarServicio = btnEliminarServicio;
 	}
 	
 	/* *************************************************************************************
