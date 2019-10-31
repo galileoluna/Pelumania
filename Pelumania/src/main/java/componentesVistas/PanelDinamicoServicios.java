@@ -6,6 +6,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import dto.ProfesionalDTO;
+
 import javax.swing.JComboBox;
 
 //import util.RowsRendererBasic;
@@ -19,6 +22,7 @@ public class PanelDinamicoServicios extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtbuscarServicios;
+	private JComboBox<ProfesionalDTO> JCBoxProfesionalesDeServicio;
 
 	public PanelDinamicoServicios() {
 		initialize();
@@ -64,9 +68,9 @@ public class PanelDinamicoServicios extends JPanel{
 
 		spServicios.setViewportView(tablaServicios);
 		
-		JComboBox JComboBoxProfesionalesDeServicio = new JComboBox();
-		JComboBoxProfesionalesDeServicio.setBounds(0, 148, 232, 20);
-		add(JComboBoxProfesionalesDeServicio);
+		JCBoxProfesionalesDeServicio = new JComboBox<ProfesionalDTO>();
+		JCBoxProfesionalesDeServicio .setBounds(0, 148, 232, 20);
+		add(JCBoxProfesionalesDeServicio );
 	}
 
 	public JTable getTablaServicios() {
@@ -100,4 +104,14 @@ public class PanelDinamicoServicios extends JPanel{
 	public void setTxtbuscarServicios(JTextField txtbuscarServicios) {
 		this.txtbuscarServicios = txtbuscarServicios;
 	}
+
+	public JComboBox<ProfesionalDTO> getJCBoxProfesionalesDeServicio() {
+		return JCBoxProfesionalesDeServicio;
+	}
+
+	public void setJCBoxProfesionalesDeServicio(JComboBox<ProfesionalDTO> jCBoxProfesionalesDeServicio) {
+		JCBoxProfesionalesDeServicio = jCBoxProfesionalesDeServicio;
+	}
+	
+	
 }

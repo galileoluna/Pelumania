@@ -288,7 +288,15 @@ public class ControladorCita implements ActionListener{
 	private void actualizarServicioSeleccionado(ListSelectionEvent l) {
 		servicioSeleccionado = getServicioSeleccionado();
 		System.out.println(servicioSeleccionado);
-		//cargar profesionales segun servicio elegido
+		profesionales = this.sistema.getProfesionalesByIdServicio(servicioSeleccionado.getIdServicio());
+		cargarProfesionalesAsociadosAServicio();
+	}
+	
+	private void cargarProfesionalesAsociadosAServicio() {
+		this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().removeAllItems();
+		for (ProfesionalDTO prof : profesionales) {
+			this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
+		}
 	}
 	
 	private void guardarCita(ActionEvent a) {

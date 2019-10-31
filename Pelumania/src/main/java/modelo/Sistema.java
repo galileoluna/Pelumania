@@ -176,6 +176,10 @@ public class Sistema
 		return this.profesional.getProfesionalByIdSucursal(idSucursal);
 	}
 	
+	public List<ProfesionalDTO> getProfesionalesByIdServicio(int idServicio){
+		return this.profesional.getProfesionalesByIdServicio(idServicio);
+	}
+	
 	// FIN PROFESIONAL
 	
 	// ARRANCA HORARIOS ASOCIADOS A PROFESIONAL
