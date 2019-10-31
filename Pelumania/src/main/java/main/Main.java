@@ -13,7 +13,7 @@ public class Main {
     {
     	BasicConfigurator.configure();
         Sistema sistema = new Sistema(new DAOSQLFactory());
-        Login login=new Login();
+        Login login = new Login();
         ControladorLogin controladorLog= new ControladorLogin(login,sistema);
    
     } 

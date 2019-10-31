@@ -1,6 +1,7 @@
 package presentacion.vista;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -71,6 +72,10 @@ public class nuevaVentanaCita {
 	private String[] nombreColumnasAgregadas = {"Nombre","Profesional"};
 	private JScrollPane spServiciosAgregados;
 	
+	private JButton btnCancelar;
+	private JButton btnConfirmar;
+
+	
 	/* *************************************************************************************
 	 * ******************* VARIABLES PARA MANEJAR DATOS ************************************
 	 * *************************************************************************************/
@@ -91,8 +96,7 @@ public class nuevaVentanaCita {
 		return INSTANCE;	
 		
 		}
-	
-	
+
 	public nuevaVentanaCita() {
 		initialize();
 	}
@@ -300,6 +304,7 @@ public class nuevaVentanaCita {
 	private void crearTxtNombre() {
 		TxtNombre = new JTextField();
 		TxtNombre.setBounds(169, 42, 86, 20);
+		TxtNombre.setEnabled(false);
 		JPnl_Cliente.add(TxtNombre);
 		TxtNombre.setColumns(10);
 	}
@@ -307,6 +312,7 @@ public class nuevaVentanaCita {
 	private void crearTxtApellido() {
 		TxtApellido = new JTextField();
 		TxtApellido.setBounds(325, 42, 86, 20);
+		TxtApellido.setEnabled(false);
 		JPnl_Cliente.add(TxtApellido);
 		TxtApellido.setColumns(10);
 	}
@@ -314,6 +320,7 @@ public class nuevaVentanaCita {
 	private void crearTxtTelefono() {
 		TxtTelefono = new JTextField();
 		TxtTelefono.setBounds(169, 73, 86, 20);
+		TxtTelefono.setEnabled(false);
 		JPnl_Cliente.add(TxtTelefono);
 		TxtTelefono.setColumns(10);
 	}
@@ -321,6 +328,7 @@ public class nuevaVentanaCita {
 	private void crearTxtMail() {
 		TxtMail = new JTextField();
 		TxtMail.setBounds(325, 73, 198, 20);
+		TxtMail.setEnabled(false);
 		JPnl_Cliente.add(TxtMail);
 		TxtMail.setColumns(10);
 	}
@@ -482,15 +490,15 @@ public class nuevaVentanaCita {
 	}
 
 	private void crearBotonConfirmar() {
-		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setBounds(333, 657, 100, 23);
 		frame.getContentPane().add(btnConfirmar);
 	}
 
 	private void crearBotonCancelar() {
-		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.setBounds(443, 657, 100, 23);
-		frame.getContentPane().add(btnNewButton);
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar .setBounds(443, 657, 100, 23);
+		frame.getContentPane().add(btnCancelar );
 	}
 	
 	private void crearTablaServiciosAgregados() {
@@ -563,10 +571,15 @@ public class nuevaVentanaCita {
 	}
 	
 	public void setearTxt(boolean b) {
-		this.getTxtNombre().setEditable(b);
-		this.getTxtApellido().setEditable(b);
-		this.getTxtMail().setEditable(b);
-		this.getTxtTelefono().setEditable(b);
+		this.getTxtNombre().setEnabled(b);
+		this.getTxtApellido().setEnabled(b);
+		this.getTxtMail().setEnabled(b);
+		this.getTxtTelefono().setEnabled(b);
+	}
+	
+	public void habilitarCamposClienteGenerico() {
+		this.getTxtMail().setEnabled(true);
+		this.getTxtTelefono().setEnabled(true);
 	}
 	
 	public void limpiarTxtCliente() {
@@ -630,6 +643,12 @@ public class nuevaVentanaCita {
 	public void ocultarErrorFechaAnteror() {
 		this.lblErrorFecha.setVisible(false);
 	}		
+	
+	public void ocultarPanelesServicios() {
+		this.panelDinamicoProfesionales.setVisible(false);
+		this.panelDinamicoPromociones.setVisible(false);
+		this.panelDinamicoServicios.setVisible(false);
+	}
 		
 	/* *************************************************************************************
 	 * ******************** GETTERS Y SETTERS DE LOS COMPONENTES ***************************
@@ -834,17 +853,6 @@ public class nuevaVentanaCita {
 		this.spServiciosAgregados = spServiciosAgregados;
 	}
 
-
-	public SucursalDTO getSucursal() {
-		return sucursal;
-	}
-
-
-	public void setSucursal(SucursalDTO sucursal) {
-		this.sucursal = sucursal;
-	}
-
-
 	public JLabel getLblAlertaSucursal() {
 		return lblAlertaSucursal;
 	}
@@ -864,23 +872,48 @@ public class nuevaVentanaCita {
 		this.btnBuscar = btnBuscar;
 	}
 
-
-	public ClienteDTO getCliente() {
-		return cliente;
-	}
-
-
-	public void setCliente(ClienteDTO cliente) {
-		this.cliente = cliente;
-	}
-
-
 	public JButton getBtnRegistrar() {
 		return btnRegistrar;
 	}
 
-
 	public void setBtnRegistrar(JButton btnRegistrar) {
 		this.btnRegistrar = btnRegistrar;
+	}
+
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
+
+
+	public void setBtnCancelar(JButton btnCancelar) {
+		this.btnCancelar = btnCancelar;
+	}
+
+	public JButton getBtnConfirmar() {
+		return btnConfirmar;
+	}
+
+	public void setBtnConfirmar(JButton btnConfirmar) {
+		this.btnConfirmar = btnConfirmar;
+	}
+	
+	/* *************************************************************************************
+	 * ********************* GETTERS Y SETTERS DE LAS VARIABLES ****************************
+	 * *************************************************************************************/
+
+	public SucursalDTO getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(SucursalDTO sucursal) {
+		this.sucursal = sucursal;
+	}
+	
+	public ClienteDTO getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteDTO cliente) {
+		this.cliente = cliente;
 	}
 }

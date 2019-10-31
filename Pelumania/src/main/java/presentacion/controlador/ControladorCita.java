@@ -3,10 +3,12 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+
 
 import dto.ClienteDTO;
 import dto.SucursalDTO;
@@ -21,6 +23,7 @@ public class ControladorCita implements ActionListener{
 	private LocalDate fechaCita;
 	private SucursalDTO sucursal;
 	private ClienteDTO cliente;
+	private Logger log = Logger.getLogger(ControladorCita.class);	
 	
 	private List<SucursalDTO> listaSucursales;
 	
@@ -40,6 +43,9 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdBtnServicio().addActionListener(a -> mostrarPanelServicio(a));
 		this.ventanaCita.getRdBtnProfesional().addActionListener(b -> mostrarPanelProfesional(b));
 		this.ventanaCita.getRdbtnPromocion().addActionListener(c -> mostrarPanelPromociones(c));
+		
+		this.ventanaCita.getBtnConfirmar().addActionListener (a -> guardarCita(a));
+		
 		inicializarArreglos();
 	}
 
@@ -96,8 +102,8 @@ public class ControladorCita implements ActionListener{
 		}
 	}
 	public void setearSucursalActual() {
-		System.out.println(sucursal);
 		this.ventanaCita.getJCBoxSucursal().setSelectedItem(sucursal);
+		this.ventanaCita.setSucursal(sucursal);
 	}
 	
 	public void actualizarPanelDinamico(String PanelAMostrar) {
@@ -149,6 +155,7 @@ public class ControladorCita implements ActionListener{
 	
 	public void mostrarOpcionesClienteRegistrado( ActionEvent d) {
 		this.ventanaCita.limpiarTxtCliente();
+		this.ventanaCita.setearTxt(false);
 		this.ventanaCita.getChckbxGenerico().setSelected(false);
 		this.ventanaCita.getBtnBuscar().setEnabled(true);
 		this.ventanaCita.getBtnBuscar().addActionListener(r -> buscarCliente(r));
@@ -156,6 +163,7 @@ public class ControladorCita implements ActionListener{
 	
 	public void mostrarOpcionesClienteGenerico( ActionEvent d) {
 		this.ventanaCita.limpiarTxtCliente();
+		this.ventanaCita.habilitarCamposClienteGenerico();
 		this.ventanaCita.getChckbxRegistrado().setSelected(false);
 		this.ventanaCita.getBtnBuscar().setEnabled(false);
 	}
@@ -174,7 +182,7 @@ public class ControladorCita implements ActionListener{
 		if (this.ventanaCita.getRdBtnServicio().isSelected()) {
 			actualizarPanelDinamico("Servicios");
 		}else {
-//			limpiarPanel();
+			this.ventanaCita.ocultarPanelesServicios();
 		}
 	}
 	
@@ -184,7 +192,7 @@ public class ControladorCita implements ActionListener{
 		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
 			actualizarPanelDinamico("Profesionales");
 		}else {
-//			limpiarPanel();
+			this.ventanaCita.ocultarPanelesServicios();
 		}	
 	}
 	
@@ -193,11 +201,18 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdBtnServicio().setSelected(false);
 		if(this.ventanaCita.getRdbtnPromocion().isSelected()) {
 			actualizarPanelDinamico("Promociones");
-			System.out.println("entro ak");
 		}else {
-//			limpiarPanel();
+			this.ventanaCita.ocultarPanelesServicios();
 		}
 	}
+	
+	private void guardarCita(ActionEvent a) {
+		log.info("Aun no guarda nada, solo imprime los datos de la cita:");
+		System.out.println("Fecha: "+this.ventanaCita.getFechaCita());
+		System.out.println("Cliente:"+ this.ventanaCita.getCliente());
+		System.out.println("Sucursal:" + this.ventanaCita.getSucursal());
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
