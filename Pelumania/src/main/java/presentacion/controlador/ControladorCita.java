@@ -22,14 +22,18 @@ public class ControladorCita implements ActionListener{
 	
 	private LocalDate fechaCita;
 	private SucursalDTO sucursal;
-	private ClienteDTO cliente;
+	
+	private ClienteDTO clienteGenerico;
+	
 	private Logger log = Logger.getLogger(ControladorCita.class);	
 	
 	private List<SucursalDTO> listaSucursales;
 	
 	public ControladorCita(Sistema s) {
+		
 		this.ventanaCita = nuevaVentanaCita.getInstance();
 		this.sistema = s;
+		clienteGenerico = this.sistema.obtenerClienteById(-1);
 		
 		this.ventanaCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
@@ -171,6 +175,7 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	public void mostrarOpcionesClienteGenerico( ActionEvent d) {
+		this.ventanaCita.setCliente(clienteGenerico);
 		this.ventanaCita.limpiarTxtCliente();
 		this.ventanaCita.habilitarCamposClienteGenerico();
 		this.ventanaCita.getChckbxRegistrado().setSelected(false);

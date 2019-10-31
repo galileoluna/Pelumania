@@ -23,6 +23,7 @@ public class ClienteDAOSQL implements ClienteDAO
 	private static final String deleteReal = "DELETE FROM Cliente WHERE idCliente = ?";
 	private static final String ESTADO_INACTIVO = "inactivo";
 	private static final String readById = "SELECT * FROM Cliente WHERE idCliente = ?";
+	private static final String getClienteGenerico = "SELECT * FROM Cliente WHERE idCliente = ?";
 
 	@Override
 	public boolean insert(ClienteDTO cliente)

@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `Servicio`(
     PRIMARY KEY (`idCliente`)
   );
 
+INSERT INTO Cliente ()
 CREATE TABLE IF NOT EXISTS `Rol`(
 
   `idRol` INT(11) NOT NULL AUTO_INCREMENT,
@@ -298,7 +299,7 @@ INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Cont
 VALUES (2, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 1);
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
-VALUES (-1, 'Default', 'user', 'e', 'e', 'a@a.com', 'Activo', 1, 2);
+VALUES (3, 'Default', 'user', 'e', 'e', 'a@a.com', 'Activo', 1, 2);
 
 -- Inserts para los servicios
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)

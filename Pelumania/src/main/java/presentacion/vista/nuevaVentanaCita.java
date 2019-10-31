@@ -570,6 +570,11 @@ public class nuevaVentanaCita {
 		setearTxt(false);
 	}
 	
+	private void setearDatosClienteGenerico() {
+		this.TxtNombre.setText(cliente.getNombre());
+		this.TxtApellido.setText(cliente.getApellido());
+	}
+	
 	public void setearTxt(boolean b) {
 		this.getTxtNombre().setEnabled(b);
 		this.getTxtApellido().setEnabled(b);
@@ -578,6 +583,8 @@ public class nuevaVentanaCita {
 	}
 	
 	public void habilitarCamposClienteGenerico() {
+		setearDatosClienteGenerico();
+		this.setearTxt(false);
 		this.getTxtMail().setEnabled(true);
 		this.getTxtTelefono().setEnabled(true);
 	}
