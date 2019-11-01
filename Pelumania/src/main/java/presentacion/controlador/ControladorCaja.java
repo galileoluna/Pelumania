@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JComboBox;
 
@@ -28,6 +30,8 @@ public class ControladorCaja implements ActionListener {
 	private CitaDTO citaSeleccionada;
 	private List<ServicioTurnoDTO> serviciosCita;
 	private Controlador2 controladorMenu;
+	private final Lock _mutex = new ReentrantLock(true); //mutex
+
 	
 	private ControladorCaja (Sistema sistema, Controlador2 controladorMenu) {
 		this.ventanaCaja = VentanaCaja.getInstance();
@@ -170,7 +174,8 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void agregarMovimiento(ActionEvent l) {
-		
+//		System.out.println("VOY A ENTRAR AL SEMAFOROVICH");
+		_mutex.lock();
 		int idSucursal = 1; //de donde sacamos esto?
 		Instant fecha = Instant.now();
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
@@ -288,6 +293,9 @@ public class ControladorCaja implements ActionListener {
 		}
 		
 		this.ventanaCaja.limpiarCampos();
+//		System.out.println("DOUUUUUUUU SALIENDO DE LA SECCION CRITICA");
+		this._mutex.unlock();
+
 	}
 
 
