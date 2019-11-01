@@ -3,6 +3,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import dto.ProfesionalDTO;
+
 import javax.swing.JComboBox;
 
 public class PanelDinamicoProfesionales extends JPanel {
@@ -11,6 +14,8 @@ public class PanelDinamicoProfesionales extends JPanel {
 	private DefaultTableModel modelServicios;
 	private String[] nombreColumnas = {"Nombre","Precio en $","Duracion",
 			"Puntos que brinda", "Estado"};
+	
+	private JComboBox<ProfesionalDTO> JCBoxProfesional;
 
 	private static final long serialVersionUID = 1L;
 
@@ -51,11 +56,43 @@ public class PanelDinamicoProfesionales extends JPanel {
 
 		spServicios.setViewportView(tablaServicios);
 		
-		JComboBox JCBoxProfesional = new JComboBox();
+		JCBoxProfesional = new JComboBox<ProfesionalDTO>();
 		JCBoxProfesional.setBounds(0, 0, 232, 20);
 		add(JCBoxProfesional);
 		
 		this.setVisible(true);
+	}
+
+	public JTable getTablaServicios() {
+		return tablaServicios;
+	}
+
+	public void setTablaServicios(JTable tablaServicios) {
+		this.tablaServicios = tablaServicios;
+	}
+
+	public DefaultTableModel getModelServicios() {
+		return modelServicios;
+	}
+
+	public void setModelServicios(DefaultTableModel modelServicios) {
+		this.modelServicios = modelServicios;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
+	}
+
+	public JComboBox<ProfesionalDTO> getJCBoxProfesional() {
+		return JCBoxProfesional;
+	}
+
+	public void setJCBoxProfesional(JComboBox<ProfesionalDTO> jCBoxProfesional) {
+		JCBoxProfesional = jCBoxProfesional;
 	}
 
 }

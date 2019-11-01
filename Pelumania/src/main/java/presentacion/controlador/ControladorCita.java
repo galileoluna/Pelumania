@@ -272,11 +272,13 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdbtnPromocion().setSelected(false);
 		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
 			actualizarPanelDinamico("Profesionales");
+			llenarDatosPanelProfesionales();
+			this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().addActionListener(e -> mostrarServiciosDelProfesional(e));
 		}else {
 			this.ventanaCita.ocultarPanelesServicios();
 		}	
 	}
-	
+
 	public void mostrarPanelPromociones(ActionEvent a) {
 		this.ventanaCita.getRdBtnProfesional().setSelected(false);
 		this.ventanaCita.getRdBtnServicio().setSelected(false);
@@ -289,24 +291,20 @@ public class ControladorCita implements ActionListener{
 	
 	private void actualizarServicioSeleccionado(ListSelectionEvent l) {
 		servicioSeleccionado = getServicioSeleccionado();
-		System.out.println(servicioSeleccionado);
-		profesionales = this.sistema.getProfesionalesByIdServicio(servicioSeleccionado.getIdServicio());
-		cargarProfesionalesAsociadosAServicio();
-	}
-	
-	private void cargarProfesionalesAsociadosAServicio() {
-		this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().removeAllItems();
-		for (ProfesionalDTO prof : profesionales) {
-			if(prof.getEstado().equals("Activo"))
-				this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
+		if(servicioSeleccionado!=null) {
+			profesionales = this.sistema.getProfesionalesByIdServicio(servicioSeleccionado.getIdServicio());
+			cargarProfesionalesAsociadosAServicio();
+			}
 		}
-	}
 	
 	private void guardarCita(ActionEvent a) {
 		log.info("Aun no guarda nada, solo imprime los datos de la cita:");
+		
+		System.out.println("Sucursal: " + this.ventanaCita.getSucursal());
 		System.out.println("Fecha: "+this.ventanaCita.getFechaCita());
 		System.out.println("Cliente: "+ this.ventanaCita.getCliente());
-		System.out.println("Sucursal: " + this.ventanaCita.getSucursal());
+		System.out.println("Telefono: "+ this.ventanaCita.getTxtTelefono().getText());
+		System.out.println("Mail: "+ this.ventanaCita.getTxtMail().getText());
 		
 		System.out.println("Inicio: "+ this.ventanaCita.getHoraInicio());
 	}
@@ -329,6 +327,13 @@ public class ControladorCita implements ActionListener{
 	}
 		
 	}
+	
+	public void mostrarServiciosDelProfesional(ActionEvent a) {
+		ProfesionalDTO profesionalSeleccionado = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
+		if (profesionalSeleccionado != null) {
+			cargarServiciosDelProfesional(profesionalSeleccionado.getIdProfesional());
+			}
+		}
 	
 	public boolean validarAntesDeAgregarServicio(ServicioTurnoDTO servicio) {
 		if (servicio == null) {
@@ -421,9 +426,53 @@ public class ControladorCita implements ActionListener{
         		servicioSeleccionado = sistema.getServicioById(idServicio);
         	}
     	}
-    	
     	return servicioSeleccionado;
 	}
+	
+	
+	private void cargarProfesionalesAsociadosAServicio() {
+		this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().removeAllItems();
+		for (ProfesionalDTO prof : profesionales) {
+			if(prof.getEstado().equals("Activo"))
+				this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
+		}
+	}
+	
+	/* PANEL PROFESIONALES */
+	
+	public void llenarDatosPanelProfesionales() {
+		cargarProfesionales();
+	}
+	
+	private void cargarProfesionales() {
+		profesionales = this.sistema.obtenerProfesional();
+		this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().removeAllItems();
+		for (ProfesionalDTO prof : profesionales) {
+			if(prof.getEstado().equals("Activo"))
+				this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().addItem(prof);
+		}
+		
+		this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().setSelectedItem(null);
+	}
+	
+	public void cargarServiciosDelProfesional(Integer idProfesional) {
+		this.ventanaCita.getPanelDinamicoProfesionales().getModelServicios().setRowCount(0); //Para vaciar la tabla
+		this.ventanaCita.getPanelDinamicoProfesionales().getModelServicios().setColumnCount(0);
+		this.ventanaCita.getPanelDinamicoProfesionales().getModelServicios().setColumnIdentifiers(this.ventanaCita.getPanelDinamicoServicios().getNombreColumnas());
+
+		List<ServicioDTO> serviciosDeProfesional = this.sistema.getServiciosDelProfesional(idProfesional);
+		for (ServicioDTO s : serviciosDeProfesional)
+		{
+			String nombre = s.getNombre();
+			BigDecimal precioLocal = s.getPrecioLocal();
+			BigDecimal precioDolar = s.getPrecioDolar();
+			LocalTime duracion = s.getDuracion();
+			int puntos = s.getPuntos();
+			String estado = s.getEstado();
+			Object[] fila = {nombre, precioLocal, duracion, puntos, estado};
+			this.ventanaCita.getPanelDinamicoProfesionales().getModelServicios().addRow(fila);
+		}
+}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
