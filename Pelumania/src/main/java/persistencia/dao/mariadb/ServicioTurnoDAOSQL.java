@@ -31,7 +31,7 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 			" JOIN profesional p USING (IdProfesional)" + 
 			" JOIN cita c USING (idCita)" + 
 			" JOIN diaslaborales d ON  p.IdProfesional=d.IdProfesional" + 
-			" WHERE st.horaInicio < ? AND st.horaFin > ? AND d.HoraEntrada < ?" + 
+			" WHERE (st.horaInicio <= ? OR st.horaFin >= ?)  AND st.horaInicio <= ? AND   st.horaFin >= ? AND d.HoraEntrada < ?" + 
 			" AND d.HoraSalida > ? AND d.Dia = ? AND p.IdProfesional = ? AND c.Dia=?; ";
 
 	
@@ -148,31 +148,40 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 	}
 	
 	@Override
-	public Integer profesionalOcupado(LocalTime horaInicio, LocalTime horaFin,
+	public int profesionalOcupado(LocalTime horaInicio, LocalTime horaFin,
 			String dia, Integer idProfesional, LocalDate fecha) {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		Integer ocupado = null;
+		Integer ocupado = 0;
 		try
 		{
 			statement = conexion.prepareStatement(profesionalOcupado);
 			System.out.println(horaInicio);
+			System.out.println("----------------------------------ENTRE--------------------------------------");
 			statement.setTime	(1,  Time.valueOf(horaInicio));
 			statement.setTime	(2,  Time.valueOf(horaFin));
 			statement.setTime	(3,  Time.valueOf(horaInicio));
 			statement.setTime	(4,  Time.valueOf(horaFin));
-			statement.setString	(5,  dia);
-			statement.setInt	(6,  idProfesional);
-			statement.setDate	(7,  Date.valueOf(fecha));
+			statement.setTime	(5,  Time.valueOf(horaInicio));
+			statement.setTime	(6,  Time.valueOf(horaFin));
+			statement.setString	(7,  dia);
+			statement.setInt	(8,  idProfesional);
+			statement.setDate	(9,  Date.valueOf(fecha));
 			
 			System.out.println(statement);
 			resultSet = statement.executeQuery();
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
+			
+			if (resultSet.next()){
+				//System.out.println("NICO MIRA: "+resultSet.getString("ocupado"));
 				ocupado = resultSet.getInt("ocupado");
 			}
+			/*if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				System.out.println("NICO MIRA: "+resultSet.getString("ocupado"));
+				ocupado = resultSet.getInt("ocupado");
+			}*/
 		}
 		catch (SQLException e)
 		{
