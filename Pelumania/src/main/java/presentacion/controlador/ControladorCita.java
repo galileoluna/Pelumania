@@ -313,8 +313,11 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	private void guardarCita(ActionEvent a) {
+		calcularHorariosServicios();
 		log.info("Aun no guarda nada, solo imprime los datos de la cita:");
-		
+		System.out.println("***********************"
+				+ "****** DATOS CITA *************"+
+				"*********************************");
 		System.out.println("Sucursal: " + this.ventanaCita.getSucursal());
 		System.out.println("Fecha: "+this.ventanaCita.getFechaCita());
 		System.out.println("Cliente: "+ this.ventanaCita.getCliente());
@@ -322,6 +325,18 @@ public class ControladorCita implements ActionListener{
 		System.out.println("Mail: "+ this.ventanaCita.getTxtMail().getText());
 		
 		System.out.println("Inicio: "+ this.ventanaCita.getHoraInicio());
+		imprimirServicios();
+	}
+	
+	public void imprimirServicios() {
+		System.out.print("[");
+		for (ServicioTurnoDTO st : serviciosAgregados) {
+			ServicioDTO serv = this.sistema.getServicioById(st.getIdServicio());
+			ProfesionalDTO prof = this.sistema.getProfesionalById(st.getIdProfesional());
+			
+			System.out.println(serv.getNombre()+" por: "+ prof.getNombre()+" "+prof.getApellido());
+			System.out.println("Inicia: "+ st.getHoraInicio() +" y termina: "+ st.getHoraFin());
+		}
 	}
 	
 	
@@ -402,7 +417,20 @@ public class ControladorCita implements ActionListener{
 	private void mostrarErrorServicio() {
 		JOptionPane.showMessageDialog(null, ControladorCita.errorServicio);
 	}
-
+	
+	public void calcularHorariosServicios() {
+		LocalTime horaInicial = this.ventanaCita.getHoraInicio();
+		LocalTime horaFinalizacionServicio = null;
+		for (ServicioTurnoDTO st : serviciosAgregados) {
+			ServicioDTO servicio = sistema.getServicioById(st.getIdServicio());
+			st.setHoraInicio(horaInicial);
+			
+			horaFinalizacionServicio = horaInicial.plusHours(servicio.getDuracion().getHour());
+			horaFinalizacionServicio = horaFinalizacionServicio.plusMinutes(servicio.getDuracion().getMinute());
+			st.setHoraFin(horaFinalizacionServicio);	
+			horaInicial = horaFinalizacionServicio;	
+		}
+	}
 	/* PANEL SERVICIOS*/
 	
 	public void cargarServiciosEnTabla(List<ServicioDTO> servicios) {
