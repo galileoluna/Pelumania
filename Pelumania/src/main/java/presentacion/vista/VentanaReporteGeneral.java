@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
@@ -70,12 +71,15 @@ public class VentanaReporteGeneral extends JFrame{
 		Jdc_Desde = new JDateChooser();
 		Jdc_Desde.setSize(142, 23);
 		Jdc_Desde.setLocation(109, 49);
-		Jdc_Desde.setDateFormatString("dd/MM/yyyy");
+		Jdc_Desde.setDateFormatString("yyyy-MM-dd");
+		Jdc_Desde.getDateEditor().setEnabled(false);
 		panel.add(Jdc_Desde);
 		
 		Jdc_Hasta = new JDateChooser();
 		Jdc_Hasta.setSize(142, 23);
 		Jdc_Hasta.setLocation(109, 84);
+		Jdc_Hasta.setDateFormatString("yyyy-MM-dd");
+		Jdc_Hasta.getDateEditor().setEnabled(false);
 		panel.add(Jdc_Hasta);
 		
 		btnGenerarReporte = new JButton("Generar Reporte");
@@ -91,7 +95,11 @@ public class VentanaReporteGeneral extends JFrame{
 		separator.setBounds(32, 36, 296, 2);
 		panel.add(separator);
 		
-		setVisible(true);
+		this.setVisible(false);
+	}
+	
+	public void mostrarVentana() {
+		this.setVisible(true);
 	}
 
 	public JDateChooser getJdc_Hasta() {
@@ -121,5 +129,14 @@ public class VentanaReporteGeneral extends JFrame{
 	public void limpiarInputs()
 	{
 		
+	}
+	
+	public void mostrarErrorFecha() {
+		JOptionPane.showMessageDialog(new JFrame(), "Fecha inválida", "Dialog",
+				JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void cerrar(){
+		this.dispose();
 	}
 }

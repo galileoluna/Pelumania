@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -378,7 +379,7 @@ public class Sistema
 		return this.caja.insertIngresoProducto(movimiento_a_insertar);
 	}
 	
-	public List<MovimientoCajaDTO> obtenerMovimientosCaja(String desde, String hasta){
+	public List<MovimientoCajaDTO> obtenerMovimientosCaja(Timestamp desde, Timestamp hasta){
 		return this.caja.readDay(desde, hasta);
 	}
 	

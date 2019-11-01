@@ -3,6 +3,7 @@ package Doppler.Pelumania;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Date;
 
@@ -22,8 +23,8 @@ class MovimientoTest {
 		sistema=new Sistema(new DAOSQLFactory());
 		BigDecimal peso=new BigDecimal(1);
 		BigDecimal dolar=new BigDecimal(60);
-		Instant instant = Instant.ofEpochMilli(new Date().getTime());
-		movimiento=new MovimientoCajaDTO(1,1,1,instant,"Compra Shampo",1,peso,dolar,1,1,1,1);
+		Timestamp timestamp = Timestamp.from(Instant.now());
+		movimiento=new MovimientoCajaDTO(1,1,1,timestamp,"Compra Shampo",1,peso,dolar,1,1,1,1);
 		
 	}
 

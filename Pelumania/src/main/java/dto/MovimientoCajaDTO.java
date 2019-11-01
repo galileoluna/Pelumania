@@ -1,7 +1,7 @@
 package dto;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.sql.Timestamp;
 
 //Se modela con una misma entidad al ingreso y egreso
 //dependiendo de los campos con los que ingrese sera uno o el otro
@@ -18,7 +18,7 @@ public class MovimientoCajaDTO {
 	private int idCaja;
 	private int idSucursal;
 	private int idCategoria;
-	private Instant fecha;
+	private Timestamp fecha;
 	private String descripcion;
 	private String tipoCambio;
 	private int idPromocion;
@@ -31,7 +31,7 @@ public class MovimientoCajaDTO {
 	
 	
 	//constructor para un egreso
-	public MovimientoCajaDTO(int idCaja, int idSucursal,Instant fecha, int idCategoria,
+	public MovimientoCajaDTO(int idCaja, int idSucursal,Timestamp fecha, int idCategoria,
 			String tipoCambio, BigDecimal precioLocal, BigDecimal precioDolar, String descripcion) {
 		
 		this.idCaja = idCaja;
@@ -46,7 +46,7 @@ public class MovimientoCajaDTO {
 
 //constructor para un ingreso
 	
-	public MovimientoCajaDTO(int idCaja, int idSucursal, int categoria, Instant fecha,String tipoCambio, 
+	public MovimientoCajaDTO(int idCaja, int idSucursal, int categoria, Timestamp fecha,String tipoCambio, 
 								int idPromocion, BigDecimal precioLocal, BigDecimal precioDolar, 
 								int idProfesional, int idCita, int idCliente, int idServicio) {
 		
@@ -67,7 +67,7 @@ public class MovimientoCajaDTO {
 	
 	
 	//CONSTRUCTOR PARA UN INGRESO DE PRODUCTO
-	public MovimientoCajaDTO (int idCaja, int idSucursal, int idCategoria, Instant fecha, 
+	public MovimientoCajaDTO (int idCaja, int idSucursal, int idCategoria, Timestamp fecha, 
 							String tipoCambio,BigDecimal precioLocal, BigDecimal precioDolar ) {
 			
 	this.idCaja = idCaja;
@@ -104,11 +104,11 @@ public class MovimientoCajaDTO {
 		this.idCategoria = categoria;
 	}
 
-	public Instant getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Instant fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 
