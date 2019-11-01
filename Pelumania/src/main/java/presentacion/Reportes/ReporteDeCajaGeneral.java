@@ -2,8 +2,8 @@ package presentacion.Reportes;
 
 import java.io.File;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +37,22 @@ public class ReporteDeCajaGeneral {
 		parametersMap.put("Desde", desde);
 		parametersMap.put("Hasta", hasta);
 		
+		//ordenamos los movimientos para luego seperarlos por ingreso y egreso
+		Collections.sort(coleccion, new Comparator<MovimientoCajaDTO>() {
+
+			@Override
+			public int compare(MovimientoCajaDTO movimiento1, MovimientoCajaDTO movimiento2) {
+
+				String mov1 = movimiento1.getIdCategoria() + "";
+				String mov2 = movimiento2.getIdCategoria() + "";
+				
+				int resultado = mov1.compareTo(mov2);
+
+				return resultado;
+			}
+
+		});
+				
     	try		{
 			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("src" + File.separator + "main" + File.separator + "java" + File.separator +  "presentacion" + File.separator + "reportes" + File.separator + "ReporteDeCajaGeneral.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
