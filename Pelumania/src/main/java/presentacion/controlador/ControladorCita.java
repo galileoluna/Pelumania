@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -18,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
+import dto.PromocionDTO;
 import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
@@ -38,8 +40,14 @@ public class ControladorCita implements ActionListener{
 	
 	private List<SucursalDTO> listaSucursales;
 	private List<ServicioTurnoDTO> serviciosAgregados;
-	private List<ServicioDTO> servicios;
-	private List<ProfesionalDTO> profesionales;
+	
+	private List<ServicioDTO> servicios_panel_servicios;
+	private List<ProfesionalDTO> profesionales_panel_profesionales;
+	
+	private List<ServicioDTO> servicios_panel_profesionales;
+	private List<ProfesionalDTO> profesionales_panel_servicios;
+	
+	private List<PromocionDTO> promociones;
 	ServicioDTO servicioSeleccionado; 
 	
 	
@@ -90,7 +98,8 @@ public class ControladorCita implements ActionListener{
 	public void inicializarArreglos() {
 		listaSucursales = this.sistema.obtenerSucursales();
 		serviciosAgregados = new ArrayList<ServicioTurnoDTO>();
-		servicios = this.sistema.obtenerServicios();
+		servicios_panel_servicios = this.sistema.obtenerServicios();
+		promociones = this.sistema.obtenerPrmociones();
 	}
 	
 	public void cargarDatos() {
@@ -274,6 +283,7 @@ public class ControladorCita implements ActionListener{
 			actualizarPanelDinamico("Profesionales");
 			llenarDatosPanelProfesionales();
 			this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().addActionListener(e -> mostrarServiciosDelProfesional(e));
+			this.ventanaCita.getPanelDinamicoProfesionales().getTablaServicios().getSelectionModel().addListSelectionListener(b -> actualizarServicioSeleccionadoPanelProfesional(b));
 		}else {
 			this.ventanaCita.ocultarPanelesServicios();
 		}	
@@ -284,6 +294,7 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdBtnServicio().setSelected(false);
 		if(this.ventanaCita.getRdbtnPromocion().isSelected()) {
 			actualizarPanelDinamico("Promociones");
+			llenarTablaPromociones();
 		}else {
 			this.ventanaCita.ocultarPanelesServicios();
 		}
@@ -292,10 +303,14 @@ public class ControladorCita implements ActionListener{
 	private void actualizarServicioSeleccionado(ListSelectionEvent l) {
 		servicioSeleccionado = getServicioSeleccionado();
 		if(servicioSeleccionado!=null) {
-			profesionales = this.sistema.getProfesionalesByIdServicio(servicioSeleccionado.getIdServicio());
+			profesionales_panel_servicios = this.sistema.getProfesionalesByIdServicio(servicioSeleccionado.getIdServicio());
 			cargarProfesionalesAsociadosAServicio();
 			}
 		}
+	
+	private void actualizarServicioSeleccionadoPanelProfesional(ListSelectionEvent k) {
+		servicioSeleccionado = getServicioSeleccionadoPanelProfesional();
+	}
 	
 	private void guardarCita(ActionEvent a) {
 		log.info("Aun no guarda nada, solo imprime los datos de la cita:");
@@ -315,6 +330,7 @@ public class ControladorCita implements ActionListener{
 	/* ****************************************************************** */
 	
 	public void agregarServicio(ActionEvent d) {
+		if (this.ventanaCita.getRdBtnServicio().isSelected()) {
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
@@ -324,8 +340,20 @@ public class ControladorCita implements ActionListener{
 				System.out.println("Los servicios son: "+serviciosAgregados);
 	}else {
 		mostrarErrorServicio();
-	}
+		}
+		}
 		
+		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
+			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
+			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
+			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
+			if (validarAntesDeAgregarServicio(serv)) {
+				serviciosAgregados.add(serv);
+				actualizarServiciosAgregados();
+			}else {
+				mostrarErrorServicio();
+			}
+		}
 	}
 	
 	public void mostrarServiciosDelProfesional(ActionEvent a) {
@@ -382,6 +410,7 @@ public class ControladorCita implements ActionListener{
 			this.ventanaCita.getPanelDinamicoServicios().getModelServicios().setColumnCount(0);
 			this.ventanaCita.getPanelDinamicoServicios().getModelServicios().setColumnIdentifiers(this.ventanaCita.getPanelDinamicoServicios().getNombreColumnas());
 
+			servicios = this.sistema.obtenerServicios();
 			for (ServicioDTO s : servicios)
 			{
 				String nombre = s.getNombre();
@@ -412,7 +441,7 @@ public class ControladorCita implements ActionListener{
 }
 	
 	public void llenarDatosPanelServicio() {
-		cargarServiciosEnTabla(servicios);
+		cargarServiciosEnTabla(servicios_panel_servicios);
 	}
 	
 	public ServicioDTO getServicioSeleccionado() {
@@ -421,8 +450,8 @@ public class ControladorCita implements ActionListener{
 	       
     	for (int fila : filasSeleccionadas)
     	{
-        	if(servicios.get(fila)!=null) {	 
-        		Integer idServicio = servicios.get(fila).getIdServicio();
+        	if(servicios_panel_servicios.get(fila)!=null) {	 
+        		Integer idServicio = servicios_panel_servicios.get(fila).getIdServicio();
         		servicioSeleccionado = sistema.getServicioById(idServicio);
         	}
     	}
@@ -432,7 +461,7 @@ public class ControladorCita implements ActionListener{
 	
 	private void cargarProfesionalesAsociadosAServicio() {
 		this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().removeAllItems();
-		for (ProfesionalDTO prof : profesionales) {
+		for (ProfesionalDTO prof : profesionales_panel_servicios) {
 			if(prof.getEstado().equals("Activo"))
 				this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
 		}
@@ -445,9 +474,9 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	private void cargarProfesionales() {
-		profesionales = this.sistema.obtenerProfesional();
+		profesionales_panel_profesionales = this.sistema.obtenerProfesional();
 		this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().removeAllItems();
-		for (ProfesionalDTO prof : profesionales) {
+		for (ProfesionalDTO prof : profesionales_panel_profesionales) {
 			if(prof.getEstado().equals("Activo"))
 				this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().addItem(prof);
 		}
@@ -472,8 +501,56 @@ public class ControladorCita implements ActionListener{
 			Object[] fila = {nombre, precioLocal, duracion, puntos, estado};
 			this.ventanaCita.getPanelDinamicoProfesionales().getModelServicios().addRow(fila);
 		}
-}
+	}
 	
+	public ServicioDTO getServicioSeleccionadoPanelProfesional() {
+		ServicioDTO servicioSeleccionado = null;;
+		int[] filasSeleccionadas = this.ventanaCita.getPanelDinamicoProfesionales().getTablaServicios().getSelectedRows();
+		ProfesionalDTO profSeleccionado = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
+		servicios_panel_profesionales = this.sistema.getServiciosDelProfesional(profSeleccionado.getIdProfesional()); 
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(servicios_panel_profesionales.get(fila)!=null) {	 
+        		Integer idServicio = servicios_panel_profesionales.get(fila).getIdServicio();
+        		servicioSeleccionado = sistema.getServicioById(idServicio);
+        	}
+    	}
+    	return servicioSeleccionado;
+	}
+	
+	/* PANEL PROMOCIONES */
+	
+	public void llenarTablaPromociones() {
+		this.ventanaCita.getPanelDinamicoPromociones().getModelPromocion().setRowCount(0); //Para vaciar la tabla
+		this.ventanaCita.getPanelDinamicoPromociones().getModelPromocion().setColumnCount(0);
+		this.ventanaCita.getPanelDinamicoPromociones().getModelPromocion().setColumnIdentifiers(this.ventanaCita.getPanelDinamicoPromociones().getNombreColumnas());
+
+		for (PromocionDTO p : promociones)		{ 
+			String descripcion = p.getDescripcion();
+			Date FechaInicio = p.getFechaInicio();
+			Date FechaFin=p.getFechaFin();
+			Double descuento=p.getDescuento();
+			int puntos=p.getPuntos();
+			String estado=p.getEstado();
+			Object[] fila = {descripcion, FechaInicio,FechaFin,descuento,puntos,estado};
+			this.ventanaCita.getPanelDinamicoPromociones().getModelPromocion().addRow(fila);
+		}
+		
+	} 
+	
+	public PromocionDTO getPromocionSeleccionada() {
+		PromocionDTO promocionSeleccionada = null;;
+		
+		int[] filasSeleccionadas = this.ventanaCita.getPanelDinamicoPromociones().getTablaPromocion().getSelectedRows();
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(promociones.get(fila)!=null) {	 
+        		Integer idPromocion = promociones.get(fila).getIdPromocion();
+        		promocionSeleccionada = this.sistema.getPromocionById(idPromocion);
+        	}
+    	}
+    	return promocionSeleccionada;
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

@@ -694,7 +694,8 @@ public class nuevaVentanaCita {
 		ocultarPanelPromociones();
 		ocultarPanelServicios();
 		
-		
+		getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
+		getModelServiciosAgregados().setColumnCount(0);
 		this.lbl_Inicio.setText(null);
 	}
 		

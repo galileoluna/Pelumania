@@ -364,6 +364,10 @@ public class Sistema
 	public boolean deleteRealPromocion (PromocionDTO promo) {
 		return this.promocion.deleteRealPromocion(promo);
 	}
+	
+	public PromocionDTO getPromocionById(Integer idPromocion) {
+		return this.promocion.getById(idPromocion);
+	}
 	// FIN PROMOCIONES
 
 	// COMIENZA CAJA
