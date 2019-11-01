@@ -322,7 +322,7 @@ public class ControladorCita implements ActionListener{
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
 			if (validarAntesDeAgregarServicio(serv)) {
 				serviciosAgregados.add(serv);
-				//Agregar a la tabla y mostrarlo
+				actualizarServiciosAgregados();
 				System.out.println("Los servicios son: "+serviciosAgregados);
 	}else {
 		mostrarErrorServicio();
@@ -389,6 +389,22 @@ public class ControladorCita implements ActionListener{
 				this.ventanaCita.getPanelDinamicoServicios().getModelServicios().addRow(fila);
 			}
 	}
+	
+	public void actualizarServiciosAgregados() {
+		this.ventanaCita.getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
+		this.ventanaCita.getModelServiciosAgregados().setColumnCount(0);
+		this.ventanaCita.getModelServiciosAgregados().setColumnIdentifiers(this.ventanaCita.getNombreColumnasAgregadas());
+
+		for (ServicioTurnoDTO st : serviciosAgregados)
+		{
+			ServicioDTO servicio = sistema.getServicioById(st.getIdServicio());
+			ProfesionalDTO profesional = sistema.getProfesionalById(st.getIdProfesional());
+			String nombreServicio = servicio.getNombre();
+			String nombreProfesional = profesional.getNombre()+" "+profesional.getApellido();
+			Object[] fila = {nombreServicio, nombreProfesional};
+			this.ventanaCita.getModelServiciosAgregados().addRow(fila);
+		}
+}
 	
 	public void llenarDatosPanelServicio() {
 		cargarServiciosEnTabla(servicios);
