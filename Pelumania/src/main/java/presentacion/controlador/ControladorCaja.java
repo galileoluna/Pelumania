@@ -27,10 +27,12 @@ public class ControladorCaja implements ActionListener {
 	private static VentanaBuscarCita ventanaBuscarCita;
 	private CitaDTO citaSeleccionada;
 	private List<ServicioTurnoDTO> serviciosCita;
+	private Controlador2 controladorMenu;
 	
-	private ControladorCaja (Sistema sistema) {
+	private ControladorCaja (Sistema sistema, Controlador2 controladorMenu) {
 		this.ventanaCaja = VentanaCaja.getInstance();
 		this.sistema = sistema;
+		this.controladorMenu = controladorMenu;
 		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		this.citaSeleccionada = null;
 		this.serviciosCita = null;
@@ -66,9 +68,9 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.cerrar();
 	}
 
-	public static ControladorCaja getInstance(Sistema sistema) {
+	public static ControladorCaja getInstance(Sistema sistema, Controlador2 controladorMenu) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorCaja(sistema);
+			INSTANCE = new ControladorCaja(sistema, controladorMenu);
 		}
 		INSTANCE.listaCategorias = sistema.obtenerCategoriasMovimientoCaja();
 		INSTANCE.ventanaCaja.mostrarVentana();
@@ -240,6 +242,7 @@ public class ControladorCaja implements ActionListener {
 							
 						this.sistema.editarCliente(cliente);
 						this.ventanaCaja.mostrarExito();
+						this.controladorMenu.actualizarDiaSeleccionado();
 					}
 					
 				} else if (esProducto()) {
@@ -255,6 +258,7 @@ public class ControladorCaja implements ActionListener {
 						//exito
 						System.out.println("en teoria salio todo bien");
 						this.ventanaCaja.mostrarExito();
+						
 					
 					} else {
 						//rompio algo

@@ -86,7 +86,7 @@ public class Controlador2 implements ActionListener{
 		
 		setearFechaSeleccionadaHoy();
 		actualizarDiaSeleccionado();
-		RefrescarTablaCitas();
+		refrescarTablaCitas();
 		getPermisos();
 		
 		this.nvista.btnCita.addActionListener(x -> abrirVentanaCitaNueva(x));
@@ -222,7 +222,7 @@ public class Controlador2 implements ActionListener{
 	}
 
 	private void ventanaCaja(ActionEvent h) {
-		this.controladorCaja = ControladorCaja.getInstance(sistema);
+		this.controladorCaja = ControladorCaja.getInstance(sistema, this);
 	}
 	
 		private void ventanaReportesLocal(ActionEvent l) {
@@ -268,7 +268,7 @@ public class Controlador2 implements ActionListener{
 			limpiarTablas();
 			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 			cargarListaConCitas();
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}
 	}
 	
@@ -337,7 +337,7 @@ public class Controlador2 implements ActionListener{
 			this.nvista.noOrdenar();
 			obtenerCitasDelDia(getFechaSeleccionadaAsString());
 			cargarListaConCitas();
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}
 	}
 	
@@ -346,7 +346,7 @@ public class Controlador2 implements ActionListener{
 		limpiarTablas();
 		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 		cargarListaConCitas();
-		RefrescarTablaCitas();
+		refrescarTablaCitas();
 		habilitarBotonAgregar();
 	}
 	
@@ -364,10 +364,10 @@ public class Controlador2 implements ActionListener{
 			limpiarTablas();
 			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 			actualizarCitasPorProfesional(profesionalSeleccionado.getIdProfesional());
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}else {
 			limpiarTablas();
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}
 	}
 	
@@ -378,10 +378,10 @@ public class Controlador2 implements ActionListener{
 			limpiarTablas();
 			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 			actualizarCitasPorServicio(servicioSeleccionado.getIdServicio());
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}else {
 			limpiarTablas();
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}
 	}
 	
@@ -397,10 +397,10 @@ public class Controlador2 implements ActionListener{
 			limpiarTablas();
 			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 			actualizarCitasPorRangoHorario(horaDeSeleccionada, horaASeleccionada);
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}else {
 			limpiarTablas();
-			RefrescarTablaCitas();
+			refrescarTablaCitas();
 		}
 	}
 	
@@ -444,14 +444,14 @@ public class Controlador2 implements ActionListener{
 		log.info("__________________________________________________________");
 	}
 	
-private void actualizarDiaSeleccionado() {
+public void actualizarDiaSeleccionado() {
 	limpiarTablas();
 	this.citaSeleccionada = null;
 	actualizarPanelCitaSeleccionada();
 	setearFechaSeleccionadaEnCalendario();
 	citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
 	cargarListaConCitas();
-	RefrescarTablaCitas();
+	refrescarTablaCitas();
 	habilitarBotonAgregar();
 	}
 
@@ -505,7 +505,7 @@ private void actualizarDiaSeleccionado() {
 	}
 }
 
-	private void RefrescarTablaCitas() {
+	public void refrescarTablaCitas() {
 		this.nvista.getModelCitas().setRowCount(0); //Para vaciar la tabla
 		this.nvista.getModelCitas().setColumnCount(0);
 		this.nvista.getModelCitas().setColumnIdentifiers(this.nvista.getNombreColumnas());
@@ -614,7 +614,7 @@ private void actualizarDiaSeleccionado() {
 	}
 	
 	private void finalizarCita(ActionEvent l) {
-		this.controladorCaja = ControladorCaja.getInstance(this.sistema);
+		this.controladorCaja = ControladorCaja.getInstance(this.sistema, this);
 		this.controladorCaja.cobrarCitaDesdeMenu(this.citaSeleccionada);
 	}
 	private void verComprobante(ActionEvent l) {

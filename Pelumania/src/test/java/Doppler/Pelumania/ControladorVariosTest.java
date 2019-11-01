@@ -21,6 +21,7 @@ import dto.PromocionDTO;
 import dto.ServicioTurnoDTO;
 import modelo.Sistema;
 import persistencia.dao.mariadb.DAOSQLFactory;
+import presentacion.controlador.Controlador2;
 import presentacion.controlador.ControladorAltaHorario;
 import presentacion.controlador.ControladorCaja;
 import presentacion.controlador.ControladorEditarPromo;
@@ -46,7 +47,7 @@ public class ControladorVariosTest {
 			ServicioTurnoDTO servTurno=new ServicioTurnoDTO(i, i+1);
 			servicios.add(servTurno);
 		}
-		controladorCaja=ControladorCaja.getInstance(sistema);
+		controladorCaja=ControladorCaja.getInstance(sistema, new Controlador2(null, sistema, null));
 		prof= new ProfesionalDTO(1, "nico", "Cirillo", 1, 2, "Activo");
 		sistema.agregarProfesional(prof);
 		Time entrada=new Time(Integer.parseInt("14"),Integer.parseInt("20"),00);
