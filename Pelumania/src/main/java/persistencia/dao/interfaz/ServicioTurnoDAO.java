@@ -1,5 +1,7 @@
 package persistencia.dao.interfaz;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import dto.ServicioTurnoDTO;
@@ -17,5 +19,8 @@ public interface ServicioTurnoDAO {
 	public List<ServicioTurnoDTO> getByIdCita(int idCita);
 
 	List<Integer> getCitasByIdServicio(int idServicio);
+
+	public Integer profesionalOcupado(LocalTime horaInicio, LocalTime horaFin, String dia,
+			Integer idProfesional, LocalDate fecha);
 
 }

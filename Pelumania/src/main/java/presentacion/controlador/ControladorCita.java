@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -262,6 +263,8 @@ public class ControladorCita implements ActionListener{
 			this.ventanaCita.getJCBoxMinutos().setSelectedItem(null);
 			}
 		}
+		
+		this.ventanaCita.setHoraFin(this.ventanaCita.getHoraInicio());
 	}
 	
 	public void mostrarPanelServicio(ActionEvent a) {
@@ -339,7 +342,6 @@ public class ControladorCita implements ActionListener{
 		}
 	}
 	
-	
 	/* ****************************************************************** */
 	/* *********** METODOS PARA EL MANEJO DE LOS SERVICIOS ************** */
 	/* ****************************************************************** */
@@ -349,6 +351,7 @@ public class ControladorCita implements ActionListener{
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
+			calcularHorario(serv);
 			if (validarAntesDeAgregarServicio(serv)) {
 				serviciosAgregados.add(serv);
 				actualizarServiciosAgregados();
@@ -362,6 +365,7 @@ public class ControladorCita implements ActionListener{
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
+			calcularHorario(serv);
 			if (validarAntesDeAgregarServicio(serv)) {
 				serviciosAgregados.add(serv);
 				actualizarServiciosAgregados();
@@ -398,21 +402,28 @@ public class ControladorCita implements ActionListener{
 			return false;
 		}
 		ProfesionalDTO profesional = this.sistema.getProfesionalById(servicio.getIdProfesional());
-		if (!validarDisponibilidadProfesional()) {
+		
+		String diaDeLaSemana = diaDeLaSemana();
+		System.out.println("Horarios servicio: "+servicio.getHoraInicio() +"\n"+ servicio.getHoraFin());
+		if (!validarDisponibilidadProfesional(servicio.getHoraInicio(), servicio.getHoraFin(), diaDeLaSemana, profesional.getIdProfesional())) {
 			ControladorCita.errorServicio = "El profesional "+ profesional.getNombre()+" "+
 					profesional.getApellido()+" no está disponible en ese horario!"+ 
 					"Tiene una cita desde: "+"__:__"+"hasta: "+ "__:__";
-//			return false;
+			return false;
 		}
 		
 		return true;
-		
 	}
 	
-	private boolean validarDisponibilidadProfesional() {
-		log.info("El metodo no esta implementado, validar un profesional da siempre false");
-		return false;
-	}
+	private boolean validarDisponibilidadProfesional(LocalTime inicio, LocalTime fin, String diaDeLaSemana, int idProfesional) {
+		Integer ocupado = this.sistema.profesionalOcupado(inicio, fin, diaDeLaSemana, idProfesional, this.ventanaCita.getFechaCita());
+		System.out.println(ocupado);
+		if (ocupado == 1) {
+			ControladorCita.errorServicio = "El profesional esta ocupado en ese horario!";
+			return false;
+		}else 
+			return true;
+		}
 	
 	private void mostrarErrorServicio() {
 		JOptionPane.showMessageDialog(null, ControladorCita.errorServicio);
@@ -430,6 +441,45 @@ public class ControladorCita implements ActionListener{
 			st.setHoraFin(horaFinalizacionServicio);	
 			horaInicial = horaFinalizacionServicio;	
 		}
+		
+		this.ventanaCita.setHoraFin(horaFinalizacionServicio);
+	}
+	
+	public void calcularHorario(ServicioTurnoDTO serv) {
+		ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
+		System.out.println("HoraFin al calcular horario es:"+ this.ventanaCita.getHoraFin() );
+		serv.setHoraInicio(this.ventanaCita.getHoraFin());
+		LocalTime horaFin = serv.getHoraInicio().plusHours(servicio.getDuracion().getHour());
+		horaFin = horaFin.plusMinutes(servicio.getDuracion().getMinute());
+		serv.setHoraFin(horaFin);
+	}
+	
+	public String diaDeLaSemana() {
+		String dds = "";
+		switch ( this.ventanaCita.getFechaCita().getDayOfWeek() ) {
+		case MONDAY:
+			dds = "Lunes";
+			break;
+		case THURSDAY:
+			dds = "Martes";
+			break;
+		case WEDNESDAY:
+			dds = "Miercoles";
+			break;
+		case TUESDAY: 
+			dds = "Jueves";
+			break;
+		case FRIDAY: 	
+			dds = "Viernes";
+			break;
+		case SATURDAY: 
+			dds = "Sabado";
+			break;
+		case SUNDAY: 
+			dds = "Domingo";
+			break;
+		}
+			return dds;
 	}
 	/* PANEL SERVICIOS*/
 	

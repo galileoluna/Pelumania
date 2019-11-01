@@ -96,6 +96,7 @@ public class nuevaVentanaCita {
 	private SucursalDTO sucursal;
 	private ClienteDTO cliente;
 	private LocalTime horaInicio;
+	private LocalTime horaFin;
 	
 	private JLabel lblErrorFecha;
 
@@ -1044,5 +1045,13 @@ public class nuevaVentanaCita {
 
 	public void setHoraInicio(LocalTime horaInicio) {
 		this.horaInicio = horaInicio;
+	}
+	
+	public LocalTime getHoraFin() {
+		return horaFin;
+	}
+	
+	public void setHoraFin(LocalTime horaFin) {
+		this.horaFin = horaFin;
 	}
 }
