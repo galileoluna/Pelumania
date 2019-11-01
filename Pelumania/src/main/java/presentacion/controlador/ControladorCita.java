@@ -317,16 +317,20 @@ public class ControladorCita implements ActionListener{
 	/* ****************************************************************** */
 	
 	public void agregarServicio(ActionEvent d) {
-		if (validarAntesDeAgregarServicio(servicioSeleccionado)) {
-//			serviciosAgregados.add(servicioSeleccionado);
-			//Agregar a la tabla y mostrarlo
+			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().getSelectedItem();
+			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
+			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
+			if (validarAntesDeAgregarServicio(serv)) {
+				serviciosAgregados.add(serv);
+				//Agregar a la tabla y mostrarlo
+				System.out.println("Los servicios son: "+serviciosAgregados);
 	}else {
 		mostrarErrorServicio();
 	}
 		
 	}
 	
-	public boolean validarAntesDeAgregarServicio(ServicioDTO servicio) {
+	public boolean validarAntesDeAgregarServicio(ServicioTurnoDTO servicio) {
 		if (servicio == null) {
 			ControladorCita.errorServicio = "No has seleccionado ningun servicio!";
 			return false;
@@ -335,16 +339,22 @@ public class ControladorCita implements ActionListener{
 			ControladorCita.errorServicio = "Debes elegir la hora de inicio del turno para agregar servicios!";
 			return false;
 		}
+		
+		if (servicio.getIdProfesional() == null) {
+			ControladorCita.errorServicio = "Debes seleccionar un profesional para ese servicio!";
+			return false;
+		}
+		
 		if (serviciosAgregados.contains(servicio)) {
 			ControladorCita.errorServicio = "Ese servicio ya fue agregado!";
 			return false;
 		}
-		ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().getSelectedItem();
+		ProfesionalDTO profesional = this.sistema.getProfesionalById(servicio.getIdProfesional());
 		if (!validarDisponibilidadProfesional()) {
 			ControladorCita.errorServicio = "El profesional "+ profesional.getNombre()+" "+
 					profesional.getApellido()+" no está disponible en ese horario!"+ 
 					"Tiene una cita desde: "+"__:__"+"hasta: "+ "__:__";
-			return false;
+//			return false;
 		}
 		
 		return true;
