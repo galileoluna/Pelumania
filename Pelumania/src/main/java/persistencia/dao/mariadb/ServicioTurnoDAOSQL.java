@@ -1,14 +1,17 @@
 package persistencia.dao.mariadb;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.CitaDTO;
 import dto.ServicioTurnoDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ServicioTurnoDAO;
@@ -22,6 +25,16 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 	private static final String getCitasByIdServicio = "SELECT * FROM ServicioTurno WHERE idServicio = ?";
 	private static final String getByIdCita = "SELECT * FROM ServicioTurno WHERE idCita = ?";
 	private static final String getByIdServicio = "SELECT * FROM ServicioTurno WHERE idServicio = ?";
+	
+	private static final String profesionalOcupado = "SELECT 1 as ocupado" + 
+			" FROM servicioturno st" +  
+			" JOIN profesional p USING (IdProfesional)" + 
+			" JOIN cita c USING (idCita)" + 
+			" JOIN diaslaborales d ON  p.IdProfesional=d.IdProfesional" + 
+			" WHERE (st.horaInicio <= ? OR st.horaFin >= ?)  AND st.horaInicio <= ? AND   st.horaFin >= ? AND d.HoraEntrada < ?" + 
+			" AND d.HoraSalida > ? AND d.Dia = ? AND p.IdProfesional = ? AND c.Dia=?; ";
+
+	
 	@Override
 	public boolean insert(ServicioTurnoDTO servicioTurno_a_insertar) 
 	{
@@ -133,6 +146,55 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 		System.out.println(citas);
 		return citas;
 	}
+	
+	@Override
+	public int profesionalOcupado(LocalTime horaInicio, LocalTime horaFin,
+			String dia, Integer idProfesional, LocalDate fecha) {
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		Integer ocupado = 0;
+		try
+		{
+			statement = conexion.prepareStatement(profesionalOcupado);
+			System.out.println(horaInicio);
+			System.out.println("----------------------------------ENTRE--------------------------------------");
+			statement.setTime	(1,  Time.valueOf(horaInicio));
+			statement.setTime	(2,  Time.valueOf(horaFin));
+			statement.setTime	(3,  Time.valueOf(horaInicio));
+			statement.setTime	(4,  Time.valueOf(horaFin));
+			statement.setTime	(5,  Time.valueOf(horaInicio));
+			statement.setTime	(6,  Time.valueOf(horaFin));
+			statement.setString	(7,  dia);
+			statement.setInt	(8,  idProfesional);
+			statement.setDate	(9,  Date.valueOf(fecha));
+			
+			System.out.println(statement);
+			resultSet = statement.executeQuery();
+			
+			if (resultSet.next()){
+				//System.out.println("NICO MIRA: "+resultSet.getString("ocupado"));
+				ocupado = resultSet.getInt("ocupado");
+			}
+			/*if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				System.out.println("NICO MIRA: "+resultSet.getString("ocupado"));
+				ocupado = resultSet.getInt("ocupado");
+			}*/
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return ocupado;
+	}
+	
 	
 	private ServicioTurnoDTO getServicioTurnoDTO(ResultSet resultSet) throws SQLException
 		{

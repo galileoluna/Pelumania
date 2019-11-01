@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS `Sucursal`(
    
   PRIMARY KEY(`IdSucursal`)
 );
+INSERT INTO SUCURSAL (IdSucursal, NombreSucursal, Direccion, Numero, EstadoSucursal) 
+VALUES(-1, "[Sucursal Generica]", "Calle", 123, "Activa");
 
 CREATE TABLE IF NOT EXISTS `Servicio`(
 
@@ -40,6 +42,9 @@ CREATE TABLE IF NOT EXISTS `Servicio`(
 
     PRIMARY KEY (`idCliente`)
   );
+  
+  INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
+	VALUES(-1, "Cliente", "Generico", 11111111, "default@default.com", 0, "Activo", 00.00);
 
 INSERT INTO Cliente ()
 CREATE TABLE IF NOT EXISTS `Rol`(
@@ -79,6 +84,9 @@ CREATE TABLE IF NOT EXISTS `Profesional`(
   PRIMARY KEY(`IdProfesional`),
   FOREIGN KEY (`idSucursalOrigen`) REFERENCES `Sucursal`(`idSucursal`)
 );
+
+INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
+VALUES(-1,"[Sin", "Profesional]", -1, "Activo");
 
 CREATE TABLE IF NOT EXISTS `DiasLaborales`(
 
@@ -545,3 +553,13 @@ VALUES (7,7);
 -- DROP TABLE IF EXISTS Caja;
 
 SET SQL_SAFE_UPDATES = 0;
+
+SELECT * FROM Profesional;
+
+SELECT 1 as ocupado
+FROM ServicioTurno st  
+JOIN profesional p USING (IdProfesional) 
+JOIN cita c USING (idCita)
+JOIN diaslaborales d ON  p.IdProfesional=d.IdProfesional
+WHERE st.horaInicio < "09:00" AND st.horaFin > "09:20" AND d.HoraEntrada < "09:00" 
+AND d.HoraSalida > "09:20" AND d.Dia = "Sabado" AND p.IdProfesional = 1 AND c.Dia=2019-02-11;

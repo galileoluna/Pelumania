@@ -11,6 +11,7 @@ import java.util.List;
 import dto.CategoriaMovimientoCajaDTO;
 import dto.ProfesionalDTO;
 import dto.PromocionDTO;
+import dto.ServicioDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PromocionDAO;
 
@@ -25,7 +26,8 @@ public class PromocionDAOSQL implements PromocionDAO{
 	private static final String deleteServProm="DELETE FROM ServicioPromocion WHERE idPromocion = ? AND idServicio=?";
 	private static final String update="UPDATE Promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
 	private static final String readPromVigente="SELECT * FROM Promocion p WHERE p.FechaInicio<= ? AND p.FechaFin>=? AND estado='Activo'";
-
+	private static final String getById = "SELECT * FROM Promocion WHERE idPromocion = ?";
+	
 	@Override
 	public boolean insert(PromocionDTO promocion) {
 		PreparedStatement statement;
@@ -270,6 +272,32 @@ public class PromocionDAOSQL implements PromocionDAO{
 		return new PromocionDTO(id, descripcion,fechaInc ,fechaFin, descuento, puntos,estado );
 	}
 
+	@Override
+	public PromocionDTO getById(int idPromocion)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		List<PromocionDTO> promociones = new ArrayList<PromocionDTO>();
+		try 
+		{
+			statement = conexion.prepareStatement(getById);
+			statement.setInt(1, idPromocion);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				promociones.add(getPromocionlDTO(resultSet));
+			}
+	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return promociones.get(0);
+	}
+	
 	@Override
 	public List<PromocionDTO> readPromoVigente(Date fechaI,Date fechaF) {
 		PreparedStatement statement;

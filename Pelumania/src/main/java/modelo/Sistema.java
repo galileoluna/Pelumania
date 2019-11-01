@@ -311,6 +311,12 @@ public class Sistema
 		return this.servicioTurno.getCitasByIdServicio(idServicio);
 	}
 	
+	public Integer profesionalOcupado(LocalTime horaInicio, LocalTime horaFin, String dia,
+			Integer idProfesional, LocalDate fecha) {
+		return this.servicioTurno.profesionalOcupado(horaInicio, 
+				horaFin, dia, idProfesional, fecha);
+	}
+	
 	//termina ServicioTurno
 	
 	// Funcion que obtiene la lista que se va a visualizar con los turnos ocupados
@@ -363,6 +369,10 @@ public class Sistema
 	}
 	public boolean deleteRealPromocion (PromocionDTO promo) {
 		return this.promocion.deleteRealPromocion(promo);
+	}
+	
+	public PromocionDTO getPromocionById(Integer idPromocion) {
+		return this.promocion.getById(idPromocion);
 	}
 	// FIN PROMOCIONES
 

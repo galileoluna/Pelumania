@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -94,6 +96,7 @@ public class nuevaVentanaCita {
 	private SucursalDTO sucursal;
 	private ClienteDTO cliente;
 	private LocalTime horaInicio;
+	private LocalTime horaFin;
 	
 	private JLabel lblErrorFecha;
 
@@ -692,7 +695,8 @@ public class nuevaVentanaCita {
 		ocultarPanelPromociones();
 		ocultarPanelServicios();
 		
-		
+		getModelServiciosAgregados().setRowCount(0); //Para vaciar la tabla
+		getModelServiciosAgregados().setColumnCount(0);
 		this.lbl_Inicio.setText(null);
 	}
 		
@@ -1041,5 +1045,13 @@ public class nuevaVentanaCita {
 
 	public void setHoraInicio(LocalTime horaInicio) {
 		this.horaInicio = horaInicio;
+	}
+	
+	public LocalTime getHoraFin() {
+		return horaFin;
+	}
+	
+	public void setHoraFin(LocalTime horaFin) {
+		this.horaFin = horaFin;
 	}
 }

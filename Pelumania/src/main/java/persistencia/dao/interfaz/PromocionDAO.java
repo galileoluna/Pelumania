@@ -28,6 +28,7 @@ public interface PromocionDAO {
 
 	public boolean deleteRealPromocion(PromocionDTO promocion_a_eliminar);
 
+	public PromocionDTO getById(int idPromocion);
 
 
 	//public boolean deleteReal(PromocionDTO promocion_a_eliminar);

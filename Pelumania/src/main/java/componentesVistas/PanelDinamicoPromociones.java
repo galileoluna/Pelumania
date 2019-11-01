@@ -30,11 +30,35 @@ public class PanelDinamicoPromociones extends JPanel{
 		tablaPromocion = new JTable(modelPromocion);
 		
 		tablaPromocion.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tablaPromocion.getColumnModel().getColumn(0).setResizable(false);
+		tablaPromocion.getColumnModel().getColumn(0).setResizable(true);
 		tablaPromocion.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tablaPromocion.getColumnModel().getColumn(1).setResizable(false);
+		tablaPromocion.getColumnModel().getColumn(1).setResizable(true);
 		
 		spPersonas.setViewportView(tablaPromocion);
+	}
+
+	public JTable getTablaPromocion() {
+		return tablaPromocion;
+	}
+
+	public void setTablaPromocion(JTable tablaPromocion) {
+		this.tablaPromocion = tablaPromocion;
+	}
+
+	public DefaultTableModel getModelPromocion() {
+		return modelPromocion;
+	}
+
+	public void setModelPromocion(DefaultTableModel modelPromocion) {
+		this.modelPromocion = modelPromocion;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
 	}
 
 }
