@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JComboBox;
 
@@ -27,10 +29,14 @@ public class ControladorCaja implements ActionListener {
 	private static VentanaBuscarCita ventanaBuscarCita;
 	private CitaDTO citaSeleccionada;
 	private List<ServicioTurnoDTO> serviciosCita;
+	private Controlador2 controladorMenu;
+	private final Lock _mutex = new ReentrantLock(true); //mutex
+
 	
-	private ControladorCaja (Sistema sistema) {
+	private ControladorCaja (Sistema sistema, Controlador2 controladorMenu) {
 		this.ventanaCaja = VentanaCaja.getInstance();
 		this.sistema = sistema;
+		this.controladorMenu = controladorMenu;
 		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		this.citaSeleccionada = null;
 		this.serviciosCita = null;
@@ -66,9 +72,9 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.cerrar();
 	}
 
-	public static ControladorCaja getInstance(Sistema sistema) {
+	public static ControladorCaja getInstance(Sistema sistema, Controlador2 controladorMenu) {
 		if ( INSTANCE == null) {
-			INSTANCE = new ControladorCaja(sistema);
+			INSTANCE = new ControladorCaja(sistema, controladorMenu);
 		}
 		INSTANCE.listaCategorias = sistema.obtenerCategoriasMovimientoCaja();
 		INSTANCE.ventanaCaja.mostrarVentana();
@@ -168,7 +174,8 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void agregarMovimiento(ActionEvent l) {
-		
+//		System.out.println("VOY A ENTRAR AL SEMAFOROVICH");
+		_mutex.lock();
 		int idSucursal = 1; //de donde sacamos esto?
 		Instant fecha = Instant.now();
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
@@ -240,6 +247,7 @@ public class ControladorCaja implements ActionListener {
 							
 						this.sistema.editarCliente(cliente);
 						this.ventanaCaja.mostrarExito();
+						this.controladorMenu.actualizarDiaSeleccionado();
 					}
 					
 				} else if (esProducto()) {
@@ -255,6 +263,7 @@ public class ControladorCaja implements ActionListener {
 						//exito
 						System.out.println("en teoria salio todo bien");
 						this.ventanaCaja.mostrarExito();
+						
 					
 					} else {
 						//rompio algo
@@ -284,6 +293,9 @@ public class ControladorCaja implements ActionListener {
 		}
 		
 		this.ventanaCaja.limpiarCampos();
+//		System.out.println("DOUUUUUUUU SALIENDO DE LA SECCION CRITICA");
+		this._mutex.unlock();
+
 	}
 
 

@@ -82,7 +82,7 @@ public class Controlador implements ActionListener {
 	}
 
 	private void ventanaCaja(ActionEvent a) {
-		this.controladorCaja = ControladorCaja.getInstance(sistema);
+//		this.controladorCaja = ControladorCaja.getInstance(sistema,this);
 	}
 
 	private void ventanaServicios(ActionEvent c) {
