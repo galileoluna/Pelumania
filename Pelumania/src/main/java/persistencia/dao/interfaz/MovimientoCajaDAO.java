@@ -1,5 +1,6 @@
 package persistencia.dao.interfaz;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import dto.MovimientoCajaDTO;
@@ -14,7 +15,7 @@ public interface MovimientoCajaDAO {
 
 	public boolean insertIngresoProducto(MovimientoCajaDTO movimiento_a_insertar);
 
-	public List<MovimientoCajaDTO> readDay(String fecha, String fecha2);
+	public List<MovimientoCajaDTO> readDay(Timestamp desde, Timestamp hasta);
 	
 	public List<MovimientoCajaDTO> readDayIngresosProfesional(String fecha, String fecha2, int profesional);
 

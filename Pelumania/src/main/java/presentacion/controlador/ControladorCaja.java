@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -177,7 +178,7 @@ public class ControladorCaja implements ActionListener {
 //		System.out.println("VOY A ENTRAR AL SEMAFOROVICH");
 		_mutex.lock();
 		int idSucursal = 1; //de donde sacamos esto?
-		Instant fecha = Instant.now();
+		Timestamp fecha = Timestamp.from(Instant.now());
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
 		String tipoMovimiento = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		String tipoCambio = this.ventanaCaja.getComboTipoCambio().getSelectedItem().toString();		

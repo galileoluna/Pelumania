@@ -1,9 +1,8 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import dto.MovimientoCajaDTO;
 import modelo.Sistema;
@@ -17,31 +16,44 @@ public class ControladorReporteGeneral {
 
 	private ControladorReporteGeneral(Sistema sistema) {
 		this.ventanaReportes = VentanaReporteGeneral.getInstance();
-		
 		this.sistema = sistema;
 		this.ventanaReportes.getBtnGenerarReporte().addActionListener(a -> reporteGeneral(a));
-		
 	}
 	
 	public static ControladorReporteGeneral getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorReporteGeneral(sistema);
 		}
+		INSTANCE.ventanaReportes.mostrarVentana();
 		return INSTANCE;
 	}
 
 	private void reporteGeneral(ActionEvent a) {
-		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
-		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
-		//System.out.println(desde+" "+hasta);
+
+		if(sonFechasValidas()) {
 		
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCaja(desde,hasta);
+		Timestamp desde = Timestamp.from(ventanaReportes.getJdc_Desde().getDate().toInstant());
+		Timestamp hasta = Timestamp.from(ventanaReportes.getJdc_Hasta().getDate().toInstant());
+//		System.out.println(desde);
+//		System.out.println(hasta);
+			
+			ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCaja(desde,hasta);
+			
+//			if (caja.size() < 0 ) {
+//					System.out.println(caja.get(0).getIdCaja());
+//			}
+			
+			ReporteDeCajaGeneral reporteDeCajaGeneral = new ReporteDeCajaGeneral(caja,desde,hasta);
+			reporteDeCajaGeneral.mostrar();
 		
-		System.out.println(caja.get(0).getIdCaja());
-		
-		ReporteDeCajaGeneral reporteDeCajaGeneral = new ReporteDeCajaGeneral(caja);
-		reporteDeCajaGeneral.mostrar();
+		} else {
+			//fecha invalida o vacia
+			this.ventanaReportes.mostrarErrorFecha();
+		}
+	}
+
+	private boolean sonFechasValidas() {
+		return this.ventanaReportes.getJdc_Desde().getDate() != null && this.ventanaReportes.getJdc_Hasta().getDate() != null;
 	}
 }
 
