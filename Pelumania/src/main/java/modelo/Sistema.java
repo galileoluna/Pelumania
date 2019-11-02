@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 
 import dto.CategoriaMovimientoCajaDTO;
@@ -452,5 +453,23 @@ public class Sistema
 		return this.usuario.readOne(user, pass);
 	}
 	
-
+	public List<UsuarioDTO> obtenerUsuarios(){
+		return this.usuario.readAll();
+	}
+	
+	public List<UsuarioDTO> obtenerUnUsuario(int id) {
+		return this.usuario.readOneById(id);
+	}
+	
+	public void eliminarUsuario(UsuarioDTO usuario_a_eliminar) {
+		this.usuario.delete(usuario_a_eliminar);
+	}
+	
+	public void updateUsuario (UsuarioDTO usuario_a_modificar) {
+		this.usuario.update(usuario_a_modificar);
+	}
+	
+	public HashMap<String, Integer> readRol(){
+		return this.usuario.readRol();
+	}
 }

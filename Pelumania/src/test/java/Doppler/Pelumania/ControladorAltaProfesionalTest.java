@@ -99,7 +99,7 @@ public class ControladorAltaProfesionalTest {
 		HashMap<String,Integer> sucursales=controlador.getSucursales();
 		JComboBox combo= new JComboBox();
 		
-		controlador.llenarCombo(combo,sucursales);
+		controlador.llenarCombo(combo,sucursales,0);
 		combo.removeItemAt(0);
 		assertEquals(combo.getItemCount(),3);
 	}

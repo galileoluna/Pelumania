@@ -1,18 +1,26 @@
 package persistencia.dao.mariadb;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import dto.ClienteDTO;
+import dto.ProfesionalDTO;
 import dto.UsuarioDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.UsuarioDAO;
 
 public class UsuarioDAOSQL implements UsuarioDAO{
-	private static final String readOne="SELECT * from Usuario where nombreUsuario=? AND Contrasenia=?";
+	private static final String readOne = "SELECT * from Usuario where nombreUsuario=? AND Contrasenia=?";
+	private static final String readAll = "SELECT * FROM usuario";
+	private static final String readOneById = "SELECT * FROM usuario WHERE idUsuario = ? ";
+	private static final String update = "UPDATE usuario SET  Nombre=?, Apellido=? , nombreUsuario=?, Contrasenia=?, Mail=?, EstadoUsuario=?, idRol=?, idSucursal=? WHERE idUsuario=?";
+	private static final String delete = "UPDATE FROM usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
+	private static final String readRol = "SELECT * FROM rol";
 	
 	
 	
@@ -55,6 +63,128 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 		
 				
 		return new UsuarioDTO (id,nombre,apellido,user,pass,mail,estado,rol,sucursal);
+	}
+
+
+
+	@Override
+	public List<UsuarioDTO> readAll() {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<UsuarioDTO> usuario = new ArrayList<UsuarioDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readAll);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				usuario.add(getUsuarioDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+
+	@Override
+	public HashMap<String,Integer> readRol() {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		HashMap<String,Integer> rol = new HashMap<String,Integer>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readRol);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				rol.put(resultSet.getString("Cargo"),resultSet.getInt("idRol"));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rol;
+	}
+
+
+	@Override
+	public List<UsuarioDTO> readOneById(int id) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		List<UsuarioDTO> usuario = new ArrayList<UsuarioDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readOneById);
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				usuario.add(getUsuarioDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return usuario;
+	}
+	
+
+
+
+	@Override
+	public boolean delete(UsuarioDTO usuario_a_eliminar) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		try {
+			statement = conexion.prepareStatement(delete);
+			statement.setInt(1, usuario_a_eliminar.getIdUsuario());
+			if(statement.executeUpdate() > 0){
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isdeleteExitoso;
+	}
+
+
+
+	@Override
+	public boolean update(UsuarioDTO usuario_a_modificar) {
+		PreparedStatement statement;
+		int chequeoUpdate = 0;
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			
+			statement.setString(1, usuario_a_modificar.getNombre());
+			statement.setString(2, usuario_a_modificar.getApellido());
+			statement.setString(3, usuario_a_modificar.getNombreUsuario());
+			statement.setString(4, usuario_a_modificar.getContrasenia());
+			statement.setString(5, usuario_a_modificar.getMail());
+			statement.setString(6, usuario_a_modificar.getEstado());
+			statement.setInt(7, usuario_a_modificar.getIdRol());
+			statement.setInt(8, usuario_a_modificar.getIdSucursal());
+			statement.setInt(9, usuario_a_modificar.getIdUsuario());
+			
+			chequeoUpdate = statement.executeUpdate();
+			conexion.getSQLConexion().commit();
+			if(chequeoUpdate > 0)
+					return true;
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("false");
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 
