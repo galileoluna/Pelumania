@@ -14,7 +14,6 @@ import dto.SucursalDTO;
 
 public class VentanaUsuario extends JFrame {
 	private static VentanaUsuario INSTANCE;
-	private JFrame frmUsuario;
 	private JTable tablaUsuario;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
