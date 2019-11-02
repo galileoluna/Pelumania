@@ -169,6 +169,7 @@ public class Controlador2 implements ActionListener{
 		  case 3:
 			  	this.nvista.getJM_Reportes().setVisible(false);
 				this.nvista.getMntmGestionDePromociones().setVisible(false);
+				this.nvista.getJM_Sucursales().setVisible(false);
 			  break;
 		  case 4:
 				 this.nvista.getJM_Servicio().setVisible(false);
