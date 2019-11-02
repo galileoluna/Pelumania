@@ -47,8 +47,6 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
 		
-		//desde =cambiarOrdenFormato(desde)+" 00:00:01";
-		//hasta =cambiarOrdenFormato(hasta)+"11:59:59";
 		desde+=" 00:00:01";
 		hasta+=" 11:59:59";
 		//System.out.println(desde+" "+hasta);
@@ -61,14 +59,5 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 		
 		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(caja);
 		reporteDeCajaSucursal.mostrar();
-	}
-
-	private String cambiarOrdenFormato(String desde) {
-		String nuevoDesde=desde.charAt(6)+desde.charAt(7)+desde.charAt(8)+desde.charAt(9)+"-"+
-				desde.charAt(3)+desde.charAt(4)+"-"+desde.charAt(0)+desde.charAt(1);
-		return nuevoDesde;
-		
-	}
-	
-	
+	}	
 }
