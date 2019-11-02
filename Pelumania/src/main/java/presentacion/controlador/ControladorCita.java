@@ -76,10 +76,12 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdbtnPromocion().addActionListener(c -> mostrarPanelPromociones(c));
 		
 		this.ventanaCita.getBtnAgregarServicio().addActionListener(d -> agregarServicio(d));
-		this.ventanaCita.getBtnConfirmar().addActionListener (a -> guardarCita(a));
+		this.ventanaCita.getBtnEliminarServicio().addActionListener(e-> eliminarServicio(e));
 		
+		this.ventanaCita.getBtnConfirmar().addActionListener (a -> guardarCita(a));
+		this.ventanaCita.getBtnCancelar().addActionListener (b -> cancelar(b));
 		inicializarArreglos();
-	}
+	}	
 
 	public static ControladorCita getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
@@ -464,6 +466,10 @@ public class ControladorCita implements ActionListener{
 		 ReporteComprobante reporteComprobante = new ReporteComprobante(cita);
 		 reporteComprobante.mostrar();
 	}
+	
+	public void cancelar(ActionEvent b) {
+		this.ventanaCita.cerrar();
+	}
 	/* ****************************************************************** */
 	/* *********** METODOS PARA EL MANEJO DE LOS SERVICIOS ************** */
 	/* ****************************************************************** */
@@ -489,6 +495,7 @@ public class ControladorCita implements ActionListener{
 				mostrarErrorHora();
 		}
 		
+		
 		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
@@ -509,6 +516,10 @@ public class ControladorCita implements ActionListener{
 				mostrarErrorHora();
 		}
 	}
+	
+	private void eliminarServicio(ActionEvent e) {
+	}
+	
 	
 	public void mostrarServiciosDelProfesional(ActionEvent a) {
 		ProfesionalDTO profesionalSeleccionado = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
