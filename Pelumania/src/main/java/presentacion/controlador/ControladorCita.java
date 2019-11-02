@@ -356,6 +356,9 @@ public class ControladorCita implements ActionListener{
 				if (validarAntesDeAgregarServicio(serv)) {
 					serviciosAgregados.add(serv);
 					actualizarServiciosAgregados();
+					actualizarHoraFin();
+					actualizarPrecioTotal();
+					actualizarPrecioTotalDolar();
 					System.out.println("Los servicios son: "+serviciosAgregados);
 				}else {
 					mostrarErrorServicio();
@@ -368,13 +371,20 @@ public class ControladorCita implements ActionListener{
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
-			calcularHorario(serv);
-			if (validarAntesDeAgregarServicio(serv)) {
-				serviciosAgregados.add(serv);
-				actualizarServiciosAgregados();
-			}else {
-				mostrarErrorServicio();
-			}
+			if (validarHora(this.ventanaCita.getHoraInicio())) {
+				calcularHorario(serv);
+				if (validarAntesDeAgregarServicio(serv)) {
+					serviciosAgregados.add(serv);
+					actualizarServiciosAgregados();
+					actualizarHoraFin();
+					actualizarPrecioTotal();
+					actualizarPrecioTotalDolar();
+					System.out.println("Los servicios son: "+serviciosAgregados);
+				}else {
+					mostrarErrorServicio();
+				}
+			}else
+				mostrarErrorHora();
 		}
 	}
 	
@@ -470,6 +480,41 @@ public class ControladorCita implements ActionListener{
 		LocalTime horaFin = serv.getHoraInicio().plusHours(servicio.getDuracion().getHour());
 		horaFin = horaFin.plusMinutes(servicio.getDuracion().getMinute());
 		serv.setHoraFin(horaFin);
+	}
+
+	private void actualizarHoraFin() {
+		if (serviciosAgregados.isEmpty()) {
+			this.ventanaCita.setHoraFin(ventanaCita.getHoraInicio());
+			this.ventanaCita.getLbl_Fin().setText(this.ventanaCita.getHoraFin().toString());
+		}else {
+			this.ventanaCita.setHoraFin(this.serviciosAgregados.get(serviciosAgregados.size()-1).getHoraFin());
+			this.ventanaCita.getLbl_Fin().setText(this.ventanaCita.getHoraFin().toString());
+		}
+	}
+	
+	private BigDecimal actualizarPrecioTotal() {
+			BigDecimal total = BigDecimal.valueOf(0);
+			for (ServicioTurnoDTO st : serviciosAgregados) {
+				Integer idServicio = st.getIdServicio();
+				ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+				total = total.add(servicio.getPrecioLocal());
+			}
+			//Setear el total a la ventana
+			this.ventanaCita.setTotal(total);
+			this.ventanaCita.getLbl_Total().setText(this.ventanaCita.getTotal().toString());
+			return total;
+	}
+	
+	public BigDecimal actualizarPrecioTotalDolar() {
+		BigDecimal total = BigDecimal.valueOf(0);
+		for (ServicioTurnoDTO st : serviciosAgregados) {
+			Integer idServicio = st.getIdServicio();
+			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+			total = total.add(servicio.getPrecioDolar());
+		}
+		this.ventanaCita.setTotalUSD(total);
+		this.ventanaCita.getLbl_TotalUSD().setText(this.ventanaCita.getTotalUSD().toString());
+		return total;
 	}
 	
 	public String diaDeLaSemana() {
