@@ -20,7 +20,10 @@ class CitaTest {
 	@Test
 	void test() {
 		sistema=new Sistema(new DAOSQLFactory());
-	
+		for (int i=0;i<sistema.obtenerCitas().size();i++) {
+			sistema.deleteReal(sistema.obtenerCitas().get(i));
+		}
+		
 		BigDecimal peso=new BigDecimal(1);
 		BigDecimal dolar=new BigDecimal(60);
 		LocalTime inicio=LocalTime.now();
@@ -49,9 +52,7 @@ class CitaTest {
 		sistema.cancelarCita(cita);
 		
 		
-		for (int i=0;i<sistema.obtenerCategoriasMovimientoCaja().size();i++) {
-			System.out.print(sistema.obtenerCitas().get(i).getEstado());
-		}
+		
 		System.out.print(sistema.obtenerCitas().get(0).getEstado());
 		assertEquals(sistema.obtenerCitas().get(0).getEstado(),"Cancelada");
 		

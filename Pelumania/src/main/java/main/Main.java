@@ -15,7 +15,5 @@ public class Main {
         Sistema sistema = new Sistema(new DAOSQLFactory());
         Login login = new Login();
         ControladorLogin controladorLog= new ControladorLogin(login,sistema);
-   
     } 
- 
 } 

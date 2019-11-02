@@ -38,6 +38,26 @@
 				</textElement>
 				<text><![CDATA[COMPROBANTE DE CAJA POR SUCURSAL]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="390" y="4" width="80" height="38" uuid="5baf55df-d833-4a2e-97e1-c83727630ab3"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha Reporte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="0" width="100" height="38" uuid="3876fc6f-21d9-48e2-a5aa-b7bf9b8598e4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yy").format(new Date())]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -73,9 +93,19 @@
 				<text><![CDATA[Sucursal:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="420" y="0" width="81" height="31" uuid="1c154497-ef68-4984-aea3-f37902086cec"/>
+				<reportElement x="420" y="0" width="81" height="41" uuid="1c154497-ef68-4984-aea3-f37902086cec"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{idSucursal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="100" height="38" uuid="b810387e-b1fc-4434-82e0-785a07b6fad9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("Desde");]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="1" width="100" height="38" uuid="bd12fef6-0752-4496-bcb9-938ea028a953"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("Hasta")]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -124,11 +154,6 @@
 	<detail>
 		<band height="75" splitType="Stretch">
 			<textField>
-				<reportElement x="30" y="6" width="81" height="31" uuid="005da949-2061-4a86-a8cc-96353bd5c12d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="230" y="0" width="81" height="31" uuid="14008507-12f3-4e53-9684-a3aee800dc09"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{idServicio}]]></textFieldExpression>
@@ -136,12 +161,12 @@
 			<textField>
 				<reportElement x="330" y="0" width="90" height="31" uuid="4857cf6d-616d-4556-8f7f-0ebf2d89e7ff"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{precioDolar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precioDolar}+" $usd"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="440" y="0" width="90" height="31" uuid="426390d0-145e-4ec3-8092-ab6b0e9aa36e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{precioLocal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precioLocal}+" $"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

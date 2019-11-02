@@ -26,7 +26,6 @@ public class ReporteDeCajaPorSucursal {
 	//Recibe la lista de personas para armar el reporte
     public ReporteDeCajaPorSucursal(List<MovimientoCajaDTO> caja, String desde, String hasta)
     {
-    	System.out.println(caja.get(0).getIdCliente());
     	List<MovimientoCajaDTO> coleccion =caja;
     	
     	//Hardcodeado
