@@ -42,18 +42,21 @@ public class ControladorReportePorCliente {
 		String hastaParaReporte=hasta+" 11:59:59";
 		
 		ArrayList<MovimientoCajaDTO>cliente=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosCliente(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Cliente().getSelectedIndex()+1);
-		
-		//System.out.println(cliente.get(0).getIdCliente());
-		
+				
 		ReportePorCliente reportePorCliente = new ReportePorCliente(cliente,desde,hasta);
 		reportePorCliente.mostrar();
 	}
 	
 	public void cargarCliente() {
 		List<ClienteDTO> clientes = sistema.obtenerClientes();
+		int cont=0;
 		
 		for (ClienteDTO cliente : clientes) {
-			this.ventanaReportes.getJcb_Cliente().addItem(cliente);
+			if(cont==0)cont++;
+			else {
+				this.ventanaReportes.getJcb_Cliente().addItem(cliente);
+				cont++;
+			}
 		}
 	}
 }
