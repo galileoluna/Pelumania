@@ -42,16 +42,18 @@ public class ControladorReportePorProfesional {
 	}
 	
 	private void reportePorProfesional(ActionEvent l) {
-		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+		SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
 		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
-		//System.out.println(desde+" "+hasta);
 		
-		ArrayList<MovimientoCajaDTO>profesional=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosProfesional(desde,hasta,this.ventanaReportes.getJcb_Profesional().getSelectedIndex());
+		String desdeParaReporte=desde+" 00:00:01";
+		String hastaParaReporte=hasta+" 11:59:59";
+		
+		ArrayList<MovimientoCajaDTO>profesional=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosProfesional(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Profesional().getSelectedIndex());
 		System.out.println("hola");
 		System.out.println(profesional.get(0).getIdProfesional());
 		
-		ReportePorProfesional reportePorProf = new ReportePorProfesional(profesional);
+		ReportePorProfesional reportePorProf = new ReportePorProfesional(profesional,desde,hasta);
 		reportePorProf.mostrar();
 	}
 }
