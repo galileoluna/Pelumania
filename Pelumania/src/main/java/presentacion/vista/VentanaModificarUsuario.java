@@ -1,169 +1,206 @@
 package presentacion.vista;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Toolkit;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import dto.SucursalDTO;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaModificarUsuario extends JFrame {
-	private static VentanaModificarUsuario INSTANCE;
-	private JFrame frmUsuario;
-	private JTable tablaUsuario;
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JComboBox comboSucu;
+	private JComboBox comboPerm;
+	private JComboBox estado;
 	private JButton btnAgregar;
-	private JButton btnBorrar;
-	private JButton btnEditar;
-	private DefaultTableModel modelUsuario;
-	private  String[] nombreColumnas = {"Nombre","Usuario","Mail","Permisos","Sucursal","Estado"};
+	private static VentanaModificarUsuario INSTANCE;
+	private JTextField textUser;
+	private JPasswordField textPass;
+	private JTextField textMail;
 
-	public VentanaModificarUsuario()
-	{
-		super();
-		initialize();
-	}
-
-	public static VentanaModificarUsuario getInstance()
+	
+	public static VentanaModificarUsuario getInstance( )
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaModificarUsuario();
+			INSTANCE = new VentanaModificarUsuario(); 	
 			return new VentanaModificarUsuario();
-		} else {
-			return INSTANCE;
 		}
+		else
+			return INSTANCE;
 	}
-	
-	private void initialize()
+
+	private VentanaModificarUsuario() 
 	{
-		setBounds(100, 100, 739, 406);
+		super();
+		setTitle("Alta Usuario");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/usuario.png"));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 410, 468);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(null);
-		setTitle("Usuarios");
-
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 713, 356);
-		getContentPane().add(panel);
-		panel.setLayout(null);
-
-		JScrollPane spSucursal = new JScrollPane();
-		spSucursal.setBounds(10, 11, 693, 277);
-		panel.add(spSucursal);
-
-		modelUsuario = new DefaultTableModel(null,nombreColumnas) {
-			//Para que las celdas de la tabla no se puedan editar
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		tablaUsuario = new JTable(modelUsuario);
-
-
-		tablaUsuario.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tablaUsuario.getColumnModel().getColumn(0).setResizable(false);
-		tablaUsuario.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tablaUsuario.getColumnModel().getColumn(1).setResizable(false);
-		tablaUsuario.getColumnModel().getColumn(2).setPreferredWidth(100);
-		tablaUsuario.getColumnModel().getColumn(2).setResizable(false);
-		tablaUsuario.getColumnModel().getColumn(3).setPreferredWidth(100);
-		tablaUsuario.getColumnModel().getColumn(3).setResizable(false);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 374, 407);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(10, 11, 113, 14);
+		panel.add(lblNombre);
+		
+		txtNombre = new JTextField();
+		txtNombre.setBounds(188, 8, 164, 20);
+		panel.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido.setBounds(10, 56, 113, 14);
+		panel.add(lblApellido);
 
-		spSucursal.setViewportView(tablaUsuario);
-
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(172, 322, 89, 23);
+		
+		txtApellido = new JTextField();
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(188, 53, 164, 20);
+		panel.add(txtApellido);
+		
+		
+		btnAgregar= new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAgregar.setBounds(84, 373, 189, 23);
 		panel.add(btnAgregar);
-
-		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(282, 322, 89, 23);
-		panel.add(btnEditar);
-
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(394, 322, 89, 23);
-		panel.add(btnBorrar);
+		
+		JLabel labelComboOrig = new JLabel("Sucursal");
+		labelComboOrig.setBounds(10, 288, 113, 14);
+		panel.add(labelComboOrig);
+		
+		JLabel labeSucTran = new JLabel("Permisos");
+		labeSucTran.setBounds(10, 238, 164, 14);
+		panel.add(labeSucTran);
+		
+		comboSucu = new JComboBox();
+		comboSucu.setBounds(188, 280, 164, 22);
+		panel.add(comboSucu);
+		
+		comboPerm = new JComboBox();
+		comboPerm.setBounds(188, 234, 164, 22);
+		comboPerm.addItem("--");
+		panel.add(comboPerm);
+		
+		estado = new JComboBox();
+		estado.setBounds(188, 323, 164, 22);
+		estado.addItem("Activo");
+		estado.addItem("Inactivo");
+		panel.add(estado);
+		
+		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setBounds(10, 327, 164, 14);
+		panel.add(lblEstado);
+		
+		JLabel lblNombreUsuario = new JLabel("Nombre Usuario");
+		lblNombreUsuario.setBounds(10, 109, 113, 14);
+		panel.add(lblNombreUsuario);
+		
+		JLabel lblContrasea = new JLabel("Contraseña");
+		lblContrasea.setBounds(10, 151, 113, 14);
+		panel.add(lblContrasea);
+		
+		JLabel lblMail = new JLabel("E-Mail");
+		lblMail.setBounds(10, 195, 113, 14);
+		panel.add(lblMail);
+		
+		textUser = new JTextField();
+		textUser.setColumns(10);
+		textUser.setBounds(188, 106, 164, 20);
+		panel.add(textUser);
+		
+		textPass = new JPasswordField();
+		textPass.setColumns(10);
+		textPass.setBounds(188, 148, 164, 20);
+		panel.add(textPass);
+		
+		textMail = new JTextField();
+		textMail.setColumns(10);
+		textMail.setBounds(188, 192, 164, 20);
+		panel.add(textMail);
+		
+		this.setVisible(false);
 	}
-	public JTable gettablaUsuario() {
-		return tablaUsuario;
+	
+	public void mostrarVentana()
+	{
+		this.setVisible(true);
+	}
+	
+	public JTextField getTxtNombre() 
+	{
+		return txtNombre;
 	}
 
-	public void settablaUsuario(JTable tablaUsuario) {
-		this.tablaUsuario = tablaUsuario;
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+	
+	public JTextField getTxtUser() {
+		return textUser;
+	}
+	
+	public JPasswordField getTxtPass() {
+		return textPass;
+	}
+	
+	public JTextField getTxtMail() {
+		return textMail;
 	}
 
-	public DefaultTableModel getModelUsuario() {
-		return modelUsuario;
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
 	}
 
-	public void setModelUsuario(DefaultTableModel modelUsuario) {
-		this.modelUsuario = modelUsuario;
-	}
-
-	public String[] getNombreColumnas() {
-		return nombreColumnas;
-	}
-
-	public void setNombreColumnas(String[] nombreColumnas) {
-		this.nombreColumnas = nombreColumnas;
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
 	}
 
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
-
-	public void setBtnAgregar(JButton btnAgregar) {
-		this.btnAgregar = btnAgregar;
+	
+	public JComboBox getComboSucu() {
+		return comboSucu;
+	}
+	
+	public JComboBox getComboPerm() {
+		return comboPerm;
+	}
+	
+	public JComboBox getEstado() {
+		return estado;
 	}
 
-	public JButton getBtnEditar() {
-		return btnEditar;
-	}
-
-	public void setBtnEditar(JButton btnEditar) {
-		this.btnEditar = btnEditar;
-	}
-
-	public JButton getBtnBorrar() {
-		return btnBorrar;
-	}
-
-	public void setBtnBorrar(JButton btnBorrar) {
-		this.btnBorrar = btnBorrar;
-	}
-
-	public void llenarTabla(List<SucursalDTO> sucursalEnTabla) {
-		this.getModelUsuario().setRowCount(0); //Para vaciar la tabla
-		this.getModelUsuario().setColumnCount(0);
-		this.getModelUsuario().setColumnIdentifiers(this.getNombreColumnas());
-
-		for (SucursalDTO s : sucursalEnTabla)
-		{
-			String nombreSucursal=s.getNombreSucursal();
-			String direccion=s.getDireccion();
-			int numero=s.getNumero();
-			String estado = s.getEstadoSucursal();
-			
-			Object[] fila = {nombreSucursal,direccion, numero, estado};
-			this.getModelUsuario().addRow(fila);
-		}
-	}
-	public void mostrar() {
-		setVisible(true);
-	}
-
-	public void cerrar() {
+	public void cerrar()
+	{
 		this.dispose();
 	}
-
-
 }
