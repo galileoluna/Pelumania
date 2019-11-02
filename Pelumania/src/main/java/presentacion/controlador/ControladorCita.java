@@ -403,26 +403,41 @@ public class ControladorCita implements ActionListener{
 		}
 		ProfesionalDTO profesional = this.sistema.getProfesionalById(servicio.getIdProfesional());
 		
-		String diaDeLaSemana = diaDeLaSemana();
 		System.out.println("Horarios servicio: "+servicio.getHoraInicio() +"\n"+ servicio.getHoraFin());
-		if (!validarDisponibilidadProfesional(servicio.getHoraInicio(), servicio.getHoraFin(), diaDeLaSemana, profesional.getIdProfesional())) {
+		if (!validarDisponibilidadProfesional(servicio.getHoraInicio(), servicio.getHoraFin(), profesional.getIdProfesional())) {
 			ControladorCita.errorServicio = "El profesional "+ profesional.getNombre()+" "+
 					profesional.getApellido()+" no está disponible en ese horario!"+ 
 					"Tiene una cita desde: "+"__:__"+"hasta: "+ "__:__";
 			return false;
 		}
 		
+		String diaDeLaSemana = diaDeLaSemana();
+		if (!validarProfesionalEnSucursal(profesional.getIdProfesional(), servicio.getHoraInicio(), servicio.getHoraFin(), diaDeLaSemana)) {
+			ControladorCita.errorServicio = "El profesional no trabaja en ese horario!";
+			return false;
+		}
 		return true;
 	}
 	
-	private boolean validarDisponibilidadProfesional(LocalTime inicio, LocalTime fin, String diaDeLaSemana, int idProfesional) {
-		Integer ocupado = this.sistema.profesionalOcupado(inicio, fin, diaDeLaSemana, idProfesional, this.ventanaCita.getFechaCita());
+	private boolean validarDisponibilidadProfesional(LocalTime inicio, LocalTime fin, int idProfesional) {
+		Integer ocupado = this.sistema.profesionalOcupado(idProfesional, inicio, fin, this.ventanaCita.getFechaCita());
 		System.out.println(ocupado);
 		if (ocupado == 1) {
 			ControladorCita.errorServicio = "El profesional esta ocupado en ese horario!";
 			return false;
 		}else 
 			return true;
+		}
+	
+	public boolean validarProfesionalEnSucursal(Integer idProfesional, LocalTime horaInicio,
+		LocalTime horaFin, String diaDeLaSemana) {
+		Integer disponible = this.sistema.profesionalTrabaja(idProfesional, horaInicio, horaFin, diaDeLaSemana);
+		System.out.println("Disponible = "+ disponible);
+		
+		if (disponible == 1){
+			return true;
+		}		
+		return false;
 		}
 	
 	private void mostrarErrorServicio() {

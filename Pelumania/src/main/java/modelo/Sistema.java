@@ -311,10 +311,16 @@ public class Sistema
 		return this.servicioTurno.getCitasByIdServicio(idServicio);
 	}
 	
-	public Integer profesionalOcupado(LocalTime horaInicio, LocalTime horaFin, String dia,
-			Integer idProfesional, LocalDate fecha) {
-		return this.servicioTurno.profesionalOcupado(horaInicio, 
-				horaFin, dia, idProfesional, fecha);
+	public Integer profesionalOcupado(Integer idProfesional, LocalTime horaInicio,
+			LocalTime horaFin, LocalDate fecha) {
+		return this.servicioTurno.profesionalOcupado(idProfesional, 
+				horaInicio, horaFin, fecha);
+	}
+	
+	public Integer profesionalTrabaja(Integer idProfesional, LocalTime horaInicio,
+			LocalTime horaFin, String diaDeLaSemana) {
+		return this.servicioTurno.profesionalEnSucursal(idProfesional, horaInicio,
+				horaFin, diaDeLaSemana);
 	}
 	
 	//termina ServicioTurno

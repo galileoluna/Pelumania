@@ -20,7 +20,9 @@ public interface ServicioTurnoDAO {
 
 	List<Integer> getCitasByIdServicio(int idServicio);
 
-	public int profesionalOcupado(LocalTime horaInicio, LocalTime horaFin, String dia,
-			Integer idProfesional, LocalDate fecha);
+	public int profesionalOcupado(Integer idProfesional, LocalTime horaInicio, 
+			LocalTime horaFin, LocalDate fecha);
+
+	int profesionalEnSucursal(Integer idProfesional, LocalTime horaInicio, LocalTime horaFin, String diaDeLaSemana);
 
 }

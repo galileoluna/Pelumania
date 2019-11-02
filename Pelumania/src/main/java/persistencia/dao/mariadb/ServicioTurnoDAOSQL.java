@@ -26,14 +26,25 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 	private static final String getByIdCita = "SELECT * FROM ServicioTurno WHERE idCita = ?";
 	private static final String getByIdServicio = "SELECT * FROM ServicioTurno WHERE idServicio = ?";
 	
-	private static final String profesionalOcupado = "SELECT 1 as ocupado" + 
-			" FROM servicioturno st" +  
-			" JOIN profesional p USING (IdProfesional)" + 
-			" JOIN cita c USING (idCita)" + 
-			" JOIN diaslaborales d ON  p.IdProfesional=d.IdProfesional" + 
-			" WHERE (st.horaInicio <= ? OR st.horaFin >= ?)  AND st.horaInicio <= ? AND   st.horaFin >= ? AND d.HoraEntrada < ?" + 
-			" AND d.HoraSalida > ? AND d.Dia = ? AND p.IdProfesional = ? AND c.Dia=?; ";
-
+	private static final String profesionalTrabaja = "SELECT 1 AS Disponible"+
+													 " FROM DiasLaborales"+  
+													 " WHERE DiasLaborales.IdProfesional = ?"+ 
+													 " AND HoraEntrada <= ? AND HoraSalida >= ? AND Dia = ?";
+	// Recibe idProfesional, hora que iniciaria el turno, hora que terminaria, y dia de la semana (lunes, mart, ect)
+	
+	private static final String profesionalOcupado = "SELECT 1 AS Ocupado, idCita,"+
+													" idServicio, horaInicio, horaFin" + 
+													" FROM ServicioTurno"+
+													" WHERE idProfesional = ?"+ 
+													" AND (( ? < HoraInicio AND ? > HoraInicio)"+
+													" OR (?= HoraInicio)"+
+													" OR (? > HoraInicio AND ? <= HoraFin))"+
+													" AND idCita IN"+
+													" (SELECT idCita FROM Cita WHERE dia = ? AND EstadoTurno = ?)";
+	// Recibe idProfesional, todos los ? de la izquierda son hora que iniciaria el turno
+	// el ultimo ? es hora que finalizaria
+	// fecha del turno 
+	// Estado = Activa siempre
 	
 	@Override
 	public boolean insert(ServicioTurnoDTO servicioTurno_a_insertar) 
@@ -146,10 +157,45 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 		System.out.println(citas);
 		return citas;
 	}
+	@Override
+	public int profesionalEnSucursal(Integer idProfesional, LocalTime horaInicio, 
+		LocalTime horaFin, String diaDeLaSemana) {
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		Integer disponible = 0;
+		try
+		{
+			statement = conexion.prepareStatement(profesionalTrabaja);
+			System.out.println(horaInicio);
+			System.out.println("----------------------------------ENTRE--------------------------------------");
+			statement.setInt	(1, idProfesional);
+			statement.setTime	(2, Time.valueOf(horaInicio));
+			statement.setTime	(3, Time.valueOf(horaFin));
+			statement.setString	(4, diaDeLaSemana);
+			System.out.println(statement);
+			resultSet = statement.executeQuery();
+			
+			if (resultSet.next()){
+				disponible = resultSet.getInt("ocupado");
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return disponible;
+	}
+	
 	
 	@Override
-	public int profesionalOcupado(LocalTime horaInicio, LocalTime horaFin,
-			String dia, Integer idProfesional, LocalDate fecha) {
+	public int profesionalOcupado(Integer idProfesional, LocalTime horaInicio, 
+		LocalTime horaFin, LocalDate fecha) {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -159,29 +205,20 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 			statement = conexion.prepareStatement(profesionalOcupado);
 			System.out.println(horaInicio);
 			System.out.println("----------------------------------ENTRE--------------------------------------");
-			statement.setTime	(1,  Time.valueOf(horaInicio));
-			statement.setTime	(2,  Time.valueOf(horaFin));
-			statement.setTime	(3,  Time.valueOf(horaInicio));
-			statement.setTime	(4,  Time.valueOf(horaFin));
-			statement.setTime	(5,  Time.valueOf(horaInicio));
-			statement.setTime	(6,  Time.valueOf(horaFin));
-			statement.setString	(7,  dia);
-			statement.setInt	(8,  idProfesional);
-			statement.setDate	(9,  Date.valueOf(fecha));
-			
+			statement.setInt	(1, idProfesional);
+			statement.setTime	(2, Time.valueOf(horaInicio));
+			statement.setTime	(3, Time.valueOf(horaFin));
+			statement.setTime	(4, Time.valueOf(horaInicio));
+			statement.setTime	(5, Time.valueOf(horaInicio));
+			statement.setTime	(6, Time.valueOf(horaFin));
+			statement.setDate	(7, Date.valueOf(fecha));
+			statement.setString	(8, "Activa");
 			System.out.println(statement);
 			resultSet = statement.executeQuery();
 			
 			if (resultSet.next()){
-				//System.out.println("NICO MIRA: "+resultSet.getString("ocupado"));
 				ocupado = resultSet.getInt("ocupado");
 			}
-			/*if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				System.out.println("NICO MIRA: "+resultSet.getString("ocupado"));
-				ocupado = resultSet.getInt("ocupado");
-			}*/
 		}
 		catch (SQLException e)
 		{
