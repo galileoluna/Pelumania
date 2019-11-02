@@ -3,6 +3,7 @@ package presentacion.vista;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -97,6 +98,8 @@ public class nuevaVentanaCita {
 	private ClienteDTO cliente;
 	private LocalTime horaInicio;
 	private LocalTime horaFin;
+	private BigDecimal total;
+	private BigDecimal totalUSD;
 	
 	private JLabel lblErrorFecha;
 
@@ -512,15 +515,15 @@ public class nuevaVentanaCita {
 		JPnl_Datos.add(lbl_Inicio);
 		
 		lbl_Fin = new JLabel("");
-		lbl_Fin.setBounds(68, 66, 120, 14);
+		lbl_Fin.setBounds(34, 66, 120, 14);
 		JPnl_Datos.add(lbl_Fin);
 		
 		lbl_Total = new JLabel("");
-		lbl_Total.setBounds(269, 41, 120, 14);
+		lbl_Total.setBounds(256, 41, 120, 14);
 		JPnl_Datos.add(lbl_Total);
 		
 		lbl_TotalUSD = new JLabel("");
-		lbl_TotalUSD.setBounds(269, 66, 120, 14);
+		lbl_TotalUSD.setBounds(279, 66, 120, 14);
 		JPnl_Datos.add(lbl_TotalUSD);
 	}
 
@@ -1054,4 +1057,21 @@ public class nuevaVentanaCita {
 	public void setHoraFin(LocalTime horaFin) {
 		this.horaFin = horaFin;
 	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
+	public BigDecimal getTotalUSD() {
+		return totalUSD;
+	}
+
+	public void setTotalUSD(BigDecimal totalUSD) {
+		this.totalUSD = totalUSD;
+	}
+	
 }
