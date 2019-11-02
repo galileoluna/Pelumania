@@ -17,7 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 
 import org.apache.log4j.Logger;
 
-
+import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
 import dto.PromocionDTO;
@@ -25,6 +25,7 @@ import dto.ServicioDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
+import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.nuevaVentanaCita;
 
 public class ControladorCita implements ActionListener{
@@ -54,6 +55,7 @@ public class ControladorCita implements ActionListener{
 	
 	private static String errorHora;
 	private static String errorServicio;
+	private static String errorCargarCita;
 	
 	public ControladorCita(Sistema s) {
 		
@@ -74,10 +76,12 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getRdbtnPromocion().addActionListener(c -> mostrarPanelPromociones(c));
 		
 		this.ventanaCita.getBtnAgregarServicio().addActionListener(d -> agregarServicio(d));
-		this.ventanaCita.getBtnConfirmar().addActionListener (a -> guardarCita(a));
+		this.ventanaCita.getBtnEliminarServicio().addActionListener(e-> eliminarServicio(e));
 		
+		this.ventanaCita.getBtnConfirmar().addActionListener (a -> guardarCita(a));
+		this.ventanaCita.getBtnCancelar().addActionListener (b -> cancelar(b));
 		inicializarArreglos();
-	}
+	}	
 
 	public static ControladorCita getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
@@ -340,6 +344,8 @@ public class ControladorCita implements ActionListener{
 		System.out.println("Fin: "+ this.ventanaCita.getHoraFin());
 		System.out.println("Total: $"+this.ventanaCita.getTotal());
 		System.out.println("Total: USD"+ this.ventanaCita.getTotalUSD());
+		
+		registrarCita();
 	}
 	
 	public void imprimirServicios() {
@@ -353,6 +359,117 @@ public class ControladorCita implements ActionListener{
 		}
 	}
 	
+	public boolean validarCita() {
+		if (this.ventanaCita.getFechaCita().getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+			errorCargarCita = "No puedes cargar una cita los Domingos!";
+			return false;
+		}
+		if (this.ventanaCita.getFechaCita().isBefore(LocalDate.now())) {
+			errorCargarCita = "La fecha que has elegido no es valida!";
+			return false;
+		}
+		if (this.ventanaCita.getSucursal().getIdSucursal() == -1) {
+			errorCargarCita = "No puedes elegir esa sucursal!";
+			return false;
+		}
+		if (this.ventanaCita.getCliente()==null) {
+			errorCargarCita = "Debes seleccionar un cliente primero!";
+			return false;
+		}
+		if (serviciosAgregados.isEmpty()) {
+			errorCargarCita = "No puedes cargar una cita sin servicios!";
+			return false;
+		}
+		
+		Boolean ret = true;
+		ArrayList<ServicioTurnoDTO> serviciosNoValidos = new ArrayList<ServicioTurnoDTO>();
+		for (ServicioTurnoDTO st : serviciosAgregados) {
+			boolean servicioValido = validarDisponibilidadProfesional(st.getHoraInicio(), st.getHoraFin(), st.getIdProfesional());
+			ret = ret && servicioValido;
+			
+			if (!servicioValido)
+				serviciosNoValidos.add(st);
+		}
+		
+		if (!ret) {
+			errorCargarCita = "Uups, has tardado demasiado! ";
+			for (ServicioTurnoDTO snv : serviciosNoValidos) {
+				ServicioDTO serv = this.sistema.getServicioById(snv.getIdServicio());
+				ProfesionalDTO prof = this.sistema.getProfesionalById(snv.getIdProfesional());
+				errorCargarCita = errorCargarCita + "El servicio "+ serv.getNombre()+ "no puede ser agregado! "+
+				"El profesional "+ prof.getNombre()+" "+prof.getApellido()+ "ya no está disponible en ese horario. \n";
+			}
+			return false;
+		}
+		return true;
+	}
+	
+	
+	public void registrarCita() {
+		if (validarCita()) {
+			Integer idCitaAgregada;
+			
+			CitaDTO nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
+					this.ventanaCita.getCliente().getNombre(), this.clienteGenerico.getApellido(), 
+					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
+					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
+					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal());
+		
+			if (this.sistema.agregarCita(nuevaCita)) {
+				idCitaAgregada = this.sistema.getCitaMax().getIdCita();
+				
+				for (ServicioTurnoDTO st : serviciosAgregados) 
+				{
+					st.setIdCita(idCitaAgregada);
+					this.sistema.insertServicioTurno(st);
+				}
+				
+				this.mostrarExitoCargarCita(idCitaAgregada);
+				this.ventanaCita.cerrar();
+				//una vez que se hizo todo bien mandamos el mail
+//				MailService.enviar(this.sistema, CitaAgregada, cliente);
+			}
+		}
+		else
+			mostrarErrorCita();
+	}
+
+		
+	public void mostrarErrorCita() {
+		JOptionPane.showMessageDialog(null, errorCargarCita);
+	}
+	
+	public void mostrarExitoCargarCita(Integer idCitaAgregada) {
+		
+		Object[] opciones = {"Aceptar",
+                "Ver Comprobante"};
+				int n = JOptionPane.showOptionDialog(null,
+				"La cita se cargó correctamente",
+				"Información",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.INFORMATION_MESSAGE,
+				null,
+				opciones,
+				opciones[1]);
+				
+				if (n==1) {
+					generarComprobante(idCitaAgregada);
+				}
+
+	}
+	
+	private void generarComprobante(Integer idCita) {
+		 ReporteComprobante reporteComprobante = new ReporteComprobante(this.sistema.getCitaById(idCita));
+		 reporteComprobante.mostrar();
+	}
+	private void generarComprobante(CitaDTO cita) {
+		 ReporteComprobante reporteComprobante = new ReporteComprobante(cita);
+		 reporteComprobante.mostrar();
+	}
+	
+	public void cancelar(ActionEvent b) {
+		this.ventanaCita.cerrar();
+	}
 	/* ****************************************************************** */
 	/* *********** METODOS PARA EL MANEJO DE LOS SERVICIOS ************** */
 	/* ****************************************************************** */
@@ -378,6 +495,7 @@ public class ControladorCita implements ActionListener{
 				mostrarErrorHora();
 		}
 		
+		
 		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
@@ -398,6 +516,10 @@ public class ControladorCita implements ActionListener{
 				mostrarErrorHora();
 		}
 	}
+	
+	private void eliminarServicio(ActionEvent e) {
+	}
+	
 	
 	public void mostrarServiciosDelProfesional(ActionEvent a) {
 		ProfesionalDTO profesionalSeleccionado = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();

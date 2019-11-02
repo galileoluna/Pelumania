@@ -1022,6 +1022,10 @@ public class nuevaVentanaCita {
 		this.btnEliminarServicio = btnEliminarServicio;
 	}
 	
+	public void cerrar() {
+		this.frame.dispose();
+	}
+	
 	/* *************************************************************************************
 	 * ********************* GETTERS Y SETTERS DE LAS VARIABLES ****************************
 	 * *************************************************************************************/
@@ -1073,5 +1077,4 @@ public class nuevaVentanaCita {
 	public void setTotalUSD(BigDecimal totalUSD) {
 		this.totalUSD = totalUSD;
 	}
-	
 }
