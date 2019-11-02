@@ -37,8 +37,8 @@ public class ControladorAltaProfesional  implements ActionListener{
 			INSTANCE = new ControladorAltaProfesional(sistema, usuario);
 		}
 		INSTANCE.sucursal=getSucursales();
-		llenarCombo(INSTANCE.altaProfesional.getComboOrig(),INSTANCE.sucursal);
-		llenarCombo(INSTANCE.altaProfesional.getComboTran(),INSTANCE.sucursal);
+		llenarCombo(INSTANCE.altaProfesional.getComboOrig(),INSTANCE.sucursal,1);
+		llenarCombo(INSTANCE.altaProfesional.getComboTran(),INSTANCE.sucursal,0);
 		INSTANCE.altaProfesional.mostrarVentana();
 		return INSTANCE;
 	}
@@ -91,11 +91,17 @@ public class ControladorAltaProfesional  implements ActionListener{
 	
 	// lleno todo el combo de las sucursales primero lo vacio para que no lo cargue dos veces 
 	// recibe el combo y el hashmap que ya posee el nombre e id de las sucursales
-	public static void llenarCombo(JComboBox combo, HashMap<String,Integer>sucursales) {
+	public static void llenarCombo(JComboBox combo, HashMap<String,Integer>sucursales,int comboid) {
 		combo.removeAllItems();
 		combo.addItem("--");
 		for (HashMap.Entry<String, Integer> datos : sucursales.entrySet()) {
-			combo.addItem(datos.getKey().toString());
+			if(comboid == 0 && (usuario.getIdRol() == 1 || usuario.getIdRol() == 5)) {
+				combo.addItem(datos.getKey().toString());
+			}else {
+				if((usuario.getIdRol() == 4 || usuario.getIdRol() == 3) && datos.getValue() == usuario.getIdSucursal()) {
+					combo.addItem(datos.getKey().toString());
+				}
+			}
 		}
 	}
 	
