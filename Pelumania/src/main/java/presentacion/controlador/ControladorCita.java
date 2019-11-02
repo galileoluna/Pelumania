@@ -351,14 +351,17 @@ public class ControladorCita implements ActionListener{
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
-			calcularHorario(serv);
-			if (validarAntesDeAgregarServicio(serv)) {
-				serviciosAgregados.add(serv);
-				actualizarServiciosAgregados();
-				System.out.println("Los servicios son: "+serviciosAgregados);
-	}else {
-		mostrarErrorServicio();
-		}
+			if (validarHora(this.ventanaCita.getHoraInicio())) {
+				calcularHorario(serv);
+				if (validarAntesDeAgregarServicio(serv)) {
+					serviciosAgregados.add(serv);
+					actualizarServiciosAgregados();
+					System.out.println("Los servicios son: "+serviciosAgregados);
+				}else {
+					mostrarErrorServicio();
+				}
+			}else
+				mostrarErrorHora();
 		}
 		
 		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
