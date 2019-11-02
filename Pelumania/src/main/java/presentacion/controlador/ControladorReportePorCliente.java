@@ -34,18 +34,18 @@ public class ControladorReportePorCliente {
 	}
 	
 	private void reportePorCliente(ActionEvent l) {
-		SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
+	SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
 		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
 		
-		desde+=" 00:00:01";
-		hasta+=" 11:59:59";
+		String desdeParaReporte=desde+" 00:00:01";
+		String hastaParaReporte=hasta+" 11:59:59";
 		
-		ArrayList<MovimientoCajaDTO>cliente=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosCliente(desde,hasta,this.ventanaReportes.getJcb_Cliente().getSelectedIndex()+1);
+		ArrayList<MovimientoCajaDTO>cliente=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosCliente(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Cliente().getSelectedIndex()+1);
 		
 		//System.out.println(cliente.get(0).getIdCliente());
 		
-		ReportePorCliente reportePorCliente = new ReportePorCliente(cliente);
+		ReportePorCliente reportePorCliente = new ReportePorCliente(cliente,desde,hasta);
 		reportePorCliente.mostrar();
 	}
 	
