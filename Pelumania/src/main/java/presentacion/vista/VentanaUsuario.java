@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import dto.SucursalDTO;
+import dto.UsuarioDTO;
 
 public class VentanaUsuario extends JFrame {
 	private static VentanaUsuario INSTANCE;
@@ -41,7 +42,7 @@ public class VentanaUsuario extends JFrame {
 	private void initialize()
 	{
 		setBounds(100, 100, 739, 406);
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/usuario.png"));
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		
@@ -140,19 +141,21 @@ public class VentanaUsuario extends JFrame {
 		this.btnBorrar = btnBorrar;
 	}
 
-	public void llenarTabla(List<SucursalDTO> sucursalEnTabla) {
+	public void llenarTabla(List<UsuarioDTO> usuario) {
 		this.getModelUsuario().setRowCount(0); //Para vaciar la tabla
 		this.getModelUsuario().setColumnCount(0);
 		this.getModelUsuario().setColumnIdentifiers(this.getNombreColumnas());
 
-		for (SucursalDTO s : sucursalEnTabla)
+		for (UsuarioDTO s : usuario)
 		{
-			String nombreSucursal=s.getNombreSucursal();
-			String direccion=s.getDireccion();
-			int numero=s.getNumero();
-			String estado = s.getEstadoSucursal();
-			
-			Object[] fila = {nombreSucursal,direccion, numero, estado};
+			String nombre=s.getNombre()+" "+s.getApellido();
+			String user=s.getNombreUsuario();
+			String mail=s.getMail();
+			String permiso=s.getRol();
+			String sucursal=s.getSucursal();
+			String estado=s.getEstado();
+						
+			Object[] fila = {nombre,user,mail,permiso,sucursal, estado};
 			this.getModelUsuario().addRow(fila);
 		}
 	}

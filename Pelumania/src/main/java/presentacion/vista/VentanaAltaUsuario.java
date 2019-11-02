@@ -47,7 +47,7 @@ public class VentanaAltaUsuario extends JFrame {
 	{
 		super();
 		setTitle("Alta Usuario");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/usuario.png"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 410, 468);
 		

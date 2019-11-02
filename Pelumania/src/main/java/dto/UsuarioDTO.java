@@ -1,5 +1,14 @@
 package dto;
 
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import modelo.Sistema;
+import persistencia.dao.mariadb.SucursalDAOSQL;
+import persistencia.dao.mariadb.UsuarioDAOSQL;
+
 public class UsuarioDTO {
 	int idUsuario;
 	String nombre;
@@ -76,6 +85,31 @@ public class UsuarioDTO {
 	}
 	public void setIdSucursal(int idSucursal) {
 		this.idSucursal = idSucursal;
+	}
+
+	public String getRol() {
+		UsuarioDAOSQL usuarios= new UsuarioDAOSQL();
+		HashMap<String, Integer> roles= usuarios.readRol();
+		int idPosta= getIdRol();
+		for (Entry<String, Integer> entry : roles.entrySet()) {
+		   if(entry.getValue()== idPosta) {
+			   return entry.getKey();
+		   }
+		}
+		return "No se encontro el id";
+	}
+	
+	public String getSucursal() {
+		SucursalDAOSQL sucursal= new SucursalDAOSQL();
+		List<SucursalDTO> sucursales= sucursal.readAll();
+		int idPosta= getIdSucursal();
+		for(SucursalDTO s: sucursales) {
+			if(s.getIdSucursal() == idPosta) {
+				return s.getNombreSucursal();
+			}
+		}
+		
+		return "No se encontro el id";
 	}
 
 }
