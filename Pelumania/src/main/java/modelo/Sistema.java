@@ -389,7 +389,7 @@ public class Sistema
 		return this.caja.insertIngresoProducto(movimiento_a_insertar);
 	}
 	
-	public List<MovimientoCajaDTO> obtenerMovimientosCaja(Timestamp desde, Timestamp hasta){
+	public List<MovimientoCajaDTO> obtenerMovimientosCaja(String desde, String hasta){
 		return this.caja.readDay(desde, hasta);
 	}
 	
