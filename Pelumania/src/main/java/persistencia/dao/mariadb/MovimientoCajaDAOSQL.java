@@ -91,7 +91,7 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 
 
 	@Override
-	public List<MovimientoCajaDTO> readDay(Timestamp desde,Timestamp hasta) {
+	public List<MovimientoCajaDTO> readDay(String desde,String hasta) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
@@ -99,8 +99,8 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 		try
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readDay);
-			statement.setTimestamp(1, desde);
-			statement.setTimestamp(2, hasta);
+			statement.setString(1, desde);
+			statement.setString(2, hasta);
 
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
