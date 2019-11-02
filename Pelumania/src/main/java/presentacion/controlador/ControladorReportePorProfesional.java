@@ -49,10 +49,7 @@ public class ControladorReportePorProfesional {
 		String desdeParaReporte=desde+" 00:00:01";
 		String hastaParaReporte=hasta+" 11:59:59";
 		
-		ArrayList<MovimientoCajaDTO>profesional=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosProfesional(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Profesional().getSelectedIndex());
-		System.out.println("hola");
-		System.out.println(profesional.get(0).getIdProfesional());
-		
+		ArrayList<MovimientoCajaDTO>profesional=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosProfesional(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Profesional().getSelectedIndex()+1);
 		ReportePorProfesional reportePorProf = new ReportePorProfesional(profesional,desde,hasta);
 		reportePorProf.mostrar();
 	}
