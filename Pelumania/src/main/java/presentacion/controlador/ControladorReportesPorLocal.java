@@ -43,21 +43,18 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 
 	
 	private void reportePorLocal(ActionEvent l) {
-		SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
+	SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
 		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
 		
-		desde+=" 00:00:01";
-		hasta+=" 11:59:59";
-		//System.out.println(desde+" "+hasta);
-
-		System.out.println(desde);
-		System.out.println(hasta);
+		String desdeParaReporte=desde+" 00:00:01";
+		String hastaParaReporte=hasta+" 11:59:59";
+		
 		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desde,hasta,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex()+1);
 
 		System.out.println(caja.get(0).getIdCaja());
 		
-		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(caja);
+		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(caja,desde,hasta);
 		reporteDeCajaSucursal.mostrar();
 	}	
 }
