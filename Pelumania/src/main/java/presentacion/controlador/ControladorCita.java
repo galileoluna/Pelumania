@@ -582,6 +582,9 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	private boolean validarDisponibilidadProfesional(LocalTime inicio, LocalTime fin, int idProfesional) {
+		if (idProfesional == -1) {
+			return true;
+		}
 		Integer ocupado = this.sistema.profesionalOcupado(idProfesional, inicio, fin, this.ventanaCita.getFechaCita());
 		System.out.println(ocupado);
 		if (ocupado == 1) {
@@ -593,6 +596,9 @@ public class ControladorCita implements ActionListener{
 	
 	public boolean validarProfesionalEnSucursal(Integer idProfesional, LocalTime horaInicio,
 		LocalTime horaFin, String diaDeLaSemana) {
+		if (idProfesional == -1) {
+			return true;
+		}
 		Integer disponible = this.sistema.profesionalTrabaja(idProfesional, horaInicio, horaFin, diaDeLaSemana);
 		System.out.println("Disponible = "+ disponible);
 		

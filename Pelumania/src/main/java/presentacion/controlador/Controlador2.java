@@ -112,7 +112,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 		
-		this.nvista.getBtn_Agregar().addActionListener(k -> ventanaAgregarCita(k));
+		this.nvista.getBtn_Agregar().addActionListener(k -> abrirVentanaCitaNueva(k));
 		this.nvista.getBtn_Cancelar().addActionListener(l -> cancelarCita(l));
 		
 		//cobrar la cita desde la caja
