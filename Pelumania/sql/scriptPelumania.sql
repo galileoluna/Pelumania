@@ -1,4 +1,4 @@
-
+DROP DATABASE Pelumania;
 CREATE DATABASE `Pelumania`;
 USE Pelumania;
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `Servicio`(
   INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
 	VALUES(-1, "Cliente", "Generico", 11111111, "default@default.com", 0, "Activo", 00.00);
 
-INSERT INTO Cliente ()
+
 CREATE TABLE IF NOT EXISTS `Rol`(
 
   `idRol` INT(11) NOT NULL AUTO_INCREMENT,
@@ -99,6 +99,20 @@ CREATE TABLE IF NOT EXISTS `DiasLaborales`(
   PRIMARY KEY(`idDiasLaborales`),
   FOREIGN KEY (`IdProfesional`) REFERENCES `Profesional`(`IdProfesional`)
 );
+
+
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (-6, "Lunes", "08:00:00", "20:00:00", -1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (-5, "Martes", "08:00:00", "20:00:00", -1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (-4, "Miercoles", "08:00:00", "20:00:00", -1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (-3, "Jueves", "08:00:00", "20:00:00", -1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (-2, "Viernes", "08:00:00", "20:00:00", -1);
+INSERT INTO DiasLaborales (IdDiasLaborales, Dia, HoraEntrada, HoraSalida, IdProfesional) 
+VALUES (-1, "Sabado", "08:00:00", "20:00:00", -1);
 
 CREATE TABLE IF NOT EXISTS `ServicioProfesional`(
 
@@ -215,15 +229,6 @@ CREATE TABLE IF NOT EXISTS `Puntos`(
    FOREIGN KEY (`idServicio`) REFERENCES `Servicio`(`IdServicio`)
 );
 
-CREATE TABLE IF NOT EXISTS `ServicioProfesional`(
-
-  `IdProfesional` INT(11) NOT NULL,
-  `IdServicio` INT(11) NOT NULL,
-
-  FOREIGN KEY (`IdProfesional`) REFERENCES `Profesional`(`IdProfesional`),
-  FOREIGN KEY (`IdServicio`) REFERENCES `Servicio`(`idServicio`)
-);
-
 CREATE TABLE IF NOT EXISTS `TipoMail`(
 
   `IdTipoMail` INT(11) NOT NULL AUTO_INCREMENT,
@@ -330,6 +335,21 @@ INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Pu
 VALUES(9, "Rapado", 200.00, 3.46, "00:10:00", 15, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
 VALUES(10, "Afano", 6000.00, 103.91, "00:05:00", 5, "Activo");
+
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (-1,1); 
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (-1,2);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (-1,3);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (-1,4);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (-1,5);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (-1,6);
+INSERT INTO ServicioProfesional (idProfesional, idServicio)
+VALUES (-1,7);
 
 -- Inserts para Clientes 
 INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 

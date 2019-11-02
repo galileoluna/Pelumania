@@ -19,5 +19,7 @@ public interface ServicioDAO {
 	public boolean deleteRealServicio(ServicioDTO servicio_a_eliminar);
 
 	public List<ServicioDTO> obtenerServBuscado(String variable, String value);
+
+	public ServicioDTO getServicioMax();
 }
 

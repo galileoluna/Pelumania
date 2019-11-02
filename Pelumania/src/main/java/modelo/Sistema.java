@@ -120,6 +120,10 @@ public class Sistema
 		return this.servicio.obtenerServBuscado(variable,value);
 
 	}
+	
+	public ServicioDTO getServicioMax() {
+		return this.servicio.getServicioMax();
+	}
 //FIN SERVICIO
 
 	// ARRANCA LO QUE ES PROFESIONAL

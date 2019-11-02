@@ -9,6 +9,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.CitaDTO;
 import dto.ServicioDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ServicioDAO;
@@ -26,6 +27,7 @@ public class ServicioDAOSQL implements ServicioDAO{
 	private static final String readBuscador = "SELECT * FROM Servicio WHERE ? LIKE ?";
 	private static final String deletePromoAsociada="UPDATE promocion SET estado='Inactivo' WHERE idPromocion IN (SELECT sp.idPromocion FROM serviciopromocion sp JOIN servicio s USING (idServicio) WHERE s.IdServicio=?)";
 	
+	private static final String getServicioMax = "SELECT * FROM Servicio WHERE IdServicio IN (SELECT MAX(IdServicio) FROM Servicio);";
 	private static final String ESTADO_INACTIVO = "Inactivo";
 
 
@@ -253,6 +255,26 @@ public class ServicioDAOSQL implements ServicioDAO{
 		return servicio;
 	}
 
-
+	@Override
+	public ServicioDTO getServicioMax() {
+			PreparedStatement statement;
+			ResultSet resultSet; //Guarda el resultado de la query
+			ArrayList<ServicioDTO> servicios = new ArrayList<ServicioDTO>();
+			Conexion conexion = Conexion.getConexion();
+			try
+			{
+				statement = conexion.getSQLConexion().prepareStatement(getServicioMax);
+				resultSet = statement.executeQuery();
+				while(resultSet.next())
+				{
+					servicios.add(getServicioDTO(resultSet));
+				}
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return servicios.get(0);
+		}
 }
 

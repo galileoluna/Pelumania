@@ -69,6 +69,7 @@ public class ControladorAgregarServicio implements ActionListener {
 
 			ServicioDTO nuevoServicio = new ServicioDTO(0, nombre, precioLocal, precioDolar, duracion, puntos, "Activo");
 			this.sistema.agregarServicio(nuevoServicio);
+			this.sistema.agregarServicioProfesional(this.sistema.getServicioMax().getIdServicio(), -1);
 			ControladorServicio.getInstance(sistema,usuario);
 			this.ventanaAgregarServicio.cerrar();
 
