@@ -15,7 +15,7 @@ public interface MovimientoCajaDAO {
 
 	public boolean insertIngresoProducto(MovimientoCajaDTO movimiento_a_insertar);
 
-	public List<MovimientoCajaDTO> readDay(Timestamp desde, Timestamp hasta);
+	public List<MovimientoCajaDTO> readDay(String desde, String hasta);
 	
 	public List<MovimientoCajaDTO> readDayIngresosProfesional(String fecha, String fecha2, int profesional);
 
@@ -26,4 +26,5 @@ public interface MovimientoCajaDAO {
 	public List<MovimientoCajaDTO> readDaySucursal(String fecha, String fecha2, int sucursal);
 
 }
+
 
