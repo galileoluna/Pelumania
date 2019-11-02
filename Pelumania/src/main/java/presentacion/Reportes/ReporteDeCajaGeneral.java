@@ -25,7 +25,7 @@ public class ReporteDeCajaGeneral {
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReporteDeCajaGeneral(List<MovimientoCajaDTO> caja, Timestamp desde, Timestamp hasta)
+    public ReporteDeCajaGeneral(List<MovimientoCajaDTO> caja, String desde, String hasta)
     {
     	if(caja.size()>0) {
     		System.out.println(caja.get(0).getIdCliente());
