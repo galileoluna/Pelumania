@@ -24,6 +24,8 @@ public interface MovimientoCajaDAO {
 	public List<MovimientoCajaDTO> readDayIngresosServicio(String fecha, String fecha2, int servicio);
 
 	public List<MovimientoCajaDTO> readDaySucursal(String fecha, String fecha2, int sucursal);
+	
+	public List<MovimientoCajaDTO> rankingVentas(String desde,String hasta);
 
 }
 

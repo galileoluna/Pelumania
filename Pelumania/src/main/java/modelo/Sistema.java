@@ -415,7 +415,9 @@ public class Sistema
 		return this.caja.readDayIngresosServicio(desde, hasta, servicio);
 	}
 	
-	
+	public List<MovimientoCajaDTO> obtenerMovimientoCajaRanking(String desde, String hasta){
+		return this.caja.rankingVentas(desde, hasta);
+	}
 	//FIN CAJA
 	
 	// COMIENZA CATEGORIAS MOVIMIENTO CAJA
