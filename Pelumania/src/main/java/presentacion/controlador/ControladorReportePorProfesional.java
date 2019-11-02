@@ -35,9 +35,15 @@ public class ControladorReportePorProfesional {
 	
 	public void cargarProfesional() {
 		List<ProfesionalDTO> profesionales = sistema.obtenerProfesional();
+		int cont=0;
 		
 		for (ProfesionalDTO profesional : profesionales) {
-			this.ventanaReportes.getJcb_Profesional().addItem(profesional);
+			if(cont==0)cont++;
+			else {
+				this.ventanaReportes.getJcb_Profesional().addItem(profesional);
+				cont++;
+			}
+			
 		}
 	}
 	
