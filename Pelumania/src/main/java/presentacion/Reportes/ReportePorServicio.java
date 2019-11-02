@@ -25,13 +25,15 @@ public class ReportePorServicio {
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReportePorServicio(ArrayList<MovimientoCajaDTO> caja)
+    public ReportePorServicio(ArrayList<MovimientoCajaDTO> caja, String desde, String hasta)
     {
     	
     	List<MovimientoCajaDTO> coleccion =caja;
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
-		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
+		parametersMap.put("Desde", desde);
+		parametersMap.put("Hasta", hasta);
+		
     	try		{
 			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("src" + File.separator + "main" + File.separator + "java" + File.separator +  "presentacion" + File.separator + "reportes" + File.separator + "ReportePorServicio.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
