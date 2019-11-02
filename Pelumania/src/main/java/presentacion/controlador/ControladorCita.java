@@ -212,6 +212,14 @@ public class ControladorCita implements ActionListener{
 			this.ventanaCita.ocultarErrorFechaAnteror();
 			this.ventanaCita.setFechaCita(fechaElegida);
 		}
+		
+		if (fechaElegida.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+			JOptionPane.showMessageDialog(null, "No puedes reservar citas los Domingos!");
+			this.ventanaCita.getJDChooserFecha().setDate(null);
+			this.ventanaCita.setFechaCita(null);
+			this.ventanaCita.getJDChooserFecha().setEnabled(true);
+		}
+		
 	}
 	
 	public void seleccionarSucursal(ActionEvent b) {
@@ -329,6 +337,9 @@ public class ControladorCita implements ActionListener{
 		
 		System.out.println("Inicio: "+ this.ventanaCita.getHoraInicio());
 		imprimirServicios();
+		System.out.println("Fin: "+ this.ventanaCita.getHoraFin());
+		System.out.println("Total: $"+this.ventanaCita.getTotal());
+		System.out.println("Total: USD"+ this.ventanaCita.getTotalUSD());
 	}
 	
 	public void imprimirServicios() {
