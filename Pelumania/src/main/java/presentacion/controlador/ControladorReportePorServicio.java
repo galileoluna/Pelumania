@@ -49,9 +49,7 @@ public class ControladorReportePorServicio {
 		String desdeParaReporte=desde+" 00:00:01";
 		String hastaParaReporte=hasta+" 11:59:59";
 		
-		ArrayList<MovimientoCajaDTO>servicio=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosServicio(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Servicio().getSelectedIndex());
-		System.out.println("hola");
-		System.out.println(servicio.get(0).getIdServicio());
+		ArrayList<MovimientoCajaDTO>servicio=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosServicio(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Servicio().getSelectedIndex()+1);
 		
 		ReportePorServicio reportePorServicio = new ReportePorServicio(servicio,desde,hasta);
 		reportePorServicio.mostrar();
