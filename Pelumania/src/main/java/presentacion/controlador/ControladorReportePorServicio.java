@@ -42,16 +42,18 @@ public class ControladorReportePorServicio {
 	}
 	
 	private void reportePorServicio(ActionEvent l) {
-		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+	SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
 		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
-		//System.out.println(desde+" "+hasta);
 		
-		ArrayList<MovimientoCajaDTO>servicio=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosServicio(desde,hasta,this.ventanaReportes.getJcb_Servicio().getSelectedIndex());
+		String desdeParaReporte=desde+" 00:00:01";
+		String hastaParaReporte=hasta+" 11:59:59";
+		
+		ArrayList<MovimientoCajaDTO>servicio=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosServicio(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Servicio().getSelectedIndex());
 		System.out.println("hola");
 		System.out.println(servicio.get(0).getIdServicio());
 		
-		ReportePorServicio reportePorServicio = new ReportePorServicio(servicio);
+		ReportePorServicio reportePorServicio = new ReportePorServicio(servicio,desde,hasta);
 		reportePorServicio.mostrar();
 	}
 }
