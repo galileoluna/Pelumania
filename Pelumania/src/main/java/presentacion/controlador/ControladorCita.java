@@ -518,6 +518,22 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	private void eliminarServicio(ActionEvent e) {
+		int[] filasSeleccionadas = ventanaCita.getTablaServiciosAgregados().getSelectedRows();
+	       
+    	for (int fila : filasSeleccionadas)
+    	{
+        	if(serviciosAgregados.get(fila)!=null) {
+        		this.sistema.getServicioById(serviciosAgregados.get(fila).getIdServicio());
+        		
+        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
+        		serviciosAgregados.remove(servicioSeleccionado);
+        		calcularHorariosServicios();
+				actualizarServiciosAgregados();
+				actualizarHoraFin();
+				actualizarPrecioTotal();
+				actualizarPrecioTotalDolar();
+        	}
+    	}
 	}
 	
 	
