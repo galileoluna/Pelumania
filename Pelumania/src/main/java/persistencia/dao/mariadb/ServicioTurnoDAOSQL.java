@@ -177,7 +177,7 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 			resultSet = statement.executeQuery();
 			
 			if (resultSet.next()){
-				disponible = resultSet.getInt("ocupado");
+				disponible = resultSet.getInt("Disponible");
 			}
 		}
 		catch (SQLException e)
