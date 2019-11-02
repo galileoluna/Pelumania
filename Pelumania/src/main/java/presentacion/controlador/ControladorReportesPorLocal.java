@@ -35,9 +35,14 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 	
 	public void cargarSucursales() {
 		List<SucursalDTO> sucursales = sistema.obtenerSucursales();
+		int cont=0;
 		
 		for (SucursalDTO sucursal : sucursales) {
-			this.ventanaReportes.getJcb_Sucursal().addItem(sucursal);
+			if(cont==0)cont++;
+			else {
+				this.ventanaReportes.getJcb_Sucursal().addItem(sucursal);
+				cont++;
+			}
 		}
 	}
 
@@ -50,10 +55,8 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 		String desdeParaReporte=desde+" 00:00:01";
 		String hastaParaReporte=hasta+" 11:59:59";
 		
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desde,hasta,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex()+1);
+		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex()+1);
 
-		System.out.println(caja.get(0).getIdCaja());
-		
 		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(caja,desde,hasta);
 		reporteDeCajaSucursal.mostrar();
 	}	
