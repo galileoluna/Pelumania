@@ -43,17 +43,31 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 
 	
 	private void reportePorLocal(ActionEvent l) {
-		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+		SimpleDateFormat formato = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
 		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
-		//System.out.println(desde+" "+hasta);
 		
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desde,hasta,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex());
-		System.out.println("hola");
+		//desde =cambiarOrdenFormato(desde)+" 00:00:01";
+		//hasta =cambiarOrdenFormato(hasta)+"11:59:59";
+		desde+=" 00:00:01";
+		hasta+=" 11:59:59";
+		//System.out.println(desde+" "+hasta);
+
+		System.out.println(desde);
+		System.out.println(hasta);
+		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desde,hasta,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex()+1);
+
 		System.out.println(caja.get(0).getIdCaja());
 		
 		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(caja);
 		reporteDeCajaSucursal.mostrar();
+	}
+
+	private String cambiarOrdenFormato(String desde) {
+		String nuevoDesde=desde.charAt(6)+desde.charAt(7)+desde.charAt(8)+desde.charAt(9)+"-"+
+				desde.charAt(3)+desde.charAt(4)+"-"+desde.charAt(0)+desde.charAt(1);
+		return nuevoDesde;
+		
 	}
 	
 	
