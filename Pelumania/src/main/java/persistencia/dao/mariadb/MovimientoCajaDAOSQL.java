@@ -36,21 +36,17 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 			+ " TipoDeCambio, PrecioLocal, PrecioDolar)" 
 			+ " VALUES(?, ?, ?, ?, ?, ?)";
 	
-//	private static final String insert = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, Descripcion, "
-//			+ "TipoDeCambio, idPromocion, PrecioLocal, PrecioDolar, idCita, idCliente, idProfesional) "
-//			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
 	private static final String readDay = "SELECT * FROM Caja,CategoriaCaja WHERE Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
 
 	private static final String readDaySucursal = "SELECT * FROM Caja,CategoriaCaja WHERE Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idSucursal=?";
 
-	private static final String readDayIngresosPorCliente = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idCliente=?";
+	private static final String readDayIngresosPorCliente = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = 'ingreso' and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idCliente=?";
 
-	private static final String readDayIngresosPorProfesional = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idProfesional=?";
+	private static final String readDayIngresosPorProfesional = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = 'ingreso' and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idProfesional=?";
 
-	private static final String readDayIngresosPorServicio = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idServicio=?";
+	private static final String readDayIngresosPorServicio = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = 'ingreso' and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idServicio=?";
 	
-	private static final String ranking="SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = ingreso and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? ORDER BY Caja.idCliente";
+	private static final String ranking="SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = 'ingreso' and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? ORDER BY Caja.idCliente";
 	//no damos la opcion de "dar de baja" un ingreso ya que 
 	// seria como cancelar un pago
 	
