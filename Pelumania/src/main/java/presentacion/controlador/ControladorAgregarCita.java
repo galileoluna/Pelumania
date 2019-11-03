@@ -46,7 +46,7 @@ public class ControladorAgregarCita implements ActionListener{
 	 */
 	private ControladorAgregarCita(Sistema sistema) {
 		this.ventanaAgregarCita = VentanaAgregarCita.getInstance();
-		this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarCita(p));
+//		this.ventanaAgregarCita.getBtnAgregarCita().addActionListener(p -> guardarCita(p));
 		this.ventanaAgregarCita.getBtnRegistrarCliente().addActionListener(q -> registrarCliente(q));
 		this.ventanaAgregarCita.getBtnBuscarCliente().addActionListener(r -> buscarCliente(r));
 		this.ventanaAgregarCita.getJCBoxProfesional().addActionListener(p -> seleccionarProfesional(p));
@@ -229,7 +229,7 @@ public class ControladorAgregarCita implements ActionListener{
 	public void registrarCliente(ActionEvent q) {
 		controladorCliente = ControladorCliente.getInstance(sistema);
 	}
-
+/*
 	public void guardarCita(ActionEvent p) {
 		if(!validarCliente())
 			mostrarErrorClienteInvalido();
@@ -326,7 +326,7 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 		}
 	}
-
+*/
 	
 	private void editarCita(ActionEvent l) {
 		if(serviciosTurnoAgregados.isEmpty()){
