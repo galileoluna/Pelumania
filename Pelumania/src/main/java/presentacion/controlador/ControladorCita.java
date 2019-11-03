@@ -883,6 +883,13 @@ public class ControladorCita implements ActionListener{
     	}
     	return promocionSeleccionada;
 	}
+	
+	/* EDICION DE CITAS */
+	
+	public void cargarDatosEditarCita() {
+		this.ventanaCita.cargarFecha(citaAEditar.getFecha());
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

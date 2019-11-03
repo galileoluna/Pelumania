@@ -147,6 +147,7 @@ public class Controlador2 implements ActionListener{
 	
 	private void abrirVentanaEditarCita(ActionEvent j) {
 		controladorEditarCita = ControladorCita.getInstance(sistema, citaSeleccionada);
+		controladorEditarCita.setFecha(citaSeleccionada.getFecha().minusDays(1));
 		System.out.println(controladorEditarCita.citaAEditar);
 		System.out.println(controladorEditarCita.citaAEditar.getIdCita());
 		System.out.println(controladorEditarCita.citaAEditar.getIdCliente());
