@@ -183,10 +183,10 @@ public class VentanaCliente extends JFrame{
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(133, 175, 164, 20);
-		comboBox.addItem("activo");
-		comboBox.addItem("vip");
-		comboBox.addItem("moroso");
-		comboBox.addItem("inactivo");
+		comboBox.addItem("Activo");
+		comboBox.addItem("Vip");
+		comboBox.addItem("Moroso");
+		comboBox.addItem("Inactivo");
 		panel.add(comboBox);
 		
 		
