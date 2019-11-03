@@ -104,6 +104,7 @@ public class nuevaVentanaCita {
 	private int puntos;
 	
 	private JLabel lblErrorFecha;
+	private JButton btnLimpiarBusqueda;
 
 	public static nuevaVentanaCita getInstance()
 	{
@@ -580,6 +581,7 @@ public class nuevaVentanaCita {
 	
 	public void crearPanelesDinamicos() {
 		panelDinamicoServicios = new PanelDinamicoServicios();
+		panelDinamicoServicios.getTxtbuscarServicios().setBounds(0, 0, 183, 26);
 		panelDinamicoServicios.setLocation(0, 0);
 		panelDinamicoServicios.setVisible(false);
 		JPnl_DinamicoServicios.add(panelDinamicoServicios);
@@ -1115,5 +1117,4 @@ public class nuevaVentanaCita {
 	public void setPuntos(int puntos) {
 		this.puntos = puntos;
 	}
-	
 }

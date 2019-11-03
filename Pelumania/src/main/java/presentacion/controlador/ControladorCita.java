@@ -333,6 +333,8 @@ public class ControladorCita implements ActionListener{
 			actualizarPanelDinamico("Servicios");
 			llenarDatosPanelServicio();
 			this.ventanaCita.getPanelDinamicoServicios().getTablaServicios().getSelectionModel().addListSelectionListener(l -> actualizarServicioSeleccionado(l));
+			this.ventanaCita.getPanelDinamicoServicios().getBtnBuscarServicio().addActionListener(m -> buscarServicio(m));
+			this.ventanaCita.getPanelDinamicoServicios().getBtnLimpiarBusqueda().addActionListener(n -> limpiarFiltro(n));
 		}else {
 			this.ventanaCita.ocultarPanelesServicios();
 		}
@@ -794,7 +796,7 @@ public class ControladorCita implements ActionListener{
 			this.ventanaCita.getPanelDinamicoServicios().getModelServicios().setColumnCount(0);
 			this.ventanaCita.getPanelDinamicoServicios().getModelServicios().setColumnIdentifiers(this.ventanaCita.getPanelDinamicoServicios().getNombreColumnas());
 
-			servicios = this.sistema.obtenerServicios();
+//			servicios = this.sistema.obtenerServicios();
 			for (ServicioDTO s : servicios)
 			{
 				String nombre = s.getNombre();
@@ -851,6 +853,19 @@ public class ControladorCita implements ActionListener{
 			|| prof.getIdProfesional() == -1)
 				this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
 		}
+	}
+	
+	private void buscarServicio(ActionEvent m) {
+		String variable = "Nombre";
+		String value= this.ventanaCita.getPanelDinamicoServicios().getTxtbuscarServicios().getText();
+		this.servicios_panel_servicios = this.sistema.obtenerServicioConBuscador(variable, value);
+		llenarDatosPanelServicio();
+}
+	
+	private void limpiarFiltro(ActionEvent n) {
+		this.servicios_panel_servicios = this.sistema.obtenerServicios();
+		llenarDatosPanelServicio();
+		this.ventanaCita.getPanelDinamicoServicios().getTxtbuscarServicios().setText(null);
 	}
 	
 	/* PANEL PROFESIONALES */

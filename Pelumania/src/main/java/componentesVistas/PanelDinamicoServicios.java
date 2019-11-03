@@ -8,7 +8,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ProfesionalDTO;
+import util.TextPrompt;
 
+import java.awt.Component;
+import java.awt.Font;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 //import util.RowsRendererBasic;
@@ -23,6 +28,8 @@ public class PanelDinamicoServicios extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JTextField txtbuscarServicios;
 	private JComboBox<ProfesionalDTO> JCBoxProfesionalesDeServicio;
+	private JButton btnBuscarServicio;
+	private JButton btnLimpiarBusqueda;
 
 	public PanelDinamicoServicios() {
 		initialize();
@@ -34,11 +41,22 @@ public class PanelDinamicoServicios extends JPanel{
 		
 		txtbuscarServicios = new JTextField();
 		txtbuscarServicios.setHorizontalAlignment(SwingConstants.CENTER);
-		txtbuscarServicios.setText("[Buscar servicios]");
-		txtbuscarServicios.setBounds(0, 0, 232, 26);
+		txtbuscarServicios.setBounds(0, 0, 180, 26);
 		add(txtbuscarServicios);
 		txtbuscarServicios.setColumns(10);
 		
+		TextPrompt placeholder = new TextPrompt("[Buscar Servicio]", txtbuscarServicios);
+		placeholder.changeAlpha(0.75f);
+		placeholder.changeStyle(Font.ITALIC);
+		
+		btnBuscarServicio = new JButton("");
+		btnBuscarServicio.setBounds(183, 0, 26, 26);
+		add(btnBuscarServicio);
+		
+		btnLimpiarBusqueda = new JButton("");
+		btnLimpiarBusqueda.setBounds(206, 0, 26, 26);
+		add(btnLimpiarBusqueda);
+			
 		JScrollPane spServicios = new JScrollPane();
 		spServicios.setBounds(0, 36, 232, 105);
 		add(spServicios);
@@ -111,6 +129,22 @@ public class PanelDinamicoServicios extends JPanel{
 
 	public void setJCBoxProfesionalesDeServicio(JComboBox<ProfesionalDTO> jCBoxProfesionalesDeServicio) {
 		JCBoxProfesionalesDeServicio = jCBoxProfesionalesDeServicio;
+	}
+
+	public JButton getBtnBuscarServicio() {
+		return btnBuscarServicio;
+	}
+
+	public void setBtnBuscarServicio(JButton btnBuscarServicio) {
+		this.btnBuscarServicio = btnBuscarServicio;
+	}
+
+	public JButton getBtnLimpiarBusqueda() {
+		return btnLimpiarBusqueda;
+	}
+
+	public void setBtnLimpiarBusqueda(JButton btnLimpiarBusqueda) {
+		this.btnLimpiarBusqueda = btnLimpiarBusqueda;
 	}
 	
 	
