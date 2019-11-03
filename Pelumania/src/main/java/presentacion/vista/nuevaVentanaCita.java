@@ -707,10 +707,17 @@ public class nuevaVentanaCita {
 	 * ******************** GETTERS Y SETTERS DE LOS COMPONENTES ***************************
 	 * *************************************************************************************/
 
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
 	public JTextField getTxtNombre() {
 		return TxtNombre;
 	}
-
 
 	public void setTxtNombre(JTextField txtNombre) {
 		TxtNombre = txtNombre;

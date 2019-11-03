@@ -151,6 +151,11 @@ public class Controlador2 implements ActionListener{
 		controladorEditarCita.setSucursal(this.sistema.getSucursalById(citaSeleccionada.getIdSucursal()));
 		controladorEditarCita.setearSucursalActual();
 		controladorEditarCita.cargarDatos();
+		controladorEditarCita.setearCliente(this.sistema.obtenerClienteById(this.citaSeleccionada.getIdCliente()));
+		controladorEditarCita.setearHoraInicio(this.citaSeleccionada.getHoraInicio());
+		controladorEditarCita.setearHoraFin(this.citaSeleccionada.getHoraFin());
+		controladorEditarCita.setearPrecioTotal(this.citaSeleccionada.getPrecioLocal());
+		controladorEditarCita.setearPrecioTotalUSD(this.citaSeleccionada.getPrecioDolar());
 		System.out.println(controladorEditarCita.citaAEditar);
 		System.out.println(controladorEditarCita.citaAEditar.getIdCita());
 		System.out.println(controladorEditarCita.citaAEditar.getIdCliente());

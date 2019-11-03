@@ -26,6 +26,7 @@ import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
+import presentacion.vista.VentanaEditarCita;
 import presentacion.vista.nuevaVentanaCita;
 
 public class ControladorCita implements ActionListener{
@@ -98,13 +99,14 @@ public class ControladorCita implements ActionListener{
 		this.citaAEditar = citaParaEditar;
 		this.sistema = s;
 		clienteGenerico = this.sistema.obtenerClienteById(-1);
+		this.ventanaCita.getFrame().setTitle("Editar Cita");
 		
 		this.ventanaCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
 		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> seleccionarSucursal(b));
 		
-		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
-		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
+//		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
+//		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
 		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
 		
 		this.ventanaCita.getRdBtnServicio().addActionListener(a -> mostrarPanelServicio(a));
@@ -123,7 +125,7 @@ public class ControladorCita implements ActionListener{
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorCita(sistema, citaParaEditar);
 		}
-//		INSTANCE.cargarDatosEditarCita();
+
 		nuevaVentanaCita.getInstance();
 		return INSTANCE;
 	}
@@ -886,10 +888,37 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	/* EDICION DE CITAS */
+
+	public void setearCliente(ClienteDTO clienteAsociado) {
+		this.ventanaCita.setCliente(clienteAsociado);
+		this.ventanaCita.getTxtNombre().setText(this.ventanaCita.getCliente().getNombre());
+		this.ventanaCita.getTxtApellido().setText(this.ventanaCita.getCliente().getApellido());
+//		this.ventanaCita.getTxtTelefono().setText(this.citaAEditar.getTelefono());
+//		this.ventanaCita.getTxtMail().setText(this.citaAEditar.getMail());
+		this.ventanaCita.setearTxt(false);
+		this.ventanaCita.getChckbxGenerico().setEnabled(false);
+		this.ventanaCita.getChckbxRegistrado().setEnabled(false);
+	}
 	
-	public void cargarDatosEditarCita() {
-		this.ventanaCita.cargarFecha(citaAEditar.getFecha());
-		this.ventanaCita.setSucursal(this.sistema.getSucursalById(citaAEditar.getIdSucursal()));
+	public void setearHoraInicio(LocalTime horaInicio) {
+		this.ventanaCita.setHoraInicio(horaInicio);
+		this.ventanaCita.getJCBoxHora().setSelectedItem(horaInicio.getHour());
+		this.ventanaCita.getJCBoxMinutos().setSelectedItem(horaInicio.getMinute());
+	}
+	
+	public void setearHoraFin(LocalTime horaFin) {
+		this.ventanaCita.setHoraFin(horaFin);
+		this.ventanaCita.getLbl_Fin().setText(this.ventanaCita.getHoraFin().toString());
+	}
+	
+	public void setearPrecioTotal(BigDecimal total) {
+		this.ventanaCita.setTotal(total);
+		this.ventanaCita.getLbl_Total().setText(this.ventanaCita.getTotal().toString());
+	}
+	
+	public void setearPrecioTotalUSD (BigDecimal totalUSD) {
+		this.ventanaCita.setTotalUSD(totalUSD);
+		this.ventanaCita.getLbl_TotalUSD().setText(this.ventanaCita.getTotalUSD().toString());
 	}
 	
 	@Override
