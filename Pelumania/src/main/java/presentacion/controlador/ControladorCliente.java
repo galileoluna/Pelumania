@@ -53,7 +53,7 @@ public class ControladorCliente implements ActionListener {
 		String telefono = this.ventanaCliente.getTxtTelefono().getText();
 		String mail = this.ventanaCliente.getTxtMail().getText();
 		int puntos = 0 ; // por defecto al dar de alta no tiene puntos
-		String estado = "activo";
+		String estado = "Activo";
 		BigDecimal deuda =  new BigDecimal(0);//tampoco tendra deuda al ser dado de alta
 
 		//validamos campos
