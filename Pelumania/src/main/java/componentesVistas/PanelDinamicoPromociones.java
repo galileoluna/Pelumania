@@ -19,11 +19,11 @@ public class PanelDinamicoPromociones extends JPanel{
 	}
 
 	private void initialize() {
-		setBounds(100, 100, 232, 168);
+		setBounds(100, 100, 373, 168);
 		setLayout(null);
 		
 		JScrollPane spPersonas = new JScrollPane();
-		spPersonas.setBounds(0, 0, 232, 168);
+		spPersonas.setBounds(0, 0, 373, 168);
 		add(spPersonas);
 		
 		modelPromocion = new DefaultTableModel(null,nombreColumnas);

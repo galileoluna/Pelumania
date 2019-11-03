@@ -36,12 +36,12 @@ public class PanelDinamicoServicios extends JPanel{
 	}
 
 	private void initialize() {
-		setBounds(100, 100, 232, 168);
+		setBounds(100, 100, 372, 168);
 		setLayout(null);
 		
 		txtbuscarServicios = new JTextField();
 		txtbuscarServicios.setHorizontalAlignment(SwingConstants.CENTER);
-		txtbuscarServicios.setBounds(0, 0, 180, 26);
+		txtbuscarServicios.setBounds(0, 0, 319, 26);
 		add(txtbuscarServicios);
 		txtbuscarServicios.setColumns(10);
 		
@@ -50,15 +50,15 @@ public class PanelDinamicoServicios extends JPanel{
 		placeholder.changeStyle(Font.ITALIC);
 		
 		btnBuscarServicio = new JButton("");
-		btnBuscarServicio.setBounds(183, 0, 26, 26);
+		btnBuscarServicio.setBounds(323, 0, 26, 26);
 		add(btnBuscarServicio);
 		
 		btnLimpiarBusqueda = new JButton("");
-		btnLimpiarBusqueda.setBounds(206, 0, 26, 26);
+		btnLimpiarBusqueda.setBounds(346, 0, 26, 26);
 		add(btnLimpiarBusqueda);
 			
 		JScrollPane spServicios = new JScrollPane();
-		spServicios.setBounds(0, 36, 232, 105);
+		spServicios.setBounds(0, 36, 372, 105);
 		add(spServicios);
 		
 		
@@ -87,7 +87,7 @@ public class PanelDinamicoServicios extends JPanel{
 		spServicios.setViewportView(tablaServicios);
 		
 		JCBoxProfesionalesDeServicio = new JComboBox<ProfesionalDTO>();
-		JCBoxProfesionalesDeServicio .setBounds(0, 148, 232, 20);
+		JCBoxProfesionalesDeServicio .setBounds(74, 148, 232, 20);
 		add(JCBoxProfesionalesDeServicio );
 	}
 

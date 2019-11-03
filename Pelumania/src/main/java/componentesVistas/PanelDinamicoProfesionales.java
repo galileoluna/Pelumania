@@ -24,11 +24,11 @@ public class PanelDinamicoProfesionales extends JPanel {
 	}
 
 	private void initialize() {
-		setBounds(0, 0, 232, 168);
+		setBounds(0, 0, 373, 168);
 		setLayout(null);
 		
 		JScrollPane spServicios = new JScrollPane();
-		spServicios.setBounds(0, 31, 232, 137);
+		spServicios.setBounds(0, 31, 373, 137);
 		add(spServicios);
 		
 		
@@ -57,7 +57,7 @@ public class PanelDinamicoProfesionales extends JPanel {
 		spServicios.setViewportView(tablaServicios);
 		
 		JCBoxProfesional = new JComboBox<ProfesionalDTO>();
-		JCBoxProfesional.setBounds(0, 0, 232, 20);
+		JCBoxProfesional.setBounds(66, 0, 232, 20);
 		add(JCBoxProfesional);
 		
 		this.setVisible(true);
