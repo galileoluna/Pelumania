@@ -270,10 +270,14 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.setSucursal(sucuSeleccionada);
 		
 		mostrarPopUpSucursal();
+		
 		this.ventanaCita.ocultarPanelesServicios();
 		this.ventanaCita.getRdBtnProfesional().setSelected(false);
 		this.ventanaCita.getRdBtnServicio().setSelected(false);
 		this.ventanaCita.getRdbtnPromocion().setSelected(false);
+		
+		serviciosAgregados.clear();
+		actualizarServiciosAgregados();
 	}
 
 	
@@ -556,6 +560,7 @@ public class ControladorCita implements ActionListener{
 					actualizarHoraFin();
 					actualizarPrecioTotal();
 					actualizarPrecioTotalDolar();
+					actualizarPuntos();
 					System.out.println("Los servicios son: "+serviciosAgregados);
 				}else {
 					mostrarErrorServicio();
@@ -577,6 +582,7 @@ public class ControladorCita implements ActionListener{
 					actualizarHoraFin();
 					actualizarPrecioTotal();
 					actualizarPrecioTotalDolar();
+					actualizarPuntos();
 					System.out.println("Los servicios son: "+serviciosAgregados);
 				}else {
 					mostrarErrorServicio();
@@ -601,6 +607,7 @@ public class ControladorCita implements ActionListener{
 				actualizarHoraFin();
 				actualizarPrecioTotal();
 				actualizarPrecioTotalDolar();
+				actualizarPuntos();
         	}
     	}
 	}
@@ -739,6 +746,18 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.setTotalUSD(total);
 		this.ventanaCita.getLbl_TotalUSD().setText(this.ventanaCita.getTotalUSD().toString());
 		return total;
+	}
+	
+	public int actualizarPuntos() {
+		int totalPuntos = 0;
+		for (ServicioTurnoDTO st : serviciosAgregados) {
+			Integer idServicio = st.getIdServicio();
+			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+			totalPuntos = totalPuntos + (servicio.getPuntos());
+		}
+		this.ventanaCita.setPuntos(totalPuntos);
+		this.ventanaCita.getLbl_Puntos().setText(Integer.toString(this.ventanaCita.getPuntos()));
+		return totalPuntos;
 	}
 	
 	public String diaDeLaSemana() {

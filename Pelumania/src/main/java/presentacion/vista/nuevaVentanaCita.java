@@ -75,6 +75,7 @@ public class nuevaVentanaCita {
 		private JLabel lbl_Fin;
 		private JLabel lbl_Total;
 		private JLabel lbl_TotalUSD;
+		private JLabel lbl_Puntos;
 		private JLabel lblAlertaSucursal;
 	
 	private JTable tablaServiciosAgregados;
@@ -100,6 +101,7 @@ public class nuevaVentanaCita {
 	private LocalTime horaFin;
 	private BigDecimal total;
 	private BigDecimal totalUSD;
+	private int puntos;
 	
 	private JLabel lblErrorFecha;
 
@@ -195,6 +197,8 @@ public class nuevaVentanaCita {
 		crearLabelTotal();
 		
 		crearLabelTotalUSD();
+		
+		crearLabelPuntos();
 		
 		crearLabelsDatosCita();
 		
@@ -498,6 +502,12 @@ public class nuevaVentanaCita {
 		lblTotalUsd.setBounds(211, 66, 73, 14);
 		JPnl_Datos.add(lblTotalUsd);
 	}
+	
+	private void crearLabelPuntos() {
+		JLabel lblPuntos = new JLabel("Puntos: ");
+		lblPuntos.setBounds(358, 41, 73, 14);
+		JPnl_Datos.add(lblPuntos);
+	}
 
 	private void crearLabelAlertaSucursal() {
 		Color amarilloOpaco = new Color(249,221,140);
@@ -507,6 +517,7 @@ public class nuevaVentanaCita {
 		lblAlertaSucursal.setBackground(amarilloOpaco);
 		lblAlertaSucursal.setOpaque(true);
 		JPnl_Datos.add(lblAlertaSucursal);
+		
 	}
 
 	private void crearLabelsDatosCita() {
@@ -525,6 +536,10 @@ public class nuevaVentanaCita {
 		lbl_TotalUSD = new JLabel("");
 		lbl_TotalUSD.setBounds(279, 66, 120, 14);
 		JPnl_Datos.add(lbl_TotalUSD);
+		
+		lbl_Puntos = new JLabel("");
+		lbl_Puntos.setBounds(403, 41, 120, 14);
+		JPnl_Datos.add(lbl_Puntos);
 	}
 
 	private void crearBotonConfirmar() {
@@ -989,6 +1004,14 @@ public class nuevaVentanaCita {
 		this.lbl_TotalUSD = lbl_TotalUSD;
 	}
 
+	public JLabel getLbl_Puntos() {
+		return lbl_Puntos;
+	}
+
+	public void setLbl_Puntos(JLabel lbl_Puntos) {
+		this.lbl_Puntos = lbl_Puntos;
+	}
+
 	public PanelDinamicoServicios getPanelDinamicoServicios() {
 		return panelDinamicoServicios;
 	}
@@ -1084,4 +1107,13 @@ public class nuevaVentanaCita {
 	public void setTotalUSD(BigDecimal totalUSD) {
 		this.totalUSD = totalUSD;
 	}
+
+	public int getPuntos() {
+		return puntos;
+	}
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+	
 }
