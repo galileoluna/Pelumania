@@ -233,6 +233,7 @@ public class nuevaVentanaCita {
 		JPnl_DatosGlobales = new JPanel();
 		JPnl_DatosGlobales.setBounds(10, 11, 679, 105);
 		frame.getContentPane().add(JPnl_DatosGlobales);
+		JPnl_DatosGlobales.setOpaque(false);
 		JPnl_DatosGlobales.setLayout(null);
 	}
 
@@ -452,12 +453,14 @@ public class nuevaVentanaCita {
 
 	private void crearBotonAgregarServicio() {
 		btnAgregarServicio = new JButton("");
+		btnAgregarServicio.setIcon(new ImageIcon("imagenes/flecha_agregar.png"));
 		btnAgregarServicio.setBounds(393, 119, 25, 25);
 		JPnl_Servicios.add(btnAgregarServicio);
 	}
 
 	private void crearBotonEliminarServicio() {
 		btnEliminarServicio = new JButton("");
+		btnEliminarServicio.setIcon(new ImageIcon("imagenes/flecha_eliminar.png"));
 		btnEliminarServicio.setBounds(393, 155, 25, 25);
 		JPnl_Servicios.add(btnEliminarServicio);
 	}

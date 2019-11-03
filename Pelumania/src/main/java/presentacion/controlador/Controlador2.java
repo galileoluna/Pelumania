@@ -90,8 +90,6 @@ public class Controlador2 implements ActionListener{
 		refrescarTablaCitas();
 		getPermisos();
 		
-		this.nvista.btnCita.addActionListener(x -> abrirVentanaCitaNueva(x));
-		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
 		this.nvista.getMntmGestionDeClientes().addActionListener(c -> ventanaClientes(c));
@@ -184,7 +182,6 @@ public class Controlador2 implements ActionListener{
 				 this.nvista.getJM_Sucursales().setVisible(false);
 				 this.nvista.getJM_Caja().setVisible(false);
 				 this.nvista.getBtn_Agregar().setEnabled(false);
-				 this.nvista.getBtnCita().setEnabled(false);
 				 this.nvista.getMntmReporteGeneral().setVisible(false);
 				 this.nvista.getMntmReportePorCliente().setVisible(false);
 				 this.nvista.getMntmReportePorProfesional().setVisible(false);
@@ -201,7 +198,6 @@ public class Controlador2 implements ActionListener{
 				 this.nvista.getJM_Cliente().setVisible(false);
 				 this.nvista.getJM_Caja().setVisible(false);
 				 this.nvista.getBtn_Agregar().setEnabled(false);
-				 this.nvista.getBtnCita().setEnabled(false);
 				 this.nvista.getMntmReporteGeneral().setVisible(false);
 				 this.nvista.getMntmReportePorCliente().setVisible(false);
 				 this.nvista.getMntmReportePorProfesional().setVisible(false);

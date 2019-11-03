@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -155,9 +156,6 @@ public class NuevaVista implements Runnable {
 			private DefaultTableModel modelCitas;
 			private String[] nombreColumnas = {"Cliente","Precio en $",
 					"Precio en USD","Hora Inicio", "Hora Fin", "Estado"};
-			
-			
-			public JButton btnCita;
 
 
 	public NuevaVista() {
@@ -197,17 +195,8 @@ public class NuevaVista implements Runnable {
 				crearDetalleCitas();
 			crearPanelBotones();
 				crearBotones();
-			
-				
-				btnCita = new JButton("btnCita");
-				btnCita.setBounds(769, 11, 89, 23);
-				JPanel_Filtros.add(btnCita);
 
 		frame.setVisible(true);
-	}
-
-	public JButton getBtnCita() {
-		return btnCita;
 	}
 
 	private void crearBarraMenu() {
@@ -584,27 +573,39 @@ public class NuevaVista implements Runnable {
 	}
 	
 	private void crearBotones() {
-		btn_Agregar = new JButton("Agregar");
+		btn_Agregar = new JButton("");
+		btn_Agregar.setBackground(Color.white);
+		btn_Agregar.setIcon(new ImageIcon("imagenes/agregarCita.png"));
 		btn_Agregar.setEnabled(true);
 		JPnl_Botones.add(btn_Agregar);
 		
-		btn_Editar = new JButton("Editar");
+		btn_Editar = new JButton("");
+		btn_Editar.setBackground(Color.white);
+		btn_Editar.setIcon(new ImageIcon("imagenes/editar.png"));
 		btn_Editar.setEnabled(false);
 		JPnl_Botones.add(btn_Editar);
 		
-		btn_Cancelar = new JButton("Cancelar");
+		btn_Cancelar = new JButton("");
+		btn_Cancelar.setBackground(Color.white);
+		btn_Cancelar.setIcon(new ImageIcon("imagenes/cancelar.png"));
 		btn_Cancelar.setEnabled(false);
 		JPnl_Botones.add(btn_Cancelar);
 		
-		btn_Finalizar = new JButton("Finalizar");
+		btn_Finalizar = new JButton("");
+		btn_Finalizar.setBackground(Color.white);
+		btn_Finalizar.setIcon(new ImageIcon("imagenes/billete.png"));
 		btn_Finalizar.setEnabled(false);
 		JPnl_Botones.add(btn_Finalizar);
 		
-		btn_VerDetalle = new JButton("Ver Detalle");
+		btn_VerDetalle = new JButton("");
+		btn_VerDetalle.setBackground(Color.white);
+		btn_VerDetalle.setIcon(new ImageIcon("imagenes/verdetalle.png"));
 		btn_VerDetalle.setEnabled(false);
 		JPnl_Botones.add(btn_VerDetalle);
 		
-		btn_VerComprobante = new JButton("Ver Comprobante");
+		btn_VerComprobante = new JButton("");
+		btn_VerComprobante.setBackground(Color.white);
+		btn_VerComprobante.setIcon(new ImageIcon("imagenes/comprobante.png"));
 		btn_VerComprobante.setEnabled(false);
 		JPnl_Botones.add(btn_VerComprobante);
 	}
