@@ -270,6 +270,10 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.setSucursal(sucuSeleccionada);
 		
 		mostrarPopUpSucursal();
+		this.ventanaCita.ocultarPanelesServicios();
+		this.ventanaCita.getRdBtnProfesional().setSelected(false);
+		this.ventanaCita.getRdBtnServicio().setSelected(false);
+		this.ventanaCita.getRdbtnPromocion().setSelected(false);
 	}
 
 	
@@ -368,10 +372,6 @@ public class ControladorCita implements ActionListener{
 	
 	private void guardarCita(ActionEvent a) {
 		calcularHorariosServicios();
-		log.info("Aun no guarda nada, solo imprime los datos de la cita:");
-		System.out.println("***********************"
-				+ "****** DATOS CITA *************"+
-				"*********************************");
 		System.out.println("Sucursal: " + this.ventanaCita.getSucursal());
 		System.out.println("Fecha: "+this.ventanaCita.getFechaCita());
 		System.out.println("Cliente: "+ this.ventanaCita.getCliente());
@@ -386,6 +386,36 @@ public class ControladorCita implements ActionListener{
 		
 		registrarCita();
 	}
+	
+	public void editarCita() {
+		calcularHorariosServicios();
+		if (validarCita()) {
+			CitaDTO citaEditada = new CitaDTO(this.citaAEditar.getIdCita(), -1, this.ventanaCita.getCliente().getIdCliente(), 
+					this.ventanaCita.getCliente().getNombre(), this.clienteGenerico.getApellido(), 
+					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
+					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
+					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal());
+		
+			if (this.sistema.editarCita(citaEditada))
+				for (ServicioTurnoDTO servicioViejo : this.sistema.getServicioTurnoByIdCita(citaEditada.getIdCita())) 
+				{
+					this.sistema.deleteServicioTurno(servicioViejo);
+				}
+				
+				for (ServicioTurnoDTO st : serviciosAgregados) 
+				{
+					st.setIdCita(citaEditada.getIdCita());
+					this.sistema.insertServicioTurno(st);
+	
+				}
+				mostrarExitoCargarCita(citaEditada.getIdCita());
+				this.ventanaCita.cerrar();
+			} else {
+					JOptionPane.showMessageDialog(null, "No se pudo editar la Cita");
+				}
+		mostrarErrorCita();
+			}
+
 	
 	public void imprimirServicios() {
 		System.out.print("[");
@@ -797,7 +827,9 @@ public class ControladorCita implements ActionListener{
 	private void cargarProfesionalesAsociadosAServicio() {
 		this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().removeAllItems();
 		for (ProfesionalDTO prof : profesionales_panel_servicios) {
-			if(prof.getEstado().equals("Activo"))
+			if(prof.getEstado().equals("Activo") && 
+			prof.getIdSucursalOrigen() == this.ventanaCita.getSucursal().getIdSucursal()
+			|| prof.getIdProfesional() == -1)
 				this.ventanaCita.getPanelDinamicoServicios().getJCBoxProfesionalesDeServicio().addItem(prof);
 		}
 	}
@@ -812,7 +844,9 @@ public class ControladorCita implements ActionListener{
 		profesionales_panel_profesionales = this.sistema.obtenerProfesional();
 		this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().removeAllItems();
 		for (ProfesionalDTO prof : profesionales_panel_profesionales) {
-			if(prof.getEstado().equals("Activo"))
+			if(prof.getEstado().equals("Activo") && 
+				prof.getIdSucursalOrigen() == this.ventanaCita.getSucursal().getIdSucursal()
+				|| prof.getIdProfesional() == -1)
 				this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().addItem(prof);
 		}
 		
