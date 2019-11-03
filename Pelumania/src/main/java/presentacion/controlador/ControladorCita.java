@@ -398,6 +398,7 @@ public class ControladorCita implements ActionListener{
 		if (validarCita()) {
 			CitaDTO citaEditada = new CitaDTO(this.citaAEditar.getIdCita(), -1, this.ventanaCita.getCliente().getIdCliente(), 
 					this.ventanaCita.getCliente().getNombre(), this.clienteGenerico.getApellido(), 
+					this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
 					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal());
@@ -486,6 +487,7 @@ public class ControladorCita implements ActionListener{
 			
 			CitaDTO nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
 					this.ventanaCita.getCliente().getNombre(), this.clienteGenerico.getApellido(), 
+					this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
 					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal());

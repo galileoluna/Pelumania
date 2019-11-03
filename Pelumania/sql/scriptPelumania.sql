@@ -152,7 +152,9 @@ CREATE TABLE IF NOT EXISTS `Cita`(
   `IdCliente` INT(11),
   `NombreCliente` VARCHAR(55) NOT NULL,
   `ApellidoCliente` VARCHAR(55) NOT NULL,
-  `EstadoTurno` VARCHAR(55) NOT NULL,
+  `TelefonoCliente` VARCHAR(55) NOT NULL,
+  `MailCliente` VARCHAR(55),
+  `EstadoTurno` VARCHAR(55),
   `PrecioLocal` DECIMAL (13,2) NOT NULL,
   `PrecioDolar` DECIMAL (13,2) NOT NULL,
   `HoraInicio` TIME NOT NULL,
@@ -573,3 +575,5 @@ VALUES (7,7);
 -- DROP TABLE IF EXISTS Caja;
 
 SET SQL_SAFE_UPDATES = 0;
+
+SELECT * FROM Cita;

@@ -19,8 +19,8 @@ import persistencia.dao.interfaz.CitaDAO;
 public class CitaDAOSQL implements CitaDAO{
 
 	private static final String insert = "INSERT INTO Cita( idCita, idUsuario, idCliente,"
-			+ "NombreCliente, ApellidoCliente, EstadoTurno,"
-			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "NombreCliente, ApellidoCliente, TelefonoCliente, MailCliente, EstadoTurno,"
+			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String insertSinRegistrar = "INSERT INTO Cita( idCita, idUsuario,"
 			+ "NombreCliente, ApellidoCliente, EstadoTurno,"
 			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -33,7 +33,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String cambioDeEstado = "UPDATE Cita SET EstadoTurno = ? WHERE idCita = ?";
 	private static final String readall = "SELECT * FROM Cita";
 	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal,c.idCita, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.HoraInicio,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
-	private static final String update = "UPDATE  Cita SET idUsuario=?, IdCliente=?, NombreCliente=?, ApellidoCliente=?, "
+	private static final String update = "UPDATE  Cita SET idUsuario=?, IdCliente=?, NombreCliente=?, ApellidoCliente=?, TelefonoCliente = ?, MailCliente = ? "
 										+ "EstadoTurno=?, PrecioLocal=?, PrecioDolar=?, HoraInicio=?, HoraFin=?, Dia=?, IdSucursal=?  WHERE idCita=?";
 	
 	private static final String readByDia = "SELECT * FROM Cita WHERE Dia = ? ORDER BY HoraInicio";
@@ -58,13 +58,15 @@ public class CitaDAOSQL implements CitaDAO{
 				statement.setInt	    (3, cita.getIdCliente());
 				statement.setString     (4, cita.getNombre());
 				statement.setString     (5, cita.getApellido());
-				statement.setString     (6, cita.getEstado());
-				statement.setBigDecimal (7, cita.getPrecioLocal());
-				statement.setBigDecimal (8, cita.getPrecioDolar());
-				statement.setTime       (9, Time.valueOf(cita.getHoraInicio()));
-				statement.setTime       (10, Time.valueOf(cita.getHoraFin()));
-				statement.setDate       (11, Date.valueOf(cita.getFecha()));
-				statement.setInt        (12, cita.getIdSucursal());
+				statement.setString     (6, cita.getTelefono());
+				statement.setString     (7, cita.getMail());
+				statement.setString     (8, cita.getEstado());
+				statement.setBigDecimal (9, cita.getPrecioLocal());
+				statement.setBigDecimal (10, cita.getPrecioDolar());
+				statement.setTime       (11, Time.valueOf(cita.getHoraInicio()));
+				statement.setTime       (12, Time.valueOf(cita.getHoraFin()));
+				statement.setDate       (13, Date.valueOf(cita.getFecha()));
+				statement.setInt        (14, cita.getIdSucursal());
 
 				if(statement.executeUpdate() > 0)
 				{
@@ -247,14 +249,16 @@ public class CitaDAOSQL implements CitaDAO{
 			statement.setInt		(2, cita_a_editar.getIdCliente());
 			statement.setString		(3, cita_a_editar.getNombre());
 			statement.setString		(4, cita_a_editar.getApellido());
-			statement.setString		(5, cita_a_editar.getEstado());
-			statement.setBigDecimal	(6, cita_a_editar.getPrecioLocal());
-			statement.setBigDecimal	(7, cita_a_editar.getPrecioDolar());
-			statement.setTime		(8, Time.valueOf(cita_a_editar.getHoraInicio()));
-			statement.setTime		(9, Time.valueOf(cita_a_editar.getHoraFin()));
-			statement.setDate		(10, Date.valueOf(cita_a_editar.getFecha()));
-			statement.setInt		(11, cita_a_editar.getIdSucursal());
-			statement.setInt		(12, cita_a_editar.getIdCita());
+			statement.setString		(5, cita_a_editar.getTelefono());
+			statement.setString		(6, cita_a_editar.getMail());
+			statement.setString		(7, cita_a_editar.getEstado());
+			statement.setBigDecimal	(8, cita_a_editar.getPrecioLocal());
+			statement.setBigDecimal	(9, cita_a_editar.getPrecioDolar());
+			statement.setTime		(10, Time.valueOf(cita_a_editar.getHoraInicio()));
+			statement.setTime		(11, Time.valueOf(cita_a_editar.getHoraFin()));
+			statement.setDate		(12, Date.valueOf(cita_a_editar.getFecha()));
+			statement.setInt		(13, cita_a_editar.getIdSucursal());
+			statement.setInt		(14, cita_a_editar.getIdCita());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -437,6 +441,8 @@ public class CitaDAOSQL implements CitaDAO{
 		int idCliente = resultSet.getInt("IdCliente");
 		String nombre = resultSet.getString("NombreCliente");
 		String apellido = resultSet.getString("ApellidoCliente");
+		String telefono = resultSet.getString("TelefonoCliente");
+		String mail = resultSet.getString("MailCliente");
 		String estado = resultSet.getString("EstadoTurno");
 		BigDecimal precioLocal = resultSet.getBigDecimal("PrecioLocal");
 		BigDecimal precioDolar = resultSet.getBigDecimal("PrecioDolar");
@@ -445,7 +451,7 @@ public class CitaDAOSQL implements CitaDAO{
 		LocalDate fechaCita = resultSet.getDate("Dia").toLocalDate().plusDays(1);
 		int idSucursal = resultSet.getInt("IdSucursal");
 		
-		return new CitaDTO(idCita, idUsuario, idCliente, nombre, apellido, estado, precioLocal,
+		return new CitaDTO(idCita, idUsuario, idCliente, nombre, apellido, telefono, mail, estado, precioLocal,
 				precioDolar, horaInicio, horaFin, fechaCita, idSucursal);
 	}
 

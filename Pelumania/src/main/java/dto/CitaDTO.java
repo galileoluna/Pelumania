@@ -13,6 +13,8 @@ public class CitaDTO{
     private int idCliente;
     private String nombre;
     private String apellido;
+    private String telefono;
+    private String mail;
     private String estado;
     private BigDecimal precioLocal;
     private BigDecimal precioDolar;
@@ -40,6 +42,8 @@ public CitaDTO (int idcita,
                 int idcliente,
                 String nombre,
                 String apellido,
+                String telefono,
+                String mail,
                 String estado,
                 BigDecimal precioLocal,
                 BigDecimal precioDolar,
@@ -53,6 +57,8 @@ public CitaDTO (int idcita,
     this.idCliente = idcliente;
     this.nombre = nombre;
     this.apellido = apellido;
+    this.telefono = telefono;
+    this.mail = mail;
     this.estado = estado;
     this.precioLocal = precioLocal;
     this.precioDolar = precioDolar;
@@ -136,6 +142,23 @@ public String getApellido() {
 public void setApellido(String apellido) {
 	this.apellido = apellido;
 }
+
+public String getTelefono() {
+	return telefono;
+}
+
+public void setTelefono(String telefono) {
+	this.telefono = telefono;
+}
+
+public String getMail() {
+	return mail;
+}
+
+public void setMail(String mail) {
+	this.mail = mail;
+}
+
 public void setIdUsuario(int idusuario){
     this.idUsuario = idusuario;
 }
