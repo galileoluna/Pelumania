@@ -123,6 +123,7 @@ public class ControladorCita implements ActionListener{
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorCita(sistema, citaParaEditar);
 		}
+//		INSTANCE.cargarDatosEditarCita();
 		nuevaVentanaCita.getInstance();
 		return INSTANCE;
 	}
@@ -888,6 +889,7 @@ public class ControladorCita implements ActionListener{
 	
 	public void cargarDatosEditarCita() {
 		this.ventanaCita.cargarFecha(citaAEditar.getFecha());
+		this.ventanaCita.setSucursal(this.sistema.getSucursalById(citaAEditar.getIdSucursal()));
 	}
 	
 	@Override
