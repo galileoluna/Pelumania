@@ -921,6 +921,13 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getLbl_TotalUSD().setText(this.ventanaCita.getTotalUSD().toString());
 	}
 	
+	public void cargarServiciosDelTurno(List<ServicioTurnoDTO> servicios) {
+		for (ServicioTurnoDTO st : servicios) {
+			this.serviciosAgregados.add(st);
+			actualizarServiciosAgregados();
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

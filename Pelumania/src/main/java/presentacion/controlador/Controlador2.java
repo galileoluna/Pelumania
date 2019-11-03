@@ -147,6 +147,8 @@ public class Controlador2 implements ActionListener{
 	
 	private void abrirVentanaEditarCita(ActionEvent j) {
 		controladorEditarCita = ControladorCita.getInstance(sistema, citaSeleccionada);
+		List<ServicioTurnoDTO> serviciosDelTurno = this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita());
+		
 		controladorEditarCita.setFecha(citaSeleccionada.getFecha().minusDays(1));
 		controladorEditarCita.setSucursal(this.sistema.getSucursalById(citaSeleccionada.getIdSucursal()));
 		controladorEditarCita.setearSucursalActual();
@@ -156,6 +158,9 @@ public class Controlador2 implements ActionListener{
 		controladorEditarCita.setearHoraFin(this.citaSeleccionada.getHoraFin());
 		controladorEditarCita.setearPrecioTotal(this.citaSeleccionada.getPrecioLocal());
 		controladorEditarCita.setearPrecioTotalUSD(this.citaSeleccionada.getPrecioDolar());
+		controladorEditarCita.cargarServiciosDelTurno(serviciosDelTurno);
+		
+		
 		System.out.println(controladorEditarCita.citaAEditar);
 		System.out.println(controladorEditarCita.citaAEditar.getIdCita());
 		System.out.println(controladorEditarCita.citaAEditar.getIdCliente());
