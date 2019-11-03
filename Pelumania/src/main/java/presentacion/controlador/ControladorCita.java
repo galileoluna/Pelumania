@@ -50,12 +50,13 @@ public class ControladorCita implements ActionListener{
 	private List<ProfesionalDTO> profesionales_panel_servicios;
 	
 	private List<PromocionDTO> promociones;
-	ServicioDTO servicioSeleccionado; 
-	
+	ServicioDTO servicioSeleccionado;
 	
 	private static String errorHora;
 	private static String errorServicio;
 	private static String errorCargarCita;
+	
+	public CitaDTO citaAEditar; 
 	
 	public ControladorCita(Sistema s) {
 		
@@ -91,6 +92,41 @@ public class ControladorCita implements ActionListener{
 		return INSTANCE;
 	}
 
+	public ControladorCita(Sistema s, CitaDTO citaParaEditar) {
+		
+		this.ventanaCita = nuevaVentanaCita.getInstance();
+		this.citaAEditar = citaParaEditar;
+		this.sistema = s;
+		clienteGenerico = this.sistema.obtenerClienteById(-1);
+		
+		this.ventanaCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
+		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
+		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> seleccionarSucursal(b));
+		
+		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
+		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
+		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
+		
+		this.ventanaCita.getRdBtnServicio().addActionListener(a -> mostrarPanelServicio(a));
+		this.ventanaCita.getRdBtnProfesional().addActionListener(b -> mostrarPanelProfesional(b));
+		this.ventanaCita.getRdbtnPromocion().addActionListener(c -> mostrarPanelPromociones(c));
+		
+		this.ventanaCita.getBtnAgregarServicio().addActionListener(d -> agregarServicio(d));
+		this.ventanaCita.getBtnEliminarServicio().addActionListener(e-> eliminarServicio(e));
+		
+		this.ventanaCita.getBtnConfirmar().addActionListener (a -> guardarCita(a));
+		this.ventanaCita.getBtnCancelar().addActionListener (b -> cancelar(b));
+		inicializarArreglos();
+	}
+	
+	public static ControladorCita getInstance(Sistema sistema, CitaDTO citaParaEditar) {
+		if ( INSTANCE == null) {
+			INSTANCE = new ControladorCita(sistema, citaParaEditar);
+		}
+		nuevaVentanaCita.getInstance();
+		return INSTANCE;
+	}
+	
 	public LocalDate getFecha() {
 		return fechaCita;
 	}

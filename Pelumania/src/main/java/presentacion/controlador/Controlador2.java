@@ -45,6 +45,7 @@ public class Controlador2 implements ActionListener{
 	 */
 	
 	private ControladorCita controladorCita;
+	private ControladorCita controladorEditarCita;
 
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
@@ -91,7 +92,6 @@ public class Controlador2 implements ActionListener{
 		
 		this.nvista.btnCita.addActionListener(x -> abrirVentanaCitaNueva(x));
 		
-		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
 		this.nvista.getMntmGestionDeClientes().addActionListener(c -> ventanaClientes(c));
@@ -113,6 +113,7 @@ public class Controlador2 implements ActionListener{
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
 		
 		this.nvista.getBtn_Agregar().addActionListener(k -> abrirVentanaCitaNueva(k));
+		this.nvista.getBtn_Editar().addActionListener(j -> abrirVentanaEditarCita(j));
 		this.nvista.getBtn_Cancelar().addActionListener(l -> cancelarCita(l));
 		
 		//cobrar la cita desde la caja
@@ -143,6 +144,16 @@ public class Controlador2 implements ActionListener{
 			}
 		
 	}
+	
+	private void abrirVentanaEditarCita(ActionEvent j) {
+		controladorEditarCita = ControladorCita.getInstance(sistema, citaSeleccionada);
+		System.out.println(controladorEditarCita.citaAEditar);
+		System.out.println(controladorEditarCita.citaAEditar.getIdCita());
+		System.out.println(controladorEditarCita.citaAEditar.getIdCliente());
+		System.out.println(controladorEditarCita.citaAEditar.getFecha());
+		System.out.println(controladorEditarCita.citaAEditar.getHoraInicio());
+	}
+
 
 	private void getPermisos() {
 		int rol= this.usuario.getIdRol();
@@ -582,6 +593,7 @@ public void actualizarDiaSeleccionado() {
 	
 	public void OperacionesCita(boolean habilitar) {
 		this.nvista.getBtn_Cancelar().setEnabled(habilitar);
+		this.nvista.getBtn_Editar().setEnabled(habilitar);
 		this.nvista.getBtn_Finalizar().setEnabled(habilitar);
 		this.nvista.getBtn_VerComprobante().setEnabled(habilitar);
 		this.nvista.getBtn_VerDetalle().setEnabled(habilitar);
