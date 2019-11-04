@@ -33,7 +33,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String cambioDeEstado = "UPDATE Cita SET EstadoTurno = ? WHERE idCita = ?";
 	private static final String readall = "SELECT * FROM Cita";
 	private static final String readTabla = "SELECT p.Nombre,p.Apellido,cl.Nombre,cl.Apellido,s.NombreSucursal,c.idCita, c.EstadoTurno, c.PrecioLocal,c.PrecioDolar, c.HoraInicio,c.Dia FROM cita c JOIN cliente cl USING (idCliente) JOIN sucursal s USING (idSucursal) JOIN profesional p USING (idProfesional)WHERE c.Dia=?";
-	private static final String update = "UPDATE  Cita SET idUsuario=?, IdCliente=?, NombreCliente=?, ApellidoCliente=?, TelefonoCliente = ?, MailCliente = ? "
+	private static final String update = "UPDATE  Cita SET idUsuario=?, IdCliente=?, NombreCliente=?, ApellidoCliente=?, TelefonoCliente = ?, MailCliente = ?, "
 										+ "EstadoTurno=?, PrecioLocal=?, PrecioDolar=?, HoraInicio=?, HoraFin=?, Dia=?, IdSucursal=?  WHERE idCita=?";
 	
 	private static final String readByDia = "SELECT * FROM Cita WHERE Dia = ? ORDER BY HoraInicio";

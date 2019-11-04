@@ -45,7 +45,8 @@ public class Controlador2 implements ActionListener{
 	 */
 	
 	private ControladorCita controladorCita;
-	private ControladorCita controladorEditarCita;
+	private NuevoControladorEditarCita controladorEditarCita;
+//	private ControladorCita controladorEditarCita;
 
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
@@ -144,7 +145,7 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	private void abrirVentanaEditarCita(ActionEvent j) {
-		controladorEditarCita = ControladorCita.getInstance(sistema, citaSeleccionada);
+		controladorEditarCita = NuevoControladorEditarCita.getInstance(sistema, citaSeleccionada);
 		List<ServicioTurnoDTO> serviciosDelTurno = this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita());
 		
 		controladorEditarCita.setFecha(citaSeleccionada.getFecha().minusDays(1));
