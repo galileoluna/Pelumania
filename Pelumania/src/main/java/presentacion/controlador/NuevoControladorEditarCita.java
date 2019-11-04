@@ -67,6 +67,7 @@ public class NuevoControladorEditarCita implements ActionListener{
 		this.citaAEditar = citaParaEditar;
 		this.sistema = s;
 		clienteGenerico = this.sistema.obtenerClienteById(-1);
+		this.sistema.reprogramarCita(citaAEditar);
 		this.ventanaEditarCita.getFrame().setTitle("Editar Cita");
 		
 		this.ventanaEditarCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
