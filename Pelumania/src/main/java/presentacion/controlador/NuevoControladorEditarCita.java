@@ -362,15 +362,28 @@ public class NuevoControladorEditarCita implements ActionListener{
 	}
 	
 	public void editarCita(ActionEvent a) {
+		CitaDTO citaEditada;
 		calcularHorariosServicios();
 		if (validarCita()) {
-			CitaDTO citaEditada = new CitaDTO(this.citaAEditar.getIdCita(), -1, this.ventanaEditarCita.getCliente().getIdCliente(), 
+			
+			if (this.citaAEditar.getIdCita() == -1) {
+				citaEditada = new CitaDTO(this.citaAEditar.getIdCita(), -1, this.ventanaEditarCita.getCliente().getIdCliente(), 
 					this.ventanaEditarCita.getCliente().getNombre(), this.ventanaEditarCita.getCliente().getApellido(), 
 					this.ventanaEditarCita.getTxtTelefono().getText(), this.ventanaEditarCita.getTxtMail().getText(),
 					"Activa", this.ventanaEditarCita.getTotal(), this.ventanaEditarCita.getTotalUSD(), 
 					this.ventanaEditarCita.getHoraInicio(), this.ventanaEditarCita.getHoraFin(),
 					this.ventanaEditarCita.getFechaCita(), this.ventanaEditarCita.getSucursal().getIdSucursal());
-		
+			}
+			
+			else {
+					citaEditada = new CitaDTO(this.citaAEditar.getIdCita(), -1, this.ventanaEditarCita.getCliente().getIdCliente(), 
+						this.ventanaEditarCita.getCliente().getNombre(), this.ventanaEditarCita.getCliente().getApellido(), 
+						this.ventanaEditarCita.getCliente().getTelefono(), this.ventanaEditarCita.getCliente().getMail(),
+						"Activa", this.ventanaEditarCita.getTotal(), this.ventanaEditarCita.getTotalUSD(), 
+						this.ventanaEditarCita.getHoraInicio(), this.ventanaEditarCita.getHoraFin(),
+						this.ventanaEditarCita.getFechaCita(), this.ventanaEditarCita.getSucursal().getIdSucursal());
+
+			}
 			if (this.sistema.editarCita(citaEditada))
 				for (ServicioTurnoDTO servicioViejo : this.sistema.getServicioTurnoByIdCita(citaEditada.getIdCita())) 
 				{
@@ -931,8 +944,8 @@ public class NuevoControladorEditarCita implements ActionListener{
 		this.ventanaEditarCita.setCliente(clienteAsociado);
 		this.ventanaEditarCita.getTxtNombre().setText(this.ventanaEditarCita.getCliente().getNombre());
 		this.ventanaEditarCita.getTxtApellido().setText(this.ventanaEditarCita.getCliente().getApellido());
-//		this.ventanaCita.getTxtTelefono().setText(this.citaAEditar.getTelefono());
-//		this.ventanaCita.getTxtMail().setText(this.citaAEditar.getMail());
+		this.ventanaEditarCita.getTxtTelefono().setText(this.citaAEditar.getTelefono());
+		this.ventanaEditarCita.getTxtMail().setText(this.citaAEditar.getMail());
 		this.ventanaEditarCita.setearTxt(false);
 		this.ventanaEditarCita.getChckbxGenerico().setEnabled(false);
 		this.ventanaEditarCita.getChckbxRegistrado().setEnabled(false);

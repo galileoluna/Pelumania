@@ -624,7 +624,7 @@ public class nuevaVentanaCita {
 		this.getTxtNombre().setText(cliente.getNombre());
 		this.getTxtApellido().setText(cliente.getApellido());
 		this.getTxtMail().setText(cliente.getMail());
-		this.getTxtTelefono().setText(cliente.getApellido());
+		this.getTxtTelefono().setText(cliente.getTelefono());
 		
 		setearTxt(false);
 	}
