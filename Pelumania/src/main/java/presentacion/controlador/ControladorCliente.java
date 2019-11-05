@@ -54,8 +54,9 @@ public class ControladorCliente implements ActionListener {
 		String mail = this.ventanaCliente.getTxtMail().getText();
 		int puntos = 0 ; // por defecto al dar de alta no tiene puntos
 		String estado = "Activo";
-		BigDecimal deuda =  new BigDecimal(0);//tampoco tendra deuda al ser dado de alta
-
+		BigDecimal deudaPesos =  new BigDecimal(0);//tampoco tendra deuda al ser dado de alta
+		BigDecimal deudaDolar =  new BigDecimal(0);
+		
 		//validamos campos
 		if ( Validador.esNombreConEspaciosValido(nombre) &&
 				Validador.esNombreConEspaciosValido(apellido) &&
@@ -63,7 +64,7 @@ public class ControladorCliente implements ActionListener {
 				Validador.esMail(mail)) {
 
 
-			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, telefono, mail, puntos, estado, deuda);
+			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, telefono, mail, puntos, estado, deudaPesos,deudaDolar);
 
 			this.sistema.agregarCliente(nuevoCliente);
 			this.listaClientes = this.sistema.obtenerClientes();
@@ -98,7 +99,7 @@ public class ControladorCliente implements ActionListener {
 		INSTANCE.ventanaCliente.llenarTabla(this.listaClientes);
 	}
 
-private void editarCliente(ActionEvent p) {
+	private void editarCliente(ActionEvent p) {
 
 		this.listaClientes = this.sistema.obtenerClientes();
 		int filaSeleccionada = this.ventanaCliente.getTablaClientes().getSelectedRow();
@@ -115,24 +116,31 @@ private void editarCliente(ActionEvent p) {
 			String mail =  tabla.getValueAt(filaSeleccionada, 3).toString();
 			String puntos = tabla.getValueAt(filaSeleccionada, 4).toString();
 			String estado = tabla.getValueAt(filaSeleccionada, 5).toString();
-		//	String deuda = tabla.getValueAt(filaSeleccionada, 6).toString();
+			String deudaPesos = tabla.getValueAt(filaSeleccionada, 6).toString();
+			String deudaDolar = tabla.getValueAt(filaSeleccionada, 7).toString();
 
 			if ( Validador.esNombreConEspaciosValido(nombre) &&
 					Validador.esNombreConEspaciosValido(apellido) &&
 					Validador.esTelefono(telefono) &&
 					Validador.esMail(mail) &&
 					Validador.esPuntosValido( puntos) &&
-					Validador.esEstadoClienteValido(estado)){
-			//	BigDecimal deudaAux=new BigDecimal(deuda.replaceAll(",", ""));
-			/*	if((deudaAux.compareTo(new BigDecimal(0))==0 && estado.equalsIgnoreCase("Moroso"))) { 
-					estado="Activo";
-				}*/
-				if((cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("activo")) ||
+					Validador.esEstadoClienteValido(estado) &&
+					Validador.esPrecioValido(deudaPesos)&&
+					Validador.esPrecioValido(deudaDolar)){
+				
+				BigDecimal deudaAuxPesos=new BigDecimal(deudaPesos.replaceAll(",", ""));
+				BigDecimal deudaAuxDolar=new BigDecimal(deudaDolar.replaceAll(",", ""));
+		
+				if(deudaAuxPesos.compareTo(cliente_seleccionado.getDeudaPesos())!=0 ||
+						deudaAuxDolar.compareTo(cliente_seleccionado.getDeudaDolar())!=0 ){
+					INSTANCE.ventanaCliente.mostrarErrorEdicionDeuda();
+				}
+				else if((cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("activo")) ||
 						cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("Activo") && estado.equalsIgnoreCase("moroso")) {
 					estado=cliente_seleccionado.getEstadoCliente();
 					INSTANCE.ventanaCliente.mostrarErrorEdicionEstado();
 				}else {
-					ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, cliente_seleccionado.getDeuda());
+					ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, cliente_seleccionado.getDeudaPesos(),cliente_seleccionado.getDeudaDolar());
 	
 					INSTANCE.sistema.editarCliente(cliente_a_modifcar);
 					INSTANCE.ventanaCliente.mostrarExitoEditar();
