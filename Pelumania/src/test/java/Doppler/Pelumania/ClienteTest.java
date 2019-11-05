@@ -10,11 +10,13 @@ import org.junit.Test;
 
 import dto.ClienteDTO;
 import modelo.Sistema;
+import persistencia.dao.mariadb.ClienteDAOSQL;
 import persistencia.dao.mariadb.DAOSQLFactory;
 
 public class ClienteTest {
 	Sistema sistema;
 	ClienteDTO nuevoCliente;
+	ClienteDAOSQL dao;
 	
 	
 	@Before
@@ -44,6 +46,16 @@ public class ClienteTest {
 		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda);
 		sistema.agregarCliente(nuevoCliente);
 
+		assertEquals(sistema.obtenerClientes().get(0).getApellido(),"apellido");
+	}
+	@Test
+	public void testUpdateyBuscar() {
+		BigDecimal deuda=new BigDecimal(5);
+		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda);
+		sistema.agregarCliente(nuevoCliente);
+		sistema.editarCliente(nuevoCliente);
+		
+		assertEquals(sistema.obtenerClienteConBuscador("Nombre","juan").get(0).getNombre(),"juan");
 		assertEquals(sistema.obtenerClientes().get(0).getApellido(),"apellido");
 	}
 	

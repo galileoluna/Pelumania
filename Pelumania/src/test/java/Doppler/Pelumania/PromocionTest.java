@@ -43,26 +43,21 @@ class PromocionTest {
 	@Test
 	void PromocionDAO() {
 		sistema=new Sistema(new DAOSQLFactory());
+		for(int i=0;i<sistema.obtenerPrmociones().size();i++) {
+			sistema.deleteRealPromocion(sistema.obtenerPrmociones().get(0));
+		}
 	
 		Date fechaIn=new Date(0, 0, 0);
 		Date fechaFin=new Date(1, 1, 1);
 		promo=new PromocionDTO(1,"Promo 2x1",fechaIn,fechaFin,0.5,500,"Vigente");
 		sistema.insertarPromocion(promo);
-		assertEquals(sistema.obtenerPrmociones().get(0).getDescripcion(),"Promo 2x1");
-		for(int i=0; i < sistema.obtenerPrmociones().size();i++) {
-		//	System.out.print(sistema.obtenerPrmociones().size());
-			System.out.println(sistema.obtenerPrmociones().get(i).getDescripcion());
-			
-			sistema.deleteRealPromocion(sistema.obtenerPrmociones().get(i));
-		}
-		sistema.deleteRealPromocion(promo);
-		assertEquals(sistema.obtenerPrmociones().size(),0);
-		
-		promo=new PromocionDTO(1,"Promo 2x1",fechaIn,fechaFin,0.5,500,"Vigente");
-		sistema.insertarPromocion(promo);
-		promo=new PromocionDTO(1,"Promo 3x1",fechaIn,fechaFin,0.5,500,"Vigente");
 		sistema.editarPromocion(promo);
-		assertEquals(sistema.obtenerPrmociones().get(0).getDescripcion(),"Promo 3x1");
+		sistema.borrarPromocion(promo);
+		assertEquals(sistema.obtenerPrmociones().get(0).getEstado(),"Inactivo");
+	
+		sistema.deleteRealPromocion(promo);
+		assertEquals(sistema.obtenerPrmociones().size(),4);
+	
 	}
 	
 

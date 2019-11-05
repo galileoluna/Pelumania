@@ -10,17 +10,59 @@ import java.util.List;
 
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
+import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.UsuarioDAO;
 
 public class UsuarioDAOSQL implements UsuarioDAO{
+	private static final String insert = "INSERT INTO Usuario(idUsuario,Nombre,Apellido,nombreUsuario,Contrasenia,Mail,EstadoUsuario,idRol,idSucursal ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String readOne = "SELECT * from Usuario where nombreUsuario=? AND Contrasenia=?";
 	private static final String readAll = "SELECT * FROM usuario";
 	private static final String readOneById = "SELECT * FROM usuario WHERE idUsuario = ? ";
 	private static final String update = "UPDATE usuario SET  Nombre=?, Apellido=? , nombreUsuario=?, Contrasenia=?, Mail=?, EstadoUsuario=?, idRol=?, idSucursal=? WHERE idUsuario=?";
 	private static final String delete = "UPDATE FROM usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
 	private static final String readRol = "SELECT * FROM rol";
+	
+	
+	   @Override
+	    public boolean insert(UsuarioDTO user){
+	    	PreparedStatement statement;
+	    	Connection conexion = Conexion.getConexion().getSQLConexion();
+	    	boolean isInsertExitoso = false;
+	    	try
+	    	{
+	    		statement = conexion.prepareStatement(insert);
+
+	    		
+	    		statement.setInt	(1, user.getIdUsuario());
+	    		statement.setString (2, user.getNombre());
+	    		statement.setString (3, user.getApellido());
+	    		statement.setString (4, 	user.getNombreUsuario());
+	    		statement.setString (5, 	user.getContrasenia());
+	    		statement.setString(6,		user.getEstado());
+	    		statement.setString(7,		user.getMail());
+	    		statement.setInt(8,		user.getIdRol());
+	    		statement.setInt(9,		user.getIdSucursal());
+	    
+	    		if(statement.executeUpdate() > 0)
+	    		{
+	    			conexion.commit();
+	    			isInsertExitoso = true;
+	    		}
+	    	} 
+	    	catch (SQLException e) 
+	    	{
+	    		e.printStackTrace();
+	    		try {
+	    			conexion.rollback();
+	    		} catch (SQLException e1) {
+	    			e1.printStackTrace();
+	    		}
+	    	}
+	    	
+	    	return isInsertExitoso;
+	    	}
 	
 	
 	

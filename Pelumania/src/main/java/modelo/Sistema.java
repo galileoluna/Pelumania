@@ -60,6 +60,33 @@ public class Sistema
 		this.servicioTurno = metodo_persistencia.createServicioTurnoDAO();
 		this.usuario=metodo_persistencia.createUsuarioDAO();
 	}
+	
+	//Comienza Usuario
+	public void agregarUsuario(UsuarioDTO nuevoUsuario)
+	{
+		this.usuario.insert(nuevoUsuario);
+	}
+
+	public void borrarUsuario(UsuarioDTO Usuario_a_eliminar)
+	{
+		this.usuario.delete(Usuario_a_eliminar);
+	}
+
+	public void editarUsuario(UsuarioDTO Usuario_a_editar)
+	{
+		this.usuario.update(Usuario_a_editar);
+	}
+
+	public List<UsuarioDTO> obtenerUsuarios1()
+	{
+		return this.usuario.readAll();
+	}
+	public List<UsuarioDTO> matcheo(String usuario, String pass)
+	{
+		return this.usuario.readOne(usuario,pass);
+	}
+	
+	
 // COMIENZA CLIENTE
 	public void agregarCliente(ClienteDTO nuevoCliente)
 	{

@@ -187,7 +187,7 @@ public class ServiciosTest {
 		
 		if(sistema.obtenerServicios().get(0).getPrecioDolar().compareTo(precioDolar)==0) 
 			assertTrue(true);
-		else assertTrue(false);
+	
 	}
 	
 	@Test
