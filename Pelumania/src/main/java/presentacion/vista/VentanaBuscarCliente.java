@@ -28,7 +28,7 @@ public class VentanaBuscarCliente extends JFrame
 	private JTextField textField;
 
 	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
-			"Mail", "Puntos", "Estado", "Deuda"};
+			"Mail", "Puntos", "Estado", "Deuda Pesos", "Deuda Dolar"};
 	private JTable tablaClientes;
 	private DefaultTableModel modelClientes;
 
@@ -103,6 +103,8 @@ public class VentanaBuscarCliente extends JFrame
 		tablaClientes.getColumnModel().getColumn(5).setResizable(false);
 		tablaClientes.getColumnModel().getColumn(6).setPreferredWidth(30);
 		tablaClientes.getColumnModel().getColumn(6).setResizable(false);
+		tablaClientes.getColumnModel().getColumn(7).setPreferredWidth(30);
+		tablaClientes.getColumnModel().getColumn(7).setResizable(false);
 
 		spClientes.setViewportView(tablaClientes);
 
@@ -178,8 +180,9 @@ public class VentanaBuscarCliente extends JFrame
 			String mail = c.getMail();
 			int puntos = c.getPuntos();
 			String estadoCliente = c.getEstadoCliente();
-			BigDecimal deuda = c.getDeuda();
-			Object[] fila = {nombre, apellido, telefono, mail, puntos, estadoCliente, deuda};
+			BigDecimal deudaPesos = c.getDeudaPesos();
+			BigDecimal deudaDolar = c.getDeudaDolar();
+			Object[] fila = {nombre, apellido, telefono, mail, puntos, estadoCliente, deudaPesos,deudaDolar};
 			this.getModelClientes().addRow(fila);
 		}
 
