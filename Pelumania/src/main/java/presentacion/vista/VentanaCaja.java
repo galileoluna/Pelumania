@@ -203,7 +203,12 @@ public class VentanaCaja extends JFrame
 		JOptionPane.showMessageDialog(new JFrame(), "primero debera pagar su deuda", "Cliente moroso",
 				JOptionPane.ERROR_MESSAGE);
 	}
-
+	
+	public void mostrarErrorMorosoEfectivo() {
+		JOptionPane.showMessageDialog(new JFrame(), "Solo puede pagar su deuda en efectivo", "Cliente moroso",
+				JOptionPane.ERROR_MESSAGE);
+	}
+	
 	public void limpiarCampos() {
 		this.txtPrecioDolar.setText(null);
 		this.txtPrecioPesos.setText(null);
