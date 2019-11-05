@@ -16,13 +16,13 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.UsuarioDAO;
 
 public class UsuarioDAOSQL implements UsuarioDAO{
-	private static final String insert = "INSERT INTO Usuario(idUsuario,Nombre,Apellido,nombreUsuario,Contrasenia,Mail,EstadoUsuario,idRol,idSucursal ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO Usuario(Nombre,Apellido,nombreUsuario,Contrasenia,Mail,EstadoUsuario,idRol,idSucursal ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String readOne = "SELECT * from Usuario where nombreUsuario=? AND Contrasenia=?";
-	private static final String readAll = "SELECT * FROM usuario";
-	private static final String readOneById = "SELECT * FROM usuario WHERE idUsuario = ? ";
-	private static final String update = "UPDATE usuario SET  Nombre=?, Apellido=? , nombreUsuario=?, Contrasenia=?, Mail=?, EstadoUsuario=?, idRol=?, idSucursal=? WHERE idUsuario=?";
-	private static final String delete = "UPDATE usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
-	private static final String readRol = "SELECT * FROM rol";
+	private static final String readAll = "SELECT * FROM Usuario";
+	private static final String readOneById = "SELECT * FROM Usuario WHERE idUsuario = ? ";
+	private static final String update = "UPDATE Usuario SET  Nombre=?, Apellido=? , nombreUsuario=?, Contrasenia=?, Mail=?, EstadoUsuario=?, idRol=?, idSucursal=? WHERE idUsuario=?";
+	private static final String delete = "UPDATE Usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
+	private static final String readRol = "SELECT * FROM Rol";
 	
 	
 	   @Override
@@ -34,16 +34,14 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 	    	{
 	    		statement = conexion.prepareStatement(insert);
 
-	    		
-	    		statement.setInt	(1, user.getIdUsuario());
-	    		statement.setString (2, user.getNombre());
-	    		statement.setString (3, user.getApellido());
-	    		statement.setString (4, 	user.getNombreUsuario());
-	    		statement.setString (5, 	user.getContrasenia());
-	    		statement.setString(6,		user.getEstado());
-	    		statement.setString(7,		user.getMail());
-	    		statement.setInt(8,		user.getIdRol());
-	    		statement.setInt(9,		user.getIdSucursal());
+	    		statement.setString (1, user.getNombre());
+	    		statement.setString (2, user.getApellido());
+	    		statement.setString (3, 	user.getNombreUsuario());
+	    		statement.setString (4, 	user.getContrasenia());
+	    		statement.setString(5,		user.getEstado());
+	    		statement.setString(6,		user.getMail());
+	    		statement.setInt(7,		user.getIdRol());
+	    		statement.setInt(8,		user.getIdSucursal());
 	    
 	    		if(statement.executeUpdate() > 0)
 	    		{

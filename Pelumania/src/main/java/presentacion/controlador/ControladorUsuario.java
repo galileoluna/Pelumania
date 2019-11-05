@@ -19,6 +19,7 @@ public class ControladorUsuario {
 	private  VentanaUsuario ventanaUsuario;
 	private VentanaAltaUsuario ventanaAltaUsuario;
 	private List<UsuarioDTO> usuariosEnTabla;
+	private ControladorAltaUsuario controladorAltaUsuario;
 	
 
 	private ControladorUsuario(Sistema sist, UsuarioDTO usuar) {
@@ -43,7 +44,7 @@ public class ControladorUsuario {
 	}
 	
 	private void agregarUsuario(ActionEvent p) {
-		ventanaAltaUsuario= VentanaAltaUsuario.getInstance();
+		this.controladorAltaUsuario= ControladorAltaUsuario.getInstance(sistema,usuario);
 	}
 	
 	private void borrarUsuario(ActionEvent s) {

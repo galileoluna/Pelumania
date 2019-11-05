@@ -18,16 +18,16 @@ public class Conexion {
 				// ***************************************   Para MYSQL  ***********************************************
 				// *****************************************************************************************************
 				Class.forName("com.mysql.cj.jdbc.Driver"); 
-//				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?serverTimezone=UTC","root","root");
+				this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pelumania?serverTimezone=UTC","root","root");
 				// *****************************************************************************************************
 				
 				// *************************************   Para BD REMOTA  *********************************************
 				// *****************************************************************************************************
 				//Class.forName("com.mysql.cj.jdbc.Driver"); 
-	//			this.connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306/AKL6pgi3n3?serverTimezone=UTC","AKL6pgi3n3","Eej3WYNwT7");
+				//this.connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306/AKL6pgi3n3?serverTimezone=UTC","AKL6pgi3n3","Eej3WYNwT7");
 				// *****************************************************************************************************
 				
-		this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/PelumaniaTest?serverTimezone=UTC","root","@Root123");
+		//this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/PelumaniaTest?serverTimezone=UTC","root","@Root123");
 				
 				// **************************************   Para MariaDB  **********************************************
 				// *****************************************************************************************************

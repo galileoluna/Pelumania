@@ -99,6 +99,28 @@ public class UsuarioDTO {
 		return "No se encontro el id";
 	}
 	
+	public int getRolById(String rol) {
+		UsuarioDAOSQL usuarios= new UsuarioDAOSQL();
+		HashMap<String, Integer> roles= usuarios.readRol();
+		for (Entry<String, Integer> entry : roles.entrySet()) {
+		   if(entry.getKey().equals(rol)) {
+			   return entry.getValue();
+		   }
+		}
+		return -1;
+	}
+	
+	public int getSucuById(String sucursal) {
+		SucursalDAOSQL sucu= new SucursalDAOSQL();
+		List<SucursalDTO> sucursales=sucu.readAll() ;
+		for (SucursalDTO s : sucursales) {
+		   if(s.getNombreSucursal().equals(sucursal)) {
+			   return s.getIdSucursal();
+		   }
+		}
+		return -1;
+	}
+	
 	public String getSucursal() {
 		SucursalDAOSQL sucursal= new SucursalDAOSQL();
 		List<SucursalDTO> sucursales= sucursal.readAll();
