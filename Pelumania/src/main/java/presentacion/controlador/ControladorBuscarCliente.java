@@ -57,7 +57,7 @@ public class ControladorBuscarCliente implements ActionListener{
 		List<ClienteDTO> listaClientes=new ArrayList<ClienteDTO>();
 		
 		for(int i=0; i<listaClientesAux.size();i++) {
-			if(!listaClientesAux.get(i).getEstadoCliente().equals("inactivo"))
+			if(!listaClientesAux.get(i).getEstadoCliente().equalsIgnoreCase("inactivo"))
 				listaClientes.add(listaClientesAux.get(i));
 		}
 		
