@@ -24,6 +24,7 @@ import util.Validador;
 
 public class ControladorCaja implements ActionListener {
 
+
 	private VentanaCaja ventanaCaja;
 	private Sistema sistema;
 	private List<CategoriaMovimientoCajaDTO> listaCategorias;
@@ -206,59 +207,65 @@ public class ControladorCaja implements ActionListener {
 					//tomamos datos de los servicios asociados a esa cita
 					//por cada servicio sera una transaccion de "caja" porque hay que marcar lo que hizo cada profesional
 					ClienteDTO cliente = this.sistema.obtenerClienteById(citaSeleccionada.getIdCliente());
-					boolean exito = true; 
-					boolean esFiado = false;
-					int puntosTotales = 0;
-					for (ServicioTurnoDTO servicio : serviciosCita) {
-						
-						//buscamos el precio individual de ese servicio
-						BigDecimal precioPesosServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioLocal();
-						BigDecimal precioDolarServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioDolar();
-						
-						//buscamos los puntos de cada servicio particular
-						int puntos = this.sistema.getServicioById(servicio.getIdServicio()).getPuntos();
-						
-						MovimientoCajaDTO movimientoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
-																					//por ahora  las promos en null o -1
-																				fecha, tipoCambio, -1, precioPesosServicio, 
-																				
-																				precioDolarServicio, 1, citaSeleccionada.getIdCita(),
-																				
-																				citaSeleccionada.getIdCliente(), servicio.getIdServicio());
-						
-						//por is falla algo en la bdd
-						exito = this.sistema.insertarIngresoServicio(movimientoServicio) && exito;
-						
-						//por si es fiado
-						esFiado = movimientoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
-						
-						//sumamos puntos
-						puntosTotales += puntos; 
-					} 
 					
-					if (exito) {
-						//se guardo bien
-						
-						//finalizamos la cita
-						this.sistema.finalizarCita(citaSeleccionada);
-						
-						if (esEfectivo()) {
-						//sumamos los puntos solo si paga en efectivo
-						cliente.setPuntos(cliente.getPuntos() + puntosTotales);
-						}
-						
-						if (esFiado) {
-							//actualizamos la deuda y el estado del cliente
-							cliente.setDeudaPesos(cliente.getDeudaPesos().add(citaSeleccionada.getPrecioLocal()));
-							cliente.setDeudaDolar(cliente.getDeudaDolar().add(citaSeleccionada.getPrecioDolar()));
-							cliente.setEstadoCliente("Moroso");
-						}
+					//si es una cliente fiado solo puede pagar en efectivo
+					if(!tipoMovimiento.equalsIgnoreCase("Efectivo") && cliente.getEstadoCliente().equalsIgnoreCase("Moroso"))
+						this.ventanaCaja.mostrarErrorMorosoEfectivo();
+					else {
+						boolean exito = true; 
+						boolean esFiado = false;
+						int puntosTotales = 0;
+						for (ServicioTurnoDTO servicio : serviciosCita) {
 							
-						this.sistema.editarCliente(cliente);
-						this.ventanaCaja.mostrarExito();
-						this.controladorMenu.actualizarDiaSeleccionado();
+							//buscamos el precio individual de ese servicio
+							BigDecimal precioPesosServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioLocal();
+							BigDecimal precioDolarServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioDolar();
+							
+							//buscamos los puntos de cada servicio particular
+							int puntos = this.sistema.getServicioById(servicio.getIdServicio()).getPuntos();
+							
+							MovimientoCajaDTO movimientoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
+																						//por ahora  las promos en null o -1
+																					fecha, tipoCambio, -1, precioPesosServicio, 
+																					
+																					precioDolarServicio, 1, citaSeleccionada.getIdCita(),
+																					
+																					citaSeleccionada.getIdCliente(), servicio.getIdServicio());
+							
+							//por is falla algo en la bdd
+							exito = this.sistema.insertarIngresoServicio(movimientoServicio) && exito;
+							
+							//por si es fiado
+							esFiado = movimientoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
+							
+							//sumamos puntos
+							puntosTotales += puntos; 
+						} 
+						
+						if (exito) {
+							//se guardo bien
+							
+							//finalizamos la cita
+							if(esFiado) this.sistema.estadoFiadoCita(citaSeleccionada);
+							else this.sistema.finalizarCita(citaSeleccionada);
+							
+							if (esEfectivo()) {
+							//sumamos los puntos solo si paga en efectivo
+							cliente.setPuntos(cliente.getPuntos() + puntosTotales);
+							}
+							
+							if (esFiado) {
+								//actualizamos la deuda y el estado del cliente
+								cliente.setDeudaPesos(cliente.getDeudaPesos().add(citaSeleccionada.getPrecioLocal()));
+								cliente.setDeudaDolar(cliente.getDeudaDolar().add(citaSeleccionada.getPrecioDolar()));
+								cliente.setEstadoCliente("Moroso");
+							}
+								
+							this.sistema.editarCliente(cliente);
+							this.ventanaCaja.mostrarExito();
+							this.controladorMenu.actualizarDiaSeleccionado();
+						}
 					}
-					
 				} else if (esProducto()) {
 					//es un producto y tiene menos campos que un servico
 					//parseamos 
