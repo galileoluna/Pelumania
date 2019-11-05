@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -32,6 +33,7 @@ public class ControladorCaja implements ActionListener {
 	private List<ServicioTurnoDTO> serviciosCita;
 	private Controlador2 controladorMenu;
 	private final Lock _mutex = new ReentrantLock(true); //mutex
+	private boolean clienteMoroso=false;
 
 	
 	private ControladorCaja (Sistema sistema, Controlador2 controladorMenu) {
@@ -176,6 +178,8 @@ public class ControladorCaja implements ActionListener {
 
 	private void agregarMovimiento(ActionEvent l) {
 //		System.out.println("VOY A ENTRAR AL SEMAFOROVICH");
+		
+		//if()
 		_mutex.lock();
 		int idSucursal = 1; //de donde sacamos esto?
 		Timestamp fecha = Timestamp.from(Instant.now());
@@ -185,6 +189,7 @@ public class ControladorCaja implements ActionListener {
 		String precioPesosTotal = this.ventanaCaja.getTxtPrecioPesos().getText();
 		String precioDolarTotal = this.ventanaCaja.getTxtPrecioDolar().getText();
 
+		
 		String strCategoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
 		int idCategoria = this.sistema.getIdCategoriaMovimientoCajaByName(strCategoria).getIdCategoria();
 		
@@ -193,7 +198,8 @@ public class ControladorCaja implements ActionListener {
 				Validador.esPrecioValido(precioPesosTotal) &&
 				Validador.esPrecioValido(precioDolarTotal) &&
 				Validador.esTipoCambioValido(tipoCambio) &&
-				Validador.esDescripcionValida(descripcion)) {
+				Validador.esDescripcionValida(descripcion) &&
+				!clienteMoroso) {
 				
 				if (esServicio()) {
 					//tomamos datos de la cita seleccionada
@@ -242,8 +248,9 @@ public class ControladorCaja implements ActionListener {
 						}
 						
 						if (esFiado) {
-							//actualizamos la deuda
+							//actualizamos la deuda y el estado del cliente
 							cliente.setDeuda(cliente.getDeuda().add(citaSeleccionada.getPrecioLocal()));
+							cliente.setEstadoCliente("Moroso");
 						}
 							
 						this.sistema.editarCliente(cliente);
@@ -290,7 +297,8 @@ public class ControladorCaja implements ActionListener {
 			} else {
 			//hubo un error en los inputs
 			//no paso los validadores
-			this.ventanaCaja.mostrarErrorCampos();
+				if(clienteMoroso==true)this.ventanaCaja.mostrarErrorMoroso();
+				else this.ventanaCaja.mostrarErrorCampos();
 		}
 		
 		this.ventanaCaja.limpiarCampos();
@@ -379,9 +387,20 @@ public class ControladorCaja implements ActionListener {
 				this.setCitaSeleccionada(citaSeleccionada);
 				this.setServiciosCita(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
 				this.mostarDatosCita();
+				validarCliente(citaSeleccionada);
 			}
 		}	
 	
+	private void validarCliente(CitaDTO citaSeleccionada2) {
+		ArrayList<ClienteDTO> clientes= (ArrayList<ClienteDTO>) sistema.obtenerClientes();
+		ClienteDTO actual=clientes.get(0);
+		for(int i=0; i<clientes.size();i++) {
+			if(citaSeleccionada2.getIdCliente()==clientes.get(i).getIdCliente())actual=clientes.get(i);
+		}
+		if(actual.getEstadoCliente()=="moroso" || (actual.getDeuda().compareTo(new BigDecimal(0))>0)) 
+			clienteMoroso=true;
+	}
+
 	private boolean existeCategoriaServicio() {
 		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
 			if (categoria.getNombre().equalsIgnoreCase("SERVICIO")) {
@@ -393,5 +412,4 @@ public class ControladorCaja implements ActionListener {
 		}	
 		return false;
 	}
-	
 }
