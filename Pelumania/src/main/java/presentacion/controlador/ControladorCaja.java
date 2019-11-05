@@ -249,7 +249,8 @@ public class ControladorCaja implements ActionListener {
 						
 						if (esFiado) {
 							//actualizamos la deuda y el estado del cliente
-							cliente.setDeuda(cliente.getDeuda().add(citaSeleccionada.getPrecioLocal()));
+							cliente.setDeudaPesos(cliente.getDeudaPesos().add(citaSeleccionada.getPrecioLocal()));
+							cliente.setDeudaDolar(cliente.getDeudaDolar().add(citaSeleccionada.getPrecioDolar()));
 							cliente.setEstadoCliente("Moroso");
 						}
 							
@@ -397,7 +398,8 @@ public class ControladorCaja implements ActionListener {
 		for(int i=0; i<clientes.size();i++) {
 			if(citaSeleccionada2.getIdCliente()==clientes.get(i).getIdCliente())actual=clientes.get(i);
 		}
-		if(actual.getEstadoCliente()=="moroso" || (actual.getDeuda().compareTo(new BigDecimal(0))>0)) 
+		if(actual.getEstadoCliente()=="moroso" || (actual.getDeudaPesos().compareTo(new BigDecimal(0))>0) 
+				|| (actual.getDeudaDolar().compareTo(new BigDecimal(0))>0)) 
 			clienteMoroso=true;
 	}
 
