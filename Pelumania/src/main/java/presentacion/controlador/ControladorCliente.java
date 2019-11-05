@@ -125,7 +125,10 @@ public class ControladorCliente implements ActionListener {
 					Validador.esEstadoClienteValido(estado)&&
 					Validador.esPrecioValido(deuda))
 			{
-				ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, new BigDecimal(deuda.replaceAll(",", "")));
+				BigDecimal deudaAux=new BigDecimal(deuda.replaceAll(",", ""));
+				if((deudaAux.compareTo(new BigDecimal(0))==0 && estado.equals("Moroso"))) estado="Activo";
+					
+				ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, deudaAux);
 
 				INSTANCE.sistema.editarCliente(cliente_a_modifcar);
 				INSTANCE.ventanaCliente.mostrarExitoEditar();
