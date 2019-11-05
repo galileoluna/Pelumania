@@ -98,7 +98,7 @@ public class ControladorCliente implements ActionListener {
 		INSTANCE.ventanaCliente.llenarTabla(this.listaClientes);
 	}
 
-	private void editarCliente(ActionEvent p) {
+private void editarCliente(ActionEvent p) {
 
 		this.listaClientes = this.sistema.obtenerClientes();
 		int filaSeleccionada = this.ventanaCliente.getTablaClientes().getSelectedRow();
@@ -115,24 +115,28 @@ public class ControladorCliente implements ActionListener {
 			String mail =  tabla.getValueAt(filaSeleccionada, 3).toString();
 			String puntos = tabla.getValueAt(filaSeleccionada, 4).toString();
 			String estado = tabla.getValueAt(filaSeleccionada, 5).toString();
-			String deuda = tabla.getValueAt(filaSeleccionada, 6).toString();
+		//	String deuda = tabla.getValueAt(filaSeleccionada, 6).toString();
 
 			if ( Validador.esNombreConEspaciosValido(nombre) &&
 					Validador.esNombreConEspaciosValido(apellido) &&
 					Validador.esTelefono(telefono) &&
 					Validador.esMail(mail) &&
 					Validador.esPuntosValido( puntos) &&
-					Validador.esEstadoClienteValido(estado)&&
-					Validador.esPrecioValido(deuda))
-			{
-				BigDecimal deudaAux=new BigDecimal(deuda.replaceAll(",", ""));
-				if((deudaAux.compareTo(new BigDecimal(0))==0 && estado.equals("Moroso"))) estado="Activo";
-					
-				ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, deudaAux);
-
-				INSTANCE.sistema.editarCliente(cliente_a_modifcar);
-				INSTANCE.ventanaCliente.mostrarExitoEditar();
-
+					Validador.esEstadoClienteValido(estado)){
+			//	BigDecimal deudaAux=new BigDecimal(deuda.replaceAll(",", ""));
+			/*	if((deudaAux.compareTo(new BigDecimal(0))==0 && estado.equalsIgnoreCase("Moroso"))) { 
+					estado="Activo";
+				}*/
+				if((cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("activo")) ||
+						cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("Activo") && estado.equalsIgnoreCase("moroso")) {
+					estado=cliente_seleccionado.getEstadoCliente();
+					INSTANCE.ventanaCliente.mostrarErrorEdicionEstado();
+				}else {
+					ClienteDTO cliente_a_modifcar = new ClienteDTO(id, nombre, apellido, telefono, mail, Integer.parseInt(puntos), estado, cliente_seleccionado.getDeuda());
+	
+					INSTANCE.sistema.editarCliente(cliente_a_modifcar);
+					INSTANCE.ventanaCliente.mostrarExitoEditar();
+				}
 			} else {
 				INSTANCE.ventanaCliente.mostrarErrorCamposInvalidos();
 			}
