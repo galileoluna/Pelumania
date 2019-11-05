@@ -30,7 +30,7 @@ public class VentanaBuscarCita extends JFrame
 
 	private JButton btn_Cancelar;
 	private JTextField txtFiltro;
-	private String[] nombreColumnas = {"Nro","Nombre", "Apellido", "Dia","HoraInicio","HoraFin","PrecioLocal","PrecioDolar"};
+	private String[] nombreColumnas = {"Nro","Nombre", "Apellido", "Dia","HoraInicio","HoraFin","PrecioLocal","PrecioDolar", "Estado"};
 	private JTable tablaCitas;
 	private DefaultTableModel modelCitas;
 	private TableRowSorter<TableModel> rowSorter;
@@ -106,6 +106,8 @@ public class VentanaBuscarCita extends JFrame
 		tablaCitas.getColumnModel().getColumn(6).setResizable(false);
 		tablaCitas.getColumnModel().getColumn(7).setPreferredWidth(10);
 		tablaCitas.getColumnModel().getColumn(7).setResizable(false);
+		tablaCitas.getColumnModel().getColumn(8).setPreferredWidth(10);
+		tablaCitas.getColumnModel().getColumn(8).setResizable(false);
 
 		spCitas.setViewportView(tablaCitas);
 
@@ -208,7 +210,8 @@ public class VentanaBuscarCita extends JFrame
 			String horaFin = cita.getHoraFin().toString();
 			BigDecimal precioPesos = cita.getPrecioLocal();
 			BigDecimal precioDolar = cita.getPrecioDolar();
-			Object[] fila = {nro, nombre, apellido, dia, horaInicio, horaFin, precioPesos, precioDolar};
+			String estado= cita.getEstado();
+			Object[] fila = {nro, nombre, apellido, dia, horaInicio, horaFin, precioPesos, precioDolar,estado};
 			this.getModelCitas().addRow(fila);
 		}
 
@@ -226,5 +229,5 @@ public class VentanaBuscarCita extends JFrame
 	public void mostrarErrorSinSeleccionar() {
 			JOptionPane.showMessageDialog(new JFrame(), "Debe seleccionar una cita", "Dialog",
 					JOptionPane.ERROR_MESSAGE);
-		}
-	}		
+	}
+}
