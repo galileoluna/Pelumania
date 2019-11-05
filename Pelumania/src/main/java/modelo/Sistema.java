@@ -79,7 +79,7 @@ public class Sistema
 
 	public List<UsuarioDTO> obtenerUsuarios1()
 	{
-		return this.usuario.readAll();
+		return this.usuario.readAll2();
 	}
 	public List<UsuarioDTO> matcheo(String usuario, String pass)
 	{
@@ -484,8 +484,8 @@ public class Sistema
 		return this.usuario.readOne(user, pass);
 	}
 	
-	public List<UsuarioDTO> obtenerUsuarios(){
-		return this.usuario.readAll();
+	public List<UsuarioDTO> obtenerUsuarios(int sucu){
+		return this.usuario.readAll(sucu);
 	}
 	
 	public List<UsuarioDTO> obtenerUnUsuario(int id) {

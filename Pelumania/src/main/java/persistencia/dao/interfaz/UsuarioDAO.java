@@ -10,7 +10,7 @@ public interface UsuarioDAO {
 	
 	public List<UsuarioDTO> readOne(String usuario, String contra);
 
-	public List<UsuarioDTO> readAll();
+	public List<UsuarioDTO> readAll(int sucu);
 
 	public List<UsuarioDTO> readOneById(int id);
 
@@ -22,6 +22,8 @@ public interface UsuarioDAO {
 
 
 	boolean insert(UsuarioDTO user);
+
+	List<UsuarioDTO> readAll2();
 	
 
 

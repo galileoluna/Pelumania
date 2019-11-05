@@ -37,7 +37,7 @@ public class ControladorUsuario {
 			INSTANCE = new ControladorUsuario(sistema, usuario);
 		}
 		
-		List<UsuarioDTO> usuariosEnTabla=sistema.obtenerUsuarios();
+		List<UsuarioDTO> usuariosEnTabla=sistema.obtenerUsuarios(usuario.getIdSucursal());
 		INSTANCE.ventanaUsuario.llenarTabla(usuariosEnTabla);
 		INSTANCE.ventanaUsuario.show();
 		return INSTANCE;
@@ -48,7 +48,7 @@ public class ControladorUsuario {
 	}
 	
 	private void borrarUsuario(ActionEvent s) {
-		this.usuariosEnTabla=sistema.obtenerUsuarios();
+		this.usuariosEnTabla=sistema.obtenerUsuarios(usuario.getIdSucursal());
 		int[] filasSeleccionadas = this.ventanaUsuario.gettablaUsuario().getSelectedRows();
 		       
 	        	for (int fila : filasSeleccionadas)

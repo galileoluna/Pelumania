@@ -18,7 +18,8 @@ import persistencia.dao.interfaz.UsuarioDAO;
 public class UsuarioDAOSQL implements UsuarioDAO{
 	private static final String insert = "INSERT INTO Usuario(Nombre,Apellido,nombreUsuario,Contrasenia,Mail,EstadoUsuario,idRol,idSucursal ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String readOne = "SELECT * from Usuario where nombreUsuario=? AND Contrasenia=?";
-	private static final String readAll = "SELECT * FROM Usuario";
+	private static final String readAll = "SELECT * FROM Usuario WHERE idSucursal=?";
+	private static final String readAll2 = "SELECT * FROM Usuario";
 	private static final String readOneById = "SELECT * FROM Usuario WHERE idUsuario = ? ";
 	private static final String update = "UPDATE Usuario SET  Nombre=?, Apellido=? , nombreUsuario=?, Contrasenia=?, Mail=?, EstadoUsuario=?, idRol=?, idSucursal=? WHERE idUsuario=?";
 	private static final String delete = "UPDATE Usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
@@ -108,13 +109,33 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 
 
 	@Override
-	public List<UsuarioDTO> readAll() {
+	public List<UsuarioDTO> readAll(int sucu) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<UsuarioDTO> usuario = new ArrayList<UsuarioDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readAll);
+			statement.setInt(1, sucu);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				usuario.add(getUsuarioDTO(resultSet));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+	
+	@Override
+	public List<UsuarioDTO> readAll2() {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<UsuarioDTO> usuario = new ArrayList<UsuarioDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readAll2);
 			resultSet = statement.executeQuery();
 			while(resultSet.next()){
 				usuario.add(getUsuarioDTO(resultSet));

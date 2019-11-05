@@ -78,7 +78,7 @@ public class ControladorAltaUsuario {
 
 
 	private String validar(String nombre, String apellido, String mail, String user, String pass, String estado,Integer permiso , Integer sucursal) {
-		List<UsuarioDTO> usuario=sistema.obtenerUsuarios();
+		List<UsuarioDTO> usuario=sistema.obtenerUsuarios1();
 		if(nombre.equals("") || nombre == null || apellido.equals("") || apellido == null || user.equals("") || user == null 
 		|| pass.equals("") || pass == null || estado.equals("") || estado == null || permiso == null || sucursal == null ) {
 				
@@ -92,8 +92,7 @@ public class ControladorAltaUsuario {
 					return "nombre";
 				}
 			}
-				return "true";
-			
+				return "true";	
 		}
 		
 	}
