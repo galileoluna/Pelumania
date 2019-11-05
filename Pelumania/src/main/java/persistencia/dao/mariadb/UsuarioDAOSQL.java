@@ -19,7 +19,7 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 	private static final String readAll = "SELECT * FROM usuario";
 	private static final String readOneById = "SELECT * FROM usuario WHERE idUsuario = ? ";
 	private static final String update = "UPDATE usuario SET  Nombre=?, Apellido=? , nombreUsuario=?, Contrasenia=?, Mail=?, EstadoUsuario=?, idRol=?, idSucursal=? WHERE idUsuario=?";
-	private static final String delete = "UPDATE FROM usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
+	private static final String delete = "UPDATE usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
 	private static final String readRol = "SELECT * FROM rol";
 	
 	
