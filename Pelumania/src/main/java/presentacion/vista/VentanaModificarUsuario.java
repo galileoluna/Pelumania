@@ -106,7 +106,6 @@ public class VentanaModificarUsuario extends JFrame {
 		
 		comboPerm = new JComboBox();
 		comboPerm.setBounds(188, 234, 164, 22);
-		comboPerm.addItem("--");
 		panel.add(comboPerm);
 		
 		estado = new JComboBox();

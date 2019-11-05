@@ -20,16 +20,34 @@ public class ControladorUsuario {
 	private VentanaAltaUsuario ventanaAltaUsuario;
 	private List<UsuarioDTO> usuariosEnTabla;
 	private ControladorAltaUsuario controladorAltaUsuario;
+	private ControladorModificarUsuario controladoreditarUsuario;
 	
 
 	private ControladorUsuario(Sistema sist, UsuarioDTO usuar) {
 		ventanaUsuario = ventanaUsuario.getInstance();
 		ventanaUsuario.getBtnAgregar().addActionListener(p ->agregarUsuario(p));
 		ventanaUsuario.getBtnBorrar().addActionListener(s -> borrarUsuario(s));
-		/*ventanaUsuario.getBtnEditar().addActionListener(t -> editarUsuario(t));*/
+		ventanaUsuario.getBtnEditar().addActionListener(t -> editarUsuario(t));
 		
 		sistema = sist;
 		usuario = usuar;
+	}
+
+	private void editarUsuario(ActionEvent t) {
+		this.usuariosEnTabla=sistema.obtenerUsuarios(usuario.getIdSucursal());
+		int[] filasSeleccionadas = this.ventanaUsuario.gettablaUsuario().getSelectedRows();
+		       
+	        	for (int fila : filasSeleccionadas)
+	        	{
+		        	if(this.usuariosEnTabla.get(fila)!=null) {	 
+		        		List<UsuarioDTO>usuario_a_editar=this.sistema.obtenerUnUsuario(this.usuariosEnTabla.get(fila).getIdUsuario());
+		        		System.out.println(usuario_a_editar);
+		        			controladoreditarUsuario= ControladorModificarUsuario.getInstance(sistema,usuario,usuario_a_editar);
+		        	}	
+		        		
+	        	}
+	
+		
 	}
 
 	public static ControladorUsuario getInstance(Sistema sistema, UsuarioDTO usuario) {

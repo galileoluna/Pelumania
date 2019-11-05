@@ -38,6 +38,7 @@ public class ControladorAltaUsuario {
 			INSTANCE = new ControladorAltaUsuario(sistema, usuario);
 		}
 		INSTANCE.roles=sistema.readRol();
+		INSTANCE.ventanaAltaUsuario.getComboSucu().removeAllItems();
 		INSTANCE.ventanaAltaUsuario.getComboSucu().addItem(usuario.getSucursal());
 		llenarComboRol(INSTANCE.ventanaAltaUsuario.getComboPerm(),roles);
 		INSTANCE.ventanaAltaUsuario.mostrarVentana();
@@ -98,6 +99,7 @@ public class ControladorAltaUsuario {
 	}
 	
 	private static void llenarComboRol(JComboBox combo, HashMap<String, Integer> roles2) {
+		combo.removeAllItems();
 		for (HashMap.Entry<String, Integer> datos : roles2.entrySet()) {
 				combo.addItem(datos.getKey());
 		}		
