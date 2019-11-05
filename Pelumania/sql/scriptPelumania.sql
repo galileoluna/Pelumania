@@ -38,13 +38,14 @@ CREATE TABLE IF NOT EXISTS `Servicio`(
     `Mail` varchar(45) NOT NULL,
     `Puntos` int(11) NULL ,
     `EstadoCliente` varchar(20)  NULL,
-    `Deuda` decimal(13,2)  NULL,
-
+    `DeudaPesos` decimal(13,2)  NULL,
+	`DeudaDolar` decimal(13,2)  NULL,
+    
     PRIMARY KEY (`idCliente`)
   );
   
-  INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-	VALUES(-1, "Cliente", "Generico", 11111111, "default@default.com", 0, "Activo", 00.00);
+   INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos,DeudaDolar) 
+	VALUES(-1, "Cliente", "Generico", 11111111, "default@default.com", 0, "Activo", 00.00,00.00);
 
 
 CREATE TABLE IF NOT EXISTS `Rol`(
@@ -354,20 +355,22 @@ INSERT INTO ServicioProfesional (idProfesional, idServicio)
 VALUES (-1,7);
 
 -- Inserts para Clientes 
-INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-VALUES(1, "Matias", "Arriola", 44512626, "prueba1@gmail.com", 0, "Activo", 00.00);
-INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-VALUES(2, "Tomas", "Sierra", 44512727, "test2@gmail.com", 0, "Inactivo", 00.00);
-INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-VALUES(3, "Nicolas", "Cirillo", 44512828, "prueba3@gmail.com", 0, "Activo", 00.00);
-INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-VALUES(4, "Galileo", "Luna", 44512929, "test4@gmail.com", 0, "Activo", 10.00);
-INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-VALUES(5, "Santiago", "Moreno", 44513030, "prueba5@gmail.com", 0, "Activo", 500.00);
-INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-VALUES(6, "Adolf", "Gonzalez", 44513131, "test6@gmail.com", 0, "Inactivo", 00.00);
-INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) 
-VALUES(7, "Juan Domingo", "Perez", 44513232, "prueba7@gmail.com", 0, "Activo", 00.00);
+-- Inserts para Clientes 
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
+VALUES(1, "Matias", "Arriola", 44512626, "prueba1@gmail.com", 0, "Activo", 00.00, 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
+VALUES(2, "Tomas", "Sierra", 44512727, "test2@gmail.com", 0, "Inactivo", 00.00, 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
+VALUES(3, "Nicolas", "Cirillo", 44512828, "prueba3@gmail.com", 0, "Activo", 00.00, 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
+VALUES(4, "Galileo", "Luna", 44512929, "test4@gmail.com", 0, "Activo", 00.00, 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
+VALUES(5, "Santiago", "Moreno", 44513030, "prueba5@gmail.com", 0, "Activo", 00.00, 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
+VALUES(6, "Adolf", "Gonzalez", 44513131, "test6@gmail.com", 0, "Inactivo", 00.00, 00.00);
+INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
+VALUES(7, "Juan Domingo", "Perez", 44513232, "prueba7@gmail.com", 0, "Activo", 00.00, 00.00);
+
 
 -- Inserts para profesionales 
 INSERT INTO PROFESIONAL (IdProfesional, Nombre, Apellido, idSucursalOrigen, estado) 
