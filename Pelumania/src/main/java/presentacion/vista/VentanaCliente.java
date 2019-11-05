@@ -1,4 +1,3 @@
-
 package presentacion.vista;
 
 import java.awt.Dimension;
@@ -341,6 +340,12 @@ public class VentanaCliente extends JFrame{
 
 	public void mostrarErrorSinSeleccionar() {
 		JOptionPane.showMessageDialog(new JFrame(), "Debe seleccionar un cliente", "Dialog",
+				JOptionPane.ERROR_MESSAGE);
+
+	}
+	
+	public void mostrarErrorEdicionEstado() {
+		JOptionPane.showMessageDialog(new JFrame(), "No se puede cambiar el estado de este modo (usar pestaña Caja)", "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}
