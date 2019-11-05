@@ -19,6 +19,8 @@ public interface CitaDAO {
 	public boolean cancelar(CitaDTO cita_a_cancelar);
 	
 	public boolean finalizar(CitaDTO cita_a_finalizar);
+	
+	public boolean fiar(CitaDTO cita_a_finalizar);
 
 	public List<CitaDTO> readAll();
 

@@ -255,7 +255,7 @@ public void setHoraTurno(Time horaTurno) {
 }
 
 public boolean esActiva() {
-	return this.estado.equalsIgnoreCase("Activa");
+	return this.estado.equalsIgnoreCase("Activa")|| this.estado.equalsIgnoreCase("fiado");
 }
 
 }
