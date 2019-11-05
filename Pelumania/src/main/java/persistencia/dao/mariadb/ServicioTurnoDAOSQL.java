@@ -11,6 +11,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jfree.util.Log;
+
 import dto.ServicioTurnoDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ServicioTurnoDAO;
@@ -220,6 +222,12 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 			
 			if (resultSet.next()){
 				ocupado = resultSet.getInt("ocupado");
+				
+				String ocup = "El profesional se encuentra ocupado desde: "+ 
+				resultSet.getTime("HoraInicio"+
+				" hasta: " + resultSet.getTime("HoraFin"));
+				
+				Log.info(ocup);
 			}
 		}
 		catch (SQLException e)
