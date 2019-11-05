@@ -298,6 +298,11 @@ public class Sistema
 		return this.cita.finalizar(cita_a_finalizar);
 	}
 	
+	public boolean estadoFiadoCita(CitaDTO cita_a_finalizar) 
+	{
+		return this.cita.fiar(cita_a_finalizar);
+	}
+	
 	public boolean editarCita(CitaDTO cita_a_editar)
 	{
 		return this.cita.update(cita_a_editar);
