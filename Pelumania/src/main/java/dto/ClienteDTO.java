@@ -12,9 +12,10 @@ public class ClienteDTO
 	private String mail;
 	private int puntos;
 	private String estadoCliente;
-	private BigDecimal deuda;
+	private BigDecimal deudaPesos;
+	private BigDecimal deudaDolar;
 
-	public ClienteDTO(int idCliente, String nombre, String apellido, String telefono, String mail, int puntos, String estadoCliente, BigDecimal deuda)
+	public ClienteDTO(int idCliente, String nombre, String apellido, String telefono, String mail, int puntos, String estadoCliente, BigDecimal deudaPesos, BigDecimal deudaDolar)
 	{
 		this.idCliente = idCliente;
 		this.nombre = nombre;
@@ -23,8 +24,8 @@ public class ClienteDTO
 		this.mail = mail;
 		this.puntos = puntos;
 		this.estadoCliente = estadoCliente;
-		this.deuda = deuda;
-			
+		this.deudaPesos = deudaPesos;
+		this.deudaDolar=deudaDolar;	
 		
 	}
 	
@@ -82,12 +83,20 @@ public class ClienteDTO
 		this.estadoCliente = estadoCliente;
 	}
 
-	public BigDecimal getDeuda() {
-		return deuda;
+	public BigDecimal getDeudaPesos() {
+		return deudaPesos;
 	}
 
-	public void setDeuda(BigDecimal deuda) {
-		this.deuda = deuda;
+	public void setDeudaPesos(BigDecimal deuda) {
+		this.deudaPesos = deuda;
+	}
+	
+	public BigDecimal getDeudaDolar() {
+		return deudaDolar;
+	}
+
+	public void setDeudaDolar(BigDecimal deuda) {
+		this.deudaDolar = deuda;
 	}
 
 	public String getMail() {
