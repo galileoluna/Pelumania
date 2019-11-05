@@ -40,7 +40,7 @@ public class VentanaCliente extends JFrame{
 	private JComboBox variableBuscar;
 	
 	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
-			"Mail", "Puntos", "Estado", "Deuda"};
+			"Mail", "Puntos", "Estado", "Deuda Pesos", "Deuda Dolar"};
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JTextField txtApellido;
@@ -97,6 +97,8 @@ public class VentanaCliente extends JFrame{
 		tablaClientes.getColumnModel().getColumn(5).setResizable(false);
 		tablaClientes.getColumnModel().getColumn(6).setPreferredWidth(30);
 		tablaClientes.getColumnModel().getColumn(6).setResizable(false);
+		tablaClientes.getColumnModel().getColumn(7).setPreferredWidth(30);
+		tablaClientes.getColumnModel().getColumn(7).setResizable(false);
 
 		spClientes.setViewportView(tablaClientes);
 
@@ -313,8 +315,9 @@ public class VentanaCliente extends JFrame{
 			String mail = c.getMail();
 			int puntos = c.getPuntos();
 			String estadoCliente = c.getEstadoCliente();
-			BigDecimal deuda = c.getDeuda();
-			Object[] fila = {nombre, apellido, telefono, mail, puntos, estadoCliente, deuda};
+			BigDecimal deudaPesos = c.getDeudaPesos();
+			BigDecimal deudaDolar= c.getDeudaDolar();
+			Object[] fila = {nombre, apellido, telefono, mail, puntos, estadoCliente, deudaPesos, deudaDolar};
 			this.getModelClientes().addRow(fila);
 		}
 
@@ -343,13 +346,16 @@ public class VentanaCliente extends JFrame{
 				JOptionPane.ERROR_MESSAGE);
 
 	}
-	
 	public void mostrarErrorEdicionEstado() {
 		JOptionPane.showMessageDialog(new JFrame(), "No se puede cambiar el estado de este modo (usar pestaña Caja)", "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}
+	public void mostrarErrorEdicionDeuda() {
+		JOptionPane.showMessageDialog(new JFrame(), "No se puede cambiar la deuda de este modo (usar pestaña Caja)", "Dialog",
+				JOptionPane.ERROR_MESSAGE);
 
+	}
 	public void mostrarExitoEditar() {
 		JOptionPane.showMessageDialog(new JFrame(), "El cliente fue editado con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);
 		
