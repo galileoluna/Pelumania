@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.ClienteDTO;
@@ -52,7 +53,14 @@ public class ControladorBuscarCliente implements ActionListener{
 	
 	private static void inicializarDatos() {
 
-		List<ClienteDTO> listaClientes = INSTANCE.sistema.obtenerClientes();
+		List<ClienteDTO> listaClientesAux = INSTANCE.sistema.obtenerClientes();
+		List<ClienteDTO> listaClientes=new ArrayList<ClienteDTO>();
+		
+		for(int i=0; i<listaClientesAux.size();i++) {
+			if(!listaClientesAux.get(i).getEstadoCliente().equals("inactivo"))
+				listaClientes.add(listaClientesAux.get(i));
+		}
+		
 		INSTANCE.ventanaBuscarCliente.llenarTabla(listaClientes);
 		INSTANCE.ventanaBuscarCliente.mostrarVentana();
 	}
