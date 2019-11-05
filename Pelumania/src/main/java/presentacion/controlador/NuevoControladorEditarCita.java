@@ -27,8 +27,6 @@ import dto.SucursalDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.NuevaVentanaEditarCita;
-import presentacion.vista.VentanaEditarCita;
-import presentacion.vista.nuevaVentanaCita;
 import util.MailService;
 
 public class NuevoControladorEditarCita implements ActionListener{
@@ -67,7 +65,6 @@ public class NuevoControladorEditarCita implements ActionListener{
 		this.citaAEditar = citaParaEditar;
 		this.sistema = s;
 		clienteGenerico = this.sistema.obtenerClienteById(-1);
-		this.sistema.reprogramarCita(citaAEditar);
 		this.ventanaEditarCita.getFrame().setTitle("Editar Cita");
 		
 		this.ventanaEditarCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
@@ -365,6 +362,7 @@ public class NuevoControladorEditarCita implements ActionListener{
 	public void editarCita(ActionEvent a) {
 		CitaDTO citaEditada;
 		calcularHorariosServicios();
+		this.sistema.reprogramarCita(citaAEditar);
 		if (validarCita()) {
 			
 			if (this.citaAEditar.getIdCita() == -1) {
@@ -373,7 +371,7 @@ public class NuevoControladorEditarCita implements ActionListener{
 					this.ventanaEditarCita.getTxtTelefono().getText(), this.ventanaEditarCita.getTxtMail().getText(),
 					"Activa", this.ventanaEditarCita.getTotal(), this.ventanaEditarCita.getTotalUSD(), 
 					this.ventanaEditarCita.getHoraInicio(), this.ventanaEditarCita.getHoraFin(),
-					this.ventanaEditarCita.getFechaCita(), this.ventanaEditarCita.getSucursal().getIdSucursal());
+					this.ventanaEditarCita.getFechaCita().plusDays(1), this.ventanaEditarCita.getSucursal().getIdSucursal());
 			}
 			
 			else {
@@ -382,7 +380,7 @@ public class NuevoControladorEditarCita implements ActionListener{
 						this.ventanaEditarCita.getCliente().getTelefono(), this.ventanaEditarCita.getCliente().getMail(),
 						"Activa", this.ventanaEditarCita.getTotal(), this.ventanaEditarCita.getTotalUSD(), 
 						this.ventanaEditarCita.getHoraInicio(), this.ventanaEditarCita.getHoraFin(),
-						this.ventanaEditarCita.getFechaCita(), this.ventanaEditarCita.getSucursal().getIdSucursal());
+						this.ventanaEditarCita.getFechaCita().plusDays(1), this.ventanaEditarCita.getSucursal().getIdSucursal());
 
 			}
 			if (this.sistema.editarCita(citaEditada))
