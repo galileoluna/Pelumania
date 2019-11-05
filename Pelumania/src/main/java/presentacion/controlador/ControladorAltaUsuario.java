@@ -55,45 +55,45 @@ public class ControladorAltaUsuario {
 		String estado=this.ventanaAltaUsuario.getEstado().getSelectedItem().toString();
 		int permiso=usuario.getRolById(this.ventanaAltaUsuario.getComboPerm().getSelectedItem().toString());
 		int sucursal=usuario.getSucuById(this.ventanaAltaUsuario.getComboSucu().getSelectedItem().toString());
-		String validador=validar(nombre,apellido,mail,user,pass,estado,permiso,sucursal);
+		Integer validador=validar(nombre,apellido,mail,user,pass,estado,permiso,sucursal);
 		switch (validador) {
-			case "true":
+			case 1:
 				UsuarioDTO usuarioNew= new UsuarioDTO(1,nombre,apellido,user,pass,mail,estado,permiso,sucursal);
 				sistema.agregarUsuario(usuarioNew);
 				ventanaAltaUsuario.cerrar();
 				controladorUsuario.getInstance(sistema,usuario);
 				break;
 	
-			case "casi":
+			case 2:
 				JOptionPane.showMessageDialog(null, "Por favor ingrese un mail existente", "Error", JOptionPane.ERROR_MESSAGE);
 				break;
-			case "false":
+			case 0:
 				JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
 				break;
 				
-			case "nombre":
+			case 3:
 				JOptionPane.showMessageDialog(null, "Por favor ingrese otro nombre de usuario, el que intenta usar ya existe", "Error", JOptionPane.ERROR_MESSAGE);
 				break;
 		}	
 	}
 
 
-	private String validar(String nombre, String apellido, String mail, String user, String pass, String estado,Integer permiso , Integer sucursal) {
+	private int validar(String nombre, String apellido, String mail, String user, String pass, String estado,Integer permiso , Integer sucursal) {
 		List<UsuarioDTO> usuario=sistema.obtenerUsuarios1();
 		if(nombre.equals("") || nombre == null || apellido.equals("") || apellido == null || user.equals("") || user == null 
 		|| pass.equals("") || pass == null || estado.equals("") || estado == null || permiso == null || sucursal == null ) {
 				
-			return "false";
+			return 0;
 		}else {
 			if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$",mail))) {
-				return "casi";
+				return 1;
 			}
 			for (UsuarioDTO u : usuario) {
 				if(u.getNombreUsuario().equals(user)) {
-					return "nombre";
+					return 3;
 				}
 			}
-				return "true";	
+				return 1;	
 		}
 		
 	}
