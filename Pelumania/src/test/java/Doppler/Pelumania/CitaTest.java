@@ -20,16 +20,14 @@ class CitaTest {
 	@Test
 	void test() {
 		sistema=new Sistema(new DAOSQLFactory());
-		for (int i=0;i<sistema.obtenerCitas().size();i++) {
-			sistema.deleteReal(sistema.obtenerCitas().get(i));
-		}
+	
 		
 		BigDecimal peso=new BigDecimal(1);
 		BigDecimal dolar=new BigDecimal(60);
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,0, "juan","montero","activa",null,null,peso,dolar,inicio,fin,fecha,1);
 		
 		
 		sistema.agregarCita(cita);

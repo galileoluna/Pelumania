@@ -14,6 +14,7 @@ class SucursalDTOtest {
 	void testSucursalConstructorIdSucursal() {
 		sucursal=new SucursalDTO(1,"san miguel","spain",1010,"activo");
 		
+		assertEquals(sucursal.hashCode(),1121248442);
 		assertEquals(sucursal.getIdSucursal(),1);
 	}
 	
@@ -85,4 +86,29 @@ class SucursalDTOtest {
 		
 		assertEquals(sucursal.getEstadoSucursal(),"inactivo");
 	}
+	@Test
+	void testEquals() {
+		sucursal=new SucursalDTO(1,"san miguel","spain",1010,"activo");
+		SucursalDTO sucursal1=new SucursalDTO(1,"san miguel","spain",1010,"activo");
+		sucursal.setEstadoSucursal("inactivo");
+		
+		assertFalse(sucursal.equals(sucursal1));
+	}
+	@Test
+	void testNEquals() {
+		sucursal=new SucursalDTO(1,"san miguel","spain",1010,"activo");
+		SucursalDTO sucursal1=new SucursalDTO(1,"san miguel","spain",1010,"activo");
+		sucursal.setEstadoSucursal("inactivo");
+		
+		assertTrue(sucursal.equals(sucursal));
+	}
+	@Test
+	void testNullEquals() {
+		sucursal=new SucursalDTO(1,"san miguel","spain",1010,"activo");
+	
+		
+		assertFalse(sucursal.equals(null));
+	}
+	
+	
 }

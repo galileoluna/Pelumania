@@ -26,6 +26,7 @@ class MovimientoTest {
 		Timestamp timestamp = Timestamp.from(Instant.now());
 		movimiento=new MovimientoCajaDTO(1,1,1,timestamp,"Compra Shampo",1,peso,dolar,1,1,1,1);
 		
+		
 	}
 
 }

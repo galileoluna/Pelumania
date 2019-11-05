@@ -2,6 +2,8 @@ package persistencia.dao.interfaz;
 
 import java.util.List;
 import dto.UsuarioDTO;
+import persistencia.dao.mariadb.UsuarioDAOSQL;
+
 import java.util.HashMap;
 
 public interface UsuarioDAO {
@@ -17,6 +19,9 @@ public interface UsuarioDAO {
 	public boolean update(UsuarioDTO usuario_a_modificar);
 
 	public HashMap<String, Integer> readRol();
+
+
+	boolean insert(UsuarioDTO user);
 	
 
 
