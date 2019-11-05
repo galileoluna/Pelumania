@@ -16,10 +16,10 @@ import util.Validador;
 public class ClienteDAOSQL implements ClienteDAO
 {
 
-	private static final String insert = "INSERT INTO Cliente( idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, Deuda) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO Cliente( idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)";
 	private static final String delete = "UPDATE  Cliente SET EstadoCliente=? WHERE idCliente = ?";
 	private static final String readall = "SELECT * FROM Cliente";
-	private static final String update = "UPDATE  Cliente SET Nombre=? , Apellido=? , Telefono=? , Mail=? , Puntos=? , EstadoCliente=?, Deuda=? WHERE idCliente=?";
+	private static final String update = "UPDATE  Cliente SET Nombre=? , Apellido=? , Telefono=? , Mail=? , Puntos=? , EstadoCliente=?, DeudaPesos=?, DeudaDolar=? WHERE idCliente=?";
 	private static final String deleteReal = "DELETE FROM Cliente WHERE idCliente = ?";
 	private static final String ESTADO_INACTIVO = "inactivo";
 	private static final String readById = "SELECT * FROM Cliente WHERE idCliente = ?";
@@ -41,8 +41,8 @@ public class ClienteDAOSQL implements ClienteDAO
 			statement.setString (5, cliente.getMail());
 			statement.setInt    (6, cliente.getPuntos());
 			statement.setString (7, cliente.getEstadoCliente());
-			statement.setBigDecimal (8, cliente.getDeuda());
-
+			statement.setBigDecimal (8, cliente.getDeudaPesos());
+			statement.setBigDecimal (9, cliente.getDeudaDolar());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -120,9 +120,9 @@ public class ClienteDAOSQL implements ClienteDAO
 		String mail = resultSet.getString("Mail");
 		int puntos = resultSet.getInt("Puntos");
 		String estado = resultSet.getString("EstadoCliente");
-		BigDecimal deuda = resultSet.getBigDecimal("Deuda");
-
-		return new ClienteDTO(id, nombre, apellido, telefono, mail, puntos, estado, deuda);
+		BigDecimal deudaPesos = resultSet.getBigDecimal("DeudaPesos");
+		BigDecimal deudaDolar = resultSet.getBigDecimal("DeudaDolar");
+		return new ClienteDTO(id, nombre, apellido, telefono, mail, puntos, estado, deudaPesos,deudaDolar);
 	}
 
 	@Override
@@ -141,8 +141,10 @@ public class ClienteDAOSQL implements ClienteDAO
 			statement.setString (4, cliente_a_editar.getMail());
 			statement.setInt    (5, cliente_a_editar.getPuntos());
 			statement.setString (6, cliente_a_editar.getEstadoCliente());
-			statement.setBigDecimal (7, cliente_a_editar.getDeuda());
-			statement.setInt	(8, cliente_a_editar.getIdCliente());
+			statement.setBigDecimal (7, cliente_a_editar.getDeudaPesos());
+			statement.setBigDecimal (8, cliente_a_editar.getDeudaDolar());
+			
+			statement.setInt	(9, cliente_a_editar.getIdCliente());
 
 			chequeoUpdate = statement.executeUpdate();
 			conexion.getSQLConexion().commit();
@@ -211,7 +213,8 @@ public class ClienteDAOSQL implements ClienteDAO
 			&& Validador.esNombreConEspaciosValido(cliente.getApellido())
 			&& Validador.esMail(cliente.getMail()) 
 			&& Validador.esEstadoClienteValido(cliente.getEstadoCliente()) 
-			&& Validador.esPrecioValido(String.valueOf(cliente.getDeuda()))) 
+			&& Validador.esPrecioValido(String.valueOf(cliente.getDeudaPesos()))
+			&& Validador.esPrecioValido(String.valueOf(cliente.getDeudaDolar()))) 
 		{
 			return true;
 		
