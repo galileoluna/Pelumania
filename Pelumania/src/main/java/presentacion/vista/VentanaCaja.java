@@ -198,6 +198,11 @@ public class VentanaCaja extends JFrame
 		JOptionPane.showMessageDialog(new JFrame(), "Campos ingresados inválidos", "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
+	
+	public void mostrarErrorMoroso() {
+		JOptionPane.showMessageDialog(new JFrame(), "primero debera pagar su deuda", "Cliente moroso",
+				JOptionPane.ERROR_MESSAGE);
+	}
 
 	public void limpiarCampos() {
 		this.txtPrecioDolar.setText(null);
@@ -280,6 +285,5 @@ public class VentanaCaja extends JFrame
 	public void mostrarErrorBDD() {
 		JOptionPane.showMessageDialog(new JFrame(), "Ocurrió un error al intentar registar la operación", "Dialog",
 				JOptionPane.ERROR_MESSAGE);	
-		
 	}
 }
