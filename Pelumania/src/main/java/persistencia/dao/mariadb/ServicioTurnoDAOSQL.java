@@ -11,7 +11,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.CitaDTO;
 import dto.ServicioTurnoDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.ServicioTurnoDAO;
@@ -37,6 +36,7 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 													" FROM ServicioTurno"+
 													" WHERE idProfesional = ?"+ 
 													" AND (( ? < HoraInicio AND ? > HoraInicio)"+
+													" OR ( ? > HoraInicio AND ? < HoraFin) "+
 													" OR (?= HoraInicio)"+
 													" OR (? > HoraInicio AND ? <= HoraFin))"+
 													" AND idCita IN"+
@@ -210,9 +210,11 @@ public class ServicioTurnoDAOSQL implements ServicioTurnoDAO {
 			statement.setTime	(3, Time.valueOf(horaFin));
 			statement.setTime	(4, Time.valueOf(horaInicio));
 			statement.setTime	(5, Time.valueOf(horaInicio));
-			statement.setTime	(6, Time.valueOf(horaFin));
-			statement.setDate	(7, Date.valueOf(fecha));
-			statement.setString	(8, "Activa");
+			statement.setTime	(6, Time.valueOf(horaInicio));
+			statement.setTime	(7, Time.valueOf(horaInicio));
+			statement.setTime	(8, Time.valueOf(horaFin));
+			statement.setDate	(9, Date.valueOf(fecha));
+			statement.setString	(10, "Activa");
 			System.out.println(statement);
 			resultSet = statement.executeQuery();
 			
