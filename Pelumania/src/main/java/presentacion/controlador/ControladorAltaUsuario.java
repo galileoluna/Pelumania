@@ -55,23 +55,30 @@ public class ControladorAltaUsuario {
 		int permiso=usuario.getRolById(this.ventanaAltaUsuario.getComboPerm().getSelectedItem().toString());
 		int sucursal=usuario.getSucuById(this.ventanaAltaUsuario.getComboSucu().getSelectedItem().toString());
 		String validador=validar(nombre,apellido,mail,user,pass,estado,permiso,sucursal);
-		if(validador.equals("true")) {
-			UsuarioDTO usuarioNew= new UsuarioDTO(1,nombre,apellido,user,pass,mail,estado,permiso,sucursal);
-			sistema.agregarUsuario(usuarioNew);
-			ventanaAltaUsuario.cerrar();
-			controladorUsuario.getInstance(sistema,usuario);
-		}else {
-			if(validador.equals("false")) {
-			JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
-			}else {
+		switch (validador) {
+			case "true":
+				UsuarioDTO usuarioNew= new UsuarioDTO(1,nombre,apellido,user,pass,mail,estado,permiso,sucursal);
+				sistema.agregarUsuario(usuarioNew);
+				ventanaAltaUsuario.cerrar();
+				controladorUsuario.getInstance(sistema,usuario);
+				break;
+	
+			case "casi":
 				JOptionPane.showMessageDialog(null, "Por favor ingrese un mail existente", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		
+				break;
+			case "false":
+				JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+				break;
+				
+			case "nombre":
+				JOptionPane.showMessageDialog(null, "Por favor ingrese otro nombre de usuario, el que intenta usar ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+				break;
+		}	
 	}
 
 
 	private String validar(String nombre, String apellido, String mail, String user, String pass, String estado,Integer permiso , Integer sucursal) {
+		List<UsuarioDTO> usuario=sistema.obtenerUsuarios();
 		if(nombre.equals("") || nombre == null || apellido.equals("") || apellido == null || user.equals("") || user == null 
 		|| pass.equals("") || pass == null || estado.equals("") || estado == null || permiso == null || sucursal == null ) {
 				
@@ -79,9 +86,14 @@ public class ControladorAltaUsuario {
 		}else {
 			if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$",mail))) {
 				return "casi";
-			}else {
-				return "true";
 			}
+			for (UsuarioDTO u : usuario) {
+				if(u.getNombreUsuario().equals(user)) {
+					return "nombre";
+				}
+			}
+				return "true";
+			
 		}
 		
 	}

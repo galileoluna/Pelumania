@@ -38,8 +38,8 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 	    		statement.setString (2, user.getApellido());
 	    		statement.setString (3, 	user.getNombreUsuario());
 	    		statement.setString (4, 	user.getContrasenia());
-	    		statement.setString(5,		user.getEstado());
-	    		statement.setString(6,		user.getMail());
+	    		statement.setString(5,		user.getMail());
+	    		statement.setString(6,		user.getEstado());
 	    		statement.setInt(7,		user.getIdRol());
 	    		statement.setInt(8,		user.getIdSucursal());
 	    
