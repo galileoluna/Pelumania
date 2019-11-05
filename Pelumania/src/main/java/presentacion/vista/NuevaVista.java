@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -67,6 +68,8 @@ public class NuevaVista implements Runnable {
 			private JMenuItem mntmGenerarReportePorCliente;
 			private JMenuItem mntmGenerarReportePorProfesional;
 			private JMenuItem mntmGenerarReporteRanking;
+		private JMenu JM_Usuarios;
+			private JMenuItem mntmGestionarUsuarios;
 			
 	private JPanel JPnl_Izquierdo;
 	
@@ -269,6 +272,12 @@ public class NuevaVista implements Runnable {
 		
 		mntmGenerarReporteRanking = new JMenuItem("Generar ranking de ventas");
 		JM_Reportes.add(mntmGenerarReporteRanking);
+		
+		JM_Usuarios = new JMenu("Usuarios");
+		menuBar.add(JM_Usuarios);
+		
+		mntmGestionarUsuarios= new JMenuItem("Gestionar Usuarios");
+		JM_Usuarios.add(mntmGestionarUsuarios);
 	}
 
 	private void crearCalendario() {
@@ -1097,6 +1106,14 @@ public class NuevaVista implements Runnable {
 
 	public void setDetalleDeCita(panelDetalle detalleDeCita) {
 		this.detalleDeCita = detalleDeCita;
+	}
+
+	public JMenuItem getMntmGestionarUsuarios() {
+		return mntmGestionarUsuarios;
+	}
+	
+	public JMenu getMenuUsuarios() {
+		return JM_Usuarios;
 	}
 }
 
