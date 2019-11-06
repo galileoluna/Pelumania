@@ -104,7 +104,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmUtilizarCaja().addActionListener(g -> ventanaCaja(g));
 		this.nvista.getMntmConsultarCategorias().addActionListener(h -> ventanCategoriaMovimientoCaja(h));
 		this.nvista.getMntmGestionarUsuarios().addActionListener(z -> ventanaUsuarios(z));
-		this.nvista.getMtmCambiarContrasenia().addActionListener(z-> ventanaCambiarContrasenia(z));
+		this.nvista.getMtmCambiarContrasenia().addActionListener(w-> ventanaCambiarContrasenia(w));
         this.nvista.getMntmReporteLocal().addActionListener(l -> ventanaReportesLocal(l));
 		this.nvista.getMntmReporteGeneral().addActionListener(h -> ventanaReporteGeneral(h));
 		this.nvista.getMntmReportePorServicio().addActionListener(l -> ventanaReporteServicio(l));
@@ -663,7 +663,7 @@ public void actualizarDiaSeleccionado() {
 		this.controladorUsuario= ControladorUsuario.getInstance(sistema,usuario);
 	}
 	
-	private void ventanaCambiarContrasenia(ActionEvent z) {
+	private void ventanaCambiarContrasenia(ActionEvent w) {
 		this.controladorCambContra= ControladorCambiarContrasenia.getInstance(sistema,usuario);
 	}
 

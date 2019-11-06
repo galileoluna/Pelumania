@@ -1,163 +1,151 @@
 package presentacion.vista;
 
-
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.List;
 
 import javax.swing.JButton;
-
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-import persistencia.conexion.Conexion;
+import dto.ProfesionalDTO;
+import util.RowsRendererBasic;
 
-import java.awt.Font;
-import javax.swing.JTextField;
-
-public class VentanaCambioContrasenia {
-
-	private JFrame frmChange;
-	private JPanel contentPane;
-	private JButton btnIniciar;
-	private JLabel lblNombre;
-	private JLabel nombreUser;
+public class VentanaCambioContrasenia
+{
 	private static VentanaCambioContrasenia INSTANCE;
-	private JPasswordField passVieja;
-	private JPasswordField passNew;
-	private JPasswordField passNew2;
+	private JFrame frmCambiarContra;
+	private JButton btnAgregar;
+	private DefaultTableModel modelCambio;
+	private JLabel lblContraseniaActual;
+	private JLabel lblContraseniaNueva;
+	private JLabel lblRepetirContasea;
+	private JLabel nombreUser;
+	private JPasswordField contraVieja;
+	private JPasswordField contraNueva;
+	private JPasswordField contraNueva2;
 
 	public VentanaCambioContrasenia() 
 	{
 		super();
 		initialize();
 	}
-
 	public static VentanaCambioContrasenia getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaCambioContrasenia();
+			INSTANCE = new VentanaCambioContrasenia(); 	
 			return new VentanaCambioContrasenia();
-		} else {
-			return INSTANCE;
 		}
+		else
+			return INSTANCE;
 	}
 
-	public void initialize() {
+	private void initialize() 
+	{
+		frmCambiarContra = new JFrame();
+		frmCambiarContra.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
+		frmCambiarContra.setTitle("Cambiar Contrtaseña");
+		frmCambiarContra.setBounds(100, 100, 436, 311);
 		
-		frmChange = new JFrame();
-		frmChange.setTitle("Cambio de Contraseña");
-		frmChange.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
-		frmChange.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmChange.setBounds(100, 100, 421, 271);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frmChange.setLocation(dim.width/2-frmChange.getSize().width/2, dim.height/2-frmChange.getSize().height/2);
+		frmCambiarContra.setLocation(dim.width/2-frmCambiarContra.getSize().width/2, dim.height/2-frmCambiarContra.getSize().height/2);
 		
-		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frmChange.getContentPane().add(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblEmpleado = new JLabel("Ususario: ");
-		lblEmpleado.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEmpleado.setBounds(10, 11, 241, 19);
-		contentPane.add(lblEmpleado);
+		frmCambiarContra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCambiarContra.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 41, 395, 180);
-		contentPane.add(panel);
+		panel.setBounds(0, 0, 410, 261);
+		frmCambiarContra.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblDias = new JLabel("Contraseña Actual:");
-		lblDias.setBounds(10, 11, 132, 14);
-		panel.add(lblDias);
+		RowsRendererBasic rr = new RowsRendererBasic(4);
 		
-		btnIniciar = new JButton("Guardar");
-		btnIniciar.setBounds(125, 146, 160, 23);
-		panel.add(btnIniciar);
+		btnAgregar = new JButton("Guardar");
+		btnAgregar.setBounds(121, 226, 153, 23);
+		panel.add(btnAgregar);
 		
-		JLabel lblContrasea = new JLabel("Contraseña Nueva:");
-		lblContrasea.setBounds(10, 55, 132, 14);
-		panel.add(lblContrasea);
+		JLabel lblUser = new JLabel("Usuario:");
+		lblUser.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblUser.setBounds(10, 11, 95, 24);
+		panel.add(lblUser);
 		
-		passVieja = new JPasswordField();
-		passVieja.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		passVieja.setBounds(215, 6, 170, 20);
-		panel.add(passVieja);
-		passVieja.setColumns(10);
+		lblContraseniaActual = new JLabel("Contrasenia Actual:");
+		lblContraseniaActual.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblContraseniaActual.setBounds(10, 71, 186, 24);
+		panel.add(lblContraseniaActual);
 		
-		passNew = new JPasswordField();
-		passNew.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		passNew.setColumns(10);
-		passNew.setBounds(215, 55, 170, 20);
-		panel.add(passNew);
+		lblContraseniaNueva = new JLabel("Contrasenia Nueva:");
+		lblContraseniaNueva.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblContraseniaNueva.setBounds(10, 126, 199, 24);
+		panel.add(lblContraseniaNueva);
 		
-		JLabel label = new JLabel("Contraseña Nueva:");
-		label.setBounds(10, 104, 132, 14);
-		panel.add(label);
-		
-		passNew2 = new JPasswordField();
-		passNew2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		passNew2.setColumns(10);
-		passNew2.setBounds(215, 101, 170, 20);
-		panel.add(passNew2);
-	
-		
-		lblNombre = new JLabel("");
-		lblNombre.setBounds(112, 16, 139, 14);
-		contentPane.add(lblNombre);
+		lblRepetirContasea = new JLabel("Repetir contaseña:");
+		lblRepetirContasea.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblRepetirContasea.setBounds(10, 181, 199, 24);
+		panel.add(lblRepetirContasea);
 		
 		nombreUser = new JLabel("");
-		nombreUser.setFont(new Font("Tahoma", Font.BOLD, 11));
-		nombreUser.setBounds(87, 11, 241, 19);
-		contentPane.add(nombreUser);
+		nombreUser.setFont(new Font("Tahoma", Font.BOLD, 13));
+		nombreUser.setBounds(120, 11, 228, 24);
+		panel.add(nombreUser);
 		
-		frmChange.setVisible(true);
+		contraVieja = new JPasswordField();
+		contraVieja.setBounds(206, 74, 186, 20);
+		panel.add(contraVieja);
+		contraVieja.setColumns(10);
+		
+		contraNueva = new JPasswordField();
+		contraNueva.setColumns(10);
+		contraNueva.setBounds(206, 129, 186, 20);
+		panel.add(contraNueva);
+		
+		contraNueva2 = new JPasswordField();
+		contraNueva2.setColumns(10);
+		contraNueva2.setBounds(206, 184, 186, 20);
+		panel.add(contraNueva2);
+		
 	}
 	
-
-
-	public void cerrar() {
-		this.passNew.setText("");
-		this.passNew2.setText("");
-		this.passVieja.setText("");
-		frmChange.dispose();
+	public void show()
+	{
+		this.frmCambiarContra.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.frmCambiarContra.setVisible(true);
 	}
 	
-	public JPasswordField getPass() {
-		return this.passNew;
+	public JButton getBtnguardar() 
+	{
+		return btnAgregar;
 	}
 	
-	public JPasswordField getPass2() {
-		return this.passNew2;
-	}
-	
-	public JPasswordField getPassVieja() {
-		return this.passVieja;
-	}
-	
-	public JButton getIniciar() {
-		return this.btnIniciar;
-	}
-	
-	public JButton getnGuardar() {
-		return this.btnIniciar;
-	}
-
+		
 	public JLabel getNombreUser() {
 		return nombreUser;
 	}
-
 	public void setNombreUser(JLabel nombreUser) {
 		this.nombreUser = nombreUser;
 	}
-
+	public JPasswordField getContraVieja() {
+		return contraVieja;
+	}
+	public JPasswordField getContraNueva() {
+		return contraNueva;
+	}
+	public JPasswordField getContraNueva2() {
+		return contraNueva2;
+	}
+	public void cerrar() {
+		this.contraNueva.setText("");
+		this.contraNueva2.setText("");
+		this.contraVieja.setText("");
+		this.nombreUser.setText("");
+		frmCambiarContra.dispose();
+	}
 }

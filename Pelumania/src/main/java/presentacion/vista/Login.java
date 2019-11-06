@@ -118,10 +118,10 @@ public class Login {
 		this.frmLogin.setVisible(true);
 	}
 	
-
 	public void cerrar() {
 		frmLogin.dispose();
 	}
+
 	
 	public JPasswordField getPass() {
 		return this.pass;
