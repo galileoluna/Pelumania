@@ -47,22 +47,37 @@ public class ControladorEditarPromo {
 		Double descuento=(this.ventanaEditarPromo.getDescuento().getText().equals("")?null:Double.parseDouble(this.ventanaEditarPromo.getDescuento().getText()));
 		Integer puntos=(this.ventanaEditarPromo.getPuntos().getText().equals("")?null:Integer.parseInt(this.ventanaEditarPromo.getPuntos().getText()));
 		String estado=this.ventanaEditarPromo.getEstado().getSelectedItem().toString();
-		if(validar(desc,utilDate,utilDate2,descuento,puntos,estado)) {
+		int valid=validar(desc,utilDate,utilDate2,descuento,puntos,estado);
+		switch (valid) {
+		case 1:
 			java.sql.Date fechaIn =new java.sql.Date(utilDate.getYear(),utilDate.getMonth(),  utilDate.getDate()+1);
 			java.sql.Date fechaF = new java.sql.Date(utilDate2.getYear(),utilDate2.getMonth(),  utilDate2.getDate()+1);
 			PromocionDTO promo= new PromocionDTO (idPromo,desc,fechaIn,fechaF,descuento,puntos,estado);
 			this.sistema.editarPromocion(promo);
 			this.ventanaEditarPromo.cerrar();
 			this.controlPromo.getInstance(sistema);
-		}else {
+			break;
+
+		case 0:
 			JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+			break;
+			
+		case 2:
+			JOptionPane.showMessageDialog(null, "Por favor ingrese una fecha de finalizacion mayor a la inicial", "Error", JOptionPane.ERROR_MESSAGE);
+			break;
 		}
+			
+		
 	}
 	
-	public boolean validar( String descripcion, java.util.Date utilDate, java.util.Date utilDate2, Double desc ,Integer puntos,String estado) {
+	private int validar( String descripcion, java.util.Date utilDate, java.util.Date utilDate2, Double desc ,Integer puntos,String estado) {
 		if(descripcion==null || descripcion.equals("") || utilDate==null || utilDate2==null || estado.equals("") || (desc==null && puntos==null)) {
-			return false;
+			return 0;
 		}
-		return true;
+		int compare= utilDate.compareTo(utilDate2);
+		if(compare > 0) {
+			return 2;
+		}
+			return 1;
 	}
 }
