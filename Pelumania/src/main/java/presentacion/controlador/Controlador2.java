@@ -581,7 +581,9 @@ public void actualizarDiaSeleccionado() {
 			if (citaSeleccionada != null) {
 				if(!citaSeleccionada.getEstado().equals("Cancelada") &&
 				   !citaSeleccionada.getEstado().equals("Finalizada") &&
-				   !citaSeleccionada.getEstado().equals("Vencida")) {
+				   !citaSeleccionada.getEstado().equals("Vencida") &&
+				   !citaSeleccionada.getEstado().equals("Fiado")){
+) {
 		
 				OperacionesCita(true);
 				}
