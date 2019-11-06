@@ -80,7 +80,7 @@ public class ControladorLogin implements ActionListener{
 		
 		if(existeUsuario(username)){
 			UsuarioDTO user = this.sistema.obtenerUsuarioByUsername(username);
-			user.setContrasenia(user.getApellido()+"123");
+			user.setContrasenia(user.getApellido().subSequence(0, 4)+"123");
 			this.sistema.editarUsuario(user);
 			MailService.enviarPassProvisorio(user);
 			this.login.mostrarEnvioMail();
