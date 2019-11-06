@@ -202,4 +202,10 @@ public JButton getBtnAgregarCategoria() {
 		JOptionPane.showMessageDialog(new JFrame(), "El nombre es inválido", "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
+
+	public void mostrarErrorCategoriaEnUso() {
+		// TODO Auto-generated method stub
+			JOptionPane.showMessageDialog(new JFrame(), "La categoría ya fue utilizada, no puede editar el tipo", "Dialog",
+					JOptionPane.ERROR_MESSAGE);
+	}
 }

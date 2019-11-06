@@ -47,8 +47,8 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	private static final String readDayIngresosPorServicio = "SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = 'ingreso' and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? and Caja.idServicio=?";
 	
 	private static final String ranking="SELECT * FROM Caja,CategoriaCaja WHERE CategoriaCaja.tipoMovimiento = 'ingreso' and Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<? ORDER BY Caja.idCliente";
-	//no damos la opcion de "dar de baja" un ingreso ya que 
-	// seria como cancelar un pago
+	
+	private static final String readByIdCategoria = "SELECT * FROM Caja, CategoriaCaja WHERE Caja.idCategoriaCaja = ?";
 	
 	@Override
 	public boolean insertEgreso(MovimientoCajaDTO movimiento) {
@@ -355,5 +355,31 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 		}
 		return isInsertExitoso;
 	}
+
+	@Override
+	public List<MovimientoCajaDTO> readMovimientosByIdCategoria(int idCategoria) {
+
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<MovimientoCajaDTO> caja = new ArrayList<MovimientoCajaDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readByIdCategoria);
+			statement.setInt(1, idCategoria);
+			
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				caja.add(getCajaDTO(resultSet));
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return caja;
+	
+	} 
 
 }

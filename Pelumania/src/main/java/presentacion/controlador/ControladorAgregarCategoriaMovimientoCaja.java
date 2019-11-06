@@ -2,10 +2,12 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 
 import dto.CategoriaMovimientoCajaDTO;
+import dto.MovimientoCajaDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaAgregarCategoriaMovimientosCaja;
 import util.Validador;
@@ -30,29 +32,44 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 		this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
 	}
 
-	private void editarCategoria(ActionEvent l) {
-		String nombre = this.VentanaAgregarCategoriaMovimientosCaja.getTxtNombre().getText();
-		String estado = this.VentanaAgregarCategoriaMovimientosCaja.getComboEstado().getSelectedItem().toString();
-		String tipo = this.VentanaAgregarCategoriaMovimientosCaja.getComboTipoMovimiento().getSelectedItem().toString();
+	private boolean editarCategoria(ActionEvent l) {
+		CategoriaMovimientoCajaDTO categoriaOriginal = this.sistema.getCategoriaMovimientoCajaById(this.idCategoria);
+		
+		String nombreNuevo = this.VentanaAgregarCategoriaMovimientosCaja.getTxtNombre().getText();
+		String estadoNuevo = this.VentanaAgregarCategoriaMovimientosCaja.getComboEstado().getSelectedItem().toString();
+		String tipoNuevo = this.VentanaAgregarCategoriaMovimientosCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		
 		//validamos campos
-		if ( Validador.esNombreConEspaciosValido(nombre) && Validador.esTipoMovimientoValido(tipo)) {
-			 if (!existeCategoria(nombre)){
-				CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombre,estado,tipo);
-				this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
-				ControladorCategoriaMovimientoCaja.getInstance(sistema);
-				this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
-				this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoEditar();
-			
-			 } else {
+		if ( Validador.esNombreConEspaciosValido(nombreNuevo) && Validador.esTipoMovimientoValido(tipoNuevo)) {
+			 if (existeCategoria(nombreNuevo)){
 				 //esta repetido
 				 this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorRepetido();
+				 return false;
+			
+			 } else if(categoriaEnUso(idCategoria) && !categoriaOriginal.getTipoMovimiento().equalsIgnoreCase(tipoNuevo)) {
+				 //se esta cambiando su tipo pero ya fue usada
+				 this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCategoriaEnUso();
+				 return false;
+			} else {
+				 CategoriaMovimientoCajaDTO categoria_a_editar = new CategoriaMovimientoCajaDTO(this.idCategoria,nombreNuevo,estadoNuevo,tipoNuevo);
+				 this.sistema.updateCategoriaMovimientoCaja(categoria_a_editar);
+				 ControladorCategoriaMovimientoCaja.getInstance(sistema);
+				 this.VentanaAgregarCategoriaMovimientosCaja.cerrar();
+				 this.VentanaAgregarCategoriaMovimientosCaja.mostrarExitoEditar();
 			 }
 		
 		} else {
 			//los campos estan mal
 			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorCampos();
+			return false;
 		}
+		return true;
+	}
+
+	private boolean categoriaEnUso(int idCategoria) {
+		List<MovimientoCajaDTO> movimientos = this.sistema.getMovimientosPorIdCategoria(idCategoria);
+		
+		return movimientos.size() > 0;
 	}
 
 	private boolean existeCategoria(String nombre) {
@@ -135,7 +152,7 @@ public class ControladorAgregarCategoriaMovimientoCaja   implements ActionListen
 			this.VentanaAgregarCategoriaMovimientosCaja.mostrarErrorNombre();
 		}
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

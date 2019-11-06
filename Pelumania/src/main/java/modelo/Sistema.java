@@ -455,6 +455,11 @@ public class Sistema
 	public List<MovimientoCajaDTO> obtenerMovimientoCajaRanking(String desde, String hasta){
 		return this.caja.rankingVentas(desde, hasta);
 	}
+	
+	public List<MovimientoCajaDTO> getMovimientosPorIdCategoria(int idCategoria) {
+	
+		return this.caja.readMovimientosByIdCategoria(idCategoria);
+	}
 	//FIN CAJA
 	
 	// COMIENZA CATEGORIAS MOVIMIENTO CAJA
@@ -508,4 +513,5 @@ public class Sistema
 	public HashMap<String, Integer> readRol(){
 		return this.usuario.readRol();
 	}
+
 }

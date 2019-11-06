@@ -1,6 +1,5 @@
 package persistencia.dao.interfaz;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import dto.MovimientoCajaDTO;
@@ -26,6 +25,8 @@ public interface MovimientoCajaDAO {
 	public List<MovimientoCajaDTO> readDaySucursal(String fecha, String fecha2, int sucursal);
 	
 	public List<MovimientoCajaDTO> rankingVentas(String desde,String hasta);
+
+	public List<MovimientoCajaDTO> readMovimientosByIdCategoria(int idCategoria);
 
 }
 
