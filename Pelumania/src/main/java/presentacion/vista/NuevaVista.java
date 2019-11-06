@@ -230,70 +230,70 @@ public class NuevaVista implements Runnable {
 		mntmGestionDeClientes = new JMenuItem(this.idioma.getString("cliente.titulo"));
 		JM_Cliente.add(mntmGestionDeClientes);
 		
-		JM_Servicio = new JMenu("Servicio");
+		JM_Servicio = new JMenu(this.idioma.getString("servicio"));
 		menuBar.add(JM_Servicio);
 		
-		mntmGestionDeServicios = new JMenuItem("Gestion de Servicios");
+		mntmGestionDeServicios = new JMenuItem(this.idioma.getString("servicio.titulo"));
 		JM_Servicio.add(mntmGestionDeServicios);
 		
-		JM_Profesional = new JMenu("Profesional");
+		JM_Profesional = new JMenu(this.idioma.getString("profesional"));
 		menuBar.add(JM_Profesional);
 		
-		mntmGestionDeProfesionales = new JMenuItem("Gestion de Profesionales");
+		mntmGestionDeProfesionales = new JMenuItem(this.idioma.getString("profesional.titulo"));
 		JM_Profesional.add(mntmGestionDeProfesionales);
 		
-		JM_Promociones = new JMenu("Promociones");
+		JM_Promociones = new JMenu(this.idioma.getString("promocion"));
 		menuBar.add(JM_Promociones);
 		
-		mntmGestionDePromociones = new JMenuItem("Gestion de Promociones");
+		mntmGestionDePromociones = new JMenuItem(this.idioma.getString("promocion.titulo"));
 		JM_Promociones.add(mntmGestionDePromociones);
 		
-		mntmVerPromocionesVigentes = new JMenuItem("Ver promociones Vigentes");
+		mntmVerPromocionesVigentes = new JMenuItem(this.idioma.getString("promocion.vigente"));
 		JM_Promociones.add(mntmVerPromocionesVigentes);
 		
-		JM_Sucursales = new JMenu("Sucursales");
+		JM_Sucursales = new JMenu(this.idioma.getString("sucursales"));
 		menuBar.add(JM_Sucursales);
 		
-		mntmGestionDeSucursales = new JMenuItem("Gestion de Sucursales");
+		mntmGestionDeSucursales = new JMenuItem(this.idioma.getString("sucursal.titulo"));
 		JM_Sucursales.add(mntmGestionDeSucursales);
 		
-		JM_Caja = new JMenu("Caja");
+		JM_Caja = new JMenu(this.idioma.getString("caja"));
 		menuBar.add(JM_Caja);
 		
-		mntmConsultarCategorias = new JMenuItem("Consulta de categorías");
+		mntmConsultarCategorias = new JMenuItem(this.idioma.getString("caja.categorias"));
 		JM_Caja.add(mntmConsultarCategorias);
 		
-		mntmUtilizarCaja = new JMenuItem("Utilizar Caja");
+		mntmUtilizarCaja = new JMenuItem(this.idioma.getString("caja.titulo"));
 		JM_Caja.add(mntmUtilizarCaja);
 		
-		JM_Reportes = new JMenu("Reportes");
+		JM_Reportes = new JMenu(this.idioma.getString("reportes"));
 		menuBar.add(JM_Reportes);
 		
-		mntmGenerarReporteLocal = new JMenuItem("Generar reporte por local");
+		mntmGenerarReporteGeneral = new JMenuItem(this.idioma.getString("reporte.general"));
+		JM_Reportes.add(mntmGenerarReporteGeneral);
+
+		mntmGenerarReporteLocal = new JMenuItem(this.idioma.getString("reporte.sucursal"));
 		JM_Reportes.add(mntmGenerarReporteLocal);
 		
-		mntmGenerarReporteGeneral = new JMenuItem("Generar reporte General");
-		JM_Reportes.add(mntmGenerarReporteGeneral);
-		
-		mntmGenerarReportePorServicio = new JMenuItem("Generar reporte por servicio");
+		mntmGenerarReportePorServicio = new JMenuItem(this.idioma.getString("reporte.servicio"));
 		JM_Reportes.add(mntmGenerarReportePorServicio);
 		
-		mntmGenerarReportePorCliente = new JMenuItem("Generar reporte por cliente");
+		mntmGenerarReportePorCliente = new JMenuItem(this.idioma.getString("reporte.cliente"));
 		JM_Reportes.add(mntmGenerarReportePorCliente);
 		
-		mntmGenerarReportePorProfesional = new JMenuItem("Generar reporte por profesional");
+		mntmGenerarReportePorProfesional = new JMenuItem(this.idioma.getString("reporte.profesional"));
 		JM_Reportes.add(mntmGenerarReportePorProfesional);
 		
-		mntmGenerarReporteRanking = new JMenuItem("Generar ranking de ventas");
+		mntmGenerarReporteRanking = new JMenuItem(this.idioma.getString("reporte.ranking"));
 		JM_Reportes.add(mntmGenerarReporteRanking);
 		
-		JM_Usuarios = new JMenu("Usuarios");
+		JM_Usuarios = new JMenu(this.idioma.getString("usuarios"));
 		menuBar.add(JM_Usuarios);
 		
-		mntmGestionarUsuarios= new JMenuItem("Gestionar Usuarios");
+		mntmGestionarUsuarios= new JMenuItem(this.idioma.getString("usuarios.titulo"));
 		JM_Usuarios.add(mntmGestionarUsuarios);
 		
-		mtmCambiarContrasenia= new JMenuItem("Cambiar Contraseña");
+		mtmCambiarContrasenia= new JMenuItem(this.idioma.getString("usuarios.cambiar.password"));
 		JM_Usuarios.add(mtmCambiarContrasenia);
 	}
 
