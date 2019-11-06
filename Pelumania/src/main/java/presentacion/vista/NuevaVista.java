@@ -70,7 +70,10 @@ public class NuevaVista implements Runnable {
 			private JMenuItem mntmGenerarReporteRanking;
 		private JMenu JM_Usuarios;
 			private JMenuItem mntmGestionarUsuarios;
+			private JMenuItem mtmCambiarContrasenia;
 			
+
+
 	private JPanel JPnl_Izquierdo;
 	
 		private JPanel JPnl_Calendario;
@@ -278,6 +281,9 @@ public class NuevaVista implements Runnable {
 		
 		mntmGestionarUsuarios= new JMenuItem("Gestionar Usuarios");
 		JM_Usuarios.add(mntmGestionarUsuarios);
+		
+		mtmCambiarContrasenia= new JMenuItem("Cambiar Contraseña");
+		JM_Usuarios.add(mtmCambiarContrasenia);
 	}
 
 	private void crearCalendario() {
@@ -867,7 +873,9 @@ public class NuevaVista implements Runnable {
 	public JMenuItem getMntmReporteRanking() {
 		return mntmGenerarReporteRanking;
 	}
-
+	public JMenuItem getMtmCambiarContrasenia() {
+		return mtmCambiarContrasenia;
+	}
 	public JLabel getLbl_Reloj() {
 		return Lbl_Reloj;
 	}

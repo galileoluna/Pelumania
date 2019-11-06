@@ -24,5 +24,7 @@ public interface UsuarioDAO {
 	public List<UsuarioDTO> readAll2();
 
 	public UsuarioDTO readByUsername(String user);
+
+	boolean updatePass(int id, String pass);
 	
 }

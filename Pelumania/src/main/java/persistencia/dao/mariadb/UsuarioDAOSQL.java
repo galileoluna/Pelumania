@@ -22,6 +22,7 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 	private static final String delete = "UPDATE Usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
 	private static final String readRol = "SELECT * FROM Rol";
 	private static final String readByUsername = "SELECT * from Usuario where nombreUsuario=?";
+	private static final String updatePass="UPDATE Usuario set Contrasenia=? WHERE idUsuario=?";
 
 	
 	   @Override
@@ -268,5 +269,30 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 			}
 			return usuario;
 		}
+	
+	@Override
+	public boolean updatePass(int id, String pass) {
+		PreparedStatement statement;
+		int chequeoUpdate = 0;
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(updatePass);
+			
+			statement.setString(1, pass);
+			statement.setInt(2, id);		
+			chequeoUpdate = statement.executeUpdate();
+			conexion.getSQLConexion().commit();
+			if(chequeoUpdate > 0)
+					return true;
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("false");
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 }

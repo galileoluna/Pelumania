@@ -66,6 +66,7 @@ public class Controlador2 implements ActionListener{
 	private ControladorReportePorProfesional controladorReportePorProfesional;
 	private ControladorReporteRankingDeVentas controladorReporteRankingVentas;
 	private ControladorUsuario controladorUsuario;
+	private ControladorCambiarContrasenia controladorCambContra;
 
 
 	/*
@@ -103,6 +104,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmUtilizarCaja().addActionListener(g -> ventanaCaja(g));
 		this.nvista.getMntmConsultarCategorias().addActionListener(h -> ventanCategoriaMovimientoCaja(h));
 		this.nvista.getMntmGestionarUsuarios().addActionListener(z -> ventanaUsuarios(z));
+		this.nvista.getMtmCambiarContrasenia().addActionListener(z-> ventanaCambiarContrasenia(z));
         this.nvista.getMntmReporteLocal().addActionListener(l -> ventanaReportesLocal(l));
 		this.nvista.getMntmReporteGeneral().addActionListener(h -> ventanaReporteGeneral(h));
 		this.nvista.getMntmReportePorServicio().addActionListener(l -> ventanaReporteServicio(l));
@@ -182,7 +184,7 @@ public class Controlador2 implements ActionListener{
 		  case 5:
 		    break;
 		  case 2:
-			  	 this.nvista.getMenuUsuarios().setVisible(false);
+			  	 this.nvista.getMntmGestionarUsuarios().setVisible(false);
 			  	 this.nvista.getJM_Profesional().setVisible(false);
 				 this.nvista.getJM_Servicio().setVisible(false);
 				 this.nvista.getJM_Cliente().setVisible(false);
@@ -197,13 +199,13 @@ public class Controlador2 implements ActionListener{
 				 this.nvista.getMntmReporteLocal().setVisible(false);
 		    break;
 		  case 3:
-			    this.nvista.getMenuUsuarios().setVisible(false);
+			    this.nvista.getMntmGestionarUsuarios().setVisible(false);
 			  	this.nvista.getJM_Reportes().setVisible(false);
 				this.nvista.getMntmGestionDePromociones().setVisible(false);
 				this.nvista.getJM_Sucursales().setVisible(false);
 			  break;
 		  case 4:
-			     this.nvista.getMenuUsuarios().setVisible(false);
+			     this.nvista.getMntmGestionarUsuarios().setVisible(false);
 				 this.nvista.getJM_Servicio().setVisible(false);
 				 this.nvista.getJM_Cliente().setVisible(false);
 				 this.nvista.getJM_Caja().setVisible(false);
@@ -660,7 +662,10 @@ public void actualizarDiaSeleccionado() {
 	private void ventanaUsuarios(ActionEvent z) {
 		this.controladorUsuario= ControladorUsuario.getInstance(sistema,usuario);
 	}
-
+	
+	private void ventanaCambiarContrasenia(ActionEvent z) {
+		this.controladorCambContra= ControladorCambiarContrasenia.getInstance(sistema,usuario);
+	}
 
 //	private void setearTimer() {
 //		this.timerEstados = new TimerEstadosCitas(sistema);
