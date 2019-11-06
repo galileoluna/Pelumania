@@ -25,6 +25,7 @@ import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.NuevaVista;
+import util.TimerEstadosCitas;
 
 public class Controlador2 implements ActionListener{
 	/*
@@ -39,6 +40,7 @@ public class Controlador2 implements ActionListener{
 	
 	private static LocalDate fechaSeleccionada;
 	private CitaDTO citaSeleccionada;
+	private TimerEstadosCitas timerEstados;
 	
 	/*
 	 * Controladores a instanciar 
@@ -128,10 +130,12 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getBtnLimpiarFiltros().addActionListener(n -> limpiarFiltros(n));
 		this.nvista.getBtn_VerComprobante().addActionListener(l -> verComprobante(l));
 		
+		
+		//dejamos la ultimo el timer porque toca lo visual
+//		setearTimer();
+
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 	}
-
-	
 
 	private void abrirVentanaCitaNueva(ActionEvent x) {
 		
@@ -656,6 +660,10 @@ public void actualizarDiaSeleccionado() {
 	private void ventanaUsuarios(ActionEvent z) {
 		this.controladorUsuario= ControladorUsuario.getInstance(sistema,usuario);
 	}
-	
-	
+
+
+//	private void setearTimer() {
+//		this.timerEstados = new TimerEstadosCitas(sistema);
+//		timerEstados.iniciar();
+//	}
 }

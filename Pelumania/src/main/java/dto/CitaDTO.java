@@ -258,4 +258,19 @@ public boolean esActiva() {
 	return this.estado.equalsIgnoreCase("Activa")|| this.estado.equalsIgnoreCase("fiado");
 }
 
+public boolean estaEnCurso() {
+	int comenzo = this.horaInicio.compareTo(LocalTime.now());
+	
+	int termino = this.horaFin.compareTo(LocalTime.now());
+	
+	if (comenzo >= 0 && termino <0) {
+		// esta en curso
+		return true;
+	
+	} else {		
+		//todavia no comenzo
+		return false;
+	}
+}
+
 }
