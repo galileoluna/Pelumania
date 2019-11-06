@@ -53,7 +53,6 @@ public class Controlador2 implements ActionListener{
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
 	private ControladorProfesional controladorProfesional;
-	private ControladorAgregarCita controladorAgregarCita;
 	private ControladorPromocion controladorPromocion;
 	private ControladorSucursal controladorSucursal;
 	private ControladorPromocionesVigentes controladorPromoVigente;
@@ -279,16 +278,6 @@ public class Controlador2 implements ActionListener{
 
 	private void ventanaReporteRanking(ActionEvent g) {
 		this.controladorReporteRankingVentas=ControladorReporteRankingDeVentas.getInstance(sistema);
-	}
-	
-	private void ventanaAgregarCita(ActionEvent k) {
-		if (validarFechaSeleccionada()) {
-			ControladorAgregarCita.setANIO(fechaSeleccionada.getYear());
-			ControladorAgregarCita.setMES(fechaSeleccionada.getMonthValue());
-			ControladorAgregarCita.setDIA(fechaSeleccionada.getDayOfMonth());
-			
-			this.controladorAgregarCita = ControladorAgregarCita.getInstance(sistema);
-		}
 	}
 	
 	private void cancelarCita(ActionEvent e) {
