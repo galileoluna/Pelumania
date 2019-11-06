@@ -583,7 +583,6 @@ public void actualizarDiaSeleccionado() {
 				   !citaSeleccionada.getEstado().equals("Finalizada") &&
 				   !citaSeleccionada.getEstado().equals("Vencida") &&
 				   !citaSeleccionada.getEstado().equals("Fiado")){
-) {
 		
 				OperacionesCita(true);
 				}
