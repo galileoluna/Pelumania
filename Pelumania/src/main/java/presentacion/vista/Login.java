@@ -148,7 +148,7 @@ public class Login {
 	}
 
 	public void mostrarEnvioMail() {
-			JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("login.recuperar.mail"),"Dialog",JOptionPane.INFORMATION_MESSAGE);	
+			JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("login.mail.enviado"),"Dialog",JOptionPane.INFORMATION_MESSAGE);	
 	}
 
 	public void mostarErrorUsuarioInvalido() {
