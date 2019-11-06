@@ -364,22 +364,22 @@ public class VentanaCliente extends JFrame{
 
 	}
 	public void mostrarErrorEdicionEstado() {
-		JOptionPane.showMessageDialog(new JFrame(), "No se puede cambiar el estado de este modo (usar pestaña Caja)", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.error.editar.estado"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}
 	public void mostrarErrorEdicionDeuda() {
-		JOptionPane.showMessageDialog(new JFrame(), "No se puede cambiar la deuda de este modo (usar pestaña Caja)", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.error.editar.deuda"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}
 	public void mostrarExitoEditar() {
-		JOptionPane.showMessageDialog(new JFrame(), "El cliente fue editado con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.editar.exito"),"Dialog",JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 
 	public void mostrarExitoAlta() {
-		JOptionPane.showMessageDialog(new JFrame(), "El cliente fue dado de alta con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.alta.exito"),"Dialog",JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 }
