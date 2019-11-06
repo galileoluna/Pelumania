@@ -74,7 +74,9 @@ public class NuevaVista implements Runnable {
 		private JMenu JM_Usuarios;
 			private JMenuItem mntmGestionarUsuarios;
 			private JMenuItem mtmCambiarContrasenia;
-			
+		private JMenu JM_Idioma;
+			private JMenuItem mtmCambiarIdioma;
+
 
 
 	private JPanel JPnl_Izquierdo;
@@ -295,6 +297,11 @@ public class NuevaVista implements Runnable {
 		
 		mtmCambiarContrasenia= new JMenuItem(this.idioma.getString("usuarios.cambiar.password"));
 		JM_Usuarios.add(mtmCambiarContrasenia);
+		
+		JM_Idioma = new JMenu(this.idioma.getString("idioma"));
+		menuBar.add(JM_Idioma);
+		mtmCambiarIdioma = new JMenuItem(this.idioma.getString("idioma.cambiar"));
+		JM_Idioma.add(mtmCambiarIdioma);
 	}
 
 	private void crearCalendario() {
@@ -1133,6 +1140,14 @@ public class NuevaVista implements Runnable {
 	
 	public JMenu getMenuUsuarios() {
 		return JM_Usuarios;
+	}
+
+	public JMenu getJM_Idioma() {
+		return JM_Idioma;
+	}
+
+	public JMenuItem getMtmCambiarIdioma() {
+		return mtmCambiarIdioma;
 	}
 }
 

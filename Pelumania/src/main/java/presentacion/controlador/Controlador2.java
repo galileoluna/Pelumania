@@ -66,7 +66,7 @@ public class Controlador2 implements ActionListener{
 	private ControladorReporteRankingDeVentas controladorReporteRankingVentas;
 	private ControladorUsuario controladorUsuario;
 	private ControladorCambiarContrasenia controladorCambContra;
-
+	private ControladorIdioma controladorIdioma;
 
 	/*
 	 * Arreglos que se utilizan en la vista
@@ -110,7 +110,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmReportePorCliente().addActionListener(g -> ventanaReporteCliente(g));
 		this.nvista.getMntmReportePorProfesional().addActionListener(l -> ventanaReporteProfesional(l));
 		this.nvista.getMntmReporteRanking().addActionListener(g ->ventanaReporteRanking(g));
-		
+		this.nvista.getMtmCambiarIdioma().addActionListener(l -> ventanaCambiarIdioma(l));
 		
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
@@ -136,6 +136,10 @@ public class Controlador2 implements ActionListener{
 //		setearTimer();
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
+	}
+
+	private void ventanaCambiarIdioma(ActionEvent l) {
+		controladorIdioma = ControladorIdioma.getInstance(sistema);
 	}
 
 	private void abrirVentanaCitaNueva(ActionEvent x) {
