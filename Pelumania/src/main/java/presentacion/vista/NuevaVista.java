@@ -8,6 +8,8 @@ import java.awt.Toolkit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -37,6 +39,7 @@ import com.toedter.calendar.JCalendar;
 import dto.CitaDTO;
 import dto.ProfesionalDTO;
 import dto.ServicioDTO;
+import util.PropertyManager;
 import util.RowsRenderer;
 
 public class NuevaVista implements Runnable {
@@ -153,6 +156,14 @@ public class NuevaVista implements Runnable {
 			 */
 			
 			/*
+			 * Configuracion de idioma
+			 *
+			 */ 
+			private Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+			private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+			
+			
+			/*
 			 * Variables para manejo de tabla Citas
 			 * */
 			private JTable tablaCitas;
@@ -210,10 +221,10 @@ public class NuevaVista implements Runnable {
 	}
 
 	private void crearOpcionesMenu() {
-		JM_Cliente = new JMenu("Cliente");
+		JM_Cliente = new JMenu(this.idioma.getString("cliente"));
 		menuBar.add(JM_Cliente);
 		
-		mntmGestionDeClientes = new JMenuItem("Gestion de Clientes");
+		mntmGestionDeClientes = new JMenuItem(this.idioma.getString("cliente.titulo"));
 		JM_Cliente.add(mntmGestionDeClientes);
 		
 		JM_Servicio = new JMenu("Servicio");

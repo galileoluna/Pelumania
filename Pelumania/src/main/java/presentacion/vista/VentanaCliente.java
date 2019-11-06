@@ -382,4 +382,11 @@ public class VentanaCliente extends JFrame{
 		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.alta.exito"),"Dialog",JOptionPane.INFORMATION_MESSAGE);
 		
 	}
+
+	public int mostrarConfirmacionBorrar() {
+		int confirm = JOptionPane.showOptionDialog(null, this.idioma.getString("cliente.borrar.confirmacion"),this.idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, null, null);
+		
+		return confirm;
+	}
 }
