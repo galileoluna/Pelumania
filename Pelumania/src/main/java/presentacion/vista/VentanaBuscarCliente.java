@@ -86,7 +86,14 @@ public class VentanaBuscarCliente extends JFrame
 		spClientes.setBounds(23, 79, 666, 143);
 		panel.add(spClientes);
 
-		modelClientes = new DefaultTableModel(null,nombreColumnas);
+		modelClientes = new DefaultTableModel(null,nombreColumnas) {
+			//Para que las celdas de la tabla no se puedan editar
+			@Override
+			public boolean isCellEditable(int row, int column) {
+					return false;
+			}
+		};
+
 		tablaClientes = new JTable(modelClientes);
 
 		tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -108,7 +115,7 @@ public class VentanaBuscarCliente extends JFrame
 
 		spClientes.setViewportView(tablaClientes);
 
-		btnSeleccionarCliente = new JButton("Seleccionar Cliente");
+		btnSeleccionarCliente = new JButton("Seleccionar");
 		btnSeleccionarCliente.setBounds(571, 233, 118, 23);
 		panel.add(btnSeleccionarCliente);
 

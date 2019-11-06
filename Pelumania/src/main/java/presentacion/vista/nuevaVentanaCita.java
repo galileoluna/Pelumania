@@ -1,15 +1,12 @@
 package presentacion.vista;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -33,7 +30,6 @@ import componentesVistas.PanelDinamicoProfesionales;
 import componentesVistas.PanelDinamicoPromociones;
 import componentesVistas.PanelDinamicoServicios;
 import dto.ClienteDTO;
-import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 
 public class nuevaVentanaCita {
@@ -367,7 +363,7 @@ public class nuevaVentanaCita {
 
 	private void crearBotonBuscar() {
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(448, 104, 97, 23);
+		btnBuscar.setBounds(448, 106, 97, 23);
 		btnBuscar.setEnabled(false);
 		JPnl_Cliente.add(btnBuscar);
 	}

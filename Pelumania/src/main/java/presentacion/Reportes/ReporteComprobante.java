@@ -58,7 +58,9 @@ public class ReporteComprobante
    
     public void exportarPDF(){
 		try {
-			String nombrePDF = "d:\\"+ this.reporteLleno.getName() +".pdf";
+			File file = new File("c:\\reportes\\");
+			 file.mkdirs();
+			String nombrePDF = "c:\\reportes\\"+ this.reporteLleno.getName() +".pdf";
 			JasperExportManager.exportReportToPdfFile(this.reporteLleno,  nombrePDF);
 			log.info("El reporte se exporto a PDF correctamente");
 			this.rutaPDF = nombrePDF;

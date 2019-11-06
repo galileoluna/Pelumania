@@ -26,7 +26,6 @@ import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
-import presentacion.vista.VentanaEditarCita;
 import presentacion.vista.nuevaVentanaCita;
 import util.MailService;
 
@@ -505,7 +504,7 @@ public class ControladorCita implements ActionListener{
 				this.mostrarExitoCargarCita(idCitaAgregada);
 				this.ventanaCita.cerrar();
 				//una vez que se hizo todo bien mandamos el mail
-				MailService.enviar(this.sistema, nuevaCita, this.ventanaCita.getCliente());
+				MailService.enviar(this.sistema, this.sistema.getCitaById(idCitaAgregada), this.ventanaCita.getCliente());
 			}
 		}
 		else

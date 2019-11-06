@@ -35,22 +35,7 @@ public class ControladorBuscarCliente implements ActionListener{
 		inicializarDatos();
 		return INSTANCE;
 	}
-	
-	private ControladorBuscarCliente(Sistema sistema, VentanaAgregarCita VAC) {
-		this.ventanaBuscarCliente = VentanaBuscarCliente.getInstance();
-		this.ventanaViejaCita = VAC;
-		this.ventanaBuscarCliente.getBtnSeleccionarCliente().addActionListener(p -> seleccionarClienteViejo(p));
-		this.sistema = sistema;
-	}
 
-	public static ControladorBuscarCliente getInstance(Sistema sistema, VentanaAgregarCita VAC) {
-		if ( INSTANCE == null) {
-			INSTANCE = new ControladorBuscarCliente(sistema, VAC);
-		}
-		inicializarDatos();
-		return INSTANCE;
-	}
-	
 	private static void inicializarDatos() {
 
 		List<ClienteDTO> listaClientesAux = INSTANCE.sistema.obtenerClientes();
@@ -62,11 +47,11 @@ public class ControladorBuscarCliente implements ActionListener{
 		}
 		
 		INSTANCE.ventanaBuscarCliente.llenarTabla(listaClientes);
+		INSTANCE.listaClientes = listaClientes;
 		INSTANCE.ventanaBuscarCliente.mostrarVentana();
 	}
 	
 	private void seleccionarCliente(ActionEvent p) {
-		this.listaClientes = INSTANCE.sistema.obtenerClientes();
 		int filaSeleccionada = this.ventanaBuscarCliente.getTablaClientes().getSelectedRow();
 		ClienteDTO cliente_seleccionado = this.listaClientes.get(filaSeleccionada);
 		if (cliente_seleccionado != null) {
@@ -94,7 +79,6 @@ public class ControladorBuscarCliente implements ActionListener{
 
 		}
 		this.ventanaBuscarCliente.cerrar();
-
 	}
 
 	@Override
