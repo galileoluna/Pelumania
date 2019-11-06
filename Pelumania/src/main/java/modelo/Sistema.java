@@ -514,4 +514,8 @@ public class Sistema
 		return this.usuario.readRol();
 	}
 
+	public UsuarioDTO obtenerUsuarioByUsername(String user) {
+		return this.usuario.readByUsername(user);
+	}
+
 }

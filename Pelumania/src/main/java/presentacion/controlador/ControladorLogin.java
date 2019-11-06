@@ -12,6 +12,7 @@ import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.Login;
 import presentacion.vista.NuevaVista;
+import util.MailService;
 
 public class ControladorLogin implements ActionListener{
 	Login login;
@@ -47,6 +48,7 @@ public class ControladorLogin implements ActionListener{
 			public void keyPressed(KeyEvent arg0) {}
 		});
 		this.login.getIniciar().addActionListener(l -> IniciarPelumania(l));
+		this.login.getRecuperarPass().addActionListener(l -> recuperarPass());
 				
 	}
 
@@ -71,6 +73,31 @@ public class ControladorLogin implements ActionListener{
 		}
 		return user;
 		
+	}
+
+	private void recuperarPass() {
+		String username = login.getUser().getText();
+		
+		if(existeUsuario(username)){
+			UsuarioDTO user = this.sistema.obtenerUsuarioByUsername(username);
+			user.setContrasenia(user.getApellido()+"123");
+			this.sistema.editarUsuario(user);
+			MailService.enviarPassProvisorio(user);
+			this.login.mostrarEnvioMail();
+		
+		} else {
+			this.login.mostarErrorUsuarioInvalido();
+		}
+	}
+
+	private boolean existeUsuario(String user) {
+		if(user != null && !user.equals("")) {
+		 	UsuarioDTO usuarioBuscado = this.sistema.obtenerUsuarioByUsername(user);
+			if (usuarioBuscado != null) {
+				return true;
+			}
+		} 
+	  return false;
 	}
 
 	@Override

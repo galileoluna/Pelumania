@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import dto.ClienteDTO;
-import dto.ProfesionalDTO;
-import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.UsuarioDAO;
@@ -24,7 +21,8 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 	private static final String update = "UPDATE Usuario SET  Nombre=?, Apellido=? , nombreUsuario=?, Contrasenia=?, Mail=?, EstadoUsuario=?, idRol=?, idSucursal=? WHERE idUsuario=?";
 	private static final String delete = "UPDATE Usuario SET EstadoUsuario='Inactivo' WHERE idUsuario = ?";
 	private static final String readRol = "SELECT * FROM Rol";
-	
+	private static final String readByUsername = "SELECT * from Usuario where nombreUsuario=?";
+
 	
 	   @Override
 	    public boolean insert(UsuarioDTO user){
@@ -247,6 +245,28 @@ public class UsuarioDAOSQL implements UsuarioDAO{
 		
 		return false;
 	}
-	
 
+	@Override
+	public UsuarioDTO readByUsername(String user) {
+			UsuarioDTO usuario = null;
+			PreparedStatement statement;
+			ResultSet resultSet; //Guarda el resultado de la query
+			Conexion conexion = Conexion.getConexion();
+			try
+			{
+				statement = conexion.getSQLConexion().prepareStatement(readByUsername);
+				statement.setString(1, user);
+				resultSet = statement.executeQuery();
+				while(resultSet.next())
+				{
+					usuario = getUsuarioDTO(resultSet);
+				}
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return usuario;
+		}
+	
 }

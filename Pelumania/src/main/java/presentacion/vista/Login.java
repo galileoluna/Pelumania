@@ -29,7 +29,7 @@ public class Login {
 	private JLabel lblNombre;
 	private JTextField user;
 	private JPasswordField pass;
-
+	private JButton btnRecuperarPass;
 	public Login() 
 	{
 		super();
@@ -42,7 +42,7 @@ public class Login {
 		frmLogin.setTitle("Login Pelumania");
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmLogin.setBounds(100, 100, 342, 219);
+		frmLogin.setBounds(100, 100, 421, 239);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frmLogin.setLocation(dim.width/2-frmLogin.getSize().width/2, dim.height/2-frmLogin.getSize().height/2);
 		
@@ -54,11 +54,11 @@ public class Login {
 		
 		JLabel lblEmpleado = new JLabel("Sistema de turnos de peluqeria");
 		lblEmpleado.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEmpleado.setBounds(10, 16, 241, 14);
+		lblEmpleado.setBounds(10, 11, 241, 19);
 		contentPane.add(lblEmpleado);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 41, 306, 128);
+		panel.setBounds(10, 41, 395, 149);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -67,7 +67,7 @@ public class Login {
 		panel.add(lblDias);
 		
 		btnIniciar = new JButton("Iniciar Sesion");
-		btnIniciar.setBounds(81, 94, 132, 23);
+		btnIniciar.setBounds(10, 115, 160, 23);
 		panel.add(btnIniciar);
 		
 		JLabel lblContrasea = new JLabel("Contraseña: ");
@@ -76,15 +76,19 @@ public class Login {
 		
 		user = new JTextField();
 		user.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		user.setBounds(152, 8, 132, 20);
+		user.setBounds(215, 6, 170, 20);
 		panel.add(user);
 		user.setColumns(10);
 		
 		pass = new JPasswordField();
 		pass.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		pass.setColumns(10);
-		pass.setBounds(152, 52, 132, 20);
+		pass.setBounds(215, 55, 170, 20);
 		panel.add(pass);
+		
+		btnRecuperarPass = new JButton("Recuperar contraseña");
+		btnRecuperarPass.setBounds(215, 115, 170, 23);
+		panel.add(btnRecuperarPass);
 	
 		
 		lblNombre = new JLabel("");
@@ -131,4 +135,16 @@ public class Login {
 		return this.btnIniciar;
 	}
 	
+	public JButton getRecuperarPass() {
+		return this.btnRecuperarPass;
+	}
+
+	public void mostrarEnvioMail() {
+			JOptionPane.showMessageDialog(new JFrame(), "Revisá tu casilla de mail","Dialog",JOptionPane.INFORMATION_MESSAGE);	
+	}
+
+	public void mostarErrorUsuarioInvalido() {
+			JOptionPane.showMessageDialog(new JFrame(), "El nombre de usuario no existe", "Dialog",
+					JOptionPane.ERROR_MESSAGE);
+	}
 }
