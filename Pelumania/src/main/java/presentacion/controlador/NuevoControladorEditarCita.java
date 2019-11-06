@@ -483,8 +483,11 @@ public class NuevoControladorEditarCita implements ActionListener{
 				
 				this.mostrarExitoCargarCita(idCitaAgregada);
 				this.ventanaEditarCita.cerrar();
+				
+				//Tomamos el mail desde el input porque el cliente generico tiene un mail por defecto en la bdd
+				String destinatario = this.ventanaEditarCita.getTxtMail().getText();
 				//una vez que se hizo todo bien mandamos el mail
-				MailService.enviar(this.sistema, nuevaCita, this.ventanaEditarCita.getCliente());
+				MailService.enviarComprobanteCita(this.sistema, nuevaCita, destinatario);
 			}
 		}
 		else

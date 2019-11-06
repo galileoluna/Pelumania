@@ -16,17 +16,15 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import dto.CitaDTO;
-import dto.ClienteDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
 
 public class MailService {
 
-	public static void enviar(Sistema sistema, CitaDTO cita, ClienteDTO cliente ) {
+	public static void enviarComprobanteCita(Sistema sistema, CitaDTO cita, String destinatario) {
 		
-		String destinatario = cliente.getMail();
 		String asunto = getAsunto(cita);
-		String cuerpoHTML = getCuerpo(cliente);
+		String cuerpoHTML = getCuerpo();
 		
 	    // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
 	    String remitente = "pelumaniaoficial@gmail.com";  //Para la dirección nomcuenta@gmail.com
@@ -83,8 +81,9 @@ public class MailService {
 	    }
 	}
 
-	private static String getCuerpo(ClienteDTO cliente) {
-		return "<p>Estimado " + cliente.getNombre() + " " + cliente.getApellido() + "</p>" +
+	private static String getCuerpo() {
+		
+		return "<p>Estimado cliente</p>" +
 		"<p><strong>a continuacion se adjunta un comprobante de su cita</strong></p>" +
 		"<p>Muchas gracias!</p>" +
 		"<p><em>Atte Pelumanía</em></p>";

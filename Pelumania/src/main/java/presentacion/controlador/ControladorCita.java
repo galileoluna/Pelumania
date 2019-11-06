@@ -503,8 +503,11 @@ public class ControladorCita implements ActionListener{
 				
 				this.mostrarExitoCargarCita(idCitaAgregada);
 				this.ventanaCita.cerrar();
+				//tomamos el mail del input porque el usuario generico posee otro mail en la bdd
+				String mail = this.ventanaCita.getTxtMail().getText();
+				
 				//una vez que se hizo todo bien mandamos el mail
-				MailService.enviar(this.sistema, this.sistema.getCitaById(idCitaAgregada), this.ventanaCita.getCliente());
+				MailService.enviarComprobanteCita(this.sistema, this.sistema.getCitaById(idCitaAgregada), mail);
 			}
 		}
 		else
@@ -558,6 +561,7 @@ public class ControladorCita implements ActionListener{
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
 			if (validarHora(this.ventanaCita.getHoraInicio())) {
 				calcularHorario(serv);
+
 				if (validarAntesDeAgregarServicio(serv)) {
 					serviciosAgregados.add(serv);
 					actualizarServiciosAgregados();
