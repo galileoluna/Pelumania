@@ -18,7 +18,8 @@ public class RowsRenderer extends DefaultTableCellRenderer {
 	public static final Color amarillo = new Color(248,214,115);
 	public static final Color naranja = new Color(239,169,74);
 	public static final Color gris = new Color(128,128,128);
-	
+	public static final Color cian= new Color (80,250,230);
+
 /*Le pasas al constructor el numero de columna por el que queres que pinte*/
 
 public RowsRenderer(int Colpatron)
@@ -59,7 +60,11 @@ public Component getTableCellRendererComponent (JTable table, Object value, bool
 	{
     		this.setBackground(azul);
 	}
+		if(table.getValueAt(row,columna).equals("Fiado"))
+	{
+    		this.setBackground(cian);
+	}
   
 	return this;
-}
+    }
 }
