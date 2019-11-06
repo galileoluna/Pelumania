@@ -223,7 +223,7 @@ public class ControladorAgregarCita implements ActionListener{
 	}
 
 	public void buscarCliente(ActionEvent r) {
-		ControladorBuscarCliente.getInstance(sistema, this.ventanaAgregarCita);
+//		ControladorBuscarCliente.getInstance(sistema, this.ventanaAgregarCita);
 	}
 
 	public void registrarCliente(ActionEvent q) {
