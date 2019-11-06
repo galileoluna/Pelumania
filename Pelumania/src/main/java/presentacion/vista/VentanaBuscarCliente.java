@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ClienteDTO;
+import util.PropertyManager;
 
 public class VentanaBuscarCliente extends JFrame
 {
@@ -27,8 +31,15 @@ public class VentanaBuscarCliente extends JFrame
 	private JButton btn_Cancelar;
 	private JTextField textField;
 
-	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
-			"Mail", "Puntos", "Estado", "Deuda Pesos", "Deuda Dolar"};
+	//configuracion de idioma
+	private Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	///////
+	
+	private String[]  nombreColumnas = {this.idioma.getString("nombre"), this.idioma.getString("apellido"),
+										this.idioma.getString("telefono") ,this.idioma.getString("mail"), 
+										this.idioma.getString("puntos"),this.idioma.getString("estado"), 
+										this.idioma.getString("deuda.pesos"),this.idioma.getString("deuda.dolares")};
 	private JTable tablaClientes;
 	private DefaultTableModel modelClientes;
 
@@ -52,7 +63,7 @@ public class VentanaBuscarCliente extends JFrame
 	{
 		super();
 
-		setTitle("Buscar Cliente");
+		setTitle(this.idioma.getString("cliente.buscar"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 735, 318);
 		
@@ -68,7 +79,7 @@ public class VentanaBuscarCliente extends JFrame
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblBuscarPor = new JLabel("Buscar por: ");
+		JLabel lblBuscarPor = new JLabel(this.idioma.getString("filtrar"));
 		lblBuscarPor.setBounds(23, 11, 133, 23);
 		panel.add(lblBuscarPor);
 

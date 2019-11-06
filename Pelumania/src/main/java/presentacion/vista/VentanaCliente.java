@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -23,6 +25,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import dto.ClienteDTO;
+import util.PropertyManager;
+
 import javax.swing.JComboBox;
 
 public class VentanaCliente extends JFrame{
@@ -39,12 +43,22 @@ public class VentanaCliente extends JFrame{
 	private JButton btnBuscar;
 	private JComboBox variableBuscar;
 	
-	private String[] nombreColumnas = {"Nombre", "Apellido", "Telefono",
-			"Mail", "Puntos", "Estado", "Deuda Pesos", "Deuda Dolar"};
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JTextField txtApellido;
 	private JTextField txtMail;
+	
+	///////////
+	//configuracion de idioma
+	private Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	///////
+	
+	private String[]  nombreColumnas = {this.idioma.getString("nombre"), this.idioma.getString("apellido"),
+										this.idioma.getString("telefono") ,this.idioma.getString("mail"), 
+										this.idioma.getString("puntos"),this.idioma.getString("estado"), 
+										this.idioma.getString("deuda.pesos"),this.idioma.getString("deuda.dolares")};
+	
 	private VentanaCliente()
 	{
 		super();
@@ -66,7 +80,8 @@ public class VentanaCliente extends JFrame{
 	private void initialize()
 	{
 		this.setBounds(100, 100, 803, 560);
-		
+		setTitle(this.idioma.getString("cliente.titulo"));
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		this.getContentPane().setLayout(null);
@@ -83,6 +98,8 @@ public class VentanaCliente extends JFrame{
 		modelClientes = new DefaultTableModel(null,nombreColumnas);
 		tablaClientes = new JTable(modelClientes);
 
+		System.out.println(idioma.getBaseBundleName());
+		
 		tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(10);
 		tablaClientes.getColumnModel().getColumn(0).setResizable(false);
 		tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(10);
@@ -102,7 +119,7 @@ public class VentanaCliente extends JFrame{
 
 		spClientes.setViewportView(tablaClientes);
 
-		btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton(idioma.getString("agregar"));
 		btnAgregar.setBounds(338, 168, 89, 34);
 		btnAgregar.addActionListener(new ActionListener() {
 			@Override
@@ -112,15 +129,15 @@ public class VentanaCliente extends JFrame{
 		});
 		panel.add(btnAgregar);
 
-		btnEditar = new JButton("Editar");
+		btnEditar = new JButton(idioma.getString("editar"));
 		btnEditar.setBounds(10, 473, 129, 34);
 		panel.add(btnEditar);
 
-		btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton(idioma.getString("borrar"));
 		btnBorrar.setBounds(140, 473, 129, 34);
 		panel.add(btnBorrar);
 		
-		JLabel lblBuscarPor = new JLabel("Buscar por:");
+		JLabel lblBuscarPor = new JLabel(this.idioma.getString("filtrar"));
 		lblBuscarPor.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblBuscarPor.setBounds(280, 473, 129, 34);
 		panel.add(lblBuscarPor);
@@ -133,7 +150,7 @@ public class VentanaCliente extends JFrame{
 		variableBuscar.addItem("Apellido");
 		variableBuscar.addItem("EstadoCliente");
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton(this.idioma.getString("buscar"));
 		btnBuscar.setBounds(625, 473, 129, 34);
 		panel.add(btnBuscar);
 		
@@ -142,7 +159,7 @@ public class VentanaCliente extends JFrame{
 		panel.add(buscador);
 		buscador.setColumns(10);
 
-		JLabel lblNombre = new JLabel("Nombre");
+		JLabel lblNombre = new JLabel(this.idioma.getString("nombre"));
 		lblNombre.setBounds(10, 11, 113, 14);
 		panel.add(lblNombre);
 
@@ -151,7 +168,7 @@ public class VentanaCliente extends JFrame{
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 
-		JLabel lblApellido = new JLabel("Apellido");
+		JLabel lblApellido = new JLabel(idioma.getString("apellido"));
 		lblApellido.setBounds(10, 56, 113, 14);
 		panel.add(lblApellido);
 
@@ -160,7 +177,7 @@ public class VentanaCliente extends JFrame{
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
 
-		JLabel lblTelfono = new JLabel("Telefono");
+		JLabel lblTelfono = new JLabel(idioma.getString("telefono"));
 		lblTelfono.setBounds(10, 101, 113, 14);
 		panel.add(lblTelfono);
 
@@ -169,7 +186,7 @@ public class VentanaCliente extends JFrame{
 		txtApellido.setBounds(133, 47, 164, 26);
 		panel.add(txtApellido);
 
-		JLabel lblMail = new JLabel("Mail");
+		JLabel lblMail = new JLabel(idioma.getString("mail"));
 		lblMail.setBounds(10, 142, 113, 14);
 		panel.add(lblMail);
 
@@ -178,7 +195,7 @@ public class VentanaCliente extends JFrame{
 		txtMail.setBounds(133, 136, 164, 26);
 		panel.add(txtMail);
 		
-		JLabel lblEstado = new JLabel("Estado");
+		JLabel lblEstado = new JLabel(idioma.getString("estado"));
 		lblEstado.setBounds(10, 181, 113, 14);
 		panel.add(lblEstado);
 		
@@ -336,13 +353,13 @@ public class VentanaCliente extends JFrame{
 	}
 
 	public void mostrarErrorCamposInvalidos() {
-		JOptionPane.showMessageDialog(new JFrame(), "Campos ingresados inválidos", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("error.campos.invalidos"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}
 
 	public void mostrarErrorSinSeleccionar() {
-		JOptionPane.showMessageDialog(new JFrame(), "Debe seleccionar un cliente", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.error.seleccionar"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}

@@ -13,7 +13,7 @@ public class PropertyManager {
 	
 	public static String leer(String fileName,String clave) {
 		FileInputStream is = null;
-		System.out.println(fileName);
+//		System.out.println(fileName);
 		try {
 			is = new FileInputStream(carpetaProp+fileName+extension);
 			p.load(is);
