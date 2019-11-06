@@ -517,5 +517,8 @@ public class Sistema
 	public UsuarioDTO obtenerUsuarioByUsername(String user) {
 		return this.usuario.readByUsername(user);
 	}
-
+	
+	public boolean cambiarContrasenia(int id, String pass) {
+		return this.usuario.updatePass(id,pass);
+	}
 }
