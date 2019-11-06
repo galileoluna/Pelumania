@@ -88,8 +88,7 @@ public class ControladorCliente implements ActionListener {
 		for (int fila : filasSeleccionadas)
 		{
 			if(listaClientes.get(fila)!=null) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Cliente?","Confirmacion", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, null, null);
+				int confirm = this.ventanaCliente.mostrarConfirmacionBorrar();
 				if (confirm == 0) {
 					this.sistema.borrarCliente((listaClientes.get(fila)));
 				}

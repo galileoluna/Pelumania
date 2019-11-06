@@ -1,6 +1,8 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -19,6 +21,50 @@ public class ControladorCambiarContrasenia {
 	private ControladorCambiarContrasenia(Sistema sist, UsuarioDTO usuar) {
 		ventanaChangePass = VentanaCambioContrasenia.getInstance();
 		ventanaChangePass.getBtnguardar().addActionListener(p ->cambiarPass(p));
+		this.ventanaChangePass.getContraVieja().addKeyListener(new KeyListener() {
+					
+					@Override
+					public void keyTyped(KeyEvent e) {
+						String pass= new String (ventanaChangePass.getContraVieja().getPassword());
+						if(pass.length()==8) {
+							e.consume();
+						}
+					}
+					@Override
+					public void keyReleased(KeyEvent arg0) {}
+					@Override
+					public void keyPressed(KeyEvent arg0) {}
+				});
+		
+		this.ventanaChangePass.getContraNueva().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String pass= new String (ventanaChangePass.getContraNueva().getPassword());
+				if(pass.length()==8) {
+					e.consume();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0) {}
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
+		});
+		
+		this.ventanaChangePass.getContraNueva2().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String pass= new String (ventanaChangePass.getContraNueva2().getPassword());
+				if(pass.length()==8) {
+					e.consume();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0) {}
+			@Override
+			public void keyPressed(KeyEvent arg0) {}
+		});
 
 		sistema = sist;
 		usuario = usuar;

@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 
@@ -17,6 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import persistencia.conexion.Conexion;
+import util.PropertyManager;
 
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -30,6 +33,7 @@ public class Login {
 	private JTextField user;
 	private JPasswordField pass;
 	private JButton btnRecuperarPass;
+	private ResourceBundle idioma;
 	public Login() 
 	{
 		super();
@@ -38,8 +42,12 @@ public class Login {
 
 	public void initialize() {
 		
+		//configuracion de idioma
+		Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+		this.idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+		
 		frmLogin = new JFrame();
-		frmLogin.setTitle("Login Pelumania");
+		frmLogin.setTitle(this.idioma.getString("login.titulo"));
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.setBounds(100, 100, 421, 239);
@@ -52,7 +60,7 @@ public class Login {
 		frmLogin.getContentPane().add(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblEmpleado = new JLabel("Sistema de turnos de peluqeria");
+		JLabel lblEmpleado = new JLabel(this.idioma.getString("login.sistema"));
 		lblEmpleado.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblEmpleado.setBounds(10, 11, 241, 19);
 		contentPane.add(lblEmpleado);
@@ -62,15 +70,15 @@ public class Login {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblDias = new JLabel("Usuario:");
+		JLabel lblDias = new JLabel(this.idioma.getString("login.usuario"));
 		lblDias.setBounds(10, 11, 132, 14);
 		panel.add(lblDias);
 		
-		btnIniciar = new JButton("Iniciar Sesion");
+		btnIniciar = new JButton(this.idioma.getString("login.login"));
 		btnIniciar.setBounds(10, 115, 160, 23);
 		panel.add(btnIniciar);
 		
-		JLabel lblContrasea = new JLabel("Contraseña: ");
+		JLabel lblContrasea = new JLabel(this.idioma.getString("login.password"));
 		lblContrasea.setBounds(10, 55, 132, 14);
 		panel.add(lblContrasea);
 		
@@ -86,7 +94,7 @@ public class Login {
 		pass.setBounds(215, 55, 170, 20);
 		panel.add(pass);
 		
-		btnRecuperarPass = new JButton("Recuperar contraseña");
+		btnRecuperarPass = new JButton(this.idioma.getString("login.recuperar.password"));
 		btnRecuperarPass.setBounds(215, 115, 170, 23);
 		panel.add(btnRecuperarPass);
 	
@@ -106,7 +114,7 @@ public class Login {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				int confirm = JOptionPane.showOptionDialog(
-						null, "¿Deseas cerrar Pelumanía?",
+						null, idioma.getString("login.cerrar"),
 						"Confirmación", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
@@ -140,11 +148,14 @@ public class Login {
 	}
 
 	public void mostrarEnvioMail() {
-			JOptionPane.showMessageDialog(new JFrame(), "Revisá tu casilla de mail","Dialog",JOptionPane.INFORMATION_MESSAGE);	
+			JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("login.mail.enviado"),"Dialog",JOptionPane.INFORMATION_MESSAGE);	
 	}
 
 	public void mostarErrorUsuarioInvalido() {
-			JOptionPane.showMessageDialog(new JFrame(), "El nombre de usuario no existe", "Dialog",
+			JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("login.usuario.inexistente"), "Dialog",
 					JOptionPane.ERROR_MESSAGE);
 	}
+	public void mostrarErrorDatos() {
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("login.usuario.password.incorrecto"), "Dialog",
+				JOptionPane.ERROR_MESSAGE);	}
 }

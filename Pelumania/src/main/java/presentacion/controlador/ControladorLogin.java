@@ -61,7 +61,7 @@ public class ControladorLogin implements ActionListener{
 			NuevaVista nvista = new NuevaVista();
 	        new Controlador2(nvista, sistema,usuario);
 		}else {
-			JOptionPane.showMessageDialog(null, "Los datos ingresados son incorrectos");
+			this.login.mostrarErrorDatos();
 		}
 	}
 

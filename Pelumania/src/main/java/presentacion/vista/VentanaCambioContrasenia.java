@@ -53,7 +53,7 @@ public class VentanaCambioContrasenia
 		frmCambiarContra = new JFrame();
 		frmCambiarContra.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
 		frmCambiarContra.setTitle("Cambiar Contrtaseña");
-		frmCambiarContra.setBounds(100, 100, 436, 311);
+		frmCambiarContra.setBounds(100, 100, 373, 311);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frmCambiarContra.setLocation(dim.width/2-frmCambiarContra.getSize().width/2, dim.height/2-frmCambiarContra.getSize().height/2);
@@ -62,11 +62,10 @@ public class VentanaCambioContrasenia
 		frmCambiarContra.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 410, 261);
+		panel.setBounds(0, 0, 347, 261);
 		frmCambiarContra.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		RowsRendererBasic rr = new RowsRendererBasic(4);
 		
 		btnAgregar = new JButton("Guardar");
 		btnAgregar.setBounds(121, 226, 153, 23);
@@ -98,18 +97,21 @@ public class VentanaCambioContrasenia
 		panel.add(nombreUser);
 		
 		contraVieja = new JPasswordField();
-		contraVieja.setBounds(206, 74, 186, 20);
+		contraVieja.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		contraVieja.setBounds(206, 74, 128, 20);
 		panel.add(contraVieja);
 		contraVieja.setColumns(10);
 		
 		contraNueva = new JPasswordField();
+		contraNueva.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contraNueva.setColumns(10);
-		contraNueva.setBounds(206, 129, 186, 20);
+		contraNueva.setBounds(206, 129, 128, 20);
 		panel.add(contraNueva);
 		
 		contraNueva2 = new JPasswordField();
+		contraNueva2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contraNueva2.setColumns(10);
-		contraNueva2.setBounds(206, 184, 186, 20);
+		contraNueva2.setBounds(206, 184, 128, 20);
 		panel.add(contraNueva2);
 		
 	}
