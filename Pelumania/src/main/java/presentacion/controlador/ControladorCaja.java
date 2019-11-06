@@ -33,7 +33,6 @@ public class ControladorCaja implements ActionListener {
 	private CitaDTO citaSeleccionada;
 	private List<ServicioTurnoDTO> serviciosCita;
 	private Controlador2 controladorMenu;
-	private final Lock _mutex = new ReentrantLock(true); //mutex
 	private boolean clienteMoroso=false;
 
 	
@@ -178,10 +177,6 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void agregarMovimiento(ActionEvent l) {
-//		System.out.println("VOY A ENTRAR AL SEMAFOROVICH");
-		
-		//if()
-		_mutex.lock();
 		int idSucursal = 1; //de donde sacamos esto?
 		Timestamp fecha = Timestamp.from(Instant.now());
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
@@ -310,8 +305,6 @@ public class ControladorCaja implements ActionListener {
 		}
 		
 		this.ventanaCaja.limpiarCampos();
-//		System.out.println("DOUUUUUUUU SALIENDO DE LA SECCION CRITICA");
-		this._mutex.unlock();
 
 	}
 
