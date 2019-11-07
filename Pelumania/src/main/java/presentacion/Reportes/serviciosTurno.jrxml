@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="serviciosTurno" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5f802d7d-603c-4a26-8821-fc35a15860cc">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (3)"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="idCitaSubreporte" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 
+Servicio.Nombre, 
+Profesional.Nombre, Profesional.Apellido,
+ServicioTurno.HoraInicio, ServicioTurno.HoraFin
+FROM Cita, ServicioTurno, Servicio, Profesional
+WHERE Cita.idCita =  $P{idCitaSubreporte} 
+AND ServicioTurno.IdCita=Cita.IdCita
+AND ServicioTurno.IdServicio=Servicio.IdServicio
+AND ServicioTurno.IdProfesional=Profesional.IdProfesional]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servicio"/>
+	</field>
+	<field name="COLUMN_2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="profesional"/>
+	</field>
+	<field name="Apellido" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Apellido"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="profesional"/>
+	</field>
+	<field name="HoraInicio" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="HoraInicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servicioturno"/>
+	</field>
+	<field name="HoraFin" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="HoraFin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servicioturno"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="39e61bf0-1e04-4481-9bdd-d7211a2715e7"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="140" height="30" uuid="f6f6df40-c406-4805-b2bf-6827e781de4b"/>
+				<textFieldExpression><![CDATA[$F{COLUMN_2}+" "+$F{Apellido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h:mm a">
+				<reportElement x="290" y="0" width="87" height="30" uuid="0437b011-f286-4995-896a-c19d22f58662"/>
+				<textFieldExpression><![CDATA[$F{HoraInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h:mm a">
+				<reportElement x="380" y="0" width="90" height="30" uuid="c0ad0dab-a1a0-4d03-82b9-b9e3095c1cc6"/>
+				<textFieldExpression><![CDATA[$F{HoraFin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

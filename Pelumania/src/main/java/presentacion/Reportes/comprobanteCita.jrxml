@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobanteCita" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b3228510-3efc-4b17-9ad5-0ae4e40c7f2f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (3)"/>
+	<parameter name="idCita" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT  Cita.IdCita, Cita.NombreCliente, Cita.ApellidoCliente, Cita.PrecioDolar, Cita.HoraInicio, Cita.HoraFin, Cita.Dia,
+Sucursal.NombreSucursal, Sucursal.Direccion, Sucursal.Numero
+FROM Cita, Sucursal 
+WHERE Cita.IdCita =  $P{idCita} 
+AND Cita.IdSucursal=Sucursal.IdSucursal]]>
+	</queryString>
+	<field name="IdCita" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="IdCita"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cita"/>
+	</field>
+	<field name="NombreCliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NombreCliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cita"/>
+	</field>
+	<field name="ApellidoCliente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ApellidoCliente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cita"/>
+	</field>
+	<field name="PrecioDolar" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="PrecioDolar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cita"/>
+	</field>
+	<field name="HoraInicio" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="HoraInicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cita"/>
+	</field>
+	<field name="HoraFin" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="HoraFin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cita"/>
+	</field>
+	<field name="Dia" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Dia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cita"/>
+	</field>
+	<field name="NombreSucursal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NombreSucursal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sucursal"/>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Direccion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sucursal"/>
+	</field>
+	<field name="Numero" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Numero"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sucursal"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="80" y="0" width="439" height="26" backcolor="#1FDED1" uuid="9c4b5e8c-b953-46de-80e1-086d8c09217b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Comprobante de Cita]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="99" splitType="Stretch">
+			<textField>
+				<reportElement x="280" y="10" width="100" height="19" uuid="ce147891-3c40-44bd-a582-5bd4bf703381"/>
+				<textFieldExpression><![CDATA[$F{ApellidoCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="70" width="100" height="20" uuid="018030d6-7c07-429f-938f-7fdf2178503a"/>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="70" width="91" height="20" uuid="2ab7db10-ee8e-4305-93f0-7ade9c99091f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Direccion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="10" width="91" height="20" uuid="cc452787-6f52-4105-857f-947c0f59b760"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Cliente: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="10" width="100" height="20" uuid="e302cedd-50c0-4ef4-b866-dd28ad95e99a"/>
+				<textFieldExpression><![CDATA[$F{NombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="410" y="0" width="111" height="21" uuid="1db92903-89ee-478e-a368-1b78669ae4f3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="30" width="91" height="20" uuid="ad82131c-f0f1-4050-b547-ea6408d807e0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="30" width="230" height="20" uuid="a509947f-bb7e-4c13-87c9-8f540d8aaaca"/>
+				<textFieldExpression><![CDATA[$F{Dia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="50" width="91" height="20" uuid="7dbdf38e-6fb7-4c35-b6d4-00182c541ca1"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Sucursal: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="70" width="100" height="20" uuid="e2a6f56c-9fc3-45d4-a3d9-d013b769a5b5"/>
+				<textFieldExpression><![CDATA[$F{Numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="50" width="230" height="20" uuid="dec02939-a5be-4267-9874-1e094a7f336a"/>
+				<textFieldExpression><![CDATA[$F{NombreSucursal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="460" y="0" width="60" height="31" uuid="6c8c5dab-2458-499f-ae5a-b43efc01344b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="31" uuid="be929382-3b74-4bf1-a165-dbc8ea8485a4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="60" height="31" uuid="b686dcba-79f4-42a3-82e9-0bce5aad64e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="31" uuid="321f3695-eb78-4d7c-9245-5f8bce079100"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Profesional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="110" height="31" uuid="a1583be3-33d3-4a5e-b82a-05fb94769dba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="79" y="35" width="441" height="31" uuid="45899507-7faa-4d01-88c8-4fa1b57ee895"/>
+				<subreportParameter name="idCitaSubreporte">
+					<subreportParameterExpression><![CDATA[$F{IdCita}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["serviciosTurno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="270" y="0" width="110" height="30" uuid="d4516056-7afe-4725-a0b2-eb40ff7f5b4f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5fd6d7b3-3938-43cc-95e3-08707de6622c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{PrecioDolar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="60" height="30" uuid="1ef82dad-6bfb-42a5-b3e1-1293e5765a6c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc9a4689-b6b4-40d6-ae7b-92a98b588eb7"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{HoraInicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="60" height="30" uuid="5a54a14a-d18a-4c28-99f0-523062178118">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ec438c62-9f44-4153-8833-f767bfcedb5a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{HoraFin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
