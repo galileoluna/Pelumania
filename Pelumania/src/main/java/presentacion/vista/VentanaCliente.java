@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -384,6 +385,8 @@ public class VentanaCliente extends JFrame{
 	}
 
 	public int mostrarConfirmacionBorrar() {
+	    UIManager.put("OptionPane.noButtonText", idioma.getString("no"));
+	    UIManager.put("OptionPane.yesButtonText", idioma.getString("si"));
 		int confirm = JOptionPane.showOptionDialog(null, this.idioma.getString("cliente.borrar.confirmacion"),this.idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, null, null);
 		

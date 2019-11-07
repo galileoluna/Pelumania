@@ -68,7 +68,7 @@ public class ControladorEditarServicio {
 				try {
 				duracion = LocalTime.parse(S_duracion);
 				} catch(DateTimeParseException e) {
-	        	JOptionPane.showMessageDialog(null, "El formato de la duracion debe ser HH : MM");
+					this.ventanaEditarServicio.mostrarErrorFormatoDuracion();
 				}
 				
 				ServicioDTO servicio_a_actualizar = new ServicioDTO(idServicio, nombre, precioLocal, precioDolar, duracion, puntos, S_estado);

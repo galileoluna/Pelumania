@@ -4,6 +4,8 @@ package presentacion.vista;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import util.PropertyManager;
 import util.TextPrompt;
 
 
@@ -35,7 +38,12 @@ public class VentanaAgregarServicio extends JFrame
 
 	private JButton btn_AgregarServicio;
 	private JButton btn_Cancelar;
+	
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
 
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	
 	public static VentanaAgregarServicio getInstance()
 	{
 		if(INSTANCE == null)
@@ -51,7 +59,7 @@ public class VentanaAgregarServicio extends JFrame
 	{
 		super();
 
-		setTitle("Nuevo servicio");
+		setTitle(idioma.getString("servicio.nuevo"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 346, 354);
 		
@@ -87,31 +95,31 @@ public class VentanaAgregarServicio extends JFrame
 		txtPuntos.setBounds(132, 130, 167, 26);
 		panel.add(txtPuntos);
 
-		lbl_Nombre = new JLabel("Nombre:");
+		lbl_Nombre = new JLabel(idioma.getString("nombre"));
 		lbl_Nombre.setBounds(0, 19, 124, 26);
 		panel.add(lbl_Nombre);
 
-		lbl_PrecioLocal = new JLabel("Precio en $");
+		lbl_PrecioLocal = new JLabel(idioma.getString("precio.dolares"));
 		lbl_PrecioLocal.setBounds(0, 56, 124, 26);
 		panel.add(lbl_PrecioLocal);
 
-		lbl_precioDolar = new JLabel("Precio en USD:");
+		lbl_precioDolar = new JLabel(idioma.getString("precio.pesos"));
 		lbl_precioDolar.setBounds(0, 93, 124, 26);
 		panel.add(lbl_precioDolar);
 
-		lbl_Puntos = new JLabel("Puntos:");
+		lbl_Puntos = new JLabel(idioma.getString("puntos"));
 		lbl_Puntos.setBounds(0, 130, 124, 26);
 		panel.add(lbl_Puntos);
 
-		btn_AgregarServicio = new JButton("Agregar");
+		btn_AgregarServicio = new JButton(idioma.getString("agregar"));
 		btn_AgregarServicio.setBounds(66, 270, 89, 23);
 		panel.add(btn_AgregarServicio);
 
-		btn_Cancelar = new JButton("Cancelar");
+		btn_Cancelar = new JButton(idioma.getString("cancelar"));
 		btn_Cancelar.setBounds(165, 270, 89, 23);
 		panel.add(btn_Cancelar);
 
-		lbl_Duracion = new JLabel("Duracion aproximada:");
+		lbl_Duracion = new JLabel(idioma.getString("duracion"));
 		lbl_Duracion.setBounds(0, 167, 124, 26);
 		panel.add(lbl_Duracion);
 
@@ -197,7 +205,7 @@ public class VentanaAgregarServicio extends JFrame
 	}
 
 	public void mostrarErrorCampos() {
-		JOptionPane.showMessageDialog(new JFrame(), "Campos ingresados inválidos", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("error.campos.invalidos"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
 

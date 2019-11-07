@@ -95,10 +95,9 @@ public class ControladorServicio {
     	{
         	if(serviciosEnTabla.get(fila)!=null) {
         		if (serviciosEnTabla.get(fila).getEstado().toLowerCase().equals("inactivo"))
-        			JOptionPane.showMessageDialog(null, "No se puede eliminar algo ya eliminado!");
+        			this.ventanaServicio.mostrarErrorBorrar();
         		else {
-        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar el servicio?","Confirmacion", JOptionPane.YES_NO_OPTION,
-	   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+        		int confirm = this.ventanaServicio.mostrarConfirmacionBorrar();
 	        		if (confirm == 0) {
 		        		this.idServicio = serviciosEnTabla.get(fila).getIdServicio();
 		        		ServicioDTO servicio_a_eliminar = sistema.getServicioById(idServicio);
