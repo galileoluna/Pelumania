@@ -77,12 +77,8 @@ AND Cita.IdSucursal=Sucursal.IdSucursal]]>
 	<pageHeader>
 		<band height="99" splitType="Stretch">
 			<textField>
-				<reportElement x="280" y="10" width="100" height="19" uuid="ce147891-3c40-44bd-a582-5bd4bf703381"/>
-				<textFieldExpression><![CDATA[$F{ApellidoCliente}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="180" y="70" width="100" height="20" uuid="018030d6-7c07-429f-938f-7fdf2178503a"/>
-				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+				<reportElement x="180" y="70" width="200" height="20" uuid="018030d6-7c07-429f-938f-7fdf2178503a"/>
+				<textFieldExpression><![CDATA[$F{Direccion}+" "+$F{Numero}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="80" y="70" width="91" height="20" uuid="2ab7db10-ee8e-4305-93f0-7ade9c99091f"/>
@@ -99,11 +95,11 @@ AND Cita.IdSucursal=Sucursal.IdSucursal]]>
 				<text><![CDATA[Cliente: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="180" y="10" width="100" height="20" uuid="e302cedd-50c0-4ef4-b866-dd28ad95e99a"/>
-				<textFieldExpression><![CDATA[$F{NombreCliente}]]></textFieldExpression>
+				<reportElement x="180" y="10" width="200" height="20" uuid="e302cedd-50c0-4ef4-b866-dd28ad95e99a"/>
+				<textFieldExpression><![CDATA[$F{NombreCliente}+" "+$F{ApellidoCliente}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="410" y="0" width="111" height="21" uuid="1db92903-89ee-478e-a368-1b78669ae4f3"/>
+				<reportElement x="408" y="0" width="111" height="21" uuid="1db92903-89ee-478e-a368-1b78669ae4f3"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
@@ -126,54 +122,15 @@ AND Cita.IdSucursal=Sucursal.IdSucursal]]>
 				<text><![CDATA[Sucursal: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="280" y="70" width="100" height="20" uuid="e2a6f56c-9fc3-45d4-a3d9-d013b769a5b5"/>
-				<textFieldExpression><![CDATA[$F{Numero}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="180" y="50" width="230" height="20" uuid="dec02939-a5be-4267-9874-1e094a7f336a"/>
 				<textFieldExpression><![CDATA[$F{NombreSucursal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="66" splitType="Stretch">
-			<staticText>
-				<reportElement x="460" y="0" width="60" height="31" uuid="6c8c5dab-2458-499f-ae5a-b43efc01344b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Fin]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="80" y="0" width="100" height="31" uuid="be929382-3b74-4bf1-a165-dbc8ea8485a4"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Servicio]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="400" y="0" width="60" height="31" uuid="b686dcba-79f4-42a3-82e9-0bce5aad64e6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Inicio]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="180" y="0" width="100" height="31" uuid="321f3695-eb78-4d7c-9245-5f8bce079100"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Profesional]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="280" y="0" width="110" height="31" uuid="a1583be3-33d3-4a5e-b82a-05fb94769dba"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Precio]]></text>
-			</staticText>
+		<band height="32" splitType="Stretch">
 			<subreport>
-				<reportElement x="79" y="35" width="441" height="31" uuid="45899507-7faa-4d01-88c8-4fa1b57ee895"/>
+				<reportElement x="57" y="6" width="441" height="21" uuid="80e59b8f-cc38-464b-8e9b-fcc06cff9bd7"/>
 				<subreportParameter name="idCitaSubreporte">
 					<subreportParameterExpression><![CDATA[$F{IdCita}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -182,9 +139,6 @@ AND Cita.IdSucursal=Sucursal.IdSucursal]]>
 			</subreport>
 		</band>
 	</columnHeader>
-	<detail>
-		<band height="40" splitType="Stretch"/>
-	</detail>
 	<columnFooter>
 		<band height="30" splitType="Stretch">
 			<textField>
@@ -207,10 +161,4 @@ AND Cita.IdSucursal=Sucursal.IdSucursal]]>
 			</textField>
 		</band>
 	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>
