@@ -134,7 +134,11 @@ public class ControladorCliente implements ActionListener {
 					INSTANCE.ventanaCliente.mostrarErrorEdicionDeuda();
 				}
 				else if((cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("activo")) ||
-						cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("Activo") && estado.equalsIgnoreCase("moroso")) {
+						(cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("Activo") && estado.equalsIgnoreCase("moroso")) ||
+						(cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("vip")) ||
+						(cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("inactivo")) ||
+						(cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("inactivo") && estado.equalsIgnoreCase("moroso"))||
+						(cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("vip") && estado.equalsIgnoreCase("moroso"))){
 					estado=cliente_seleccionado.getEstadoCliente();
 					INSTANCE.ventanaCliente.mostrarErrorEdicionEstado();
 				}else {
