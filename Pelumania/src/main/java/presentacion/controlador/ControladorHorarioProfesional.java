@@ -55,8 +55,7 @@ public class ControladorHorarioProfesional implements ActionListener{
 		       
 	        	for (int fila : filasSeleccionadas) {
 		        	if(this.horariolEnTabla.get(fila)!=null) {	 
-		        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Profesional?","Confirmacion", JOptionPane.YES_NO_OPTION,
-		   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		        		int confirm = this.horaProfesional.mostrarConfirmacionBorrar();
 		        		if (confirm == 0) {
 						this.sistema.borrarHorario(this.horariolEnTabla.get(fila));
 		        		}

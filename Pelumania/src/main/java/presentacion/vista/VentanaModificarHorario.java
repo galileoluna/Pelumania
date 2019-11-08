@@ -1,10 +1,16 @@
 package presentacion.vista;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import util.PropertyManager;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -21,6 +27,8 @@ public class VentanaModificarHorario extends JFrame {
 	private JComboBox minutosSalida;
 	private JComboBox horaSalida;
 	private JComboBox comboDias;
+	private Locale locale;
+	private ResourceBundle idioma;
 
 	public VentanaModificarHorario() 
 	{
@@ -41,8 +49,14 @@ public class VentanaModificarHorario extends JFrame {
 
 	public void initialize() {
 		
+		
+		locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+				PropertyManager.leer("configuracion", "pais"));
+		
+		idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+		
 		frmHorario = new JFrame();
-		frmHorario.setTitle("Alta Horario");
+		frmHorario.setTitle(idioma.getString("profesional.horario.editar"));
 		frmHorario.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
 		frmHorario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmHorario.setBounds(100, 100, 353, 320);
@@ -51,7 +65,10 @@ public class VentanaModificarHorario extends JFrame {
 		frmHorario.getContentPane().add(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblEmpleado = new JLabel("Empleado: ");
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frmHorario.setLocation(dim.width/2-frmHorario.getSize().width/2, dim.height/2-frmHorario.getSize().height/2);
+		
+		JLabel lblEmpleado = new JLabel(idioma.getString("profesional"));
 		lblEmpleado.setBounds(10, 16, 80, 14);
 		contentPane.add(lblEmpleado);
 		
@@ -60,15 +77,15 @@ public class VentanaModificarHorario extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblDias = new JLabel("Dias");
+		JLabel lblDias = new JLabel(idioma.getString("profesional.dia"));
 		lblDias.setBounds(10, 22, 132, 14);
 		panel.add(lblDias);
 		
-		JLabel lblHorarioEntrada = new JLabel("Horario Entrada");
+		JLabel lblHorarioEntrada = new JLabel(idioma.getString("profesional.horario.entrada"));
 		lblHorarioEntrada.setBounds(73, 51, 132, 14);
 		panel.add(lblHorarioEntrada);
 		
-		JLabel lblHorarioSalida = new JLabel("Horario Salida");
+		JLabel lblHorarioSalida = new JLabel(idioma.getString("profesional.horario.salida"));
 		lblHorarioSalida.setBounds(73, 127, 132, 14);
 		panel.add(lblHorarioSalida);
 		
@@ -82,11 +99,11 @@ public class VentanaModificarHorario extends JFrame {
 		 comboDias.addItem("Sabado");
 		panel.add(comboDias);
 		
-		btnActualizar = new JButton("Actualizar");
+		btnActualizar = new JButton(idioma.getString("editar"));
 		btnActualizar.setBounds(117, 195, 117, 23);
 		panel.add(btnActualizar);
 		
-		JLabel lblHora = new JLabel("Hora:");
+		JLabel lblHora = new JLabel(idioma.getString("hora"));
 		lblHora.setBounds(10, 81, 48, 14);
 		panel.add(lblHora);
 		
@@ -95,7 +112,7 @@ public class VentanaModificarHorario extends JFrame {
 		cargarHora(horaEntrada);
 		panel.add(horaEntrada);
 		
-		JLabel lblMinutos = new JLabel("Minutos:");
+		JLabel lblMinutos = new JLabel(idioma.getString("minutos"));
 		lblMinutos.setBounds(162, 81, 72, 14);
 		panel.add(lblMinutos);
 		
@@ -104,7 +121,7 @@ public class VentanaModificarHorario extends JFrame {
 		cargarMinutos(minutosEntrada);
 		panel.add(minutosEntrada);
 		
-		JLabel label = new JLabel("Hora:");
+		JLabel label = new JLabel(idioma.getString("hora"));
 		label.setBounds(10, 159, 48, 14);
 		panel.add(label);
 		
@@ -113,7 +130,7 @@ public class VentanaModificarHorario extends JFrame {
 		cargarHora(horaSalida);
 		panel.add(horaSalida);
 		
-		JLabel label_1 = new JLabel("Minutos:");
+		JLabel label_1 = new JLabel(idioma.getString("minutos"));
 		label_1.setBounds(162, 152, 72, 14);
 		panel.add(label_1);
 		

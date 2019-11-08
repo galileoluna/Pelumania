@@ -1,22 +1,14 @@
 package presentacion.controlador;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import dto.ProfesionalDTO;
 import dto.ServicioDTO;
 import modelo.Sistema;
-import persistencia.conexion.Conexion;
-import presentacion.vista.VentanaProfesional;
 import presentacion.vista.VentanaServicioProfesional;
 
 public class ControladorServicioProfesional {
@@ -63,7 +55,7 @@ public class ControladorServicioProfesional {
 		// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
 			this.getInstance(sistema, idProfesional, nombre);
 		}else {
-			JOptionPane.showMessageDialog(null, "El profesional ya tiene relacionado el servicio que intenta asociar", "Error", JOptionPane.ERROR_MESSAGE);
+			this.ventServProf.mostrarErrorServicioAsignado();
 		}
 	}
 	

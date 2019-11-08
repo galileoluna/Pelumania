@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 
 import dto.HorarioDTO;
 import modelo.Sistema;
@@ -55,7 +54,7 @@ public class ControladorAltaHorario implements ActionListener{
 			altaHorario.cerrar();
 			controlHorario.getInstance(sistema, nombre, Apellido, id);
 		}else {
-			JOptionPane.showMessageDialog(null, "El profesional ya cuenta con los horarios asignados para el dia ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+			this.altaHorario.mostrarErrorHorarioYaAsignado();
 		}
 	}
 	

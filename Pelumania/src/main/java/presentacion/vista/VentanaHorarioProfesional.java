@@ -3,14 +3,22 @@ package presentacion.vista;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import dto.HorarioDTO;
+import util.PropertyManager;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -25,7 +33,15 @@ public class VentanaHorarioProfesional
 	private JButton btnModificar;
 	private JTable tablaHorarioProfesional;
 	private DefaultTableModel modelHorario;
-	private  String[] nombreColumnas = {"Día","Hora Entrada","Hora Salida"};
+	
+	// configuracion de idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+				PropertyManager.leer("configuracion", "pais"));
+
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	
+	private  String[] nombreColumnas = {idioma.getString("profesional.dia"),idioma.getString("profesional.horario.entrada")
+										,idioma.getString("profesional.horario.salida")};
 
 	public VentanaHorarioProfesional() 
 	{
@@ -47,7 +63,7 @@ public class VentanaHorarioProfesional
 	{
 		frmHorario = new JFrame();
 		frmHorario.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/index.png"));
-		frmHorario.setTitle("Horarios Laborales");
+		frmHorario.setTitle(idioma.getString("profesional.horario.laboral"));
 		frmHorario.setBounds(100, 100, 644, 300);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -75,7 +91,7 @@ public class VentanaHorarioProfesional
 		
 		spPersonas.setViewportView(tablaHorarioProfesional);
 		
-		JLabel lblEmpleado = new JLabel("Empleado: ");
+		JLabel lblEmpleado = new JLabel(idioma.getString("profesional"));
 		lblEmpleado.setBounds(10, 11, 85, 14);
 		panel.add(lblEmpleado);
 		
@@ -84,15 +100,15 @@ public class VentanaHorarioProfesional
 		lblNombreEmpl.setBounds(84, 10, 158, 14);
 		panel.add(lblNombreEmpl);
 		
-		btnAgregar = new JButton("Agregar");	
+		btnAgregar = new JButton(idioma.getString("agregar"));	
 		btnAgregar.setBounds(84, 216, 89, 23);
 		panel.add(btnAgregar);
 		
-		btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton(idioma.getString("borrar"));
 		btnBorrar.setBounds(258, 216, 89, 23);
 		panel.add(btnBorrar);
 		
-		btnModificar = new JButton("Modificar");
+		btnModificar = new JButton(idioma.getString("editar"));
 		btnModificar.setBounds(454, 216, 89, 23);
 		panel.add(btnModificar);
 		
@@ -154,5 +170,12 @@ public class VentanaHorarioProfesional
 			this.getModelHorario().addRow(fila);
 		}
 		
+	}
+	public int mostrarConfirmacionBorrar() {
+		UIManager.put("OptionPane.noButtonText", idioma.getString("no"));
+	    UIManager.put("OptionPane.yesButtonText", idioma.getString("si"));
+		int confirm = JOptionPane.showOptionDialog(null, idioma.getString("borrar.confirmacion"), idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
+		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		return confirm;
 	} 
 }

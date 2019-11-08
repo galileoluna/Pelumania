@@ -1,14 +1,21 @@
 package presentacion.vista;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import util.PropertyManager;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -24,9 +31,13 @@ public class VentanaServicioProfesional
 	private JButton btnBorrar;
 	private JTable tablaServicioProfesional;
 	private DefaultTableModel modelHorario;
-	private  String[] nombreColumnas = {"Servicio"};
 	private JLabel lblServicio;
 	private JComboBox comboBox;
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	private String[] nombreColumnas = {idioma.getString("servicios")};
+
 
 	public VentanaServicioProfesional() 
 	{
@@ -46,8 +57,10 @@ public class VentanaServicioProfesional
 
 	private void initialize() 
 	{
+		// configuracion de idioma
+		
 		frmServProf = new JFrame();
-		frmServProf.setTitle("Relacion Servicio Profesional");
+		frmServProf.setTitle(idioma.getString("profesional.servicios.asignados"));
 		frmServProf.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/servicio.png"));
 		frmServProf.setBounds(100, 100, 506, 442);
 		
@@ -75,7 +88,7 @@ public class VentanaServicioProfesional
 		
 		spPersonas.setViewportView(tablaServicioProfesional);
 		
-		JLabel lblEmpleado = new JLabel("Empleado: ");
+		JLabel lblEmpleado = new JLabel(idioma.getString("profesional"));
 		lblEmpleado.setBounds(10, 11, 85, 14);
 		panel.add(lblEmpleado);
 		
@@ -84,15 +97,15 @@ public class VentanaServicioProfesional
 		lblNombreEmpl.setBounds(84, 10, 158, 14);
 		panel.add(lblNombreEmpl);
 		
-		btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton(idioma.getString("agregar"));
 		btnAgregar.setBounds(346, 62, 89, 23);
 		panel.add(btnAgregar);
 		
-		btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton(idioma.getString("borrar"));
 		btnBorrar.setBounds(346, 210, 89, 23);
 		panel.add(btnBorrar);
 		
-		lblServicio = new JLabel("Servicio:");
+		lblServicio = new JLabel(idioma.getString("servicio"));
 		lblServicio.setBounds(10, 66, 85, 14);
 		panel.add(lblServicio);
 		
@@ -152,5 +165,9 @@ public class VentanaServicioProfesional
 			this.getModelHorario().addRow(fila);	
 		} 
 			
+	}
+	public void mostrarErrorServicioAsignado() {
+		 JOptionPane.showMessageDialog(null, idioma.getString("profesional.error.servicio.asignado"), "Error", JOptionPane.ERROR_MESSAGE);
+		
 	} 
 }
