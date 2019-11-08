@@ -30,7 +30,7 @@ import util.PropertyManager;
 
 import javax.swing.JComboBox;
 
-public class VentanaCliente extends JFrame{
+public class VentanaCliente extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tablaClientes;
@@ -39,37 +39,33 @@ public class VentanaCliente extends JFrame{
 	private JButton btnAgregar;
 	private JButton btnEditar;
 	private JButton btnBorrar;
-	
+
 	private JTextField buscador;
 	private JButton btnBuscar;
 	private JComboBox variableBuscar;
-	
+
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JTextField txtApellido;
 	private JTextField txtMail;
-	
-	///////////
-	//configuracion de idioma
-	private Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+
+	// configuracion de idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
 	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
-	///////
-	
-	private String[]  nombreColumnas = {this.idioma.getString("nombre"), this.idioma.getString("apellido"),
-										this.idioma.getString("telefono") ,this.idioma.getString("mail"), 
-										this.idioma.getString("puntos"),this.idioma.getString("estado"), 
-										this.idioma.getString("deuda.pesos"),this.idioma.getString("deuda.dolares")};
-	
-	private VentanaCliente()
-	{
+
+	private String[] nombreColumnas = { this.idioma.getString("nombre"), this.idioma.getString("apellido"),
+			this.idioma.getString("telefono"), this.idioma.getString("mail"), this.idioma.getString("puntos"),
+			this.idioma.getString("estado"), this.idioma.getString("deuda.pesos"),
+			this.idioma.getString("deuda.dolares") };
+
+	private VentanaCliente() {
 		super();
 		initialize();
 	}
 
-	public static VentanaCliente getInstance()
-	{
-		if(INSTANCE == null)
-		{
+	public static VentanaCliente getInstance() {
+		if (INSTANCE == null) {
 			INSTANCE = new VentanaCliente();
 			return new VentanaCliente();
 		} else {
@@ -77,14 +73,12 @@ public class VentanaCliente extends JFrame{
 		}
 	}
 
-
-	private void initialize()
-	{
+	private void initialize() {
 		this.setBounds(100, 100, 803, 560);
 		setTitle(this.idioma.getString("cliente.titulo"));
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 		this.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
@@ -96,11 +90,11 @@ public class VentanaCliente extends JFrame{
 		spClientes.setBounds(10, 234, 767, 218);
 		panel.add(spClientes);
 
-		modelClientes = new DefaultTableModel(null,nombreColumnas);
+		modelClientes = new DefaultTableModel(null, nombreColumnas);
 		tablaClientes = new JTable(modelClientes);
 
 		System.out.println(idioma.getBaseBundleName());
-		
+
 		tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(10);
 		tablaClientes.getColumnModel().getColumn(0).setResizable(false);
 		tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(10);
@@ -122,12 +116,6 @@ public class VentanaCliente extends JFrame{
 
 		btnAgregar = new JButton(idioma.getString("agregar"));
 		btnAgregar.setBounds(338, 168, 89, 34);
-		btnAgregar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-
-		});
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton(idioma.getString("editar"));
@@ -137,12 +125,12 @@ public class VentanaCliente extends JFrame{
 		btnBorrar = new JButton(idioma.getString("borrar"));
 		btnBorrar.setBounds(140, 473, 129, 34);
 		panel.add(btnBorrar);
-		
+
 		JLabel lblBuscarPor = new JLabel(this.idioma.getString("filtrar"));
 		lblBuscarPor.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblBuscarPor.setBounds(280, 473, 129, 34);
 		panel.add(lblBuscarPor);
-		
+
 		variableBuscar = new JComboBox();
 		variableBuscar.setBounds(360, 473, 129, 34);
 		panel.add(variableBuscar);
@@ -150,11 +138,11 @@ public class VentanaCliente extends JFrame{
 		variableBuscar.addItem("Nombre");
 		variableBuscar.addItem("Apellido");
 		variableBuscar.addItem("EstadoCliente");
-		
+
 		btnBuscar = new JButton(this.idioma.getString("buscar"));
 		btnBuscar.setBounds(625, 473, 129, 34);
 		panel.add(btnBuscar);
-		
+
 		buscador = new JTextField();
 		buscador.setBounds(493, 473, 129, 34);
 		panel.add(buscador);
@@ -195,11 +183,11 @@ public class VentanaCliente extends JFrame{
 		txtMail.setColumns(10);
 		txtMail.setBounds(133, 136, 164, 26);
 		panel.add(txtMail);
-		
+
 		JLabel lblEstado = new JLabel(idioma.getString("estado"));
 		lblEstado.setBounds(10, 181, 113, 14);
 		panel.add(lblEstado);
-		
+
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(133, 175, 164, 20);
 		comboBox.addItem("Activo");
@@ -207,15 +195,14 @@ public class VentanaCliente extends JFrame{
 		comboBox.addItem("Moroso");
 		comboBox.addItem("Inactivo");
 		panel.add(comboBox);
-		
-		
-		
-		JLabel lblImagen =  new JLabel();
-		lblImagen.setBounds(518, 27, 200, 167);		
-		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/cliente.png").getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
+
+		JLabel lblImagen = new JLabel();
+		lblImagen.setBounds(518, 27, 200, 167);
+		ImageIcon imageIcon = new ImageIcon(
+				new ImageIcon("imagenes/cliente.png").getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 		lblImagen.setIcon(imageIcon);
 		panel.add(lblImagen);
-		
+
 	}
 
 	public JTable getTablaClientes() {
@@ -265,25 +252,24 @@ public class VentanaCliente extends JFrame{
 	public void setBtnBorrar(JButton btnBorrar) {
 		this.btnBorrar = btnBorrar;
 	}
-	
+
 	public JButton getBtnBuscar() {
 		return btnBuscar;
 	}
+
 	public JComboBox getVariableBuscar() {
 		return variableBuscar;
 	}
-	
+
 	public JTextField getBuscador() {
 		return buscador;
 	}
 
-	public JTextField getTxtNombre()
-	{
+	public JTextField getTxtNombre() {
 		return txtNombre;
 	}
 
-	public JTextField getTxtTelefono()
-	{
+	public JTextField getTxtTelefono() {
 		return txtTelefono;
 	}
 
@@ -312,21 +298,20 @@ public class VentanaCliente extends JFrame{
 	}
 
 	public void llenarTabla(List<ClienteDTO> clientesEnTabla) {
-		this.getModelClientes().setRowCount(0); //Para vaciar la tabla
+		this.getModelClientes().setRowCount(0); // Para vaciar la tabla
 		this.getModelClientes().setColumnCount(0);
 		this.getModelClientes().setColumnIdentifiers(this.getNombreColumnas());
-		
+
 		JComboBox<String> comboEstados = new JComboBox<String>();
 		comboEstados.addItem("activo");
 		comboEstados.addItem("vip");
 		comboEstados.addItem("moroso");
 		comboEstados.addItem("inactivo");
-		
+
 		TableColumn columnaEstados = this.tablaClientes.getColumnModel().getColumn(5);
 		columnaEstados.setCellEditor(new DefaultCellEditor(comboEstados));
 
-		for (ClienteDTO c : clientesEnTabla)
-		{
+		for (ClienteDTO c : clientesEnTabla) {
 			String nombre = c.getNombre();
 			String apellido = c.getApellido();
 			String telefono = c.getTelefono();
@@ -334,8 +319,8 @@ public class VentanaCliente extends JFrame{
 			int puntos = c.getPuntos();
 			String estadoCliente = c.getEstadoCliente();
 			BigDecimal deudaPesos = c.getDeudaPesos();
-			BigDecimal deudaDolar= c.getDeudaDolar();
-			Object[] fila = {nombre, apellido, telefono, mail, puntos, estadoCliente, deudaPesos, deudaDolar};
+			BigDecimal deudaDolar = c.getDeudaDolar();
+			Object[] fila = { nombre, apellido, telefono, mail, puntos, estadoCliente, deudaPesos, deudaDolar };
 			this.getModelClientes().addRow(fila);
 		}
 
@@ -345,8 +330,8 @@ public class VentanaCliente extends JFrame{
 		this.setVisible(true);
 
 	}
-	public void limpiarInputs()
-	{
+
+	public void limpiarInputs() {
 		this.txtNombre.setText(null);
 		this.txtTelefono.setText(null);
 		this.txtApellido.setText(null);
@@ -364,32 +349,38 @@ public class VentanaCliente extends JFrame{
 				JOptionPane.ERROR_MESSAGE);
 
 	}
+
 	public void mostrarErrorEdicionEstado() {
 		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.error.editar.estado"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}
+
 	public void mostrarErrorEdicionDeuda() {
 		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.error.editar.deuda"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 
 	}
+
 	public void mostrarExitoEditar() {
-		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.editar.exito"),"Dialog",JOptionPane.INFORMATION_MESSAGE);
-		
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.editar.exito"), "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);
+
 	}
 
 	public void mostrarExitoAlta() {
-		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.alta.exito"),"Dialog",JOptionPane.INFORMATION_MESSAGE);
-		
+		JOptionPane.showMessageDialog(new JFrame(), this.idioma.getString("cliente.alta.exito"), "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);
+
 	}
 
 	public int mostrarConfirmacionBorrar() {
-	    UIManager.put("OptionPane.noButtonText", idioma.getString("no"));
-	    UIManager.put("OptionPane.yesButtonText", idioma.getString("si"));
-		int confirm = JOptionPane.showOptionDialog(null, this.idioma.getString("borrar.confirmacion"),this.idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, null, null);
-		
+		UIManager.put("OptionPane.noButtonText", idioma.getString("no"));
+		UIManager.put("OptionPane.yesButtonText", idioma.getString("si"));
+		int confirm = JOptionPane.showOptionDialog(null, this.idioma.getString("borrar.confirmacion"),
+				this.idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				null, null);
+
 		return confirm;
 	}
 }

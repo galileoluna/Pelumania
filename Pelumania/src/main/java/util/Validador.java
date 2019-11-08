@@ -26,7 +26,11 @@ public class Validador {
 			return NOMBRE_PATTERN.matches(NOMBRE_REGEX, nombre);
 		}
 
-
+		public static boolean esNombreConNumerosEspaciosValido(String nombre) {	
+			String NOMBRE_REGEX = "[a-zA-Z0-9 ñ]+";
+			Pattern NOMBRE_PATTERN = Pattern.compile(NOMBRE_REGEX);
+			return NOMBRE_PATTERN.matches(NOMBRE_REGEX, nombre);
+		}
 
 		@SuppressWarnings("static-access")
 		public static boolean esMail(String email) {

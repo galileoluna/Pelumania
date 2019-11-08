@@ -3,8 +3,6 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import dto.PromocionDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaModificarPromocion;
@@ -59,11 +57,11 @@ public class ControladorEditarPromo {
 			break;
 
 		case 0:
-			JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+			this.ventanaEditarPromo.mostarErrorCamposVacios();
 			break;
 			
 		case 2:
-			JOptionPane.showMessageDialog(null, "Por favor ingrese una fecha de finalizacion mayor a la inicial", "Error", JOptionPane.ERROR_MESSAGE);
+			this.ventanaEditarPromo.mostrarErrorFechaInicial();
 			break;
 		}
 			

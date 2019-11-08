@@ -2,18 +2,12 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import dto.PromocionDTO;
 import modelo.Sistema;
 import presentacion.vista.NuevaVista;
 import presentacion.vista.VentanaPromocionesVigentes;
-import presentacion.vista.Vista;
-
 
 public class ControladorPromocionesVigentes implements ActionListener{
 	private Sistema sistema;

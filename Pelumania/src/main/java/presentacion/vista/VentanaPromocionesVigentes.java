@@ -4,19 +4,28 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import dto.PromocionDTO;
+import util.PropertyManager;
 
 public class VentanaPromocionesVigentes{
 	private static VentanaPromocionesVigentes INSTANCE;
 	private JFrame frmServProf;
 	private JTable tablaServicioPromocion;
 	private DefaultTableModel modelPromVigen;
-	private  String[] nombreColumnas = {"Decripcion","Fecha Inicio","Fecha Fin","Descuento","Puntos"};
+	
+	//configuracion de idioma
+	private Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+
+	private  String[] nombreColumnas = {idioma.getString("descripcion"),idioma.getString("inicio"),idioma.getString("fin"),idioma.getString("descuento"),idioma.getString("puntos")};
 
 	public VentanaPromocionesVigentes() 
 	{
@@ -37,7 +46,7 @@ public class VentanaPromocionesVigentes{
 	private void initialize() 
 	{
 		frmServProf = new JFrame();
-		frmServProf.setTitle("Promociones Vigentes");
+		frmServProf.setTitle(idioma.getString("promocion.vigente"));
 		frmServProf.setBounds(100, 100, 520, 442);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

@@ -2,8 +2,6 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JOptionPane;
-
 import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
@@ -60,16 +58,16 @@ public class ControladorEditarSucursal {
 		String S_estado = (String) this.ventanaEditarSucursal.getJCBoxEstado().getSelectedItem();
 
 		//validamos campos
-		if ( Validador.esNombreConEspaciosValido(S_nombreSucursal) &&
+		if ( Validador.esNombreConNumerosEspaciosValido(S_nombreSucursal) &&
 			Validador.esNumeroSucursalValido(Integer.toString(S_numero)) &&
-			Validador.esNombreConEspaciosValido(S_direccion)){
+			Validador.esNombreConNumerosEspaciosValido(S_direccion)){
 			if(validar(S_nombreSucursal,S_direccion,S_numero,S_estado)) {
 				SucursalDTO sucursal= new SucursalDTO(this.idSucursal,S_nombreSucursal,S_direccion,S_numero,S_estado);
 				this.sistema.editarSucursal(sucursal);
 				this.ventanaEditarSucursal.cerrar();
 				//llama a la instancia del controladorSucursal asi se refresca la tabla 
 				controladorSucursal.getInstance(sistema, usuario);
-			}else JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+			}else this.ventanaEditarSucursal.mostrarErrorCamposVacios();
 		}else {
 			this.ventanaEditarSucursal.mostrarErrorCampos();
 		}

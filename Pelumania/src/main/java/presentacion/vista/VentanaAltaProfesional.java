@@ -11,12 +11,10 @@ import javax.swing.border.EmptyBorder;
 
 import util.PropertyManager;
 
-import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 
 public class VentanaAltaProfesional extends JFrame 
 {
