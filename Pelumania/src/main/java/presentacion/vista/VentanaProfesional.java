@@ -4,18 +4,23 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ProfesionalDTO;
+import util.PropertyManager;
 import util.RowsRendererBasic;
 
 public class VentanaProfesional
@@ -30,7 +35,15 @@ public class VentanaProfesional
 	private JButton btnEditar;
 	private JButton btnHorario;
 	private DefaultTableModel modelProfesional;
-	private  String[] nombreColumnas = {"Nombre","Apellido","Sucursal Origen","Sucursal Transferencia","Estado"};
+	//idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
+
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	
+	
+	private  String[] nombreColumnas = {idioma.getString("nombre"),idioma.getString("apellido"),idioma.getString("profesional.sucursal.origen"),
+										idioma.getString("profesional.sucursal.transferencia"),idioma.getString("estado")};
 	private JButton btnAsignarServicio;
 	private JTextField buscador;
 
@@ -54,7 +67,7 @@ public class VentanaProfesional
 	{
 		frmProfesional = new JFrame();
 		frmProfesional.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
-		frmProfesional.setTitle("Profesional");
+		frmProfesional.setTitle(idioma.getString("profesional.titulo"));
 		frmProfesional.setBounds(100, 100, 1001, 341);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -85,29 +98,29 @@ public class VentanaProfesional
 		
 		spPersonas.setViewportView(tablaProfesional);
 		
-		btnAgregar = new JButton("Agregar Profesional");
+		btnAgregar = new JButton(idioma.getString("agregar"));
 		btnAgregar.setBounds(114, 257, 153, 23);
 		panel.add(btnAgregar);
 		
-		btnEditar = new JButton("Editar Profesional");
+		btnEditar = new JButton(idioma.getString("editar"));
 		btnEditar.setBounds(356, 257, 153, 23);
 		panel.add(btnEditar);
 		
-		btnBorrar = new JButton("Borrar Profesional");
+		btnBorrar = new JButton(idioma.getString("borrar"));
 		btnBorrar.setBounds(611, 257, 159, 23);
 		panel.add(btnBorrar);
 		
-		btnHorario = new JButton("Ver Horario");
+		btnHorario = new JButton(idioma.getString("profesional.horario"));
 		btnHorario.setBounds(806, 112, 159, 23);
 		panel.add(btnHorario);
 		
-		btnAsignarServicio = new JButton("Asignar Servicio");
+		btnAsignarServicio = new JButton(idioma.getString("profesiona.asignar.servicio"));
 		btnAsignarServicio.setBounds(806, 167, 159, 23);
 		panel.add(btnAsignarServicio);
 		
-		JLabel lblBuscarPor = new JLabel("Buscar por:");
+		JLabel lblBuscarPor = new JLabel(idioma.getString("filtrar"));
 		lblBuscarPor.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblBuscarPor.setBounds(10, 11, 95, 24);
+		lblBuscarPor.setBounds(10, 11, 96, 24);
 		panel.add(lblBuscarPor);
 		
 		variableBuscar = new JComboBox();
@@ -118,7 +131,7 @@ public class VentanaProfesional
 		variableBuscar.addItem("Apellido");
 		variableBuscar.addItem("Estado");
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton(idioma.getString("buscar"));
 		btnBuscar.setBounds(572, 13, 123, 23);
 		panel.add(btnBuscar);
 		
@@ -209,5 +222,13 @@ public class VentanaProfesional
 			}
 		}
 	
+	}
+	public int mostrarConfirmacionBorrar() {
+		UIManager.put("OptionPane.noButtonText", idioma.getString("no"));
+	    UIManager.put("OptionPane.yesButtonText", idioma.getString("si"));
+	
+		int confirmar = JOptionPane.showOptionDialog(null, idioma.getString("borrar.confirmacion"), idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
+		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		return confirmar;
 	} 
 }

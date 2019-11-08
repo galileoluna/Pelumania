@@ -70,7 +70,7 @@ public class ControladorModificarProfesional implements ActionListener {
 			//llama a la instancia del controladorProfesional asi se refresca la tabla 
 			controlProfesional.getInstance(sistema,usuario);
 		}else {
-			JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+			this.modificarProfesional.mostrarErrorCamposVacios();
 		}
 	}
 	// Valida que los campos ingresados no sean nulos o esten vacios	

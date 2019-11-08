@@ -235,7 +235,7 @@ public class VentanaServicio extends JFrame {
 	    UIManager.put("OptionPane.noButtonText", idioma.getString("no"));
 	    UIManager.put("OptionPane.yesButtonText", idioma.getString("si"));
 
-		int confirm = JOptionPane.showOptionDialog(null, idioma.getString("servicio.borrar.confirmacion"),idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
+		int confirm = JOptionPane.showOptionDialog(null, idioma.getString("borrar.confirmacion"),idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
 		             JOptionPane.QUESTION_MESSAGE, null, null, null);
 		return confirm;
 	}

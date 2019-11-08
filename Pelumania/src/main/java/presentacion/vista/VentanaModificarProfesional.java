@@ -4,11 +4,16 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import util.PropertyManager;
+
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -26,7 +31,12 @@ public class VentanaModificarProfesional extends JFrame
 	private JComboBox estado;
 	private JLabel lblEstado;
 
-	
+	// configuracion de idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
+
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+
 	public static VentanaModificarProfesional getInstance( )
 	{
 		if(INSTANCE == null)
@@ -41,7 +51,7 @@ public class VentanaModificarProfesional extends JFrame
 	private VentanaModificarProfesional() 
 	{
 		super();
-		setTitle("Editar Profesional");
+		setTitle(idioma.getString("profesional.editar"));
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 410, 327);
@@ -59,7 +69,7 @@ public class VentanaModificarProfesional extends JFrame
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre");
+		JLabel lblNombre = new JLabel(idioma.getString("nombre"));
 		lblNombre.setBounds(10, 11, 113, 14);
 		panel.add(lblNombre);
 		
@@ -68,7 +78,7 @@ public class VentanaModificarProfesional extends JFrame
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JLabel lblApellido = new JLabel("Apellido");
+		JLabel lblApellido = new JLabel(idioma.getString("apellido"));
 		lblApellido.setBounds(10, 56, 113, 14);
 		panel.add(lblApellido);
 
@@ -79,19 +89,15 @@ public class VentanaModificarProfesional extends JFrame
 		panel.add(txtApellido);
 		
 		
-		btnAgregar= new JButton("Guardar");
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnAgregar= new JButton(idioma.getString("guardar"));
 		btnAgregar.setBounds(76, 232, 189, 23);
 		panel.add(btnAgregar);
 		
-		JLabel labelComboOrig = new JLabel("Sucursal origen");
+		JLabel labelComboOrig = new JLabel(idioma.getString("profesional.sucursal.origen"));
 		labelComboOrig.setBounds(10, 111, 113, 14);
 		panel.add(labelComboOrig);
 		
-		JLabel labeSucTran = new JLabel("Sucursal Transferencia");
+		JLabel labeSucTran = new JLabel(idioma.getString("profesional.sucursal.transferencia"));
 		labeSucTran.setBounds(10, 154, 164, 14);
 		panel.add(labeSucTran);
 		
@@ -103,7 +109,7 @@ public class VentanaModificarProfesional extends JFrame
 		comboSucTran.setBounds(188, 150, 164, 22);
 		panel.add(comboSucTran);
 		
-		lblEstado = new JLabel("Estado");
+		lblEstado = new JLabel(idioma.getString("estado"));
 		lblEstado.setBounds(10, 197, 164, 14);
 		panel.add(lblEstado);
 		
@@ -163,6 +169,10 @@ public class VentanaModificarProfesional extends JFrame
 		this.comboSucOrig.setSelectedItem(null);
 		this.comboSucTran.setSelectedItem(null);
 		this.dispose();
+	}
+
+	public void mostrarErrorCamposVacios() {
+		JOptionPane.showMessageDialog(null, idioma.getString("error.campos.vacios"), "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }
 

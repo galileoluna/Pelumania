@@ -53,7 +53,7 @@ public class ControladorAltaProfesional  implements ActionListener{
 		Integer idSucursalTran=getIdCombo(this.altaProfesional.getComboTran().getSelectedItem().toString().equals("--")?"-1":this.altaProfesional.getComboTran().getSelectedItem().toString());
 		String estado=this.altaProfesional.getEstado().getSelectedItem().toString();
 		if( idSucursalOrig == -1) {
-			JOptionPane.showMessageDialog(null, "Por favor ingrese una sucursal de origen", "Error", JOptionPane.ERROR_MESSAGE);
+			this.altaProfesional.mostrarErrorSucursalOrigen();
 		}else {
 			if(validar(nombre,apellido,idSucursalOrig,idSucursalTran)) {
 				ProfesionalDTO profesional= new ProfesionalDTO(0,nombre,apellido,idSucursalOrig,idSucursalTran,estado);

@@ -1,23 +1,10 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.swing.JOptionPane;
-
 import dto.ProfesionalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
-import persistencia.conexion.Conexion;
-import presentacion.vista.VentanaAltaProfesional;
-import presentacion.vista.VentanaCliente;
-import presentacion.vista.VentanaHorarioProfesional;
 import presentacion.vista.VentanaProfesional;
 
 public class ControladorProfesional {
@@ -79,8 +66,7 @@ public class ControladorProfesional {
 	        	for (int fila : filasSeleccionadas)
 	        	{
 		        	if(this.profesionalEnTabla.get(fila)!=null) {	 
-		        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Profesional?","Confirmacion", JOptionPane.YES_NO_OPTION,
-		   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		        		int confirm = this.ventanaProfesional.mostrarConfirmacionBorrar();
 		        		if (confirm == 0)
 		        			this.sistema.borrarProfesional(this.profesionalEnTabla.get(fila));
 		        			
