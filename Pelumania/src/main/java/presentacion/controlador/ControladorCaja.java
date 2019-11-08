@@ -204,7 +204,7 @@ public class ControladorCaja implements ActionListener {
 					ClienteDTO cliente = this.sistema.obtenerClienteById(citaSeleccionada.getIdCliente());
 					
 					//si es una cliente fiado solo puede pagar en efectivo
-					if(!tipoMovimiento.equalsIgnoreCase("Efectivo") && cliente.getEstadoCliente().equalsIgnoreCase("Moroso"))
+					if(!tipoCambio.equalsIgnoreCase("Efectivo") && cliente.getEstadoCliente().equalsIgnoreCase("Moroso"))
 						this.ventanaCaja.mostrarErrorMorosoEfectivo();
 					else {
 						boolean exito = true; 
