@@ -114,7 +114,7 @@ public class VentanaProfesional
 		btnHorario.setBounds(806, 112, 159, 23);
 		panel.add(btnHorario);
 		
-		btnAsignarServicio = new JButton(idioma.getString("profesiona.asignar.servicio"));
+		btnAsignarServicio = new JButton(idioma.getString("profesional.asignar.servicio"));
 		btnAsignarServicio.setBounds(806, 167, 159, 23);
 		panel.add(btnAsignarServicio);
 		

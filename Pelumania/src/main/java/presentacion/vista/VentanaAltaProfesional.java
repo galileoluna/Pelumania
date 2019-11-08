@@ -172,7 +172,7 @@ public class VentanaAltaProfesional extends JFrame
 	}
 
 	public void mostrarErrorSucursalOrigen() {
-		JOptionPane.showMessageDialog(null, idioma.getString("profesiona.error.sucursal.origen"), "Error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, idioma.getString("profesional.error.sucursal.origen"), "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }
 

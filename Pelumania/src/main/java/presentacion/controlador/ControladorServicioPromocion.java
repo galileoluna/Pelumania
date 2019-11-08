@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 import dto.ServicioDTO;
 import modelo.Sistema;
@@ -50,8 +49,7 @@ public class ControladorServicioPromocion {
     	for (int fila : filasSeleccionadas)
     	{
         	if(this.servEnTabla.get(fila)!=null) {
-        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar el Servicio asociado?","Confirmacion", JOptionPane.YES_NO_OPTION,
-	   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+        		int confirm = this.ventanaServPromo.mostrarConfirmacionBorrar();
 	        		if (confirm == 0) {
 	        			this.sistema.borrarServProm(idPromocion, idServEnTabla.get(servEnTabla.indexOf(this.servEnTabla.get(fila))));
 	        		}
@@ -69,7 +67,7 @@ public class ControladorServicioPromocion {
 		// llamos  a la instancia para que vuelva a cargar la tabla con el servicio nuevo
 			this.getInstance(sistema, descripcionPromo,idPromocion);
 		}else {
-			JOptionPane.showMessageDialog(null, "La promocion ya tiene relacionado el servicio que intenta asociar", "Error", JOptionPane.ERROR_MESSAGE);
+			this.ventanaServPromo.mostrarErrorAsignarServicio();
 		}
 	}
 	

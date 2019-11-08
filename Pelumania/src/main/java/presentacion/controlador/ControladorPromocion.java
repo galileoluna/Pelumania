@@ -3,12 +3,8 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaProfesional;
 import presentacion.vista.VentanaPromocion;
 
 public class ControladorPromocion {
@@ -28,10 +24,7 @@ public class ControladorPromocion {
 		this.ventanaPromocion.getBtnAgregar().addActionListener(m -> agregarPromocion(m));
 		this.ventanaPromocion.getBtnEditar().addActionListener(b-> editarPromocion(b));
 	}
-
 	
-
-
 	public static ControladorPromocion getInstance(Sistema sistema) {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorPromocion(sistema);
@@ -43,7 +36,6 @@ public class ControladorPromocion {
 		return INSTANCE;
 	}
 	
-
 	private void borrarPromocion(ActionEvent l) {
 		this.promosEnTabla=sistema.obtenerPrmociones(); 
 		int[] filasSeleccionadas = this.ventanaPromocion.gettablaPromocion().getSelectedRows();
@@ -51,8 +43,7 @@ public class ControladorPromocion {
 	        	for (int fila : filasSeleccionadas)
 	        	{
 		        	if(this.promosEnTabla.get(fila)!=null) {	 
-		        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar la Promocion?","Confirmacion", JOptionPane.YES_NO_OPTION,
-		   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		        		int confirm = this.ventanaPromocion.mostrarConfirmacionBorrar();
 		        		if (confirm == 0) {
 		        			// if para el boton de borrado de santi
 		        				this.sistema.borrarPromocion(this.promosEnTabla.get(fila));
