@@ -595,7 +595,13 @@ public class Controlador2 implements ActionListener{
 				OperacionesCita(true);
 				
 				if(citaSeleccionada.getEstado().equals("Fiado"))this.nvista.getBtn_Finalizar().setEnabled(true);
-
+				if(citaSeleccionada.getEstado().equals("Activa"))this.nvista.getBtn_Finalizar().setEnabled(false);
+				if(citaSeleccionada.getEstado().equals("En curso")) {
+					this.nvista.getBtn_EnCurso().setEnabled(false);
+					this.nvista.getBtn_Cancelar().setEnabled(false);
+					this.nvista.getBtn_Editar().setEnabled(false);
+				}
+				
 				this.nvista.OcultarLblCitaSeleccionadaNull();
 				this.nvista.mostrarDetalleCitas(citaSeleccionada);
 				this.cargarServiciosDeCitas(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
