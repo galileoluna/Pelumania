@@ -142,11 +142,13 @@ public class NuevaVista implements Runnable {
 			private JLabel Lbl_Verde;
 			private JLabel Lbl_Azul;
 			private JLabel Lbl_Gris;
+			private JLabel Lbl_Cian;
 			private JLabel Lbl_Usuario;
 			private JLabel Lbl_Sucursal;
 			private JLabel lblCitasActivas;
 			private JLabel LblCitasEnCurso;
 			private JLabel LblCitasAReprogramar;
+			private JLabel LblCitasFiadas;
 			private JLabel lblCitasCanceladas;
 			private JLabel lblCitasFinalizadas;
 			private JLabel lblCitasVencidas;
@@ -322,7 +324,7 @@ public class NuevaVista implements Runnable {
 	private void crearPanelReferencias() {
 		JPnl_Referencias = new JPanel();
 		JPnl_Referencias.setBorder(new LineBorder(new Color(0, 0, 0)));
-		JPnl_Referencias.setBounds(0, 292, 415, 133);
+		JPnl_Referencias.setBounds(0, 292, 415, 160);
 		JPnl_Izquierdo.add(JPnl_Referencias);
 		JPnl_Referencias.setLayout(null);
 	}
@@ -400,7 +402,19 @@ public class NuevaVista implements Runnable {
 			lblCitasVencidas = new JLabel("Citas Vencidas");
 			lblCitasVencidas.setBounds(237, 102, 157, 20);
 			JPnl_Referencias.add(lblCitasVencidas);
-		
+			//_________________________________________
+			
+			
+			Lbl_Cian = new JLabel("");
+			Lbl_Cian.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Cian.setOpaque(true);
+			Lbl_Cian.setBackground(RowsRenderer.cian);
+			Lbl_Cian.setBounds(10, 135, 20, 20);
+			JPnl_Referencias.add(Lbl_Cian);
+			
+			LblCitasFiadas = new JLabel("Citas Fiadas");
+			LblCitasFiadas.setBounds(40, 135, 157, 20);
+			JPnl_Referencias.add(LblCitasFiadas);
 	}
 	
 	private void crearSeparadorReferencias() {
@@ -579,6 +593,8 @@ public class NuevaVista implements Runnable {
 		JCBoxFiltroEstado.addItem("En curso");
 		JCBoxFiltroEstado.addItem("Finalizada");
 		JCBoxFiltroEstado.addItem("Vencida");
+		JCBoxFiltroEstado.addItem("Fiada");
+
 		
 		JPnl_FiltroSeleccionado.add(JCBoxFiltroEstado);
 		
@@ -945,6 +961,10 @@ public class NuevaVista implements Runnable {
 	public JLabel getLbl_Gris() {
 		return Lbl_Gris;
 	}
+	
+	public JLabel getLbl_Cian() {
+		return Lbl_Cian;
+	}
 
 	public JLabel getLblCitasActivas() {
 		return lblCitasActivas;
@@ -968,6 +988,10 @@ public class NuevaVista implements Runnable {
 
 	public JLabel getLblCitasVencidas() {
 		return lblCitasVencidas;
+	}
+	
+	public JLabel getLblCitasFiadas() {
+		return LblCitasFiadas;
 	}
 
 	public JPanel getJPnl_Izquierdo() {
