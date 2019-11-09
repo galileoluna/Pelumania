@@ -155,7 +155,10 @@ public class ControladorCaja implements ActionListener {
 		comboTiposPago.addItem("Efectivo");
 		comboTiposPago.setEnabled(false);
 	}
-
+	
+		private boolean esCategoriaActiva(String estado) {
+		return estado.equalsIgnoreCase("activo");
+	}
 
 	private void agregarCategoriasEgreso() {
 		
