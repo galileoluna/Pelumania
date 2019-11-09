@@ -117,6 +117,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getBtn_Agregar().addActionListener(k -> abrirVentanaCitaNueva(k));
 		this.nvista.getBtn_Editar().addActionListener(j -> abrirVentanaEditarCita(j));
 		this.nvista.getBtn_Cancelar().addActionListener(l -> cancelarCita(l));
+		this.nvista.getBtn_EnCurso().addActionListener(t -> enCurso(t));
 		
 		//cobrar la cita desde la caja
 		this.nvista.getBtn_Finalizar().addActionListener(l -> finalizarCita(l));
@@ -136,6 +137,8 @@ public class Controlador2 implements ActionListener{
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 	}
+
+	
 
 	private void ventanaCambiarIdioma(ActionEvent l) {
 		controladorIdioma = ControladorIdioma.getInstance(sistema);
@@ -296,6 +299,14 @@ public class Controlador2 implements ActionListener{
 			cargarListaConCitas();
 			refrescarTablaCitas();
 		}
+	}
+	
+	private void enCurso(ActionEvent t) {
+		this.sistema.ponerCitaEnCurso(citaSeleccionada);
+		limpiarTablas();
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		cargarListaConCitas();
+		refrescarTablaCitas();
 	}
 	
 	private void cargarPanelDinamicoServicios(ActionEvent m) {
@@ -470,15 +481,15 @@ public class Controlador2 implements ActionListener{
 		log.info("__________________________________________________________");
 	}
 	
-public void actualizarDiaSeleccionado() {
-	limpiarTablas();
-	this.citaSeleccionada = null;
-	actualizarPanelCitaSeleccionada();
-	setearFechaSeleccionadaEnCalendario();
-	citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
-	cargarListaConCitas();
-	refrescarTablaCitas();
-	habilitarBotonAgregar();
+	public void actualizarDiaSeleccionado() {
+		limpiarTablas();
+		this.citaSeleccionada = null;
+		actualizarPanelCitaSeleccionada();
+		setearFechaSeleccionadaEnCalendario();
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		cargarListaConCitas();
+		refrescarTablaCitas();
+		habilitarBotonAgregar();
 	}
 
 	private static String getFechaSeleccionadaAsString() {
@@ -613,6 +624,7 @@ public void actualizarDiaSeleccionado() {
 		this.nvista.getBtn_Finalizar().setEnabled(habilitar);
 		this.nvista.getBtn_VerComprobante().setEnabled(habilitar);
 		this.nvista.getBtn_VerDetalle().setEnabled(habilitar);
+		this.nvista.getBtn_EnCurso().setEnabled(habilitar);
 	}
 	
 	public void OperacionesCitaDeFiar(boolean habilitar) {
