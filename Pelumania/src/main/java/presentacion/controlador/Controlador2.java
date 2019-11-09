@@ -6,9 +6,12 @@ import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -136,6 +139,44 @@ public class Controlador2 implements ActionListener{
 //		setearTimer();
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
+		
+		Timer timer=new Timer();
+		LocalDateTime fechaHoy = LocalDateTime.now();
+		
+		
+		TimerTask cancelarCitas=new TimerTask() {
+			@Override
+			public void run() {
+				List<CitaDTO>citasDeHoy=sistema.getCitasPorDia(LocalDate.now().toString());
+				for(int i=0;i<citasDeHoy.size();i++) {
+					if(citasDeHoy.get(i).esSoloActiva() && compararMas10minutosParaCancelar(citasDeHoy.get(i).getHoraInicio(),fechaHoy.getHour(),fechaHoy.getMinute()) ) {
+						sistema.cancelarCita(citasDeHoy.get(i));
+						refrescarTablaCitas();
+					}
+				}
+			}
+
+			private boolean compararMas10minutosParaCancelar(LocalTime horaInicio, int hora, int minutos) {
+				int horaCita=horaInicio.getHour();
+				int minutoCita=horaInicio.getMinute();
+				
+				if(minutoCita>50) {
+					horaCita+=1;
+					minutoCita=minutoCita+10-50;
+				}else minutoCita=minutoCita+10;
+				
+				if(horaCita<hora) {
+					if(minutoCita<minutos)return true;
+					return false;
+				}return false;
+			}
+
+			
+			
+		};
+		//aca selecciono cada cuanto se actualiza el timer, esta seleccionado 10 min en la tercera posicion
+		timer.schedule(cancelarCitas, 1000, 100000);
+	
 	}
 
 	
@@ -686,4 +727,5 @@ public class Controlador2 implements ActionListener{
 //		this.timerEstados = new TimerEstadosCitas(sistema);
 //		timerEstados.iniciar();
 //	}
+
 }
