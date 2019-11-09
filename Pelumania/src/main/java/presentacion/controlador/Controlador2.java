@@ -579,11 +579,12 @@ public void actualizarDiaSeleccionado() {
 			if (citaSeleccionada != null) {
 				if(!citaSeleccionada.getEstado().equals("Cancelada") &&
 				   !citaSeleccionada.getEstado().equals("Finalizada") &&
-				   !citaSeleccionada.getEstado().equals("Vencida") &&
-				   !citaSeleccionada.getEstado().equals("Fiado")){
-		
+				   !citaSeleccionada.getEstado().equals("Vencida")&&
+				   !citaSeleccionada.getEstado().equals("Fiado"))
 				OperacionesCita(true);
-				}
+				
+				if(citaSeleccionada.getEstado().equals("Fiado"))this.nvista.getBtn_Finalizar().setEnabled(true);
+
 				this.nvista.OcultarLblCitaSeleccionadaNull();
 				this.nvista.mostrarDetalleCitas(citaSeleccionada);
 				this.cargarServiciosDeCitas(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
@@ -614,6 +615,11 @@ public void actualizarDiaSeleccionado() {
 		this.nvista.getBtn_VerDetalle().setEnabled(habilitar);
 	}
 	
+	public void OperacionesCitaDeFiar(boolean habilitar) {
+		this.nvista.getBtn_Finalizar().setEnabled(habilitar);
+		this.nvista.getBtn_VerComprobante().setEnabled(habilitar);
+		this.nvista.getBtn_VerDetalle().setEnabled(habilitar);
+	}
 	public boolean validarFechaSeleccionada() {
 		if (esDespuesDeHoy()) {
 			if (esDomingo()) {
