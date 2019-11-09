@@ -48,7 +48,6 @@ public class Controlador2 implements ActionListener{
 	
 	private ControladorCita controladorCita;
 	private NuevoControladorEditarCita controladorEditarCita;
-//	private ControladorCita controladorEditarCita;
 
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
