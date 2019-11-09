@@ -486,7 +486,7 @@ public class ControladorCita implements ActionListener{
 			Integer idCitaAgregada;
 			
 			CitaDTO nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
-					this.ventanaCita.getCliente().getNombre(), this.clienteGenerico.getApellido(), 
+					this.ventanaCita.getCliente().getNombre(), this.ventanaCita.getCliente().getApellido(), 
 					this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
