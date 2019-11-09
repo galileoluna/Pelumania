@@ -206,14 +206,26 @@ public class ControladorCaja implements ActionListener {
 					if(!tipoCambio.equalsIgnoreCase("Efectivo") && cliente.getEstadoCliente().equalsIgnoreCase("Moroso"))
 						this.ventanaCaja.mostrarErrorMorosoEfectivo();
 					else {
+						
 						boolean exito = true; 
 						boolean esFiado = false;
+						boolean esPagoDeuda=false;
 						int puntosTotales = 0;
+						
+						
+						
 						for (ServicioTurnoDTO servicio : serviciosCita) {
 							
 							//buscamos el precio individual de ese servicio
 							BigDecimal precioPesosServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioLocal();
 							BigDecimal precioDolarServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioDolar();
+							
+							//verifico el caso que se este pagando una deuda
+							if(cliente.getEstadoCliente().equalsIgnoreCase("moroso") && tipoCambio.equalsIgnoreCase("Efectivo")) {
+								esPagoDeuda=true;
+								precioPesosServicio=new BigDecimal(0);
+								precioDolarServicio=new BigDecimal(0);
+							}
 							
 							//buscamos los puntos de cada servicio particular
 							int puntos = this.sistema.getServicioById(servicio.getIdServicio()).getPuntos();
@@ -232,8 +244,9 @@ public class ControladorCaja implements ActionListener {
 							//por si es fiado
 							esFiado = movimientoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
 							
+							
 							//sumamos puntos
-							puntosTotales += puntos; 
+							if(!esPagoDeuda)puntosTotales += puntos; 
 						} 
 						
 						if (exito) {
@@ -253,6 +266,11 @@ public class ControladorCaja implements ActionListener {
 								cliente.setDeudaPesos(cliente.getDeudaPesos().add(citaSeleccionada.getPrecioLocal()));
 								cliente.setDeudaDolar(cliente.getDeudaDolar().add(citaSeleccionada.getPrecioDolar()));
 								cliente.setEstadoCliente("Moroso");
+							}
+							if(esPagoDeuda) {
+								cliente.setDeudaPesos(new BigDecimal(0));
+								cliente.setDeudaDolar(new BigDecimal(0));
+								cliente.setEstadoCliente("Activo");
 							}
 								
 							this.sistema.editarCliente(cliente);
@@ -401,7 +419,7 @@ public class ControladorCaja implements ActionListener {
 				|| (actual.getDeudaDolar().compareTo(new BigDecimal(0))>0)) 
 			clienteMoroso=true;
 	}
-
+ 
 	private boolean existeCategoriaServicio() {
 		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
 			if (categoria.getNombre().equalsIgnoreCase("SERVICIO")) {
