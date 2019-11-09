@@ -654,7 +654,6 @@ public void actualizarDiaSeleccionado() {
 	private void verComprobante(ActionEvent l) {
 		ReporteComprobante comprobante = new ReporteComprobante(this.citaSeleccionada);
 		comprobante.mostrar();
-		
 	}
 
 	private void ventanaUsuarios(ActionEvent z) {
