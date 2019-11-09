@@ -172,10 +172,6 @@ public class ControladorCaja implements ActionListener {
 		
 	}
 
-	private boolean esCategoriaActiva(String estado) {
-		return estado.equalsIgnoreCase("activo");
-	}
-
 	private void agregarMovimiento(ActionEvent l) {
 		int idSucursal = 1; //de donde sacamos esto?
 		Timestamp fecha = Timestamp.from(Instant.now());
@@ -246,7 +242,7 @@ public class ControladorCaja implements ActionListener {
 							
 							
 							//sumamos puntos
-							if(!esPagoDeuda)puntosTotales += puntos; 
+							if(esEfectivo())puntosTotales += puntos; 
 						} 
 						
 						if (exito) {
@@ -324,7 +320,6 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.limpiarCampos();
 
 	}
-
 
 
 	public void mostarDatosCita() {
