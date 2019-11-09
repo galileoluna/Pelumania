@@ -116,6 +116,7 @@ public class NuevaVista implements Runnable {
 	
 		private JPanel JPnl_Botones;
 			private JButton btn_Agregar;
+			private JButton btn_EnCurso;
 			private JButton btn_Editar;
 			private JButton btn_Cancelar;
 			private JButton btn_Finalizar;
@@ -627,6 +628,12 @@ public class NuevaVista implements Runnable {
 		btn_Agregar.setEnabled(true);
 		JPnl_Botones.add(btn_Agregar);
 		
+		btn_EnCurso = new JButton("");
+		btn_EnCurso.setBackground(Color.white);
+		btn_EnCurso.setIcon(new ImageIcon("imagenes/enCurso.png"));
+		btn_EnCurso.setEnabled(false);
+		JPnl_Botones.add(btn_EnCurso);
+		
 		btn_Editar = new JButton("");
 		btn_Editar.setBackground(Color.white);
 		btn_Editar.setIcon(new ImageIcon("imagenes/editar.png"));
@@ -663,7 +670,7 @@ public class NuevaVista implements Runnable {
 		JPnl_Botones.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_Botones.setBounds(0, 621, 917, 41);
 		JPnl_Citas.add(JPnl_Botones);
-		JPnl_Botones.setLayout(new GridLayout(0, 6, 0, 0));
+		JPnl_Botones.setLayout(new GridLayout(0, 7, 0, 0));
 	}
 
 	private void crearPanelDetalle() {
@@ -1037,6 +1044,10 @@ public class NuevaVista implements Runnable {
 		return btn_Agregar;
 	}
 
+	public JButton getBtn_EnCurso() {
+		return btn_EnCurso;
+	}
+	
 	public JButton getBtn_Editar() {
 		return btn_Editar;
 	}
