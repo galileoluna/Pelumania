@@ -44,6 +44,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String FINALIZADA = "Finalizada"; 
 	private static final String REPROGRAMAR = "Reprogramar";
 	private static final String FIAR = "Fiado";
+	private static final String ENCURSO = "En curso";
 
 	
 	@Override
@@ -219,6 +220,33 @@ public class CitaDAOSQL implements CitaDAO{
 			statement = conexion.prepareStatement(cambioDeEstado);
 			statement.setString (1, FIAR);
 			statement.setInt	(2, cita_a_finalizar.getIdCita());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isFinalizarExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isFinalizarExitoso;
+	}
+	
+	public boolean ponerEnCurso(CitaDTO cita_en_curso) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isFinalizarExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(cambioDeEstado);
+			statement.setString (1, ENCURSO);
+			statement.setInt	(2, cita_en_curso.getIdCita());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
