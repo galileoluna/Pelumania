@@ -194,8 +194,7 @@ public class ControladorCaja implements ActionListener {
 				Validador.esPrecioValido(precioPesosTotal) &&
 				Validador.esPrecioValido(precioDolarTotal) &&
 				Validador.esTipoCambioValido(tipoCambio) &&
-				Validador.esDescripcionValida(descripcion) &&
-				!clienteMoroso) {
+				Validador.esDescripcionValida(descripcion)) {
 				
 				if (esServicio()) {
 					//tomamos datos de la cita seleccionada
@@ -300,7 +299,7 @@ public class ControladorCaja implements ActionListener {
 			} else {
 			//hubo un error en los inputs
 			//no paso los validadores
-				if(clienteMoroso==true)this.ventanaCaja.mostrarErrorMoroso();
+				if(clienteMoroso==true)this.ventanaCaja.mostrarErrorMorosoEfectivo();
 				else this.ventanaCaja.mostrarErrorCampos();
 		}
 		
