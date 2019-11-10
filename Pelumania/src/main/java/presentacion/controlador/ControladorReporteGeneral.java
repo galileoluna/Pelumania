@@ -1,7 +1,6 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;

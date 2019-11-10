@@ -307,6 +307,11 @@ public class Sistema
 		return this.cita.insertSinRegistrar(nuevaCita);
 	}
 	
+	public boolean ponerCitaEnCurso(CitaDTO nuevaCita)
+	{
+		return this.cita.ponerEnCurso(nuevaCita);
+	}
+	
 	public boolean borrarcita(CitaDTO cita_a_eliminar)
 	{
 		return this.cita.delete(cita_a_eliminar);

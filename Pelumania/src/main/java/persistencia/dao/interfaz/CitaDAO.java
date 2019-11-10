@@ -18,6 +18,8 @@ public interface CitaDAO {
 	
 	public boolean cancelar(CitaDTO cita_a_cancelar);
 	
+	public boolean ponerEnCurso(CitaDTO cita_en_curso);
+	
 	public boolean finalizar(CitaDTO cita_a_finalizar);
 	
 	public boolean fiar(CitaDTO cita_a_finalizar);

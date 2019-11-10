@@ -1,33 +1,21 @@
 package presentacion.vista;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import com.toedter.calendar.JDateChooser;
 
-import dto.ClienteDTO;
 import dto.SucursalDTO;
+import util.PropertyManager;
 
 import javax.swing.JSeparator;
 
@@ -40,6 +28,9 @@ public class VentanaReportesPorLocal extends JFrame{
 	private JDateChooser Jdc_Hasta;
 	private JDateChooser Jdc_Desde;
 	private JButton btnGenerarReporte;
+	// configuracion de idioma
+	private Locale locale;
+	private ResourceBundle idioma;
 	
 	private VentanaReportesPorLocal()
 	{
@@ -61,7 +52,11 @@ public class VentanaReportesPorLocal extends JFrame{
 
 	private void initialize()
 	{
-		setTitle("Reporte de ventas por Local");
+		locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+				PropertyManager.leer("configuracion", "pais"));
+		idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+				
+		setTitle(idioma.getString("reporte.sucursal"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 375, 225);
 		
@@ -77,29 +72,31 @@ public class VentanaReportesPorLocal extends JFrame{
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblDesde = new JLabel("Desde : ");
+		JLabel lblDesde = new JLabel(idioma.getString("desde"));
 		lblDesde.setBounds(32, 49, 91, 23);
 		panel.add(lblDesde);
 		
-		JLabel lblHasta = new JLabel("Hasta: ");
+		JLabel lblHasta = new JLabel(idioma.getString("hasta"));
 		lblHasta.setBounds(32, 83, 67, 24);
 		panel.add(lblHasta);
 		
 		Jdc_Desde = new JDateChooser();
 		Jdc_Desde.setSize(142, 23);
 		Jdc_Desde.setLocation(109, 49);
+		Jdc_Desde.getDateEditor().setEnabled(false);
 		panel.add(Jdc_Desde);
 		
 		Jdc_Hasta = new JDateChooser();
 		Jdc_Hasta.setSize(142, 23);
 		Jdc_Hasta.setLocation(109, 84);
+		Jdc_Hasta.getDateEditor().setEnabled(false);
 		panel.add(Jdc_Hasta);
 		
-		btnGenerarReporte = new JButton("Generar Reporte");
+		btnGenerarReporte = new JButton(idioma.getString("reporte.generar"));
 		btnGenerarReporte.setBounds(195, 152, 151, 23);
 		panel.add(btnGenerarReporte);
 		
-		JLabel lblSucursal = new JLabel("Sucursal:");
+		JLabel lblSucursal = new JLabel(idioma.getString("sucursal"));
 		lblSucursal.setBounds(32, 118, 91, 23);
 		panel.add(lblSucursal);
 		
@@ -107,7 +104,7 @@ public class VentanaReportesPorLocal extends JFrame{
 		Jcb_Sucursal.setBounds(109, 118, 142, 23);
 		panel.add(Jcb_Sucursal);
 		
-		JLabel lblGenerarReportesPor = new JLabel("Generar reporte por Local");
+		JLabel lblGenerarReportesPor = new JLabel(idioma.getString("reporte.sucursal"));
 		lblGenerarReportesPor.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblGenerarReportesPor.setBounds(32, 11, 273, 23);
 		panel.add(lblGenerarReportesPor);

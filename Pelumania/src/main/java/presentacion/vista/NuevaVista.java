@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -119,6 +118,7 @@ public class NuevaVista implements Runnable {
 	
 		private JPanel JPnl_Botones;
 			private JButton btn_Agregar;
+			private JButton btn_EnCurso;
 			private JButton btn_Editar;
 			private JButton btn_Cancelar;
 			private JButton btn_Finalizar;
@@ -144,11 +144,13 @@ public class NuevaVista implements Runnable {
 			private JLabel Lbl_Verde;
 			private JLabel Lbl_Azul;
 			private JLabel Lbl_Gris;
+			private JLabel Lbl_Cian;
 			private JLabel Lbl_Usuario;
 			private JLabel Lbl_Sucursal;
 			private JLabel lblCitasActivas;
 			private JLabel LblCitasEnCurso;
 			private JLabel LblCitasAReprogramar;
+			private JLabel LblCitasFiadas;
 			private JLabel lblCitasCanceladas;
 			private JLabel lblCitasFinalizadas;
 			private JLabel lblCitasVencidas;
@@ -330,7 +332,7 @@ public class NuevaVista implements Runnable {
 	private void crearPanelReferencias() {
 		JPnl_Referencias = new JPanel();
 		JPnl_Referencias.setBorder(new LineBorder(new Color(0, 0, 0)));
-		JPnl_Referencias.setBounds(0, 292, 415, 133);
+		JPnl_Referencias.setBounds(0, 292, 415, 160);
 		JPnl_Izquierdo.add(JPnl_Referencias);
 		JPnl_Referencias.setLayout(null);
 	}
@@ -408,7 +410,19 @@ public class NuevaVista implements Runnable {
 			lblCitasVencidas = new JLabel("Citas Vencidas");
 			lblCitasVencidas.setBounds(237, 102, 157, 20);
 			JPnl_Referencias.add(lblCitasVencidas);
-		
+			//_________________________________________
+			
+			
+			Lbl_Cian = new JLabel("");
+			Lbl_Cian.setBorder(new LineBorder(new Color (0,0,0)));
+			Lbl_Cian.setOpaque(true);
+			Lbl_Cian.setBackground(RowsRenderer.cian);
+			Lbl_Cian.setBounds(10, 135, 20, 20);
+			JPnl_Referencias.add(Lbl_Cian);
+			
+			LblCitasFiadas = new JLabel("Citas Fiadas");
+			LblCitasFiadas.setBounds(40, 135, 157, 20);
+			JPnl_Referencias.add(LblCitasFiadas);
 	}
 	
 	private void crearSeparadorReferencias() {
@@ -587,6 +601,8 @@ public class NuevaVista implements Runnable {
 		JCBoxFiltroEstado.addItem("En curso");
 		JCBoxFiltroEstado.addItem("Finalizada");
 		JCBoxFiltroEstado.addItem("Vencida");
+		JCBoxFiltroEstado.addItem("Fiada");
+
 		
 		JPnl_FiltroSeleccionado.add(JCBoxFiltroEstado);
 		
@@ -619,6 +635,12 @@ public class NuevaVista implements Runnable {
 		btn_Agregar.setIcon(new ImageIcon("imagenes/agregarCita.png"));
 		btn_Agregar.setEnabled(true);
 		JPnl_Botones.add(btn_Agregar);
+		
+		btn_EnCurso = new JButton("");
+		btn_EnCurso.setBackground(Color.white);
+		btn_EnCurso.setIcon(new ImageIcon("imagenes/enCurso.png"));
+		btn_EnCurso.setEnabled(false);
+		JPnl_Botones.add(btn_EnCurso);
 		
 		btn_Editar = new JButton("");
 		btn_Editar.setBackground(Color.white);
@@ -656,7 +678,7 @@ public class NuevaVista implements Runnable {
 		JPnl_Botones.setBorder(new LineBorder(new Color(0, 0, 0)));
 		JPnl_Botones.setBounds(0, 621, 917, 41);
 		JPnl_Citas.add(JPnl_Botones);
-		JPnl_Botones.setLayout(new GridLayout(0, 6, 0, 0));
+		JPnl_Botones.setLayout(new GridLayout(0, 7, 0, 0));
 	}
 
 	private void crearPanelDetalle() {
@@ -959,6 +981,10 @@ public class NuevaVista implements Runnable {
 	public JLabel getLbl_Gris() {
 		return Lbl_Gris;
 	}
+	
+	public JLabel getLbl_Cian() {
+		return Lbl_Cian;
+	}
 
 	public JLabel getLblCitasActivas() {
 		return lblCitasActivas;
@@ -982,6 +1008,10 @@ public class NuevaVista implements Runnable {
 
 	public JLabel getLblCitasVencidas() {
 		return lblCitasVencidas;
+	}
+	
+	public JLabel getLblCitasFiadas() {
+		return LblCitasFiadas;
 	}
 
 	public JPanel getJPnl_Izquierdo() {
@@ -1028,6 +1058,10 @@ public class NuevaVista implements Runnable {
 		return btn_Agregar;
 	}
 
+	public JButton getBtn_EnCurso() {
+		return btn_EnCurso;
+	}
+	
 	public JButton getBtn_Editar() {
 		return btn_Editar;
 	}

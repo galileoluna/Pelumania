@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -16,12 +15,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.swing.SwingConstants;
 
+import util.PropertyManager;
 
-
-public class VentanaCaja extends JFrame
-{
+public class VentanaCaja extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static VentanaCaja INSTANCE;
@@ -40,11 +41,12 @@ public class VentanaCaja extends JFrame
 	private JButton btnCancelar;
 	private JPanel panelIngresoServicio;
 	private JTextField txtIdCita;
-	
-	public static VentanaCaja getInstance()
-	{
-		if(INSTANCE == null)
-		{
+	// configuracion de idioma
+	private Locale locale;
+	private ResourceBundle idioma;
+
+	public static VentanaCaja getInstance() {
+		if (INSTANCE == null) {
 			INSTANCE = new VentanaCaja();
 			return new VentanaCaja();
 		} else {
@@ -52,18 +54,20 @@ public class VentanaCaja extends JFrame
 		}
 	}
 
-	private VentanaCaja()
-	{
+	private VentanaCaja() {
 		super();
 
-		
-		setTitle("Caja");
+		locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+				PropertyManager.leer("configuracion", "pais"));
+		idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+
+		setTitle(idioma.getString("caja.titulo"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 413, 561);
-		
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-		
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -73,67 +77,68 @@ public class VentanaCaja extends JFrame
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		lblTipoMovimiento = new JLabel("Tipo de Movimiento");
+		lblTipoMovimiento = new JLabel(idioma.getString("caja.tipo.movimiento"));
 		lblTipoMovimiento.setBounds(10, 136, 124, 26);
 		panel.add(lblTipoMovimiento);
-		
+
 		comboTipoMovimiento = new JComboBox<String>();
 		comboTipoMovimiento.addItem("Ingreso");
 		comboTipoMovimiento.addItem("Egreso");
 		comboTipoMovimiento.setBounds(182, 138, 172, 23);
 		panel.add(comboTipoMovimiento);
-		
-		JLabel lblCategoria = new JLabel("Categoria");
+
+		JLabel lblCategoria = new JLabel(idioma.getString("caja.categoria"));
 		lblCategoria.setBounds(10, 187, 124, 26);
 		panel.add(lblCategoria);
-		
-		JLabel lblTipoPago = new JLabel("Tipo de Pago");
+
+		JLabel lblTipoPago = new JLabel(idioma.getString("caja.metodo.pago"));
 		lblTipoPago.setToolTipText("");
-		lblTipoPago.setBounds(10, 239, 85, 14);
+		lblTipoPago.setBounds(10, 239, 120, 14);
 		panel.add(lblTipoPago);
-		
+
 		comboTipoPago = new JComboBox();
 		comboTipoPago.setBounds(182, 235, 172, 23);
 		panel.add(comboTipoPago);
-		
+
 		comboCategoria = new JComboBox<String>();
 		comboCategoria.setBounds(182, 186, 172, 23);
 		panel.add(comboCategoria);
 
-		JLabel lblImagen =  new JLabel();
-		lblImagen.setBounds(10, 11, 124, 98);		
-		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/caja.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+		JLabel lblImagen = new JLabel();
+		lblImagen.setBounds(10, 11, 124, 98);
+		ImageIcon imageIcon = new ImageIcon(
+				new ImageIcon("imagenes/caja.png").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		lblImagen.setIcon(imageIcon);
 		panel.add(lblImagen);
-		
+
 		panelEgreso = new JPanel();
 		panelEgreso.setBounds(0, 264, 354, 91);
 		panel.add(panelEgreso);
 		panelEgreso.setLayout(null);
-		//ocultamos por defecto los campos que son
-		//especicos de un egreso
+		// ocultamos por defecto los campos que son
+		// especicos de un egreso
 		panelEgreso.setVisible(false);
-		
-		JLabel lblDescripcion = new JLabel("Descripción");
-		lblDescripcion.setBounds(10, 24, 87, 16);
+
+		JLabel lblDescripcion = new JLabel(idioma.getString("descripcion"));
+		lblDescripcion.setBounds(10, 24, 120, 24);
 		panelEgreso.add(lblDescripcion);
-		
+
 		txtDescripcion = new JTextArea();
-		txtDescripcion.setToolTipText("De ser necesario, ingrese una descripción");
+		txtDescripcion.setToolTipText(idioma.getString("caja.descripcion"));
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setFont(new Font("Monospaced", Font.PLAIN, 13));
 		txtDescripcion.setBounds(183, 20, 171, 67);
 		panelEgreso.add(txtDescripcion);
-		
+
 		panelIngresoServicio = new JPanel();
 		panelIngresoServicio.setBounds(10, 289, 377, 71);
 		panel.add(panelIngresoServicio);
 		panelIngresoServicio.setLayout(null);
-		
-		lblCita = new JLabel("Cita Nro");
-		lblCita.setBounds(0, 9, 65, 14);
+
+		lblCita = new JLabel(idioma.getString("caja.cita.numero"));
+		lblCita.setBounds(0, 9, 120, 24);
 		panelIngresoServicio.add(lblCita);
-		
+
 		txtIdCita = new JTextField();
 		txtIdCita.setHorizontalAlignment(SwingConstants.CENTER);
 		txtIdCita.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -141,41 +146,41 @@ public class VentanaCaja extends JFrame
 		txtIdCita.setBounds(170, 6, 171, 20);
 		panelIngresoServicio.add(txtIdCita);
 		txtIdCita.setColumns(10);
-		
-		buttonBuscarCita = new JButton("Buscar");
+
+		buttonBuscarCita = new JButton(idioma.getString("buscar"));
 		buttonBuscarCita.setBounds(170, 37, 171, 23);
 		panelIngresoServicio.add(buttonBuscarCita);
-		
-		lblPrecioEgreso = new JLabel("Monto en ARS");
+
+		lblPrecioEgreso = new JLabel(idioma.getString("precio.pesos"));
 		lblPrecioEgreso.setBounds(11, 378, 124, 26);
 		panel.add(lblPrecioEgreso);
-		
-		JLabel lblMontoEnUsd = new JLabel("Monto en USD");
+
+		JLabel lblMontoEnUsd = new JLabel(idioma.getString("precio.dolares"));
 		lblMontoEnUsd.setBounds(11, 415, 124, 26);
 		panel.add(lblMontoEnUsd);
-		
+
 		txtPrecioDolar = new JTextField();
 		txtPrecioDolar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtPrecioDolar.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPrecioDolar.setBounds(184, 415, 170, 26);
 		panel.add(txtPrecioDolar);
 		txtPrecioDolar.setColumns(10);
-		
+
 		txtPrecioPesos = new JTextField();
 		txtPrecioPesos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtPrecioPesos.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPrecioPesos.setBounds(184, 378, 170, 26);
 		panel.add(txtPrecioPesos);
 		txtPrecioPesos.setColumns(10);
-		
-		btnCancelar = new JButton("Cancelar");
+
+		btnCancelar = new JButton(idioma.getString("cancelar"));
 		btnCancelar.setBounds(218, 475, 124, 26);
 		panel.add(btnCancelar);
-		
-		btnAgregar = new JButton("Agregar");
+
+		btnAgregar = new JButton(idioma.getString("agregar"));
 		btnAgregar.setBounds(73, 475, 115, 26);
 		panel.add(btnAgregar);
-		
+
 		this.setVisible(false);
 	}
 
@@ -187,43 +192,40 @@ public class VentanaCaja extends JFrame
 		INSTANCE = iNSTANCE;
 	}
 
-
-
-	public void mostrarVentana()
-	{
+	public void mostrarVentana() {
 		this.setVisible(true);
 	}
 
 	public void mostrarErrorCampos() {
-		JOptionPane.showMessageDialog(new JFrame(), "Campos ingresados inválidos", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("error.campos.invalidos"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void mostrarErrorMoroso() {
-		JOptionPane.showMessageDialog(new JFrame(), "primero debera pagar su deuda", "Cliente moroso",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.moroso"), "Cliente moroso",
 				JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void mostrarErrorMorosoEfectivo() {
-		JOptionPane.showMessageDialog(new JFrame(), "Solo puede pagar su deuda en efectivo", "Cliente moroso",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.efectivo"), "Cliente moroso",
 				JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	public void limpiarCampos() {
 		this.txtPrecioDolar.setText(null);
 		this.txtPrecioPesos.setText(null);
 		this.txtDescripcion.setText(null);
 		this.txtIdCita.setText(null);
 	}
-	
-	public void cerrar(){
+
+	public void cerrar() {
 		this.dispose();
 	}
-	
+
 	public JComboBox<String> getComboTipoMovimiento() {
 		return comboTipoMovimiento;
 	}
-	
+
 	public JPanel getPanelEgreso() {
 		return panelEgreso;
 	}
@@ -231,7 +233,7 @@ public class VentanaCaja extends JFrame
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
-	
+
 	public String getTxtDescripcion() {
 		return txtDescripcion.getText();
 	}
@@ -261,14 +263,14 @@ public class VentanaCaja extends JFrame
 	}
 
 	public void mostrarErrorPrecio() {
-		JOptionPane.showMessageDialog(new JFrame(), "precio inválido", "Dialog",
-				JOptionPane.ERROR_MESSAGE);		
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("error.precio.invalido"), "Dialog",
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void mostrarExito() {
-		JOptionPane.showMessageDialog(new JFrame(), "La operacion fue registrada con exito", "Dialog",
-				JOptionPane.INFORMATION_MESSAGE);		
-		
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("operacion.exito"), "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);
+
 	}
 
 	public JButton getBtnCancelar() {
@@ -288,7 +290,7 @@ public class VentanaCaja extends JFrame
 	}
 
 	public void mostrarErrorBDD() {
-		JOptionPane.showMessageDialog(new JFrame(), "Ocurrió un error al intentar registar la operación", "Dialog",
-				JOptionPane.ERROR_MESSAGE);	
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("error.operacion"), "Dialog",
+				JOptionPane.ERROR_MESSAGE);
 	}
 }

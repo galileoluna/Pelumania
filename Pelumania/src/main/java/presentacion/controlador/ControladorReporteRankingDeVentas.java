@@ -18,7 +18,6 @@ public class ControladorReporteRankingDeVentas {
 	private ControladorReporteRankingDeVentas(Sistema sistema) {
 		this.ventanaReportes = VentanaReporteRankingVentas.getInstance();
 		this.sistema = sistema;
-
 		this.ventanaReportes.getBtnGenerarReporte().addActionListener(l -> reporteVentas(l));
 
 	}
@@ -27,6 +26,7 @@ public class ControladorReporteRankingDeVentas {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorReporteRankingDeVentas(sistema);
 		}
+		INSTANCE.ventanaReportes.mostrar();
 		return INSTANCE;
 	}
 	

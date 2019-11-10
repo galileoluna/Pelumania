@@ -44,7 +44,7 @@ public Component getTableCellRendererComponent (JTable table, Object value, bool
 	{
     		this.setBackground(amarillo);
 	}
-    	if(table.getValueAt(row,columna).equals("En Curso"))
+    	if(table.getValueAt(row,columna).equals("En curso"))
 	{
     		this.setBackground(naranja);
 	}

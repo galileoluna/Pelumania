@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +23,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import dto.CitaDTO;
+import util.PropertyManager;
 
 public class VentanaBuscarCita extends JFrame
 {
@@ -30,13 +33,21 @@ public class VentanaBuscarCita extends JFrame
 
 	private JButton btn_Cancelar;
 	private JTextField txtFiltro;
-	private String[] nombreColumnas = {"Nro","Nombre", "Apellido", "Dia","HoraInicio","HoraFin","PrecioLocal","PrecioDolar", "Estado"};
 	private JTable tablaCitas;
 	private DefaultTableModel modelCitas;
 	private TableRowSorter<TableModel> rowSorter;
-
 	private JButton btnSeleccionarCita;
 
+	// configuracion de idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	
+	private String[] nombreColumnas = {idioma.getString("numero"),idioma.getString("nombre"), idioma.getString("apellido"), idioma.getString("profesional.dia"),
+									   idioma.getString("inicio"), idioma.getString("fin"), idioma.getString("pesos"),idioma.getString("dolares"),
+									   idioma.getString("estado")};
+	
+	
 	public static VentanaBuscarCita getInstance()
 	{
 		if(INSTANCE == null)
@@ -52,7 +63,7 @@ public class VentanaBuscarCita extends JFrame
 	{
 		super();
 		
-		setTitle("Buscar Cita");
+		setTitle(idioma.getString("cita.buscar"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 735, 318);
 		
@@ -111,7 +122,7 @@ public class VentanaBuscarCita extends JFrame
 
 		spCitas.setViewportView(tablaCitas);
 
-		btnSeleccionarCita = new JButton("Seleccionar");
+		btnSeleccionarCita = new JButton(idioma.getString("seleccionar"));
 		btnSeleccionarCita.setBounds(348, 223, 147, 23);
 		panel.add(btnSeleccionarCita);
 		
@@ -227,7 +238,7 @@ public class VentanaBuscarCita extends JFrame
 	}
 
 	public void mostrarErrorSinSeleccionar() {
-			JOptionPane.showMessageDialog(new JFrame(), "Debe seleccionar una cita", "Dialog",
+			JOptionPane.showMessageDialog(new JFrame(), idioma.getString("cita.error.seleccionar"), "Dialog",
 					JOptionPane.ERROR_MESSAGE);
 	}
 }

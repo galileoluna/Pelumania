@@ -1,3 +1,4 @@
+
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
@@ -30,6 +31,7 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorReportesPorLocal(sistema);
 		}
+		INSTANCE.ventanaReportes.mostrar();
 		return INSTANCE;
 	}
 	

@@ -6,9 +6,12 @@ import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -48,7 +51,6 @@ public class Controlador2 implements ActionListener{
 	
 	private ControladorCita controladorCita;
 	private NuevoControladorEditarCita controladorEditarCita;
-//	private ControladorCita controladorEditarCita;
 
 	private ControladorCliente controladorCliente;
 	private ControladorServicio controladorServicio;
@@ -122,6 +124,7 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getBtn_Agregar().addActionListener(k -> abrirVentanaCitaNueva(k));
 		this.nvista.getBtn_Editar().addActionListener(j -> abrirVentanaEditarCita(j));
 		this.nvista.getBtn_Cancelar().addActionListener(l -> cancelarCita(l));
+		this.nvista.getBtn_EnCurso().addActionListener(t -> enCurso(t));
 		
 		//cobrar la cita desde la caja
 		this.nvista.getBtn_Finalizar().addActionListener(l -> finalizarCita(l));
@@ -140,7 +143,47 @@ public class Controlador2 implements ActionListener{
 //		setearTimer();
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
+		
+		Timer timer=new Timer();
+		LocalDateTime fechaHoy = LocalDateTime.now();
+		
+		
+		TimerTask cancelarCitas=new TimerTask() {
+			@Override
+			public void run() {
+				List<CitaDTO>citasDeHoy=sistema.getCitasPorDia(LocalDate.now().toString());
+				for(int i=0;i<citasDeHoy.size();i++) {
+					if(citasDeHoy.get(i).esSoloActiva() && compararMas10minutosParaCancelar(citasDeHoy.get(i).getHoraInicio(),fechaHoy.getHour(),fechaHoy.getMinute()) ) {
+						sistema.cancelarCita(citasDeHoy.get(i));
+						refrescarTablaCitas();
+					}
+				}
+			}
+
+			private boolean compararMas10minutosParaCancelar(LocalTime horaInicio, int hora, int minutos) {
+				int horaCita=horaInicio.getHour();
+				int minutoCita=horaInicio.getMinute();
+				
+				if(minutoCita>50) {
+					horaCita+=1;
+					minutoCita=minutoCita+10-50;
+				}else minutoCita=minutoCita+10;
+				
+				if(horaCita<hora) {
+					if(minutoCita<minutos)return true;
+					return false;
+				}return false;
+			}
+
+			
+			
+		};
+		//aca selecciono cada cuanto se actualiza el timer, esta seleccionado 10 min en la tercera posicion
+		timer.schedule(cancelarCitas, 1000, 100000);
+	
 	}
+
+	
 
 	private void ventanaCambiarIdioma(ActionEvent l) {
 		controladorIdioma = ControladorIdioma.getInstance(sistema);
@@ -303,6 +346,14 @@ public class Controlador2 implements ActionListener{
 			cargarListaConCitas();
 			refrescarTablaCitas();
 		}
+	}
+	
+	private void enCurso(ActionEvent t) {
+		this.sistema.ponerCitaEnCurso(citaSeleccionada);
+		limpiarTablas();
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		cargarListaConCitas();
+		refrescarTablaCitas();
 	}
 	
 	private void cargarPanelDinamicoServicios(ActionEvent m) {
@@ -477,15 +528,15 @@ public class Controlador2 implements ActionListener{
 		log.info("__________________________________________________________");
 	}
 	
-public void actualizarDiaSeleccionado() {
-	limpiarTablas();
-	this.citaSeleccionada = null;
-	actualizarPanelCitaSeleccionada();
-	setearFechaSeleccionadaEnCalendario();
-	citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
-	cargarListaConCitas();
-	refrescarTablaCitas();
-	habilitarBotonAgregar();
+	public void actualizarDiaSeleccionado() {
+		limpiarTablas();
+		this.citaSeleccionada = null;
+		actualizarPanelCitaSeleccionada();
+		setearFechaSeleccionadaEnCalendario();
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		cargarListaConCitas();
+		refrescarTablaCitas();
+		habilitarBotonAgregar();
 	}
 
 	private static String getFechaSeleccionadaAsString() {
@@ -586,11 +637,18 @@ public void actualizarDiaSeleccionado() {
 			if (citaSeleccionada != null) {
 				if(!citaSeleccionada.getEstado().equals("Cancelada") &&
 				   !citaSeleccionada.getEstado().equals("Finalizada") &&
-				   !citaSeleccionada.getEstado().equals("Vencida") &&
-				   !citaSeleccionada.getEstado().equals("Fiado")){
-		
+				   !citaSeleccionada.getEstado().equals("Vencida")&&
+				   !citaSeleccionada.getEstado().equals("Fiado"))
 				OperacionesCita(true);
+				
+				if(citaSeleccionada.getEstado().equals("Fiado"))this.nvista.getBtn_Finalizar().setEnabled(true);
+				if(citaSeleccionada.getEstado().equals("Activa"))this.nvista.getBtn_Finalizar().setEnabled(false);
+				if(citaSeleccionada.getEstado().equals("En curso")) {
+					this.nvista.getBtn_EnCurso().setEnabled(false);
+					this.nvista.getBtn_Cancelar().setEnabled(false);
+					this.nvista.getBtn_Editar().setEnabled(false);
 				}
+				
 				this.nvista.OcultarLblCitaSeleccionadaNull();
 				this.nvista.mostrarDetalleCitas(citaSeleccionada);
 				this.cargarServiciosDeCitas(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
@@ -619,8 +677,14 @@ public void actualizarDiaSeleccionado() {
 		this.nvista.getBtn_Finalizar().setEnabled(habilitar);
 		this.nvista.getBtn_VerComprobante().setEnabled(habilitar);
 		this.nvista.getBtn_VerDetalle().setEnabled(habilitar);
+		this.nvista.getBtn_EnCurso().setEnabled(habilitar);
 	}
 	
+	public void OperacionesCitaDeFiar(boolean habilitar) {
+		this.nvista.getBtn_Finalizar().setEnabled(habilitar);
+		this.nvista.getBtn_VerComprobante().setEnabled(habilitar);
+		this.nvista.getBtn_VerDetalle().setEnabled(habilitar);
+	}
 	public boolean validarFechaSeleccionada() {
 		if (esDespuesDeHoy()) {
 			if (esDomingo()) {
@@ -655,7 +719,6 @@ public void actualizarDiaSeleccionado() {
 	private void verComprobante(ActionEvent l) {
 		ReporteComprobante comprobante = new ReporteComprobante(this.citaSeleccionada);
 		comprobante.mostrar();
-		
 	}
 
 	private void ventanaUsuarios(ActionEvent z) {
@@ -670,4 +733,5 @@ public void actualizarDiaSeleccionado() {
 //		this.timerEstados = new TimerEstadosCitas(sistema);
 //		timerEstados.iniciar();
 //	}
+
 }

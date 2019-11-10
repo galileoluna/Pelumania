@@ -30,6 +30,7 @@ public class ControladorReportePorServicio {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorReportePorServicio(sistema);
 		}
+		INSTANCE.ventanaReportes.mostrar();
 		return INSTANCE;
 	}
 	
