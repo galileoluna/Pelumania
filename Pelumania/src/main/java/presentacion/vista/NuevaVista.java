@@ -59,6 +59,8 @@ public class NuevaVista implements Runnable {
 			private JMenuItem mntmGestionDeProfesionales;
 		private JMenu JM_Servicio;
 			private JMenuItem mntmGestionDeServicios;
+		private JMenu JM_Producto;
+			private JMenuItem mntmGestionDeProductos;
 		private JMenu JM_Cliente;
 			private JMenuItem mntmGestionDeClientes;
 		private JMenu JM_Caja;
@@ -237,6 +239,12 @@ public class NuevaVista implements Runnable {
 		
 		mntmGestionDeServicios = new JMenuItem(this.idioma.getString("servicio.titulo"));
 		JM_Servicio.add(mntmGestionDeServicios);
+		
+		JM_Producto = new JMenu(this.idioma.getString("producto"));
+		menuBar.add(JM_Producto);
+		
+		mntmGestionDeProductos = new JMenuItem(this.idioma.getString("producto.titulo"));
+		JM_Producto.add(mntmGestionDeProductos);
 		
 		JM_Profesional = new JMenu(this.idioma.getString("profesional"));
 		menuBar.add(JM_Profesional);
@@ -844,6 +852,12 @@ public class NuevaVista implements Runnable {
 	}
 	public JMenuItem getMntmGestionDeServicios() {
 		return mntmGestionDeServicios;
+	}
+	public JMenu getJM_Producto() {
+		return JM_Producto;
+	}
+	public JMenuItem getMntmGestionDeProductos() {
+		return mntmGestionDeProductos;
 	}
 
 	public JMenu getJM_Cliente() {

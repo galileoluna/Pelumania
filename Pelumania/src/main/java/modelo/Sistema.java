@@ -12,6 +12,7 @@ import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.HorarioDTO;
 import dto.MovimientoCajaDTO;
+import dto.ProductoDTO;
 import dto.ProfesionalDTO;
 import dto.PromocionDTO;
 import dto.ServicioDTO;
@@ -24,6 +25,7 @@ import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
 import persistencia.dao.interfaz.MovimientoCajaDAO;
+import persistencia.dao.interfaz.ProductoDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
 import persistencia.dao.interfaz.PromocionDAO;
 import persistencia.dao.interfaz.ServicioDAO;
@@ -45,6 +47,7 @@ public class Sistema
 	private CategoriaMovimientoCajaDAO categoriaMovimientoCaja;
 	private ServicioTurnoDAO servicioTurno;
 	private UsuarioDAO usuario;
+	private ProductoDAO producto;
 
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -59,8 +62,36 @@ public class Sistema
 		this.categoriaMovimientoCaja = metodo_persistencia.createCategoriaMovimientoCajaDAO();
 		this.servicioTurno = metodo_persistencia.createServicioTurnoDAO();
 		this.usuario=metodo_persistencia.createUsuarioDAO();
+		this.producto=metodo_persistencia.createProductoDAO();
 	}
+	 public void agregarProducto(ProductoDTO nuevoProducto)
+		{
+			this.producto.insert(nuevoProducto);
+		}
+
+		public void borrarProducto(ProductoDTO Producto_a_eliminar)
+		{
+			this.producto.delete(Producto_a_eliminar);
+		}
+
+		public void editarProducto(ProductoDTO Producto_a_editar)
+		{
+			this.producto.update(Producto_a_editar);
+		}
+		public List<ProductoDTO> obtenerProducto()
+		{
+			return this.producto.readAll();
+		}
+		public List<ProductoDTO> obtenerProductoConBuscador(String variable, String value) {
+			return this.producto.obtenerProductoBuscado(variable,value);
+
+		}
+		
+		public ProductoDTO obtenerPorId(int id) {
+			return this.producto.obtenerPorId(id);
+		}
 	
+
 	//Comienza Usuario
 	public void agregarUsuario(UsuarioDTO nuevoUsuario)
 	{
@@ -521,4 +552,5 @@ public class Sistema
 	public boolean cambiarContrasenia(int id, String pass) {
 		return this.usuario.updatePass(id,pass);
 	}
+
 }

@@ -55,6 +55,7 @@ public class Controlador2 implements ActionListener{
 	private ControladorProfesional controladorProfesional;
 	private ControladorPromocion controladorPromocion;
 	private ControladorSucursal controladorSucursal;
+	private ControladorProductos controladorProducto;
 	private ControladorPromocionesVigentes controladorPromoVigente;
 	private ControladorCaja controladorCaja;
 	private ControladorCategoriaMovimientoCaja controladorCategoriaMovimientoCaja;
@@ -111,6 +112,9 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmReportePorProfesional().addActionListener(l -> ventanaReporteProfesional(l));
 		this.nvista.getMntmReporteRanking().addActionListener(g ->ventanaReporteRanking(g));
 		this.nvista.getMtmCambiarIdioma().addActionListener(l -> ventanaCambiarIdioma(l));
+		this.nvista.getMntmGestionDeProductos().addActionListener(j->ventanaProductos(j));
+		
+		
 		
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
 		// AGREGARLE CONTROLADOR A LA TABLA PARA QUE AL ELEGIR UNA FILA SE HABILITEN LOS BOTONES
@@ -236,7 +240,9 @@ public class Controlador2 implements ActionListener{
 	private void ventanaServicios(ActionEvent a) {
 		this.controladorServicio = ControladorServicio.getInstance(sistema,usuario);
 	}
-
+	private void ventanaProductos(ActionEvent j) {
+		this.controladorProducto = ControladorProductos.getInstance(sistema,usuario);
+	}
 	private void ventanaClientes(ActionEvent b) {
 		this.controladorCliente = ControladorCliente.getInstance(sistema);
 	}
