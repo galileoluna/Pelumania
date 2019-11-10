@@ -17,14 +17,14 @@ package persistencia.dao.mariadb;
 
 	public class ProductoDAOSQL implements ProductoDAO{
 		
-		private static final String insert = "INSERT INTO Producto(idProducto,Nombre,PrecioLocal,PrecioDolar,Puntos,Estado) "
-											+ "VALUES(?,?,?,?,?,?,?)";
+		private static final String insert = "INSERT INTO Producto(IdProducto,Nombre,PrecioLocal,PrecioDolar,Puntos,Estado) "
+											+ "VALUES(?,?,?,?,?,?)";
 		private static final String update = "UPDATE  Producto SET Nombre=?, PrecioLocal=?, PrecioDolar=?,"
 				+ "  Puntos=?, Estado=? WHERE IdProducto=?";
-		private static final String delete = "UPDATE  Producto SET Estado=? WHERE idProducto = ?";
+		private static final String delete = "UPDATE  Producto SET Estado=? WHERE IdProducto = ?";
 		private static final String readall = " SELECT * FROM Producto";
-		private static final String getById = "SELECT * FROM Producto WHERE idProducto = ?";
-		private static final String deleteRealProducto = "DELETE FROM Producto WHERE idProducto = ?";
+		private static final String getById = "SELECT * FROM Producto WHERE IdProducto = ?";
+		private static final String deleteRealProducto = "DELETE FROM Producto WHERE IdProducto = ?";
 		private static final String readBuscador = "SELECT * FROM Producto WHERE ? LIKE ?";
 		private static final String ESTADO_INACTIVO = "Inactivo";
 

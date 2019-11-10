@@ -45,7 +45,7 @@ public class VentanaProducto extends JFrame {
 	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
 
 	private String[] nombreColumnas = { idioma.getString("nombre"), idioma.getString("precio.pesos"),
-			idioma.getString("precio.dolares"), idioma.getString("duracion"), idioma.getString("puntos"),
+			idioma.getString("precio.dolares"), idioma.getString("puntos"),
 			idioma.getString("estado") };
 
 	public VentanaProducto() {
@@ -102,8 +102,7 @@ public class VentanaProducto extends JFrame {
 		tablaProductos.getColumnModel().getColumn(3).setResizable(false);
 		tablaProductos.getColumnModel().getColumn(4).setPreferredWidth(100);
 		tablaProductos.getColumnModel().getColumn(4).setResizable(false);
-		tablaProductos.getColumnModel().getColumn(5).setPreferredWidth(100);
-		tablaProductos.getColumnModel().getColumn(5).setResizable(false);
+		
 
 		spProductos.setViewportView(tablaProductos);
 
