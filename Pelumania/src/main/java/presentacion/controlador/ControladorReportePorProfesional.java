@@ -30,6 +30,7 @@ public class ControladorReportePorProfesional {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorReportePorProfesional(sistema);
 		}
+		INSTANCE.ventanaReportes.mostrar();
 		return INSTANCE;
 	}
 	
