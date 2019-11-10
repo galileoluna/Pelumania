@@ -1,9 +1,10 @@
 package presentacion.vista;
 
-
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,12 +14,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import util.PropertyManager;
 
-public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
-{
+import javax.swing.JComboBox;
+
+public class VentanaAgregarCategoriaMovimientosCaja extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static VentanaAgregarCategoriaMovimientosCaja INSTANCE;
@@ -28,7 +28,6 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 	private JLabel lblNombreCategoria;
 	private JLabel lblTipoMovimiento;
 	private JLabel lblEstado;
-	
 
 	private JButton btnAgregarCategoria;
 	private JButton btnCancelar;
@@ -36,27 +35,31 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 	private JButton btnEditarCategoria;
 	private JComboBox<String> comboTipoMovimiento;
 	private JLabel lblImagen;
-	
-	public static VentanaAgregarCategoriaMovimientosCaja getInstance()
-	{
-		if(INSTANCE == null)
-		{
+
+	// configuracion de idioma
+	private Locale locale;
+	private ResourceBundle idioma;
+
+	public static VentanaAgregarCategoriaMovimientosCaja getInstance() {
+		if (INSTANCE == null) {
 			INSTANCE = new VentanaAgregarCategoriaMovimientosCaja();
 		}
-			return INSTANCE;
+		return INSTANCE;
 	}
 
-	private VentanaAgregarCategoriaMovimientosCaja()
-	{
+	private VentanaAgregarCategoriaMovimientosCaja() {
 		super();
-		
-		
-		setTitle("Nueva categoria");
+
+		locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+				PropertyManager.leer("configuracion", "pais"));
+		idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+
+		setTitle(idioma.getString("caja.categoria.nueva"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 346, 400);
-		
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
 		contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -72,51 +75,48 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 		panel.add(txtNombreCategoria);
 		txtNombreCategoria.setColumns(10);
 
-		lblNombreCategoria = new JLabel("Nombre Categoria");
+		lblNombreCategoria = new JLabel(idioma.getString("nombre"));
 		lblNombreCategoria.setBounds(10, 127, 124, 26);
 		panel.add(lblNombreCategoria);
 
-		lblTipoMovimiento = new JLabel("Tipo de movimiento");
+		lblTipoMovimiento = new JLabel(idioma.getString("tipo"));
 		lblTipoMovimiento.setBounds(10, 186, 124, 26);
 		panel.add(lblTipoMovimiento);
 
 		lblEstado = new JLabel("Estado");
 		lblEstado.setBounds(10, 242, 124, 26);
 		panel.add(lblEstado);
-		
-		btnEditarCategoria = new JButton("Editar");
+
+		btnEditarCategoria = new JButton(idioma.getString("editar"));
 		btnEditarCategoria.setBounds(10, 317, 124, 23);
 		panel.add(btnEditarCategoria);
 
-		btnAgregarCategoria = new JButton("Agregar");
-		btnAgregarCategoria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnAgregarCategoria = new JButton(idioma.getString("agregar"));
 		btnAgregarCategoria.setBounds(10, 317, 124, 23);
 		panel.add(btnAgregarCategoria);
 
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton(idioma.getString("cancelar"));
 		btnCancelar.setBounds(175, 317, 124, 23);
 		panel.add(btnCancelar);
-		
+
 		comboEstado = new JComboBox<String>();
 		comboEstado.setBounds(132, 244, 167, 23);
 		panel.add(comboEstado);
-		
+
 		comboTipoMovimiento = new JComboBox<String>();
 		comboTipoMovimiento.setBounds(132, 189, 167, 23);
 		panel.add(comboTipoMovimiento);
-		
-		 
-		lblImagen =  new JLabel();
-		lblImagen.setBounds(10, 11, 99, 87);		
-		ImageIcon imageIcon = new ImageIcon(new ImageIcon("imagenes/categoria.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+
+		lblImagen = new JLabel();
+		lblImagen.setBounds(10, 11, 99, 87);
+		ImageIcon imageIcon = new ImageIcon(
+				new ImageIcon("imagenes/categoria.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
 		lblImagen.setIcon(imageIcon);
 		panel.add(lblImagen);
-		
+
 		this.setVisible(false);
 	}
+
 	public static VentanaAgregarCategoriaMovimientosCaja getINSTANCE() {
 		return INSTANCE;
 	}
@@ -129,7 +129,7 @@ public class VentanaAgregarCategoriaMovimientosCaja extends JFrame
 		this.txtNombreCategoria = txtNombreSucursal;
 	}
 
-public JButton getBtnAgregarCategoria() {
+	public JButton getBtnAgregarCategoria() {
 		return btnAgregarCategoria;
 	}
 
@@ -153,13 +153,12 @@ public JButton getBtnAgregarCategoria() {
 		this.comboEstado = comboEstado;
 	}
 
-	public void mostrarVentana()
-	{
+	public void mostrarVentana() {
 		this.setVisible(true);
 	}
 
 	public void mostrarErrorCampos() {
-		JOptionPane.showMessageDialog(new JFrame(), "Campos ingresados inválidos", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("error.campos.invalidos"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
@@ -167,27 +166,29 @@ public JButton getBtnAgregarCategoria() {
 		this.getTxtNombre().setText(null);
 
 	}
-	
-	public void cerrar(){
+
+	public void cerrar() {
 		this.dispose();
 	}
 
 	public JButton getBtnEditarCategoria() {
 		return this.btnEditarCategoria;
-		
+
 	}
 
 	public void mostrarErrorRepetido() {
-		JOptionPane.showMessageDialog(new JFrame(), "Ya existe una categoria con ese nombre", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.categoria.existente"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void mostrarExitoEditar() {
-			JOptionPane.showMessageDialog(new JFrame(), "La categoria fue editado con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.categoria.editada.exito"), "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void mostrarExitoAgregar() {
-		JOptionPane.showMessageDialog(new JFrame(), "La categoria fue agregada con éxito","Dialog",JOptionPane.INFORMATION_MESSAGE);		
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.categoria.agregar.exito"), "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public JComboBox<String> getComboTipoMovimiento() {
@@ -199,13 +200,13 @@ public JButton getBtnAgregarCategoria() {
 	}
 
 	public void mostrarErrorNombre() {
-		JOptionPane.showMessageDialog(new JFrame(), "El nombre es inválido", "Dialog",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("error.nombre.invalido"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void mostrarErrorCategoriaEnUso() {
 		// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(new JFrame(), "La categoría ya fue utilizada, no puede editar el tipo", "Dialog",
-					JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.categoria.en.uso"), "Dialog",
+				JOptionPane.ERROR_MESSAGE);
 	}
 }

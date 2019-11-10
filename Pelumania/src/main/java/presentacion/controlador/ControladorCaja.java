@@ -7,11 +7,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import javax.swing.JComboBox;
-
 import dto.CategoriaMovimientoCajaDTO;
 import dto.CitaDTO;
 import dto.ClienteDTO;
@@ -24,7 +20,6 @@ import util.Validador;
 
 public class ControladorCaja implements ActionListener {
 
-
 	private VentanaCaja ventanaCaja;
 	private Sistema sistema;
 	private List<CategoriaMovimientoCajaDTO> listaCategorias;
@@ -33,23 +28,22 @@ public class ControladorCaja implements ActionListener {
 	private CitaDTO citaSeleccionada;
 	private List<ServicioTurnoDTO> serviciosCita;
 	private Controlador2 controladorMenu;
-	private boolean clienteMoroso=false;
+	private boolean clienteMoroso = false;
 
-	
-	private ControladorCaja (Sistema sistema, Controlador2 controladorMenu) {
+	private ControladorCaja(Sistema sistema, Controlador2 controladorMenu) {
 		this.ventanaCaja = VentanaCaja.getInstance();
 		this.sistema = sistema;
 		this.controladorMenu = controladorMenu;
 		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		this.citaSeleccionada = null;
 		this.serviciosCita = null;
-		
+
 		this.ventanaCaja.getBtnCancelar().addActionListener(l -> cancelar(l));
 		this.ventanaCaja.getComboTipoMovimiento().addActionListener(l -> mostrarInputs(l));
 		this.ventanaCaja.getBtnAgregar().addActionListener(l -> agregarMovimiento(l));
 		this.ventanaCaja.getComboCategoria().addActionListener(l -> productoSoloEfectivo(l));
 		this.ventanaCaja.getButtonBuscarCita().addActionListener(l -> buscarCita(l));
-		
+
 		this.mostrarIpuntsIngreso();
 	}
 
@@ -66,7 +60,7 @@ public class ControladorCaja implements ActionListener {
 		} else {
 			llenarComboTipoCambioServicio();
 			disablePrecio();
-			
+
 		}
 	}
 
@@ -76,7 +70,7 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	public static ControladorCaja getInstance(Sistema sistema, Controlador2 controladorMenu) {
-		if ( INSTANCE == null) {
+		if (INSTANCE == null) {
 			INSTANCE = new ControladorCaja(sistema, controladorMenu);
 		}
 		INSTANCE.listaCategorias = sistema.obtenerCategoriasMovimientoCaja();
@@ -84,57 +78,56 @@ public class ControladorCaja implements ActionListener {
 		INSTANCE.mostrarIpuntsIngreso();
 		return INSTANCE;
 	}
-	
+
 	private void mostrarInputs(ActionEvent l) {
-		if ( esIngreso()) {
-				mostrarIpuntsIngreso();
-		//es egreso
+		if (esIngreso()) {
+			mostrarIpuntsIngreso();
+			// es egreso
 		} else {
 			mostrarInputsEgreso();
 		}
 	}
-	
+
 	private void mostrarIpuntsIngreso() {
 		this.listaCategorias = this.sistema.obtenerCategoriasMovimientoCaja();
 		this.ventanaCaja.limpiarCampos();
-		//hay que limpiar la descripcion y demas para que no se guarde
+		// hay que limpiar la descripcion y demas para que no se guarde
 		JComboBox<String> comboCategoria = this.ventanaCaja.getComboCategoria();
 		comboCategoria.removeAllItems();
-		
-		//agregamos solo las categorias de ingresos
+
+		// agregamos solo las categorias de ingresos
 		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
-			if(esCategoriaActiva(categoria.getEstado()) && categoria.esIngreso()) {
-				
+			if (esCategoriaActiva(categoria.getEstado()) && categoria.esIngreso()) {
+
 				comboCategoria.addItem(categoria.getNombre());
 			}
 		}
-		if(esServicio()) {
+		if (esServicio()) {
 			llenarComboTipoCambioServicio();
 			this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
 		}
 		this.ventanaCaja.getPanelEgreso().setVisible(false);
-		
+
 	}
 
 	private void llenarComboTipoCambioServicio() {
 		this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
-		
-		
+
 		JComboBox<String> comboTipoCambio = this.ventanaCaja.getComboTipoCambio();
 		comboTipoCambio.removeAllItems();
 		comboTipoCambio.setEnabled(true);
 		comboTipoCambio.addItem("Efectivo");
 		comboTipoCambio.addItem("Puntos");
-		//validar que el cliente no sea moroso
+		// validar que el cliente no sea moroso
 		comboTipoCambio.addItem("Fiado");
 	}
 
 	private void mostrarInputsEgreso() {
 		this.ventanaCaja.getPanelEgreso().setVisible(true);
-		//ocultamos lo de ingreso
+		// ocultamos lo de ingreso
 		this.ventanaCaja.getPanelIngresoServicio().setVisible(false);
 		limpiarCita();
-		
+
 		agregarCategoriasEgreso();
 		tipoPagoSoloEfectivo();
 		enablePrecio();
@@ -142,191 +135,192 @@ public class ControladorCaja implements ActionListener {
 
 	private void limpiarCita() {
 		this.ventanaCaja.getTxtIdCita().setText(null);
-		
-		//borramos si habia alguna cita seleccionada junto a sus servicios
+
+		// borramos si habia alguna cita seleccionada junto a sus servicios
 		this.citaSeleccionada = null;
 		this.serviciosCita = null;
 	}
 
 	private void tipoPagoSoloEfectivo() {
 		JComboBox<String> comboTiposPago = this.ventanaCaja.getComboTipoCambio();
-		//limpio tipos de pago de ingresos
+		// limpio tipos de pago de ingresos
 		comboTiposPago.removeAllItems();
 		comboTiposPago.addItem("Efectivo");
 		comboTiposPago.setEnabled(false);
 	}
-	
-		private boolean esCategoriaActiva(String estado) {
+
+	private boolean esCategoriaActiva(String estado) {
 		return estado.equalsIgnoreCase("activo");
 	}
 
 	private void agregarCategoriasEgreso() {
-		
+
 		JComboBox<String> comboCategorias = this.ventanaCaja.getComboCategoria();
-		//limpio servicio y producto que son las fijas de ingreso
+		// limpio servicio y producto que son las fijas de ingreso
 		comboCategorias.removeAllItems();
-		
+
 		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
-			//pongo solo las que son egreso
-			if(esCategoriaActiva(categoria.getEstado()) && !categoria.esIngreso()) {
+			// pongo solo las que son egreso
+			if (esCategoriaActiva(categoria.getEstado()) && !categoria.esIngreso()) {
 				comboCategorias.addItem(categoria.getNombre());
 			}
 		}
-		
+
 	}
 
 	private void agregarMovimiento(ActionEvent l) {
-		int idSucursal = 1; //de donde sacamos esto?
+		int idSucursal = 1; // de donde sacamos esto?
 		Timestamp fecha = Timestamp.from(Instant.now());
 		String descripcion = this.ventanaCaja.getTxtDescripcion();
 		String tipoMovimiento = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
-		String tipoCambio = this.ventanaCaja.getComboTipoCambio().getSelectedItem().toString();		
+		String tipoCambio = this.ventanaCaja.getComboTipoCambio().getSelectedItem().toString();
 		String precioPesosTotal = this.ventanaCaja.getTxtPrecioPesos().getText();
 		String precioDolarTotal = this.ventanaCaja.getTxtPrecioDolar().getText();
 
-		
 		String strCategoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
 		int idCategoria = this.sistema.getIdCategoriaMovimientoCajaByName(strCategoria).getIdCategoria();
-		
-		//valido los campos en comun entre ingreso y egreso
-		if ( Validador.esTipoMovimientoValido(tipoMovimiento) && 
-				Validador.esPrecioValido(precioPesosTotal) &&
-				Validador.esPrecioValido(precioDolarTotal) &&
-				Validador.esTipoCambioValido(tipoCambio) &&
-				Validador.esDescripcionValida(descripcion)) {
-				
-				if (esServicio()) {
-					//tomamos datos de la cita seleccionada
-					//tomamos datos de los servicios asociados a esa cita
-					//por cada servicio sera una transaccion de "caja" porque hay que marcar lo que hizo cada profesional
-					ClienteDTO cliente = this.sistema.obtenerClienteById(citaSeleccionada.getIdCliente());
-					
-					//si es una cliente fiado solo puede pagar en efectivo
-					if(!tipoCambio.equalsIgnoreCase("Efectivo") && cliente.getEstadoCliente().equalsIgnoreCase("Moroso"))
-						this.ventanaCaja.mostrarErrorMorosoEfectivo();
-					else {
-						
-						boolean exito = true; 
-						boolean esFiado = false;
-						boolean esPagoDeuda=false;
-						int puntosTotales = 0;
-						
-						
-						
-						for (ServicioTurnoDTO servicio : serviciosCita) {
-							
-							//buscamos el precio individual de ese servicio
-							BigDecimal precioPesosServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioLocal();
-							BigDecimal precioDolarServicio =  this.sistema.getServicioById(servicio.getIdServicio()).getPrecioDolar();
-							
-							//verifico el caso que se este pagando una deuda
-							if(cliente.getEstadoCliente().equalsIgnoreCase("moroso") && tipoCambio.equalsIgnoreCase("Efectivo")) {
-								esPagoDeuda=true;
-								precioPesosServicio=new BigDecimal(0);
-								precioDolarServicio=new BigDecimal(0);
-							}
-							
-							//buscamos los puntos de cada servicio particular
-							int puntos = this.sistema.getServicioById(servicio.getIdServicio()).getPuntos();
-							
-							MovimientoCajaDTO movimientoServicio = new MovimientoCajaDTO(0, citaSeleccionada.getIdSucursal(),idCategoria, 
-																						//por ahora  las promos en null o -1
-																					fecha, tipoCambio, -1, precioPesosServicio, 
-																					
-																					precioDolarServicio, 1, citaSeleccionada.getIdCita(),
-																					
-																					citaSeleccionada.getIdCliente(), servicio.getIdServicio());
-							
-							//por is falla algo en la bdd
-							exito = this.sistema.insertarIngresoServicio(movimientoServicio) && exito;
-							
-							//por si es fiado
-							esFiado = movimientoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
-							
-							
-							//sumamos puntos
-							if(esEfectivo())puntosTotales += puntos; 
-						} 
-						
-						if (exito) {
-							//se guardo bien
-							
-							//finalizamos la cita
-							if(esFiado) this.sistema.estadoFiadoCita(citaSeleccionada);
-							else this.sistema.finalizarCita(citaSeleccionada);
-							
-							if (esEfectivo()) {
-							//sumamos los puntos solo si paga en efectivo
+
+		// valido los campos en comun entre ingreso y egreso
+		if (Validador.esTipoMovimientoValido(tipoMovimiento) && Validador.esPrecioValido(precioPesosTotal)
+				&& Validador.esPrecioValido(precioDolarTotal) && Validador.esTipoCambioValido(tipoCambio)
+				&& Validador.esDescripcionValida(descripcion)) {
+
+			if (esServicio()) {
+				// tomamos datos de la cita seleccionada
+				// tomamos datos de los servicios asociados a esa cita
+				// por cada servicio sera una transaccion de "caja" porque hay que marcar lo que
+				// hizo cada profesional
+				ClienteDTO cliente = this.sistema.obtenerClienteById(citaSeleccionada.getIdCliente());
+
+				// si es una cliente fiado solo puede pagar en efectivo
+				if (!tipoCambio.equalsIgnoreCase("Efectivo") && cliente.getEstadoCliente().equalsIgnoreCase("Moroso"))
+					this.ventanaCaja.mostrarErrorMorosoEfectivo();
+				else {
+
+					boolean exito = true;
+					boolean esFiado = false;
+					boolean esPagoDeuda = false;
+					int puntosTotales = 0;
+
+					for (ServicioTurnoDTO servicio : serviciosCita) {
+
+						// buscamos el precio individual de ese servicio
+						BigDecimal precioPesosServicio = this.sistema.getServicioById(servicio.getIdServicio())
+								.getPrecioLocal();
+						BigDecimal precioDolarServicio = this.sistema.getServicioById(servicio.getIdServicio())
+								.getPrecioDolar();
+
+						// verifico el caso que se este pagando una deuda
+						if (cliente.getEstadoCliente().equalsIgnoreCase("moroso")
+								&& tipoCambio.equalsIgnoreCase("Efectivo")) {
+							esPagoDeuda = true;
+							precioPesosServicio = new BigDecimal(0);
+							precioDolarServicio = new BigDecimal(0);
+						}
+
+						// buscamos los puntos de cada servicio particular
+						int puntos = this.sistema.getServicioById(servicio.getIdServicio()).getPuntos();
+
+						MovimientoCajaDTO movimientoServicio = new MovimientoCajaDTO(0,
+								citaSeleccionada.getIdSucursal(), idCategoria,
+								// por ahora las promos en null o -1
+								fecha, tipoCambio, -1, precioPesosServicio,
+
+								precioDolarServicio, 1, citaSeleccionada.getIdCita(),
+
+								citaSeleccionada.getIdCliente(), servicio.getIdServicio());
+
+						// por is falla algo en la bdd
+						exito = this.sistema.insertarIngresoServicio(movimientoServicio) && exito;
+
+						// por si es fiado
+						esFiado = movimientoServicio.getTipoCambio().equalsIgnoreCase("Fiado");
+
+						// sumamos puntos
+						if (esEfectivo())
+							puntosTotales += puntos;
+					}
+
+					if (exito) {
+						// se guardo bien
+
+						// finalizamos la cita
+						if (esFiado)
+							this.sistema.estadoFiadoCita(citaSeleccionada);
+						else
+							this.sistema.finalizarCita(citaSeleccionada);
+
+						if (esEfectivo()) {
+							// sumamos los puntos solo si paga en efectivo
 							cliente.setPuntos(cliente.getPuntos() + puntosTotales);
-							}
-							
-							if (esFiado) {
-								//actualizamos la deuda y el estado del cliente
-								cliente.setDeudaPesos(cliente.getDeudaPesos().add(citaSeleccionada.getPrecioLocal()));
-								cliente.setDeudaDolar(cliente.getDeudaDolar().add(citaSeleccionada.getPrecioDolar()));
-								cliente.setEstadoCliente("Moroso");
-							}
-							if(esPagoDeuda) {
-								cliente.setDeudaPesos(new BigDecimal(0));
-								cliente.setDeudaDolar(new BigDecimal(0));
-								cliente.setEstadoCliente("Activo");
-							}
-								
-							this.sistema.editarCliente(cliente);
-							this.ventanaCaja.mostrarExito();
-							this.controladorMenu.actualizarDiaSeleccionado();
 						}
-					}
-				} else if (esProducto()) {
-					//es un producto y tiene menos campos que un servico
-					//parseamos 
-					BigDecimal precioPesosProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioPesos().getText());
-					BigDecimal precioDolarProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioDolar().getText());
-					
-					MovimientoCajaDTO movimientoProducto = new MovimientoCajaDTO(0, idSucursal, idCategoria,
-																			fecha, tipoCambio, precioPesosProducto, precioDolarProducto);
-					//lo insertamos en la bdd
-					if (this.sistema.insertarIngresoProducto(movimientoProducto)) {
-						//exito
-						System.out.println("en teoria salio todo bien");
+
+						if (esFiado) {
+							// actualizamos la deuda y el estado del cliente
+							cliente.setDeudaPesos(cliente.getDeudaPesos().add(citaSeleccionada.getPrecioLocal()));
+							cliente.setDeudaDolar(cliente.getDeudaDolar().add(citaSeleccionada.getPrecioDolar()));
+							cliente.setEstadoCliente("Moroso");
+						}
+						if (esPagoDeuda) {
+							cliente.setDeudaPesos(new BigDecimal(0));
+							cliente.setDeudaDolar(new BigDecimal(0));
+							cliente.setEstadoCliente("Activo");
+						}
+
+						this.sistema.editarCliente(cliente);
 						this.ventanaCaja.mostrarExito();
-						
-					
-					} else {
-						//rompio algo
-						this.ventanaCaja.mostrarErrorBDD();
+						this.controladorMenu.actualizarDiaSeleccionado();
 					}
-				
-				} else {
-						//CONSTRUCTOR PARA EGRESOS ES DISTINTO
-																			//revisar sucursal en un egreso
-						MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha,
-																			idCategoria, tipoCambio, new BigDecimal(precioPesosTotal),
-																			new BigDecimal(precioDolarTotal), descripcion);
-						
-						if (this.sistema.insertarEgreso(egreso)) {
-							//se guardo piola
-							this.ventanaCaja.mostrarExito();
-						} else {
-							//rompio la bdd
-							this.ventanaCaja.mostrarErrorBDD();
-						}
 				}
-								
+			} else if (esProducto()) {
+				// es un producto y tiene menos campos que un servico
+				// parseamos
+				BigDecimal precioPesosProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioPesos().getText());
+				BigDecimal precioDolarProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioDolar().getText());
+
+				MovimientoCajaDTO movimientoProducto = new MovimientoCajaDTO(0, idSucursal, idCategoria, fecha,
+						tipoCambio, precioPesosProducto, precioDolarProducto);
+				// lo insertamos en la bdd
+				if (this.sistema.insertarIngresoProducto(movimientoProducto)) {
+					// exito
+					System.out.println("en teoria salio todo bien");
+					this.ventanaCaja.mostrarExito();
+
+				} else {
+					// rompio algo
+					this.ventanaCaja.mostrarErrorBDD();
+				}
+
 			} else {
-			//hubo un error en los inputs
-			//no paso los validadores
-				if(clienteMoroso==true)this.ventanaCaja.mostrarErrorMorosoEfectivo();
-				else this.ventanaCaja.mostrarErrorCampos();
+				// CONSTRUCTOR PARA EGRESOS ES DISTINTO
+				// revisar sucursal en un egreso
+				MovimientoCajaDTO egreso = new MovimientoCajaDTO(0, idSucursal, fecha, idCategoria, tipoCambio,
+						new BigDecimal(precioPesosTotal), new BigDecimal(precioDolarTotal), descripcion);
+
+				if (this.sistema.insertarEgreso(egreso)) {
+					// se guardo piola
+					this.ventanaCaja.mostrarExito();
+				} else {
+					// rompio la bdd
+					this.ventanaCaja.mostrarErrorBDD();
+				}
+			}
+
+		} else {
+			// hubo un error en los inputs
+			// no paso los validadores
+			if (clienteMoroso == true)
+				this.ventanaCaja.mostrarErrorMorosoEfectivo();
+			else
+				this.ventanaCaja.mostrarErrorCampos();
 		}
-		
+
 		this.ventanaCaja.limpiarCampos();
 
 	}
 
-
 	public void mostarDatosCita() {
-		//llenamos los campos con la cita que se selecciono en el buscador
+		// llenamos los campos con la cita que se selecciono en el buscador
 		this.ventanaCaja.getTxtIdCita().setText(String.valueOf(this.citaSeleccionada.getIdCita()));
 		this.ventanaCaja.getTxtPrecioPesos().setText(this.citaSeleccionada.getPrecioLocal().toString());
 		this.ventanaCaja.getTxtPrecioDolar().setText(this.citaSeleccionada.getPrecioDolar().toString());
@@ -334,33 +328,34 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void disablePrecio() {
-		this.ventanaCaja.getTxtPrecioPesos().setEditable(false); //seteamos como no editable el precio
-		this.ventanaCaja.getTxtPrecioDolar().setEditable(false); //seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioPesos().setEditable(false); // seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioDolar().setEditable(false); // seteamos como no editable el precio
 	}
-	
+
 	private void enablePrecio() {
-		this.ventanaCaja.getTxtPrecioPesos().setEditable(true); //seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioPesos().setEditable(true); // seteamos como no editable el precio
 		this.ventanaCaja.getTxtPrecioPesos().setText(null);
-		this.ventanaCaja.getTxtPrecioDolar().setEditable(true); //seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioDolar().setEditable(true); // seteamos como no editable el precio
 		this.ventanaCaja.getTxtPrecioDolar().setText(null);
 	}
+
 	private boolean esProducto() {
-		if (this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Producto") ||
-			this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Productos")) {
-			
+		if (this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Producto")
+				|| this.ventanaCaja.getComboCategoria().getSelectedItem().toString().equalsIgnoreCase("Productos")) {
+
 			return true;
-		
+
 		} else {
 			return false;
 		}
-	
+
 	}
-	
+
 	private boolean esIngreso() {
 		String tipoMov = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
 		return tipoMov.equalsIgnoreCase("ingreso") || tipoMov.equalsIgnoreCase("ingresos");
 	}
-	
+
 	private boolean esServicio() {
 		if (this.ventanaCaja.getComboCategoria().getItemCount() > 0) {
 			String categoria = this.ventanaCaja.getComboCategoria().getSelectedItem().toString();
@@ -368,65 +363,68 @@ public class ControladorCaja implements ActionListener {
 		} else
 			return false;
 	}
-	
+
 	private boolean esEfectivo() {
 		return this.ventanaCaja.getComboTipoCambio().getSelectedItem().toString().equalsIgnoreCase("Efectivo");
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 	}
-	
-	
+
 	public CitaDTO getCitaSeleccionada() {
 		return this.citaSeleccionada;
 	}
+
 	public void setCitaSeleccionada(CitaDTO citaSeleccionada) {
 		this.citaSeleccionada = citaSeleccionada;
 	}
+
 	public List<ServicioTurnoDTO> getServiciosCita() {
 		return this.serviciosCita;
 	}
+
 	public void setServiciosCita(List<ServicioTurnoDTO> serviciosCita) {
 		this.serviciosCita = serviciosCita;
 	}
 
 	public void cobrarCitaDesdeMenu(CitaDTO citaSeleccionada) {
 		this.ventanaCaja.getComboTipoMovimiento().setSelectedItem("Ingreso");
-			if(existeCategoriaServicio()){
-				if(esServicio()) {
-					llenarComboTipoCambioServicio();
-					this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
-				}
-				this.ventanaCaja.getComboCategoria().setSelectedItem("Servicio");
+		if (existeCategoriaServicio()) {
+			if (esServicio()) {
+				llenarComboTipoCambioServicio();
 				this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
-				this.setCitaSeleccionada(citaSeleccionada);
-				this.setServiciosCita(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
-				this.mostarDatosCita();
-				validarCliente(citaSeleccionada);
 			}
-		}	
-	
-	private void validarCliente(CitaDTO citaSeleccionada2) {
-		ArrayList<ClienteDTO> clientes= (ArrayList<ClienteDTO>) sistema.obtenerClientes();
-		ClienteDTO actual=clientes.get(0);
-		for(int i=0; i<clientes.size();i++) {
-			if(citaSeleccionada2.getIdCliente()==clientes.get(i).getIdCliente())actual=clientes.get(i);
+			this.ventanaCaja.getComboCategoria().setSelectedItem("Servicio");
+			this.ventanaCaja.getPanelIngresoServicio().setVisible(true);
+			this.setCitaSeleccionada(citaSeleccionada);
+			this.setServiciosCita(this.sistema.getServicioTurnoByIdCita(citaSeleccionada.getIdCita()));
+			this.mostarDatosCita();
+			validarCliente(citaSeleccionada);
 		}
-		if(actual.getEstadoCliente()=="moroso" || (actual.getDeudaPesos().compareTo(new BigDecimal(0))>0) 
-				|| (actual.getDeudaDolar().compareTo(new BigDecimal(0))>0)) 
-			clienteMoroso=true;
 	}
- 
+
+	private void validarCliente(CitaDTO citaSeleccionada2) {
+		ArrayList<ClienteDTO> clientes = (ArrayList<ClienteDTO>) sistema.obtenerClientes();
+		ClienteDTO actual = clientes.get(0);
+		for (int i = 0; i < clientes.size(); i++) {
+			if (citaSeleccionada2.getIdCliente() == clientes.get(i).getIdCliente())
+				actual = clientes.get(i);
+		}
+		if (actual.getEstadoCliente() == "moroso" || (actual.getDeudaPesos().compareTo(new BigDecimal(0)) > 0)
+				|| (actual.getDeudaDolar().compareTo(new BigDecimal(0)) > 0))
+			clienteMoroso = true;
+	}
+
 	private boolean existeCategoriaServicio() {
 		for (CategoriaMovimientoCajaDTO categoria : listaCategorias) {
 			if (categoria.getNombre().equalsIgnoreCase("SERVICIO")) {
 				this.ventanaCaja.getComboCategoria().setSelectedItem(categoria.getNombre());
-			} else if( categoria.getNombre().equalsIgnoreCase("SERVICIOS")) {
+			} else if (categoria.getNombre().equalsIgnoreCase("SERVICIOS")) {
 				this.ventanaCaja.getComboCategoria().setSelectedItem(categoria.getNombre());
 				return true;
 			}
-		}	
+		}
 		return false;
 	}
 }
