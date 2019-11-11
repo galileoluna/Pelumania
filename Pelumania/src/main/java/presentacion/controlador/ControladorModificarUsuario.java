@@ -80,15 +80,15 @@ import presentacion.vista.VentanaModificarUsuario;
 					break;
 		
 				case 2:
-					JOptionPane.showMessageDialog(null, "Por favor ingrese un mail existente", "Error", JOptionPane.ERROR_MESSAGE);
+					this.ventanaEditarUsuario.mostrarErrorMail();
 					break;
 					
 				case 0:
-					JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+					this.ventanaEditarUsuario.errorCamposVacios();
 					break;
 					
 				case 3:
-					JOptionPane.showMessageDialog(null, "Por favor ingrese otro nombre de usuario, el que intenta usar ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+					this.ventanaEditarUsuario.errorUsuarioExistente();
 					break;
 			}	
 		}

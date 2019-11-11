@@ -3,15 +3,18 @@ package presentacion.vista;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import dto.SucursalDTO;
 import dto.UsuarioDTO;
+import util.PropertyManager;
 
 public class VentanaUsuario extends JFrame {
 	private static VentanaUsuario INSTANCE;
@@ -20,7 +23,14 @@ public class VentanaUsuario extends JFrame {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelUsuario;
-	private  String[] nombreColumnas = {"Nombre","Usuario","Mail","Permisos","Sucursal","Estado"};
+	// configuracion de idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+				PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	
+	private  String[] nombreColumnas = { idioma.getString("nombre"), idioma.getString("login.usuario"), 
+										idioma.getString("mail"), idioma.getString("usuarios.permisos") , 
+										idioma.getString("sucursal"), idioma.getString("estado")};
 
 	public VentanaUsuario()
 	{
@@ -48,7 +58,7 @@ public class VentanaUsuario extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
-		setTitle("Usuarios");
+		setTitle(idioma.getString("usuarios.titulo"));
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 713, 356);
@@ -81,15 +91,15 @@ public class VentanaUsuario extends JFrame {
 
 		spSucursal.setViewportView(tablaUsuario);
 
-		btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton(idioma.getString("agregar"));
 		btnAgregar.setBounds(172, 322, 89, 23);
 		panel.add(btnAgregar);
 
-		btnEditar = new JButton("Editar");
+		btnEditar = new JButton(idioma.getString("editar"));
 		btnEditar.setBounds(282, 322, 89, 23);
 		panel.add(btnEditar);
 
-		btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton(idioma.getString("borrar"));
 		btnBorrar.setBounds(394, 322, 89, 23);
 		panel.add(btnBorrar);
 	}
@@ -165,6 +175,11 @@ public class VentanaUsuario extends JFrame {
 
 	public void cerrar() {
 		this.dispose();
+	}
+
+	public int mostrarConfirmacionBorrar() {
+		return JOptionPane.showOptionDialog(null, idioma.getString("borrar.confirmacion"), idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
+		             JOptionPane.QUESTION_MESSAGE, null, null, null);
 	}
 
 

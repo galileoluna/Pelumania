@@ -1,20 +1,21 @@
 package presentacion.vista;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import util.PropertyManager;
 
 public class VentanaModificarUsuario extends JFrame {
 
@@ -30,6 +31,8 @@ public class VentanaModificarUsuario extends JFrame {
 	private JTextField textUser;
 	private JPasswordField textPass;
 	private JTextField textMail;
+	private Locale locale;
+	private ResourceBundle idioma;
 
 	
 	public static VentanaModificarUsuario getInstance( )
@@ -46,6 +49,11 @@ public class VentanaModificarUsuario extends JFrame {
 	private VentanaModificarUsuario() 
 	{
 		super();
+		
+		this.locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+					PropertyManager.leer("configuracion", "pais"));
+		this.idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+		
 		setTitle("Alta Usuario");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/usuario.png"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -64,7 +72,7 @@ public class VentanaModificarUsuario extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre");
+		JLabel lblNombre = new JLabel(idioma.getString("nombre"));
 		lblNombre.setBounds(10, 11, 113, 14);
 		panel.add(lblNombre);
 		
@@ -73,7 +81,7 @@ public class VentanaModificarUsuario extends JFrame {
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JLabel lblApellido = new JLabel("Apellido");
+		JLabel lblApellido = new JLabel(idioma.getString("apellido"));
 		lblApellido.setBounds(10, 56, 113, 14);
 		panel.add(lblApellido);
 
@@ -84,19 +92,15 @@ public class VentanaModificarUsuario extends JFrame {
 		panel.add(txtApellido);
 		
 		
-		btnAgregar= new JButton("Agregar");
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnAgregar= new JButton(idioma.getString("editar"));
 		btnAgregar.setBounds(84, 373, 189, 23);
 		panel.add(btnAgregar);
 		
-		JLabel labelComboOrig = new JLabel("Sucursal");
+		JLabel labelComboOrig = new JLabel(idioma.getString("sucursal"));
 		labelComboOrig.setBounds(10, 288, 113, 14);
 		panel.add(labelComboOrig);
 		
-		JLabel labeSucTran = new JLabel("Permisos");
+		JLabel labeSucTran = new JLabel(idioma.getString("usuarios.permisos"));
 		labeSucTran.setBounds(10, 238, 164, 14);
 		panel.add(labeSucTran);
 		
@@ -114,19 +118,19 @@ public class VentanaModificarUsuario extends JFrame {
 		estado.addItem("Inactivo");
 		panel.add(estado);
 		
-		JLabel lblEstado = new JLabel("Estado");
+		JLabel lblEstado = new JLabel(idioma.getString("estado"));
 		lblEstado.setBounds(10, 327, 164, 14);
 		panel.add(lblEstado);
 		
-		JLabel lblNombreUsuario = new JLabel("Nombre Usuario");
+		JLabel lblNombreUsuario = new JLabel(idioma.getString("usuarios.nombre"));
 		lblNombreUsuario.setBounds(10, 109, 113, 14);
 		panel.add(lblNombreUsuario);
 		
-		JLabel lblContrasea = new JLabel("Contraseña");
+		JLabel lblContrasea = new JLabel(idioma.getString("login.password"));
 		lblContrasea.setBounds(10, 151, 113, 14);
 		panel.add(lblContrasea);
 		
-		JLabel lblMail = new JLabel("E-Mail");
+		JLabel lblMail = new JLabel(idioma.getString("mail"));
 		lblMail.setBounds(10, 195, 113, 14);
 		panel.add(lblMail);
 		
@@ -201,5 +205,17 @@ public class VentanaModificarUsuario extends JFrame {
 	public void cerrar()
 	{
 		this.dispose();
+	}
+
+	public void mostrarErrorMail() {
+		JOptionPane.showMessageDialog(null, this.idioma.getString("error.mail"), idioma.getString("error"), JOptionPane.ERROR_MESSAGE);		
+	}
+
+	public void errorCamposVacios() {
+		JOptionPane.showMessageDialog(null, this.idioma.getString("error.campos.vacios"), idioma.getString("error"), JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void errorUsuarioExistente() {
+		JOptionPane.showMessageDialog(null, idioma.getString("usuarios.error.existente"), idioma.getString("error"), JOptionPane.ERROR_MESSAGE);		
 	}
 }

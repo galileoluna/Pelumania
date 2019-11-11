@@ -72,8 +72,7 @@ public class ControladorUsuario {
 	        	for (int fila : filasSeleccionadas)
 	        	{
 		        	if(this.usuariosEnTabla.get(fila)!=null) {	 
-		        		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas borrar al Usuario?","Confirmacion", JOptionPane.YES_NO_OPTION,
-		   		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		        		int confirm = this.ventanaUsuario.mostrarConfirmacionBorrar();
 		        		if (confirm == 0)
 		        			this.sistema.eliminarUsuario(this.usuariosEnTabla.get(fila));
 		        			
