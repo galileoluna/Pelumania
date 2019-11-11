@@ -3,20 +3,18 @@ package presentacion.vista;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import dto.ProfesionalDTO;
-import util.RowsRendererBasic;
+import util.PropertyManager;
 
 public class VentanaCambioContrasenia
 {
@@ -31,6 +29,8 @@ public class VentanaCambioContrasenia
 	private JPasswordField contraVieja;
 	private JPasswordField contraNueva;
 	private JPasswordField contraNueva2;
+	private Locale locale;
+	private ResourceBundle idioma;
 
 	public VentanaCambioContrasenia() 
 	{
@@ -50,9 +50,13 @@ public class VentanaCambioContrasenia
 
 	private void initialize() 
 	{
+		locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+				PropertyManager.leer("configuracion", "pais"));
+		idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+		
 		frmCambiarContra = new JFrame();
 		frmCambiarContra.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/barber-scissors.png"));
-		frmCambiarContra.setTitle("Cambiar Contrtaseña");
+		frmCambiarContra.setTitle(idioma.getString("usuarios.cambiar.password"));
 		frmCambiarContra.setBounds(100, 100, 373, 311);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -67,31 +71,31 @@ public class VentanaCambioContrasenia
 		panel.setLayout(null);
 		
 		
-		btnAgregar = new JButton("Guardar");
+		btnAgregar = new JButton(idioma.getString("guardar"));
 		btnAgregar.setBounds(121, 226, 153, 23);
 		panel.add(btnAgregar);
 		
-		JLabel lblUser = new JLabel("Usuario:");
+		JLabel lblUser = new JLabel(idioma.getString("login.usuario"));
 		lblUser.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblUser.setBounds(10, 11, 95, 24);
 		panel.add(lblUser);
 		
-		lblContraseniaActual = new JLabel("Contrasenia Actual:");
+		lblContraseniaActual = new JLabel(idioma.getString("usuarios.password.actual"));
 		lblContraseniaActual.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblContraseniaActual.setBounds(10, 71, 186, 24);
 		panel.add(lblContraseniaActual);
 		
-		lblContraseniaNueva = new JLabel("Contrasenia Nueva:");
+		lblContraseniaNueva = new JLabel(idioma.getString("usuarios.password.nueva"));
 		lblContraseniaNueva.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblContraseniaNueva.setBounds(10, 126, 199, 24);
 		panel.add(lblContraseniaNueva);
 		
-		lblRepetirContasea = new JLabel("Repetir contaseña:");
+		lblRepetirContasea = new JLabel(idioma.getString("usuarios.password.repetir"));
 		lblRepetirContasea.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblRepetirContasea.setBounds(10, 181, 199, 24);
 		panel.add(lblRepetirContasea);
 		
-		nombreUser = new JLabel("");
+		nombreUser = new JLabel(idioma.getString("usuarios.nombre"));
 		nombreUser.setFont(new Font("Tahoma", Font.BOLD, 13));
 		nombreUser.setBounds(120, 11, 228, 24);
 		panel.add(nombreUser);
@@ -149,5 +153,15 @@ public class VentanaCambioContrasenia
 		this.contraVieja.setText("");
 		this.nombreUser.setText("");
 		frmCambiarContra.dispose();
+	}
+	public void mostrarErrorPassNoCoincide() {
+		JOptionPane.showMessageDialog(null, idioma.getString("usuarios.error.password.nueva"), idioma.getString("usuarios.error.password.nueva"), JOptionPane.ERROR_MESSAGE);		
+	}
+	public void mostrarExito() {
+		JOptionPane.showMessageDialog(null, idioma.getString("usuarios.password.exito"), "Dialog", JOptionPane.INFORMATION_MESSAGE);		
+	}
+	
+	public void mostrarErrorPassActual() {
+		JOptionPane.showMessageDialog(null, idioma.getString("usuarios.error.password.actual"), idioma.getString("usuarios.error.password.nueva"), JOptionPane.ERROR_MESSAGE);		
 	}
 }

@@ -3,7 +3,6 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -87,18 +86,20 @@ public class ControladorCambiarContrasenia {
 		int valid=validar(vieja,nuevaPass,nuevaPass2);
 		switch (valid) {
 		case 0:
-			JOptionPane.showMessageDialog(null, "La contraseña nueva no coincide", "Error", JOptionPane.ERROR_MESSAGE);
+			this.ventanaChangePass.mostrarErrorPassNoCoincide();
 			break;
 
 		case 1:
-			sistema.cambiarContrasenia(usuario.getIdUsuario(), nuevaPass);
-			JOptionPane.showMessageDialog(null, "Su contraseña fue cambiada con exito", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+			if (sistema.cambiarContrasenia(usuario.getIdUsuario(), nuevaPass)) {
+				this.ventanaChangePass.mostrarExito();
+			}
+			
 			ventanaChangePass.cerrar();
 			break;
 		
 		case 2:
 			
-			JOptionPane.showMessageDialog(null, "La contraseña actual no coincide", "Error", JOptionPane.ERROR_MESSAGE);
+			this.ventanaChangePass.mostrarErrorPassActual();
 			break;
 		}
 		
