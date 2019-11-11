@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="serviciosTurnoPorCliente" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ef65d971-41d0-4bf7-aa9c-48ea3a6a64dd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="idCitaSubreporte" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT 
+Servicio.Nombre, Servicio.precioDolar,
+Profesional.Nombre, Profesional.Apellido,
+ServicioTurno.HoraInicio, ServicioTurno.HoraFin
+FROM Cita, ServicioTurno, Servicio, Profesional
+WHERE Cita.idCita = $P{idCitaSubreporte} 
+AND ServicioTurno.IdCita=Cita.IdCita
+AND ServicioTurno.IdServicio=Servicio.IdServicio
+AND ServicioTurno.IdProfesional=Profesional.IdProfesional]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servicio"/>
+	</field>
+	<field name="precioDolar" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="precioDolar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servicio"/>
+	</field>
+	<field name="COLUMN_3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="profesional"/>
+	</field>
+	<field name="Apellido" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Apellido"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="profesional"/>
+	</field>
+	<field name="HoraInicio" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="HoraInicio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servicioturno"/>
+	</field>
+	<field name="HoraFin" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="HoraFin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="servicioturno"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="140" height="20" uuid="60c9ea3f-7b20-4515-af71-aabd959228f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bbdd3665-8c46-4b4a-b769-5f8082abe496"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="0" width="62" height="20" uuid="413793ac-a5ba-4822-b189-b2c290b0abd5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2fef6096-82a5-492a-80e7-c4f09ad93516"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{precioDolar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="0" width="120" height="20" uuid="abb4ef08-fea5-4de0-9aea-e3380c5e4fe1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="14e59630-7dbc-41d8-9f62-06c2d7e279d4"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{COLUMN_3}+" "+$F{Apellido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h:mm a">
+				<reportElement x="402" y="0" width="72" height="20" uuid="253991da-2817-43a5-8c86-1d8d08404c9f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc080c4b-d9be-4725-89e4-6428f23e0b75"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{HoraInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h:mm a">
+				<reportElement x="474" y="0" width="72" height="20" uuid="e27f7e06-d066-457c-af71-3d6d0abdae42">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f061a1f-7b2e-4cb3-b171-06deda7d319a"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{HoraFin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
