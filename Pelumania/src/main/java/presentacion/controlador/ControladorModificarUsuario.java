@@ -2,6 +2,7 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -101,7 +102,9 @@ import presentacion.vista.VentanaModificarUsuario;
 					
 				return 0;
 			}else {
-				if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$",mail))) {
+				 Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+				 Matcher mather = pattern.matcher(mail);
+				if (!mather.find()) {
 					return 2;
 				}
 				for (UsuarioDTO u : usuario) {
@@ -109,7 +112,7 @@ import presentacion.vista.VentanaModificarUsuario;
 					if(u.getNombreUsuario().equals(user)) {	
 						cont++;
 					}
-					if(cont >= 1) {
+					if(cont > 1) {
 						return 3;
 					}
 				}
