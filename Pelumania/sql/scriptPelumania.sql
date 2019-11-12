@@ -162,11 +162,13 @@ CREATE TABLE IF NOT EXISTS `Cita`(
   `HoraFin` TIME NOT NULL,
   `Dia` DATE NOT NULL,
   `IdSucursal` INT (11) NOT NULL,
+   `IdPromocion` INT (11)  NULL,
 
     PRIMARY KEY(`idCita`),
     -- falta la foreign key a idUsuario
     FOREIGN KEY (`IdCliente`) REFERENCES `Cliente`(`idCliente`),
-    FOREIGN KEY (`IdSucursal`) REFERENCES `Sucursal`(`idSucursal`)
+    FOREIGN KEY (`IdSucursal`) REFERENCES `Sucursal`(`idSucursal`),
+    FOREIGN KEY (`IdPromocion`) REFERENCES `Promocion`(`IdPromocion`)
 );
 
 CREATE TABLE IF NOT EXISTS `CategoriaCaja`(

@@ -20,7 +20,7 @@ public class CitaDAOSQL implements CitaDAO{
 
 	private static final String insert = "INSERT INTO Cita( idCita, idUsuario, idCliente,"
 			+ "NombreCliente, ApellidoCliente, TelefonoCliente, MailCliente, EstadoTurno,"
-			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal, idPromocion) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	private static final String insertSinRegistrar = "INSERT INTO Cita( idCita, idUsuario,"
 			+ "NombreCliente, ApellidoCliente, EstadoTurno,"
 			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

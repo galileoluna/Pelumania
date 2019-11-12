@@ -5,11 +5,14 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -143,7 +146,9 @@ public class ControladorCita implements ActionListener{
 		listaSucursales = this.sistema.obtenerSucursales();
 		serviciosAgregados = new ArrayList<ServicioTurnoDTO>();
 		servicios_panel_servicios = this.sistema.obtenerServicios();
-		promociones = this.sistema.obtenerPrmociones();
+
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		promociones = this.sistema.obtenerPromoVigente(date, date);
 	}
 	
 	public void cargarDatos() {

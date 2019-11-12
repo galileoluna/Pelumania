@@ -26,8 +26,9 @@ public class CitaDTO{
     	private String nomSucursal;
     	private Time horaTurno;
     	private Date diaTurno;
-    
-        /***
+    	private int idPromocion;
+
+		/***
      * Constructor para una Cita con un Cliente registrado(Posee ID)
      * @param idcita (Id autoincremental de la cita)
      * @param idusuario (ID del usuario que carga el turno)
@@ -67,6 +68,39 @@ public class CitaDTO{
         this.fecha = fecha;
         this.idSucursal = idsucursal;
     }
+    // LO MISMO QUE ARRIBA PERO CON PROMOCION
+    public CitaDTO (int idcita,
+            int idusuario,                
+            int idcliente,
+            String nombre,
+            String apellido,
+            String telefono,
+            String mail,
+            String estado,
+            BigDecimal precioLocal,
+            BigDecimal precioDolar,
+            LocalTime horaInicio,
+            LocalTime horaFin,
+            LocalDate fecha,
+            int idsucursal,
+            int idPromocion
+	){
+	this.idCita = idcita;
+	this.idUsuario = idusuario;
+	this.idCliente = idcliente;
+	this.nombre = nombre;
+	this.apellido = apellido;
+	this.telefono = telefono;
+	this.mail = mail;
+	this.estado = estado;
+	this.precioLocal = precioLocal;
+	this.precioDolar = precioDolar;
+	this.horaInicio = horaInicio;
+	this.horaFin = horaFin;
+	this.fecha = fecha;
+	this.idSucursal = idsucursal;
+	this.idSucursal = idsucursal;
+}
     
     /***
      * Constructor sin un cliente registrado
@@ -103,6 +137,33 @@ public class CitaDTO{
         this.fecha = fecha;
         this.idSucursal = idsucursal;
     }
+    // LO MISMO QUE EL DE ARRIBA SOLO QUE CON PROMOCION
+    public CitaDTO (int idcita,
+            int idusuario,                
+            String nombre,
+            String apellido,
+            String estado,
+            BigDecimal precioLocal,
+            BigDecimal precioDolar,
+            LocalTime horaInicio,
+            LocalTime horaFin,
+            LocalDate fecha,
+            int idsucursal,
+            int idPromocion
+    ){
+	this.idCita = idcita;
+	this.idUsuario = idusuario;
+	this.nombre = nombre;
+	this.apellido = apellido;
+	this.estado = estado;
+	this.precioLocal = precioLocal;
+	this.precioDolar = precioDolar;
+	this.horaInicio = horaInicio;
+	this.horaFin = horaFin;
+	this.fecha = fecha;
+	this.idSucursal = idsucursal;
+	this.idPromocion=idPromocion;
+}
     
     //Contructor para visualizacion de turno por tabla
     // se pueden agregar mas campos o sacarlos hasta que definamos bien que mostrar con esto creo que alcanza
@@ -260,6 +321,15 @@ public class CitaDTO{
     public boolean esSoloActiva() {
     	return this.estado.equalsIgnoreCase("Activa");
     }
+    
+    public int getIdPromocion() {
+		return idPromocion;
+	}
+
+	public void setIdPromocion(int idPromocion) {
+		this.idPromocion = idPromocion;
+	}
+
     
     
     public boolean estaEnCurso() {
