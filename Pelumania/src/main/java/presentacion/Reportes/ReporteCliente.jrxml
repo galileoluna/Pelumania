@@ -5,11 +5,12 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<parameter name="Desde" class="java.sql.Date"/>
 	<parameter name="Hasta" class="java.sql.Date"/>
+	<parameter name="idCliente" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT idCita, Dia, EstadoTurno, HoraInicio, HoraFin, PrecioLocal, PrecioDolar, 
 Cliente.Nombre, Cliente.Apellido
 FROM Cita, Cliente
-WHERE Cita.idCliente = 2
+WHERE Cita.idCliente = $P{idCliente} 
 AND Dia >=  $P{Desde}  AND Dia <=  $P{Hasta} 
 AND Cita.idCliente = Cliente.idCliente
 ORDER BY Dia]]>
@@ -113,6 +114,12 @@ ORDER BY Dia]]>
 				<reportElement x="0" y="0" width="81" height="21" uuid="0d7162fe-5ba8-43b8-860c-c6a563876c41">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c0398c89-d671-49d7-bb86-a9c3ce9656d6"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Cita Nro.]]></text>
 			</staticText>
@@ -120,6 +127,12 @@ ORDER BY Dia]]>
 				<reportElement x="81" y="0" width="79" height="21" uuid="e61272d5-e2b3-49d4-b89a-606525576b02">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b250f83e-ba98-43a4-ac45-c03b3b66551b"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Dia]]></text>
 			</staticText>
@@ -127,6 +140,12 @@ ORDER BY Dia]]>
 				<reportElement x="160" y="0" width="79" height="21" uuid="cf2c0586-e543-4c40-a64e-4355b48f2fb6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1ef02297-920e-4cfe-9e89-c3e524c3d191"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Estado]]></text>
 			</staticText>
@@ -134,6 +153,12 @@ ORDER BY Dia]]>
 				<reportElement x="239" y="0" width="79" height="21" uuid="018bf3a2-5116-4495-85e7-49031193883a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2a82a65-42de-4ec8-9c9b-b15ae3ebf96e"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Hora de Inicio]]></text>
 			</staticText>
@@ -141,6 +166,12 @@ ORDER BY Dia]]>
 				<reportElement x="318" y="0" width="79" height="21" uuid="f722a34b-bb3a-41de-8bec-bf926a4951e4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b8400b0-a6ee-4ba5-be38-da8c578293e8"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Hora de Fin]]></text>
 			</staticText>
@@ -148,6 +179,12 @@ ORDER BY Dia]]>
 				<reportElement x="397" y="0" width="79" height="21" uuid="292b32d5-0dc5-4954-b767-ebe63e42da97">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e9ae6b1-55aa-430c-a877-8dd69fb3b585"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Precio Local]]></text>
 			</staticText>
@@ -155,6 +192,12 @@ ORDER BY Dia]]>
 				<reportElement x="476" y="0" width="79" height="21" uuid="156e3c93-4497-4b95-af53-0b982f1c4628">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f48cc546-396b-4842-a880-8d90c187f578"/>
 				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Precio Dolar]]></text>
 			</staticText>
@@ -167,7 +210,10 @@ ORDER BY Dia]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c0398c89-d671-49d7-bb86-a9c3ce9656d6"/>
 				</reportElement>
 				<box>
-					<bottomPen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{idCita}]]></textFieldExpression>
@@ -227,18 +273,21 @@ ORDER BY Dia]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f48cc546-396b-4842-a880-8d90c187f578"/>
 				</reportElement>
 				<box>
-					<bottomPen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{PrecioDolar}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="-30" y="50" width="470" height="70" uuid="9983e8d0-f458-438b-ac73-684e6d994599"/>
+				<reportElement x="-30" y="40" width="451" height="71" uuid="29036d14-1685-406f-be92-291064df5d73"/>
 				<subreportParameter name="idCitaSubreporte">
 					<subreportParameterExpression><![CDATA[$F{idCita}]]></subreportParameterExpression>
 				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["serviciosTurnoPorCliente.jasper"]]></subreportExpression>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION} ]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/java/presentacion/Reportes/serviciosTurnoPorCliente.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
