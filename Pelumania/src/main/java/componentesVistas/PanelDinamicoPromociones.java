@@ -11,7 +11,7 @@ public class PanelDinamicoPromociones extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JTable tablaPromocion;
 	private DefaultTableModel modelPromocion;
-	private  String[] nombreColumnas = {"Decripcion","Fecha Inicio","Fecha Fin","Descuento","Puntos","Estado"};
+	private  String[] nombreColumnas = {"Decripcion","Descuento","Puntos","Estado"};
 	
 	
 	public PanelDinamicoPromociones() {
