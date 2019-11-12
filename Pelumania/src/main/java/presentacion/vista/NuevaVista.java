@@ -318,7 +318,7 @@ public class NuevaVista implements Runnable {
 		calendario = new JCalendar();
 		calendario.setWeekOfYearVisible(false);
 		calendario.setTodayButtonVisible(true);
-//		calendario.setLocale(this.locale);
+		calendario.setLocale(this.locale);
 		JPnl_Calendario.add(calendario);
 	}
 
