@@ -371,7 +371,8 @@ public class NuevoControladorEditarCita implements ActionListener{
 					this.ventanaEditarCita.getTxtTelefono().getText(), this.ventanaEditarCita.getTxtMail().getText(),
 					"Activa", this.ventanaEditarCita.getTotal(), this.ventanaEditarCita.getTotalUSD(), 
 					this.ventanaEditarCita.getHoraInicio(), this.ventanaEditarCita.getHoraFin(),
-					this.ventanaEditarCita.getFechaCita().plusDays(1), this.ventanaEditarCita.getSucursal().getIdSucursal());
+					this.ventanaEditarCita.getFechaCita().plusDays(1), this.ventanaEditarCita.getSucursal().getIdSucursal(),
+					this.citaAEditar.getIdPromocion());
 			}
 			
 			else {
@@ -380,7 +381,8 @@ public class NuevoControladorEditarCita implements ActionListener{
 						this.ventanaEditarCita.getCliente().getTelefono(), this.ventanaEditarCita.getCliente().getMail(),
 						"Activa", this.ventanaEditarCita.getTotal(), this.ventanaEditarCita.getTotalUSD(), 
 						this.ventanaEditarCita.getHoraInicio(), this.ventanaEditarCita.getHoraFin(),
-						this.ventanaEditarCita.getFechaCita().plusDays(1), this.ventanaEditarCita.getSucursal().getIdSucursal());
+						this.ventanaEditarCita.getFechaCita().plusDays(1), this.ventanaEditarCita.getSucursal().getIdSucursal(),
+						this.citaAEditar.getIdPromocion());
 
 			}
 			if (this.sistema.editarCita(citaEditada))
@@ -470,7 +472,8 @@ public class NuevoControladorEditarCita implements ActionListener{
 					this.ventanaEditarCita.getTxtTelefono().getText(), this.ventanaEditarCita.getTxtMail().getText(),
 					"Activa", this.ventanaEditarCita.getTotal(), this.ventanaEditarCita.getTotalUSD(), 
 					this.ventanaEditarCita.getHoraInicio(), this.ventanaEditarCita.getHoraFin(),
-					this.ventanaEditarCita.getFechaCita(), this.ventanaEditarCita.getSucursal().getIdSucursal());
+					this.ventanaEditarCita.getFechaCita(), this.ventanaEditarCita.getSucursal().getIdSucursal(),
+					this.citaAEditar.getIdPromocion());
 		
 			if (this.sistema.agregarCita(nuevaCita)) {
 				idCitaAgregada = this.sistema.getCitaMax().getIdCita();

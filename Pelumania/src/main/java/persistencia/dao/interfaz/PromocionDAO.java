@@ -30,6 +30,8 @@ public interface PromocionDAO {
 
 	public PromocionDTO getById(int idPromocion);
 
+	List<Integer> readAllIDServProm(int id_promocion);
+
 
 	//public boolean deleteReal(PromocionDTO promocion_a_eliminar);
 }

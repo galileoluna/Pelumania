@@ -20,7 +20,7 @@ public class CitaDAOSQL implements CitaDAO{
 
 	private static final String insert = "INSERT INTO Cita( idCita, idUsuario, idCliente,"
 			+ "NombreCliente, ApellidoCliente, TelefonoCliente, MailCliente, EstadoTurno,"
-			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal, idPromocion) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal, IdPromocion) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 	private static final String insertSinRegistrar = "INSERT INTO Cita( idCita, idUsuario,"
 			+ "NombreCliente, ApellidoCliente, EstadoTurno,"
 			+ "PrecioLocal, PrecioDolar, HoraInicio, HoraFin,  Dia, IdSucursal) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -70,7 +70,8 @@ public class CitaDAOSQL implements CitaDAO{
 				statement.setTime       (12, Time.valueOf(cita.getHoraFin()));
 				statement.setDate       (13, Date.valueOf(cita.getFecha()));
 				statement.setInt        (14, cita.getIdSucursal());
-
+				statement.setInt        (15, cita.getIdPromocion());
+				
 				if(statement.executeUpdate() > 0)
 				{
 //					conexion.commit();
@@ -507,9 +508,9 @@ public class CitaDAOSQL implements CitaDAO{
 		LocalTime horaFin = resultSet.getTime("HoraFin").toLocalTime();
 		LocalDate fechaCita = resultSet.getDate("Dia").toLocalDate().plusDays(1);
 		int idSucursal = resultSet.getInt("IdSucursal");
-		
+		int idPromo= resultSet.getInt("IdPromocion");
 		return new CitaDTO(idCita, idUsuario, idCliente, nombre, apellido, telefono, mail, estado, precioLocal,
-				precioDolar, horaInicio, horaFin, fechaCita, idSucursal);
+				precioDolar, horaInicio, horaFin, fechaCita, idSucursal,idPromo);
 	}
 
 	@Override

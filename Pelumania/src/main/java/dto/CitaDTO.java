@@ -39,37 +39,6 @@ public class CitaDTO{
      * @param idsucursal (Sucursal asociada al turno)
      */
     public CitaDTO (int idcita,
-                    int idusuario,                
-                    int idcliente,
-                    String nombre,
-                    String apellido,
-                    String telefono,
-                    String mail,
-                    String estado,
-                    BigDecimal precioLocal,
-                    BigDecimal precioDolar,
-                    LocalTime horaInicio,
-                    LocalTime horaFin,
-                    LocalDate fecha,
-                    int idsucursal
-    ){
-        this.idCita = idcita;
-        this.idUsuario = idusuario;
-        this.idCliente = idcliente;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.mail = mail;
-        this.estado = estado;
-        this.precioLocal = precioLocal;
-        this.precioDolar = precioDolar;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.fecha = fecha;
-        this.idSucursal = idsucursal;
-    }
-    // LO MISMO QUE ARRIBA PERO CON PROMOCION
-    public CitaDTO (int idcita,
             int idusuario,                
             int idcliente,
             String nombre,
@@ -99,7 +68,7 @@ public class CitaDTO{
 	this.horaFin = horaFin;
 	this.fecha = fecha;
 	this.idSucursal = idsucursal;
-	this.idSucursal = idsucursal;
+	this.idPromocion = idPromocion;
 }
     
     /***
@@ -113,31 +82,6 @@ public class CitaDTO{
      * @param precioDolar (precio final en dolares)
      * @param idsucursal (Sucursal asociada al turno)
      */
-    public CitaDTO (int idcita,
-                    int idusuario,                
-                    String nombre,
-                    String apellido,
-                    String estado,
-                    BigDecimal precioLocal,
-                    BigDecimal precioDolar,
-                    LocalTime horaInicio,
-                    LocalTime horaFin,
-                    LocalDate fecha,
-                    int idsucursal
-    ){
-        this.idCita = idcita;
-        this.idUsuario = idusuario;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.estado = estado;
-        this.precioLocal = precioLocal;
-        this.precioDolar = precioDolar;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.fecha = fecha;
-        this.idSucursal = idsucursal;
-    }
-    // LO MISMO QUE EL DE ARRIBA SOLO QUE CON PROMOCION
     public CitaDTO (int idcita,
             int idusuario,                
             String nombre,

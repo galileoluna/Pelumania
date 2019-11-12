@@ -22,7 +22,7 @@ public class PromocionDAOSQL implements PromocionDAO{
 	private static final String deleteReal="DELETE FROM Promocion WHERE idPromocion = ?";
 	private static final String delete="UPDATE Promocion SET estado='Inactivo' WHERE idPromocion=?";
 	private static final String insertServProm="INSERT INTO ServicioPromocion (idPromocion, idServicio) VALUES (?,?)";
-	private static final String readAllServProm="SELECT s.nombre FROM ServicioPromocion sp JOIN Servicio s USING(idServicio) JOIN Promocion p USING(idPromocion) WHERE p.idPromocion=?";
+	private static final String readAllServProm="SELECT s.nombre,s.IdServicio FROM ServicioPromocion sp JOIN Servicio s USING(idServicio) JOIN Promocion p USING(idPromocion) WHERE p.idPromocion=?";
 	private static final String deleteServProm="DELETE FROM ServicioPromocion WHERE idPromocion = ? AND idServicio=?";
 	private static final String update="UPDATE Promocion set Descripcion=?,FechaInicio=?,FechaFin=?,Descuento=?,Puntos=?,Estado=? WHERE idPromocion=?";
 	private static final String readPromVigente="SELECT * FROM Promocion p WHERE p.FechaInicio<= ? AND p.FechaFin>=? AND estado='Activo'";
@@ -240,6 +240,27 @@ public class PromocionDAOSQL implements PromocionDAO{
 		}
 		return servi;
 	}
+	
+	@Override
+	public List<Integer> readAllIDServProm(int id_promocion) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Integer> servi = new ArrayList<Integer>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readAllServProm);
+			statement.setInt(1, id_promocion);
+			resultSet = statement.executeQuery();
+			while(resultSet.next()){
+				servi.add(resultSet.getInt("s.IdServicio"));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return servi;
+	}
+	
 	public boolean deleteRealPromocion(PromocionDTO promocion_a_eliminar) {
 		PreparedStatement statement;
     	Connection conexion = Conexion.getConexion().getSQLConexion();

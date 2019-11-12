@@ -442,6 +442,10 @@ public class Sistema
 		return this.promocion.readAllServProm(id_promo);
 	}
 	
+	public List<Integer> obtenerIdServPromo(int id_promo){
+		return this.promocion.readAllIDServProm(id_promo);
+	}
+	
 	public List<PromocionDTO> obtenerPromoVigente(Date fInicio,Date fFin){
 		return this.promocion.readPromoVigente(fInicio,fFin);
 		

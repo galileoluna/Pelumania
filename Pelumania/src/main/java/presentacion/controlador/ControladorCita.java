@@ -54,6 +54,7 @@ public class ControladorCita implements ActionListener{
 	private List<ProfesionalDTO> profesionales_panel_servicios;
 	
 	private List<PromocionDTO> promociones;
+	private int idPromocionSeleccionada=-1;
 	ServicioDTO servicioSeleccionado;
 	
 	private static String errorHora;
@@ -406,7 +407,8 @@ public class ControladorCita implements ActionListener{
 					this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
-					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal());
+					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),
+					this.citaAEditar.getIdPromocion());
 		
 			if (this.sistema.editarCita(citaEditada))
 				for (ServicioTurnoDTO servicioViejo : this.sistema.getServicioTurnoByIdCita(citaEditada.getIdCita())) 
@@ -489,14 +491,22 @@ public class ControladorCita implements ActionListener{
 	public void registrarCita() {
 		if (validarCita()) {
 			Integer idCitaAgregada;
-			
+
 			CitaDTO nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
 					this.ventanaCita.getCliente().getNombre(), this.ventanaCita.getCliente().getApellido(), 
 					this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
-					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal());
-		
+					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),-1);
+			if(idPromocionSeleccionada > 0) {
+				nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
+				this.ventanaCita.getCliente().getNombre(), this.ventanaCita.getCliente().getApellido(), 
+				this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
+				"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
+				this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
+				this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),idPromocionSeleccionada);
+			}
+			
 			if (this.sistema.agregarCita(nuevaCita)) {
 				idCitaAgregada = this.sistema.getCitaMax().getIdCita();
 				
@@ -603,6 +613,39 @@ public class ControladorCita implements ActionListener{
 			}else
 				mostrarErrorHora();
 		}
+		
+		if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
+			
+			this.idPromocionSeleccionada=getPromocionSeleccionada().getIdPromocion();
+			List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
+			
+			Integer idProfesional = -1;
+			System.out.println("ACA va el profesional: "+idProfesional);
+			for(Integer i : servicio) {
+
+				ServicioTurnoDTO serv = new ServicioTurnoDTO(i, idProfesional);
+				if (validarHora(this.ventanaCita.getHoraInicio())) {
+
+					calcularHorario(serv);
+					if (validarAntesDeAgregarServicio(serv)) {
+
+						serviciosAgregados.add(serv);
+						actualizarServiciosAgregados();
+						actualizarHoraFin();
+						actualizarPrecioTotal();
+						actualizarPrecioTotalDolar();
+						actualizarPuntos();
+						System.out.println("Los servicios son: "+serviciosAgregados);
+					}else {
+						mostrarErrorServicio();
+					}
+				}
+			}
+		}else {
+			mostrarErrorHora();
+			
+		}	
 	}
 	
 	private void eliminarServicio(ActionEvent e) {
@@ -941,12 +984,10 @@ public class ControladorCita implements ActionListener{
 
 		for (PromocionDTO p : promociones)		{ 
 			String descripcion = p.getDescripcion();
-			Date FechaInicio = p.getFechaInicio();
-			Date FechaFin=p.getFechaFin();
 			Double descuento=p.getDescuento();
 			int puntos=p.getPuntos();
 			String estado=p.getEstado();
-			Object[] fila = {descripcion, FechaInicio,FechaFin,descuento,puntos,estado};
+			Object[] fila = {descripcion, descuento,puntos,estado};
 			this.ventanaCita.getPanelDinamicoPromociones().getModelPromocion().addRow(fila);
 		}
 		
