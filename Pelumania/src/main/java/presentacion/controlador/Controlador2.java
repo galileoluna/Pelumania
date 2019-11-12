@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 
 import org.apache.log4j.Logger;
@@ -336,8 +335,7 @@ public class Controlador2 implements ActionListener{
 	}
 	
 	private void cancelarCita(ActionEvent e) {
-		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que deseas cancelar la cita?","Confirmacion", JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, null, null);
+		int confirm = this.nvista.mostrarConfirmacionBorrar();
 		if (confirm == 0) {
 			this.sistema.cancelarCita(citaSeleccionada);
 			
@@ -688,12 +686,12 @@ public class Controlador2 implements ActionListener{
 	public boolean validarFechaSeleccionada() {
 		if (esDespuesDeHoy()) {
 			if (esDomingo()) {
-			JOptionPane.showMessageDialog(null, "No se pueden realizar reservas los Domingos!");
+			this.nvista.mostrarErrorDomingo();
 			return false;
 			}else
 				return true;
 		}
-		JOptionPane.showMessageDialog(null, "No puedes realizar una reserva para un dia que ya transcurrio!");
+		this.nvista.mostrarErrorFechaPasada();
 		return false;
 	}
 	
@@ -729,9 +727,5 @@ public class Controlador2 implements ActionListener{
 		this.controladorCambContra= ControladorCambiarContrasenia.getInstance(sistema,usuario);
 	}
 
-//	private void setearTimer() {
-//		this.timerEstados = new TimerEstadosCitas(sistema);
-//		timerEstados.iniciar();
-//	}
 
 }

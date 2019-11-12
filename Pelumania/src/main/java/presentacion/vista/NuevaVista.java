@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -166,7 +167,6 @@ public class NuevaVista implements Runnable {
 			
 			/*
 			 * Configuracion de idioma
-			 *
 			 */ 
 			private Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
 			private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
@@ -176,9 +176,9 @@ public class NuevaVista implements Runnable {
 			 * Variables para manejo de tabla Citas
 			 * */
 			private JTable tablaCitas;
-			private DefaultTableModel modelCitas;
-			private String[] nombreColumnas = {"Cliente","Precio en $",
-					"Precio en USD","Hora Inicio", "Hora Fin", "Estado"};
+			private DefaultTableModel modelCitas;		
+			private String[] nombreColumnas = {idioma.getString("cliente"), idioma.getString("precio.pesos") ,
+					idioma.getString("precio.dolares") , idioma.getString("inicio"), idioma.getString("fin"), idioma.getString("estado")};
 
 
 	public NuevaVista() {
@@ -318,6 +318,7 @@ public class NuevaVista implements Runnable {
 		calendario = new JCalendar();
 		calendario.setWeekOfYearVisible(false);
 		calendario.setTodayButtonVisible(true);
+//		calendario.setLocale(this.locale);
 		JPnl_Calendario.add(calendario);
 	}
 
@@ -346,7 +347,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Verde.setBounds(10, 42, 20, 20);
 			JPnl_Referencias.add(Lbl_Verde);
 			
-			lblCitasActivas = new JLabel("Citas Activas");
+			lblCitasActivas = new JLabel(idioma.getString("cita.activa"));
 			lblCitasActivas.setBounds(40, 42, 157, 20);
 			JPnl_Referencias.add(lblCitasActivas);
 			//_________________________________________
@@ -358,7 +359,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Rojo.setOpaque(true);
 			JPnl_Referencias.add(Lbl_Rojo);
 			
-			lblCitasCanceladas = new JLabel("Citas Canceladas");
+			lblCitasCanceladas = new JLabel(idioma.getString("cita.cancelada"));
 			lblCitasCanceladas.setBounds(237, 42, 157, 20);
 			JPnl_Referencias.add(lblCitasCanceladas);
 			//_________________________________________
@@ -370,7 +371,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Naranja.setOpaque(true);
 			JPnl_Referencias.add(Lbl_Naranja);
 			
-			LblCitasEnCurso = new JLabel("Citas En Curso");
+			LblCitasEnCurso = new JLabel(idioma.getString("cita.en.curso"));
 			LblCitasEnCurso.setBounds(40, 71, 157, 20);
 			JPnl_Referencias.add(LblCitasEnCurso);
 			//_________________________________________
@@ -383,7 +384,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Amarillo.setBounds(10, 102, 20, 20);
 			JPnl_Referencias.add(Lbl_Amarillo);
 			
-			LblCitasAReprogramar = new JLabel("Citas a Reprogramar");
+			LblCitasAReprogramar = new JLabel(idioma.getString("cita.reprogramar"));
 			LblCitasAReprogramar.setBounds(40, 102, 157, 20);
 			JPnl_Referencias.add(LblCitasAReprogramar);
 			//_________________________________________
@@ -395,7 +396,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Azul.setBounds(207, 73, 20, 20);
 			JPnl_Referencias.add(Lbl_Azul);
 			
-			lblCitasFinalizadas = new JLabel("Citas Finalizadas");
+			lblCitasFinalizadas = new JLabel(idioma.getString("cita.finalizada"));
 			lblCitasFinalizadas.setBounds(237, 73, 157, 20);
 			JPnl_Referencias.add(lblCitasFinalizadas);
 			//_________________________________________
@@ -407,7 +408,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Gris.setBounds(207, 102, 20, 20);
 			JPnl_Referencias.add(Lbl_Gris);
 			
-			lblCitasVencidas = new JLabel("Citas Vencidas");
+			lblCitasVencidas = new JLabel(idioma.getString("cita.vencida"));
 			lblCitasVencidas.setBounds(237, 102, 157, 20);
 			JPnl_Referencias.add(lblCitasVencidas);
 			//_________________________________________
@@ -420,7 +421,7 @@ public class NuevaVista implements Runnable {
 			Lbl_Cian.setBounds(10, 135, 20, 20);
 			JPnl_Referencias.add(Lbl_Cian);
 			
-			LblCitasFiadas = new JLabel("Citas Fiadas");
+			LblCitasFiadas = new JLabel(idioma.getString("cita.fiada"));
 			LblCitasFiadas.setBounds(40, 135, 157, 20);
 			JPnl_Referencias.add(LblCitasFiadas);
 	}
@@ -432,7 +433,7 @@ public class NuevaVista implements Runnable {
 	}
 	
 	private void crearLabelReferencias() {
-		LblReferencias = new JLabel("Referencias:");
+		LblReferencias = new JLabel(idioma.getString("referencias"));
 		LblReferencias.setFont(new Font("Tahoma", Font.BOLD, 14));
 		LblReferencias.setBounds(10, 6, 165, 25);
 		JPnl_Referencias.add(LblReferencias);
@@ -476,7 +477,7 @@ public class NuevaVista implements Runnable {
 	}
 	
 	private void crearLabelFiltros() {
-		LblFiltros = new JLabel("Filtros:");
+		LblFiltros = new JLabel(idioma.getString("filtros"));
 		LblFiltros.setFont(new Font("Tahoma", Font.BOLD, 14));
 		LblFiltros.setBounds(10, 11, 165, 25);
 		JPanel_Filtros.add(LblFiltros);
@@ -489,12 +490,12 @@ public class NuevaVista implements Runnable {
 	}
 
 	private void crearCheckBoxes() {
-		chckbxMostrarSoloCitas = new JCheckBox("Mostrar solo citas Activas");
+		chckbxMostrarSoloCitas = new JCheckBox(idioma.getString("cita.mostar.activas"));
 		chckbxMostrarSoloCitas.setBounds(726, 86, 185, 23);
 		chckbxMostrarSoloCitas.setEnabled(false);
 		JPanel_Filtros.add(chckbxMostrarSoloCitas);
 		
-		chckbxMostrarCitasCanceladas = new JCheckBox("Mostrar citas Canceladas");
+		chckbxMostrarCitasCanceladas = new JCheckBox(idioma.getString("cita.mostrar.canceladas"));
 		chckbxMostrarCitasCanceladas.setBounds(726, 108, 185, 23);
 		chckbxMostrarCitasCanceladas.setEnabled(false);
 		JPanel_Filtros.add(chckbxMostrarCitasCanceladas);
@@ -502,25 +503,25 @@ public class NuevaVista implements Runnable {
 
 	
 	private void crearBotonLimpiarFiltros() {	
-		btnLimpiarFiltros = new JButton("Limpiar filtros");
+		btnLimpiarFiltros = new JButton(idioma.getString("limpiar.filtros"));
 		btnLimpiarFiltros.setBounds(726, 56, 143, 23);
 		JPanel_Filtros.add(btnLimpiarFiltros);
 		}
 
 	private void crearRadioButtonsFiltros() {
-		rdbtnServicios = new JRadioButton("Servicios");
+		rdbtnServicios = new JRadioButton(idioma.getString("servicios"));
 		rdbtnServicios.setBounds(20, 43, 109, 23);
 		JPanel_Filtros.add(rdbtnServicios);
 		
-		rdbtnProfesional = new JRadioButton("Profesional");
+		rdbtnProfesional = new JRadioButton(idioma.getString("profesional"));
 		rdbtnProfesional.setBounds(20, 65, 109, 23);
 		JPanel_Filtros.add(rdbtnProfesional);
 		
-		rdbtnRangoHorario = new JRadioButton("Rango Horario");
+		rdbtnRangoHorario = new JRadioButton(idioma.getString("cita.rango.hora"));
 		rdbtnRangoHorario.setBounds(126, 43, 109, 23);
 		JPanel_Filtros.add(rdbtnRangoHorario);
 		
-		rdbtnEstado = new JRadioButton("Estado");
+		rdbtnEstado = new JRadioButton(idioma.getString("estado"));
 		rdbtnEstado.setBounds(126, 65, 109, 23);
 		JPanel_Filtros.add(rdbtnEstado);
 	}
@@ -575,7 +576,7 @@ public class NuevaVista implements Runnable {
 		JCBoxFiltroServicio.setBounds(119, 11, 205, 20);
 		JPnl_FiltroSeleccionado.add(JCBoxFiltroServicio);
 		
-		JLabel lblNewLabel = new JLabel("Servicio: ");
+		JLabel lblNewLabel = new JLabel(idioma.getString("servicio"));
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
 
@@ -586,7 +587,7 @@ public class NuevaVista implements Runnable {
 		JCBoxFiltroProfesional.setBounds(119, 11, 205, 20);
 		JPnl_FiltroSeleccionado.add(JCBoxFiltroProfesional);
 		
-		JLabel lblNewLabel = new JLabel("Profesional: ");
+		JLabel lblNewLabel = new JLabel(idioma.getString("profesional"));
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
 	}
@@ -606,7 +607,7 @@ public class NuevaVista implements Runnable {
 		
 		JPnl_FiltroSeleccionado.add(JCBoxFiltroEstado);
 		
-		JLabel lblNewLabel = new JLabel("Estado: ");
+		JLabel lblNewLabel = new JLabel(idioma.getString("estado"));
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
 	}
@@ -616,7 +617,7 @@ public class NuevaVista implements Runnable {
 		JCBoxDe.setBounds(119, 11, 205, 20);
 		JPnl_FiltroSeleccionado.add(JCBoxDe);
 		
-		JLabel lblNewLabel = new JLabel("De: ");
+		JLabel lblNewLabel = new JLabel(idioma.getString("desde"));
 		lblNewLabel.setBounds(10, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel);
 		
@@ -624,7 +625,7 @@ public class NuevaVista implements Runnable {
 		JCBoxA.setBounds(450, 11, 205, 20);
 		JPnl_FiltroSeleccionado.add(JCBoxA);
 		
-		JLabel lblNewLabel2 = new JLabel("A: ");
+		JLabel lblNewLabel2 = new JLabel(idioma.getString("hasta"));
 		lblNewLabel2.setBounds(335, 11, 108, 20);
 		JPnl_FiltroSeleccionado.add(lblNewLabel2);
 	}
@@ -690,7 +691,7 @@ public class NuevaVista implements Runnable {
 
 	private void crearLabelCitaSeleccionadaNull() {
 		JPnl_Detalle.setLayout(null);
-		Lbl_CitaSeleccionadaNull = new JLabel ("[ No hay citas seleccionadas ]");
+		Lbl_CitaSeleccionadaNull = new JLabel (idioma.getString("cita.sin.seleccionar"));
 		Lbl_CitaSeleccionadaNull.setHorizontalAlignment(SwingConstants.CENTER);
 		Lbl_CitaSeleccionadaNull.setBounds(0, 6, 917, 14);
 		JPnl_Detalle.add(Lbl_CitaSeleccionadaNull);
@@ -732,12 +733,12 @@ public class NuevaVista implements Runnable {
 	}
 	
 	public void crearLabelUsuario() {
-		Lbl_Usuario = new JLabel("UsuarioDefault");
+		Lbl_Usuario = new JLabel(idioma.getString("usuarios.defecto"));
 		JPnl_Informacion.add(Lbl_Usuario);
 	}
 	
 	public void crearLabelSucursal() {
-		Lbl_Sucursal = new JLabel("SucursalPorDefecto");
+		Lbl_Sucursal = new JLabel(idioma.getString("sucursal.defecto"));
 		JPnl_Informacion.add(Lbl_Sucursal);
 	}
 	
@@ -1196,6 +1197,22 @@ public class NuevaVista implements Runnable {
 
 	public JMenuItem getMtmCambiarIdioma() {
 		return mtmCambiarIdioma;
+	}
+
+	public int mostrarConfirmacionBorrar() {
+		return JOptionPane.showOptionDialog(null, idioma.getString("borrar.confirmacion"),idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, null, null);
+		
+	}
+
+	public void mostrarErrorDomingo() {
+		JOptionPane.showMessageDialog(null, this.idioma.getString("cita.error.domingo"));
+		
+	}
+
+	public void mostrarErrorFechaPasada() {
+		JOptionPane.showMessageDialog(null, idioma.getString("cita.error.dia.pasado"));
+		
 	}
 }
 
