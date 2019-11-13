@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -51,6 +52,7 @@ public class NuevoControladorEditarCita implements ActionListener{
 	private List<ProfesionalDTO> profesionales_panel_servicios;
 	
 	private List<PromocionDTO> promociones;
+	private int idPromocionSeleccionada=-1;
 	ServicioDTO servicioSeleccionado;
 	
 	private static String errorHora;
@@ -109,7 +111,8 @@ public class NuevoControladorEditarCita implements ActionListener{
 		listaSucursales = this.sistema.obtenerSucursales();
 		serviciosAgregados = new ArrayList<ServicioTurnoDTO>();
 		servicios_panel_servicios = this.sistema.obtenerServicios();
-		promociones = this.sistema.obtenerPrmociones();
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		promociones = this.sistema.obtenerPromoVigente(date, date);;
 	}
 	
 	public void cargarDatos() {
@@ -580,6 +583,38 @@ public class NuevoControladorEditarCita implements ActionListener{
 			}else
 				mostrarErrorHora();
 		}
+		if (this.ventanaEditarCita.getRdbtnPromocion().isSelected()) {
+			if(idPromocionSeleccionada < 0) {
+				this.idPromocionSeleccionada=getPromocionSeleccionada().getIdPromocion();
+				List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+				ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaEditarCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
+				Integer idProfesional = -1;
+				for(Integer i : servicio) {
+					ServicioTurnoDTO serv = new ServicioTurnoDTO(i, idProfesional);
+					if (validarHora(this.ventanaEditarCita.getHoraInicio())) {
+						calcularHorario(serv);
+						if (validarAntesDeAgregarServicio(serv)) {
+	
+							serviciosAgregados.add(serv);
+							actualizarServiciosAgregados();
+							actualizarHoraFin();
+							actualizarPrecioTotal();
+							actualizarPrecioTotalDolar();
+							actualizarPuntos();
+							System.out.println("Los servicios son: "+serviciosAgregados);
+						}else {
+							mostrarErrorServicio();
+						}
+					}
+				}
+			}else {
+				NuevoControladorEditarCita.errorServicio = "Ya tenes una promocion asociada al turno! ";
+				mostrarErrorServicio();
+			}
+		}else {
+			mostrarErrorHora();
+			
+		}	
 	}
 	
 	private void eliminarServicio(ActionEvent e) {
@@ -910,7 +945,6 @@ public class NuevoControladorEditarCita implements ActionListener{
 	}
 	
 	/* PANEL PROMOCIONES */
-	
 	public void llenarTablaPromociones() {
 		this.ventanaEditarCita.getPanelDinamicoPromociones().getModelPromocion().setRowCount(0); //Para vaciar la tabla
 		this.ventanaEditarCita.getPanelDinamicoPromociones().getModelPromocion().setColumnCount(0);
@@ -918,12 +952,10 @@ public class NuevoControladorEditarCita implements ActionListener{
 
 		for (PromocionDTO p : promociones)		{ 
 			String descripcion = p.getDescripcion();
-			Date FechaInicio = p.getFechaInicio();
-			Date FechaFin=p.getFechaFin();
 			Double descuento=p.getDescuento();
 			int puntos=p.getPuntos();
 			String estado=p.getEstado();
-			Object[] fila = {descripcion, FechaInicio,FechaFin,descuento,puntos,estado};
+			Object[] fila = {descripcion, descuento,puntos,estado};
 			this.ventanaEditarCita.getPanelDinamicoPromociones().getModelPromocion().addRow(fila);
 		}
 		
@@ -942,6 +974,23 @@ public class NuevoControladorEditarCita implements ActionListener{
     	}
     	return promocionSeleccionada;
 	}
+	
+	private void borrarPromocionAsociada() {
+		List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+		idPromocionSeleccionada=-1;
+		for(Integer i : servicio) {
+			for(ServicioTurnoDTO serv: serviciosAgregados) {
+				if(serv.getIdServicio() == i) {
+					serviciosAgregados.remove(serv);
+					break;
+				}
+			}
+		}
+		NuevoControladorEditarCita.errorServicio = "El servicio estaba asociado a una promocion, por lo que se desasocia la prmocion a la cita! ";
+		mostrarErrorServicio();
+		
+	}
+	
 	
 	/* EDICION DE CITAS */
 

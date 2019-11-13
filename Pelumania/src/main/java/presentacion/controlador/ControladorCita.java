@@ -619,14 +619,10 @@ public class ControladorCita implements ActionListener{
 				this.idPromocionSeleccionada=getPromocionSeleccionada().getIdPromocion();
 				List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
 				ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
-				
 				Integer idProfesional = -1;
-			
 				for(Integer i : servicio) {
-	
 					ServicioTurnoDTO serv = new ServicioTurnoDTO(i, idProfesional);
 					if (validarHora(this.ventanaCita.getHoraInicio())) {
-	
 						calcularHorario(serv);
 						if (validarAntesDeAgregarServicio(serv)) {
 	
