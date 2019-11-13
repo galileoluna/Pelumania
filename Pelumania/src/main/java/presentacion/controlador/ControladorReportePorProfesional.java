@@ -1,12 +1,11 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import dto.MovimientoCajaDTO;
 import dto.ProfesionalDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReportePorProfesional;
@@ -56,8 +55,11 @@ public class ControladorReportePorProfesional {
 		String desdeParaReporte=desde+" 00:00:01";
 		String hastaParaReporte=hasta+" 11:59:59";
 		
-		ArrayList<MovimientoCajaDTO>profesional=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosProfesional(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Profesional().getSelectedIndex()+1);
-		ReportePorProfesional reportePorProf = new ReportePorProfesional(profesional,desde,hasta);
+		Date Desde = Date.valueOf(desde);
+		Date Hasta = Date.valueOf(hasta);
+		ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaReportes.getJcb_Profesional().getSelectedItem();
+//		ArrayList<MovimientoCajaDTO>profesional=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosProfesional(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Profesional().getSelectedIndex()+1);
+		ReportePorProfesional reportePorProf = new ReportePorProfesional(profesional,Desde,Hasta);
 		reportePorProf.mostrar();
 	}
 }
