@@ -101,7 +101,7 @@ public class ControladorCita implements ActionListener{
 		
 		this.ventanaCita = nuevaVentanaCita.getInstance();
 		this.citaAEditar = citaParaEditar;
-		this.sistema = s;
+		this.sistema = s; 
 		clienteGenerico = this.sistema.obtenerClienteById(-1);
 		this.ventanaCita.getFrame().setTitle("Editar Cita");
 		
