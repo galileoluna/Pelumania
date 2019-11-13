@@ -615,32 +615,36 @@ public class ControladorCita implements ActionListener{
 		}
 		
 		if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
+			if(idPromocionSeleccionada < 0) {
+				this.idPromocionSeleccionada=getPromocionSeleccionada().getIdPromocion();
+				List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+				ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
+				
+				Integer idProfesional = -1;
 			
-			this.idPromocionSeleccionada=getPromocionSeleccionada().getIdPromocion();
-			List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
-			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
-			
-			Integer idProfesional = -1;
-			System.out.println("ACA va el profesional: "+idProfesional);
-			for(Integer i : servicio) {
-
-				ServicioTurnoDTO serv = new ServicioTurnoDTO(i, idProfesional);
-				if (validarHora(this.ventanaCita.getHoraInicio())) {
-
-					calcularHorario(serv);
-					if (validarAntesDeAgregarServicio(serv)) {
-
-						serviciosAgregados.add(serv);
-						actualizarServiciosAgregados();
-						actualizarHoraFin();
-						actualizarPrecioTotal();
-						actualizarPrecioTotalDolar();
-						actualizarPuntos();
-						System.out.println("Los servicios son: "+serviciosAgregados);
-					}else {
-						mostrarErrorServicio();
+				for(Integer i : servicio) {
+	
+					ServicioTurnoDTO serv = new ServicioTurnoDTO(i, idProfesional);
+					if (validarHora(this.ventanaCita.getHoraInicio())) {
+	
+						calcularHorario(serv);
+						if (validarAntesDeAgregarServicio(serv)) {
+	
+							serviciosAgregados.add(serv);
+							actualizarServiciosAgregados();
+							actualizarHoraFin();
+							actualizarPrecioTotal();
+							actualizarPrecioTotalDolar();
+							actualizarPuntos();
+							System.out.println("Los servicios son: "+serviciosAgregados);
+						}else {
+							mostrarErrorServicio();
+						}
 					}
 				}
+			}else {
+				ControladorCita.errorServicio = "Ya tenes una promocion asociada al turno! ";
+				mostrarErrorServicio();
 			}
 		}else {
 			mostrarErrorHora();
@@ -655,10 +659,13 @@ public class ControladorCita implements ActionListener{
     	{
         	if(serviciosAgregados.get(fila)!=null) {
         		this.sistema.getServicioById(serviciosAgregados.get(fila).getIdServicio());
-        		
-        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
-        		serviciosAgregados.remove(servicioSeleccionado);
-        		calcularHorariosServicios();
+        		if(idPromocionSeleccionada > 0) {
+        			borrarPromocionAsociada();
+        		}else {
+	        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
+	        		serviciosAgregados.remove(servicioSeleccionado);
+        		}
+	        	calcularHorariosServicios();
 				actualizarServiciosAgregados();
 				actualizarHoraFin();
 				actualizarPrecioTotal();
@@ -669,6 +676,8 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	
+
+
 	public void mostrarServiciosDelProfesional(ActionEvent a) {
 		ProfesionalDTO profesionalSeleccionado = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
 		if (profesionalSeleccionado != null) {
@@ -1005,6 +1014,22 @@ public class ControladorCita implements ActionListener{
         	}
     	}
     	return promocionSeleccionada;
+	}
+	
+	private void borrarPromocionAsociada() {
+		List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+		idPromocionSeleccionada=-1;
+		for(Integer i : servicio) {
+			for(ServicioTurnoDTO serv: serviciosAgregados) {
+				if(serv.getIdServicio() == i) {
+					serviciosAgregados.remove(serv);
+					break;
+				}
+			}
+		}
+		ControladorCita.errorServicio = "El servicio estaba asociado a una promocion, por lo que se desasocia la prmocion a la cita! ";
+		mostrarErrorServicio();
+		
 	}
 	
 	/* EDICION DE CITAS */
