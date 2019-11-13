@@ -1,12 +1,11 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import dto.MovimientoCajaDTO;
 import dto.ServicioDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReportePorServicio;
@@ -50,9 +49,13 @@ public class ControladorReportePorServicio {
 		String desdeParaReporte=desde+" 00:00:01";
 		String hastaParaReporte=hasta+" 11:59:59";
 		
-		ArrayList<MovimientoCajaDTO>servicio=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosServicio(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Servicio().getSelectedIndex()+1);
+		Date Desde = Date.valueOf(desde);
+		Date Hasta = Date.valueOf(hasta);
 		
-		ReportePorServicio reportePorServicio = new ReportePorServicio(servicio,desde,hasta);
+//		ArrayList<MovimientoCajaDTO>servicio=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosServicio(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Servicio().getSelectedIndex()+1);
+		
+		ServicioDTO servicio = (ServicioDTO) this.ventanaReportes.getJcb_Servicio().getSelectedItem();
+		ReportePorServicio reportePorServicio = new ReportePorServicio(servicio,Desde,Hasta);
 		reportePorServicio.mostrar();
 	}
 }

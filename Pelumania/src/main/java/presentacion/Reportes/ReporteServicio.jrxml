@@ -146,7 +146,7 @@ AND Cita.EstadoTurno = "Finalizada"]]>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a85e0c9-02a7-497a-97b6-4907a55a4286"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[NombreSucursal]]></text>
+				<text><![CDATA[Sucursal]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
