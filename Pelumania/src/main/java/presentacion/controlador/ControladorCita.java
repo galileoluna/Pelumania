@@ -56,7 +56,8 @@ public class ControladorCita implements ActionListener{
 	private List<ProfesionalDTO> profesionales_panel_servicios;
 	
 	private List<PromocionDTO> promociones;
-	private int idPromocionSeleccionada=-1;
+	//private int idPromocionSeleccionada=-1;
+	private PromocionDTO promocionSeleccionada;
 	ServicioDTO servicioSeleccionado;
 	
 	private static String errorHora;
@@ -500,13 +501,13 @@ public class ControladorCita implements ActionListener{
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
 					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),-1);
-			if(idPromocionSeleccionada > 0) {
+			if(promocionSeleccionada.getIdPromocion() > 0) {
 				nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
 				this.ventanaCita.getCliente().getNombre(), this.ventanaCita.getCliente().getApellido(), 
 				this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 				"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 				this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
-				this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),idPromocionSeleccionada);
+				this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),promocionSeleccionada.getIdPromocion());
 			}
 			
 			if (this.sistema.agregarCita(nuevaCita)) {
@@ -617,9 +618,9 @@ public class ControladorCita implements ActionListener{
 		}
 		
 		if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
-			if(idPromocionSeleccionada < 0) {
-				this.idPromocionSeleccionada=getPromocionSeleccionada().getIdPromocion();
-				List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+			if(promocionSeleccionada == null) {
+				promocionSeleccionada=new PromocionDTO(getPromocionSeleccionada().getIdPromocion(),getPromocionSeleccionada().getDescripcion(),getPromocionSeleccionada().getFechaInicio(),getPromocionSeleccionada().getFechaFin(),getPromocionSeleccionada().getDescuento(),getPromocionSeleccionada().getPuntos(),getPromocionSeleccionada().getEstado());
+				List<Integer> servicio= sistema.obtenerIdServPromo(promocionSeleccionada.idPromocion);
 				ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
 				Integer idProfesional = -1;
 				for(Integer i : servicio) {
@@ -657,8 +658,16 @@ public class ControladorCita implements ActionListener{
     	{
         	if(serviciosAgregados.get(fila)!=null) {
         		this.sistema.getServicioById(serviciosAgregados.get(fila).getIdServicio());
-        		if(idPromocionSeleccionada > 0) {
-        			borrarPromocionAsociada();
+        		List<Integer> servicio= (promocionSeleccionada==null?null:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()));
+        		if(promocionSeleccionada != null && servicio != null) {
+        			for (Integer i : servicio) {
+        				if(i == serviciosAgregados.get(fila).getIdServicio()) {
+        					borrarPromocionAsociada(servicio);
+        				}else {
+        	        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
+        	        		serviciosAgregados.remove(servicioSeleccionado);
+        				}
+        			}
         		}else {
 	        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
 	        		serviciosAgregados.remove(servicioSeleccionado);
@@ -789,7 +798,8 @@ public class ControladorCita implements ActionListener{
 	private BigDecimal actualizarPrecioTotal() {
 		BigDecimal total = BigDecimal.valueOf(0);
 		for (ServicioTurnoDTO st : serviciosAgregados) {
-			if(idPromocionSeleccionada > 0) {
+			System.out.println("actualizar precio promo "+ promocionSeleccionada);
+			if(promocionSeleccionada != null) {
 				total=actualizaPrecioPromo(total,st);
 				
 			}else {
@@ -809,7 +819,7 @@ public class ControladorCita implements ActionListener{
 	public BigDecimal actualizarPrecioTotalDolar() {
 		BigDecimal total = BigDecimal.valueOf(0);
 		for (ServicioTurnoDTO st : serviciosAgregados) {
-			if(idPromocionSeleccionada > 0) {
+			if(promocionSeleccionada != null) {
 				total=actualizaDolarPromo(total,st);
 			}else {
 				Integer idServicio = st.getIdServicio();
@@ -824,10 +834,10 @@ public class ControladorCita implements ActionListener{
 	
 	public int actualizarPuntos() {
 		int totalPuntos = 0;
-		int listo=sistema.obtenerIdServPromo(idPromocionSeleccionada).size();
+		int listo=(promocionSeleccionada == null?0:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()).size());
 		System.out.println("listo : "+listo);
 		for (ServicioTurnoDTO st : serviciosAgregados) {
-			if(idPromocionSeleccionada > 0 && listo > 0) {
+			if(promocionSeleccionada != null && listo > 0) {
 				listo--;
 				totalPuntos=actualizarPuntosPromo(totalPuntos,st);
 			}else {
@@ -1033,9 +1043,8 @@ public class ControladorCita implements ActionListener{
     	return promocionSeleccionada;
 	}
 	
-	private void borrarPromocionAsociada() {
-		List<Integer> servicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
-		idPromocionSeleccionada=-1;
+	private void borrarPromocionAsociada(List<Integer> servicio) {
+		promocionSeleccionada=null;
 		for(Integer i : servicio) {
 			for(ServicioTurnoDTO serv: serviciosAgregados) {
 				if(serv.getIdServicio() == i) {
@@ -1051,23 +1060,23 @@ public class ControladorCita implements ActionListener{
 	
 	private BigDecimal actualizaPrecioPromo(BigDecimal total, ServicioTurnoDTO st) {
 		for(PromocionDTO p : promociones) {
-			if(p.getIdPromocion() == idPromocionSeleccionada) {
+			if(p.getIdPromocion() == promocionSeleccionada.getIdPromocion()) {
 				if(p.getDescuento() > 0) {
-					List<Integer> idservicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
-						for(Integer i : idservicio) {
-							for(ServicioTurnoDTO serv: serviciosAgregados) {
-								if(serv.getIdServicio() == i) {
-									ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
-									BigDecimal divisor=new BigDecimal("100");
-									BigDecimal desc= servicio.getPrecioLocal().divide(divisor, 3, RoundingMode.CEILING);
-									BigDecimal multiplicacion = new BigDecimal(p.getDescuento(), MathContext.DECIMAL64);
-									BigDecimal precio=desc.multiply(multiplicacion);
-									System.out.println("precio despues de todas las cuentas "+precio);
-									total = total.add(precio);
-									break;
-								}
+					List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
+					for(Integer i : idservicio) {
+						for(ServicioTurnoDTO serv: serviciosAgregados) {
+							if(serv.getIdServicio() == i) {
+								ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
+								BigDecimal divisor=new BigDecimal("100");
+								BigDecimal desc= servicio.getPrecioLocal().divide(divisor, 3, RoundingMode.CEILING);
+								BigDecimal multiplicacion = new BigDecimal(p.getDescuento(), MathContext.DECIMAL64);
+								BigDecimal precio=desc.multiply(multiplicacion);
+								System.out.println("precio despues de todas las cuentas "+precio);
+								total = total.add(precio);
+								
 							}
 						}
+					}
 				}else {
 					Integer idServicio = st.getIdServicio();
 					ServicioDTO servicio = this.sistema.getServicioById(idServicio);
@@ -1082,9 +1091,9 @@ public class ControladorCita implements ActionListener{
 	
 	private BigDecimal actualizaDolarPromo(BigDecimal total, ServicioTurnoDTO st) {
 		for(PromocionDTO p : promociones) {
-			if(p.getIdPromocion() == idPromocionSeleccionada) {
+			if(p.getIdPromocion() == promocionSeleccionada.getIdPromocion()) {
 				if(p.getDescuento() > 0) {
-					List<Integer> idservicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+					List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
 						for(Integer i : idservicio) {
 							for(ServicioTurnoDTO serv: serviciosAgregados) {
 								if(serv.getIdServicio() == i) {
@@ -1113,9 +1122,9 @@ public class ControladorCita implements ActionListener{
 	private int actualizarPuntosPromo(int total, ServicioTurnoDTO st) {
 		int noPaso=0;
 		for(PromocionDTO p : promociones) {
-			if(p.getIdPromocion() == idPromocionSeleccionada) {
+			if(p.getIdPromocion() == promocionSeleccionada.getIdPromocion()) {
 				if(p.getPuntos() > 0) {
-					List<Integer> idservicio= sistema.obtenerIdServPromo(idPromocionSeleccionada);
+					List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
 						for(Integer i : idservicio) {
 							System.out.println("id servicio primer for: "+i);
 							for(ServicioTurnoDTO serv: serviciosAgregados) {
