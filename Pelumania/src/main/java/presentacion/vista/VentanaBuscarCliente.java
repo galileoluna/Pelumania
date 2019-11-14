@@ -126,7 +126,7 @@ public class VentanaBuscarCliente extends JFrame
 
 		spClientes.setViewportView(tablaClientes);
 
-		btnSeleccionarCliente = new JButton("Seleccionar");
+		btnSeleccionarCliente = new JButton(idioma.getString("seleccionar"));
 		btnSeleccionarCliente.setBounds(571, 233, 118, 23);
 		panel.add(btnSeleccionarCliente);
 
