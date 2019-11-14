@@ -511,13 +511,13 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearLabelTotalUSD() {
-		JLabel lblPuntos = new JLabel(idioma.getString("puntos"));
+		JLabel lblTotalUsd = new JLabel(idioma.getString("cita.total.dolares"));
 		lblTotalUsd.setBounds(233, 66, 73, 14);
 		JPnl_Datos.add(lblTotalUsd);
 	}
 	
 	private void crearLabelPuntos() {
-		JLabel lblPuntos = new JLabel("Puntos: ");
+		JLabel lblPuntos = new JLabel(idioma.getString("puntos"));
 		lblPuntos.setBounds(380, 41, 73, 14);
 		JPnl_Datos.add(lblPuntos);
 	}

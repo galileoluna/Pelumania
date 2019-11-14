@@ -241,6 +241,7 @@ public class ControladorCita implements ActionListener{
 	
 	public boolean validarHora(LocalTime horaElegida) {
 		if (horaElegida == null) {
+			System.out.println(this.idioma.getString("cita.error.hora"));
 			ControladorCita.errorHora = this.idioma.getString("cita.error.hora");
 			return false;
 		}
@@ -625,8 +626,9 @@ public class ControladorCita implements ActionListener{
 				}else {
 					mostrarErrorServicio();
 				}
-			}else
+			}else {
 				mostrarErrorHora();
+			}
 		}
 		
 		if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
@@ -658,6 +660,7 @@ public class ControladorCita implements ActionListener{
 				mostrarErrorServicio();
 			}
 		}else {
+			ControladorCita.errorHora = idioma.getString("cita.error.hora");
 			mostrarErrorHora();
 			
 		}	
