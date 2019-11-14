@@ -830,7 +830,7 @@ public class ControladorCita implements ActionListener{
 		BigDecimal total = BigDecimal.valueOf(0);
 		for (ServicioTurnoDTO st : serviciosAgregados) {
 			if(promocionSeleccionada != null) {
-				total=actualizaDolarPromo(total,st);
+				total=actualizaDolarPromo(total,st); 
 			}else {
 				Integer idServicio = st.getIdServicio();
 				ServicioDTO servicio = this.sistema.getServicioById(idServicio);
