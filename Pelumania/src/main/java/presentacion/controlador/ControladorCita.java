@@ -604,8 +604,10 @@ public class ControladorCita implements ActionListener{
 				}else {
 					mostrarErrorServicio();
 				}
-			}else
+			}else {
+				
 				mostrarErrorHora();
+			}
 		}
 		
 		
@@ -632,6 +634,8 @@ public class ControladorCita implements ActionListener{
 		}
 		
 		if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
+			int errorHora=0;
+			int errorServ=0;
 			if(promocionSeleccionada == null) {
 				promocionSeleccionada=new PromocionDTO(getPromocionSeleccionada().getIdPromocion(),getPromocionSeleccionada().getDescripcion(),getPromocionSeleccionada().getFechaInicio(),getPromocionSeleccionada().getFechaFin(),getPromocionSeleccionada().getDescuento(),getPromocionSeleccionada().getPuntos(),getPromocionSeleccionada().getEstado());
 				List<Integer> servicio= sistema.obtenerIdServPromo(promocionSeleccionada.idPromocion);
@@ -650,21 +654,25 @@ public class ControladorCita implements ActionListener{
 							actualizarPuntos();
 							System.out.println("Los servicios son: "+serviciosAgregados);
 						}else {
-							mostrarErrorServicio();
+							errorServ=1;
 						}
-					}
+					}else {
+						errorHora=1;
+					}	
 				}
-			}else {
-				ControladorCita.errorServicio = this.idioma.getString("cita.error.promocion");
-				mostrarErrorServicio();
+				if(errorHora==1) {
+					errorHora=0;
+					promocionSeleccionada = null;
+					mostrarErrorHora();
+				}
+				if(errorServ==1) {
+					promocionSeleccionada = null;
+					errorServ=0;
+					mostrarErrorServicio();
+				}
 			}
-		}else {
-			ControladorCita.errorHora = idioma.getString("cita.error.hora");
-			mostrarErrorHora();
-			
-		}	
-	}
-	
+		}
+}
 	private void eliminarServicio(ActionEvent e) {
 		int[] filasSeleccionadas = ventanaCita.getTablaServiciosAgregados().getSelectedRows();
 	       
@@ -808,7 +816,7 @@ public class ControladorCita implements ActionListener{
 		for (ServicioTurnoDTO st : serviciosAgregados) {
 			if(promocionSeleccionada != null && listoPromo > -1) {
 				listoPromo--;
-				total=actualizaPrecioPromo(total,st);
+				actualizaPrecioPromo(total,st);
 				System.out.println("Despues de mi funcion total?= "+total);
 			}else {
 				Integer idServicio = st.getIdServicio();
@@ -1082,24 +1090,25 @@ public class ControladorCita implements ActionListener{
 		if(promocionSeleccionada.getDescuento() > 0) {
 			List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
 			for(Integer i : idservicio) {
-				for(ServicioTurnoDTO serv: serviciosAgregados) {
-					if(serv.getIdServicio() == i) {
-						ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
+					if(st.getIdServicio() == i) {
+						ServicioDTO servicio = this.sistema.getServicioById(st.getIdServicio());
 						BigDecimal divisor=new BigDecimal("100");
 						BigDecimal desc= servicio.getPrecioLocal().divide(divisor, 3, RoundingMode.CEILING);
 						BigDecimal multiplicacion = new BigDecimal(promocionSeleccionada.getDescuento(), MathContext.DECIMAL64);
 						BigDecimal precio=desc.multiply(multiplicacion);
 						System.out.println("precio despues de todas las cuentas "+precio);
 						total = total.add(precio);
-						break;
+						return total;
+						
 					}else {
 						Integer idServicio = st.getIdServicio();
 						ServicioDTO servicio = this.sistema.getServicioById(idServicio);
 						System.out.println("total else dentro del for: "+total);
 						total = total.add(servicio.getPrecioLocal());
-						break;
+						return total;
+						
 					}
-				}
+				
 			}
 		}
 		return total;
@@ -1118,7 +1127,7 @@ public class ControladorCita implements ActionListener{
 									BigDecimal desc= servicio.getPrecioDolar().divide(divisor, 3, RoundingMode.CEILING);
 									BigDecimal multiplicacion = new BigDecimal(promocionSeleccionada.getDescuento(), MathContext.DECIMAL64);
 									BigDecimal precio=desc.multiply(multiplicacion);
-									System.out.println("precio despues de todas las cuentas "+precio);
+									//System.out.println("precio despues de todas las cuentas "+precio);
 									total = total.add(precio);
 									break;
 								}
