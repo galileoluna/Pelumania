@@ -7,7 +7,7 @@ import java.util.List;
 
 import dto.ClienteDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaAgregarCita;
+//import presentacion.vista.VentanaAgregarCita;
 import presentacion.vista.VentanaBuscarCliente;
 import presentacion.vista.nuevaVentanaCita;
 
@@ -18,7 +18,7 @@ public class ControladorBuscarCliente implements ActionListener{
 	private List<ClienteDTO> listaClientes;
 	private static ControladorBuscarCliente INSTANCE;
 	private static nuevaVentanaCita ventanaCita;
-	private static VentanaAgregarCita ventanaViejaCita;
+//	private static VentanaAgregarCita ventanaViejaCita;
 
 	private ControladorBuscarCliente(Sistema sistema, nuevaVentanaCita VAC) {
 		this.ventanaBuscarCliente = VentanaBuscarCliente.getInstance();
@@ -71,11 +71,11 @@ public class ControladorBuscarCliente implements ActionListener{
 		String apellido = cliente_seleccionado.getApellido();
 		int id = cliente_seleccionado.getIdCliente();
 		
-		this.ventanaViejaCita.getTxtNombre().setText(nombre);
-		this.ventanaViejaCita.getTxtNombre().setEditable(false);
-		this.ventanaViejaCita.getTxtApellido().setText(apellido);
-		this.ventanaViejaCita.getTxtApellido().setEditable(false);
-		this.ventanaViejaCita.setIdCliente(id);
+//		this.ventanaViejaCita.getTxtNombre().setText(nombre);
+//		this.ventanaViejaCita.getTxtNombre().setEditable(false);
+//		this.ventanaViejaCita.getTxtApellido().setText(apellido);
+//		this.ventanaViejaCita.getTxtApellido().setEditable(false);
+//		this.ventanaViejaCita.setIdCliente(id);
 
 		}
 		this.ventanaBuscarCliente.cerrar();
