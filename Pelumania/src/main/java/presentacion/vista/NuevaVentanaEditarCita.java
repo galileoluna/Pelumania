@@ -8,6 +8,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -35,6 +37,7 @@ import componentesVistas.PanelDinamicoServicios;
 import dto.ClienteDTO;
 import dto.ServicioTurnoDTO;
 import dto.SucursalDTO;
+import util.PropertyManager;
 
 public class NuevaVentanaEditarCita {
 
@@ -80,7 +83,13 @@ public class NuevaVentanaEditarCita {
 	
 	private JTable tablaServiciosAgregados;
 	private DefaultTableModel modelServiciosAgregados;
-	private String[] nombreColumnasAgregadas = {"Nombre","Profesional"};
+	
+	// configuracion de idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	
+	private String[] nombreColumnasAgregadas = {idioma.getString("nombre"), idioma.getString("profesional")};
 	private JScrollPane spServiciosAgregados;
 	
 	private JButton btnAgregarServicio;
@@ -226,7 +235,7 @@ public class NuevaVentanaEditarCita {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		frame.setTitle("Nueva Cita");
+		frame.setTitle(idioma.getString("cita.agregar"));
 	}
 
 	private void crearPanelDatosGlobales() {
@@ -238,17 +247,17 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearLabelsDatosGlobales() {
-		JLabel lblSucursal = new JLabel("Sucursal");
+		JLabel lblSucursal = new JLabel(idioma.getString("sucursal"));
 		lblSucursal.setBounds(33, 41, 120, 20);
 		JPnl_DatosGlobales.add(lblSucursal);
 		
-		JLabel lblFecha = new JLabel("Fecha: ");
+		JLabel lblFecha = new JLabel(idioma.getString("fecha"));
 		lblFecha.setBounds(33, 72, 120, 20);
 		JPnl_DatosGlobales.add(lblFecha);
 	}
 
 	private void crearTituloDatosGlobales() {
-		JLabel lblDatosGlobales = new JLabel("Datos Globales");
+		JLabel lblDatosGlobales = new JLabel(idioma.getString("cita.datos.globales"));
 		lblDatosGlobales.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDatosGlobales.setBounds(10, 0, 494, 30);
 		JPnl_DatosGlobales.add(lblDatosGlobales);
@@ -265,14 +274,14 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearBotonEditarFecha() {
-		btnEditarFecha = new JButton("Editar");
+		btnEditarFecha = new JButton(idioma.getString("editar"));
 		btnEditarFecha.setBounds(254, 72, 89, 23);
 		JPnl_DatosGlobales.add(btnEditarFecha);
 	}
 	
 	private void crearLabelErrorFecha()	{
 		Color rojo = new Color(242,108,102);
-		lblErrorFecha = new JLabel("Ese día ya transcurrio!");
+		lblErrorFecha = new JLabel(idioma.getString("cita.error.dia.pasado"));
 		lblErrorFecha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErrorFecha.setVisible(false);
 		lblErrorFecha.setBackground(rojo);
@@ -289,7 +298,7 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearTituloCliente() {
-		JLabel lblCliente = new JLabel("Cliente");
+		JLabel lblCliente = new JLabel(idioma.getString("cliente"));
 		lblCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCliente.setBounds(10, 0, 494, 30);
 		JPnl_Cliente.add(lblCliente);
@@ -300,29 +309,29 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearCheckBoxexCliente() {
-		chckbxRegistrado = new JCheckBox("Registrado");
+		chckbxRegistrado = new JCheckBox(idioma.getString("cliente.registrado"));
 		chckbxRegistrado.setBounds(32, 41, 97, 23);
 		JPnl_Cliente.add(chckbxRegistrado);
 		
-		chckbxGenerico = new JCheckBox("Generico");
+		chckbxGenerico = new JCheckBox(idioma.getString("cliente.generico"));
 		chckbxGenerico.setBounds(32, 67, 97, 23);
 		JPnl_Cliente.add(chckbxGenerico);
 	}
 
 	private void crearLabelsDatosCliente() {
-		JLabel lblTelefono = new JLabel("Telefono:");
+		JLabel lblTelefono = new JLabel(idioma.getString("telefono"));
 		lblTelefono.setBounds(135, 72, 97, 23);
 		JPnl_Cliente.add(lblTelefono);
 		
-		JLabel lblMail = new JLabel("Mail:");
+		JLabel lblMail = new JLabel(idioma.getString("mail"));
 		lblMail.setBounds(291, 72, 97, 23);
 		JPnl_Cliente.add(lblMail);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
+		JLabel lblNombre = new JLabel(idioma.getString("nombre"));
 		lblNombre.setBounds(135, 45, 71, 14);
 		JPnl_Cliente.add(lblNombre);
 		
-		JLabel lblApellido = new JLabel("Apellido:");
+		JLabel lblApellido = new JLabel(idioma.getString("apellido"));
 		lblApellido.setBounds(291, 45, 71, 14);
 		JPnl_Cliente.add(lblApellido);
 	}
@@ -360,13 +369,13 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearBotonRegistrar() {
-		btnRegistrar = new JButton("Registrar");
+		btnRegistrar = new JButton(idioma.getString("registrar"));
 		btnRegistrar.setBounds(336, 106, 97, 23);
 		JPnl_Cliente.add(btnRegistrar);
 	}
 
 	private void crearBotonBuscar() {
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton(idioma.getString("buscar"));
 		btnBuscar.setBounds(448, 104, 97, 23);
 		btnBuscar.setEnabled(false);
 		JPnl_Cliente.add(btnBuscar);
@@ -380,7 +389,7 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearTituloServicios() {
-		JLabel lblServicios = new JLabel("Servicios");
+		JLabel lblServicios = new JLabel(idioma.getString("servicios"));
 		lblServicios.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblServicios.setBounds(10, 0, 494, 30);
 		JPnl_Servicios.add(lblServicios);
@@ -391,7 +400,7 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearLabelHoraInicio() {
-		JLabel lblHoraInicio = new JLabel("Hora Inicio");
+		JLabel lblHoraInicio = new JLabel(idioma.getString("inicio"));
 		lblHoraInicio.setBounds(87, 34, 84, 20);
 		JPnl_Servicios.add(lblHoraInicio);
 	}
@@ -409,19 +418,19 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearRadioButtonProfesional() {
-		rdBtnProfesional = new JRadioButton("Profesional");
+		rdBtnProfesional = new JRadioButton(idioma.getString("profesional"));
 		rdBtnProfesional.setBounds(412, 31, 96, 23);
 		JPnl_Servicios.add(rdBtnProfesional);
 	}
 
 	private void crearRadioButtonServicio() {
-		rdBtnServicio = new JRadioButton("Servicio");
+		rdBtnServicio = new JRadioButton(idioma.getString("servicio"));
 		rdBtnServicio.setBounds(510, 31, 74, 23);
 		JPnl_Servicios.add(rdBtnServicio);
 	}
 	
 	private void crearRadioButtonPromocion() {
-		rdbtnPromocion = new JRadioButton("Promocion");
+		rdbtnPromocion = new JRadioButton(idioma.getString("promocion"));
 		rdbtnPromocion.setBounds(586, 31, 112, 23);
 		JPnl_Servicios.add(rdbtnPromocion);
 	}
@@ -437,7 +446,7 @@ public class NuevaVentanaEditarCita {
 	private void crearTxtDescripcion() {
 		txtDescripcion = new JTextField();
 		txtDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDescripcion.setText("[Descripcion de la cita]");
+		txtDescripcion.setText(idioma.getString("descripcion"));
 		txtDescripcion.setBounds(8, 244, 661, 38);
 		
 		JPnl_Servicios.add(txtDescripcion);
@@ -445,7 +454,7 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearLabelServiciosAgregados() {
-		JLabel lblServiciosAgregados = new JLabel("Servicios Agregados");
+		JLabel lblServiciosAgregados = new JLabel(idioma.getString("servicio.agregado"));
 		lblServiciosAgregados.setHorizontalAlignment(SwingConstants.CENTER);
 		lblServiciosAgregados.setBounds(428, 63, 241, 20);
 		JPnl_Servicios.add(lblServiciosAgregados);
@@ -473,7 +482,7 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearTituloDatosDeLaCita() {
-		JLabel lblDatosDeLaCita = new JLabel("Datos de la cita");
+		JLabel lblDatosDeLaCita = new JLabel(idioma.getString("datos"));
 		lblDatosDeLaCita.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDatosDeLaCita.setBounds(10, 0, 494, 30);
 		JPnl_Datos.add(lblDatosDeLaCita);
@@ -484,38 +493,38 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearLabelInicio() {
-		JLabel lblInicio = new JLabel("Inicio:");
+		JLabel lblInicio = new JLabel(idioma.getString("inicio"));
 		lblInicio.setBounds(32, 41, 86, 14);
 		JPnl_Datos.add(lblInicio);
 	}
 
 	private void crearLabelFin() {
-		JLabel lblFin = new JLabel("Fin:");
+		JLabel lblFin = new JLabel(idioma.getString("fin"));
 		lblFin.setBounds(32, 66, 86, 14);
 		JPnl_Datos.add(lblFin);
 	}
 
 	private void crearLabelTotal() {
-		JLabel lblTotal = new JLabel("Total: $");
+		JLabel lblTotal = new JLabel(idioma.getString("cita.total.pesos"));
 		lblTotal.setBounds(233, 41, 73, 14);
 		JPnl_Datos.add(lblTotal);
 	}
 
 	private void crearLabelTotalUSD() {
-		JLabel lblTotalUsd = new JLabel("Total: USD");
+		JLabel lblTotalUsd = new JLabel(idioma.getString("cita.total.dolares"));
 		lblTotalUsd.setBounds(233, 66, 73, 14);
 		JPnl_Datos.add(lblTotalUsd);
 	}
 	
 	private void crearLabelPuntos() {
-		JLabel lblPuntos = new JLabel("Puntos: ");
+		JLabel lblPuntos = new JLabel(idioma.getString("puntos"));
 		lblPuntos.setBounds(380, 41, 73, 14);
 		JPnl_Datos.add(lblPuntos);
 	}
 
 	private void crearLabelAlertaSucursal() {
 		Color amarilloOpaco = new Color(249,221,140);
-		lblAlertaSucursal = new JLabel("Estas dando de alta una cita en una sucursal distinta a la tuya!");
+		lblAlertaSucursal = new JLabel(idioma.getString("cita.sucursal.distinta"));
 		lblAlertaSucursal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlertaSucursal.setBounds(10, 85, 659, 29);
 		lblAlertaSucursal.setBackground(amarilloOpaco);
@@ -547,13 +556,13 @@ public class NuevaVentanaEditarCita {
 	}
 
 	private void crearBotonConfirmar() {
-		btnConfirmar = new JButton("Confirmar");
+		btnConfirmar = new JButton(idioma.getString("confirmar"));
 		btnConfirmar.setBounds(333, 657, 100, 23);
 		frame.getContentPane().add(btnConfirmar);
 	}
 
 	private void crearBotonCancelar() {
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton(idioma.getString("cancelar"));
 		btnCancelar .setBounds(443, 657, 100, 23);
 		frame.getContentPane().add(btnCancelar );
 	}

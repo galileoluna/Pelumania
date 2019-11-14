@@ -6,9 +6,6 @@ import java.beans.PropertyChangeEvent;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +13,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -33,6 +32,7 @@ import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.nuevaVentanaCita;
 import util.MailService;
+import util.PropertyManager;
 
 public class ControladorCita implements ActionListener{
 	private Sistema sistema;
@@ -60,6 +60,9 @@ public class ControladorCita implements ActionListener{
 	private PromocionDTO promocionSeleccionada;
 	ServicioDTO servicioSeleccionado;
 	
+	private Locale locale;
+	private ResourceBundle idioma;
+	
 	private static String errorHora;
 	private static String errorServicio;
 	private static String errorCargarCita;
@@ -67,6 +70,10 @@ public class ControladorCita implements ActionListener{
 	public CitaDTO citaAEditar; 
 	
 	public ControladorCita(Sistema s) {
+		
+		this.locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+		this.idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+		System.out.println(this.idioma.getString("cita.error.dia.pasado"));
 		
 		this.ventanaCita = nuevaVentanaCita.getInstance();
 		this.sistema = s;
@@ -102,11 +109,15 @@ public class ControladorCita implements ActionListener{
 
 	public ControladorCita(Sistema s, CitaDTO citaParaEditar) {
 		
+		this.locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
+		this.idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+		System.out.println(this.idioma.getString("cita.error.dia.pasado"));
+		
 		this.ventanaCita = nuevaVentanaCita.getInstance();
 		this.citaAEditar = citaParaEditar;
 		this.sistema = s; 
 		clienteGenerico = this.sistema.obtenerClienteById(-1);
-		this.ventanaCita.getFrame().setTitle("Editar Cita");
+		this.ventanaCita.getFrame().setTitle(this.idioma.getString("cita.agregar"));
 		
 		this.ventanaCita.getJDChooserFecha().addPropertyChangeListener(q -> validarFechaElegida(q));
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
@@ -230,12 +241,13 @@ public class ControladorCita implements ActionListener{
 	
 	public boolean validarHora(LocalTime horaElegida) {
 		if (horaElegida == null) {
-			ControladorCita.errorHora = "Debes elegir un horario!";
+			System.out.println(this.idioma.getString("cita.error.hora"));
+			ControladorCita.errorHora = this.idioma.getString("cita.error.hora");
 			return false;
 		}
 		if (this.ventanaCita.getFechaCita().equals(LocalDate.now())) {
 			if (horaElegida.isBefore(LocalTime.now())){
-				ControladorCita.errorHora = "No puedes sacar un turno para un horario que ya pasó!";
+				ControladorCita.errorHora = this.idioma.getString("cita.error.dia.pasado");
 				return false;
 			}
 		}
@@ -266,7 +278,7 @@ public class ControladorCita implements ActionListener{
 		}
 		
 		if (fechaElegida.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-			JOptionPane.showMessageDialog(null, "No puedes reservar citas los Domingos!");
+			JOptionPane.showMessageDialog(null, this.idioma.getString("cita.error.domingo"));
 			this.ventanaCita.getJDChooserFecha().setDate(null);
 			this.ventanaCita.setFechaCita(null);
 			this.ventanaCita.getJDChooserFecha().setEnabled(true);
@@ -428,7 +440,7 @@ public class ControladorCita implements ActionListener{
 				mostrarExitoCargarCita(citaEditada.getIdCita());
 				this.ventanaCita.cerrar();
 			} else {
-					JOptionPane.showMessageDialog(null, "No se pudo editar la Cita");
+					JOptionPane.showMessageDialog(null, this.idioma.getString("cita.error.editar"));
 				}
 		mostrarErrorCita();
 			}
@@ -447,23 +459,24 @@ public class ControladorCita implements ActionListener{
 	
 	public boolean validarCita() {
 		if (this.ventanaCita.getFechaCita().getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-			errorCargarCita = "No puedes cargar una cita los Domingos!";
+			errorCargarCita = this.idioma.getString("cita.error.domingo");
 			return false;
 		}
 		if (this.ventanaCita.getFechaCita().isBefore(LocalDate.now())) {
-			errorCargarCita = "La fecha que has elegido no es valida!";
+			errorCargarCita = this.idioma.getString("error.fecha.invalida");
 			return false;
 		}
 		if (this.ventanaCita.getSucursal().getIdSucursal() == -1) {
-			errorCargarCita = "No puedes elegir esa sucursal!";
+			errorCargarCita = this.idioma.getString("cita.error.sucursal");
 			return false;
 		}
 		if (this.ventanaCita.getCliente()==null) {
-			errorCargarCita = "Debes seleccionar un cliente primero!";
+			String error = this.idioma.getString("cita.error.cliente");
+			errorCargarCita = error;
 			return false;
 		}
 		if (serviciosAgregados.isEmpty()) {
-			errorCargarCita = "No puedes cargar una cita sin servicios!";
+			errorCargarCita = this.idioma.getString("cita.error.sin.servicios");
 			return false;
 		}
 		
@@ -478,12 +491,12 @@ public class ControladorCita implements ActionListener{
 		}
 		
 		if (!ret) {
-			errorCargarCita = "Uups, has tardado demasiado! ";
+			errorCargarCita = this.idioma.getString("cita.error.tiempo");
 			for (ServicioTurnoDTO snv : serviciosNoValidos) {
 				ServicioDTO serv = this.sistema.getServicioById(snv.getIdServicio());
 				ProfesionalDTO prof = this.sistema.getProfesionalById(snv.getIdProfesional());
-				errorCargarCita = errorCargarCita + "El servicio "+ serv.getNombre()+ "no puede ser agregado! "+
-				"El profesional "+ prof.getNombre()+" "+prof.getApellido()+ "ya no está disponible en ese horario. \n";
+				errorCargarCita = errorCargarCita + " "+ serv.getNombre() + "" + this.idioma.getString("cita.error.cargar.servicio")+
+				this.idioma.getString("profesional")+ " " + prof.getNombre()+" "+prof.getApellido()+ "" + this.idioma.getString("cita.error.servicio.no.disponible");
 			}
 			return false;
 		}
@@ -539,11 +552,11 @@ public class ControladorCita implements ActionListener{
 	
 	public void mostrarExitoCargarCita(Integer idCitaAgregada) {
 		
-		Object[] opciones = {"Aceptar",
-                "Ver Comprobante"};
+		Object[] opciones = {this.idioma.getString("aceptar"),
+                this.idioma.getString("comprobante")};
 				int n = JOptionPane.showOptionDialog(null,
-				"La cita se cargó correctamente",
-				"Información",
+				this.idioma.getString("cita.exito"),
+				this.idioma.getString("informacion"),
 				JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.INFORMATION_MESSAGE,
 				null,
@@ -613,8 +626,9 @@ public class ControladorCita implements ActionListener{
 				}else {
 					mostrarErrorServicio();
 				}
-			}else
+			}else {
 				mostrarErrorHora();
+			}
 		}
 		
 		if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
@@ -641,10 +655,11 @@ public class ControladorCita implements ActionListener{
 					}
 				}
 			}else {
-				ControladorCita.errorServicio = "Ya tenes una promocion asociada al turno! ";
+				ControladorCita.errorServicio = this.idioma.getString("cita.error.promocion");
 				mostrarErrorServicio();
 			}
 		}else {
+			ControladorCita.errorHora = idioma.getString("cita.error.hora");
 			mostrarErrorHora();
 			
 		}	
@@ -686,21 +701,21 @@ public class ControladorCita implements ActionListener{
 	
 	public boolean validarAntesDeAgregarServicio(ServicioTurnoDTO servicio) {
 		if (servicio == null) {
-			ControladorCita.errorServicio = "No has seleccionado ningun servicio!";
+			ControladorCita.errorServicio = this.idioma.getString("cita.error.seleccionar.servicio");
 			return false;
 		}
 		if (this.ventanaCita.getHoraInicio() == null) {
-			ControladorCita.errorServicio = "Debes elegir la hora de inicio del turno para agregar servicios!";
+			ControladorCita.errorServicio = this.idioma.getString("cita.error.hora.inicio");
 			return false;
 		}
 		
 		if (servicio.getIdProfesional() == null) {
-			ControladorCita.errorServicio = "Debes seleccionar un profesional para ese servicio!";
+			ControladorCita.errorServicio = this.idioma.getString("cita.error.seleccionar.profesional");
 			return false;
 		}
 		
 		if (serviciosAgregados.contains(servicio)) {
-			ControladorCita.errorServicio = "Ese servicio ya fue agregado!";
+			ControladorCita.errorServicio = this.idioma.getString("cita.error.agregar.servicio");
 			return false;
 		}
 		ProfesionalDTO profesional = this.sistema.getProfesionalById(servicio.getIdProfesional());
@@ -715,7 +730,7 @@ public class ControladorCita implements ActionListener{
 		
 		String diaDeLaSemana = diaDeLaSemana();
 		if (!validarProfesionalEnSucursal(profesional.getIdProfesional(), servicio.getHoraInicio(), servicio.getHoraFin(), diaDeLaSemana)) {
-			ControladorCita.errorServicio = "El profesional no trabaja en ese horario!";
+			ControladorCita.errorServicio = this.idioma.getString("cita.error.profesiona.fuera.horarario");
 			return false;
 		}
 		return true;
@@ -728,7 +743,7 @@ public class ControladorCita implements ActionListener{
 		Integer ocupado = this.sistema.profesionalOcupado(idProfesional, inicio, fin, this.ventanaCita.getFechaCita());
 		System.out.println(ocupado);
 		if (ocupado == 1) {
-			ControladorCita.errorServicio = "El profesional esta ocupado en ese horario!";
+			ControladorCita.errorServicio = this.idioma.getString("cita.error.profesional.ocupado");
 			return false;
 		}else 
 			return true;
@@ -1040,7 +1055,7 @@ public class ControladorCita implements ActionListener{
 		int encontro=0;
 		for(Integer i : servicio) {
 			if(seleccion == i) {
-				ControladorCita.errorServicio = "El servicio estaba asociado a una promocion, por lo que se desasocia la prmocion a la cita! ";
+				ControladorCita.errorServicio = this.idioma.getString("cita.error.promocion.borrar");
 				mostrarErrorServicio();
 				encontro ++;
 			}
