@@ -73,7 +73,6 @@ public class ControladorCita implements ActionListener{
 		
 		this.locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
 		this.idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
-		System.out.println(this.idioma.getString("cita.error.dia.pasado"));
 		
 		this.ventanaCita = nuevaVentanaCita.getInstance();
 		this.sistema = s;
@@ -241,7 +240,6 @@ public class ControladorCita implements ActionListener{
 	
 	public boolean validarHora(LocalTime horaElegida) {
 		if (horaElegida == null) {
-			System.out.println(this.idioma.getString("cita.error.hora"));
 			ControladorCita.errorHora = this.idioma.getString("cita.error.hora");
 			return false;
 		}
@@ -514,7 +512,7 @@ public class ControladorCita implements ActionListener{
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
 					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
 					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),-1);
-			if(promocionSeleccionada.getIdPromocion() > 0) {
+			if(promocionSeleccionada != null && promocionSeleccionada.getIdPromocion() > 0) {
 				nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
 				this.ventanaCita.getCliente().getNombre(), this.ventanaCita.getCliente().getApellido(), 
 				this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
