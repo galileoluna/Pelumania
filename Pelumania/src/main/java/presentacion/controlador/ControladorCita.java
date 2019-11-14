@@ -658,9 +658,7 @@ public class ControladorCita implements ActionListener{
     	{
         	if(serviciosAgregados.get(fila)!=null) {
         		this.sistema.getServicioById(serviciosAgregados.get(fila).getIdServicio());
-        		System.out.println("el servicio que quiere eliminar es: "+ serviciosAgregados.get(fila).getIdServicio());
         		List<Integer> servicio= (promocionSeleccionada==null?null:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()));
-        		
 	        		if(promocionSeleccionada != null && servicio != null ) {
 	        					borrarPromocionAsociada(servicio,serviciosAgregados.get(fila).getIdServicio(),serviciosAgregados.get(fila));
 	        		}else {
@@ -793,7 +791,6 @@ public class ControladorCita implements ActionListener{
 	private BigDecimal actualizarPrecioTotal() {
 		BigDecimal total = BigDecimal.valueOf(0);
 		for (ServicioTurnoDTO st : serviciosAgregados) {
-			System.out.println("actualizar precio promo "+ promocionSeleccionada);
 			if(promocionSeleccionada != null) {
 				total=actualizaPrecioPromo(total,st);
 				
@@ -1039,7 +1036,6 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	private void borrarPromocionAsociada(List<Integer> servicio, Integer seleccion, ServicioTurnoDTO servicioABorrar) {
-		
 		int encontro=0;
 		for(Integer i : servicio) {
 			if(seleccion == i) {
