@@ -611,7 +611,7 @@ public class ControladorCita implements ActionListener{
 		}
 		
 		
-		if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
+		else if (this.ventanaCita.getRdBtnProfesional().isSelected()) {
 			ProfesionalDTO profesional = (ProfesionalDTO) this.ventanaCita.getPanelDinamicoProfesionales().getJCBoxProfesional().getSelectedItem();
 			Integer idProfesional = (profesional == null) ? null : profesional.getIdProfesional();
 			ServicioTurnoDTO serv = new ServicioTurnoDTO(servicioSeleccionado.getIdServicio(), idProfesional);
@@ -633,7 +633,7 @@ public class ControladorCita implements ActionListener{
 			}
 		}
 		
-		if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
+		else if (this.ventanaCita.getRdbtnPromocion().isSelected()) {
 			int errorHora=0;
 			int errorServ=0;
 			if(promocionSeleccionada == null) {
