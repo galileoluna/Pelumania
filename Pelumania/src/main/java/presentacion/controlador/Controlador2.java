@@ -340,7 +340,7 @@ public class Controlador2 implements ActionListener{
 			this.sistema.cancelarCita(citaSeleccionada);
 			
 			limpiarTablas();
-			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 			cargarListaConCitas();
 			refrescarTablaCitas();
 		}
@@ -349,7 +349,7 @@ public class Controlador2 implements ActionListener{
 	private void enCurso(ActionEvent t) {
 		this.sistema.ponerCitaEnCurso(citaSeleccionada);
 		limpiarTablas();
-		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 		cargarListaConCitas();
 		refrescarTablaCitas();
 	}
@@ -417,7 +417,7 @@ public class Controlador2 implements ActionListener{
 			actualizarCitasPorEstado(estadoSeleccionado);
 		}else {
 			this.nvista.noOrdenar();
-			obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 			cargarListaConCitas();
 			refrescarTablaCitas();
 		}
@@ -426,7 +426,7 @@ public class Controlador2 implements ActionListener{
 	private void limpiarFiltros(ActionEvent n) {
 		this.nvista.limpiarFiltros();
 		limpiarTablas();
-		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 		cargarListaConCitas();
 		refrescarTablaCitas();
 		habilitarBotonAgregar();
@@ -444,7 +444,7 @@ public class Controlador2 implements ActionListener{
 				this.nvista.getJCBoxFiltroProfesional().getSelectedItem();
 		if (this.nvista.getRdbtnProfesional().isSelected()) {
 			limpiarTablas();
-			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 			actualizarCitasPorProfesional(profesionalSeleccionado.getIdProfesional());
 			refrescarTablaCitas();
 		}else {
@@ -458,7 +458,7 @@ public class Controlador2 implements ActionListener{
 				this.nvista.getJCBoxFiltroServicio().getSelectedItem();
 		if (this.nvista.getRdbtnServicios().isSelected()) {
 			limpiarTablas();
-			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 			actualizarCitasPorServicio(servicioSeleccionado.getIdServicio());
 			refrescarTablaCitas();
 		}else {
@@ -477,7 +477,7 @@ public class Controlador2 implements ActionListener{
 		
 		if (this.nvista.getRdbtnRangoHorario().isSelected()) {
 			limpiarTablas();
-			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 			actualizarCitasPorRangoHorario(horaDeSeleccionada, horaASeleccionada);
 			refrescarTablaCitas();
 		}else {
@@ -531,7 +531,7 @@ public class Controlador2 implements ActionListener{
 		this.citaSeleccionada = null;
 		actualizarPanelCitaSeleccionada();
 		setearFechaSeleccionadaEnCalendario();
-		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString());
+		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
 		cargarListaConCitas();
 		refrescarTablaCitas();
 		habilitarBotonAgregar();
@@ -564,7 +564,8 @@ public class Controlador2 implements ActionListener{
 	private void cargarListaConCitas(){
 		citasEnTabla.clear();
 		for (CitaDTO cita : citasDelDia) {
-			citasEnTabla.add(cita);
+			if(sucursal.getIdSucursal()==cita.getIdSucursal())
+				citasEnTabla.add(cita);
 		}
 	}
 	
@@ -594,19 +595,21 @@ public class Controlador2 implements ActionListener{
 
 		for (CitaDTO cita : citasEnTabla)
 		{
-			ClienteDTO cliente = sistema.obtenerClienteById(cita.getIdCliente());
-			
-			if(cliente == null)
-			{log.error("El cliente no esta registrado y devuelve NullPointerException");}
-			
-			String nombre = cliente.getNombre()+" "+cliente.getApellido();
-			BigDecimal precioLocal = cita.getPrecioLocal();
-			BigDecimal precioDolar = cita.getPrecioDolar();
-			LocalTime HoraInicio = cita.getHoraInicio();
-			LocalTime HoraFin = cita.getHoraFin();
-			String estado = cita.getEstado();
-			Object[] fila = {nombre, precioLocal, precioDolar, HoraInicio, HoraFin, estado};
-			this.nvista.getModelCitas().addRow(fila);
+			if(cita.getIdSucursal()==sucursal.getIdSucursal()) {
+				ClienteDTO cliente = sistema.obtenerClienteById(cita.getIdCliente());
+				
+				if(cliente == null)
+				{log.error("El cliente no esta registrado y devuelve NullPointerException");}
+				
+				String nombre = cliente.getNombre()+" "+cliente.getApellido();
+				BigDecimal precioLocal = cita.getPrecioLocal();
+				BigDecimal precioDolar = cita.getPrecioDolar();
+				LocalTime HoraInicio = cita.getHoraInicio();
+				LocalTime HoraFin = cita.getHoraFin();
+				String estado = cita.getEstado();
+				Object[] fila = {nombre, precioLocal, precioDolar, HoraInicio, HoraFin, estado};
+				this.nvista.getModelCitas().addRow(fila);
+			}
 		}
 	}
 	
@@ -617,8 +620,15 @@ public class Controlador2 implements ActionListener{
 		this.citasEnTabla.clear();
 	}
 	
-	public List <CitaDTO> obtenerCitasDelDia(String dia) {
-		return this.sistema.getCitasPorDia(dia);
+	public List <CitaDTO> obtenerCitasDelDia(String dia, int sucursal) {
+		 List<CitaDTO>citas=this.sistema.getCitasPorDia(dia);
+		 List<CitaDTO>auxiliar=new ArrayList<CitaDTO>();
+		 
+		 for(int i=0;i<citas.size();i++) {
+			 if(sucursal==citas.get(i).getIdSucursal())
+				 auxiliar.add(citas.get(i));
+		 }
+		 return auxiliar;
 	}
 	
 	public void habilitarBotonAgregar() {
@@ -726,6 +736,5 @@ public class Controlador2 implements ActionListener{
 	private void ventanaCambiarContrasenia(ActionEvent w) {
 		this.controladorCambContra= ControladorCambiarContrasenia.getInstance(sistema,usuario);
 	}
-
 
 }
