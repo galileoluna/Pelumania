@@ -790,16 +790,15 @@ public class NuevoControladorEditarCita implements ActionListener{
 	
 	public int actualizarPuntos() {
 		int totalPuntos = 0;
-		int listo=sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()).size();
+	int listo=0;
 		for (ServicioTurnoDTO st : serviciosAgregados) {
-			if(promocionSeleccionada != null && listo > 0) {
-				listo--;
-				totalPuntos=actualizarPuntosPromo(totalPuntos,st);
-			}else {
-				Integer idServicio = st.getIdServicio();
-				ServicioDTO servicio = this.sistema.getServicioById(idServicio);
-				totalPuntos = totalPuntos + (servicio.getPuntos());
+			if(promocionSeleccionada != null && st.getIdServicio() == sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()).get(0) && listo ==0) {
+				totalPuntos=promocionSeleccionada.getPuntos()+totalPuntos;
+				listo++;
 			}
+			Integer idServicio = st.getIdServicio();
+			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+			totalPuntos = totalPuntos + (servicio.getPuntos());
 		}
 		this.ventanaEditarCita.setPuntos(totalPuntos);
 		this.ventanaEditarCita.getLbl_Puntos().setText(Integer.toString(this.ventanaEditarCita.getPuntos()));

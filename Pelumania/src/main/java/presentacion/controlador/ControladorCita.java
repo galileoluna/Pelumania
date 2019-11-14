@@ -56,7 +56,7 @@ public class ControladorCita implements ActionListener{
 	private List<ProfesionalDTO> profesionales_panel_servicios;
 	
 	private List<PromocionDTO> promociones;
-	//private int idPromocionSeleccionada=-1;
+	private int sumePuntosPromo=0;
 	private PromocionDTO promocionSeleccionada;
 	ServicioDTO servicioSeleccionado;
 	
@@ -627,8 +627,7 @@ public class ControladorCita implements ActionListener{
 					ServicioTurnoDTO serv = new ServicioTurnoDTO(i, idProfesional);
 					if (validarHora(this.ventanaCita.getHoraInicio())) {
 						calcularHorario(serv);
-						if (validarAntesDeAgregarServicio(serv)) {
-	
+						if (validarAntesDeAgregarServicio(serv)) {	
 							serviciosAgregados.add(serv);
 							actualizarServiciosAgregados();
 							actualizarHoraFin();
@@ -790,17 +789,21 @@ public class ControladorCita implements ActionListener{
 	
 	private BigDecimal actualizarPrecioTotal() {
 		BigDecimal total = BigDecimal.valueOf(0);
+		int listoPromo=(promocionSeleccionada == null?-1:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()).size());
 		for (ServicioTurnoDTO st : serviciosAgregados) {
-			if(promocionSeleccionada != null) {
+			if(promocionSeleccionada != null && listoPromo > -1) {
+				listoPromo--;
 				total=actualizaPrecioPromo(total,st);
-				
+				System.out.println("Despues de mi funcion total?= "+total);
 			}else {
 				Integer idServicio = st.getIdServicio();
 				ServicioDTO servicio = this.sistema.getServicioById(idServicio);
-				
+				System.out.println("total else: "+total+" con el servicio "+servicio.getNombre());
 				total = total.add(servicio.getPrecioLocal());
+				System.out.println("total despues del add: "+total);
 			}
 		}
+		System.out.println("total termino el ciclo: "+total);
 		//Setear el total a la ventana
 		this.ventanaCita.setTotal(total);
 		this.ventanaCita.getLbl_Total().setText(this.ventanaCita.getTotal().toString());
@@ -826,17 +829,15 @@ public class ControladorCita implements ActionListener{
 	
 	public int actualizarPuntos() {
 		int totalPuntos = 0;
-		int listo=(promocionSeleccionada == null?0:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()).size());
-		System.out.println("listo : "+listo);
+	int listo=0;
 		for (ServicioTurnoDTO st : serviciosAgregados) {
-			if(promocionSeleccionada != null && listo > 0) {
-				listo--;
-				totalPuntos=actualizarPuntosPromo(totalPuntos,st);
-			}else {
-				Integer idServicio = st.getIdServicio();
-				ServicioDTO servicio = this.sistema.getServicioById(idServicio);
-				totalPuntos = totalPuntos + (servicio.getPuntos());
+			if(promocionSeleccionada != null && st.getIdServicio() == sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()).get(0) && listo ==0) {
+				totalPuntos=promocionSeleccionada.getPuntos()+totalPuntos;
+				listo++;
 			}
+			Integer idServicio = st.getIdServicio();
+			ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+			totalPuntos = totalPuntos + (servicio.getPuntos());
 		}
 		this.ventanaCita.setPuntos(totalPuntos);
 		this.ventanaCita.getLbl_Puntos().setText(Integer.toString(this.ventanaCita.getPuntos()));
@@ -1062,40 +1063,37 @@ public class ControladorCita implements ActionListener{
 	}
 	
 	private BigDecimal actualizaPrecioPromo(BigDecimal total, ServicioTurnoDTO st) {
-		for(PromocionDTO p : promociones) {
-			if(p.getIdPromocion() == promocionSeleccionada.getIdPromocion()) {
-				if(p.getDescuento() > 0) {
-					List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
-					for(Integer i : idservicio) {
-						for(ServicioTurnoDTO serv: serviciosAgregados) {
-							if(serv.getIdServicio() == i) {
-								ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
-								BigDecimal divisor=new BigDecimal("100");
-								BigDecimal desc= servicio.getPrecioLocal().divide(divisor, 3, RoundingMode.CEILING);
-								BigDecimal multiplicacion = new BigDecimal(p.getDescuento(), MathContext.DECIMAL64);
-								BigDecimal precio=desc.multiply(multiplicacion);
-								System.out.println("precio despues de todas las cuentas "+precio);
-								total = total.add(precio);
-								
-							}
-						}
+		
+		if(promocionSeleccionada.getDescuento() > 0) {
+			List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
+			for(Integer i : idservicio) {
+				for(ServicioTurnoDTO serv: serviciosAgregados) {
+					if(serv.getIdServicio() == i) {
+						ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
+						BigDecimal divisor=new BigDecimal("100");
+						BigDecimal desc= servicio.getPrecioLocal().divide(divisor, 3, RoundingMode.CEILING);
+						BigDecimal multiplicacion = new BigDecimal(promocionSeleccionada.getDescuento(), MathContext.DECIMAL64);
+						BigDecimal precio=desc.multiply(multiplicacion);
+						System.out.println("precio despues de todas las cuentas "+precio);
+						total = total.add(precio);
+						break;
+					}else {
+						Integer idServicio = st.getIdServicio();
+						ServicioDTO servicio = this.sistema.getServicioById(idServicio);
+						System.out.println("total else dentro del for: "+total);
+						total = total.add(servicio.getPrecioLocal());
+						break;
 					}
-				}else {
-					Integer idServicio = st.getIdServicio();
-					ServicioDTO servicio = this.sistema.getServicioById(idServicio);
-					
-					total = total.add(servicio.getPrecioLocal());
 				}
 			}
-		
 		}
 		return total;
 	}
 	
 	private BigDecimal actualizaDolarPromo(BigDecimal total, ServicioTurnoDTO st) {
-		for(PromocionDTO p : promociones) {
-			if(p.getIdPromocion() == promocionSeleccionada.getIdPromocion()) {
-				if(p.getDescuento() > 0) {
+		
+			if(promocionSeleccionada != null) {
+				if(promocionSeleccionada.getDescuento() > 0) {
 					List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
 						for(Integer i : idservicio) {
 							for(ServicioTurnoDTO serv: serviciosAgregados) {
@@ -1103,7 +1101,7 @@ public class ControladorCita implements ActionListener{
 									ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
 									BigDecimal divisor=new BigDecimal("100");
 									BigDecimal desc= servicio.getPrecioDolar().divide(divisor, 3, RoundingMode.CEILING);
-									BigDecimal multiplicacion = new BigDecimal(p.getDescuento(), MathContext.DECIMAL64);
+									BigDecimal multiplicacion = new BigDecimal(promocionSeleccionada.getDescuento(), MathContext.DECIMAL64);
 									BigDecimal precio=desc.multiply(multiplicacion);
 									System.out.println("precio despues de todas las cuentas "+precio);
 									total = total.add(precio);
@@ -1117,46 +1115,9 @@ public class ControladorCita implements ActionListener{
 					total = total.add(servicio.getPrecioDolar());
 				}
 			}
-		
-		}
 		return total;
 	}
 	
-	private int actualizarPuntosPromo(int total, ServicioTurnoDTO st) {
-		int noPaso=0;
-		for(PromocionDTO p : promociones) {
-			if(p.getIdPromocion() == promocionSeleccionada.getIdPromocion()) {
-				if(p.getPuntos() > 0) {
-					List<Integer> idservicio= sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion());
-						for(Integer i : idservicio) {
-							System.out.println("id servicio primer for: "+i);
-							for(ServicioTurnoDTO serv: serviciosAgregados) {
-								System.out.println("lista segundo for: "+serviciosAgregados);
-								if(serv.getIdServicio() == i) {
-									if(noPaso == 0) {
-										noPaso=1;
-										total=p.getPuntos();
-									}
-									ServicioDTO servicio = this.sistema.getServicioById(serv.getIdServicio());
-									System.out.println("total puntos antes:  "+total);
-									System.out.println("total servPuntos antes:  "+servicio.getPuntos());
-									total = (servicio.getPuntos())+total;
-									System.out.println("total puntos despues:  "+total);
-									break;
-								}
-							}
-						}
-				}else {
-					Integer idServicio = st.getIdServicio();
-					ServicioDTO servicio = this.sistema.getServicioById(idServicio);
-					total = total + (servicio.getPuntos());
-				}
-			}
-		
-		}
-		return total;
-	}
-
 	
 	/* EDICION DE CITAS */
 
