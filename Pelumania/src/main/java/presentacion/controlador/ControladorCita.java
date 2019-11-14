@@ -625,7 +625,7 @@ public class ControladorCita implements ActionListener{
 					actualizarPrecioTotalDolar();
 					actualizarPuntos();
 					System.out.println("Los servicios son: "+serviciosAgregados);
-				}else {
+				}else { 
 					mostrarErrorServicio();
 				}
 			}else {
