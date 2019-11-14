@@ -10,6 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 
 import org.apache.log4j.Logger;
+import org.eclipse.jdt.core.compiler.CharOperation;
 
 import dto.CitaDTO;
 import dto.ClienteDTO;
@@ -505,12 +507,15 @@ public class ControladorCita implements ActionListener{
 	public void registrarCita() {
 		if (validarCita()) {
 			Integer idCitaAgregada;
-
+			
+			LocalTime horaInicioMock = LocalTime.now().plus(1,ChronoUnit.MINUTES);
+			LocalTime horaFinMock = horaInicioMock.plus(1,ChronoUnit.MINUTES);
+			
 			CitaDTO nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
 					this.ventanaCita.getCliente().getNombre(), this.ventanaCita.getCliente().getApellido(), 
 					this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
-					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
+					horaInicioMock, horaFinMock,
 					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),-1);
 			if(promocionSeleccionada != null && promocionSeleccionada.getIdPromocion() > 0) {
 				nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
@@ -531,9 +536,12 @@ public class ControladorCita implements ActionListener{
 				}
 				
 				this.mostrarExitoCargarCita(idCitaAgregada);
-				this.ventanaCita.cerrar();
+				
 				//tomamos el mail del input porque el usuario generico posee otro mail en la bdd
 				String mail = this.ventanaCita.getTxtMail().getText();
+				//hay que hacerlo antes de eliminar los datos en la pantalla
+				
+				this.ventanaCita.cerrar();
 				
 				//una vez que se hizo todo bien mandamos el mail
 				MailService.enviarComprobanteCita(this.sistema, this.sistema.getCitaById(idCitaAgregada), mail);

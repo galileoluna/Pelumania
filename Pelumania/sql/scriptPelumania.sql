@@ -242,18 +242,14 @@ CREATE TABLE IF NOT EXISTS `TipoMail`(
 
 );
 
-CREATE TABLE IF NOT EXISTS `EnviarMail`(
+CREATE TABLE IF NOT EXISTS `Mail`(
 
   `idEnviarMail` INT(11) NOT NULL AUTO_INCREMENT,
   `IdCita` INT(11) NOT NULL,
-  `IdTipoMail` INT(11) NOT NULL,  
-  `Enviado` BOOLEAN  NULL DEFAULT FALSE,
-  `FechaEnviado` TIMESTAMP  NULL,
+  `Fecha` TIMESTAMP  NULL,
 
   PRIMARY KEY(`idEnviarMail`),
-  FOREIGN KEY (`IdCita`) REFERENCES `Cita`(`IdCita`),
-  FOREIGN KEY (`IdTipoMail`) REFERENCES `TipoMail`(`IdTipoMail`)
-
+  FOREIGN KEY (`IdCita`) REFERENCES `Cita`(`IdCita`)
 );
 
 CREATE TABLE IF NOT EXISTS `LogTransferencia`(
@@ -360,7 +356,7 @@ VALUES (-1,7);
 INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
 VALUES(1, "Matias", "Arriola", 44512626, "prueba1@gmail.com", 0, "Activo", 00.00, 00.00);
 INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
-VALUES(2, "Tomas", "Sierra", 44512727, "test2@gmail.com", 0, "Inactivo", 00.00, 00.00);
+VALUES(2, "Tomas", "Sierra", 44512727, "sierrapugliesetomas@gmail.com", 0, "Activo", 00.00, 00.00);
 INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 
 VALUES(3, "Nicolas", "Cirillo", 44512828, "prueba3@gmail.com", 0, "Activo", 00.00, 00.00);
 INSERT INTO CLIENTE(idCliente, Nombre, Apellido, Telefono, Mail, Puntos, EstadoCliente, DeudaPesos, DeudaDolar) 

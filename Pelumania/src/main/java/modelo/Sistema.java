@@ -1,7 +1,6 @@
 package modelo;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -11,6 +10,7 @@ import dto.CategoriaMovimientoCajaDTO;
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.HorarioDTO;
+import dto.MailDTO;
 import dto.MovimientoCajaDTO;
 import dto.ProductoDTO;
 import dto.ProfesionalDTO;
@@ -24,6 +24,7 @@ import persistencia.dao.interfaz.CitaDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
+import persistencia.dao.interfaz.MailDAO;
 import persistencia.dao.interfaz.MovimientoCajaDAO;
 import persistencia.dao.interfaz.ProductoDAO;
 import persistencia.dao.interfaz.ProfesionalDAO;
@@ -48,7 +49,8 @@ public class Sistema
 	private ServicioTurnoDAO servicioTurno;
 	private UsuarioDAO usuario;
 	private ProductoDAO producto;
-
+	private MailDAO mail;
+	
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
 		this.cliente = metodo_persistencia.createClienteDAO();
@@ -63,6 +65,7 @@ public class Sistema
 		this.servicioTurno = metodo_persistencia.createServicioTurnoDAO();
 		this.usuario=metodo_persistencia.createUsuarioDAO();
 		this.producto=metodo_persistencia.createProductoDAO();
+		this.mail = metodo_persistencia.createMailDAO();
 	}
 	 public void agregarProducto(ProductoDTO nuevoProducto)
 		{
@@ -311,8 +314,7 @@ public class Sistema
 	{
 		return this.cita.ponerEnCurso(nuevaCita);
 	}
-	
-		public boolean ponerCitaVencida(CitaDTO nuevaCita)
+	public boolean ponerCitaVencida(CitaDTO nuevaCita)
 	{
 		return this.cita.ponerEnVencida(nuevaCita);
 	}
@@ -566,5 +568,29 @@ public class Sistema
 	public boolean cambiarContrasenia(int id, String pass) {
 		return this.usuario.updatePass(id,pass);
 	}
+	
+	//////// mail 
+	public boolean insertMail(MailDTO mail) {
+		return this.mail.insert(mail);
+		
+	}
+
+	public boolean deleteMail(MailDTO mail) {
+		return this.mail.delete(mail);
+	}
+	
+	public List<MailDTO> readAllMail(int id){
+		return this.mail.readAll(id);
+		
+	}
+	
+	public List<MailDTO> readOneMail(int id){
+		return this.mail.readOne(id);
+	}
+	public List<MailDTO> readAllOneDay(LocalDate dia){
+		return this.mail.readAllOneDay(dia);
+	}
+	
+	/////// termina mail
 
 }

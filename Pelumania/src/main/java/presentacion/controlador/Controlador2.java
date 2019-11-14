@@ -8,6 +8,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -17,6 +18,7 @@ import javax.swing.event.ListSelectionEvent;
 
 import org.apache.log4j.Logger;
 
+import dto.MailDTO;
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
@@ -28,6 +30,7 @@ import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.NuevaVista;
 import util.TimerEstadosCitas;
+import util.MailService;
 
 public class Controlador2 implements ActionListener{
 	/*
@@ -76,6 +79,9 @@ public class Controlador2 implements ActionListener{
 	
 	private List<CitaDTO> citasDelDia;
 	private List<CitaDTO> citasEnTabla;
+	private List<CitaDTO> citasProximas48hs;
+	private List<MailDTO> mailsRecordatorio;
+	private Timer timerRecordatorios;
 
 	private List<ProfesionalDTO> profesionalesEnSucursal;
 	
@@ -90,11 +96,15 @@ public class Controlador2 implements ActionListener{
 		
 		citasDelDia = new ArrayList<CitaDTO>();
 		citasEnTabla = new ArrayList<CitaDTO>();
-		
+		citasProximas48hs = new ArrayList<CitaDTO>();
+		mailsRecordatorio = new ArrayList<MailDTO>();
+
 		setearFechaSeleccionadaHoy();
 		actualizarDiaSeleccionado();
 		refrescarTablaCitas();
-		getPermisos();
+		refrescarMailsRecordatorio();
+		refrescarCitasProximas48hs();
+        getPermisos();
 		
 		this.nvista.getMntmGestionDeServicios().addActionListener(a->ventanaServicios(a));
 		this.nvista.getMntmGestionDeProfesionales().addActionListener(b->ventanaProfesionales(b));
@@ -136,10 +146,6 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getRdbtnEstado().addActionListener(m -> cargarPanelDinamicoEstado(m));
 		this.nvista.getBtnLimpiarFiltros().addActionListener(n -> limpiarFiltros(n));
 		this.nvista.getBtn_VerComprobante().addActionListener(l -> verComprobante(l));
-		
-		
-		//dejamos la ultimo el timer porque toca lo visual
-//		setearTimer();
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 		
@@ -173,16 +179,43 @@ public class Controlador2 implements ActionListener{
 					return false;
 				}return false;
 			}
-
-			
-			
 		};
 		//aca selecciono cada cuanto se actualiza el timer, esta seleccionado 10 min en la tercera posicion
 		timer.schedule(vencerCitas, 1000, 100000);
 	
+	// timer recordatorio cita
+		this.timerRecordatorios = new Timer();
+
+		TimerTask recordatorioCitas = new TimerTask() {
+			@Override
+			public void run() {
+				refrescarCitasProximas48hs();
+				logicaRecordatorios(sistema);
+			}
+		};
+
+		//hacerlo cada un minuto
+		this.timerRecordatorios.schedule(recordatorioCitas, 1000, 60000);
+
+ 	}
+
+	private void refrescarMailsRecordatorio() {
+		this.mailsRecordatorio = this.sistema.readAllOneDay(LocalDate.now());
+		
 	}
 
+	private boolean fueRecordada(int idCita) {
+		for (MailDTO mail : this.mailsRecordatorio) {
+			if (mail.getIdCita() == idCita) {
+				return true;
+			}
+		}
+		return false;
+	}
 
+	private void refrescarCitasProximas48hs() {
+		this.citasProximas48hs = this.sistema.getCitasPorDia(LocalDate.now().plus(2, ChronoUnit.DAYS).toString());
+	}
 	
 
 	private void ventanaCambiarIdioma(ActionEvent l) {
@@ -635,6 +668,7 @@ public class Controlador2 implements ActionListener{
 	public void habilitarBotonAgregar() {
 		this.nvista.getBtn_Agregar().setEnabled(true);
 		getPermisos();
+        
 	}
 	
 	public void actualizarCitaSeleccionada(ListSelectionEvent l) {
@@ -738,4 +772,41 @@ public class Controlador2 implements ActionListener{
 		this.controladorCambContra= ControladorCambiarContrasenia.getInstance(sistema,usuario);
 	}
 
+    public void logicaRecordatorios(Sistema sistema) {
+		if (citasProximas48hs.size() > 0) {
+			for (CitaDTO citaProxima : citasProximas48hs) {
+
+				LocalTime horaInicioCita = citaProxima.getHoraInicio().truncatedTo(ChronoUnit.MINUTES);
+				LocalTime horaActual = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+				if (horaInicioCita.compareTo(horaActual) == -1 && !fueRecordada(citaProxima.getIdCita())) {
+					// System.out.println("ya paso la hora pero no esta notificado");
+
+					sistema.insertMail(new MailDTO(0, citaProxima.getIdCita(), LocalDate.now()));
+
+					/// hay que ver el caso de un cliente no registrado
+					ClienteDTO cliente = sistema.obtenerClienteById(citaProxima.getIdCliente());
+					MailService.enviarRecordatorioCita(sistema, citaProxima, cliente.getMail());
+    				refrescarMailsRecordatorio();
+				}
+				// faltan 48hs exactas
+				else if (horaInicioCita.compareTo(horaActual) == 0 && !fueRecordada(citaProxima.getIdCita())) {
+
+					sistema.insertMail(new MailDTO(0, citaProxima.getIdCita(), LocalDate.now()));
+
+					/// hay que ver como conseguir el mail de un cliente no registrado
+
+					ClienteDTO cliente = sistema.obtenerClienteById(citaProxima.getIdCliente());
+					MailService.enviarRecordatorioCita(sistema, citaProxima, cliente.getMail());
+
+					refrescarMailsRecordatorio();
+
+					// System.out.println("hora exacta y no esta notificado");
+				}
+
+				// System.out.println("ya esta notificado o falta todavia");
+			}
+		}
+
+    }
 }

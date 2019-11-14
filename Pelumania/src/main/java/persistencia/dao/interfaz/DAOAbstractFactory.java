@@ -27,4 +27,5 @@ public interface DAOAbstractFactory {
 
 	public ProductoDAO createProductoDAO();
 	
+	public MailDAO createMailDAO();
 }

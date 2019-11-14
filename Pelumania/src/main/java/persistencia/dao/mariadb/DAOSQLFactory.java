@@ -5,6 +5,7 @@ import persistencia.dao.interfaz.CitaDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.HorarioDAO;
+import persistencia.dao.interfaz.MailDAO;
 import persistencia.dao.interfaz.MovimientoCajaDAO;
 import persistencia.dao.interfaz.ProductoDAO;
 import persistencia.dao.interfaz.PromocionDAO;
@@ -78,6 +79,12 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	@Override
 	public ProductoDAO createProductoDAO() {
 		return new ProductoDAOSQL();
+	}
+
+	@Override
+	public MailDAO createMailDAO() {
+		// TODO Auto-generated method stub
+		return new MailDAOSQL();
 	}
 
 }
