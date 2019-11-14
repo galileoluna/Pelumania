@@ -312,6 +312,11 @@ public class Sistema
 		return this.cita.ponerEnCurso(nuevaCita);
 	}
 	
+		public boolean ponerCitaVencida(CitaDTO nuevaCita)
+	{
+		return this.cita.ponerEnVencida(nuevaCita);
+	}
+	
 	public boolean borrarcita(CitaDTO cita_a_eliminar)
 	{
 		return this.cita.delete(cita_a_eliminar);
