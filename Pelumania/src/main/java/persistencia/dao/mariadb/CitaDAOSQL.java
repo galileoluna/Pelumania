@@ -45,6 +45,8 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String REPROGRAMAR = "Reprogramar";
 	private static final String FIAR = "Fiado";
 	private static final String ENCURSO = "En curso";
+	private static final String VENCIDO = "Vencida";
+
 
 	
 	@Override
@@ -238,6 +240,34 @@ public class CitaDAOSQL implements CitaDAO{
 		}
 		return isFinalizarExitoso;
 	}
+	
+		public boolean ponerEnVencida(CitaDTO cita_vencida){
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isFinalizarExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(cambioDeEstado);
+			statement.setString (1, VENCIDO);
+			statement.setInt	(2, cita_vencida.getIdCita());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isFinalizarExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isFinalizarExitoso;
+	}
+	
 	
 	public boolean ponerEnCurso(CitaDTO cita_en_curso) {
 		PreparedStatement statement;
