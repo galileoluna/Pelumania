@@ -658,20 +658,15 @@ public class ControladorCita implements ActionListener{
     	{
         	if(serviciosAgregados.get(fila)!=null) {
         		this.sistema.getServicioById(serviciosAgregados.get(fila).getIdServicio());
+        		System.out.println("el servicio que quiere eliminar es: "+ serviciosAgregados.get(fila).getIdServicio());
         		List<Integer> servicio= (promocionSeleccionada==null?null:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()));
-        		if(promocionSeleccionada != null && servicio != null) {
-        			for (Integer i : servicio) {
-        				if(i == serviciosAgregados.get(fila).getIdServicio()) {
-        					borrarPromocionAsociada(servicio);
-        				}else {
-        	        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
-        	        		serviciosAgregados.remove(servicioSeleccionado);
-        				}
-        			}
-        		}else {
-	        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
-	        		serviciosAgregados.remove(servicioSeleccionado);
-        		}
+        		
+	        		if(promocionSeleccionada != null && servicio != null ) {
+	        					borrarPromocionAsociada(servicio,serviciosAgregados.get(fila).getIdServicio(),serviciosAgregados.get(fila));
+	        		}else {
+		        		ServicioTurnoDTO servicioSeleccionado = serviciosAgregados.get(fila);
+		        		serviciosAgregados.remove(servicioSeleccionado);
+	        		}
 	        	calcularHorariosServicios();
 				actualizarServiciosAgregados();
 				actualizarHoraFin();
@@ -1043,19 +1038,31 @@ public class ControladorCita implements ActionListener{
     	return promocionSeleccionada;
 	}
 	
-	private void borrarPromocionAsociada(List<Integer> servicio) {
-		promocionSeleccionada=null;
-		for(Integer i : servicio) {
-			for(ServicioTurnoDTO serv: serviciosAgregados) {
-				if(serv.getIdServicio() == i) {
-					serviciosAgregados.remove(serv);
-					break;
-				}
-			}
-		}
-		ControladorCita.errorServicio = "El servicio estaba asociado a una promocion, por lo que se desasocia la prmocion a la cita! ";
-		mostrarErrorServicio();
+	private void borrarPromocionAsociada(List<Integer> servicio, Integer seleccion, ServicioTurnoDTO servicioABorrar) {
 		
+		int encontro=0;
+		for(Integer i : servicio) {
+			if(seleccion == i) {
+				ControladorCita.errorServicio = "El servicio estaba asociado a una promocion, por lo que se desasocia la prmocion a la cita! ";
+				mostrarErrorServicio();
+				encontro ++;
+			}
+			if(encontro > 0) {
+				for(Integer idServ : servicio) {		
+					System.out.println("Tengo que entrar");
+					promocionSeleccionada=null;
+					for(ServicioTurnoDTO serv: serviciosAgregados) {
+						if(serv.getIdServicio() == idServ ) {
+							serviciosAgregados.remove(serv);
+							break;
+						}
+					}
+				}
+			}	
+		}
+		if( encontro == 0) {
+        		serviciosAgregados.remove(servicioABorrar);			
+		}
 	}
 	
 	private BigDecimal actualizaPrecioPromo(BigDecimal total, ServicioTurnoDTO st) {
