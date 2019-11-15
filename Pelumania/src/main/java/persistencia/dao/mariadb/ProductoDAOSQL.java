@@ -12,17 +12,18 @@ package persistencia.dao.mariadb;
 
 	import dto.CitaDTO;
 	import dto.ProductoDTO;
-	import persistencia.conexion.Conexion;
+import dto.ServicioDTO;
+import persistencia.conexion.Conexion;
 	import persistencia.dao.interfaz.ProductoDAO;
 
 	public class ProductoDAOSQL implements ProductoDAO{
 		
 		private static final String insert = "INSERT INTO Producto(IdProducto,Nombre,PrecioLocal,PrecioDolar,Puntos,Estado) "
 											+ "VALUES(?,?,?,?,?,?)";
-		private static final String update = "UPDATE  Producto SET Nombre=?, PrecioLocal=?, PrecioDolar=?,"
-				+ "  Puntos=?, Estado=? WHERE IdProducto=?";
+		private static final String update = "UPDATE  Producto SET Nombre=?, PrecioLocal=?, PrecioDolar=?,Puntos=?, Estado=? WHERE idProducto=?";
 		private static final String delete = "UPDATE  Producto SET Estado=? WHERE IdProducto = ?";
 		private static final String readall = " SELECT * FROM Producto";
+		private static final String dameId = " SELECT IdProducto FROM Producto where Nombre=?";
 		private static final String getById = "SELECT * FROM Producto WHERE IdProducto = ?";
 		private static final String deleteRealProducto = "DELETE FROM Producto WHERE IdProducto = ?";
 		private static final String readBuscador = "SELECT * FROM Producto WHERE ? LIKE ?";
@@ -131,7 +132,32 @@ package persistencia.dao.mariadb;
 			return Productos;
 		}
 		
-		public ProductoDTO getById(int idProducto)
+		
+		
+		public int obtenerID(String nombre) {
+			PreparedStatement statement;
+			ResultSet resultSet;
+			Conexion conexion = Conexion.getConexion();
+			int sucursal;
+			try
+			{
+				statement = conexion.getSQLConexion().prepareStatement("Select idProducto FROM producto WHERE nombre = ?");
+
+				statement.setString(1, nombre);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()){
+					sucursal = resultSet.getInt("idProducto");
+					return sucursal;
+				}
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return 0;
+		}
+		
+		public ProductoDTO getById(int idServicio)
 		{
 			PreparedStatement statement;
 			ResultSet resultSet; //Guarda el resultado de la query
@@ -140,7 +166,7 @@ package persistencia.dao.mariadb;
 			try 
 			{
 				statement = conexion.prepareStatement(getById);
-				statement.setInt(1, idProducto);
+				statement.setInt(1, idServicio);
 				resultSet = statement.executeQuery();
 				
 				while(resultSet.next())

@@ -33,7 +33,7 @@ public class ControladorEditarProducto {
 		if ( INSTANCE == null) {
 			INSTANCE = new ControladorEditarProducto(sistema, usuario);
 		}	
-			idProducto = id;
+			idProducto = Producto.getIdProducto();
 			INSTANCE.ventanaEditarProducto.getTxtNombre().setText(Producto.getNombre());
 			INSTANCE.ventanaEditarProducto.getTxtPrecioLocal().setText(Producto.getPrecioLocal().toString());
 			INSTANCE.ventanaEditarProducto.getTxtPrecioDolar().setText(Producto.getPrecioDolar().toString());
@@ -56,19 +56,15 @@ public class ControladorEditarProducto {
 				 Validador.esPrecioValido(S_precioLocal) &&
 				 Validador.esPrecioValido(S_precioDolar) &&
 				 Validador.esPuntosValido(S_puntos)) {
-			
 				String nombre = S_nombre;
 				BigDecimal precioLocal = new BigDecimal(S_precioLocal);
 				BigDecimal precioDolar = new BigDecimal(S_precioDolar);
 				int puntos = Integer.parseInt(S_puntos);
-				LocalTime duracion = null;
-				
-	
-				
 				ProductoDTO Producto_a_actualizar = new ProductoDTO(idProducto, nombre, precioLocal, precioDolar, puntos, S_estado);
+				System.out.println(Producto_a_actualizar.getNombre()+" "+Producto_a_actualizar.getIdProducto());
 				this.sistema.editarProducto(Producto_a_actualizar);
 				this.ventanaEditarProducto.cerrar();
-				ControladorProductos.getInstance(sistema,usuario);
+				
 				
 				} else {
 				

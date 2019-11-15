@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import dto.CitaDTO;
 import dto.ProductoDTO;
+import dto.SucursalDTO;
 import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaProducto;
@@ -75,16 +76,15 @@ public class ControladorProductos {
 	private void editarProducto(ActionEvent c) {
 		ProductosEnTabla = sistema.obtenerProducto();
 		int[] filasSeleccionadas = ventanaProducto.getTablaProductos().getSelectedRows();
-	       
-    	for (int fila : filasSeleccionadas)
-    	{
-        	if(ProductosEnTabla.get(fila)!=null) {	 
-        		this.idProducto = ProductosEnTabla.get(fila).getIdProducto();
-        		ProductoDTO Producto_a_editar = sistema.obtenerPorId(idProducto);
-        		
-        		ControladorEditarProducto.getInstance(sistema, Producto_a_editar, idProducto,usuario);
-	}
-    	}
+	
+		for (int fila : filasSeleccionadas) {
+			if (ProductosEnTabla.get(fila) != null) {
+				this.idProducto = ProductosEnTabla.get(fila).getIdProducto();
+				ProductoDTO sucursal_a_editar = sistema.obtenerProducto().get(fila);
+			
+				ControladorEditarProducto.getInstance(sistema, sucursal_a_editar, fila, usuario);
+			}
+		}
 	}
 
 	private void borrarProducto(ActionEvent b) {
@@ -100,9 +100,9 @@ public class ControladorProductos {
         		int confirm = this.ventanaProducto.mostrarConfirmacionBorrar();
 	        		if (confirm == 0) {
 		        		this.idProducto = ProductosEnTabla.get(fila).getIdProducto();
-		        		ProductoDTO Producto_a_eliminar = sistema.obtenerPorId(idProducto);
-		        		sistema.borrarProducto(Producto_a_eliminar);
-		        		
+		        		ProductoDTO Producto_a_eliminar = sistema.obtenerProducto().get(fila);
+		        		Producto_a_eliminar.setEstado("Inactivo");
+		        		sistema.editarProducto(Producto_a_eliminar);
 		        		ControladorProductos.getInstance(sistema,usuario);
 		        		
 	        		}

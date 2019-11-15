@@ -2,6 +2,8 @@ package dto;
 
 import java.math.BigDecimal;
 
+import persistencia.dao.mariadb.ProductoDAOSQL;
+
 public class ProductoDTO {
 	private int idProducto;
 	private String nombre;
@@ -23,7 +25,8 @@ public class ProductoDTO {
 
 	
 	public int getIdProducto() {
-		return idProducto;
+		ProductoDAOSQL pro= new ProductoDAOSQL();
+		return pro.obtenerID(nombre);
 	}
 
 	public void setidProducto(int idProducto) {
