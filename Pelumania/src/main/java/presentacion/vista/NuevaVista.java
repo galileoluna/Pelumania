@@ -69,6 +69,8 @@ public class NuevaVista implements Runnable {
 		private JMenu JM_Reportes;
 			private JMenuItem mntmGenerarReporteLocal;
 			private JMenuItem mntmGenerarReporteGeneral;
+			private JMenuItem mntmGenerarReporteIngresos;
+			private JMenuItem mntmGenerarReporteEgresos;
 			private JMenuItem mntmGenerarReportePorServicio;
 			private JMenuItem mntmGenerarReportePorCliente;
 			private JMenuItem mntmGenerarReportePorProfesional;
@@ -283,6 +285,12 @@ public class NuevaVista implements Runnable {
 		
 		mntmGenerarReporteGeneral = new JMenuItem(this.idioma.getString("reporte.general"));
 		JM_Reportes.add(mntmGenerarReporteGeneral);
+		
+		mntmGenerarReporteIngresos = new JMenuItem(this.idioma.getString("reporte.ingreso"));
+		JM_Reportes.add(mntmGenerarReporteIngresos);
+		
+		mntmGenerarReporteEgresos = new JMenuItem(this.idioma.getString("reporte.egreso"));
+		JM_Reportes.add(mntmGenerarReporteEgresos);
 
 		mntmGenerarReporteLocal = new JMenuItem(this.idioma.getString("reporte.sucursal"));
 		JM_Reportes.add(mntmGenerarReporteLocal);
