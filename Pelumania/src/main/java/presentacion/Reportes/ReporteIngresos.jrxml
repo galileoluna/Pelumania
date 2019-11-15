@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteIngresos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="21deed51-b2be-45c1-98c5-57d62174b02a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="Desde" class="java.sql.Date"/>
+	<parameter name="Hasta" class="java.sql.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT SUM(PrecioLocal) AS "Total Local", SUM(PrecioDolar) AS "Total Dolar"
+FROM Caja, CategoriaCaja 
+WHERE Caja.idCategoriaCaja = CategoriaCaja.idCategoriaCaja
+AND Caja.Fecha >= $P{Desde} 
+AND Caja.Fecha <= $P{Hasta} 
+AND CategoriaCaja.TipoMovimiento = "Ingreso"]]>
+	</queryString>
+	<field name="Total Local" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Total Local"/>
+	</field>
+	<field name="Total Dolar" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Total Dolar"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="17" width="800" height="25" backcolor="#C9CC78" uuid="f875df54-b015-4cde-a5e6-b8288a9a0102"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte General]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="702" y="0" width="100" height="17" uuid="d566fafd-be01-465f-bc32-4228e9515a69"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<textField pattern="M/d/yy">
+				<reportElement x="60" y="0" width="50" height="30" uuid="cc5e088e-8504-4aec-82e1-47354f8f47e5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Desde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="170" y="0" width="50" height="30" uuid="11753c06-6e6e-4fc1-9378-2fc4cf770f9e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Hasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="29" uuid="30224887-2837-481b-9e41-8e2ae32a95cc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="60" height="29" uuid="21cc5c6d-eb66-4f9e-999b-15b2b35f77ba"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="184" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<subreport overflowType="Stretch">
+				<reportElement x="0" y="0" width="401" height="184" uuid="fc8901bf-af8d-4a8c-9ef7-2fec074a0c2c"/>
+				<subreportParameter name="Desde">
+					<subreportParameterExpression><![CDATA[$P{Desde}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Hasta">
+					<subreportParameterExpression><![CDATA[$P{Hasta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ReporteIngresosProductos.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport overflowType="Stretch">
+				<reportElement x="401" y="0" width="401" height="184" uuid="30337687-9fa5-4d1d-9508-c81e5042ac78"/>
+				<subreportParameter name="Desde">
+					<subreportParameterExpression><![CDATA[$P{Desde}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Hasta">
+					<subreportParameterExpression><![CDATA[$P{Hasta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ReporteIngresosServicios.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

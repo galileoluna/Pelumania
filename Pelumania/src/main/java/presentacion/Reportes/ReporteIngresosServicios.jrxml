@@ -65,9 +65,12 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="31" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="400" height="25" forecolor="#FFFFFF" backcolor="#C9CC78" uuid="268e2d0a-f0f9-4a33-bbe3-614ae939a3c2"/>
+				<box>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
@@ -76,69 +79,88 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="35" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="160" height="30" uuid="d81dd396-850b-4741-b6dd-aad40fdd4693">
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="d81dd396-850b-4741-b6dd-aad40fdd4693">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b7ea9e4-0d15-4684-b90f-483cd369e64e"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="0" width="50" height="30" uuid="484a0337-1a42-4161-a218-0bf105ae4c4e">
+				<reportElement mode="Opaque" x="100" y="0" width="20" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="484a0337-1a42-4161-a218-0bf105ae4c4e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f6a3ab5-3e51-47a2-9ecc-daa4040526b0"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[idCita]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cita]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="0" width="100" height="30" uuid="95631e17-d2f8-4b9f-9489-77f76ce4f6d0">
+				<reportElement mode="Opaque" x="120" y="0" width="50" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="95631e17-d2f8-4b9f-9489-77f76ce4f6d0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="440448c8-345b-4587-b78a-5d83f9a3578b"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="310" y="0" width="90" height="30" uuid="53593191-a008-4fcf-92a0-52494f772fb8">
+				<reportElement mode="Opaque" x="170" y="0" width="40" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="53593191-a008-4fcf-92a0-52494f772fb8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f03578fc-8315-4477-8f6c-762ef43e7a65"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[TipoDeCambio]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cambio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="0" width="100" height="30" uuid="3bf067d7-bd55-4355-8692-0aea97313a5e">
+				<reportElement mode="Opaque" x="210" y="0" width="50" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="3bf067d7-bd55-4355-8692-0aea97313a5e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9283e66-8021-4754-80c7-04852a9150e6"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Categoria]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="670" y="0" width="132" height="30" uuid="c3504c9e-e8a2-444f-bd27-9dac70ec5552">
+				<reportElement mode="Opaque" x="340" y="0" width="60" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="c3504c9e-e8a2-444f-bd27-9dac70ec5552">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94ae6e6d-3d9b-417f-a4d7-0ad439392ccf"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<box>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Sucursal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="500" y="0" width="90" height="30" uuid="e5087700-99ee-49e4-b00c-72c70a065d4c">
+				<reportElement mode="Opaque" x="260" y="0" width="40" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="e5087700-99ee-49e4-b00c-72c70a065d4c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9283e66-8021-4754-80c7-04852a9150e6"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Precio Local]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="590" y="0" width="80" height="30" uuid="3515ed20-3cb9-41b6-b2d3-bead18330ad8">
+				<reportElement mode="Opaque" x="300" y="0" width="40" height="30" forecolor="#FFFFFF" backcolor="#000000" uuid="3515ed20-3cb9-41b6-b2d3-bead18330ad8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9283e66-8021-4754-80c7-04852a9150e6"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Precio Dolar]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="160" height="20" uuid="239a2613-747d-412f-a1ec-7fce5196df55">
+				<reportElement x="0" y="0" width="100" height="20" uuid="239a2613-747d-412f-a1ec-7fce5196df55">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2b7ea9e4-0d15-4684-b90f-483cd369e64e"/>
 				</reportElement>
 				<box>
@@ -148,7 +170,7 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 				<textFieldExpression><![CDATA[$F{Nombre}+" "+$F{Apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="160" y="0" width="50" height="20" uuid="e61202bc-2287-4628-84f7-bf7c08b75346">
+				<reportElement x="100" y="0" width="20" height="20" uuid="e61202bc-2287-4628-84f7-bf7c08b75346">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f6a3ab5-3e51-47a2-9ecc-daa4040526b0"/>
 				</reportElement>
 				<box>
@@ -158,7 +180,7 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 				<textFieldExpression><![CDATA[$F{idCita}]]></textFieldExpression>
 			</textField>
 			<textField pattern="M/d/yy">
-				<reportElement x="210" y="0" width="100" height="20" uuid="9eb81e97-ae30-43ee-b114-b92b65e40fcf">
+				<reportElement x="120" y="0" width="50" height="20" uuid="9eb81e97-ae30-43ee-b114-b92b65e40fcf">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="440448c8-345b-4587-b78a-5d83f9a3578b"/>
 				</reportElement>
 				<box>
@@ -168,7 +190,7 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="0" width="90" height="20" uuid="f6cf297a-f5a8-4575-b0a8-a15c5dd2fc7f">
+				<reportElement x="170" y="0" width="40" height="20" uuid="f6cf297a-f5a8-4575-b0a8-a15c5dd2fc7f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f03578fc-8315-4477-8f6c-762ef43e7a65"/>
 				</reportElement>
 				<box>
@@ -178,7 +200,7 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 				<textFieldExpression><![CDATA[$F{TipoDeCambio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="400" y="0" width="100" height="20" uuid="4d8186f7-f99f-43c2-a71f-b04eba657cab">
+				<reportElement x="210" y="0" width="50" height="20" uuid="4d8186f7-f99f-43c2-a71f-b04eba657cab">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9283e66-8021-4754-80c7-04852a9150e6"/>
 				</reportElement>
 				<box>
@@ -188,17 +210,18 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 				<textFieldExpression><![CDATA[$F{Categoria}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="670" y="0" width="132" height="20" uuid="630b5b5c-0671-4307-aa4d-5f0d69c1d95d">
+				<reportElement x="340" y="0" width="60" height="20" uuid="630b5b5c-0671-4307-aa4d-5f0d69c1d95d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94ae6e6d-3d9b-417f-a4d7-0ad439392ccf"/>
 				</reportElement>
 				<box>
 					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Sucursal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="590" y="0" width="80" height="20" uuid="f85404b3-25f7-45eb-80da-1f2c8fd0cd89"/>
+				<reportElement x="300" y="0" width="40" height="20" uuid="f85404b3-25f7-45eb-80da-1f2c8fd0cd89"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -206,7 +229,7 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 				<textFieldExpression><![CDATA[$F{PrecioDolar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="500" y="0" width="90" height="20" uuid="49096573-ff71-4a49-8db7-7da912c992f1"/>
+				<reportElement x="260" y="0" width="40" height="20" uuid="49096573-ff71-4a49-8db7-7da912c992f1"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -218,19 +241,19 @@ ORDER BY Caja.idSucursal, Caja.Fecha]]>
 	<columnFooter>
 		<band height="26">
 			<staticText>
-				<reportElement mode="Opaque" x="400" y="0" width="100" height="25" forecolor="#FFFFFF" backcolor="#C9CC78" uuid="065f23bb-b151-49e7-9e67-6d8637fa3f7a"/>
+				<reportElement mode="Opaque" x="200" y="0" width="60" height="25" forecolor="#FFFFFF" backcolor="#C9CC78" uuid="065f23bb-b151-49e7-9e67-6d8637fa3f7a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="590" y="0" width="80" height="25" uuid="058797cc-192d-4198-a212-7eb9c8e2ade4"/>
+				<reportElement x="300" y="0" width="40" height="25" uuid="058797cc-192d-4198-a212-7eb9c8e2ade4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{PrecioDolar1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="500" y="0" width="90" height="25" uuid="2629f246-c207-4e38-b83a-828edbe67dc9"/>
+				<reportElement x="260" y="0" width="40" height="25" uuid="2629f246-c207-4e38-b83a-828edbe67dc9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{PrecioLocal1}]]></textFieldExpression>
 			</textField>
