@@ -10,14 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import util.PropertyManager;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
+
 import java.awt.Font;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
+
 
 public class VentanaBaseDeDatos extends JFrame {
 	
@@ -55,7 +52,7 @@ public class VentanaBaseDeDatos extends JFrame {
 		frmBdd = new JFrame();
 		frmBdd.setAutoRequestFocus(false);
 		frmBdd.setType(Type.POPUP);
-		frmBdd.setTitle("Manejo Base de Datos");
+		frmBdd.setTitle(this.idioma.getString("gestion.bdd"));
 		frmBdd.setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/bdd.png"));
 		frmBdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBdd.setBounds(100, 100, 408, 218);
@@ -73,17 +70,17 @@ public class VentanaBaseDeDatos extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Por favor Espere....");
+		JLabel lblNewLabel = new JLabel(this.idioma.getString("esperar"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setBounds(70, 11, 185, 45);
 		panel.add(lblNewLabel);
 		
-		JLabel lblUnaVezFinalizado = new JLabel("Una vez finalizado el proceso, sera informado");
+		JLabel lblUnaVezFinalizado = new JLabel(this.idioma.getString("informar.fin"));
 		lblUnaVezFinalizado.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblUnaVezFinalizado.setBounds(10, 56, 297, 45);
 		panel.add(lblUnaVezFinalizado);
 		
-		JLabel lblEstoPuedeTardar = new JLabel("Esto puede tardar unos minutos....");
+		JLabel lblEstoPuedeTardar = new JLabel(this.idioma.getString("demora"));
 		lblEstoPuedeTardar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblEstoPuedeTardar.setBounds(10, 103, 297, 45);
 		panel.add(lblEstoPuedeTardar);
@@ -102,5 +99,17 @@ public class VentanaBaseDeDatos extends JFrame {
 	{
 		
 		this.frmBdd.dispose();
+	}
+	
+	public void mostrarExitoImportar() {
+		JOptionPane.showMessageDialog(null, this.idioma.getString("exito.importar.bdd"));
+	}
+	
+	public void mostrarExitoExportar() {
+		JOptionPane.showMessageDialog(null, this.idioma.getString("exito.exportar.bdd"));
+	}
+	public void mostrarError() {
+		JOptionPane.showMessageDialog(new JFrame(),this.idioma.getString("error.generico"), "Dialog",
+				JOptionPane.ERROR_MESSAGE);
 	}
 }

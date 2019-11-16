@@ -15,7 +15,7 @@ public class BackUpDTO {
 	
 
 
-	public static void exportar() {
+	public static boolean exportar() {
 
 		   try {
 		      Process p = Runtime
@@ -33,14 +33,15 @@ public class BackUpDTO {
 		      }
 
 		      fos.close();
+		      return true;
 
 		   } catch (Exception e) {
-			   JOptionPane.showMessageDialog(null, "Algo salio mal vuelva a intentarlo!");
 		      e.printStackTrace();
+		      return false;
 		   }
 		}
 	
-	public static void importar() {
+	public static boolean importar() {
 		System.out.println("llegue al importar dto");
 		   try {
 		      Process p = Runtime
@@ -61,10 +62,11 @@ public class BackUpDTO {
 		      os.flush();
 		      os.close();
 		      fis.close();
+		      return true;
 
 		   } catch (Exception e) {
-			   JOptionPane.showMessageDialog(null, "Algo salio mal vuelva a intentarlo!");
 		      e.printStackTrace();
+		      return false;
 		   }
 		}
 	

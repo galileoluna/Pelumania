@@ -596,11 +596,11 @@ public class Sistema
 	/////// termina mail
 
 	// ARRANCA BACK UP 
-	public void exportarBdd() {
-		this.back.exportar();
+	public boolean exportarBdd() {
+		return this.back.exportar();
 	}
 	
-	public void importarBdd() {
-		this.back.importar();
+	public boolean importarBdd() {
+		return this.back.importar();
 	}
 }
