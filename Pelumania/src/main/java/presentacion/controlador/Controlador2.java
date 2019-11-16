@@ -126,8 +126,9 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmGestionDeProductos().addActionListener(j->ventanaProductos(j));
 		this.nvista.getMtmExportarBdd().addActionListener(p -> exportarBdd(p));
 		this.nvista.getMtmImportarBdd().addActionListener(q -> importarBdd(q));
-		this.nvista.getMtmVerManual().addActionListener(l -> traerPDF(l));
-	
+		this.nvista.getMtmVerManualIN().addActionListener(l -> traerPDF(l,"ingles"));
+		this.nvista.getMtmVerManualES().addActionListener(l -> traerPDF(l,"espanol"));
+
 		
 		
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
@@ -152,7 +153,7 @@ public class Controlador2 implements ActionListener{
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 		
-    	Timer timer=new Timer();
+		Timer timer=new Timer();
 		LocalDateTime fechaHoy = LocalDateTime.now();
 		
 		
@@ -188,8 +189,7 @@ public class Controlador2 implements ActionListener{
 		//aca selecciono cada cuanto se actualiza el timer, esta seleccionado 10 min en la tercera posicion
 		timer.schedule(vencerCitas, 1000, 20000);
 	
-	
-	    // timer recordatorio cita
+	// timer recordatorio cita
 		this.timerRecordatorios = new Timer();
 
 		TimerTask recordatorioCitas = new TimerTask() {
@@ -387,8 +387,8 @@ public class Controlador2 implements ActionListener{
 		this.controlBdd.getInstance(sistema,1);
 	}
 	
-	private void traerPDF(ActionEvent l) {
-		VisorPDF visor=new VisorPDF();
+	private void traerPDF(ActionEvent l, String idioma) {
+		VisorPDF visor=new VisorPDF(idioma);
 		visor.run();
 	}
 	
