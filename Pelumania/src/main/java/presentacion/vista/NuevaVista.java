@@ -83,8 +83,8 @@ public class NuevaVista implements Runnable {
 		private JMenu JM_BackBdd;
 			private JMenuItem mtmExportarBdd;
 			private JMenuItem mtmImportarBdd;
-
-
+		private JMenu JM_Ayuda;
+			private JMenuItem mtmVerManual;
 
 	private JPanel JPnl_Izquierdo;
 	
@@ -331,6 +331,10 @@ public class NuevaVista implements Runnable {
 		mtmImportarBdd = new JMenuItem("Importar Base de Datos");
 		JM_BackBdd.add(mtmImportarBdd);
 		
+		JM_Ayuda=new JMenu("ayuda");
+		menuBar.add(JM_Ayuda);
+		mtmVerManual = new JMenuItem("Ver manual");
+		JM_Ayuda.add(mtmVerManual);
 	}
 
 	private void crearCalendario() {
@@ -835,7 +839,7 @@ public class NuevaVista implements Runnable {
 		  calcula();
 		  Lbl_Reloj.setText(hora + ":" + minutos + ":" + segundos + " "+ampm);
 		  try {
-		   Thread.sleep(1000);
+		       Thread.sleep(1000);
 		  }catch(InterruptedException e) {}
 		 }
 	}
@@ -848,14 +852,14 @@ public class NuevaVista implements Runnable {
 		ampm = calendario.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
 
 		if(ampm.equals("PM")){
-		 int h = calendario.get(Calendar.HOUR_OF_DAY)-12;
-		 hora = h>9?""+h:"0"+h;
+		    int h = calendario.get(Calendar.HOUR_OF_DAY)-12;
+		    hora = h>9?""+h:"0"+h;
 		}else{
-		 hora = calendario.get(Calendar.HOUR_OF_DAY)>9?""+calendario.get(Calendar.HOUR_OF_DAY):"0"+calendario.get(Calendar.HOUR_OF_DAY);            
+		    hora = calendario.get(Calendar.HOUR_OF_DAY)>9?""+calendario.get(Calendar.HOUR_OF_DAY):"0"+calendario.get(Calendar.HOUR_OF_DAY);            
 		}
 		minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
 		segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND); 
-		}
+	}
 
 	public JFrame getFrame() {
 		return frame;
@@ -1217,22 +1221,6 @@ public class NuevaVista implements Runnable {
 	public JMenuItem getMtmCambiarIdioma() {
 		return mtmCambiarIdioma;
 	}
-
-	public int mostrarConfirmacionBorrar() {
-		return JOptionPane.showOptionDialog(null, idioma.getString("borrar.confirmacion"),idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, null, null);
-		
-	}
-
-	public void mostrarErrorDomingo() {
-		JOptionPane.showMessageDialog(null, this.idioma.getString("cita.error.domingo"));
-		
-	}
-
-	public void mostrarErrorFechaPasada() {
-		JOptionPane.showMessageDialog(null, idioma.getString("cita.error.dia.pasado"));
-		
-	}
 	
 	public JMenu getJM_BackBdd() {
 		return JM_BackBdd;
@@ -1245,5 +1233,25 @@ public class NuevaVista implements Runnable {
 	public JMenuItem getMtmImportarBdd() {
 		return mtmImportarBdd;
 	}
-}
+	
+	public JMenu getJM_Ayuda() {
+		return JM_Ayuda;
+	}
+	
+	public JMenuItem getMtmVerManual() {
+		return mtmVerManual;
+	}
+	
+	public int mostrarConfirmacionBorrar() {
+		return JOptionPane.showOptionDialog(null, idioma.getString("borrar.confirmacion"),idioma.getString("confirmacion"), JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, null, null);
+	}
 
+	public void mostrarErrorDomingo() {
+		JOptionPane.showMessageDialog(null, this.idioma.getString("cita.error.domingo"));
+	}
+
+	public void mostrarErrorFechaPasada() {
+		JOptionPane.showMessageDialog(null, idioma.getString("cita.error.dia.pasado"));
+	}
+}
