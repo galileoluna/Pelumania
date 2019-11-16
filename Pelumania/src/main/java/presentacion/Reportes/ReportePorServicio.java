@@ -24,7 +24,7 @@ public class ReportePorServicio {
 	//Recibe la lista de personas para armar el reporte
     public ReportePorServicio(ServicioDTO servicio, Date desde, Date hasta)
     {
-    	
+    	System.out.println(servicio.getNombre());
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("idServicio", servicio.getIdServicio());
 		parametersMap.put("Desde", desde);

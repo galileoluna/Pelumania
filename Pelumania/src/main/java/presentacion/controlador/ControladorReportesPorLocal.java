@@ -2,6 +2,7 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +55,15 @@ public class ControladorReportesPorLocal /*implements ActionListener*/ {
 		String desde = formato.format(ventanaReportes.getJdc_Desde().getDate());
 		String hasta = formato.format(ventanaReportes.getJdc_Hasta().getDate());
 		
-		String desdeParaReporte=desde+" 00:00:01";
-		String hastaParaReporte=hasta+" 11:59:59";
+//		String desdeParaReporte=desde+" 00:00:01";
+//		String hastaParaReporte=hasta+" 11:59:59";
 		
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex()+1);
-
-		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(caja,desde,hasta);
+		Date Desde = Date.valueOf(desde);
+		Date Hasta = Date.valueOf(hasta);
+		
+//		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaSucursal(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Sucursal().getSelectedIndex()+1);
+		SucursalDTO sucu = (SucursalDTO) this.ventanaReportes.getJcb_Sucursal().getSelectedItem();
+		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(sucu,Desde,Hasta);
 		reporteDeCajaSucursal.mostrar();
 	}	
 }
