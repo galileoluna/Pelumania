@@ -3,7 +3,7 @@ package util;
 import javax.swing.JOptionPane;
 
 public class VisorPDF {
-	String archivo="manual\\cv.pdf";
+	String archivo="manual\\manual.pdf";
 	
 	public void run() {
 		try {
