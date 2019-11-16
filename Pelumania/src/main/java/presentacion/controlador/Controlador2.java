@@ -127,7 +127,8 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmGestionDeProductos().addActionListener(j->ventanaProductos(j));
 		this.nvista.getMtmExportarBdd().addActionListener(p -> exportarBdd(p));
 		this.nvista.getMtmImportarBdd().addActionListener(q -> importarBdd(q));
-		
+		this.nvista.getMtmVerManual().addActionListener(l -> traerPDF(l));
+	
 		
 		
 		this.nvista.getCalendario().addPropertyChangeListener(i -> actualizarDiaSeleccionado(i));
@@ -382,6 +383,11 @@ public class Controlador2 implements ActionListener{
 
 	private void exportarBdd(ActionEvent p) {
 		this.controlBdd.getInstance(sistema,1);
+	}
+	
+	private void traerPDF(ActionEvent l) {
+		VisorPDF visor=new VisorPDF();
+		visor.run();
 	}
 	
 	private void cancelarCita(ActionEvent e) {
