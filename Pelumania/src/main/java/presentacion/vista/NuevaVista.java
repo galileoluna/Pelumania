@@ -84,7 +84,8 @@ public class NuevaVista implements Runnable {
 			private JMenuItem mtmExportarBdd;
 			private JMenuItem mtmImportarBdd;
 		private JMenu JM_Ayuda;
-			private JMenuItem mtmVerManual;
+			private JMenuItem mtmVerManualIN;
+			private JMenuItem mtmVerManualES;
 
 	private JPanel JPnl_Izquierdo;
 	
@@ -333,8 +334,10 @@ public class NuevaVista implements Runnable {
 		
 		JM_Ayuda=new JMenu(this.idioma.getString("ayuda"));
 		menuBar.add(JM_Ayuda);
-		mtmVerManual = new JMenuItem(this.idioma.getString("ver.manual"));
-		JM_Ayuda.add(mtmVerManual);
+		mtmVerManualIN = new JMenuItem(this.idioma.getString("manual ingles"));
+		JM_Ayuda.add(mtmVerManualIN);
+		mtmVerManualES = new JMenuItem(this.idioma.getString("manual español"));
+		JM_Ayuda.add(mtmVerManualES);
 	}
 
 	private void crearCalendario() {
@@ -1238,8 +1241,12 @@ public class NuevaVista implements Runnable {
 		return JM_Ayuda;
 	}
 	
-	public JMenuItem getMtmVerManual() {
-		return mtmVerManual;
+	public JMenuItem getMtmVerManualIN() {
+		return mtmVerManualIN;
+	}
+	
+	public JMenuItem getMtmVerManualES() {
+		return mtmVerManualES;
 	}
 	
 	public int mostrarConfirmacionBorrar() {
