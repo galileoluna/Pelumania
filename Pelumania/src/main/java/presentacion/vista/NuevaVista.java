@@ -334,9 +334,9 @@ public class NuevaVista implements Runnable {
 		
 		JM_Ayuda=new JMenu(this.idioma.getString("ayuda"));
 		menuBar.add(JM_Ayuda);
-		mtmVerManualIN = new JMenuItem(this.idioma.getString("manual ingles"));
+		mtmVerManualIN = new JMenuItem("manual ingles");
 		JM_Ayuda.add(mtmVerManualIN);
-		mtmVerManualES = new JMenuItem(this.idioma.getString("manual español"));
+		mtmVerManualES = new JMenuItem("manual español");
 		JM_Ayuda.add(mtmVerManualES);
 	}
 
