@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 
+import dto.BackUpDTO;
 import dto.CategoriaMovimientoCajaDTO;
 import dto.CitaDTO;
 import dto.ClienteDTO;
@@ -50,6 +51,7 @@ public class Sistema
 	private UsuarioDAO usuario;
 	private ProductoDAO producto;
 	private MailDAO mail;
+	private BackUpDTO back;
 	
 	public Sistema(DAOAbstractFactory metodo_persistencia)
 	{
@@ -593,4 +595,12 @@ public class Sistema
 	
 	/////// termina mail
 
+	// ARRANCA BACK UP 
+	public void exportarBdd() {
+		this.back.exportar();
+	}
+	
+	public void importarBdd() {
+		this.back.importar();
+	}
 }

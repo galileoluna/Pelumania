@@ -80,6 +80,9 @@ public class NuevaVista implements Runnable {
 			private JMenuItem mtmCambiarContrasenia;
 		private JMenu JM_Idioma;
 			private JMenuItem mtmCambiarIdioma;
+		private JMenu JM_BackBdd;
+			private JMenuItem mtmExportarBdd;
+			private JMenuItem mtmImportarBdd;
 
 
 
@@ -320,6 +323,14 @@ public class NuevaVista implements Runnable {
 		menuBar.add(JM_Idioma);
 		mtmCambiarIdioma = new JMenuItem(this.idioma.getString("idioma.cambiar"));
 		JM_Idioma.add(mtmCambiarIdioma);
+		
+		JM_BackBdd = new JMenu("Base de Datos");
+		menuBar.add(JM_BackBdd);
+		mtmExportarBdd = new JMenuItem("Exportar Base de Datos");
+		JM_BackBdd.add(mtmExportarBdd);
+		mtmImportarBdd = new JMenuItem("Importar Base de Datos");
+		JM_BackBdd.add(mtmImportarBdd);
+		
 	}
 
 	private void crearCalendario() {
@@ -1221,6 +1232,18 @@ public class NuevaVista implements Runnable {
 	public void mostrarErrorFechaPasada() {
 		JOptionPane.showMessageDialog(null, idioma.getString("cita.error.dia.pasado"));
 		
+	}
+	
+	public JMenu getJM_BackBdd() {
+		return JM_BackBdd;
+	}
+
+	public JMenuItem getMtmExportarBdd() {
+		return mtmExportarBdd;
+	}
+
+	public JMenuItem getMtmImportarBdd() {
+		return mtmImportarBdd;
 	}
 }
 

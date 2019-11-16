@@ -72,6 +72,7 @@ public class Controlador2 implements ActionListener{
 	private ControladorUsuario controladorUsuario;
 	private ControladorCambiarContrasenia controladorCambContra;
 	private ControladorIdioma controladorIdioma;
+	private ControladorBaseDeDatos controlBdd;
 
 	/*
 	 * Arreglos que se utilizan en la vista
@@ -124,6 +125,8 @@ public class Controlador2 implements ActionListener{
 		this.nvista.getMntmReporteRanking().addActionListener(g ->ventanaReporteRanking(g));
 		this.nvista.getMtmCambiarIdioma().addActionListener(l -> ventanaCambiarIdioma(l));
 		this.nvista.getMntmGestionDeProductos().addActionListener(j->ventanaProductos(j));
+		this.nvista.getMtmExportarBdd().addActionListener(p -> exportarBdd(p));
+		this.nvista.getMtmImportarBdd().addActionListener(q -> importarBdd(q));
 		
 		
 		
@@ -198,6 +201,8 @@ public class Controlador2 implements ActionListener{
 		this.timerRecordatorios.schedule(recordatorioCitas, 1000, 60000);
 
  	}
+
+	
 
 	private void refrescarMailsRecordatorio() {
 		this.mailsRecordatorio = this.sistema.readAllOneDay(LocalDate.now());
@@ -280,12 +285,14 @@ public class Controlador2 implements ActionListener{
 				 this.nvista.getMntmReportePorProfesional().setVisible(false);
 				 this.nvista.getMntmReportePorServicio().setVisible(false);
 				 this.nvista.getMntmReporteLocal().setVisible(false);
+				 this.nvista.getJM_BackBdd().setVisible(false);
 		    break;
 		  case 3:
 			    this.nvista.getMntmGestionarUsuarios().setVisible(false);
 			  	this.nvista.getJM_Reportes().setVisible(false);
 				this.nvista.getMntmGestionDePromociones().setVisible(false);
 				this.nvista.getJM_Sucursales().setVisible(false);
+				this.nvista.getJM_BackBdd().setVisible(false);
 			  break;
 		  case 4:
 			     this.nvista.getMntmGestionarUsuarios().setVisible(false);
@@ -298,6 +305,7 @@ public class Controlador2 implements ActionListener{
 				 this.nvista.getMntmReportePorProfesional().setVisible(false);
 				 this.nvista.getMntmReportePorServicio().setVisible(false);
 				 this.nvista.getMntmReporteRanking().setVisible(false);
+				 this.nvista.getJM_BackBdd().setVisible(false);
 			 break;
 		}		
 	}
@@ -366,6 +374,14 @@ public class Controlador2 implements ActionListener{
 
 	private void ventanaReporteRanking(ActionEvent g) {
 		this.controladorReporteRankingVentas=ControladorReporteRankingDeVentas.getInstance(sistema);
+	}
+	
+	private void importarBdd(ActionEvent q) {
+		this.controlBdd.getInstance(sistema,0);
+	}
+
+	private void exportarBdd(ActionEvent p) {
+		this.controlBdd.getInstance(sistema,1);
 	}
 	
 	private void cancelarCita(ActionEvent e) {
