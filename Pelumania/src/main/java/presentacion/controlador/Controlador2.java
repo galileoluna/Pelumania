@@ -152,7 +152,7 @@ public class Controlador2 implements ActionListener{
 
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 		
-	Timer timer=new Timer();
+    	Timer timer=new Timer();
 		LocalDateTime fechaHoy = LocalDateTime.now();
 		
 		
@@ -161,21 +161,23 @@ public class Controlador2 implements ActionListener{
 			public void run() {
 				List<CitaDTO>citasDeHoy=sistema.getCitasPorDia(LocalDate.now().toString());
 				for(int i=0;i<citasDeHoy.size();i++) {
-					if(citasDeHoy.get(i).esSoloActiva() && compararMas10minutosParaCancelar(citasDeHoy.get(i).getHoraInicio(),fechaHoy.getHour(),fechaHoy.getMinute()) ) {
+					System.out.println(citasDeHoy.get(i).getEstado());
+					if(citasDeHoy.get(i).esSoloActiva() && compararMas5minutosParaCancelar(citasDeHoy.get(i).getHoraInicio(),fechaHoy.getHour(),fechaHoy.getMinute()) ) {
+						System.out.println(citasDeHoy.get(i).getEstado());
 						sistema.ponerCitaVencida(citasDeHoy.get(i));
 						refrescarTablaCitas();
+						
 					}
 				}
 			}
 
-			private boolean compararMas10minutosParaCancelar(LocalTime horaInicio, int hora, int minutos) {
+			private boolean compararMas5minutosParaCancelar(LocalTime horaInicio, int hora, int minutos) {
 				int horaCita=horaInicio.getHour();
 				int minutoCita=horaInicio.getMinute();
-				
-				if(minutoCita>50) {
+				if(minutoCita>55) {
 					horaCita+=1;
-					minutoCita=minutoCita+10-50;
-				}else minutoCita=minutoCita+10;
+					minutoCita=minutoCita+5-55;
+				}else minutoCita=minutoCita+5;
 				
 				if(horaCita<hora) {
 					if(minutoCita<minutos)return true;
@@ -184,9 +186,10 @@ public class Controlador2 implements ActionListener{
 			}
 		};
 		//aca selecciono cada cuanto se actualiza el timer, esta seleccionado 10 min en la tercera posicion
-		timer.schedule(vencerCitas, 1000, 100000);
+		timer.schedule(vencerCitas, 1000, 20000);
 	
-	// timer recordatorio cita
+	
+	    // timer recordatorio cita
 		this.timerRecordatorios = new Timer();
 
 		TimerTask recordatorioCitas = new TimerTask() {
