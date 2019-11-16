@@ -30,6 +30,7 @@ import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.NuevaVista;
 import util.TimerEstadosCitas;
+import util.VisorPDF;
 import util.MailService;
 
 public class Controlador2 implements ActionListener{
