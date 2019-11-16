@@ -508,14 +508,15 @@ public class ControladorCita implements ActionListener{
 		if (validarCita()) {
 			Integer idCitaAgregada;
 			
-			LocalTime horaInicioMock = LocalTime.now().plus(1,ChronoUnit.MINUTES);
-			LocalTime horaFinMock = horaInicioMock.plus(1,ChronoUnit.MINUTES);
+//			LocalTime horaInicioMock = LocalTime.now().plus(1,ChronoUnit.MINUTES);
+//			LocalTime horaFinMock = horaInicioMock.plus(1,ChronoUnit.MINUTES);
 			
 			CitaDTO nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
 					this.ventanaCita.getCliente().getNombre(), this.ventanaCita.getCliente().getApellido(), 
 					this.ventanaCita.getTxtTelefono().getText(), this.ventanaCita.getTxtMail().getText(),
 					"Activa", this.ventanaCita.getTotal(), this.ventanaCita.getTotalUSD(), 
-					horaInicioMock, horaFinMock,
+//					horaInicioMock, horaFinMock,
+					this.ventanaCita.getHoraInicio(), this.ventanaCita.getHoraFin(),
 					this.ventanaCita.getFechaCita(), this.ventanaCita.getSucursal().getIdSucursal(),-1);
 			if(promocionSeleccionada != null && promocionSeleccionada.getIdPromocion() > 0) {
 				nuevaCita = new CitaDTO(0, -1, this.ventanaCita.getCliente().getIdCliente(), 
