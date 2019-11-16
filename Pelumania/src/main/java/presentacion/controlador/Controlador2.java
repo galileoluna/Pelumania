@@ -29,7 +29,6 @@ import dto.UsuarioDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReporteComprobante;
 import presentacion.vista.NuevaVista;
-import util.TimerEstadosCitas;
 import util.VisorPDF;
 import util.MailService;
 
@@ -46,7 +45,6 @@ public class Controlador2 implements ActionListener{
 	
 	private static LocalDate fechaSeleccionada;
 	private CitaDTO citaSeleccionada;
-	private TimerEstadosCitas timerEstados;
 	
 	/*
 	 * Controladores a instanciar 
@@ -816,7 +814,6 @@ public class Controlador2 implements ActionListener{
 				else if (horaInicioCita.compareTo(horaActual) == 0 && !fueRecordada(citaProxima.getIdCita())) {
 
 					sistema.insertMail(new MailDTO(0, citaProxima.getIdCita(), LocalDate.now()));
-
 					/// hay que ver como conseguir el mail de un cliente no registrado
 
 					ClienteDTO cliente = sistema.obtenerClienteById(citaProxima.getIdCliente());

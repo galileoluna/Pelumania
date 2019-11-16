@@ -1,13 +1,11 @@
 package presentacion.controlador;
 
-import java.io.FileInputStream;
 
 import javax.swing.JOptionPane;
 
 import dto.BackUpDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaBaseDeDatos;
-import presentacion.vista.VentanaCliente;
 
 public class ControladorBaseDeDatos {
 	private static VentanaBaseDeDatos ventanaBDD;
@@ -34,16 +32,22 @@ public class ControladorBaseDeDatos {
 
 	private static void importar() {
 		ventanaBDD.show();
-		sistema.importarBdd();
-		JOptionPane.showMessageDialog(null, "Se importo la base de datos con Exito!, Para que los cambios sean aplicados se debe cerrar la Aplicacion y volverse a abrir");
+		if(sistema.importarBdd()) {
+			ventanaBDD.mostrarExitoImportar();
+		} else {
+			ventanaBDD.mostrarError();
+		}
 		ventanaBDD.cerrar();
 		
 	}
 
 	private static void exportar() {
 		ventanaBDD.show();
-		sistema.exportarBdd();
-		JOptionPane.showMessageDialog(null, "Se exporto la base de datos con Exito!");
+		if (sistema.exportarBdd()) {
+			ventanaBDD.mostrarExitoExportar();
+		} else {
+			ventanaBDD.mostrarError();
+		}
 		ventanaBDD.cerrar();
 		
 		

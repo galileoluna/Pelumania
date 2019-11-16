@@ -326,14 +326,14 @@ public class NuevaVista implements Runnable {
 		
 		JM_BackBdd = new JMenu("Base de Datos");
 		menuBar.add(JM_BackBdd);
-		mtmExportarBdd = new JMenuItem("Exportar Base de Datos");
+		mtmExportarBdd = new JMenuItem(this.idioma.getString("exportar.bdd"));
 		JM_BackBdd.add(mtmExportarBdd);
-		mtmImportarBdd = new JMenuItem("Importar Base de Datos");
+		mtmImportarBdd = new JMenuItem(this.idioma.getString("importar.bdd"));
 		JM_BackBdd.add(mtmImportarBdd);
 		
-		JM_Ayuda=new JMenu("ayuda");
+		JM_Ayuda=new JMenu(this.idioma.getString("ayuda"));
 		menuBar.add(JM_Ayuda);
-		mtmVerManual = new JMenuItem("Ver manual");
+		mtmVerManual = new JMenuItem(this.idioma.getString("ver.manual"));
 		JM_Ayuda.add(mtmVerManual);
 	}
 
