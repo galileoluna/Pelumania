@@ -3,7 +3,13 @@ package util;
 import javax.swing.JOptionPane;
 
 public class VisorPDF {
-	String archivo="manual\\manual.pdf";
+	String archivo;
+	
+	public VisorPDF(String idioma) {
+		if(idioma.compareToIgnoreCase("ingles")==0) {
+			archivo="manual\\manualing.pdf";
+		}else archivo="manual\\manualesp.pdf";
+	}
 	
 	public void run() {
 		try {
