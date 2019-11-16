@@ -241,11 +241,11 @@ CREATE TABLE IF NOT EXISTS `TipoMail`(
 
 CREATE TABLE IF NOT EXISTS `Mail`(
 
-  `idEnviarMail` INT(11) NOT NULL AUTO_INCREMENT,
+  `idMail` INT(11) NOT NULL AUTO_INCREMENT,
   `IdCita` INT(11) NOT NULL,
   `Fecha` TIMESTAMP  NULL,
 
-  PRIMARY KEY(`idEnviarMail`),
+  PRIMARY KEY(`idMail`),
   FOREIGN KEY (`IdCita`) REFERENCES `Cita`(`IdCita`)
 );
 
