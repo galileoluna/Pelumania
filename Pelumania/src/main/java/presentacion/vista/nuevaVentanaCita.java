@@ -713,6 +713,8 @@ public class nuevaVentanaCita {
 		limpiarTxtCliente();
 		setearTxt(true);
 		
+		this.JCBoxHora.removeAllItems();
+		this.JCBoxMinutos.removeAllItems();
 		this.JCBoxHora.setSelectedItem(null);
 		this.JCBoxMinutos.setSelectedItem(null);
 		
