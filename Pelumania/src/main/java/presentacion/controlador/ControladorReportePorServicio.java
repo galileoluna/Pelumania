@@ -55,6 +55,7 @@ public class ControladorReportePorServicio {
 //		ArrayList<MovimientoCajaDTO>servicio=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientosCajaIngresosServicio(desdeParaReporte,hastaParaReporte,this.ventanaReportes.getJcb_Servicio().getSelectedIndex()+1);
 		
 		ServicioDTO servicio = (ServicioDTO) this.ventanaReportes.getJcb_Servicio().getSelectedItem();
+		System.out.println("Se eligio"+servicio.getNombre()+" y su id es: "+servicio.getIdServicio());
 		ReportePorServicio reportePorServicio = new ReportePorServicio(servicio,Desde,Hasta);
 		reportePorServicio.mostrar();
 	}
