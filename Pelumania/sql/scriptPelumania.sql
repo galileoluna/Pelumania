@@ -174,11 +174,8 @@ CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
 	`idCategoriaCaja` INT(11) NOT NULL AUTO_INCREMENT,
 	`Nombre` VARCHAR(55) NOT NULL,
     `Estado` VARCHAR(55) NOT NULL,
-    `TipoMovimiento` VARCHAR(55) NOT NULL
-    -- Esta linea que sigue es borrable, es solo para que los insert funcionen
-    -- ________________________________________________________________________
-    DEFAULT("ValorPorDefecto"),
-    -- ________________________________________________________________________
+    `TipoMovimiento` VARCHAR(55) NOT NULL,
+    
     PRIMARY KEY(`idCategoriaCaja`)
 );
 
@@ -271,6 +268,18 @@ CREATE TABLE IF NOT EXISTS `permisosUsuario`(
   
   FOREIGN KEY (`idRol`) REFERENCES `Rol`(`idRol`)
   
+);
+
+CREATE TABLE IF NOT EXISTS `Producto`(
+
+  `IdProducto` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(55) NOT NULL,
+  `PrecioLocal` decimal(13,2) NOT NULL,
+  `PrecioDolar` decimal(13,2) NOT NULL,
+  `Puntos` INT (4) NOT NULL,
+  `Estado` VARCHAR(10) NOT NULL,
+
+  PRIMARY KEY(`IdProducto`)
 
 );
 
