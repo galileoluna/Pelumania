@@ -1,11 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/java/presentacion/Reportes/ReporteComprobante.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteDeCajaGeneral.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteDeCajaPorSucursal.jrxml=UTF-8
-encoding//src/main/java/presentacion/Reportes/ReportePorCliente.jrxml=UTF-8
-encoding//src/main/java/presentacion/Reportes/ReportePorProfesional.jrxml=UTF-8
-encoding//src/main/java/presentacion/Reportes/ReportePorServicio.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteRankingVendedores.jrxml=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
