@@ -1,6 +1,7 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -8,6 +9,7 @@ import java.util.Locale;
 import dto.MovimientoCajaDTO;
 import modelo.Sistema;
 import presentacion.Reportes.ReporteDeCajaPorSucursal;
+import presentacion.Reportes.ReporteRankingVendedores;
 import presentacion.vista.VentanaReporteRankingVentas;
 
 public class ControladorReporteRankingDeVentas {
@@ -37,11 +39,14 @@ public class ControladorReporteRankingDeVentas {
 			
 		String desdeParaReporte=desde+" 00:00:01";
 		String hastaParaReporte=hasta+" 11:59:59";
+		
+		Date Desde = Date.valueOf(desde);
+		Date Hasta = Date.valueOf(hasta);
 			
-		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientoCajaRanking(desdeParaReporte,hastaParaReporte);
+//		ArrayList<MovimientoCajaDTO>caja=(ArrayList<MovimientoCajaDTO>) sistema.obtenerMovimientoCajaRanking(desdeParaReporte,hastaParaReporte);
 
-		ReporteDeCajaPorSucursal reporteDeCajaSucursal = new ReporteDeCajaPorSucursal(caja,desde,hasta);
-		reporteDeCajaSucursal.mostrar();
+		ReporteRankingVendedores reporteRankingVentas = new ReporteRankingVendedores(Desde,Hasta);
+		reporteRankingVentas.mostrar();
 			
 	}
 	
