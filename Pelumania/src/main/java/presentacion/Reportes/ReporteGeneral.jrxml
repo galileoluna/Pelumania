@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteGeneral" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00b11ba2-f449-41ec-8606-ef42580e882c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="Desde" class="java.sql.Date"/>
+	<parameter name="Hasta" class="java.sql.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT CategoriaCaja.TipoMovimiento, CategoriaCaja.Nombre, COUNT(CategoriaCaja.TipoMovimiento) AS CantidadTotal
+FROM Caja, CategoriaCaja
+WHERE Caja.idCategoriaCaja = CategoriaCaja.idCategoriaCaja
+AND Caja.Fecha >=$P{Desde} 
+AND Caja.Fecha <=$P{Hasta} 
+GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
+	</queryString>
+	<field name="TipoMovimiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TipoMovimiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoriacaja"/>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoriacaja"/>
+	</field>
+	<field name="CantidadTotal" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="CantidadTotal"/>
+	</field>
+	<variable name="TipoMovimiento1" class="java.lang.Integer" resetType="Group" resetGroup="Group1" calculation="Count">
+		<variableExpression><![CDATA[$F{TipoMovimiento}]]></variableExpression>
+	</variable>
+	<variable name="CantidadTotal1" class="java.lang.Long" resetType="Group" resetGroup="Group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{CantidadTotal}]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{TipoMovimiento}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement x="0" y="0" width="100" height="30" uuid="1fb6673a-774e-451b-9164-ab6967568a10"/>
+					<textFieldExpression><![CDATA[$F{TipoMovimiento}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<textField>
+					<reportElement x="190" y="0" width="100" height="30" uuid="a4f452b2-1bee-4215-8906-bc7ea28ca338"/>
+					<textFieldExpression><![CDATA[$V{CantidadTotal1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="60" y="4" width="111" height="21" uuid="5d2c1b73-1071-4602-a13e-3ea156474230"/>
+					<text><![CDATA[Total: ]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="13" width="554" height="25" backcolor="#C9CC78" uuid="a929554d-4051-48b6-92a0-1eb132e0a43c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte General]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="454" y="-4" width="100" height="17" uuid="09a3487f-2e35-4f0e-b3dd-0b539a332aa3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<textField pattern="M/d/yy">
+				<reportElement x="70" y="0" width="50" height="27" uuid="497abd9e-9bf1-4983-bcd4-64da95de5dc3"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Desde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="180" y="0" width="50" height="28" uuid="eb1dc91a-72d0-4cd5-9b5b-2953bb13dc27"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Hasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="0" width="60" height="27" uuid="bc1b8770-ff0a-4fb1-a00a-43808916c0de"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="0" width="60" height="28" uuid="16a3802d-9d31-4518-873d-ce269a4c3eaa"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="278" height="30" uuid="84d40e67-891d-47b5-a3a5-8dba81371731">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b3747b18-6b2d-4214-ae5a-392e14487786"/>
+				</reportElement>
+				<text><![CDATA[Tipo de Movimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="277" height="30" uuid="85d75462-3802-40cb-93aa-d4c35c8deb22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b1711e7-fcc5-4baf-b43f-5ed771f0299c"/>
+				</reportElement>
+				<text><![CDATA[Cantidad ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="278" height="30" uuid="f7fd8a31-424a-44ec-ba5a-d9f79cebd5ec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b3747b18-6b2d-4214-ae5a-392e14487786"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="277" height="30" uuid="bfc0d8a0-6d0e-4b20-a15f-310d5a9b792a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b1711e7-fcc5-4baf-b43f-5ed771f0299c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CantidadTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
