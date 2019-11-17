@@ -944,6 +944,9 @@ public class NuevaVista implements Runnable {
 		return mntmGenerarReporteIngresos;
 	}
 
+	public JMenuItem getMntmReporteEgresos() {
+		return mntmGenerarReporteEgresos;
+	}
 	
 	public JMenuItem getMntmReportePorServicio() {
 		return mntmGenerarReportePorServicio;

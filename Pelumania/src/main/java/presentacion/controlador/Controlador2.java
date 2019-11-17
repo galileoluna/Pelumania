@@ -65,6 +65,7 @@ public class Controlador2 implements ActionListener{
 	private ControladorReportesPorLocal controladorReportesPorLocal;
 	private ControladorReporteGeneral controladorReporteGeneral;
 	private ControladorReporteIngresos controladorReporteIngresos;
+	private ControladorReporteEgresos controladorReporteEgresos;
 	private ControladorReportePorServicio controladorReportePorServicio;
 	private ControladorReportePorCliente controladorReportePorCliente;
 	private ControladorReportePorProfesional controladorReportePorProfesional;
@@ -120,7 +121,7 @@ public class Controlador2 implements ActionListener{
         this.nvista.getMntmReporteLocal().addActionListener(l -> ventanaReportesLocal(l));
 		this.nvista.getMntmReporteGeneral().addActionListener(h -> ventanaReporteGeneral(h));
 		this.nvista.getMntmReporteIngresos().addActionListener(h -> ventanaReporteIngresos(h));
-		
+		this.nvista.getMntmReporteEgresos().addActionListener(h -> ventanaReporteEgresos(h));
 		this.nvista.getMntmReportePorServicio().addActionListener(l -> ventanaReporteServicio(l));
 		this.nvista.getMntmReportePorCliente().addActionListener(g -> ventanaReporteCliente(g));
 		this.nvista.getMntmReportePorProfesional().addActionListener(l -> ventanaReporteProfesional(l));
@@ -368,6 +369,10 @@ public class Controlador2 implements ActionListener{
 
 	private void ventanaReporteIngresos(ActionEvent h) {
 		this.controladorReporteIngresos=ControladorReporteIngresos.getInstance(sistema);
+	}
+	
+	private void ventanaReporteEgresos(ActionEvent h) {
+		this.controladorReporteEgresos=ControladorReporteEgresos.getInstance(sistema);
 	}
 	
 	private void ventanaReporteServicio(ActionEvent l) {
