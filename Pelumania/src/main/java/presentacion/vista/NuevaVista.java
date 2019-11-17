@@ -325,7 +325,7 @@ public class NuevaVista implements Runnable {
 		mtmCambiarIdioma = new JMenuItem(this.idioma.getString("idioma.cambiar"));
 		JM_Idioma.add(mtmCambiarIdioma);
 		
-		JM_BackBdd = new JMenu("Base de Datos");
+		JM_BackBdd = new JMenu(this.idioma.getString("bdd"));
 		menuBar.add(JM_BackBdd);
 		mtmExportarBdd = new JMenuItem(this.idioma.getString("exportar.bdd"));
 		JM_BackBdd.add(mtmExportarBdd);
@@ -334,9 +334,9 @@ public class NuevaVista implements Runnable {
 		
 		JM_Ayuda=new JMenu(this.idioma.getString("ayuda"));
 		menuBar.add(JM_Ayuda);
-		mtmVerManualIN = new JMenuItem("manual ingles");
+		mtmVerManualIN = new JMenuItem(this.idioma.getString("ver.manual.en"));
 		JM_Ayuda.add(mtmVerManualIN);
-		mtmVerManualES = new JMenuItem("manual español");
+		mtmVerManualES = new JMenuItem(this.idioma.getString("ver.manual.es"));
 		JM_Ayuda.add(mtmVerManualES);
 	}
 
