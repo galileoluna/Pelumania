@@ -1,6 +1,7 @@
 package presentacion.Reportes;
 
 import java.io.File;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,6 +19,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import persistencia.conexion.Conexion;
 
 public class ReporteDeCajaGeneral {
 	private JasperReport reporte;
@@ -25,38 +27,16 @@ public class ReporteDeCajaGeneral {
 	private JasperPrint	reporteLleno;
 	private Logger log = Logger.getLogger(ReporteComprobante.class);
 	//Recibe la lista de personas para armar el reporte
-    public ReporteDeCajaGeneral(List<MovimientoCajaDTO> caja, String desde, String hasta)
-    {
-    	if(caja.size()>0) {
-    		System.out.println(caja.get(0).getIdCliente());
-    	}
-    	List<MovimientoCajaDTO> coleccion =caja;
-    	
+    public ReporteDeCajaGeneral(Date desde, Date hasta) {
     	//Hardcodeado
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		parametersMap.put("Desde", desde);
 		parametersMap.put("Hasta", hasta);
-		
-		//ordenamos los movimientos para luego seperarlos por ingreso y egreso
-		Collections.sort(coleccion, new Comparator<MovimientoCajaDTO>() {
 
-			@Override
-			public int compare(MovimientoCajaDTO movimiento1, MovimientoCajaDTO movimiento2) {
-
-				String mov1 = movimiento1.getIdCategoria() + "";
-				String mov2 = movimiento2.getIdCategoria() + "";
-				
-				int resultado = mov1.compareTo(mov2);
-
-				return resultado;
-			}
-
-		});
-				
     	try		{
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("src" + File.separator + "main" + File.separator + "java" + File.separator +  "presentacion" + File.separator + "reportes" + File.separator + "ReporteDeCajaGeneral.jasper" );
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("src" + File.separator + "main" + File.separator + "java" + File.separator +  "presentacion" + File.separator + "reportes" + File.separator + "ReporteGeneral.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, 
-					new JRBeanCollectionDataSource(coleccion));
+					Conexion.getConexion().getSQLConexion());
     		log.info("Se cargó correctamente el reporte");
 		}
 		catch( JRException ex ) 

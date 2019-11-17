@@ -33,21 +33,28 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{TipoMovimiento}]]></groupExpression>
 		<groupHeader>
-			<band height="30">
+			<band height="20">
 				<textField>
-					<reportElement x="0" y="0" width="100" height="30" uuid="1fb6673a-774e-451b-9164-ab6967568a10"/>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#F0EE6E" uuid="1fb6673a-774e-451b-9164-ab6967568a10"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="15" isBold="true"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{TipoMovimiento}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="30">
+			<band height="20">
 				<textField>
-					<reportElement x="190" y="0" width="100" height="30" uuid="a4f452b2-1bee-4215-8906-bc7ea28ca338"/>
-					<textFieldExpression><![CDATA[$V{CantidadTotal1}]]></textFieldExpression>
+					<reportElement mode="Opaque" x="410" y="0" width="145" height="20" forecolor="#000000" backcolor="#B0B0B0" uuid="a4f452b2-1bee-4215-8906-bc7ea28ca338"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[" "+$V{CantidadTotal1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="60" y="4" width="111" height="21" uuid="5d2c1b73-1071-4602-a13e-3ea156474230"/>
+					<reportElement mode="Opaque" x="340" y="0" width="70" height="20" forecolor="#000000" backcolor="#B0B0B0" uuid="5d2c1b73-1071-4602-a13e-3ea156474230"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
 					<text><![CDATA[Total: ]]></text>
 				</staticText>
 			</band>
@@ -59,14 +66,14 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 	<title>
 		<band height="38" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="13" width="554" height="25" backcolor="#C9CC78" uuid="a929554d-4051-48b6-92a0-1eb132e0a43c"/>
+				<reportElement mode="Opaque" x="0" y="13" width="555" height="25" backcolor="#C9CC78" uuid="a929554d-4051-48b6-92a0-1eb132e0a43c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporte General]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="454" y="-4" width="100" height="17" uuid="09a3487f-2e35-4f0e-b3dd-0b539a332aa3"/>
+				<reportElement x="454" y="-4" width="101" height="17" uuid="09a3487f-2e35-4f0e-b3dd-0b539a332aa3"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -74,24 +81,28 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 	<pageHeader>
 		<band height="28" splitType="Stretch">
 			<textField pattern="M/d/yy">
-				<reportElement x="70" y="0" width="50" height="27" uuid="497abd9e-9bf1-4983-bcd4-64da95de5dc3"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="70" y="0" width="50" height="28" uuid="497abd9e-9bf1-4983-bcd4-64da95de5dc3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{Desde}]]></textFieldExpression>
 			</textField>
 			<textField pattern="M/d/yy">
-				<reportElement x="180" y="0" width="50" height="28" uuid="eb1dc91a-72d0-4cd5-9b5b-2953bb13dc27"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="170" y="0" width="50" height="28" uuid="eb1dc91a-72d0-4cd5-9b5b-2953bb13dc27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="13"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{Hasta}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="0" width="60" height="27" uuid="bc1b8770-ff0a-4fb1-a00a-43808916c0de"/>
+				<reportElement x="10" y="0" width="60" height="28" uuid="bc1b8770-ff0a-4fb1-a00a-43808916c0de"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Desde:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="0" width="60" height="28" uuid="16a3802d-9d31-4518-873d-ce269a4c3eaa"/>
+				<reportElement x="120" y="0" width="50" height="28" uuid="16a3802d-9d31-4518-873d-ce269a4c3eaa"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -100,33 +111,47 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="278" height="30" uuid="84d40e67-891d-47b5-a3a5-8dba81371731">
+				<reportElement mode="Opaque" x="0" y="0" width="278" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="84d40e67-891d-47b5-a3a5-8dba81371731">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b3747b18-6b2d-4214-ae5a-392e14487786"/>
 				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Tipo de Movimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="278" y="0" width="277" height="30" uuid="85d75462-3802-40cb-93aa-d4c35c8deb22">
+				<reportElement mode="Opaque" x="278" y="0" width="277" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="85d75462-3802-40cb-93aa-d4c35c8deb22">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b1711e7-fcc5-4baf-b43f-5ed771f0299c"/>
 				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
 				<text><![CDATA[Cantidad ]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="278" height="30" uuid="f7fd8a31-424a-44ec-ba5a-d9f79cebd5ec">
+				<reportElement mode="Transparent" x="0" y="0" width="278" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="f7fd8a31-424a-44ec-ba5a-d9f79cebd5ec">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b3747b18-6b2d-4214-ae5a-392e14487786"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="278" y="0" width="277" height="30" uuid="bfc0d8a0-6d0e-4b20-a15f-310d5a9b792a">
+				<reportElement mode="Transparent" x="278" y="0" width="277" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="bfc0d8a0-6d0e-4b20-a15f-310d5a9b792a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b1711e7-fcc5-4baf-b43f-5ed771f0299c"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{CantidadTotal}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -138,6 +163,24 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="200" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="20" width="554" height="140" uuid="b34d1bea-3715-42fe-b211-3bf6a39f0a6a"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{Nombre} ]]></keyExpression>
+					<valueExpression><![CDATA[$F{CantidadTotal}]]></valueExpression>
+					<labelExpression><![CDATA[$F{CantidadTotal}.toString() +" - "+$F{Nombre}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
 	</summary>
 </jasperReport>

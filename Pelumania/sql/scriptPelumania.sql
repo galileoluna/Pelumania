@@ -1,4 +1,4 @@
-DROP DATABASE Pelumania;
+
 CREATE DATABASE `Pelumania`;
 USE Pelumania;
 
@@ -584,5 +584,3 @@ VALUES (7,7);
 -- DROP TABLE IF EXISTS Caja;
 
 SET SQL_SAFE_UPDATES = 0;
-
-SELECT * FROM Cita;

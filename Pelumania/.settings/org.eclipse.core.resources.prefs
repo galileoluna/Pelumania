@@ -3,6 +3,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteDeCajaGeneral.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteDeCajaPorSucursal.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteEgresos.jrxml=UTF-8
+encoding//src/main/java/presentacion/Reportes/ReporteGeneral.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteIngresos.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteRankingVendedores.jrxml=UTF-8
 encoding//src/main/java/presentacion/Reportes/ReporteServicio.jrxml=UTF-8
