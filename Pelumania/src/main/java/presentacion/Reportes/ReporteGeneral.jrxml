@@ -30,6 +30,16 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 	<variable name="CantidadTotal1" class="java.lang.Long" resetType="Group" resetGroup="Group1" calculation="Sum">
 		<variableExpression><![CDATA[$F{CantidadTotal}]]></variableExpression>
 	</variable>
+	<variable name="DolarIngresos" class="java.math.BigDecimal"/>
+	<variable name="LocalIngresos" class="java.math.BigDecimal"/>
+	<variable name="LocalEgresos" class="java.math.BigDecimal"/>
+	<variable name="DolarEgresos" class="java.math.BigDecimal"/>
+	<variable name="GananciaLocal" class="java.math.BigDecimal">
+		<initialValueExpression><![CDATA[$V{LocalIngresos}.subtract($V{LocalEgresos}).toString()]]></initialValueExpression>
+	</variable>
+	<variable name="GananciaDolar" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{DolarIngresos}.subtract( $V{DolarEgresos} )]]></variableExpression>
+	</variable>
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{TipoMovimiento}]]></groupExpression>
 		<groupHeader>
@@ -157,22 +167,20 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="63" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
 		<band height="200" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<pieChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="20" width="554" height="140" uuid="b34d1bea-3715-42fe-b211-3bf6a39f0a6a"/>
+					<reportElement x="0" y="0" width="555" height="168" uuid="b34d1bea-3715-42fe-b211-3bf6a39f0a6a"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<pieDataset>
-					<keyExpression><![CDATA[$F{Nombre} ]]></keyExpression>
+					<keyExpression><![CDATA[$F{Nombre}]]></keyExpression>
 					<valueExpression><![CDATA[$F{CantidadTotal}]]></valueExpression>
 					<labelExpression><![CDATA[$F{CantidadTotal}.toString() +" - "+$F{Nombre}]]></labelExpression>
 				</pieDataset>
@@ -181,6 +189,64 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 					<itemLabel/>
 				</piePlot>
 			</pieChart>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="150" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<subreport>
+				<reportElement x="0" y="0" width="255" height="112" uuid="303553af-6054-45c4-b1d7-f7010116c7a5"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="TotalLocalIngreso" toVariable="LocalIngresos"/>
+				<returnValue subreportVariable="TotalDolarIngreso" toVariable="DolarIngresos"/>
+				<subreportExpression><![CDATA["src/main/java/presentacion/Reportes/TotalIngresos.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="255" y="-1" width="287" height="114" uuid="374eb56d-3de6-48aa-98ef-1aa18f199f2e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="TotalLocalEgreso" toVariable="LocalEgresos"/>
+				<returnValue subreportVariable="TotalDolarEgreso" toVariable="DolarEgresos"/>
+				<subreportExpression><![CDATA["src/main/java/presentacion/Reportes/TotalEgresos.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="114" width="190" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="17c464ce-23fa-448f-81f8-232a6b51b4c6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ganancia: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="290" y="114" width="100" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="a12b2d7a-5222-4542-a7f9-cb17986bddbc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{GananciaDolar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="190" y="114" width="100" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="782e80d2-9813-49f5-ba32-72b81c591f69"/>
+				<textElement verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{LocalIngresos}.subtract($V{LocalEgresos} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="134" width="141" height="16" uuid="a3d478f0-56f1-4526-909c-916224e204c3"/>
+				<textFieldExpression><![CDATA[$V{DolarIngresos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="134" width="138" height="16" uuid="4c4795f7-006b-47ff-a54a-bf024193ccc1"/>
+				<textFieldExpression><![CDATA[$V{LocalIngresos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="134" width="138" height="16" uuid="24933637-1d8d-4fbe-a20d-3dd8e816515b"/>
+				<textFieldExpression><![CDATA[$V{LocalEgresos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="134" width="138" height="16" uuid="c0cea1e6-187b-4233-b27c-7d7daa74e923"/>
+				<textFieldExpression><![CDATA[$V{DolarEgresos}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
