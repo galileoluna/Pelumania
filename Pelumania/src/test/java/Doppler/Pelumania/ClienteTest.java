@@ -43,7 +43,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteValidarApellido() {
 		BigDecimal deuda=new BigDecimal(5);
-		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda);
+		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda, deuda);
 		sistema.agregarCliente(nuevoCliente);
 
 		assertEquals(sistema.obtenerClientes().get(0).getApellido(),"apellido");
@@ -51,7 +51,7 @@ public class ClienteTest {
 	@Test
 	public void testUpdateyBuscar() {
 		BigDecimal deuda=new BigDecimal(5);
-		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda);
+		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda, deuda);
 		sistema.agregarCliente(nuevoCliente);
 		sistema.editarCliente(nuevoCliente);
 		
@@ -62,7 +62,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteValidoNombre() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);
+		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda, deuda);
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().get(0).getNombre(),"pedro");
@@ -70,9 +70,9 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteValidoId2Datos() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(1,"juan","apellido","112345","asd@sddd.com",0,"activo",deuda, deuda);	
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(2,"toto","ferro","14125","ssds@sddd.com",50,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(2,"toto","ferro","14125","ssds@sddd.com",50,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 	
@@ -82,11 +82,11 @@ public class ClienteTest {
 	@Test
 	public void testCantDeDatos3() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(2,"toto","ferro","14125","ssds@sddd.com",50,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(2,"toto","ferro","14125","ssds@sddd.com",50,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(3,"juan","luna","1412325","ssds@sddd.com",50,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(3,"juan","luna","1412325","ssds@sddd.com",50,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 	
 	
@@ -96,17 +96,17 @@ public class ClienteTest {
 	@Test
 	public void testCantDeDatos6() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(2,"toto","ferro","14125","ssds@sddd.com",50,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(2,"toto","ferro","14125","ssds@sddd.com",50,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(3,"juan","luna","1412325","ssds@sddd.com",50,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(3,"juan","luna","1412325","ssds@sddd.com",50,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(4,"lucas","nn","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(4,"lucas","nn","145","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(5,"mati","ferro","14125","ssds@sddd.com",50,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(5,"mati","ferro","14125","ssds@sddd.com",50,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(6,"maxi","luna","1412325","ssds@sddd.com",50,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(6,"maxi","luna","1412325","ssds@sddd.com",50,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 	
 		assertEquals(sistema.obtenerClientes().size(),6);
@@ -114,7 +114,7 @@ public class ClienteTest {
 	@Test
 	public void testinsertarYborrar() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);
+		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda, deuda);
 		sistema.agregarCliente(nuevoCliente);
 		assertEquals(sistema.obtenerClientes().size(),1);
 		
@@ -125,9 +125,9 @@ public class ClienteTest {
 	@Test
 	public void testinsertarYborrarConMasDatos() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);
+		nuevoCliente=new ClienteDTO(1,"pedro","nn","145","sss@sddd.com",1,"activo",deuda, deuda);
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(2,"juan","nn","145","sss@sddd.com",1,"activo",deuda);
+		nuevoCliente=new ClienteDTO(2,"juan","nn","145","sss@sddd.com",1,"activo",deuda, deuda);
 		sistema.agregarCliente(nuevoCliente);
 		assertEquals(sistema.obtenerClientes().size(),2);
 		
@@ -138,9 +138,9 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteInvalido() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"pedro","nn","145","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
-		nuevoCliente=new ClienteDTO(0,"pedro","nn","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"pedro","nn","145","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().size(),1);	
@@ -149,7 +149,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteInvalidoNombreVacio() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"","nn","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"","nn","145","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().size(),0);	
@@ -158,7 +158,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteInvalidoApellidoVacio() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","","145","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","","145","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().size(),0);	
@@ -167,7 +167,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteValidoTelefonoVacio() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","","sss@sddd.com",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","","sss@sddd.com",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().size(),1);	
@@ -176,7 +176,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteValidoMailVacio() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","12344","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","12344","",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().size(),1);	
@@ -185,7 +185,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteValidoMailIncorrecto() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","12344","asd",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","12344","asd",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().size(),0);	
@@ -194,7 +194,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteInvalidoSinMailSinTel() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","","",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		
 		assertEquals(sistema.obtenerClientes().size(),0);	
@@ -203,7 +203,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteActivo() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 				
 		assertEquals(sistema.obtenerClientes().get(0).getEstadoCliente(),"activo");	
@@ -211,7 +211,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteInactivo() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		sistema.obtenerClientes().get(0).setEstadoCliente("Inactivo");
 				
@@ -221,7 +221,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteModifApellido() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		sistema.obtenerClientes().get(0).setApellido("ruben");
 				
@@ -233,17 +233,18 @@ public class ClienteTest {
 		BigDecimal deuda=new BigDecimal(0);
 		BigDecimal deudaNueva=new BigDecimal(10);
 		
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"activo",deuda, deuda);			
 		sistema.agregarCliente(nuevoCliente);
-		sistema.obtenerClientes().get(0).setDeuda(deudaNueva);
-				
-		assertEquals(sistema.obtenerClientes().get(0).getDeuda(),deudaNueva);	
+		sistema.obtenerClientes().get(0).setDeudaPesos(deudaNueva);
+		sistema.obtenerClientes().get(0).setDeudaDolar(deudaNueva);		
+		assertEquals(sistema.obtenerClientes().get(0).getDeudaPesos(),deudaNueva);	
+		assertEquals(sistema.obtenerClientes().get(0).getDeudaDolar(),deudaNueva);	
 	}
 	
 	@Test
 	public void testAgregarClienteValidoBorrarVerCantidad() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","122423","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","122423","",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		sistema.borrarCliente(nuevoCliente);
 		
@@ -252,7 +253,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteValidoBorrarVerEstado() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","122423","",1,"activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","122423","",1,"activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		sistema.borrarCliente(nuevoCliente);
 		
@@ -262,7 +263,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteYModifMail_a_Invalido() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","asd@hotmail.com",1,"Activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","asd@hotmail.com",1,"Activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		sistema.obtenerClientes().get(0).setMail("12234");
 		
@@ -273,7 +274,7 @@ public class ClienteTest {
 	@Test
 	public void testAgregarClienteYModifMail_a_valido() {
 		BigDecimal deuda=new BigDecimal(0);
-		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"Activo",deuda);		
+		nuevoCliente=new ClienteDTO(0,"juan","moreno","123534","",1,"Activo",deuda, deuda);		
 		sistema.agregarCliente(nuevoCliente);
 		sistema.obtenerClientes().get(0).setMail("asd@hotmail.com");
 		

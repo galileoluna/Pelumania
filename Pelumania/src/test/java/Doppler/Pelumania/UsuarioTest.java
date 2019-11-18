@@ -19,7 +19,7 @@ class UsuarioTest {
 	sistema.agregarUsuario(usuario);
 	sistema.editarUsuario(usuario);
 
-	assertEquals(sistema.obtenerUsuarios1().size(),1);
+	assertEquals(sistema.obtenerUsuarios1().size(),3);
 	sistema.borrarUsuario(usuario);
 	assertEquals(sistema.obtenerUsuarios1().get(0).getEstado(),"Activo");
 	assertEquals(sistema.matcheo("ncirillo", "ncirillo").get(0).getApellido(),"Cirillo");

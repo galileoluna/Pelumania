@@ -25,6 +25,13 @@ class MovimientoTest {
 		BigDecimal dolar=new BigDecimal(60);
 		Timestamp timestamp = Timestamp.from(Instant.now());
 		movimiento=new MovimientoCajaDTO(1,1,1,timestamp,"Compra Shampo",1,peso,dolar,1,1,1,1);
+		sistema.obtenerMovimientosCaja("", "");
+		sistema.obtenerMovimientoCajaRanking("", "");
+		sistema.obtenerMovimientosCajaSucursal("", "",1);
+		sistema.insertarEgreso(movimiento);
+		sistema.insertarEgreso(movimiento);
+		sistema.getMovimientosPorIdCategoria(0);
+		sistema.obtenerMovimientosCajaIngresosProfesional("", "", 1);
 		
 		
 	}

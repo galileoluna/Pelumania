@@ -22,12 +22,11 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setTelefono("1234");
 		cita.setMail("a@a.co");
 		cita.setHoraInicio(inicio);
 		cita.setHoraFin(fin);
-		
 		cita.setIdProfesional(2);
 		assertEquals(cita.getEstado(),"activa");
 		assertEquals(cita.getTelefono(),"1234");
@@ -46,7 +45,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getNombre(),"juan");
 	}
@@ -58,7 +57,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getApellido(),"montero");
 		
@@ -71,7 +70,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getIdCita(),1);
 	}
@@ -83,7 +82,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getIdUsuario(),2);
 	}
@@ -95,7 +94,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getIdSucursal(),1);
 	}
@@ -107,7 +106,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setIdCita(10);
 		
 		assertEquals(cita.getIdCita(),10);
@@ -120,7 +119,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setNombre("pedro");
 		
 		assertEquals(cita.getNombre(),"pedro");
@@ -133,7 +132,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setApellido("mamani");
 		
 		assertEquals(cita.getApellido(),"mamani");
@@ -146,7 +145,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setIdUsuario(10);
 		
 		assertEquals(cita.getIdUsuario(),10);
@@ -159,7 +158,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setIdSucursal(5);
 		
 		assertEquals(cita.getIdSucursal(),5);
@@ -172,7 +171,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setIdSucursal(5);
 		
 		assertEquals(cita.getIdCliente(),3);
@@ -185,7 +184,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,3,"juan","montero","activa",null, null, peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 
 		cita.setIdCliente(10);
 		assertEquals(cita.getIdCliente(),10);
@@ -207,7 +206,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getEstado(),"activa");
 	}
@@ -219,8 +218,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
-		cita.setEstado("inactivo");
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);cita.setEstado("inactivo");
 		
 		assertEquals(cita.getEstado(),"inactivo");
 	}
@@ -232,7 +230,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setEstado("inactivo");
 		
 		assertEquals(cita.getEstado(),"inactivo");
@@ -245,7 +243,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getPrecioLocal().compareTo(peso),0);
 	}
@@ -257,7 +255,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		
 		assertEquals(cita.getPrecioDolar().compareTo(dolar),0);
 	}
@@ -269,7 +267,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setPrecioLocal(new BigDecimal(50));
 		
 		assertEquals(cita.getPrecioLocal().compareTo(new BigDecimal(50)),0);
@@ -282,7 +280,7 @@ class CitaDTOtest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,3,"juan","montero","12345","a@a.com", "activa", peso,dolar,inicio,fin,fecha,1, 0);
 		cita.setPrecioDolar(new BigDecimal(50));
 		
 		assertEquals(cita.getPrecioDolar().compareTo(new BigDecimal(50)),0);

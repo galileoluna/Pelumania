@@ -33,11 +33,7 @@ class MovimientoDTOtest {
 		movimiento.setPrecioDolar(peso);
 		movimiento.setPrecioLocal(dolar);
 		movimiento.setTipoCambio("Peso");
-		
-		
-		
-		
-		
+
 		assertEquals(movimiento.getCategoria(),2);
 		assertEquals(movimiento.getDescripcion(),"Compra Sedal");
 		assertEquals(movimiento.getFecha(),timestamp);

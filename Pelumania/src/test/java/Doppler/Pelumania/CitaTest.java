@@ -27,10 +27,14 @@ class CitaTest {
 		LocalTime inicio=LocalTime.now();
 		LocalTime fin=LocalTime.now();
 		LocalDate fecha=LocalDate.now();
-		cita=new CitaDTO(1,2,0, "juan","montero","activa",null,null,peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,0, "juan","montero","activa",null,null,peso,dolar,inicio,fin,fecha,1, 0);
 		
 		
 		sistema.agregarCita(cita);
+		sistema.cancelarCita(cita);
+		sistema.reprogramarCita(cita);
+		sistema.estadoFiadoCita(cita);
+		
 		assertEquals(sistema.obtenerCitas().get(0).getApellido(),"montero");
 		assertEquals(sistema.obtenerCitas().get(0).getNombre(),"juan");
 		assertEquals(sistema.obtenerCitas().size(),1);
@@ -40,7 +44,7 @@ class CitaTest {
 		
 		assertEquals(sistema.obtenerCitas().size(),0);
 		
-		cita=new CitaDTO(1,2,"juan","montero","activa",peso,dolar,inicio,fin,fecha,1);
+		cita=new CitaDTO(1,2,0, "juan","montero","activa",null,null,peso,dolar,inicio,fin,fecha,1, 0);
 		
 		
 		sistema.agregarCitaSinCliente(cita);

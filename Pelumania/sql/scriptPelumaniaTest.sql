@@ -228,6 +228,72 @@ CREATE TABLE IF NOT EXISTS `LogTransferencia`(
   PRIMARY KEY(`idLogTransferencia`)
 );
 
+
+
+
+CREATE TABLE IF NOT EXISTS `Puntos`(
+
+  `IdPuntos` INT(11) NOT NULL,
+  `idServicio` INT(11) NOT NULL,
+  `Puntos` INT(11) NOT NULL,
+
+    
+   PRIMARY KEY(`IdPuntos`),
+   FOREIGN KEY (`idServicio`) REFERENCES `Servicio`(`IdServicio`)
+);
+
+CREATE TABLE IF NOT EXISTS `TipoMail`(
+
+  `IdTipoMail` INT(11) NOT NULL AUTO_INCREMENT,
+  `CuerpoMail` VARCHAR(55) NOT NULL,
+
+  PRIMARY KEY(`IdTipoMail`)
+
+);
+
+CREATE TABLE IF NOT EXISTS `Mail`(
+
+  `idMail` INT(11) NOT NULL AUTO_INCREMENT,
+  `IdCita` INT(11) NOT NULL,
+  `Fecha` TIMESTAMP  NULL,
+
+  PRIMARY KEY(`idMail`),
+  FOREIGN KEY (`IdCita`) REFERENCES `Cita`(`IdCita`)
+);
+
+CREATE TABLE IF NOT EXISTS `LogTransferencia`(
+
+  `idLogTransferencia` INT(11) NOT NULL AUTO_INCREMENT,
+  `idProfesional` INT(11) NOT NULL,
+  `idSucursal` INT(11) NOT NULL,
+  `FechaTransferencia` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+
+  PRIMARY KEY(`idLogTransferencia`),
+  FOREIGN KEY (`idSucursal`) REFERENCES `Sucursal`(`idSucursal`),
+  FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`idProfesional`)
+);
+
+CREATE TABLE IF NOT EXISTS `permisosUsuario`(
+
+  `idRol` INT(11) NOT NULL ,
+  `idModulo` INT(11) NOT NULL,
+  
+  FOREIGN KEY (`idRol`) REFERENCES `Rol`(`idRol`)
+  
+);
+
+CREATE TABLE IF NOT EXISTS `Producto`(
+
+  `IdProducto` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(55) NOT NULL,
+  `PrecioLocal` decimal(13,2) NOT NULL,
+  `PrecioDolar` decimal(13,2) NOT NULL,
+  `Puntos` INT (4) NOT NULL,
+  `Estado` VARCHAR(10) NOT NULL,
+
+  PRIMARY KEY(`IdProducto`)
+
+);
 SET time_zone = "-3:00";
 
 USE Pelumaniatest;
