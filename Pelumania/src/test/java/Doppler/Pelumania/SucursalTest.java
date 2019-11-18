@@ -19,6 +19,8 @@ class SucursalTest {
 		sistema.agregarSucursal(sucursal);
 		sistema.editarSucursal(sucursal);
 		sistema.borrarSucursal(sucursal);
+		sistema.obtenerSucursales();
+		sistema.getProfesionalByIdSucursal(1);
 		
 	}
 

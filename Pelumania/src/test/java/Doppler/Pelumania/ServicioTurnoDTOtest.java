@@ -32,7 +32,7 @@ class ServicioTurnoDTOtest {
 		assertEquals(servicio.getIdServicio(),2);
 		assertFalse(servicio.equals(servicio2));
 		assertTrue(servicio2.equals(servicio3));
-		
+		assertEquals(servicio.hashCode(),1023);
 	
 	}
 

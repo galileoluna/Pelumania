@@ -22,6 +22,7 @@ class ServicioTurnoTest {
 		
 		sistema.insertServicioTurno(servicio);
 		sistema.deleteServicioTurno(servicio);
+		sistema.editarServicio(servicio);
 	}
 
 }
