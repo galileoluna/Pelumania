@@ -169,7 +169,7 @@ public class Controlador2 implements ActionListener{
 					System.out.println(citasDeHoy.get(i).getEstado());
 					if(citasDeHoy.get(i).esSoloActiva() && compararMas5minutosParaCancelar(citasDeHoy.get(i).getHoraInicio(),fechaHoy.getHour(),fechaHoy.getMinute()) ) {
 						System.out.println(citasDeHoy.get(i).getEstado());
-						sistema.ponerCitaVencida(citasDeHoy.get(i));
+						sistema.cancelarCita(citasDeHoy.get(i));
 						refrescarTablaCitas();
 						
 					}

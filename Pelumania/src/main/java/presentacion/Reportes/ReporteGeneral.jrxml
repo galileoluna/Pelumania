@@ -231,22 +231,6 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{LocalIngresos}.subtract($V{LocalEgresos} )]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="134" width="141" height="16" uuid="a3d478f0-56f1-4526-909c-916224e204c3"/>
-				<textFieldExpression><![CDATA[$V{DolarIngresos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="141" y="134" width="138" height="16" uuid="4c4795f7-006b-47ff-a54a-bf024193ccc1"/>
-				<textFieldExpression><![CDATA[$V{LocalIngresos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="279" y="134" width="138" height="16" uuid="24933637-1d8d-4fbe-a20d-3dd8e816515b"/>
-				<textFieldExpression><![CDATA[$V{LocalEgresos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="417" y="134" width="138" height="16" uuid="c0cea1e6-187b-4233-b27c-7d7daa74e923"/>
-				<textFieldExpression><![CDATA[$V{DolarEgresos}]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>
