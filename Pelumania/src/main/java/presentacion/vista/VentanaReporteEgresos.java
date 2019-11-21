@@ -47,7 +47,7 @@ public class VentanaReporteEgresos extends JFrame {
 				PropertyManager.leer("configuracion", "pais"));
 		idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
 		
-		setTitle(idioma.getString("reporte.general"));
+		setTitle(idioma.getString("reporte.egreso"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 375, 225);
 
@@ -89,7 +89,7 @@ public class VentanaReporteEgresos extends JFrame {
 		btnGenerarReporte.setBounds(195, 152, 151, 23);
 		panel.add(btnGenerarReporte);
 
-		JLabel lblGenerarReportesPor = new JLabel(idioma.getString("reporte.general"));
+		JLabel lblGenerarReportesPor = new JLabel(idioma.getString("reporte.egreso"));
 		lblGenerarReportesPor.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblGenerarReportesPor.setBounds(32, 11, 273, 23);
 		panel.add(lblGenerarReportesPor);

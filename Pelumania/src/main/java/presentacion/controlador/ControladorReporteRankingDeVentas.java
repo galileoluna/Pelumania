@@ -3,12 +3,9 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 
-import dto.MovimientoCajaDTO;
 import modelo.Sistema;
-import presentacion.Reportes.ReporteDeCajaPorSucursal;
 import presentacion.Reportes.ReporteRankingVendedores;
 import presentacion.vista.VentanaReporteRankingVentas;
 
