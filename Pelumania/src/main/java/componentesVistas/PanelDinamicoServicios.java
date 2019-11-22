@@ -8,10 +8,13 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import dto.ProfesionalDTO;
+import util.PropertyManager;
 import util.TextPrompt;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,8 +25,12 @@ public class PanelDinamicoServicios extends JPanel{
 	
 	private JTable tablaServicios;
 	private DefaultTableModel modelServicios;
-	private String[] nombreColumnas = {"Nombre","Precio en $","Duracion",
-			"Puntos que brinda", "Estado"};
+	// configuracion de idioma
+	private Locale locale = new Locale(PropertyManager.leer("configuracion", "idioma"),
+			PropertyManager.leer("configuracion", "pais"));
+	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
+	private String[] nombreColumnas = {idioma.getString("nombre"),idioma.getString("precio.pesos"), idioma.getString("duracion"),
+			idioma.getString("puntos")};
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtbuscarServicios;
@@ -70,8 +77,6 @@ public class PanelDinamicoServicios extends JPanel{
 			}
 		};
 		tablaServicios = new JTable(modelServicios);
-//		RowsRendererBasic rr = new RowsRendererBasic(5);
-//		tablaServicios.setDefaultRenderer(Object.class, rr);
 
 		tablaServicios.getColumnModel().getColumn(0).setPreferredWidth(103);
 		tablaServicios.getColumnModel().getColumn(0).setResizable(false);
@@ -81,8 +86,6 @@ public class PanelDinamicoServicios extends JPanel{
 		tablaServicios.getColumnModel().getColumn(2).setResizable(false);
 		tablaServicios.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tablaServicios.getColumnModel().getColumn(3).setResizable(false);
-		tablaServicios.getColumnModel().getColumn(4).setPreferredWidth(100);
-		tablaServicios.getColumnModel().getColumn(4).setResizable(false);
 
 		spServicios.setViewportView(tablaServicios);
 		
