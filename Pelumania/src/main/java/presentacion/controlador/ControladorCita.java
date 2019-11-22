@@ -667,7 +667,7 @@ public class ControladorCita implements ActionListener{
 						errorHora=1;
 					}	
 				}
-				if(errorHora==1) {
+				if(errorHora==1) { 
 					errorHora=0;
 					promocionSeleccionada = null;
 					mostrarErrorHora();
