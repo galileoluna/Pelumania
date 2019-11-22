@@ -44,5 +44,7 @@ public interface CitaDAO {
 
 	public List<CitaDTO> getCitasByRangoHorario(LocalTime desde, LocalTime hasta, LocalDate dia);
 
+	boolean updateCitaVencida();
+
 
 }

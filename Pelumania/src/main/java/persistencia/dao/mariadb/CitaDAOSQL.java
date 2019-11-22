@@ -36,6 +36,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String update = "UPDATE  Cita SET idUsuario=?, IdCliente=?, NombreCliente=?, ApellidoCliente=?, TelefonoCliente = ?, MailCliente = ?, "
 										+ "EstadoTurno=?, PrecioLocal=?, PrecioDolar=?, HoraInicio=?, HoraFin=?, Dia=?, IdSucursal=?  WHERE idCita=?";
 	
+	private static final String citaVencida="UPDATE Cita SET EstadoTurno='Cancelada' WHERE idCita IN ( SELECT idCita FROM (SELECT Cita.idCita FROM Cita WHERE Cita.Dia=CURRENT_DATE AND Cita.HoraInicio < CURRENT_TIME) AS citas_cambiar)";
 	private static final String readByDia = "SELECT * FROM Cita WHERE Dia = ? ORDER BY HoraInicio";
 	private static final String getCitasByHoraInicio = "SELECT * FROM CITA WHERE HoraInicio > ? AND HoraInicio < ? AND Dia= ?";
 	
@@ -46,7 +47,7 @@ public class CitaDAOSQL implements CitaDAO{
 	private static final String FIAR = "Fiado";
 	private static final String ENCURSO = "En curso";
 	private static final String VENCIDO = "Vencida";
-
+	
 
 	
 	@Override
@@ -347,6 +348,33 @@ public class CitaDAOSQL implements CitaDAO{
 			statement.setDate		(12, Date.valueOf(cita_a_editar.getFecha()));
 			statement.setInt		(13, cita_a_editar.getIdSucursal());
 			statement.setInt		(14, cita_a_editar.getIdCita());
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isInsertExitoso;
+	}
+	
+	@Override
+	public boolean updateCitaVencida() {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(citaVencida);
 			
 			if(statement.executeUpdate() > 0)
 			{

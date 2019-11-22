@@ -158,37 +158,17 @@ public class Controlador2 implements ActionListener{
 		log.info("Controlador inicializado! La fecha es: "+fechaSeleccionada);
 		
 		Timer timer=new Timer();
-		LocalDateTime fechaHoy = LocalDateTime.now();
-		
-		
+			
 		TimerTask vencerCitas=new TimerTask() {
 			@Override
-			public void run() {
-				List<CitaDTO>citasDeHoy=sistema.getCitasPorDia(LocalDate.now().toString());
-				for(int i=0;i<citasDeHoy.size();i++) {
-					System.out.println(citasDeHoy.get(i).getEstado());
-					if(citasDeHoy.get(i).esSoloActiva() && compararMas5minutosParaCancelar(citasDeHoy.get(i).getHoraInicio(),fechaHoy.getHour(),fechaHoy.getMinute()) ) {
-						System.out.println(citasDeHoy.get(i).getEstado());
-						sistema.cancelarCita(citasDeHoy.get(i));
+		public void run() {
+
+						sistema.pasarAVencida();
+						System.out.println("deberia haber cancelado");
 						refrescarTablaCitas();
-						
-					}
-				}
+				
 			}
 
-			private boolean compararMas5minutosParaCancelar(LocalTime horaInicio, int hora, int minutos) {
-				int horaCita=horaInicio.getHour();
-				int minutoCita=horaInicio.getMinute();
-				if(minutoCita>55) {
-					horaCita+=1;
-					minutoCita=minutoCita+5-55;
-				}else minutoCita=minutoCita+5;
-				
-				if(horaCita<hora) {
-					if(minutoCita<minutos)return true;
-					return false;
-				}return false;
-			}
 		};
 		//aca selecciono cada cuanto se actualiza el timer, esta seleccionado 10 min en la tercera posicion
 		timer.schedule(vencerCitas, 1000, 20000);

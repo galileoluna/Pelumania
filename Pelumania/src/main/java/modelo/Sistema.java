@@ -379,6 +379,10 @@ public class Sistema
 		return this.cita.getCitasByRangoHorario(desde, hasta, dia);
 	}
 	
+	public void pasarAVencida() {
+		this.cita.updateCitaVencida();
+	}
+	
 	//Arranca ServicioTurno
 	
 	public boolean insertServicioTurno(ServicioTurnoDTO servicioTurno_a_insertar) {
