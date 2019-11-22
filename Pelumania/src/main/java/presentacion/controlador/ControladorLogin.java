@@ -45,7 +45,11 @@ public class ControladorLogin implements ActionListener{
 			@Override
 			public void keyReleased(KeyEvent arg0) {}
 			@Override
-			public void keyPressed(KeyEvent arg0) {}
+			public void keyPressed(KeyEvent event) {
+				if (event.getKeyCode() == KeyEvent.VK_ENTER) {
+					IniciarPelumania(null);
+				}
+			}
 		});
 		this.login.getIniciar().addActionListener(l -> IniciarPelumania(l));
 		this.login.getRecuperarPass().addActionListener(l -> recuperarPass());
