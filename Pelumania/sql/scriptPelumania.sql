@@ -171,6 +171,19 @@ CREATE TABLE IF NOT EXISTS `Cita`(
     FOREIGN KEY (`IdSucursal`) REFERENCES `Sucursal`(`idSucursal`)
 );
 
+CREATE TABLE IF NOT EXISTS `Producto`(
+
+  `IdProducto` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(55) NOT NULL,
+  `PrecioLocal` decimal(13,2) NOT NULL,
+  `PrecioDolar` decimal(13,2) NOT NULL,
+  `Puntos` INT (4) NOT NULL,
+  `Estado` VARCHAR(10) NOT NULL,
+
+  PRIMARY KEY(`IdProducto`)
+
+);
+
 CREATE TABLE IF NOT EXISTS `CategoriaCaja`(
 	`idCategoriaCaja` INT(11) NOT NULL AUTO_INCREMENT,
 	`Nombre` VARCHAR(55) NOT NULL,
@@ -195,6 +208,8 @@ CREATE TABLE IF NOT EXISTS `Caja`(
   `idCliente` INT(11)  NULL,
   `IdProfesional` INT(11)  NULL,
   `idServicio` INT(11) NULL,
+  `idProducto` INT(11) NULL,
+  `cantidadProducto` INT(11) NULL,
  
  PRIMARY KEY(`IdCaja`),
  FOREIGN KEY (`idSucursal`) REFERENCES `Sucursal`(`idSucursal`),
@@ -203,8 +218,8 @@ CREATE TABLE IF NOT EXISTS `Caja`(
  FOREIGN KEY (`idProfesional`) REFERENCES `Profesional`(`IdProfesional`),
  FOREIGN KEY (`idCita`) REFERENCES `Cita`(`idCita`),
  FOREIGN KEY (`idCategoriaCaja`) REFERENCES `CategoriaCaja`(`idCategoriaCaja`),
- FOREIGN KEY (`idServicio`) REFERENCES `Servicio`(`idServicio`)
-
+ FOREIGN KEY (`idServicio`) REFERENCES `Servicio`(`idServicio`),
+ FOREIGN KEY (`idProducto`) REFERENCES `Producto`(`IdProducto`)
 );
 
 CREATE TABLE IF NOT EXISTS `ServicioTurno`(
@@ -271,19 +286,6 @@ CREATE TABLE IF NOT EXISTS `permisosUsuario`(
   
 );
 
-CREATE TABLE IF NOT EXISTS `Producto`(
-
-  `IdProducto` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(55) NOT NULL,
-  `PrecioLocal` decimal(13,2) NOT NULL,
-  `PrecioDolar` decimal(13,2) NOT NULL,
-  `Puntos` INT (4) NOT NULL,
-  `Estado` VARCHAR(10) NOT NULL,
-
-  PRIMARY KEY(`IdProducto`)
-
-);
-
 SET time_zone = "-3:00";
 USE Pelumania;
 
@@ -322,10 +324,10 @@ VALUES (2, 'Tomas', 'Sierra Pugliese', 'tominick', 'tominick', 'sierrapuglieseto
 
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
-VALUES (2, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 1);
+VALUES (3, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 1);
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
-VALUES (3, 'Default', 'user', 'e', 'e', 'a@a.com', 'Activo', 1, 2);
+VALUES (4, 'Default', 'user', 'e', 'e', 'a@a.com', 'Activo', 1, 2);
 
 -- Inserts para los servicios
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
@@ -596,7 +598,7 @@ INSERT INTO Producto (IdProducto, Nombre, PrecioLocal, PrecioDolar, Puntos, Esta
 	VALUES (6, "Peine", 30, 0.50, 11, "Activo");
 
 
--- DELETE FROM CAJA;
+-- SELECT * FROM CAJA;
 -- DELETE FROM ServicioTurno;
 -- DELETE FROM Cita;
 -- DROP TABLE IF EXISTS CategoriaCaja;
