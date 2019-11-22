@@ -43,8 +43,12 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getBtnAgregar().addActionListener(l -> agregarMovimiento(l));
 		this.ventanaCaja.getComboCategoria().addActionListener(l -> productoSoloEfectivo(l));
 		this.ventanaCaja.getButtonBuscarCita().addActionListener(l -> buscarCita(l));
-
+		this.ventanaCaja.getButtonBuscarProducto().addActionListener(l -> buscarProducto(l));
 		this.mostrarIpuntsIngreso();
+	}
+
+	private void buscarProducto(ActionEvent l) {
+		ControladorBuscarProducto.getInstance(this.sistema,this.ventanaCaja, this);
 	}
 
 	private void buscarCita(ActionEvent l) {
@@ -52,16 +56,35 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void productoSoloEfectivo(ActionEvent l) {
-		if (!esServicio()) {
+		if (!esServicio() && !esEgreso()) {
 			tipoPagoSoloEfectivo();
-			enablePrecio();
 			limpiarCita();
-			this.ventanaCaja.getPanelIngresoServicio().setVisible(false);
+			ocultarPanelServicios();
+			mostrarPanelProducto();
 		} else {
+			ocultarPanelProducto();
 			llenarComboTipoCambioServicio();
-			disablePrecio();
-
 		}
+		disablePrecio();
+	}
+
+	private boolean esEgreso() {
+		if (this.ventanaCaja.getComboTipoMovimiento().getItemCount() > 0) {
+			String categoria = this.ventanaCaja.getComboTipoMovimiento().getSelectedItem().toString();
+			return categoria.equalsIgnoreCase("egreso") || categoria.equalsIgnoreCase("egresos");
+		} else
+			return false;
+	}
+
+	private void mostrarPanelProducto() {
+		this.ventanaCaja.getPanelProducto().setVisible(true);
+	}
+	private void ocultarPanelProducto() {
+		this.ventanaCaja.getPanelProducto().setVisible(false);
+	}
+
+	public void ocultarPanelServicios() {
+		this.ventanaCaja.getPanelIngresoServicio().setVisible(false);
 	}
 
 	private void cancelar(ActionEvent l) {
@@ -82,8 +105,8 @@ public class ControladorCaja implements ActionListener {
 	private void mostrarInputs(ActionEvent l) {
 		if (esIngreso()) {
 			mostrarIpuntsIngreso();
-			// es egreso
 		} else {
+			ocultarPanelProducto();
 			mostrarInputsEgreso();
 		}
 	}
@@ -123,11 +146,9 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void mostrarInputsEgreso() {
+		ocultarPanelServicios();
 		this.ventanaCaja.getPanelEgreso().setVisible(true);
-		// ocultamos lo de ingreso
-		this.ventanaCaja.getPanelIngresoServicio().setVisible(false);
 		limpiarCita();
-
 		agregarCategoriasEgreso();
 		tipoPagoSoloEfectivo();
 		enablePrecio();
@@ -328,8 +349,10 @@ public class ControladorCaja implements ActionListener {
 	}
 
 	private void disablePrecio() {
-		this.ventanaCaja.getTxtPrecioPesos().setEditable(false); // seteamos como no editable el precio
-		this.ventanaCaja.getTxtPrecioDolar().setEditable(false); // seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioPesos().setEditable(false);
+//		this.ventanaCaja.getTxtPrecioPesos().setEnabled(false);// seteamos como no editable el precio
+		this.ventanaCaja.getTxtPrecioDolar().setEditable(false);
+//		this.ventanaCaja.getTxtPrecioDolar().setEnabled(false);// seteamos como no editable el precio
 	}
 
 	private void enablePrecio() {

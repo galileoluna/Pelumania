@@ -44,6 +44,9 @@ public class VentanaCaja extends JFrame {
 	// configuracion de idioma
 	private Locale locale;
 	private ResourceBundle idioma;
+	private JPanel panelProducto;
+	private JButton buttonBuscarProducto;
+
 
 	public static VentanaCaja getInstance() {
 		if (INSTANCE == null) {
@@ -160,6 +163,8 @@ public class VentanaCaja extends JFrame {
 		panel.add(lblMontoEnUsd);
 
 		txtPrecioDolar = new JTextField();
+		txtPrecioDolar.setEditable(false);
+		txtPrecioDolar.setEnabled(true);
 		txtPrecioDolar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtPrecioDolar.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPrecioDolar.setBounds(184, 415, 170, 26);
@@ -167,6 +172,8 @@ public class VentanaCaja extends JFrame {
 		txtPrecioDolar.setColumns(10);
 
 		txtPrecioPesos = new JTextField();
+		txtPrecioPesos.setEditable(false);
+		txtPrecioPesos.setEnabled(true);
 		txtPrecioPesos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		txtPrecioPesos.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPrecioPesos.setBounds(184, 378, 170, 26);
@@ -180,7 +187,31 @@ public class VentanaCaja extends JFrame {
 		btnAgregar = new JButton(idioma.getString("agregar"));
 		btnAgregar.setBounds(73, 475, 115, 26);
 		panel.add(btnAgregar);
+		
+		panelProducto = new JPanel();
+		panelProducto.setBounds(10, 289, 377, 71);
+		panelProducto.setLayout(null);
+		panelProducto.setVisible(false);
+		
+		JLabel label = new JLabel(this.idioma.getString("producto.id"));
+		label.setBounds(0, 9, 120, 24);
+		panelProducto.add(label);
+		
+		JTextField lblProductoId = new JTextField();
+		lblProductoId.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProductoId.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblProductoId.setColumns(10);
+		lblProductoId.setBounds(170, 9, 171, 20);
+		lblProductoId.setColumns(10);
+		lblProductoId.setEditable(false);
+		panelProducto.add(lblProductoId);
+		
+		buttonBuscarProducto = new JButton(idioma.getString("buscar"));
+		buttonBuscarProducto.setBounds(170, 37, 171, 23);
+		panelProducto.add(buttonBuscarProducto);
 
+		panel.add(panelProducto);
+		
 		this.setVisible(false);
 	}
 
@@ -289,8 +320,17 @@ public class VentanaCaja extends JFrame {
 		return panelIngresoServicio;
 	}
 
+	public JPanel getPanelProducto() {
+		return panelProducto;
+	}
+
 	public void mostrarErrorBDD() {
 		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("error.operacion"), "Dialog",
 				JOptionPane.ERROR_MESSAGE);
+	}
+
+	public JButton getButtonBuscarProducto() {
+		return buttonBuscarProducto;
+		
 	}
 }

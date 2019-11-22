@@ -17,53 +17,56 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.text.JTextComponent;
 
 import dto.ClienteDTO;
+import dto.ProductoDTO;
 import util.PropertyManager;
 
-public class VentanaBuscarCliente extends JFrame
-{
-	private static final long serialVersionUID = 1L;
+public class VentanaBuscarProducto  extends JFrame {
+
 	private JPanel contentPane;
-	private static VentanaBuscarCliente INSTANCE;
+	private static VentanaBuscarProducto INSTANCE;
 
 	private JButton btn_Cancelar;
-	private JTextField textField;
 
 	//configuracion de idioma
 	private Locale locale = new Locale (PropertyManager.leer("configuracion", "idioma"), PropertyManager.leer("configuracion", "pais"));
 	private ResourceBundle idioma = ResourceBundle.getBundle("presentacion/idioma/bundle", locale);
-	///////
 	
-	private String[]  nombreColumnas = {this.idioma.getString("nombre"), this.idioma.getString("apellido"),
-										this.idioma.getString("telefono") ,this.idioma.getString("mail"), 
-										this.idioma.getString("puntos"), 
-										this.idioma.getString("deuda.pesos"),this.idioma.getString("deuda.dolares")};
+	
+	private String[]  nombreColumnas = {this.idioma.getString("nombre"), this.idioma.getString("precio.pesos"),
+										this.idioma.getString("precio.dolares"), this.idioma.getString("puntos")};
 	private JTable tablaClientes;
 	private DefaultTableModel modelClientes;
 
 	JComboBox<String> CBoxBuscarPor;
 
-	private static List<String> filtrosColumnas = new ArrayList<String>(Arrays.asList("ID","Nombre","Apellido","Telefono","Mail"));
-	private JButton btnSeleccionarCliente;
+	private JButton btnSeleccionarProducto;
+	private TableRowSorter rowSorter;
+	private JTextComponent txtFiltro;
 
-	public static VentanaBuscarCliente getInstance()
+	public static VentanaBuscarProducto getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new VentanaBuscarCliente();
-			return new VentanaBuscarCliente();
+			INSTANCE = new VentanaBuscarProducto();
+			return new VentanaBuscarProducto();
 		} else {
 			return INSTANCE;
 		}
 	}
 	
-	private VentanaBuscarCliente()
+	private VentanaBuscarProducto()
 	{
 		super();
 
-		setTitle(this.idioma.getString("cliente.buscar"));
+		setTitle(this.idioma.getString("producto"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 735, 318);
 		
@@ -82,16 +85,6 @@ public class VentanaBuscarCliente extends JFrame
 		JLabel lblBuscarPor = new JLabel(this.idioma.getString("filtrar"));
 		lblBuscarPor.setBounds(23, 11, 133, 23);
 		panel.add(lblBuscarPor);
-
-		CBoxBuscarPor = new JComboBox<String>();
-		CBoxBuscarPor.setBounds(162, 11, 208, 23);
-		panel.add(CBoxBuscarPor);
-		cargarDesplegables();
-
-		textField = new JTextField();
-		textField.setBounds(23, 45, 347, 23);
-		panel.add(textField);
-		textField.setColumns(10);
 
 		JScrollPane spClientes = new JScrollPane();
 		spClientes.setBounds(23, 79, 666, 143);
@@ -115,38 +108,83 @@ public class VentanaBuscarCliente extends JFrame
 		tablaClientes.getColumnModel().getColumn(2).setResizable(false);
 		tablaClientes.getColumnModel().getColumn(3).setPreferredWidth(10);
 		tablaClientes.getColumnModel().getColumn(3).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(4).setPreferredWidth(10);
-		tablaClientes.getColumnModel().getColumn(4).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(5).setPreferredWidth(30);
-		tablaClientes.getColumnModel().getColumn(5).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(6).setPreferredWidth(30);
-		tablaClientes.getColumnModel().getColumn(6).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(7).setPreferredWidth(30);
-		tablaClientes.getColumnModel().getColumn(7).setResizable(false);
 
 		spClientes.setViewportView(tablaClientes);
 
-		btnSeleccionarCliente = new JButton(idioma.getString("seleccionar"));
-		btnSeleccionarCliente.setBounds(571, 233, 118, 23);
-		panel.add(btnSeleccionarCliente);
+		btnSeleccionarProducto = new JButton(idioma.getString("seleccionar"));
+		btnSeleccionarProducto.setBounds(571, 233, 118, 23);
+		panel.add(btnSeleccionarProducto);
+		
+		
+		
+		
+		//////////////////////////////////////////////////////
+		
+		///                 PARA FILTRAR  
+		
+		////////////////////////////////////
+		
+		txtFiltro = new JTextField();
+		txtFiltro.setBounds(112, 11, 147, 23);
+		panel.add(txtFiltro);
+		((JTextField) txtFiltro).setColumns(10);
+		
+		rowSorter = new TableRowSorter<>(tablaClientes.getModel());
+		this.tablaClientes.setRowSorter(rowSorter);
+		
+		//para filtrar
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = txtFiltro.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = txtFiltro.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
+		
+		
+		///////////////////////////////////////////////
+		
+		///               TERMINO FILTRAR
+		
+		/////////////////////////////////////////////
 
 		this.setVisible(false);
 	}
 
-	public static VentanaBuscarCliente getINSTANCE() {
+	public static VentanaBuscarProducto getINSTANCE() {
 		return INSTANCE;
 	}
 
-	public static void setINSTANCE(VentanaBuscarCliente iNSTANCE) {
-		INSTANCE = iNSTANCE;
-	}
 
-	public JButton getBtnSeleccionarCliente() {
-		return btnSeleccionarCliente;
+	public JButton getBtnSeleccionarProducto() {
+		return btnSeleccionarProducto;
 	}
 
 	public void setBtnSeleccionarCliente(JButton btnSeleccionarCliente) {
-		this.btnSeleccionarCliente = btnSeleccionarCliente;
+		this.btnSeleccionarProducto = btnSeleccionarCliente;
 	}
 
 	public JButton getBtn_Cancelar() {
@@ -178,33 +216,25 @@ public class VentanaBuscarCliente extends JFrame
 	{
 		this.setVisible(true);
 	}
-	
-	public void cargarDesplegables() {
-		for (String campo : filtrosColumnas) {
-			CBoxBuscarPor.addItem(campo);
-		}
-	}
 
-	public void llenarTabla(List<ClienteDTO> clientesEnTabla) {
+	public void llenarTabla(List<ProductoDTO> productos) {
 		this.getModelClientes().setRowCount(0); //Para vaciar la tabla
 		this.getModelClientes().setColumnCount(0);
 		this.getModelClientes().setColumnIdentifiers(this.getNombreColumnas());
 
-		for (ClienteDTO c : clientesEnTabla)
+		for (ProductoDTO p: productos)
 		{
-			String nombre = c.getNombre();
-			String apellido = c.getApellido();
-			String telefono = c.getTelefono();
-			String mail = c.getMail();
-			int puntos = c.getPuntos();
-//			String estadoCliente = c.getEstadoCliente();
-			BigDecimal deudaPesos = c.getDeudaPesos();
-			BigDecimal deudaDolar = c.getDeudaDolar();					//estadoCliente
-			Object[] fila = {nombre, apellido, telefono, mail, puntos, deudaPesos,deudaDolar};
+			String nombre = p.getNombre();
+			BigDecimal precioPesos = p.getPrecioLocal();
+			BigDecimal precioDolares = p.getPrecioDolar();
+			int puntos = p.getPuntos();
+			
+			Object[] fila = {nombre, precioPesos,precioDolares , puntos};
 			this.getModelClientes().addRow(fila);
 		}
 
 	}
+	
 	private String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
