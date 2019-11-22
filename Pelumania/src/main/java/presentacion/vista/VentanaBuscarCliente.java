@@ -121,8 +121,6 @@ public class VentanaBuscarCliente extends JFrame
 		tablaClientes.getColumnModel().getColumn(5).setResizable(false);
 		tablaClientes.getColumnModel().getColumn(6).setPreferredWidth(30);
 		tablaClientes.getColumnModel().getColumn(6).setResizable(false);
-		tablaClientes.getColumnModel().getColumn(7).setPreferredWidth(30);
-		tablaClientes.getColumnModel().getColumn(7).setResizable(false);
 
 		spClientes.setViewportView(tablaClientes);
 
