@@ -1,4 +1,5 @@
 
+DROP DATABASE Pelumania;
 CREATE DATABASE `Pelumania`;
 USE Pelumania;
 
@@ -316,6 +317,9 @@ VALUES (-1, 'Default', 'user', 'a', 'a', 'a@a.com', 'Activo', 1, 1);
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
 VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (2, 'Tomas', 'Sierra Pugliese', 'tominick', 'tominick', 'sierrapugliesetomas@gmail.com', 'Activo', 1, 1);
+
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
 VALUES (2, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 1);
@@ -335,7 +339,7 @@ VALUES(4, "Tintura", 600, 10.39, "01:30:00", 40, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
 VALUES(5, "Recorte de Barba", 150.00, 2.60, "00:10:00", 15, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
-VALUES(6, "Corte con Navaja NDEAH", 225.00, 3.90, "00:20:00", 25, "Activo");
+VALUES(6, "Corte con Navaja", 225.00, 3.90, "00:20:00", 25, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
 VALUES(7, "Alisado", 1000.00, 17.32, "02:00:00", 50, "Activo");
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
@@ -576,6 +580,21 @@ VALUES (6,4);
 
 INSERT INTO ServicioProfesional (idProfesional, idServicio)
 VALUES (7,7);
+
+-- insert para productos
+INSERT INTO Producto (IdProducto, Nombre, PrecioLocal, PrecioDolar, Puntos, Estado)
+	VALUES (1, "Shampoo", 85, 1.25, 10, "Activo");
+INSERT INTO Producto (IdProducto, Nombre, PrecioLocal, PrecioDolar, Puntos, Estado)
+	VALUES (2, "Acondicionador", 70, 1.10, 15, "Activo");
+INSERT INTO Producto (IdProducto, Nombre, PrecioLocal, PrecioDolar, Puntos, Estado)
+	VALUES (3, "Crema afeitar", 130, 2, 25, "Activo");
+INSERT INTO Producto (IdProducto, Nombre, PrecioLocal, PrecioDolar, Puntos, Estado)
+	VALUES (4, "Crema peinar", 55, 1.06, 30, "Activo");
+INSERT INTO Producto (IdProducto, Nombre, PrecioLocal, PrecioDolar, Puntos, Estado)
+	VALUES (5, "Tintura", 126.10, 1.52, 45, "Activo");
+INSERT INTO Producto (IdProducto, Nombre, PrecioLocal, PrecioDolar, Puntos, Estado)
+	VALUES (6, "Peine", 30, 0.50, 11, "Activo");
+
 
 -- DELETE FROM CAJA;
 -- DELETE FROM ServicioTurno;
