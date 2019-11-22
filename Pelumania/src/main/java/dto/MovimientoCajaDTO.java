@@ -28,6 +28,8 @@ public class MovimientoCajaDTO {
 	private int idCita;
 	private int idCliente;
 	private int idServicio;
+	private int idProducto;
+	private int cantidadProduct;
 	
 	
 	//constructor para un egreso
@@ -68,7 +70,7 @@ public class MovimientoCajaDTO {
 	
 	//CONSTRUCTOR PARA UN INGRESO DE PRODUCTO
 	public MovimientoCajaDTO (int idCaja, int idSucursal, int idCategoria, Timestamp fecha, 
-							String tipoCambio,BigDecimal precioLocal, BigDecimal precioDolar ) {
+							String tipoCambio,BigDecimal precioLocal, BigDecimal precioDolar, int idProducto, int cantidadProducto ) {
 			
 	this.idCaja = idCaja;
 	this.idSucursal = idSucursal;
@@ -76,6 +78,8 @@ public class MovimientoCajaDTO {
 	this.tipoCambio = tipoCambio;
 	this.precioLocal = precioLocal;
 	this.precioDolar = precioDolar;
+	this.idProducto = idProducto;
+	this.cantidadProduct = cantidadProducto;
 	
 	}
 
@@ -190,5 +194,21 @@ public class MovimientoCajaDTO {
 
 	public void setIdServicio(int idServicio) {
 		this.idServicio = idServicio;
+	}
+
+	public int getIdProducto() {
+		return idProducto;
+	}
+
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+
+	public int getCantidadProducto() {
+		return cantidadProduct;
+	}
+
+	public void setCantidadProduct(int cantidadProduct) {
+		this.cantidadProduct = cantidadProduct;
 	}
 }

@@ -306,8 +306,11 @@ public class ControladorCaja implements ActionListener {
 				BigDecimal precioPesosProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioPesos().getText());
 				BigDecimal precioDolarProducto = new BigDecimal(this.ventanaCaja.getTxtPrecioDolar().getText());
 
+				int idProducto = this.productoSeleccionado.getIdProducto();
+				int cantidadProducto = (int) this.ventanaCaja.getComboBoxCantidad().getSelectedItem();
+				
 				MovimientoCajaDTO movimientoProducto = new MovimientoCajaDTO(0, idSucursal, idCategoria, fecha,
-						tipoCambio, precioPesosProducto, precioDolarProducto);
+						tipoCambio, precioPesosProducto, precioDolarProducto, idProducto, cantidadProducto);
 				// lo insertamos en la bdd
 				if (this.sistema.insertarIngresoProducto(movimientoProducto)) {
 					// exito
@@ -357,11 +360,7 @@ public class ControladorCaja implements ActionListener {
 
 	private void disablePrecio() {
 		this.ventanaCaja.getTxtPrecioPesos().setEditable(false);
-		// this.ventanaCaja.getTxtPrecioPesos().setEnabled(false);// seteamos como no
-		// editable el precio
 		this.ventanaCaja.getTxtPrecioDolar().setEditable(false);
-		// this.ventanaCaja.getTxtPrecioDolar().setEnabled(false);// seteamos como no
-		// editable el precio
 	}
 
 	private void enablePrecio() {

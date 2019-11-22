@@ -32,9 +32,8 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 	
 	private static final String deleteReal = "DELETE FROM Ingreso WHERE idIngreso = ?";
 
-	private static final String insertIngresoProducto = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja,"
-			+ " TipoDeCambio, PrecioLocal, PrecioDolar)" 
-			+ " VALUES(?, ?, ?, ?, ?, ?)";
+	private static final String insertIngresoProducto = "INSERT INTO Caja (idCaja, idSucursal, idCategoriaCaja, TipoDeCambio, PrecioLocal, PrecioDolar, idProducto, cantidadProducto)" 
+																			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String readDay = "SELECT * FROM Caja,CategoriaCaja WHERE Caja.idCategoriaCaja=CategoriaCaja.idCategoriaCaja and Fecha>? and Fecha<?";
 
@@ -337,6 +336,8 @@ public class MovimientoCajaDAOSQL implements MovimientoCajaDAO {
 			statement.setString(4, movimiento_a_insertar.getTipoCambio());
 			statement.setBigDecimal(5, movimiento_a_insertar.getPrecioLocal());
 			statement.setBigDecimal(6, movimiento_a_insertar.getPrecioDolar());
+			statement.setInt (7, movimiento_a_insertar.getIdProducto());
+			statement.setInt (8, movimiento_a_insertar.getCantidadProducto());
 
 			if(statement.executeUpdate() > 0)
 			{
