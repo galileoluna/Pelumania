@@ -18,7 +18,7 @@ import javax.swing.event.ListSelectionEvent;
 
 import org.apache.log4j.Logger;
 
-import dto.MailDTO;
+import dto.MailDTO; 
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.ProfesionalDTO;
