@@ -76,7 +76,9 @@ public class nuevaVentanaCita {
 		private JLabel lbl_TotalUSD;
 		private JLabel lbl_Puntos;
 		private JLabel lblAlertaSucursal;
+		private JLabel lblPromo;
 	
+
 	private JTable tablaServiciosAgregados;
 	private DefaultTableModel modelServiciosAgregados;
 	
@@ -215,6 +217,8 @@ public class nuevaVentanaCita {
 		crearBotonConfirmar();
 		
 		crearBotonCancelar();
+		
+		crearLabelPromo();
 	
 	}
 
@@ -517,6 +521,12 @@ public class nuevaVentanaCita {
 		lblPuntos.setBounds(380, 41, 73, 14);
 		JPnl_Datos.add(lblPuntos);
 	}
+	
+	private void crearLabelPromo() {
+		lblPromo = new JLabel("");
+		lblPromo.setBounds(452, 66, 217, 14);
+		JPnl_Datos.add(lblPromo);
+	}
 
 	private void crearLabelAlertaSucursal() {
 		Color amarilloOpaco = new Color(249,221,140);
@@ -526,6 +536,8 @@ public class nuevaVentanaCita {
 		lblAlertaSucursal.setBackground(amarilloOpaco);
 		lblAlertaSucursal.setOpaque(true);
 		JPnl_Datos.add(lblAlertaSucursal);
+		
+
 		
 	}
 
@@ -549,6 +561,8 @@ public class nuevaVentanaCita {
 		lbl_Puntos = new JLabel("");
 		lbl_Puntos.setBounds(425, 41, 120, 14);
 		JPnl_Datos.add(lbl_Puntos);
+		
+		crearLabelPromo();
 	}
 
 	private void crearBotonConfirmar() {
@@ -1127,5 +1141,13 @@ public class nuevaVentanaCita {
 
 	public void setPuntos(int puntos) {
 		this.puntos = puntos;
+	}
+	
+	public JLabel getLblPromo() {
+		return lblPromo;
+	}
+
+	public void setLblPromo(String string) {
+		this.lblPromo.setText( string);
 	}
 }

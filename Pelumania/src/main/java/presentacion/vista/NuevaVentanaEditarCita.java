@@ -80,6 +80,7 @@ public class NuevaVentanaEditarCita {
 		private JLabel lbl_TotalUSD;
 		private JLabel lbl_Puntos;
 		private JLabel lblAlertaSucursal;
+		private JLabel lblPromo;
 	
 	private JTable tablaServiciosAgregados;
 	private DefaultTableModel modelServiciosAgregados;
@@ -219,6 +220,8 @@ public class NuevaVentanaEditarCita {
 		crearBotonConfirmar();
 		
 		crearBotonCancelar();
+		
+		crearLabelPromo();
 	
 	}
 
@@ -520,6 +523,12 @@ public class NuevaVentanaEditarCita {
 		JLabel lblPuntos = new JLabel(idioma.getString("puntos"));
 		lblPuntos.setBounds(380, 41, 73, 14);
 		JPnl_Datos.add(lblPuntos);
+	}
+	
+	private void crearLabelPromo() {
+		lblPromo = new JLabel("");
+		lblPromo.setBounds(452, 66, 217, 14);
+		JPnl_Datos.add(lblPromo);
 	}
 
 	private void crearLabelAlertaSucursal() {
@@ -1129,5 +1138,13 @@ public class NuevaVentanaEditarCita {
 
 	public void setPuntos(int puntos) {
 		this.puntos = puntos;
+	}
+	
+	public JLabel getLblPromo() {
+		return lblPromo;
+	}
+
+	public void setLblPromo(String string) {
+		this.lblPromo.setText(string);
 	}
 }

@@ -659,6 +659,7 @@ public class ControladorCita implements ActionListener{
 							actualizarPrecioTotalDolar();
 							actualizarPuntos();
 							System.out.println("Los servicios son: "+serviciosAgregados);
+							this.ventanaCita.setLblPromo("Promocion: "+this.promocionSeleccionada.getIdPromocion());
 						}else {
 							errorServ=1;
 						}
@@ -687,6 +688,7 @@ public class ControladorCita implements ActionListener{
         	if(serviciosAgregados.get(fila)!=null) {
         		this.sistema.getServicioById(serviciosAgregados.get(fila).getIdServicio());
         		List<Integer> servicio= (promocionSeleccionada==null?null:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()));
+        		this.ventanaCita.setLblPromo("");
 	        		if(promocionSeleccionada != null && servicio != null ) {
 	        					borrarPromocionAsociada(servicio,serviciosAgregados.get(fila).getIdServicio(),serviciosAgregados.get(fila));
 	        		}else {

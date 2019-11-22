@@ -617,11 +617,15 @@ public class NuevoControladorEditarCita implements ActionListener{
 						}
 					}
 				}
+				this.ventanaEditarCita.setLblPromo("Promocion: "+this.promocionSeleccionada.getIdPromocion());
 			}else {
+				
+				promocionSeleccionada = null;
 				NuevoControladorEditarCita.errorServicio = idioma.getString("cita.error.promocion");
 				mostrarErrorServicio();
 			}
 		}else {
+			promocionSeleccionada = null;
 			mostrarErrorHora();
 			
 		}	
@@ -635,6 +639,7 @@ public class NuevoControladorEditarCita implements ActionListener{
         	if(serviciosAgregados.get(fila)!=null) {
         		this.sistema.getServicioById(serviciosAgregados.get(fila).getIdServicio());
         		List<Integer> servicio= (promocionSeleccionada==null?null:sistema.obtenerIdServPromo(promocionSeleccionada.getIdPromocion()));
+        		this.ventanaEditarCita.setLblPromo("");
 	        		if(promocionSeleccionada != null && servicio != null ) {
 	        					borrarPromocionAsociada(servicio,serviciosAgregados.get(fila).getIdServicio(),serviciosAgregados.get(fila));
 	        		}else {
