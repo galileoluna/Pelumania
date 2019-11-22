@@ -12,9 +12,9 @@ import dto.CategoriaMovimientoCajaDTO;
 import dto.CitaDTO;
 import dto.ClienteDTO;
 import dto.MovimientoCajaDTO;
+import dto.ProductoDTO;
 import dto.ServicioTurnoDTO;
 import modelo.Sistema;
-import presentacion.vista.VentanaBuscarCita;
 import presentacion.vista.VentanaCaja;
 import util.Validador;
 
@@ -24,11 +24,11 @@ public class ControladorCaja implements ActionListener {
 	private Sistema sistema;
 	private List<CategoriaMovimientoCajaDTO> listaCategorias;
 	private static ControladorCaja INSTANCE;
-	private static VentanaBuscarCita ventanaBuscarCita;
 	private CitaDTO citaSeleccionada;
 	private List<ServicioTurnoDTO> serviciosCita;
 	private Controlador2 controladorMenu;
 	private boolean clienteMoroso = false;
+	private ProductoDTO productoSeleccionado;
 
 	private ControladorCaja(Sistema sistema, Controlador2 controladorMenu) {
 		this.ventanaCaja = VentanaCaja.getInstance();
@@ -44,11 +44,12 @@ public class ControladorCaja implements ActionListener {
 		this.ventanaCaja.getComboCategoria().addActionListener(l -> productoSoloEfectivo(l));
 		this.ventanaCaja.getButtonBuscarCita().addActionListener(l -> buscarCita(l));
 		this.ventanaCaja.getButtonBuscarProducto().addActionListener(l -> buscarProducto(l));
+		this.ventanaCaja.getComboBoxCantidad().addActionListener(l -> actualizarPrecio(l));
 		this.mostrarIpuntsIngreso();
 	}
 
 	private void buscarProducto(ActionEvent l) {
-		ControladorBuscarProducto.getInstance(this.sistema,this.ventanaCaja, this);
+		ControladorBuscarProducto.getInstance(this.sistema, this.ventanaCaja, this);
 	}
 
 	private void buscarCita(ActionEvent l) {
@@ -79,8 +80,14 @@ public class ControladorCaja implements ActionListener {
 	private void mostrarPanelProducto() {
 		this.ventanaCaja.getPanelProducto().setVisible(true);
 	}
+
 	private void ocultarPanelProducto() {
 		this.ventanaCaja.getPanelProducto().setVisible(false);
+		this.ventanaCaja.getTxtProductoId().setText(null);
+		this.ventanaCaja.getTxtPrecioDolar().setText(null);
+		this.ventanaCaja.getTxtPrecioPesos().setText(null);
+		this.ventanaCaja.getComboBoxCantidad().setSelectedIndex(-1);
+		this.productoSeleccionado = null;
 	}
 
 	public void ocultarPanelServicios() {
@@ -350,9 +357,11 @@ public class ControladorCaja implements ActionListener {
 
 	private void disablePrecio() {
 		this.ventanaCaja.getTxtPrecioPesos().setEditable(false);
-//		this.ventanaCaja.getTxtPrecioPesos().setEnabled(false);// seteamos como no editable el precio
+		// this.ventanaCaja.getTxtPrecioPesos().setEnabled(false);// seteamos como no
+		// editable el precio
 		this.ventanaCaja.getTxtPrecioDolar().setEditable(false);
-//		this.ventanaCaja.getTxtPrecioDolar().setEnabled(false);// seteamos como no editable el precio
+		// this.ventanaCaja.getTxtPrecioDolar().setEnabled(false);// seteamos como no
+		// editable el precio
 	}
 
 	private void enablePrecio() {
@@ -450,4 +459,33 @@ public class ControladorCaja implements ActionListener {
 		}
 		return false;
 	}
+
+	public void mostrarDatosProducto() {
+		this.ventanaCaja.getTxtProductoId().setText(this.productoSeleccionado.getNombre());
+		actualizarPrecio();
+
+	}
+
+	private void actualizarPrecio() {
+		BigDecimal pesos = this.productoSeleccionado.getPrecioLocal();
+		BigDecimal dolares = this.productoSeleccionado.getPrecioDolar();
+		int cantidad = (int) this.ventanaCaja.getComboBoxCantidad().getSelectedItem();
+
+		pesos = pesos.multiply(new BigDecimal(cantidad));
+		dolares = dolares.multiply(new BigDecimal(cantidad));
+
+		this.ventanaCaja.getTxtPrecioPesos().setText(pesos.toString());
+		this.ventanaCaja.getTxtPrecioDolar().setText(dolares.toString());
+	}
+
+	private void actualizarPrecio(ActionEvent l) {
+		if (this.productoSeleccionado != null && esProducto()) {
+			actualizarPrecio();
+		}
+	}
+
+	public void setProductoSeleccionada(ProductoDTO productoSeleccionado) {
+		this.productoSeleccionado = productoSeleccionado;
+	}
+
 }

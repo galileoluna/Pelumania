@@ -238,7 +238,7 @@ public class VentanaBuscarCita extends JFrame
 	}
 
 	public void mostrarErrorSinSeleccionar() {
-			JOptionPane.showMessageDialog(new JFrame(), idioma.getString("cita.error.seleccionar"), "Dialog",
+			JOptionPane.showMessageDialog(new JFrame(), idioma.getString("cita.error.selecccionar.cliente"), "Dialog",
 					JOptionPane.ERROR_MESSAGE);
 	}
 }

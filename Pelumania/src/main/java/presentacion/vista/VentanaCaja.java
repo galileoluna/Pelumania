@@ -46,6 +46,9 @@ public class VentanaCaja extends JFrame {
 	private ResourceBundle idioma;
 	private JPanel panelProducto;
 	private JButton buttonBuscarProducto;
+	private JLabel labelCantidad;
+	private JComboBox<Integer> comboBoxCantidad;
+	private JTextField txtProductoId;
 
 
 	public static VentanaCaja getInstance() {
@@ -189,28 +192,49 @@ public class VentanaCaja extends JFrame {
 		panel.add(btnAgregar);
 		
 		panelProducto = new JPanel();
-		panelProducto.setBounds(10, 289, 377, 71);
+		panelProducto.setBounds(10, 269, 377, 109);
 		panelProducto.setLayout(null);
 		panelProducto.setVisible(false);
 		
 		JLabel label = new JLabel(this.idioma.getString("producto.id"));
-		label.setBounds(0, 9, 120, 24);
+		label.setBounds(0, 7, 120, 24);
 		panelProducto.add(label);
 		
-		JTextField lblProductoId = new JTextField();
-		lblProductoId.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProductoId.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblProductoId.setColumns(10);
-		lblProductoId.setBounds(170, 9, 171, 20);
-		lblProductoId.setColumns(10);
-		lblProductoId.setEditable(false);
-		panelProducto.add(lblProductoId);
+		txtProductoId = new JTextField();
+		txtProductoId.setHorizontalAlignment(SwingConstants.CENTER);
+		txtProductoId.setFont(new Font("Tahoma", Font.BOLD, 11));
+		txtProductoId.setColumns(10);
+		txtProductoId.setBounds(170, 9, 171, 20);
+		txtProductoId.setColumns(10);
+		txtProductoId.setEditable(false);
+		panelProducto.add(txtProductoId);
 		
 		buttonBuscarProducto = new JButton(idioma.getString("buscar"));
-		buttonBuscarProducto.setBounds(170, 37, 171, 23);
+		buttonBuscarProducto.setBounds(170, 40, 171, 23);
 		panelProducto.add(buttonBuscarProducto);
 
 		panel.add(panelProducto);
+		
+		labelCantidad = new JLabel(this.idioma.getString("cantidad"));
+		labelCantidad.setBounds(0, 74, 120, 24);
+		panelProducto.add(labelCantidad);
+		
+		comboBoxCantidad = new JComboBox<Integer>();
+		comboBoxCantidad.setFont(new Font("Tahoma", Font.BOLD, 11));
+		comboBoxCantidad.setBounds(280, 74, 61, 20);
+		
+		comboBoxCantidad.addItem(1);
+		comboBoxCantidad.addItem(2);
+		comboBoxCantidad.addItem(3);
+		comboBoxCantidad.addItem(4);
+		comboBoxCantidad.addItem(5);
+		comboBoxCantidad.addItem(6);
+		comboBoxCantidad.addItem(7);
+		comboBoxCantidad.addItem(8);
+		comboBoxCantidad.addItem(9);
+		comboBoxCantidad.addItem(10);
+		
+		panelProducto.add(comboBoxCantidad);
 		
 		this.setVisible(false);
 	}
@@ -332,5 +356,13 @@ public class VentanaCaja extends JFrame {
 	public JButton getButtonBuscarProducto() {
 		return buttonBuscarProducto;
 		
+	}
+
+	public JComboBox<Integer> getComboBoxCantidad() {
+		return comboBoxCantidad;
+	}
+
+	public JTextField getTxtProductoId() {
+		return txtProductoId;
 	}
 }
