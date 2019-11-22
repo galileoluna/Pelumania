@@ -21,5 +21,7 @@ public interface ServicioDAO {
 	public List<ServicioDTO> obtenerServBuscado(String variable, String value);
 
 	public ServicioDTO getServicioMax();
+
+	public List<ServicioDTO> readAllActivos();
 }
 

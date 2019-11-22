@@ -187,6 +187,10 @@ public class Sistema
 	public ServicioDTO getServicioMax() {
 		return this.servicio.getServicioMax();
 	}
+	
+	public List<ServicioDTO> obtenerServiciosActivos() {
+		return this.servicio.readAllActivos();
+	}
 //FIN SERVICIO
 
 	// ARRANCA LO QUE ES PROFESIONAL
@@ -603,4 +607,5 @@ public class Sistema
 	public boolean importarBdd() {
 		return this.back.importar();
 	}
+
 }

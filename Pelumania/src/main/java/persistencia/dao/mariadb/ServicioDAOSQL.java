@@ -29,6 +29,8 @@ public class ServicioDAOSQL implements ServicioDAO{
 	
 	private static final String getServicioMax = "SELECT * FROM Servicio WHERE IdServicio IN (SELECT MAX(IdServicio) FROM Servicio);";
 	private static final String ESTADO_INACTIVO = "Inactivo";
+	
+	private static final String readallActivos = " SELECT * FROM Servicio WHERE Estado ='Activo'";
 
 
 	public boolean insert(ServicioDTO servicio) {
@@ -276,5 +278,24 @@ public class ServicioDAOSQL implements ServicioDAO{
 			}
 			return servicios.get(0);
 		}
+
+	@Override
+	public List<ServicioDTO> readAllActivos()  {
+			PreparedStatement statement;
+			ResultSet resultSet; //Guarda el resultado de la query
+			ArrayList<ServicioDTO> servicios = new ArrayList<ServicioDTO>();
+			Conexion conexion = Conexion.getConexion();
+			try {
+				statement = conexion.getSQLConexion().prepareStatement(readallActivos);
+				resultSet = statement.executeQuery();
+				while(resultSet.next()){
+					servicios.add(getServicioDTO(resultSet));
+				}
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return servicios;
+	}
 }
 

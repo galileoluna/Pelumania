@@ -161,8 +161,7 @@ public class ControladorCita implements ActionListener{
 	public void inicializarArreglos() {
 		listaSucursales = this.sistema.obtenerSucursales();
 		serviciosAgregados = new ArrayList<ServicioTurnoDTO>();
-		servicios_panel_servicios = this.sistema.obtenerServicios();
-
+		servicios_panel_servicios = this.sistema.obtenerServiciosActivos();
 		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		promociones = this.sistema.obtenerPromoVigente(date, date);
 	}
