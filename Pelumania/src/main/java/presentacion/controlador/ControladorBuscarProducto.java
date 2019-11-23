@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.platform.engine.discovery.FileSelector;
+
 import dto.CitaDTO;
 import dto.ProductoDTO;
 import modelo.Sistema;
@@ -47,16 +49,20 @@ public class ControladorBuscarProducto implements ActionListener {
 	
 	private void seleccionarProducto(ActionEvent p) {
 		int filaSeleccionada = this.ventanaBuscarProducto.getTablaProductos().getSelectedRow();
-		ProductoDTO produtctoSeleccionado = this.listaProductos.get(filaSeleccionada);
-		if (produtctoSeleccionado != null) {
-			this.controladorCaja.setProductoSeleccionada(produtctoSeleccionado);
-			this.controladorCaja.mostrarDatosProducto();
-			this.ventanaBuscarProducto.cerrar();
+		if (filaSeleccionada != -1) {
+			ProductoDTO produtctoSeleccionado = this.listaProductos.get(filaSeleccionada);
+			if (produtctoSeleccionado != null) {
+				this.controladorCaja.setProductoSeleccionada(produtctoSeleccionado);
+				this.controladorCaja.mostrarDatosProducto();
+				this.ventanaBuscarProducto.cerrar();
+			} else {
+				this.ventanaBuscarProducto.mostrarErrorSinSeleccionar();
+			}
+		
 		} else {
-		 this.ventanaBuscarProducto.mostrarErrorSinSeleccionar();
+			this.ventanaBuscarProducto.mostrarErrorSinSeleccionar();
 		}
 	}
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
