@@ -257,12 +257,12 @@ public class VentanaCaja extends JFrame {
 	}
 
 	public void mostrarErrorMoroso() {
-		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.moroso"), "Cliente moroso",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.moroso"), idioma.getString("cliente.moroso"),
 				JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void mostrarErrorMorosoEfectivo() {
-		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.efectivo"), "Cliente moroso",
+		JOptionPane.showMessageDialog(new JFrame(), idioma.getString("caja.error.deuda.efectivo"), idioma.getString("cliente.moroso"),
 				JOptionPane.ERROR_MESSAGE);
 	}
 
