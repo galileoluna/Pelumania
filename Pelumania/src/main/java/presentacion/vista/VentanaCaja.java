@@ -187,7 +187,7 @@ public class VentanaCaja extends JFrame {
 		btnCancelar.setBounds(218, 475, 124, 26);
 		panel.add(btnCancelar);
 
-		btnAgregar = new JButton(idioma.getString("agregar"));
+		btnAgregar = new JButton(idioma.getString("caja.cobrar"));
 		btnAgregar.setBounds(73, 475, 115, 26);
 		panel.add(btnAgregar);
 		
