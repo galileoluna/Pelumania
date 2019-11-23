@@ -124,8 +124,6 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.getBtnEditarFecha().addActionListener(a -> habilitarEditarFecha(a));
 		this.ventanaCita.getJCBoxSucursal().addActionListener(b -> seleccionarSucursal(b));
 		
-//		this.ventanaCita.getChckbxGenerico().addActionListener(c -> mostrarOpcionesClienteGenerico(c));
-//		this.ventanaCita.getChckbxRegistrado().addActionListener(d -> mostrarOpcionesClienteRegistrado(d));
 		this.ventanaCita.getBtnRegistrar().addActionListener(e -> ventanaRegistrarCliente(e));
 		
 		this.ventanaCita.getRdBtnServicio().addActionListener(a -> mostrarPanelServicio(a));
@@ -183,9 +181,10 @@ public class ControladorCita implements ActionListener{
 		this.sucursal = sucursal;
 	}
 
-	public void cargarListaSucursales() {
+    public void cargarListaSucursales() {
 		for (SucursalDTO sucu : listaSucursales) {
-			this.ventanaCita.getJCBoxSucursal().addItem(sucu);
+			if(!sucu.getNombreSucursal().equalsIgnoreCase("[Sucursal Generica]"))
+				this.ventanaCita.getJCBoxSucursal().addItem(sucu);
 		}
 	}
 	
@@ -1194,8 +1193,6 @@ public class ControladorCita implements ActionListener{
 		this.ventanaCita.setCliente(clienteAsociado);
 		this.ventanaCita.getTxtNombre().setText(this.ventanaCita.getCliente().getNombre());
 		this.ventanaCita.getTxtApellido().setText(this.ventanaCita.getCliente().getApellido());
-//		this.ventanaCita.getTxtTelefono().setText(this.citaAEditar.getTelefono());
-//		this.ventanaCita.getTxtMail().setText(this.citaAEditar.getMail());
 		this.ventanaCita.setearTxt(false);
 		this.ventanaCita.getChckbxGenerico().setEnabled(false);
 		this.ventanaCita.getChckbxRegistrado().setEnabled(false);
