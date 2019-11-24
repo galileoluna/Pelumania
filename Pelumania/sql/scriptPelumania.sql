@@ -331,6 +331,18 @@ VALUES (4, 'Default', 'superuser', 'e', 'e', 'a@a.com', 'Activo', 1, 4);
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
 VALUES (5,'Juan', 'Piedras', 'g', 'g', 'g@g.com', 'Activo', 1, 5); 
 
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (6,'toto', 'ferro', 's', 's', 'grt@g.com', 'Activo', 2, 1);
+
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (7,'Lucas', 'mon', 'd', 'd', 'g@gv.com', 'Activo', 3, 1);
+
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (8,'Beto', 'casella', 'f', 'f', 'fghfg@g.com', 'Activo', 4, 1);
+
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (9,'Juan', 'acosta', 'q', 'q', 'monte@g.com', 'Activo', 5, 1);
+
 -- Inserts para los servicios
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
 VALUES(1, "Corte de pelo", 350.00, 6.06, "00:20:00", 25, "Activo");
