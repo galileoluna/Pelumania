@@ -17,6 +17,7 @@ public class ControladorCliente implements ActionListener {
 	private VentanaCliente ventanaCliente;
 	private Sistema sistema;
 	private List<ClienteDTO> listaClientes;
+	private List<CitaDTO> listaCitas;
 	private static ControladorCliente INSTANCE;
 
 	private ControladorCliente(Sistema sistema) {
@@ -79,17 +80,29 @@ public class ControladorCliente implements ActionListener {
 
 	}
 
-	private void borrarCliente(ActionEvent p) {
+		private void borrarCliente(ActionEvent p) {
 
 		this.listaClientes = this.sistema.obtenerClientes();
 		int[] filasSeleccionadas = this.ventanaCliente.getTablaClientes().getSelectedRows();
-
+		listaCitas=sistema.obtenerCitas();
+		
 		for (int fila : filasSeleccionadas)
 		{
 			if(listaClientes.get(fila)!=null) {
-				int confirm = this.ventanaCliente.mostrarConfirmacionBorrar();
-				if (confirm == 0) {
-					this.sistema.borrarCliente((listaClientes.get(fila)));
+				if(!listaClientes.get(fila).getEstadoCliente().equalsIgnoreCase("Activo"))
+					this.ventanaCliente.mostrarErrorClienteNoActivo();
+				else {
+					boolean banderaEnCurso=false;
+					for(int i=0;i<listaCitas.size();i++) {
+						if(listaCitas.get(i).estaEnCurso() && listaCitas.get(i).getIdCliente()==listaClientes.get(fila).getIdCliente())
+							banderaEnCurso=true;
+					}
+					if(banderaEnCurso)this.ventanaCliente.mostrarErrorClienteConCitaEnCurso();	
+					else {	
+						int confirm = this.ventanaCliente.mostrarConfirmacionBorrar();
+						if (confirm == 0) 
+							this.sistema.borrarCliente((listaClientes.get(fila)));
+					}
 				}
 			}
 		}
