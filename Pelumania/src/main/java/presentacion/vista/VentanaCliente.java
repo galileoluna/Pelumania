@@ -381,4 +381,14 @@ public class VentanaCliente extends JFrame {
 
 		return confirm;
 	}
+	
+	public void mostrarErrorClienteNoActivo() {
+		JOptionPane.showMessageDialog(new JFrame(),"este cliente no esta activo", "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);		
+	}
+
+	public void mostrarErrorClienteConCitaEnCurso() {
+		JOptionPane.showMessageDialog(new JFrame(),"este cliente tiene citas en curso", "Dialog",
+				JOptionPane.INFORMATION_MESSAGE);		
+	}
 }
