@@ -1,4 +1,3 @@
-
 DROP DATABASE Pelumania;
 CREATE DATABASE `Pelumania`;
 USE Pelumania;
@@ -318,16 +317,19 @@ INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Cont
 VALUES (-1, 'Default', 'user', 'a', 'a', 'a@a.com', 'Activo', 1, 1);
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
-VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 1);
+VALUES (1, 'Nicolas', 'Cirillo', 'ncirillo', 'ncirillo', 'nico@gmail.com', 'Activo', 1, 2);
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
 VALUES (2, 'Tomas', 'Sierra Pugliese', 'tominick', 'tominick', 'sierrapugliesetomas@gmail.com', 'Activo', 1, 1);
 
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
-VALUES (3, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 1);
+VALUES (3, 'Matias', 'Arriola', 'marriola', 'password', 'matiasarriola.luigi@gmail.com', 'Activo', 1, 3);
 
 INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
-VALUES (4, 'Default', 'user', 'e', 'e', 'a@a.com', 'Activo', 1, 2);
+VALUES (4, 'Default', 'superuser', 'e', 'e', 'a@a.com', 'Activo', 1, 4);
+
+INSERT INTO `usuario` (`idUsuario`, `Nombre`, `Apellido`, `nombreUsuario`, `Contrasenia`, `Mail`, `EstadoUsuario`, `idRol`, `idSucursal`) 
+VALUES (5,'Juan', 'Piedras', 'g', 'g', 'g@g.com', 'Activo', 1, 5); 
 
 -- Inserts para los servicios
 INSERT INTO SERVICIO (IdServicio, Nombre, PrecioLocal, PrecioDolar, Duracion, Puntos, Estado)
