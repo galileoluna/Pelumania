@@ -258,37 +258,20 @@ public class CitaDTO{
     public void setHoraTurno(Time horaTurno) {
     	this.horaTurno = horaTurno;
     }
-    
     public boolean esActiva() {
     	return this.estado.equalsIgnoreCase("Activa")|| this.estado.equalsIgnoreCase("fiado");
     }
     public boolean esSoloActiva() {
     	return this.estado.equalsIgnoreCase("Activa");
     }
-    
     public int getIdPromocion() {
 		return idPromocion;
 	}
-
 	public void setIdPromocion(int idPromocion) {
 		this.idPromocion = idPromocion;
 	}
-
-    
-    
     public boolean estaEnCurso() {
-    	int comenzo = this.horaInicio.compareTo(LocalTime.now());
-    	
-    	int termino = this.horaFin.compareTo(LocalTime.now());
-    	
-    	if (comenzo >= 0 && termino <0) {
-    		// esta en curso
-    		return true;
-    	
-    	} else {		
-    		//todavia no comenzo
-    		return false;
-    	}
+    	if(estado.equalsIgnoreCase("En curso"))return true;
+    	else return false;
     }
-
 }
