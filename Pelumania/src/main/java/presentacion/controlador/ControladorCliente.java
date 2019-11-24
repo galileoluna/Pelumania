@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.table.TableModel;
 
+import dto.CitaDTO;
 import dto.ClienteDTO;
 import modelo.Sistema;
 import presentacion.vista.VentanaCliente;
@@ -29,25 +30,21 @@ public class ControladorCliente implements ActionListener {
 		this.sistema = sistema;
 	}
 
-	public static ControladorCliente getInstance(Sistema sistema) {
-		if ( INSTANCE == null) {
-			INSTANCE = new ControladorCliente(sistema);
-		}
+	public static ControladorCliente getInstance(Sistema sistema) {	
+		if ( INSTANCE == null)	INSTANCE = new ControladorCliente(sistema);
+		
 		inicializarDatos();
 		return INSTANCE;
 	}
+	
 	private static void inicializarDatos() {
-
 		List<ClienteDTO> listaClientes = INSTANCE.sistema.obtenerClientes();
 		INSTANCE.ventanaCliente.llenarTabla(listaClientes);
 		INSTANCE.ventanaCliente.limpiarInputs();
 		INSTANCE.ventanaCliente.mostrar();
 	}
 
-
 	private void guardarCliente(ActionEvent p) {
-
-
 		String nombre = this.ventanaCliente.getTxtNombre().getText();
 		String apellido = this.ventanaCliente.getTxtApellido().getText();
 		String telefono = this.ventanaCliente.getTxtTelefono().getText();
@@ -62,8 +59,7 @@ public class ControladorCliente implements ActionListener {
 				Validador.esNombreConEspaciosValido(apellido) &&
 				Validador.esTelefono(telefono) &&
 				Validador.esMail(mail)) {
-
-
+			
 			ClienteDTO nuevoCliente = new ClienteDTO(0, nombre, apellido, telefono, mail, puntos, estado, deudaPesos,deudaDolar);
 
 			this.sistema.agregarCliente(nuevoCliente);
@@ -72,22 +68,15 @@ public class ControladorCliente implements ActionListener {
 			this.ventanaCliente.limpiarInputs();
 			INSTANCE.ventanaCliente.mostrarExitoAlta();
 
-		} else {
-
-			this.ventanaCliente.mostrarErrorCamposInvalidos();
-		}
-		
-
+		}else this.ventanaCliente.mostrarErrorCamposInvalidos();
 	}
 
-		private void borrarCliente(ActionEvent p) {
-
+	private void borrarCliente(ActionEvent p) {
 		this.listaClientes = this.sistema.obtenerClientes();
 		int[] filasSeleccionadas = this.ventanaCliente.getTablaClientes().getSelectedRows();
 		listaCitas=sistema.obtenerCitas();
 		
-		for (int fila : filasSeleccionadas)
-		{
+		for (int fila : filasSeleccionadas){
 			if(listaClientes.get(fila)!=null) {
 				if(!listaClientes.get(fila).getEstadoCliente().equalsIgnoreCase("Activo"))
 					this.ventanaCliente.mostrarErrorClienteNoActivo();
@@ -143,9 +132,9 @@ public class ControladorCliente implements ActionListener {
 				BigDecimal deudaAuxDolar=new BigDecimal(deudaDolar.replaceAll(",", ""));
 		
 				if(deudaAuxPesos.compareTo(cliente_seleccionado.getDeudaPesos())!=0 ||
-						deudaAuxDolar.compareTo(cliente_seleccionado.getDeudaDolar())!=0 ){
+						deudaAuxDolar.compareTo(cliente_seleccionado.getDeudaDolar())!=0 )
 					INSTANCE.ventanaCliente.mostrarErrorEdicionDeuda();
-				}
+				
 				else if((cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("activo")) ||
 						(cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("Activo") && estado.equalsIgnoreCase("moroso")) ||
 						(cliente_seleccionado.getEstadoCliente().equalsIgnoreCase("moroso") && estado.equalsIgnoreCase("vip")) ||
@@ -160,16 +149,10 @@ public class ControladorCliente implements ActionListener {
 					INSTANCE.sistema.editarCliente(cliente_a_modifcar);
 					INSTANCE.ventanaCliente.mostrarExitoEditar();
 				}
-			} else {
-				INSTANCE.ventanaCliente.mostrarErrorCamposInvalidos();
-			}
-
-		} else {
-			INSTANCE.ventanaCliente.mostrarErrorSinSeleccionar();
-		}
+			} else INSTANCE.ventanaCliente.mostrarErrorCamposInvalidos();
+		} else INSTANCE.ventanaCliente.mostrarErrorSinSeleccionar();
 		
 		INSTANCE.ventanaCliente.llenarTabla(INSTANCE.sistema.obtenerClientes());
-
 	}
 	
 	private void buscar(ActionEvent y) {
@@ -178,12 +161,9 @@ public class ControladorCliente implements ActionListener {
 		this.ventanaCliente.llenarTabla(this.sistema.obtenerClienteConBuscador(variable,value));
 	}
 
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 	}
-
-
-
 }
+
