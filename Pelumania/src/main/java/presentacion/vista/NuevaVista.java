@@ -1269,4 +1269,8 @@ public class NuevaVista implements Runnable {
 	public void mostrarErrorFechaPasada() {
 		JOptionPane.showMessageDialog(null, idioma.getString("cita.error.dia.pasado"));
 	}
+	
+	public void mostrarErrorFechaFutura() {
+		JOptionPane.showMessageDialog(null, idioma.getString("cita.error.dia.futuro"));		
+	}
 }
