@@ -395,12 +395,20 @@ public class Controlador2 implements ActionListener{
 		}
 	}
 	
-	private void enCurso(ActionEvent t) {
-		this.sistema.ponerCitaEnCurso(citaSeleccionada);
-		limpiarTablas();
-		citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
-		cargarListaConCitas();
-		refrescarTablaCitas();
+    private void enCurso(ActionEvent t) {
+		LocalDate hoy=LocalDate.now();
+		
+		if(citaSeleccionada.getFecha().compareTo(hoy)==0) {
+			this.sistema.ponerCitaEnCurso(citaSeleccionada);
+			limpiarTablas();
+			citasDelDia = obtenerCitasDelDia(getFechaSeleccionadaAsString(),sucursal.getIdSucursal());
+			cargarListaConCitas();
+			refrescarTablaCitas();
+		}
+		else {
+			this.nvista.mostrarErrorFechaFutura();
+		}
+		
 	}
 	
 	private void cargarPanelDinamicoServicios(ActionEvent m) {
