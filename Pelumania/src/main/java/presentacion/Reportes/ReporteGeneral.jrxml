@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteGeneral" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00b11ba2-f449-41ec-8606-ef42580e882c">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
@@ -91,14 +91,14 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 	<pageHeader>
 		<band height="28" splitType="Stretch">
 			<textField pattern="M/d/yy">
-				<reportElement x="70" y="0" width="50" height="28" uuid="497abd9e-9bf1-4983-bcd4-64da95de5dc3"/>
+				<reportElement x="70" y="0" width="60" height="28" uuid="497abd9e-9bf1-4983-bcd4-64da95de5dc3"/>
 				<textElement verticalAlignment="Middle">
 					<font size="13"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Desde}]]></textFieldExpression>
 			</textField>
 			<textField pattern="M/d/yy">
-				<reportElement x="170" y="0" width="50" height="28" uuid="eb1dc91a-72d0-4cd5-9b5b-2953bb13dc27"/>
+				<reportElement x="180" y="0" width="60" height="28" uuid="eb1dc91a-72d0-4cd5-9b5b-2953bb13dc27"/>
 				<textElement verticalAlignment="Middle">
 					<font size="13"/>
 				</textElement>
@@ -112,7 +112,7 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 				<text><![CDATA[Desde:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="0" width="50" height="28" uuid="16a3802d-9d31-4518-873d-ce269a4c3eaa"/>
+				<reportElement x="130" y="0" width="50" height="28" uuid="16a3802d-9d31-4518-873d-ce269a4c3eaa"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -210,27 +210,6 @@ GROUP BY TipoMovimiento, CategoriaCaja.Nombre]]>
 				<returnValue subreportVariable="TotalDolarEgreso" toVariable="DolarEgresos"/>
 				<subreportExpression><![CDATA["src/main/java/presentacion/Reportes/TotalEgresos.jasper"]]></subreportExpression>
 			</subreport>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="114" width="190" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="17c464ce-23fa-448f-81f8-232a6b51b4c6"/>
-				<textElement verticalAlignment="Middle">
-					<font size="15" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Ganancia: ]]></text>
-			</staticText>
-			<textField>
-				<reportElement mode="Opaque" x="290" y="114" width="100" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="a12b2d7a-5222-4542-a7f9-cb17986bddbc"/>
-				<textElement verticalAlignment="Middle">
-					<font size="15" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{GananciaDolar}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="190" y="114" width="100" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="782e80d2-9813-49f5-ba32-72b81c591f69"/>
-				<textElement verticalAlignment="Middle">
-					<font size="15" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{LocalIngresos}.subtract($V{LocalEgresos} )]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>
