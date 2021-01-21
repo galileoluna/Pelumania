@@ -1,11 +1,9 @@
-# Pelumania
+# Hair&Head
 
 Descarga: https://sourceforge.net/projects/hair-head/
 
 
-
-
-REQUERIMIENTOS
+## REQUERIMIENTOS
 
 
 |Número|Tipo|Clase|Requerimiento|Detalle|
