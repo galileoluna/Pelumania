@@ -1,40 +1,13 @@
+# Hair & Head
+
+## Download
+
+https://sourceforge.net/projects/hair-head/
+
+# Manual Usuario
 
 
-
-
-
-
-**E Q U I P O	D O P P L E R**
-
-**P E L U M A N Í A**
-
-**M A N U A L	D E	U S U A R I O**
-
-**TOC \o "1-1" \h \z \u [Introducción	3**](#_bookmark0)**
-
-[**Cliente	4**](#_bookmark1)
-
-[**Servicio	5**](#_bookmark2)
-
-[**Producto	6**](#_bookmark3)
-
-[**Profesional	7**](#_bookmark4)
-
-[**Promoción	8**](#_bookmark5)
-
-[**Sucursales	10**](#_bookmark6)
-
-[**Caja	11**](#_bookmark7)
-
-[**Reportes	13**](#_bookmark8)
-
-[**Usuarios	14**](#_bookmark9)
-
-[**Citas	15**](#_bookmark10)
-
-
-
-**I N T R O D U C C I Ó N**
+## I N T R O D U C C I Ó N
 
 El Sistema Pelumania, es un programa de gestión de peluquerías, consta de los siguientes módulos:
 
@@ -49,13 +22,13 @@ El sistema esta disponible en dos idiomas, español e inglés, puede ser elegido
 
 ![](Manual.001.png)
 
-**C L I E N T E**
+## C L I E N T E
 
 ![](Manual.002.png)
 
 El sistema permite dar de alta, baja y modificar a los clientes, como asignarle estados que son : Activo,Inactivo,Moroso,VIP.
 
-**S E R V I C I O**
+## S E R V I C I O
 
 
 
@@ -64,13 +37,13 @@ El sistema permite dar de alta, baja y modificar a los clientes, como asignarle 
 
 El modulo de servicios, consiste en un alta, baja, o modificación de servicios.
 
-**P R O D U C T O**
+## P R O D U C T O
 
 ![](Manual.004.png)
 
 El modulo de servicios, consiste en un alta, baja, o modificación de Productos.
 
-**P R O F E S I O N A L**
+## P R O F E S I O N A L
 
 
 ![](Manual.005.png)
@@ -79,7 +52,7 @@ El sistema permite agregar profesionales, como modificarlos o borrarlos. Tambié
 
 ![](Manual.006.png)
 
-**P RO M O C I Ó N**
+##  P RO M O C I Ó N
 
 
 
@@ -100,7 +73,7 @@ El sistema también permite ver las promociones vigentes.
 
 ![](Manual.009.png)
 
-**S U C U R S A L E S**
+## S U C U R S A L E S
 
 
 
@@ -108,7 +81,7 @@ El sistema también permite ver las promociones vigentes.
 
 El sistema permite la generación de distintas sucursales, como también editarlas o borrarlas.
 
-**C A J A**
+## C A J A
 
 ![](Manual.011.png)
 
@@ -135,7 +108,7 @@ Servicios
 
 Cliente Profesional Ranking
 
-**U S U A R I O S**
+## U S U A R I O S
 
 
 
@@ -148,7 +121,7 @@ El sistema permite generar usuarios con una sucursal asociada , como los permiso
 
 También el sistema permite cambiar la contraseña de la cuenta del usuario loggeado.
 
-**C I T A S**
+## C I T A S
 
 
 ![](Manual.016.png)
